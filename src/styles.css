@@ -1,0 +1,14 @@
+/* You can add global styles to this file, and also import other style files */
+:root{
+    --light-gray: #f7f8fc;
+    --white: #fff;
+    --primary: #f05e16;
+}
+
+body{ background-color: var(--light-gray); }
+
+/* user-pages */
+.user-pages{ height: 100vh;}
+.login-form{ background-color: var(--white); border-radius: 1rem; padding: 5rem;}
+.login-slider{ background-color: var(--primary); border-radius: 1rem; }
+/* user-pages */
