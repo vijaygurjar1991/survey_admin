@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { UserPagesRoutingModule } from './user-pages-routing.module';
 import { LoginComponent } from './login/login.component';
-
+import { CarouselModule } from 'ngx-owl-carousel-o';
 
 @NgModule({
   declarations: [
@@ -11,7 +11,8 @@ import { LoginComponent } from './login/login.component';
   ],
   imports: [
     CommonModule,
-    UserPagesRoutingModule
+    UserPagesRoutingModule,
+    CarouselModule
   ]
 })
 export class UserPagesModule { }

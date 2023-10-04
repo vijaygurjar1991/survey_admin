@@ -1,22 +1,24 @@
-<section class="col-md-12 user-pages">
+<section class="d-flex align-items-center user-pages my-5">
     <div class="container">
-        <div class="row align-items-center">
+        <div class="row">
             <div class="col-md-6">
                 <div class="login-form h-100">
-                    <img class="img-responsive" src="./assets/images/logo/logo.png" width="272" height="77" priority>
+                    <div class="text-center">
+                        <img class="img-responsive" src="./assets/images/logo/logo.png" width="272" height="77" priority>
+                    </div>
                     <hr>
                     <form>
-                        <h2>Sign In</h2>
-                        <p>Welcome back! Please enter your details</p>
-                        <div class="mb-3">
+                        <h2 class="text-center mb-3">Sign In</h2>
+                        <h5 class="text-center mb-4">Welcome back! Please enter your details</h5>
+                        <div class="mb-4">
                             <label for="email" class="form-label">Email</label>
                             <input type="email" class="form-control" id="email" placeholder="Enter your email">
                         </div>
-                        <div class="mb-3">
+                        <div class="mb-4">
                             <label for="password" class="form-label">Password</label>
                             <input type="password" class="form-control" id="password" placeholder="Enter your Password">
                         </div>
-                        <div class="col-12">
+                        <div class="col-12 mb-4">
                             <div class="d-flex justify-content-between">
                                 <div class="form-check">
                                     <input class="form-check-input" type="checkbox" id="remember">
@@ -35,7 +37,18 @@
             </div>
             <div class="col-md-6">
                 <div class="login-slider h-100">
-
+                    <owl-carousel-o [options]="LoginSlider">
+                        <ng-template carouselSlide>
+                            <div class="slide">
+                                <img class="img-fluid" src="assets/images/slider/login-one.png" width="781" height="660">
+                            </div>
+                        </ng-template>
+                        <ng-template carouselSlide>
+                            <div class="slide">
+                                <img class="img-fluid" src="assets/images/slider/login-one.png" width="781" height="660">
+                            </div>
+                        </ng-template>
+                    </owl-carousel-o>
                 </div>
             </div>
         </div>
