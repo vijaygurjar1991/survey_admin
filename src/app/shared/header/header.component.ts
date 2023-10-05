@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { NgIconsModule } from '@ng-icons/core';
+
 
 @Component({
   selector: 'app-header',
