@@ -1,0 +1,350 @@
+<header class="dashboard-header sticky top-0">
+    <div class="app-header">
+        <div class="d-flex justify-content-between align-items-center h-100">
+            <div class="d-flex align-items-center">
+                <div class="">
+                    <button class="btn" type="button"><ng-icon name="heroBars3"></ng-icon></button>
+
+                    <!-- <div class="menu-icon">
+                        <span>&nbsp;</span>
+                    </div> -->
+                </div>
+                <div>
+                    <input type="text" class="form-control form-control-small" placeholder="Search Survey">
+                </div>
+            </div>
+            <div class="d-flex align-items-center">
+                <div class="position-relative d-inline-block">
+                    <a href="#"><ng-icon name="heroBell"></ng-icon></a>
+                </div>
+                <div class="position-relative d-inline-block ms-4">
+                    <a href="#">
+                        <img class="object-fit-cover rounded-circle" src="./assets/images/profile/pic.png" width="45" height="45"/>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<aside class="sidebar-wrapper bg-white shadow-base">
+    <div class="logo-segment">
+        <a href="#">
+            <div class="logo-icon">
+                <img class="img-fluid" src="./assets/images/logo/logo.png" width="272" height="77" priority>
+            </div>
+        </a>
+    </div>
+    <div class="sidebar-menu">
+        <ul>
+            <li class="single-sidebar-menu">
+                <div class="menulabel">menu</div>
+            </li>
+            <li class="single-sidebar-menu menu-item-active">
+                <a class="menu-link active" href="#">
+                    <span class="menu-icon flex-grow-0">
+                        <ng-icon name="heroUsers"></ng-icon>
+                    </span>
+                    <div class="text-box flex-grow-1">Dashboard</div>
+                </a>
+            </li>
+            <li class="single-sidebar-menu">
+                <div class="menulabel">Quick Links</div>
+            </li>
+            <li class="single-sidebar-menu item-has-children">
+                <div class="menu-link collapsed">
+                    <div class="flex-1 d-flex align-items-center">
+                        <span class="menu-icon">
+                            <ng-icon name="heroClipboardDocumentList"></ng-icon>
+                        </span>
+                        <div class="text-box">Survey</div>
+                    </div>
+                    <div class="flex-0">
+                        <div class="menu-arrow transform transition-all duration-300">
+                            <ng-icon name="heroChevronRight"></ng-icon>
+                        </div>
+                    </div>
+                </div>
+                <div class="AngularCollapse-collapse" aria-hidden="true" style="height: auto; overflow: initial;">
+                    <div class="AngularCollapse-content">
+                        <ul class="sub-menu">
+                            <li class="block pl-4 pr-1 first:pt-4  last:pb-4">
+                                <a class="" href="#">
+                                    <span class="d-flex align-items-center text-sm transition-all duration-150">
+                                        <span class="menu-icon">
+                                            <ng-icon name="heroStopCircle"></ng-icon>
+                                        </span>
+                                        <span class="flex-1">Add New Survey</span>
+                                    </span>
+                                </a>
+                            </li>
+                            <li class="block pl-4 pr-1 first:pt-4  last:pb-4">
+                                <a class="" href="#">
+                                    <span class="d-flex align-items-center text-sm transition-all duration-150">
+                                        <span class="menu-icon">
+                                            <ng-icon name="heroStopCircle"></ng-icon>
+                                        </span>
+                                        <span class="flex-1">View All Survey</span>
+                                    </span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </li>
+            <li class="single-sidebar-menu item-has-children">
+                <div class="menu-link collapsed">
+                    <div class="flex-1 d-flex align-items-center">
+                        <span class="menu-icon">
+                            <ng-icon name="heroClipboardDocumentList"></ng-icon>
+                        </span>
+                        <div class="text-box">Users</div>
+                    </div>
+                    <div class="flex-0">
+                        <div class="menu-arrow transform transition-all duration-300">
+                            <ng-icon name="heroChevronRight"></ng-icon>
+                        </div>
+                    </div>
+                </div>
+                <div class="AngularCollapse-collapse" aria-hidden="true" style="height: auto; overflow: initial;">
+                    <div class="AngularCollapse-content">
+                        <ul class="sub-menu">
+                            <li class="block pl-4 pr-1 first:pt-4  last:pb-4">
+                                <a class="" href="#">
+                                    <span class="d-flex align-items-center text-sm transition-all duration-150">
+                                        <span class="menu-icon">
+                                            <ng-icon name="heroStopCircle"></ng-icon>
+                                        </span>
+                                        <span class="flex-1">Add New User</span>
+                                    </span>
+                                </a>
+                            </li>
+                            <li class="block pl-4 pr-1 first:pt-4  last:pb-4">
+                                <a class="" href="#">
+                                    <span class="d-flex align-items-center text-sm transition-all duration-150">
+                                        <span class="menu-icon">
+                                            <ng-icon name="heroStopCircle"></ng-icon>
+                                        </span>
+                                        <span class="flex-1">View All Users</span>
+                                    </span>
+                                </a>
+                            </li>
+                            <li class="block pl-4 pr-1 first:pt-4  last:pb-4">
+                                <a class="" href="#">
+                                    <span class="d-flex align-items-center text-sm transition-all duration-150">
+                                        <span class="menu-icon">
+                                            <ng-icon name="heroStopCircle"></ng-icon>
+                                        </span>
+                                        <span class="flex-1">Create Role</span>
+                                    </span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </li>
+            <li class="single-sidebar-menu item-has-children">
+                <div class="menu-link collapsed">
+                    <div class="flex-1 d-flex align-items-center">
+                        <span class="menu-icon">
+                            <ng-icon name="heroClipboardDocumentList"></ng-icon>
+                        </span>
+                        <div class="text-box">Reports</div>
+                    </div>
+                    <div class="flex-0">
+                        <div class="menu-arrow transform transition-all duration-300">
+                            <ng-icon name="heroChevronRight"></ng-icon>
+                        </div>
+                    </div>
+                </div>
+            </li>
+            <li class="single-sidebar-menu">
+                <div class="menulabel">Pages</div>
+            </li>
+            <li class="single-sidebar-menu">
+                <a class="menu-link" href="#">
+                    <span class="menu-icon flex-grow-0">
+                        <ng-icon name="heroClipboardDocumentList"></ng-icon>
+                    </span>
+                    <div class="text-box flex-grow-1">About Us</div>
+                </a>
+            </li>
+            <li class="single-sidebar-menu">
+                <a class="menu-link" href="#">
+                    <span class="menu-icon flex-grow-0">
+                        <ng-icon name="heroQuestionMarkCircle"></ng-icon>
+                    </span>
+                    <div class="text-box flex-grow-1">FAQ's</div>
+                </a>
+            </li>
+            <li class="single-sidebar-menu">
+                <a class="menu-link" href="#">
+                    <span class="menu-icon flex-grow-0">
+                        <ng-icon name="heroClipboardDocumentCheck"></ng-icon>
+                    </span>
+                    <div class="text-box flex-grow-1">Terms & Conditions</div>
+                </a>
+            </li>
+            <li class="single-sidebar-menu">
+                <a class="menu-link" href="#">
+                    <span class="menu-icon flex-grow-0">
+                        <ng-icon name="heroShieldCheck"></ng-icon>
+                    </span>
+                    <div class="text-box flex-grow-1">Privacy Policy</div>
+                </a>
+            </li>
+            <li class="single-sidebar-menu">
+                <div class="menulabel">Settings</div>
+            </li>
+            <li class="single-sidebar-menu">
+                <a class="menu-link" href="#">
+                    <span class="menu-icon flex-grow-0">
+                        <ng-icon name="heroUser"></ng-icon>
+                    </span>
+                    <div class="text-box flex-grow-1">My Account</div>
+                </a>
+            </li>
+            <li class="single-sidebar-menu">
+                <a class="menu-link" href="#">
+                    <span class="menu-icon flex-grow-0">
+                        <ng-icon name="heroLockClosed"></ng-icon>
+                    </span>
+                    <div class="text-box flex-grow-1">Logout</div>
+                </a>
+            </li>
+        </ul>
+    </div>
+</aside>
+
+<article>
+    <div class="card card-color p-5 mb-5">
+        <div class="d-flex align-items-center justify-content-between">
+            <div class="col-md-8">
+                <h3 class="text-light mb-3">Welcome Back, Rishabh Rawat</h3>
+                <p class="text-light mb-0">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Quis ipsum suspendisse ultrices gravida. Risus commodo viverra maecenas 
+                    accumsan lacus vel facilisis. </p>
+            </div>
+            <div class="col-md-4 text-end">
+                <a href="#" class="btn btn-primary btn-lg">Create Project <ng-icon class="ms-3" name="heroArrowLongRight"></ng-icon></a>
+            </div>
+        </div>
+    </div>
+
+    <div class="mb-3">
+        <h4 class="mb-3">Recent Projects</h4>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="card p-3 ps-5 mb-4 recent-project-list online">
+                    <div class="d-flex justify-content-between">
+                        <div class="col-md-8">
+                            <h4 class="mb-2"><strong>Engagement Survey</strong></h4>
+                            <p class="small">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore.</p>
+                        </div>
+                        <div class="col-md-4 text-end">
+                            <div class="tags">Servey</div>
+                        </div>
+                    </div>
+                    <div class="d-flex justify-content-between">
+                        <div class="col-md-8">
+                            <p class="text-body-tertiary small mb-0">Last Updated by <u><a href="#">Rishabh Rawat</a></u> 7 minutes ago</p>
+                        </div>
+                        <div class="col-md-4 text-end">
+                            <div class="responses small">Total Responses <strong>263</strong></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card p-3 ps-5 mb-4 recent-project-list online">
+                    <div class="d-flex justify-content-between">
+                        <div class="col-md-8">
+                            <h4 class="mb-2"><strong>Engagement Survey</strong></h4>
+                            <p class="small">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore.</p>
+                        </div>
+                        <div class="col-md-4 text-end">
+                            <div class="tags">Servey</div>
+                        </div>
+                    </div>
+                    <div class="d-flex justify-content-between">
+                        <div class="col-md-8">
+                            <p class="text-body-tertiary small mb-0">Last Updated by <u><a href="#">Rishabh Rawat</a></u> 7 minutes ago</p>
+                        </div>
+                        <div class="col-md-4 text-end">
+                            <div class="responses small">Total Responses <strong>263</strong></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card p-3 ps-5 mb-4 recent-project-list online">
+                    <div class="d-flex justify-content-between">
+                        <div class="col-md-8">
+                            <h4 class="mb-2"><strong>Engagement Survey</strong></h4>
+                            <p class="small">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore.</p>
+                        </div>
+                        <div class="col-md-4 text-end">
+                            <div class="tags">Servey</div>
+                        </div>
+                    </div>
+                    <div class="d-flex justify-content-between">
+                        <div class="col-md-8">
+                            <p class="text-body-tertiary small mb-0">Last Updated by <u><a href="#">Rishabh Rawat</a></u> 7 minutes ago</p>
+                        </div>
+                        <div class="col-md-4 text-end">
+                            <div class="responses small">Total Responses <strong>263</strong></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card p-3 ps-5 mb-4 recent-project-list offline">
+                    <div class="d-flex justify-content-between">
+                        <div class="col-md-8">
+                            <h4 class="mb-2"><strong>Engagement Survey</strong></h4>
+                            <p class="small">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore.</p>
+                        </div>
+                        <div class="col-md-4 text-end">
+                            <div class="tags">Pause</div>
+                        </div>
+                    </div>
+                    <div class="d-flex justify-content-between">
+                        <div class="col-md-8">
+                            <p class="text-body-tertiary small mb-0">Last Updated by <u><a href="#">Rishabh Rawat</a></u> 7 minutes ago</p>
+                        </div>
+                        <div class="col-md-4 text-end">
+                            <div class="responses small">Total Responses <strong>263</strong></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="mb-5">
+        <div class="card">
+            <div class="d-flex align-items-center justify-content-between">
+                <div class="col-md-6">
+                    <h4 class="mb-3">Sessions Overview</h4>
+                    <p>25/09/2023 - 25/10/2023</p>
+                </div>
+                <div class="col-md-6 text-end">
+                    <div class="row">
+                        <div class="col">
+                            <select class="form-select">
+                                <option selected>Open this select menu</option>
+                                <option value="1">Online Survey</option>
+                                <option value="2">Offline Survey</option>
+                            </select>
+                        </div>
+                        <div class="col">
+                            <a href="#" class="btn btn-primary">Download CSV <ng-icon class="ms-3" name="heroArrowLongRight"></ng-icon></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <canvas id="canvas">{{chart}}</canvas>
+        </div>
+    </div>
+</article>
+
+<footer>footer</footer>
