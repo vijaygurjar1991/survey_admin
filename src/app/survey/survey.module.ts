@@ -20,11 +20,15 @@ import { heroTrash } from '@ng-icons/heroicons/outline';
 import { heroPencil } from '@ng-icons/heroicons/outline';
 import { heroDocumentDuplicate } from '@ng-icons/heroicons/outline';
 import { heroBuildingOffice2 } from '@ng-icons/heroicons/outline';
+import { heroArrowUpTray } from '@ng-icons/heroicons/outline';
+import { EditSurveyComponent } from './edit-survey/edit-survey.component';
+import { heroPlusCircle } from '@ng-icons/heroicons/outline';
 // Icons
 
 @NgModule({
   declarations: [
-    CreateSurveyComponent
+    CreateSurveyComponent,
+    EditSurveyComponent
   ],
   imports: [
     CommonModule,
@@ -42,11 +46,13 @@ import { heroBuildingOffice2 } from '@ng-icons/heroicons/outline';
       heroPencil,
       heroDocumentDuplicate,
       heroBuildingOffice2,
+      heroArrowUpTray,
+      heroPlusCircle,
     }),
   ],
   providers: [
     provideNgIconsConfig({
-      size: '2em',
+      size: '1.5em',
     }),
   ],
 })
