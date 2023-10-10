@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { DataService } from './service/data.service';
 
 @Component({
   selector: 'app-root',
@@ -9,9 +10,19 @@ import { ActivatedRoute, Router } from '@angular/router';
 export class AppComponent {
   title = 'survey-admin';
   layout: string = '';
-  constructor(private router: ActivatedRoute) {
-
+  headerVisible: boolean = true;
+  navbarVisible: boolean = true;
+  constructor(private router: ActivatedRoute, private visibilityService: DataService) {
+    this.visibilityService.headerVisible$.subscribe(visible => {
+      this.headerVisible = visible;
+    });
+    this.visibilityService.navbarVisible$.subscribe(visible => {
+      this.navbarVisible = visible;
+    });
   }
+
+
+
   ngOnInit() {
     // debugger;
     //  console.log(this.router.snapshot?.url[0].path);

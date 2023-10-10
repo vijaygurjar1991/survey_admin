@@ -1,1 +1,4 @@
-<router-outlet></router-outlet>
+<app-header *ngIf="headerVisible"></app-header>
+<app-sidebar *ngIf="navbarVisible"></app-sidebar>
+<router-outlet>
+  </router-outlet>

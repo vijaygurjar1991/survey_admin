@@ -102,3 +102,54 @@ article{ margin-left: var(--menu-gap); padding: var(--section-gap);}
 .login-form { background-color: var(--white); border-radius: 1rem; padding: 6rem;}
 .login-slider { background-image: linear-gradient(145deg, var(--light-primary), var(--primary)); border-radius: 1rem; padding: 2rem;}
 /* user-pages */
+
+/* Survey Page */
+.survey{display: flex;}
+.survey-question { flex: 1;margin-left: 3rem;}
+.add-ques-sidebar {background-color: var(--white);padding: 1rem;flex: 0 33%;max-width: 33%; margin: -1.5rem;
+    box-shadow: 0px 20px 16px #d6d4d4;}
+.common-ques {display: flex; align-items: center;border: 2px dashed  #F1F1F1;border-radius: .25rem;padding: 1rem;
+    }
+.common-ques figure {margin-bottom: 0;padding-right: 1rem;}
+.generic-ques {margin-top: 2rem;}
+.generic-ques ul {list-style: none;padding: 0;margin: 0;display: flex;flex-wrap: wrap;gap:10px}
+.generic-ques ul li {flex: calc(33.33% - 10px);max-width: calc(33.33% - 10px); text-align: center; border: 2px dashed #f1f1f1;
+    border-radius: .25rem;
+}
+.generic-ques ul li a {padding: 1rem 0rem;display: block;color: var(--black);}
+.generic-ques ul li a figcaption {font-size: .875rem;line-height: 1.1;}
+.survey-name {display: flex; justify-content: space-between;}
+.survey-name div span{background-color: var(--primary);color:var(--white);border-radius: .25rem;padding: 0.25rem 0.5rem;
+    font-size: .875rem;}
+.survey-name a {color: var(--black);    }
+.survey-name a ng-icon { font-size: .875rem;}    
+.survey-question .question ul {list-style: none;padding: 0;margin: 0;margin-top: 2rem;}
+.ques-header {display: flex;justify-content: space-between;background-color: #2ccaa9;color: var(--white);padding: .5rem;}
+.survey-question .question>ul>li { border: 1px solid var(--border-color); border-radius: 0.25rem;
+    background-color: var(--white);margin-bottom: 1rem; box-shadow: 0px 0px 20px #d8d8d8;
+}
+.ques-header h5{display: flex;align-items: center;}
+.ques-header h5 ng-icon {font-size: .875rem;margin-right: 1rem;}
+.ques-radio{margin-bottom: 1rem;}
+.ques-radio:last-child{margin-bottom: 0rem;}
+.ques-radio label {position: relative;cursor: pointer;width: 100%;}
+.ques-radio label input {display: none;}
+.ques-radio label span {position: relative;display: inline-block;border: 1px solid #dee2e6;
+    border-radius: 5px;width: 100%;padding: .8rem 1rem;
+}
+.ques-radio label input:checked ~ span.checked { border-color: #2ccaa9; background: #2ccaa93d ;}
+
+.modal-fullscreen {width:50vw;margin-left:auto;} 	
+.state-city .select-radio label{position: relative;cursor: pointer;}
+.state-city .select-radio label input {display: none;}
+.state-city .select-radio label span {position: relative;display: inline-block;border: 1px solid #dee2e6;
+    border-radius: 5px;width: 100%;padding: .8rem 1rem;
+}
+.state-city {display: flex;gap: 15px;}
+.state-city .select-radio span {min-width: 150px;text-align: center;}
+.state-city label input:checked ~ span.checked {color:var(--white); border-color: var(--primary); background: var(--primary) ;}
+.select-state{display: flex;justify-content: space-between;border-bottom: 1px solid var(--border-color);    margin-bottom: 1.5rem;}
+.states .form-check{margin-bottom: .5rem;}
+.cities {display: flex;flex-wrap: wrap;margin-top: 1rem;}
+.cities .form-check {flex: 0 50%;max-width: 50%;}
+/* Survey Page */

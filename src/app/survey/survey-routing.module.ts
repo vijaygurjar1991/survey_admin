@@ -1,7 +1,11 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-const routes: Routes = [];
+import { CreateSurveyComponent } from './create-survey/create-survey.component';
+
+const routes: Routes = [
+  { path: 'create-survey', component: CreateSurveyComponent}
+];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
