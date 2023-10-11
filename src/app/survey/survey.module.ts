@@ -3,9 +3,16 @@ import { CommonModule } from '@angular/common';
 
 import { SurveyRoutingModule } from './survey-routing.module';
 import { CreateSurveyComponent } from './create-survey/create-survey.component';
+import { EditSurveyComponent } from './edit-survey/edit-survey.component';
+import { SurveyListingComponent } from './survey-listing/survey-listing.component';
 
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { DragDropModule } from '@angular/cdk/drag-drop';
+import { FormsModule } from '@angular/forms';
+import { TagInputModule } from 'ngx-chips';
+import { DecimalPipe, NgFor } from '@angular/common';
+//import { NgbPaginationModule, NgbTypeaheadModule } from '@ng-bootstrap/ng-bootstrap';
+
 
 // Icons
 import { NgIconsModule, provideNgIconsConfig } from '@ng-icons/core';
@@ -21,19 +28,24 @@ import { heroPencil } from '@ng-icons/heroicons/outline';
 import { heroDocumentDuplicate } from '@ng-icons/heroicons/outline';
 import { heroBuildingOffice2 } from '@ng-icons/heroicons/outline';
 import { heroArrowUpTray } from '@ng-icons/heroicons/outline';
-import { EditSurveyComponent } from './edit-survey/edit-survey.component';
 import { heroPlusCircle } from '@ng-icons/heroicons/outline';
+import { heroArrowRight } from '@ng-icons/heroicons/outline';
+import { heroHome } from '@ng-icons/heroicons/outline';
 // Icons
 
 @NgModule({
   declarations: [
     CreateSurveyComponent,
-    EditSurveyComponent
+    EditSurveyComponent,
+    SurveyListingComponent
   ],
   imports: [
     CommonModule,
     SurveyRoutingModule,
-    DragDropModule,
+    DragDropModule,    
+    FormsModule,
+    TagInputModule,
+    //DecimalPipe, NgFor, FormsModule, NgbTypeaheadModule, NgbPaginationModule,
     NgIconsModule.withIcons({
       heroQuestionMarkCircle,
       heroCalendar,
@@ -48,6 +60,8 @@ import { heroPlusCircle } from '@ng-icons/heroicons/outline';
       heroBuildingOffice2,
       heroArrowUpTray,
       heroPlusCircle,
+      heroArrowRight,
+      heroHome
     }),
   ],
   providers: [

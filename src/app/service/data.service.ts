@@ -8,6 +8,15 @@ export class DataService {
   private isSidebarVisibleSubject = new BehaviorSubject<boolean>(true);
   isSidebarVisible$ = this.isSidebarVisibleSubject.asObservable();
 
+  // Collapse left sidebar
+  public addMargin: boolean = false;
+  public addwidth: boolean = false;
+  public dashboardMargin: boolean = false;
+  public toggle(): void {
+    this.addMargin = !this.addMargin;
+    this.addwidth = !this.addwidth;
+    this.dashboardMargin = !this.dashboardMargin;
+  }
 
   private headerVisibleSubject = new BehaviorSubject<boolean>(true);
   private footerVisibleSubject = new BehaviorSubject<boolean>(true);

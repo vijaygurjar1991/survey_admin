@@ -12,7 +12,7 @@ export class AppComponent {
   layout: string = '';
   headerVisible: boolean = true;
   navbarVisible: boolean = true;
-  constructor(private router: ActivatedRoute, private visibilityService: DataService) {
+  constructor(private router: ActivatedRoute, private visibilityService: DataService, public themeService: DataService) {
     this.visibilityService.headerVisible$.subscribe(visible => {
       this.headerVisible = visible;
     });
