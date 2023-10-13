@@ -179,7 +179,7 @@ article{ margin-left: var(--menu-gap); padding: var(--section-gap);}
 .generic-ques {margin-top: 2rem;}
 .generic-ques ul {list-style: none;padding: 0;margin: 0;display: flex;flex-wrap: wrap;gap:10px;justify-content: space-between;}
 .generic-ques ul li {flex: calc(33.33% - 10px);max-width: calc(33.33% - 10px); text-align: center;}
-.generic-ques ul li a figure img {filter: invert(1) brightness(0); opacity: 1;}
+.generic-ques ul li a figure img {filter: invert(1) brightness(0); opacity: 1;width: auto;}
 .generic-ques ul li a {padding: 1rem 0rem;display: block;color: var(--black);border: 2px dashed var(--border-color);
 border-radius: .25rem;height: 100%;}
 .generic-ques ul li a figcaption {font-size: .875rem;line-height: 1.1;}
@@ -311,7 +311,18 @@ ng-icon.trash-icon{background-color: #d60000;}
 /* My Account */
 
 /* Pages */
-ngx-dropzone.drop-file {background-color: #fdefe7;border-color: var(--primary);}
+ngx-dropzone.drop-file {background-color: #fef8f8;border-color: var(--primary);height: 200px;}
+ngx-dropzone.drop-file img { display: block;margin: auto; margin-bottom: 1rem;filter: invert(1) brightness(0);
+}
+ngx-dropzone.edit-survey-img {
+    width: 100%;
+    height: 100%;
+    border: 1px solid var(--border-color);
+}
+ngx-dropzone.edit-survey-img img{width: 30px;height: auto;filter: invert(1) brightness(0);}
+ngx-dropzone.edit-survey-img ngx-dropzone-preview{max-width: 30px !important;
+    min-height: 30px !important;
+    min-width: 30px !important;height: 30px !important;}
 /* Pages */
 
 html, body { height: 100%; }
