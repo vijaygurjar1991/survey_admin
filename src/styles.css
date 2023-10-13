@@ -181,7 +181,7 @@ article{ margin-left: var(--menu-gap); padding: var(--section-gap);}
 .generic-ques ul li {flex: calc(33.33% - 10px);max-width: calc(33.33% - 10px); text-align: center;}
 .generic-ques ul li a figure img {filter: invert(1) brightness(0); opacity: 1;width: auto;}
 .generic-ques ul li a {padding: 1rem 0rem;display: block;color: var(--black);border: 2px dashed var(--border-color);
-border-radius: .25rem;height: 100%;}
+border-radius: .25rem;height: 100%;min-height: 110px;}
 .generic-ques ul li a figcaption {font-size: .875rem;line-height: 1.1;}
 .generic-ques ul li a:hover figure img { filter: inherit;}
 .generic-ques ul li a:hover { background-color: #fdefe7; border: 2px dashed var(--primary);color: var(--primary);}
@@ -209,7 +209,24 @@ border-radius: .25rem;height: 100%;}
     border-radius: 5px;width: 100%;padding: .8rem 1rem;
 }
 .ques-radio label input:checked ~ span.checked { border-color: #2ccaa9; background: #2ccaa93d ;}
-
+.search-categories ul {
+    list-style: none;
+    padding: 1rem;
+    margin: 0px;
+    margin-top: -5px;
+    border: 1px solid var(--border-color);
+    border-top: none;
+    border-bottom-left-radius: .25rem;
+    border-bottom-right-radius: .25rem;height: 220px;
+    overflow: auto;
+}
+.search-categories ul li a {
+    width: 100%;
+    display: flex;
+    color: var(--black);
+    padding: .5rem;border-radius: .25rem;
+}
+.search-categories ul li a:hover{background-color: #fcdfd0;}
 /* Survey Modal */
 .right-aligned-modal .modal-fullscreen {margin-left: auto; width: 50vw;
     height: 100%;-webkit-transform: translate3d(0%, 0, 0);

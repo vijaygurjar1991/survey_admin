@@ -34,4 +34,20 @@ export class SidebarComponent {
     }
   }
   
+  // Auto Search
+  searchTerm = '';
+  suggestions: string[] = [];
+  showSuggestions = false;
+
+  onInputChange() {
+    this.suggestions = ['Automotive', 'Beverages - Alcholic', 
+    'Beverages - Alcholic', 
+    'Cosmetic, Personal Care, Toiletries', 'Education', 'Electronics', 'Entertaiment', 'Fashion, Clothing'];
+    this.showSuggestions = this.suggestions.length > 0;
+  }
+  selectSuggestion(suggestion: string) {
+    this.searchTerm = suggestion;
+    this.showSuggestions = false;
+  }
+
 }

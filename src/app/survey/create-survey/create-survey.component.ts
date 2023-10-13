@@ -15,7 +15,7 @@ export class CreateSurveyComponent {
   constructor(private modalService: NgbModal) {}
   
   openFullscreen(content: any) {
-		this.modalService.open(content, { fullscreen: true });
+		this.modalService.open(content, { fullscreen: true, windowClass: 'right-aligned-modal', });
 	}  
   open(Editsurvey: any) {
 		this.modalService.open(Editsurvey, { size: 'lg', centered: true });
