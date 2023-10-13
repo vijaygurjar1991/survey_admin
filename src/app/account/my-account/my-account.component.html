@@ -1,0 +1,62 @@
+    <div>
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="#"><ng-icon name="heroHome"></ng-icon>Dashboard</a></li>
+                <li class="breadcrumb-item active" aria-current="page">My Account</li>
+            </ol>
+        </nav>
+    </div>
+    <div class="common-bg">
+        <div ngClass="common-heading">
+            <div class="col-md-12">
+                <h4>Account Details</h4>
+                <p>Manage your Track Opinion Profile</p>
+            </div>   
+        </div>
+        <div ngClass="account-picture mb-4">
+            <figure>
+                <a href="javascript:" class="me-4">
+                    <img class="object-fit-cover rounded-circle" src="./assets/images/profile/pic.png"
+                        width="80" height="80" />
+                </a>
+            </figure>
+            <figcaption>
+                <h5>Profile Picture</h5>
+                <h6>PNG,JPG,GIF max size of 5MB</h6>
+            </figcaption>
+        </div>
+        <div class="account">
+            <form>
+                <div class="row mb-4">
+                    <div class="col">
+                        <label for="name" class="form-label">First Name</label>
+                        <input type="text" class="form-control" placeholder="Rishabh" aria-label="First name">
+                    </div>
+                    <div class="col">
+                        <label for="last" class="form-label">Last Name</label>
+                        <input type="text" class="form-control" placeholder="Rawat" aria-label="Last name">
+                    </div>
+                </div>
+                <div class="mb-4">
+                    <label for="email" class="form-label">Email Address</label>
+                    <input type="email" class="form-control" placeholder="ux.rishabh@gmail.com">
+                </div>
+                <div class="mb-4">
+                    <label for="email" class="form-label">Role</label>
+                    <select class="form-select" aria-label="Default select example">
+                        <option selected>User</option>
+                        <option value="1">One</option>
+                        <option value="2">Two</option>
+                        <option value="3">Three</option>
+                    </select>
+                </div>
+                <div class="change-password">
+                    <a href="javascript;">Change Password</a>
+                    <button type="button" class="btn btn-primary">Update<ng-icon name="heroArrowLongRight"
+                            class="ms-4"></ng-icon></button>
+                </div>
+            </form>
+        </div>
+
+    </div>
+

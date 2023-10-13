@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-sidebar',
@@ -8,6 +8,12 @@ import { Component } from '@angular/core';
   
 })
 export class SidebarComponent {
+  constructor(private modalService: NgbModal) {}
+  
+  openLg(content: any) {
+		this.modalService.open(content, { size: 'lg', centered: true });
+	}
+  
   isSubMenu1Visible = false;
   isSubMenu2Visible = false;
   isSubMenu3Visible = false;

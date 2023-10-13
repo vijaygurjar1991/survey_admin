@@ -253,10 +253,10 @@
     <div ngClass="survey-question">
         <div ngClass="survey-name">
             <div>
-                <h4 ngClass="mb-3">Ed-Tech Brand Ranking Surevy</h4>
+                <h4 ngClass="mb-3">Ed-Tech Brand Ranking Survey</h4>
                 <span>Cosmetics, Personal Care, Toiletries</span>
             </div>
-            <a href="#"><ng-icon name="heroPencilSquare"></ng-icon></a>
+            <a href="javascript:" (click)="open(Editsurvey)"><ng-icon name="heroPencilSquare"></ng-icon></a>
         </div>
         <div ngClass="question">
             <ul>
@@ -269,7 +269,7 @@
                                     <ng-icon name="heroEllipsisVertical"></ng-icon>
                                 </a>
                                 <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                                  <li><a class="dropdown-item" href="#"><ng-icon name="heroPencil"></ng-icon>Edit</a></li>
+                                  <li><a class="dropdown-item" href="/edit-survey"><ng-icon name="heroPencil"></ng-icon>Edit</a></li>
                                   <li><a class="dropdown-item" href="#"><ng-icon name="heroDocumentDuplicate"></ng-icon>Clone</a></li>
                                   <li><a class="dropdown-item" href="#"><ng-icon name="heroTrash"></ng-icon>Delete</a></li>
                                 </ul>
@@ -311,7 +311,7 @@
                                     <ng-icon name="heroEllipsisVertical"></ng-icon>
                                 </a>
                                 <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                                  <li><a class="dropdown-item" href="#"><ng-icon name="heroPencil"></ng-icon>Edit</a></li>
+                                  <li><a class="dropdown-item" href="/edit-survey"><ng-icon name="heroPencil"></ng-icon>Edit</a></li>
                                   <li><a class="dropdown-item" href="#"><ng-icon name="heroDocumentDuplicate"></ng-icon>Clone</a></li>
                                   <li><a class="dropdown-item" href="#"><ng-icon name="heroTrash"></ng-icon>Delete</a></li>
                                 </ul>
@@ -342,7 +342,7 @@
                                     <ng-icon name="heroEllipsisVertical"></ng-icon>
                                 </a>
                                 <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                                  <li><a class="dropdown-item" href="#"><ng-icon name="heroPencil"></ng-icon>Edit</a></li>
+                                  <li><a class="dropdown-item" href="/edit-survey"><ng-icon name="heroPencil"></ng-icon>Edit</a></li>
                                   <li><a class="dropdown-item" href="#"><ng-icon name="heroDocumentDuplicate"></ng-icon>Clone</a></li>
                                   <li><a class="dropdown-item" href="#"><ng-icon name="heroTrash"></ng-icon>Delete</a></li>
                                 </ul>
@@ -460,6 +460,35 @@
 	</div>
 	<div class="modal-footer">
 		<button type="button" class="btn btn-primary w-100" (click)="modal.close('Close click')">Continue</button>
+	</div>
+</ng-template>
+
+<ng-template #Editsurvey let-modal>
+	<div class="modal-header">
+		<h4 class="modal-title">Create Your New Survey</h4>
+		<button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+	</div>
+	<div class="modal-body">
+		<form>
+            <div class="mb-4">
+				<label for="surveyname" class="form-label">Enter Your Survey Name</label>
+				<input
+                    id="surveyname"
+                    type="text"
+                    class="form-control"
+                    Value="Ed-Tech Brand Ranking"
+                />               
+			</div>
+            <div class="mb-4">
+				<label  class="form-label">Select Survey Categories</label>
+				<input type="search" class="form-control" placeholder="Search for Categories" value="Cosmetics, Personal care" />
+			</div>
+           
+        </form>
+	</div>
+	<div class="modal-footer">
+		<button type="button" class="btn" (click)="modal.close('Close click')">Cancel</button>
+		<a href="javascript:" type="button" class="btn btn-primary" (click)="modal.close('Close click')">Update <ng-icon name="heroArrowLongRight"></ng-icon></a>
 	</div>
 </ng-template>
 

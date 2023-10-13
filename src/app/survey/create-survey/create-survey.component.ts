@@ -13,10 +13,13 @@ import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 export class CreateSurveyComponent {
 
   constructor(private modalService: NgbModal) {}
+  
   openFullscreen(content: any) {
 		this.modalService.open(content, { fullscreen: true });
+	}  
+  open(Editsurvey: any) {
+		this.modalService.open(Editsurvey, { size: 'lg', centered: true });
 	}
-
   items = ['Item 1', 'Item 2', 'Item 3', 'Item 4'];
 
   onDrop(event: CdkDragDrop<string[]>) {

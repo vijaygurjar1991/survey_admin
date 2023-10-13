@@ -1,123 +1,68 @@
-<div ngClass="survey-listing">
-    <ul ngClass="breadcrumb">
-        <li><a href="#"><ng-icon name="heroHome"></ng-icon> Dashboard </a></li> / 
-        <li> View Survey</li>
-    </ul>
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="#"><ng-icon name="heroHome"></ng-icon>Dashboard</a></li>
+        <li class="breadcrumb-item active" aria-current="page">View Survey</li>
+    </ol>
+</nav>
+<div ngClass="common-bg">
     <div ngClass="all-survey">
-        <h4>Survey List</h4>
-        <p>Manage your Track Opinion "Survey List" page</p>
-        <hr>
-        <table class="table table-bordered">
-            <thead>
-                <tr>
-                    <th scope="col"><input type="checkbox" ngClass="form-check-input" /></th>
-                    <th scope="col">Survey Name</th>
-                    <th scope="col">Category</th>
-                    <th scope="col">Creator Name</th>
-                    <th scope="col">Last Modification</th>
-                    <th scope="col">Status</th>
-                    <th scope="col">Action</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td><input type="checkbox" ngClass="form-check-input" /></td>
-                    <td>ED-Tech Brand Ranking</td>
-                    <td>Cosmetics, Personal care, Toiletries</td>
-                    <td>
-                        <img
-                            src="../../../assets/images/profile/pic.png"
-                            class="me-2 rounded-circle"
-                            style="width: 30px;height: 30px;"
-                        />
-                        Rishabh
-                    </td>
-                    <td>28-09-2023 | 14:53</td>
-                    <td>Ongoing</td>
-                    <td>
-                        <a href="javascript:"><ng-icon name="heroPencil"></ng-icon></a>
-                        <a href="javascript:"><ng-icon name="heroEllipsisVertical"></ng-icon></a>
-                    </td>
-                </tr>
-                <tr>
-                    <td><input type="checkbox" ngClass="form-check-input" /></td>
-                    <td>ED-Tech Brand Ranking</td>
-                    <td>Cosmetics, Personal care, Toiletries</td>
-                    <td>
-                        <img
-                            src="../../../assets/images/profile/pic.png"
-                            class="me-2 rounded-circle"
-                            style="width: 30px;height: 30px;"
-                        />
-                        Rishabh
-                    </td>
-                    <td>28-09-2023 | 14:53</td>
-                    <td>Ongoing</td>
-                    <td>
-                        <a href="javascript:"><ng-icon name="heroPencil"></ng-icon></a>
-                        <a href="javascript:"><ng-icon name="heroEllipsisVertical"></ng-icon></a>
-                    </td>
-                </tr>
-                <tr>
-                    <td><input type="checkbox" ngClass="form-check-input" /></td>
-                    <td>ED-Tech Brand Ranking</td>
-                    <td>Cosmetics, Personal care, Toiletries</td>
-                    <td>
-                        <img
-                            src="../../../assets/images/profile/pic.png"
-                            class="me-2 rounded-circle"
-                            style="width: 30px;height: 30px;"
-                        />
-                        Rishabh
-                    </td>
-                    <td>28-09-2023 | 14:53</td>
-                    <td>Ongoing</td>
-                    <td>
-                        <a href="javascript:"><ng-icon name="heroPencil"></ng-icon></a>
-                        <a href="javascript:"><ng-icon name="heroEllipsisVertical"></ng-icon></a>
-                    </td>
-                </tr>
-                <tr>
-                    <td><input type="checkbox" ngClass="form-check-input" /></td>
-                    <td>ED-Tech Brand Ranking</td>
-                    <td>Cosmetics, Personal care, Toiletries</td>
-                    <td>
-                        <img
-                            src="../../../assets/images/profile/pic.png"
-                            class="me-2 rounded-circle"
-                            style="width: 30px;height: 30px;"
-                        />
-                        Rishabh
-                    </td>
-                    <td>28-09-2023 | 14:53</td>
-                    <td>Ongoing</td>
-                    <td>
-                        <a href="javascript:"><ng-icon name="heroPencil"></ng-icon></a>
-                        <a href="javascript:"><ng-icon name="heroEllipsisVertical"></ng-icon></a>
-                    </td>
-                </tr>
-                <tr>
-                    <td><input type="checkbox" ngClass="form-check-input" /></td>
-                    <td>ED-Tech Brand Ranking</td>
-                    <td>Cosmetics, Personal care, Toiletries</td>
-                    <td>
-                        <img
-                            src="../../../assets/images/profile/pic.png"
-                            class="me-2 rounded-circle"
-                            style="width: 30px;height: 30px;"
-                        />
-                        Rishabh
-                    </td>
-                    <td>28-09-2023 | 14:53</td>
-                    <td>Ongoing</td>
-                    <td>
-                        <a href="javascript:"><ng-icon name="heroPencil"></ng-icon></a>
-                        <a href="javascript:"><ng-icon name="heroEllipsisVertical"></ng-icon></a>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-        
-        
+        <div ngClass="row common-heading">
+            <div class="col-md-9">
+                <h4>Survey List</h4>
+                <p>Manage your Track Opinion "Survey List" page</p>
+            </div>
+            <div class="col-md-3">
+                <div class="input-group flex-nowrap">
+                    <span class="input-group-text" id="addon-wrapping">Sort By:</span>
+                    <select class="form-select">
+                        <option selected>All Categories</option>
+                        <option value="1">One</option>
+                        <option value="2">Two</option>
+                        <option value="3">Three</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="table-responsive">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col"><input type="checkbox" ngClass="form-check-input" 
+                            [(ngModel)]="selectAllChecked"
+                            (change)="toggleSelectAll()"/>
+                        </th>
+                        <th scope="col">Survey Name</th>
+                        <th scope="col">Category</th>
+                        <th scope="col">Creator Name</th>
+                        <th scope="col">Last Modification</th>
+                        <th scope="col">Status</th>
+                        <th scope="col">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr  *ngFor="let item of suveryListingTable">
+                        <td><input type="checkbox" ngClass="form-check-input" 
+                            [(ngModel)]="item.isChecked" />
+                        </td>
+                        <td>{{item.surveyName}}</td>
+                        <td>{{item.surveyCategory}}</td>
+                        <td>
+                            <img
+                                src="../../../assets/images/profile/pic.png"
+                                class="me-2 rounded-circle"
+                                style="width: 30px;height: 30px;"
+                            />
+                            {{item.creatorName}}
+                        </td>
+                        <td>28-09-2023 | 14:53</td>
+                        <td ngClass="ongoing status"><span>Ongoing</span></td>
+                        <td ngClass="action">
+                            <a href="javascript:"><ng-icon name="heroPencil" ngClass="edit-action"></ng-icon></a>
+                            <a href="javascript:"><ng-icon name="heroEllipsisVertical"></ng-icon></a>
+                        </td>
+                    </tr>                    
+                </tbody>
+            </table>
+        </div>
     </div>
 </div>

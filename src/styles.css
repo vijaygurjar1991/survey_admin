@@ -50,6 +50,16 @@ a {
 }
 .card{ border-color: var(--border-color); box-shadow: var(--box-shadow); padding: 1rem;}
 .card-color{ background-image: linear-gradient(-45deg, var(--light-primary), var(--primary));}
+/* .breadcrumb li:not(:last-child):after {content: '/';padding-left: .25rem;padding-right: .25rem;} */
+.table{border: 1px solid var(--border-color);}
+.table>:not(caption)>*>*{padding: 1.3rem 1rem;vertical-align: middle;}
+.common-bg{background-color: var(--white);padding: 1.5rem;border-radius: 0.25rem;
+    box-shadow: 0px 0px 20px #d8d8d8;margin-top: 2rem;}
+.common-heading{border-bottom: 1px solid var(--border-color);padding-bottom: 1rem;margin-bottom: 3rem;}
+.common-heading .input-group.flex-nowrap span {background-color: transparent;border-right: none;color: #b4b4b4;
+}
+.common-heading .input-group select.form-select { border-left: none;}
+
 /* common */
 
 /* Header */
@@ -259,17 +269,11 @@ box-shadow: 0px 0px 18px #dfdfdf;}
 .logic-tab .tab-content{flex: 1;}
 .logic-ques .input-group span{background-color: var(--primary);color: var(--white);border-color: var(--primary);}
 .if-then {position: relative;z-index: 9;display: flex;margin: 1rem 0;}
-.if-then span {
-    background-color: #ececec;
-    padding: .5rem 1rem;    
-    border-radius: .5rem;
-    font-size: 1.2rem;
-    font-weight: 500;
-    color: #aaa;
+.if-then span {background-color: #ececec;padding: .5rem 1rem;border-radius: .5rem;font-size: 1.2rem;
+    font-weight: 500;color: #aaa;
 }
 .if-then span:before {content:'';border-bottom: 1px solid var(--border-color);width: 100%;
     position: absolute;left: 0;top: 50%;transform: translateY(-50%);z-index: -1;}
-
 ng-icon.plus-circle, ng-icon.trash-icon {
         background-color: var(--primary);
         display: flex;
@@ -282,19 +286,33 @@ ng-icon.plus-circle, ng-icon.trash-icon {
         font-size: 1.3rem;
     }  
 ng-icon.trash-icon{background-color: #d60000;}
-.tag-container {
-    border: 1px solid var(--border-color);
-    box-shadow: 0px 0px 18px #dfdfdf;
-    border-radius: 0.25rem;
-    padding: 1rem;
+.tag-container {border: 1px solid var(--border-color);box-shadow: 0px 0px 18px #dfdfdf;border-radius: 0.25rem;
+    padding: 1rem;}
+.all-survey {}
+
+.all-survey .status span{max-width: 100px;display: flex;justify-content: center;align-items: center;padding: 0.15rem 2rem;
+    border-radius: 1rem;}
+.ongoing span {background-color: #cef1fc; color: #08b7f0; }
+.paused span {background-color: #fdd1d1;color: #f71b1b;}
+.done span {background-color: #ccf8d9;color: #00db43;  }
+.action {display: flex;align-items: center;justify-content: space-between;}
+.action a{color: #b4b4b4;font-size: 1.3rem;}
+.action .edit-action {background-color: #b4b4b4;color: var(--white);border-radius: 50%;
+    display: flex; width: 30px;height: 30px;align-items: center;justify-content: center; font-size: .75rem;
 }
-.all-survey {
-    background-color: var(--white);
-    padding: 1rem;
-    border-radius: 0.25rem;
-    box-shadow: 0px 0px 20px #d8d8d8;
+.select-category .input-group.flex-nowrap span {background-color: transparent;border-right: none;color: #b4b4b4;
 }
-.all-survey .table>:not(caption)>*>*{padding: 1rem;}
+.select-category .input-group select.form-select { border-left: none;}
 /* Edit Survey Question */
+
+/* My Account */
+.account-picture{display: flex;align-items: center;}
+.change-password{display: flex;align-items: center;justify-content: space-between;border-bottom: 1px solid var(--border-color);padding-bottom: 1rem;}
+/* My Account */
+
+/* Pages */
+ngx-dropzone.drop-file {background-color: #fdefe7;border-color: var(--primary);}
+/* Pages */
+
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

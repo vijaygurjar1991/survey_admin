@@ -3,7 +3,8 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
-
+import { FormsModule } from '@angular/forms';
+import { EditorModule, TINYMCE_SCRIPT_SRC } from '@tinymce/tinymce-angular';
 
 // Icons
 import { NgIconsModule, provideNgIconsConfig } from '@ng-icons/core';
@@ -41,7 +42,8 @@ import { CommonModule } from '@angular/common';
     CommonModule,    
     AppRoutingModule,
     DragDropModule,
-   
+    FormsModule,
+    EditorModule,
     NgIconsModule.withIcons({
       heroUsers,
       heroChevronRight,
@@ -58,6 +60,7 @@ import { CommonModule } from '@angular/common';
     }),
   ],
   providers: [
+    { provide: TINYMCE_SCRIPT_SRC, useValue: 'tinymce/tinymce.min.js' },
     provideNgIconsConfig({
       size: '1.5em',
     }),

@@ -1,0 +1,57 @@
+<div>
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="#"><ng-icon name="heroHome"></ng-icon> Dashboard</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Terms & Conditions</li>
+        </ol>
+    </nav>
+</div>
+<div class="common-bg">
+    <div ngClass="common-heading">
+        <div class="col-md-12">
+            <h4>Terms & Conditions</h4>
+            <p>Manage your Track "Terms & Conditions" Page</p>
+        </div>   
+    </div>
+    <div class="about">
+        <form>
+            <div class="mb-4">
+                <label for="text" class="form-label">Title</label>
+                <input type="text" class="form-control" placeholder="Terms & Conditions">
+            </div>
+            <div class="mb-4">
+                <label for="text" class="form-label">Description</label>
+                <editor apiKey="" [init]="{
+                        height: 300,
+                        menubar: false,
+                        plugins: [
+                        'advlist autolink lists link image charmap print preview anchor',
+                        'searchreplace visualblocks code fullscreen',
+                        'insertdatetime media table paste code help wordcount'
+                        ],
+                        toolbar:
+                        'undo redo | formatselect | bold italic backcolor | \
+                        alignleft aligncenter alignright alignjustify | \
+                        bullist numlist outdent indent | removeformat | help'
+                    }"></editor>
+
+            </div>
+            <div class="mb-4">
+                <label for="text" class="form-label">Upload Image</label>
+                <ngx-dropzone (change)="onSelect($event)" [ngClass]="'drop-file'">
+                    <ngx-dropzone-label>
+                        <img src="" />
+                        <a href="javascript:"><u>Click to upload</u></a> <span> or drag and drop</span>
+                        <p>Max. File Size: 15MB</p>
+                    </ngx-dropzone-label>
+                    <ngx-dropzone-preview *ngFor="let f of files" [removable]="true" (removed)="onRemove(f)">
+                        <ngx-dropzone-label>{{ f.name }} ({{ f.type }})</ngx-dropzone-label>
+                    </ngx-dropzone-preview>
+                </ngx-dropzone>
+            </div>
+            <div class="text-end">
+                <button type="button" class="btn btn-primary">Update <ng-icon name="heroArrowLongRight"></ng-icon></button>
+            </div>
+        </form>
+    </div>
+</div>
