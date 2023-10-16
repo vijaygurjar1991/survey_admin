@@ -340,7 +340,17 @@ ngx-dropzone.edit-survey-img img{width: 30px;height: auto;filter: invert(1) brig
 ngx-dropzone.edit-survey-img ngx-dropzone-preview{max-width: 30px !important;
     min-height: 30px !important;
     min-width: 30px !important;height: 30px !important;}
+.cdk-overlay-container{ z-index: 9999;} 
+mat-form-field.mat-mdc-form-field{width: 100%;} 
+.upload-user-pic{width: 150px;
+    height: 150px !important;
+    overflow: hidden !important;
+    border-radius: 50% !important;
+    border: 1px solid var(--border-color) !important;position: relative;background-color: #d8d8d8 !important;} 
 /* Pages */
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

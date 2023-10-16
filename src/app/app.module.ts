@@ -5,6 +5,10 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { FormsModule } from '@angular/forms';
 import { EditorModule, TINYMCE_SCRIPT_SRC } from '@tinymce/tinymce-angular';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { MatInputModule } from '@angular/material/input';
+import { ReactiveFormsModule } from '@angular/forms';
+import { MatChipsModule } from '@angular/material/chips';
 
 // Icons
 import { NgIconsModule, provideNgIconsConfig } from '@ng-icons/core';
@@ -27,6 +31,7 @@ import { FooterComponent } from './shared/footer/footer.component';
 import { SidebarComponent } from './shared/sidebar/sidebar.component';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { CommonModule } from '@angular/common';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 
 @NgModule({
@@ -44,6 +49,10 @@ import { CommonModule } from '@angular/common';
     DragDropModule,
     FormsModule,
     EditorModule,
+    MatAutocompleteModule,
+    MatInputModule,
+    ReactiveFormsModule,
+    MatChipsModule,
     NgIconsModule.withIcons({
       heroUsers,
       heroChevronRight,
@@ -58,6 +67,7 @@ import { CommonModule } from '@angular/common';
       heroArrowLongRight,
       heroBars3
     }),
+    BrowserAnimationsModule,
   ],
   providers: [
     { provide: TINYMCE_SCRIPT_SRC, useValue: 'tinymce/tinymce.min.js' },
