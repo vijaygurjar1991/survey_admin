@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { NgIconsModule } from '@ng-icons/core';
 import { heroArrowLongRight } from '@ng-icons/heroicons/outline';
+import { heroXMark } from '@ng-icons/heroicons/outline';
 
 @NgModule({
   declarations: [
@@ -10,7 +11,8 @@ import { heroArrowLongRight } from '@ng-icons/heroicons/outline';
   imports: [
     CommonModule,
     NgIconsModule.withIcons({
-      heroArrowLongRight
+      heroArrowLongRight,
+      heroXMark
     })
   ],
 

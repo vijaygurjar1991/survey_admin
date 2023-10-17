@@ -352,5 +352,50 @@ mat-form-field.mat-mdc-form-field{width: 100%;}
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+span.mobile-cross{display: none;}
+
+
+/* Responsive */
+
+@media (max-width:1199px) {
+    span.mobile-cross {
+        display: block;
+        position: absolute;
+        top: 6px;
+        right: 6px;
+    }
+    .sidebar-wrapper {
+        width: 0rem;
+    }
+    .addwidth .sidebar-wrapper {
+        width: 15rem;
+    }
+    .dashboard-header, article{margin-left: 0;}
+    .sidebar-menu{padding: 0;}
+    .addwidth .sidebar-wrapper .sidebar-menu{padding-left: var(--section-gap);padding-right: var(--section-gap);}
+    .addwidth .text-box { display: block;  }
+    
+    /* .addMargin .dashboard-header, article.dashboardMargin{margin-left: 15rem;} */
+
+    .add-ques-sidebar{flex: 0 15%; max-width: 15%;height: 100vh;overflow: auto;padding: .5rem;}
+    .generic-ques ul li {flex: 0 100%; max-width: 100%; }
+    .generic-ques ul li a{display: flex;flex-wrap: wrap;align-items: center;justify-content: center;}
+    .generic-ques ul li a figcaption {
+        font-size: .75rem;
+        line-height: 1.1;
+        flex: 0 100%;
+    }
+    .generic-ques ul li a figure{margin-bottom: 0;}
+    .common-ques a{flex-wrap: wrap; font-size: .875rem;line-height: 1;padding: .5rem;}
+    .common-ques a figure img {
+        width: 26px;
+        height: auto;
+        margin-bottom: 8px;
+    }
+    .single-sidebar-menu > .menu-link{justify-content: flex-start;}
+    .addwidth .AngularCollapse-collapse, .addwidth .flex-1 {
+        display: block;
+    }
+}
+
+/* Responsive */

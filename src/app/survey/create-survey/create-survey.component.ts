@@ -3,7 +3,6 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 
 
-
 @Component({
   selector: 'app-create-survey',
   templateUrl: './create-survey.component.html',
@@ -26,4 +25,5 @@ export class CreateSurveyComponent {
     moveItemInArray(this.items, event.previousIndex, event.currentIndex);
   }
 
+ 
 }

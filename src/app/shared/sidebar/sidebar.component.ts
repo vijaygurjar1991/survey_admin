@@ -3,6 +3,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { FormControl } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { startWith, map } from 'rxjs/operators';
+import { DataService } from 'src/app/service/data.service';
 
 @Component({
   selector: 'app-sidebar',
@@ -12,7 +13,7 @@ import { startWith, map } from 'rxjs/operators';
 })
 export class SidebarComponent {
 
-  constructor(private modalService: NgbModal) {
+  constructor(private modalService: NgbModal, public themeService: DataService) {
     this.filteredOptions = this.searchControl.valueChanges.pipe(
       startWith(''),
       map((value) => this._filter(value))

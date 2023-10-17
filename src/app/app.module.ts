@@ -24,6 +24,7 @@ import { heroLockClosed } from '@ng-icons/heroicons/outline';
 import { heroBell } from '@ng-icons/heroicons/outline';
 import { heroArrowLongRight } from '@ng-icons/heroicons/outline';
 import { heroBars3 } from '@ng-icons/heroicons/outline';
+import { heroXMark } from '@ng-icons/heroicons/outline';
 // Icons
 
 import { HeaderComponent } from './shared/header/header.component';
@@ -65,7 +66,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
       heroLockClosed,
       heroBell,
       heroArrowLongRight,
-      heroBars3
+      heroBars3,
+      heroXMark
     }),
     BrowserAnimationsModule,
   ],
