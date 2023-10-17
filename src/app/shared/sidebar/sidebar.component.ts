@@ -1,19 +1,21 @@
 import { Component } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { DataService } from 'src/app/service/data.service';
 
 @Component({
   selector: 'app-sidebar',
   templateUrl: './sidebar.component.html',
   styleUrls: ['./sidebar.component.css']
-  
+
 })
 export class SidebarComponent {
-  constructor(private modalService: NgbModal) {}
-  
+  constructor(private modalService: NgbModal) { }
+
+
   openLg(content: any) {
-		this.modalService.open(content, { size: 'lg', centered: true });
-	}
-  
+    this.modalService.open(content, { size: 'lg', centered: true });
+  }
+
   isSubMenu1Visible = false;
   isSubMenu2Visible = false;
   isSubMenu3Visible = false;
@@ -28,10 +30,10 @@ export class SidebarComponent {
         break;
       case 3:
         this.isSubMenu3Visible = !this.isSubMenu3Visible;
-        break;      
+        break;
       default:
         break;
     }
   }
-  
+
 }

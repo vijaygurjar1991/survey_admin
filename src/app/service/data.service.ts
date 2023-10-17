@@ -41,4 +41,5 @@ export class DataService {
   toggleSidebar() {
     this.isSidebarVisibleSubject.next(!this.isSidebarVisibleSubject.value);
   }
+
 }

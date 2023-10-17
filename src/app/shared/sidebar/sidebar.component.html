@@ -37,7 +37,8 @@
                         </div>
                     </div>
                 </div>
-                <div class="AngularCollapse-collapse" *ngIf="isSubMenu1Visible" aria-hidden="true" style="height: auto; overflow: initial;">
+                <div class="AngularCollapse-collapse" *ngIf="isSubMenu1Visible" aria-hidden="true"
+                    style="height: auto; overflow: initial;">
                     <div class="AngularCollapse-content">
                         <ul class="sub-menu">
                             <li class="block pl-4 pr-1 first:pt-4  last:pb-4">
@@ -78,7 +79,8 @@
                         </div>
                     </div>
                 </div>
-                <div class="AngularCollapse-collapse" *ngIf="isSubMenu2Visible" aria-hidden="true" style="height: auto; overflow: initial;">
+                <div class="AngularCollapse-collapse" *ngIf="isSubMenu2Visible" aria-hidden="true"
+                    style="height: auto; overflow: initial;">
                     <div class="AngularCollapse-content">
                         <ul class="sub-menu">
                             <li class="block pl-4 pr-1 first:pt-4  last:pb-4">
@@ -190,30 +192,26 @@
 
 
 <ng-template #content let-modal>
-	<div class="modal-header">
-		<h4 class="modal-title">Create Your New Survey</h4>
-		<button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
-	</div>
-	<div class="modal-body">
-		<form>
+    <div class="modal-header">
+        <h4 class="modal-title">Create Your New Survey</h4>
+        <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+    </div>
+    <div class="modal-body">
+        <form>
             <div class="mb-4">
-				<label for="surveyname" class="form-label">Enter Your Survey Name</label>
-				<input
-                    id="surveyname"
-                    type="text"
-                    class="form-control"
-                    placeholder="Ed-Tech Brand Ranking"
-                />               
-			</div>
+                <label for="surveyname" class="form-label">Enter Your Survey Name</label>
+                <input id="surveyname" type="text" class="form-control" placeholder="Ed-Tech Brand Ranking" />
+            </div>
             <div class="mb-4">
-				<label  class="form-label">Select Survey Categories</label>
-				<input type="search" class="form-control" placeholder="Search for Categories" />
-			</div>
-           
+                <label class="form-label">Select Survey Categories</label>
+                <input type="search" class="form-control" placeholder="Search for Categories" />
+            </div>
+
         </form>
-	</div>
-	<div class="modal-footer">
-		<button type="button" class="btn" (click)="modal.close('Close click')">Cancel</button>
-		<a href="/create-survey" type="button" class="btn btn-primary" (click)="modal.close('Close click')">Create <ng-icon name="heroArrowLongRight"></ng-icon></a>
-	</div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn" (click)="modal.close('Close click')">Cancel</button>
+        <a href="/create-survey" type="button" class="btn btn-primary" (click)="modal.close('Close click')">Create
+            <ng-icon name="heroArrowLongRight"></ng-icon></a>
+    </div>
 </ng-template>
