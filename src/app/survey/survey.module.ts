@@ -10,6 +10,7 @@ import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { FormsModule } from '@angular/forms';
 import { TagInputModule } from 'ngx-chips';
+import { NgxDropzoneModule } from 'ngx-dropzone';
 import { DecimalPipe, NgFor } from '@angular/common';
 //import { NgbPaginationModule, NgbTypeaheadModule } from '@ng-bootstrap/ng-bootstrap';
 
@@ -45,6 +46,7 @@ import { heroHome } from '@ng-icons/heroicons/outline';
     DragDropModule,    
     FormsModule,
     TagInputModule,
+    NgxDropzoneModule,
     //DecimalPipe, NgFor, FormsModule, NgbTypeaheadModule, NgbPaginationModule,
     NgIconsModule.withIcons({
       heroQuestionMarkCircle,

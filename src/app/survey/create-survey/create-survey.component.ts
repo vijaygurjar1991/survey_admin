@@ -29,7 +29,7 @@ export class CreateSurveyComponent {
   }
 
   openFullscreen(content: any) {
-    this.modalService.open(content, { fullscreen: true });
+    this.modalService.open(content, { fullscreen: true, windowClass: 'right-aligned-modal', });
   }
   open(Editsurvey: any) {
     this.modalService.open(Editsurvey, { size: 'lg', centered: true });
@@ -39,4 +39,6 @@ export class CreateSurveyComponent {
   onDrop(event: CdkDragDrop<string[]>) {
     moveItemInArray(this.items, event.previousIndex, event.currentIndex);
   }
+
+
 }

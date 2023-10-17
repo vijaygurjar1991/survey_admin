@@ -1,0 +1,59 @@
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a routerLink="#"><ng-icon name="heroHome"></ng-icon>Dashboard</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Add New User</li>
+    </ol>
+</nav>
+<div ngClass="common-bg">
+    <div ngClass="all-survey">
+        <div ngClass="row common-heading">
+            <div class="col-md-12">
+                <h4>Add New User</h4>
+                <p>Manage your Track Opinion "Add New User" page</p>
+            </div>            
+        </div>
+        <div>
+            <form>
+                <div class="row">
+                    <div class="mb-4">
+                        <ngx-dropzone (change)="onSelect($event)" class="upload-user-pic">
+                            <ngx-dropzone-label>
+                                <img src="../../../assets/images/icons/attach-image.png" width="" height="" />                                            
+                            </ngx-dropzone-label>
+                            <ngx-dropzone-preview *ngFor="let f of files" [removable]="true" (removed)="onRemove(f)">
+                                <ngx-dropzone-label>{{ f.name }} ({{ f.type }})</ngx-dropzone-label>
+                            </ngx-dropzone-preview>
+                        </ngx-dropzone> 
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label for="">First Name</label>
+                        <input type="text" name="" id="" class="form-control" placeholder="Rishabh">
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label for="">Last Name</label>
+                        <input type="text" name="" id="" class="form-control" placeholder="Rawat">
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label for="">Email</label>
+                    <input type="email" name="" id="" class="form-control" placeholder="rishabh@gmail.com">
+                </div>
+                <div class="mb-3">
+                    <label for="">Phone No.</label>
+                    <input type="number" name="" id="" class="form-control" placeholder="+91-9876543218">
+                </div>
+                <div class="mb-3">
+                    <label for="">Role</label>
+                    <select class="form-select">
+                        <option selected>Select User Role</option>
+                        <option value="Admin">Admin</option>
+                        <option value="Administration">Administration</option>
+                    </select>
+                </div>
+                <div class="text-end">
+                    <button type="button" class="btn btn-primary">Save</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

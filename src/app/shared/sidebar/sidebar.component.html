@@ -1,11 +1,13 @@
 <aside class="sidebar-wrapper bg-white shadow-base">
     <div class="logo-segment">
-        <a href="#">
+        <a routerLink="/">
             <div class="logo-icon">
                 <img class="img-fluid" src="./assets/images/logo/logo.png" width="272" height="77" priority>
-                <img class="img-fluid small-menu" src="./assets/images/logo/logo.png" width="272" height="77" priority>
+                <img class="img-fluid small-menu" src="./assets/images/logo/T-logo.png" width="150" height="150"
+                    priority>
             </div>
         </a>
+        <span ngClass="mobile-cross" (click)="themeService.toggle()"><ng-icon name="heroXMark"></ng-icon></span>
     </div>
     <div class="sidebar-menu">
         <ul>
@@ -13,7 +15,7 @@
                 <div class="menulabel">menu</div>
             </li>
             <li class="single-sidebar-menu menu-item-active">
-                <a class="menu-link active" href="#">
+                <a class="menu-link active" routerLink="/dashboard">
                     <span class="menu-icon flex-grow-0">
                         <ng-icon name="heroUsers"></ng-icon>
                     </span>
@@ -42,7 +44,7 @@
                     <div class="AngularCollapse-content">
                         <ul class="sub-menu">
                             <li class="block pl-4 pr-1 first:pt-4  last:pb-4">
-                                <a href="javascript:" (click)="openLg(content)">
+                                <a routerLink="javascript:" (click)="openLg(content)">
                                     <span class="d-flex align-items-center text-sm transition-all duration-150">
                                         <span class="menu-icon">
                                             <ng-icon name="heroStopCircle"></ng-icon>
@@ -52,7 +54,7 @@
                                 </a>
                             </li>
                             <li class="block pl-4 pr-1 first:pt-4  last:pb-4">
-                                <a class="" href="/all-survey">
+                                <a class="" routerLink="/all-survey">
                                     <span class="d-flex align-items-center text-sm transition-all duration-150">
                                         <span class="menu-icon">
                                             <ng-icon name="heroStopCircle"></ng-icon>
@@ -84,7 +86,7 @@
                     <div class="AngularCollapse-content">
                         <ul class="sub-menu">
                             <li class="block pl-4 pr-1 first:pt-4  last:pb-4">
-                                <a class="" href="#">
+                                <a class="" routerLink="/add-user">
                                     <span class="d-flex align-items-center text-sm transition-all duration-150">
                                         <span class="menu-icon">
                                             <ng-icon name="heroStopCircle"></ng-icon>
@@ -94,7 +96,7 @@
                                 </a>
                             </li>
                             <li class="block pl-4 pr-1 first:pt-4  last:pb-4">
-                                <a class="" href="#">
+                                <a class="" routerLink="/all-users">
                                     <span class="d-flex align-items-center text-sm transition-all duration-150">
                                         <span class="menu-icon">
                                             <ng-icon name="heroStopCircle"></ng-icon>
@@ -104,7 +106,7 @@
                                 </a>
                             </li>
                             <li class="block pl-4 pr-1 first:pt-4  last:pb-4">
-                                <a class="" href="#">
+                                <a class="" routerLink="#">
                                     <span class="d-flex align-items-center text-sm transition-all duration-150">
                                         <span class="menu-icon">
                                             <ng-icon name="heroStopCircle"></ng-icon>
@@ -136,7 +138,7 @@
                 <div class="menulabel">Pages</div>
             </li>
             <li class="single-sidebar-menu">
-                <a class="menu-link" href="/about">
+                <a class="menu-link" routerLink="/about">
                     <span class="menu-icon flex-grow-0">
                         <ng-icon name="heroClipboardDocumentList"></ng-icon>
                     </span>
@@ -144,7 +146,7 @@
                 </a>
             </li>
             <li class="single-sidebar-menu">
-                <a class="menu-link" href="#">
+                <a class="menu-link" routerLink="#">
                     <span class="menu-icon flex-grow-0">
                         <ng-icon name="heroQuestionMarkCircle"></ng-icon>
                     </span>
@@ -152,7 +154,7 @@
                 </a>
             </li>
             <li class="single-sidebar-menu">
-                <a class="menu-link" href="/terms-condition">
+                <a class="menu-link" routerLink="/terms-condition">
                     <span class="menu-icon flex-grow-0">
                         <ng-icon name="heroClipboardDocumentCheck"></ng-icon>
                     </span>
@@ -160,7 +162,7 @@
                 </a>
             </li>
             <li class="single-sidebar-menu">
-                <a class="menu-link" href="/privacy-policy">
+                <a class="menu-link" routerLink="/privacy-policy">
                     <span class="menu-icon flex-grow-0">
                         <ng-icon name="heroShieldCheck"></ng-icon>
                     </span>
@@ -171,7 +173,7 @@
                 <div class="menulabel">Settings</div>
             </li>
             <li class="single-sidebar-menu">
-                <a class="menu-link" href="/my-account">
+                <a class="menu-link" routerLink="/my-account">
                     <span class="menu-icon flex-grow-0">
                         <ng-icon name="heroUser"></ng-icon>
                     </span>
@@ -179,7 +181,7 @@
                 </a>
             </li>
             <li class="single-sidebar-menu">
-                <a class="menu-link" href="#">
+                <a class="menu-link" routerLink="#">
                     <span class="menu-icon flex-grow-0">
                         <ng-icon name="heroLockClosed"></ng-icon>
                     </span>
@@ -202,16 +204,31 @@
                 <label for="surveyname" class="form-label">Enter Your Survey Name</label>
                 <input id="surveyname" type="text" class="form-control" placeholder="Ed-Tech Brand Ranking" />
             </div>
-            <div class="mb-4">
+            <div class="mb-4" class="search-categories">
                 <label class="form-label">Select Survey Categories</label>
-                <input type="search" class="form-control" placeholder="Search for Categories" />
+                <!-- <input type="search" class="form-control" placeholder="Search for Categories" /> -->
+                <!-- <input type="text" [(ngModel)]="searchTerm" (input)="onInputChange()" class="form-control" placeholder="Search for Categories"> -->
+                <!-- <ul *ngIf="showSuggestions">
+                    <li *ngFor="let Categories of suggestions" (click)="selectSuggestion(Categories)">
+                        <a routerLink="javascript:">{{ Categories }}</a>
+                    </li>
+                </ul> -->
+                <mat-form-field class="example-full-width">
+                    <input type="text" placeholder="Search..." matInput [formControl]="searchControl"
+                        [matAutocomplete]="auto" />
+                    <mat-autocomplete #auto="matAutocomplete">
+                        <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+                            {{ option }}
+                        </mat-option>
+                    </mat-autocomplete>
+                </mat-form-field>
             </div>
 
         </form>
     </div>
     <div class="modal-footer">
         <button type="button" class="btn" (click)="modal.close('Close click')">Cancel</button>
-        <a href="/create-survey" type="button" class="btn btn-primary" (click)="modal.close('Close click')">Create
+        <a routerLink="/create-survey" type="button" class="btn btn-primary" (click)="modal.close('Close click')">Create
             <ng-icon name="heroArrowLongRight"></ng-icon></a>
     </div>
 </ng-template>
