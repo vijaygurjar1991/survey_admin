@@ -1,8 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ActivatedRoute, Router, NavigationEnd } from '@angular/router';
+import { FormControl } from '@angular/forms';
+import { Observable } from 'rxjs';
+import { startWith, map } from 'rxjs/operators';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { DataService } from 'src/app/service/data.service'; // Import your DataService
+
 
 @Component({
   selector: 'app-create-survey',
@@ -17,6 +21,10 @@ export class CreateSurveyComponent {
     private route: ActivatedRoute,
     private dataService: DataService
   ) {
+    this.filteredOptions = this.searchControl.valueChanges.pipe(
+      startWith(''),
+      map((value) => this._filter(value))
+    );
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
         const shouldTriggerToggle = this.route.snapshot.data['triggerToggle'];
@@ -26,6 +34,7 @@ export class CreateSurveyComponent {
         }
       }
     });
+    
   }
 
   openFullscreen(content: any) {
@@ -40,5 +49,17 @@ export class CreateSurveyComponent {
     moveItemInArray(this.items, event.previousIndex, event.currentIndex);
   }
 
+
+  searchControl = new FormControl();
+  options: string[] = ['Automotive', 'Beverages - Alcholic',
+    'Beverages - Alcholic',
+    'Cosmetic, Personal Care, Toiletries', 'Education', 'Electronics', 'Entertaiment', 'Fashion, Clothing'];
+  filteredOptions: Observable<string[]> | undefined;
+
+
+  private _filter(value: string): string[] {
+    const filterValue = value.toLowerCase();
+    return this.options.filter((option) => option.toLowerCase().includes(filterValue));
+  }
 
 }

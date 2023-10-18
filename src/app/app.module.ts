@@ -74,7 +74,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
   providers: [
     { provide: TINYMCE_SCRIPT_SRC, useValue: 'tinymce/tinymce.min.js' },
     provideNgIconsConfig({
-      size: '1.5em',
+      size: '1em',
     }),
   ],
   bootstrap: [AppComponent]

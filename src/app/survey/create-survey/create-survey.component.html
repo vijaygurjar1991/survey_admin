@@ -271,7 +271,7 @@
                                 <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                                   <li><a class="dropdown-item" routerLink="/edit-survey"><ng-icon name="heroPencil"></ng-icon>Edit</a></li>
                                   <li><a class="dropdown-item" routerLink="#"><ng-icon name="heroDocumentDuplicate"></ng-icon>Clone</a></li>
-                                  <li><a class="dropdown-item" routerLink="#"><ng-icon name="heroTrash"></ng-icon>Delete</a></li>
+                                  <li><a class="dropdown-item delete-hover" routerLink="#"><ng-icon name="heroTrash"></ng-icon>Delete</a></li>
                                 </ul>
                             </div>                        
                         </div>
@@ -313,7 +313,7 @@
                                 <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                                   <li><a class="dropdown-item" routerLink="/edit-survey"><ng-icon name="heroPencil"></ng-icon>Edit</a></li>
                                   <li><a class="dropdown-item" routerLink="#"><ng-icon name="heroDocumentDuplicate"></ng-icon>Clone</a></li>
-                                  <li><a class="dropdown-item" routerLink="#"><ng-icon name="heroTrash"></ng-icon>Delete</a></li>
+                                  <li><a class="dropdown-item delete-hover" routerLink="#"><ng-icon name="heroTrash"></ng-icon>Delete</a></li>
                                 </ul>
                             </div>
                             
@@ -344,7 +344,7 @@
                                 <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                                   <li><a class="dropdown-item" routerLink="/edit-survey"><ng-icon name="heroPencil"></ng-icon>Edit</a></li>
                                   <li><a class="dropdown-item" routerLink="#"><ng-icon name="heroDocumentDuplicate"></ng-icon>Clone</a></li>
-                                  <li><a class="dropdown-item" routerLink="#"><ng-icon name="heroTrash"></ng-icon>Delete</a></li>
+                                  <li><a class="dropdown-item delete-hover" routerLink="#"><ng-icon name="heroTrash"></ng-icon>Delete</a></li>
                                 </ul>
                             </div>
                             
@@ -481,7 +481,16 @@
 			</div>
             <div class="mb-4">
 				<label  class="form-label">Select Survey Categories</label>
-				<input type="search" class="form-control" placeholder="Search for Categories" value="Cosmetics, Personal care" />
+				<!-- <input type="search" class="form-control" placeholder="Search for Categories" value="Cosmetics, Personal care" /> -->
+                <mat-form-field class="example-full-width">
+                    <input type="text" placeholder="Search..." matInput [formControl]="searchControl"
+                        [matAutocomplete]="auto" />
+                    <mat-autocomplete #auto="matAutocomplete">
+                        <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+                            {{ option }}
+                        </mat-option>
+                    </mat-autocomplete>
+                </mat-form-field> 
 			</div>
            
         </form>
