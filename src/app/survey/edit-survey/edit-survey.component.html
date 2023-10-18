@@ -12,7 +12,7 @@
                 <li>
                     <div ngClass="ques-header">
                         <h5 ngClass="mb-0">Edit Question</h5>
-                        <div>Cancel</div>                        
+                        <a routerLink="/create-survey">Cancel</a>                        
                     </div>
                     <div ngClass="ques-body p-4">
                         <div ngClass="update-ques-type generic-ques mt-0 mb-5">
@@ -159,14 +159,13 @@
                                     <input type="text" id="" class="form-control" value="1">
                                 </div> 
                                 <div class="col-1">
-                                    <!-- <input type="file" id="" class="form-control" value=""> -->
-                                    <ngx-dropzone (change)="onSelect($event)" [ngClass]="'edit-survey-img'">
+                                    <ngx-dropzone class="edit-survey-img" ngx-dropzone [accept]="'image/*'" (change)="onSelect($event)">
                                         <ngx-dropzone-label>
-                                            <img src="../../../assets/images/icons/attach-image.png" />                                            
+                                            <img src="../../../assets/images/icons/attach-image.png" />
                                         </ngx-dropzone-label>
-                                        <ngx-dropzone-preview *ngFor="let f of files" [removable]="true" (removed)="onRemove(f)">
-                                            <ngx-dropzone-label>{{ f.name }} ({{ f.type }})</ngx-dropzone-label>
-                                        </ngx-dropzone-preview>
+                                        <ngx-dropzone-image-preview ngProjectAs="ngx-dropzone-preview" *ngFor="let f of files" [file]="f" [removable]="true" (removed)="onRemove(f)">
+                                            
+                                        </ngx-dropzone-image-preview>
                                     </ngx-dropzone>
                                 </div>                                  
                                 <div class="col-7">
@@ -183,15 +182,14 @@
                                 <div class="col-1">
                                     <input type="text" id="" class="form-control" value="2">
                                 </div> 
-                                <div class="col-1">
-                                    <!-- <input type="file" id="" class="form-control" value=""> -->
-                                    <ngx-dropzone (change)="onSelect($event)" [ngClass]="'edit-survey-img'">
+                                <div class="col-1">                                   
+                                    <ngx-dropzone class="edit-survey-img" ngx-dropzone [accept]="'image/*'" (change)="onSelect($event)">
                                         <ngx-dropzone-label>
-                                            <img src="../../../assets/images/icons/attach-image.png" />                                            
+                                            <img src="../../../assets/images/icons/attach-image.png" />
                                         </ngx-dropzone-label>
-                                        <ngx-dropzone-preview *ngFor="let f of files" [removable]="true" (removed)="onRemove(f)">
-                                            <!-- <ngx-dropzone-label>{{ f.name }} ({{ f.type }})</ngx-dropzone-label> -->
-                                        </ngx-dropzone-preview>
+                                        <ngx-dropzone-image-preview ngProjectAs="ngx-dropzone-preview" *ngFor="let f of files" [file]="f" [removable]="true" (removed)="onRemove(f)">
+                                            
+                                        </ngx-dropzone-image-preview>
                                     </ngx-dropzone>
                                 </div>                                  
                                 <div class="col-7">
@@ -275,12 +273,35 @@
                                             >&times;</button>
                                             </span> -->
 
-                                            <div class="tag-input">
+                                            <!-- <div class="tag-input">
                                                 <input [(ngModel)]="tagInput" (keydown)="onKeyDown($event)" placeholder="Add tags..." ngClass="form-control">
                                                 <div class="tags">
                                                   <div *ngFor="let tag of tags" class="tag">{{ tag }} <span (click)="removeTag(tag)">x</span></div>
                                                 </div>
-                                            </div>
+                                            </div> -->
+                                            <form>
+                                                <mat-form-field class="example-chip-list">
+                                                  <mat-label></mat-label>
+                                                  <mat-chip-grid #chipGrid aria-label="City selection">
+                                                    <mat-chip-row *ngFor="let cities of cities" (removed)="remove(cities)">
+                                                      {{cities}}
+                                                      <button matChipRemove [attr.aria-label]="'remove ' + cities">
+                                                        <mat-icon>cancel</mat-icon>
+                                                      </button>
+                                                    </mat-chip-row>
+                                                    <input  #citiesInput [formControl]="citiesCtrl"
+                                                        [matChipInputFor]="chipGrid" [matAutocomplete]="auto"
+                                                        [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                                                        (matChipInputTokenEnd)="add($event)"/>
+                                                  </mat-chip-grid>                                                  
+                                                  <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
+                                                    <mat-option *ngFor="let cities of filteredCities | async" [value]="cities">
+                                                      {{cities}}
+                                                    </mat-option>
+                                                  </mat-autocomplete>
+                                                </mat-form-field>
+                                              </form>
+                                              
                                     </div>
                                     <div ngClass="row">
                                         <div ngClass="col-md-6">

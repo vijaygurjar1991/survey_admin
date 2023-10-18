@@ -78,7 +78,7 @@ import { BreadcrumbComponent } from './breadcrumb/breadcrumb/breadcrumb.componen
   providers: [
     { provide: TINYMCE_SCRIPT_SRC, useValue: 'tinymce/tinymce.min.js' },
     provideNgIconsConfig({
-      size: '1.5em',
+      size: '1em',
     }),
   ],
   bootstrap: [AppComponent]

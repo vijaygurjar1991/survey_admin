@@ -9,7 +9,13 @@ import { SurveyListingComponent } from './survey-listing/survey-listing.componen
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { FormsModule } from '@angular/forms';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { MatInputModule } from '@angular/material/input';
 import { TagInputModule } from 'ngx-chips';
+import { ReactiveFormsModule } from '@angular/forms';
+import {MatChipsModule} from '@angular/material/chips';
+import {MatIconModule} from '@angular/material/icon';
+import {MatFormFieldModule} from '@angular/material/form-field';
 import { NgxDropzoneModule } from 'ngx-dropzone';
 import { DecimalPipe, NgFor } from '@angular/common';
 //import { NgbPaginationModule, NgbTypeaheadModule } from '@ng-bootstrap/ng-bootstrap';
@@ -41,10 +47,16 @@ import { heroHome } from '@ng-icons/heroicons/outline';
     SurveyListingComponent
   ],
   imports: [
+    MatChipsModule,
+    MatIconModule,
+    MatFormFieldModule,
     CommonModule,
     SurveyRoutingModule,
     DragDropModule,    
     FormsModule,
+    MatAutocompleteModule,
+    MatInputModule,
+    ReactiveFormsModule,
     TagInputModule,
     NgxDropzoneModule,
     //DecimalPipe, NgFor, FormsModule, NgbTypeaheadModule, NgbPaginationModule,

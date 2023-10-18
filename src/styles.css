@@ -12,6 +12,8 @@
     --box-shadow: 1px 0 35px rgba(0, 0, 0, 0.08);
     --online: green;
     --offline: red;
+    --hover-red: #ca0000;
+    --hover-light-red: #fae5e5;
 }
 
 /* common */
@@ -540,6 +542,10 @@ article {
     padding: .5rem;
 }
 
+.ques-header>a {
+    color: var(--white);
+}
+
 .survey-question .question>ul>li {
     border: 1px solid var(--border-color);
     border-radius: 0.25rem;
@@ -562,6 +568,10 @@ article {
     margin-bottom: 1rem;
 }
 
+.ques-header ul.dropdown-menu.show {
+    padding: 0;
+}
+
 .ques-header ul.dropdown-menu.show li a ng-icon {
     font-size: .75rem;
     margin-right: .5rem;
@@ -570,7 +580,12 @@ article {
 .ques-header ul.dropdown-menu.show li a {
     display: flex;
     align-items: center;
-    margin: .5rem 0;
+    padding: .75rem .5rem;
+}
+
+.ques-header ul.dropdown-menu.show li a.delete-hover:hover {
+    background-color: var(--hover-light-red);
+    color: var(--hover-red);
 }
 
 .ques-radio:last-child {
@@ -797,10 +812,11 @@ article {
     border: 1px solid var(--border-color);
     border-radius: .25rem;
     box-shadow: 0px 0px 18px #dfdfdf;
+    background-color: var(--light-gray);
 }
 
 .logic-tab ul.nav.nav-tabs {
-    background-color: var(--light-gray);
+
     border: none;
     flex: 0 250px;
     max-width: 250px;
@@ -823,6 +839,8 @@ article {
 }
 
 .logic-tab .tab-content {
+    background-color: var(--white);
+    border-left: 1px solid var(--border-color);
     flex: 1;
 }
 
@@ -974,21 +992,31 @@ ngx-dropzone.drop-file img {
 
 ngx-dropzone.edit-survey-img {
     width: 100%;
-    height: 100%;
+    height: 52px;
     border: 1px solid var(--border-color);
+    overflow: hidden;
 }
 
-ngx-dropzone.edit-survey-img img {
+ngx-dropzone.edit-survey-img ngx-dropzone-label img {
     width: 30px;
     height: auto;
     filter: invert(1) brightness(0);
 }
 
-ngx-dropzone.edit-survey-img ngx-dropzone-preview {
-    max-width: 30px !important;
-    min-height: 30px !important;
-    min-width: 30px !important;
-    height: 30px !important;
+ngx-dropzone.edit-survey-img ngx-dropzone-image-preview {
+    min-height: 100% !important;
+    height: 100% !important;
+    margin: 0 !important;
+}
+
+.upload-user-pic ngx-dropzone-image-preview {
+    width: 100%;
+    height: 100% !important;
+    margin: 0 !important;
+}
+
+ngx-dropzone.edit-survey-img ngx-dropzone-image-preview img {
+    width: 100%;
 }
 
 .cdk-overlay-container {
@@ -1118,6 +1146,20 @@ span.mobile-cross {
 }
 
 /* Responsive */
+
+
+.mdc-text-field--filled:not(.mdc-text-field--disabled) {
+    background-color: transparent !important;
+    border: 1px solid var(--border-color);
+    --mdc-filled-text-field-active-indicator-height: 0px;
+    border-radius: .25rem;
+    min-height: 150px;
+}
+
+.mat-mdc-text-field-wrapper:not(.mdc-text-field--outlined) .mat-mdc-form-field-infix {
+    padding-top: 8px;
+    padding-bottom: 8px;
+}
 
 
 /* Breadcrumb */

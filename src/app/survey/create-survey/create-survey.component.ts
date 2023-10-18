@@ -1,9 +1,12 @@
 import { Component, OnInit, Renderer2, ElementRef } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ActivatedRoute, Router, NavigationEnd } from '@angular/router';
-import { moveItemInArray } from '@angular/cdk/drag-drop';
-import { CdkDragDrop } from '@angular/cdk/drag-drop';
-import { DataService } from 'src/app/service/data.service';
+import { FormControl } from '@angular/forms';
+import { Observable } from 'rxjs';
+import { startWith, map } from 'rxjs/operators';
+import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
+import { DataService } from 'src/app/service/data.service'; // Import your DataService
+
 
 @Component({
   selector: 'app-create-survey',
@@ -20,6 +23,10 @@ export class CreateSurveyComponent implements OnInit {
     private renderer: Renderer2,
     private el: ElementRef
   ) {
+    this.filteredOptions = this.searchControl.valueChanges.pipe(
+      startWith(''),
+      map((value) => this._filter(value))
+    );
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
         const shouldTriggerToggle = this.route.snapshot.data['triggerToggle'];
@@ -29,6 +36,19 @@ export class CreateSurveyComponent implements OnInit {
         }
       }
     });
+
+  }
+
+  hideBreadcrumb() {
+    this.visibilityService.toggleBreadcrumbVisibility(false);
+  }
+
+  ShowBreadcrumb() {
+    this.visibilityService.toggleBreadcrumbVisibility(true);
+  }
+
+  ngOnInit(): void {
+    this.hideBreadcrumb();
   }
 
   hideBreadcrumb() {
@@ -73,6 +93,18 @@ export class CreateSurveyComponent implements OnInit {
 
   onDragStarted(): void {
     // You can add code here if needed
+  }
+
+  searchControl = new FormControl();
+  options: string[] = ['Automotive', 'Beverages - Alcholic',
+    'Beverages - Alcholic',
+    'Cosmetic, Personal Care, Toiletries', 'Education', 'Electronics', 'Entertaiment', 'Fashion, Clothing'];
+  filteredOptions: Observable<string[]> | undefined;
+
+
+  private _filter(value: string): string[] {
+    const filterValue = value.toLowerCase();
+    return this.options.filter((option) => option.toLowerCase().includes(filterValue));
   }
 
   onDragEnded(): void {
