@@ -7,8 +7,8 @@ import { SurveyListingComponent } from './survey-listing/survey-listing.componen
 
 const routes: Routes = [
   { path: 'create-survey', component: CreateSurveyComponent, data: { triggerToggle: true } },
-  { path: 'edit-survey', component: EditSurveyComponent },
-  { path: 'all-survey', component: SurveyListingComponent }
+  { path: 'edit-survey', component: EditSurveyComponent, data: { triggerToggle: true } },
+  { path: 'all-survey', component: SurveyListingComponent, data: { title: 'View Survey' } }
 ];
 
 @NgModule({

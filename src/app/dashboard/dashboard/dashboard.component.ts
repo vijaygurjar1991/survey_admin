@@ -2,7 +2,7 @@
 import { Component } from '@angular/core';
 import { Chart } from 'chart.js/auto';
 import { DataService } from 'src/app/service/data.service';
-import { NgbModal  } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-dashboard',
@@ -12,13 +12,19 @@ import { NgbModal  } from '@ng-bootstrap/ng-bootstrap';
 export class DashboardComponent {
 
   constructor(private visibilityService: DataService, private modalService: NgbModal) { }
-  
+
 
   hideSideBar() {
     this.visibilityService.toggleNavbarVisibility(false);
   }
   showSideBar() {
     this.visibilityService.toggleNavbarVisibility(true);
+  }
+  hideBreadcrumb() {
+    this.visibilityService.toggleBreadcrumbVisibility(false);
+  }
+  ShowBreadcrumb() {
+    this.visibilityService.toggleBreadcrumbVisibility(true);
   }
   // ngOnInit() {
   //   this.hideSideBar();
@@ -48,6 +54,7 @@ export class DashboardComponent {
   ngOnInit(): void {
     this.createChart();
     this.showSideBar();
+    this.hideBreadcrumb();
   }
   createChart() {
     this.chart = new Chart("canvas", {
@@ -86,9 +93,9 @@ export class DashboardComponent {
       }
     });
   }
-  
+
   openVerticallyCentered(content: any) {
-		this.modalService.open(content, { centered: true, size: 'lg' });
-	}
+    this.modalService.open(content, { centered: true, size: 'lg' });
+  }
 
 }

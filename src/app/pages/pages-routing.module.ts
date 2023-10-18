@@ -5,9 +5,9 @@ import { PrivacyComponent } from './privacy/privacy.component';
 import { TermsConditionComponent } from './terms-condition/terms-condition.component';
 
 const routes: Routes = [
-  { path: 'about', component: AboutComponent },
-  { path: 'privacy-policy', component: PrivacyComponent },
-  { path: 'terms-condition', component: TermsConditionComponent }
+  { path: 'about', component: AboutComponent, data: { title: 'About' } },
+  { path: 'privacy-policy', component: PrivacyComponent, data: { title: 'Privacy' } },
+  { path: 'terms-condition', component: TermsConditionComponent, data: { title: 'Terms&Condition' } }
 ];
 
 @NgModule({

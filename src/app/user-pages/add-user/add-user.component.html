@@ -1,16 +1,16 @@
-<nav aria-label="breadcrumb">
+<!-- <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
         <li class="breadcrumb-item"><a routerLink="#"><ng-icon name="heroHome"></ng-icon>Dashboard</a></li>
         <li class="breadcrumb-item active" aria-current="page">Add New User</li>
     </ol>
-</nav>
+</nav> -->
 <div ngClass="common-bg">
     <div ngClass="all-survey">
         <div ngClass="row common-heading">
             <div class="col-md-12">
                 <h4>Add New User</h4>
                 <p>Manage your Track Opinion "Add New User" page</p>
-            </div>            
+            </div>
         </div>
         <div>
             <form>
@@ -18,12 +18,12 @@
                     <div class="mb-4">
                         <ngx-dropzone (change)="onSelect($event)" class="upload-user-pic">
                             <ngx-dropzone-label>
-                                <img src="../../../assets/images/icons/attach-image.png" width="" height="" />                                            
+                                <img src="../../../assets/images/icons/attach-image.png" width="" height="" />
                             </ngx-dropzone-label>
                             <ngx-dropzone-preview *ngFor="let f of files" [removable]="true" (removed)="onRemove(f)">
                                 <ngx-dropzone-label>{{ f.name }} ({{ f.type }})</ngx-dropzone-label>
                             </ngx-dropzone-preview>
-                        </ngx-dropzone> 
+                        </ngx-dropzone>
                     </div>
                     <div class="col-md-6 mb-3">
                         <label for="">First Name</label>

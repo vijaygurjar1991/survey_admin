@@ -1,13 +1,46 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { ActivatedRoute, Router, NavigationEnd } from '@angular/router';
+import { DataService } from 'src/app/service/data.service';
 
 @Component({
   selector: 'app-edit-survey',
   templateUrl: './edit-survey.component.html',
   styleUrls: ['./edit-survey.component.css']
 })
-export class EditSurveyComponent {
+export class EditSurveyComponent implements OnInit {
+  constructor(
+    private visibilityService: DataService,
+    private modalService: NgbModal,
+    private router: Router,
+    private route: ActivatedRoute,
+    private dataService: DataService
+  ) {
+    this.router.events.subscribe((event) => {
+      if (event instanceof NavigationEnd) {
+        const shouldTriggerToggle = this.route.snapshot.data['triggerToggle'];
+        if (shouldTriggerToggle) {
+          // Trigger the toggle action when the user lands on this page
+          this.dataService.toggle();
+        }
+      }
+    });
+  }
+
   tags: string[] = [];
   tagInput: string = '';
+
+  ngOnInit(): void {
+    this.hideBreadcrumb();
+  }
+
+  hideBreadcrumb() {
+    this.visibilityService.toggleBreadcrumbVisibility(false);
+  }
+
+  ShowBreadcrumb() {
+    this.visibilityService.toggleBreadcrumbVisibility(true);
+  }
 
   onKeyDown(event: KeyboardEvent) {
     if (event.key === 'Enter') {
@@ -37,6 +70,4 @@ export class EditSurveyComponent {
     console.log(event);
     this.files.splice(this.files.indexOf(event), 1);
   }
-
-    
 }

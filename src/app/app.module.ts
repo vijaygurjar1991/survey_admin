@@ -34,18 +34,22 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
 import { CommonModule } from '@angular/common';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
+import { BreadcrumbComponent } from './breadcrumb/breadcrumb/breadcrumb.component';
+
+
 
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
     FooterComponent,
-    SidebarComponent
-    
+    SidebarComponent,
+    BreadcrumbComponent
+
   ],
   imports: [
     BrowserModule,
-    CommonModule,    
+    CommonModule,
     AppRoutingModule,
     DragDropModule,
     FormsModule,

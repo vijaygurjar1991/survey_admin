@@ -1118,3 +1118,19 @@ span.mobile-cross {
 }
 
 /* Responsive */
+
+
+/* Breadcrumb */
+
+nav.newbreadcrumb {
+    margin-left: var(--menu-gap);
+}
+
+.addMargin .newbreadcrumb {
+    margin-left: 8rem;
+}
+
+/* drag */
+.cdk-drag {
+    cursor: grab;
+}

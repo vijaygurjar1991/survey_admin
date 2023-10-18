@@ -12,12 +12,16 @@ export class AppComponent {
   layout: string = '';
   headerVisible: boolean = true;
   navbarVisible: boolean = true;
+  breadcrumbVisible: boolean = true;
   constructor(private router: ActivatedRoute, private visibilityService: DataService, public themeService: DataService) {
     this.visibilityService.headerVisible$.subscribe(visible => {
       this.headerVisible = visible;
     });
     this.visibilityService.navbarVisible$.subscribe(visible => {
       this.navbarVisible = visible;
+    });
+    this.visibilityService.breadcrumbVisible$.subscribe(visible => {
+      this.breadcrumbVisible = visible;
     });
   }
 

@@ -22,9 +22,12 @@ export class DataService {
   private footerVisibleSubject = new BehaviorSubject<boolean>(true);
   private navbarVisibleSubject = new BehaviorSubject<boolean>(true);
 
+  private breadcrumbVisibleSubject = new BehaviorSubject<boolean>(true);
+
   headerVisible$ = this.headerVisibleSubject.asObservable();
   footerVisible$ = this.footerVisibleSubject.asObservable();
   navbarVisible$ = this.navbarVisibleSubject.asObservable();
+  breadcrumbVisible$ = this.breadcrumbVisibleSubject.asObservable();
 
   toggleHeaderVisibility(visible: boolean) {
     this.headerVisibleSubject.next(visible);
@@ -41,5 +44,11 @@ export class DataService {
   toggleSidebar() {
     this.isSidebarVisibleSubject.next(!this.isSidebarVisibleSubject.value);
   }
+
+  toggleBreadcrumbVisibility(visible: boolean) {
+    this.breadcrumbVisibleSubject.next(visible);
+  }
+
+
 
 }
