@@ -11,7 +11,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 })
 export class DashboardComponent {
 
-  constructor(private visibilityService: DataService, private modalService: NgbModal) { }
+  constructor(private visibilityService: DataService, private modalService: NgbModal, public themeService: DataService) { }
 
 
   hideSideBar() {

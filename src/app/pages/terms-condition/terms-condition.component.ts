@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { DataService } from 'src/app/service/data.service';
 
 @Component({
   selector: 'app-terms-condition',
@@ -6,6 +7,7 @@ import { Component } from '@angular/core';
   styleUrls: ['./terms-condition.component.css']
 })
 export class TermsConditionComponent {
+  constructor(public themeService: DataService) { }
   files: File[] = [];
 
   onSelect(event: any) { // Use 'any' as the event type

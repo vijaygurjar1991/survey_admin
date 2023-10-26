@@ -1,4 +1,7 @@
 import { Component } from '@angular/core';
+import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { DataService } from 'src/app/service/data.service';
 
 @Component({
   selector: 'app-survey-listing',
@@ -7,18 +10,26 @@ import { Component } from '@angular/core';
 })
 export class SurveyListingComponent {
   suveryListingTable = [
-    { id: 1, surveyName: 'ED-Tech Brand Ranking', surveyCategory: 'Cosmetics, Personal care, Toiletries' , 
-    creatorName: 'Rishabh', 
-    isChecked: false },
-    { id: 2, surveyName: 'ED-Tech Brand Ranking', surveyCategory: 'Cosmetics, Personal care, Toiletries' , 
-    creatorName: 'Rishabh', 
-    isChecked: false },
-    { id: 3, surveyName: 'ED-Tech Brand Ranking', surveyCategory: 'Cosmetics, Personal care, Toiletries' , 
-    creatorName: 'Rishabh', 
-    isChecked: false },
-    { id: 4, surveyName: 'ED-Tech Brand Ranking', surveyCategory: 'Cosmetics, Personal care, Toiletries' , 
-    creatorName: 'Rishabh', 
-    isChecked: false },
+    {
+      id: 1, surveyName: 'ED-Tech Brand Ranking', surveyCategory: 'Cosmetics, Personal care, Toiletries',
+      creatorName: 'Rishabh',
+      isChecked: false
+    },
+    {
+      id: 2, surveyName: 'ED-Tech Brand Ranking', surveyCategory: 'Cosmetics, Personal care, Toiletries',
+      creatorName: 'Rishabh',
+      isChecked: false
+    },
+    {
+      id: 3, surveyName: 'ED-Tech Brand Ranking', surveyCategory: 'Cosmetics, Personal care, Toiletries',
+      creatorName: 'Rishabh',
+      isChecked: false
+    },
+    {
+      id: 4, surveyName: 'ED-Tech Brand Ranking', surveyCategory: 'Cosmetics, Personal care, Toiletries',
+      creatorName: 'Rishabh',
+      isChecked: false
+    },
   ];
   selectAllChecked = false;
   toggleSelectAll(): void {
@@ -27,4 +38,6 @@ export class SurveyListingComponent {
       item.isChecked = this.selectAllChecked;
     });
   }
+
+  constructor(private visibilityService: DataService, private modalService: NgbModal, public themeService: DataService) { }
 }

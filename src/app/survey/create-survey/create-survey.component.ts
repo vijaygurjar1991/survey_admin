@@ -21,7 +21,8 @@ export class CreateSurveyComponent implements OnInit {
     private route: ActivatedRoute,
     private dataService: DataService,
     private renderer: Renderer2,
-    private el: ElementRef
+    private el: ElementRef,
+    public themeService: DataService
   ) {
     this.filteredOptions = this.searchControl.valueChanges.pipe(
       startWith(''),
@@ -37,18 +38,6 @@ export class CreateSurveyComponent implements OnInit {
       }
     });
 
-  }
-
-  hideBreadcrumb() {
-    this.visibilityService.toggleBreadcrumbVisibility(false);
-  }
-
-  ShowBreadcrumb() {
-    this.visibilityService.toggleBreadcrumbVisibility(true);
-  }
-
-  ngOnInit(): void {
-    this.hideBreadcrumb();
   }
 
   hideBreadcrumb() {

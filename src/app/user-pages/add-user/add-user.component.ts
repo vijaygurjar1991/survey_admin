@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { DataService } from 'src/app/service/data.service';
 
 
 @Component({
@@ -7,6 +8,7 @@ import { Component } from '@angular/core';
   styleUrls: ['./add-user.component.css']
 })
 export class AddUserComponent {
+  constructor(public themeService: DataService) { }
   files: File[] = [];
 
   onSelect(event: any) { // Use 'any' as the event type

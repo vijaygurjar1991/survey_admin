@@ -22,9 +22,19 @@ export class LoginComponent {
   showSideBar() {
     this.visibilityService.toggleNavbarVisibility(true);
   }
+
+  hideBreadcrumb() {
+    this.visibilityService.toggleBreadcrumbVisibility(false);
+  }
+
+  ShowBreadcrumb() {
+    this.visibilityService.toggleBreadcrumbVisibility(true);
+  }
+
   ngOnInit() {
     this.hideHeader();
     this.hideSideBar();
+    this.hideBreadcrumb();
   }
   LoginSlider: OwlOptions = {
     loop: true,

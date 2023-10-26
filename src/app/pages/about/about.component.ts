@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { DataService } from 'src/app/service/data.service';
 declare var Dropzone: any;
 
 @Component({
@@ -7,6 +8,7 @@ declare var Dropzone: any;
   styleUrls: ['./about.component.css']
 })
 export class AboutComponent {
+  constructor(public themeService: DataService) { }
   files: File[] = [];
 
   onSelect(event: any) { // Use 'any' as the event type

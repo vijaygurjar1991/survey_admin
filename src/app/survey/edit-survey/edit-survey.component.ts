@@ -7,6 +7,8 @@ import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
 
 import { LiveAnnouncer } from '@angular/cdk/a11y';
+import { DataService } from 'src/app/service/data.service'; // Import your DataService
+import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 
 @Component({
   selector: 'app-edit-survey',
@@ -20,11 +22,23 @@ export class EditSurveyComponent {
   filteredCities: Observable<string[]>;
   cities: string[] = ['Others'];
   allcities: string[] = [];
-  constructor() {
+  constructor(public themeService: DataService, private router: Router,
+    private route: ActivatedRoute) {
     this.filteredCities = this.citiesCtrl.valueChanges.pipe(
       startWith(null),
       map((cities: string | null) => (cities ? this._filter(cities) : this.allcities.slice())),
     );
+
+
+    this.router.events.subscribe((event) => {
+      if (event instanceof NavigationEnd) {
+        const shouldTriggerToggle = this.route.snapshot.data['triggerToggle'];
+        if (shouldTriggerToggle) {
+          // Trigger the toggle action when the user lands on this page
+          this.themeService.toggle();
+        }
+      }
+    });
   }
   @ViewChild('citiesInput')
   citiesInput!: ElementRef<HTMLInputElement>;

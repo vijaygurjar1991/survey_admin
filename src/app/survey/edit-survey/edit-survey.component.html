@@ -1,4 +1,4 @@
-
+<article [class.dashboardMargin]="themeService.dashboardMargin">
     <div ngClass="survey-question ms-0">
         <div ngClass="survey-name">
             <div>
@@ -12,7 +12,7 @@
                 <li>
                     <div ngClass="ques-header">
                         <h5 ngClass="mb-0">Edit Question</h5>
-                        <a routerLink="/create-survey">Cancel</a>                        
+                        <a routerLink="/survey/create-survey">Cancel</a>                        
                     </div>
                     <div ngClass="ques-body p-4">
                         <div ngClass="update-ques-type generic-ques mt-0 mb-5">
@@ -437,3 +437,4 @@
             </ul>
         </div>
     </div>
+</article>

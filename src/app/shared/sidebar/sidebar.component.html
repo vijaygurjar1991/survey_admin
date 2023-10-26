@@ -54,7 +54,7 @@
                                 </a>
                             </li>
                             <li class="block pl-4 pr-1 first:pt-4  last:pb-4">
-                                <a class="" routerLink="/all-survey">
+                                <a class="" routerLink="/survey/all-survey">
                                     <span class="d-flex align-items-center text-sm transition-all duration-150">
                                         <span class="menu-icon">
                                             <ng-icon name="heroStopCircle"></ng-icon>
@@ -86,7 +86,7 @@
                     <div class="AngularCollapse-content">
                         <ul class="sub-menu">
                             <li class="block pl-4 pr-1 first:pt-4  last:pb-4">
-                                <a class="" routerLink="/add-user">
+                                <a class="" routerLink="/user-pages/add-user">
                                     <span class="d-flex align-items-center text-sm transition-all duration-150">
                                         <span class="menu-icon">
                                             <ng-icon name="heroStopCircle"></ng-icon>
@@ -96,7 +96,7 @@
                                 </a>
                             </li>
                             <li class="block pl-4 pr-1 first:pt-4  last:pb-4">
-                                <a class="" routerLink="/all-users">
+                                <a class="" routerLink="/user-pages/all-users">
                                     <span class="d-flex align-items-center text-sm transition-all duration-150">
                                         <span class="menu-icon">
                                             <ng-icon name="heroStopCircle"></ng-icon>
@@ -154,7 +154,7 @@
                 </a>
             </li>
             <li class="single-sidebar-menu">
-                <a class="menu-link" routerLink="/terms-condition">
+                <a class="menu-link" routerLink="/pages/terms-condition">
                     <span class="menu-icon flex-grow-0">
                         <ng-icon name="heroClipboardDocumentCheck"></ng-icon>
                     </span>
@@ -162,7 +162,7 @@
                 </a>
             </li>
             <li class="single-sidebar-menu">
-                <a class="menu-link" routerLink="/privacy-policy">
+                <a class="menu-link" routerLink="/pages/privacy-policy">
                     <span class="menu-icon flex-grow-0">
                         <ng-icon name="heroShieldCheck"></ng-icon>
                     </span>
@@ -173,7 +173,7 @@
                 <div class="menulabel">Settings</div>
             </li>
             <li class="single-sidebar-menu">
-                <a class="menu-link" routerLink="/my-account">
+                <a class="menu-link" routerLink="/account/my-account">
                     <span class="menu-icon flex-grow-0">
                         <ng-icon name="heroUser"></ng-icon>
                     </span>
@@ -221,7 +221,7 @@
     </div>
     <div class="modal-footer">
         <button type="button" class="btn" (click)="modal.close('Close click')">Cancel</button>
-        <a routerLink="/create-survey" type="button" class="btn btn-primary" (click)="modal.close('Close click')">Create
+        <a routerLink="/survey/create-survey" type="button" class="btn btn-primary" (click)="modal.close('Close click')">Create
             <ng-icon name="heroArrowLongRight"></ng-icon></a>
     </div>
 </ng-template>

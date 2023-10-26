@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { DataService } from 'src/app/service/data.service';
 
 @Component({
   selector: 'app-my-account',
@@ -6,5 +7,6 @@ import { Component } from '@angular/core';
   styleUrls: ['./my-account.component.css']
 })
 export class MyAccountComponent {
-  
+  constructor(public themeService: DataService) { }
+
 }

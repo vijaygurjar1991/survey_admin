@@ -1,4 +1,4 @@
 <app-header *ngIf="headerVisible" [class.addMargin]="themeService.addMargin"></app-header>
 <app-breadcrumb *ngIf="breadcrumbVisible" [class.addMargin]="themeService.addMargin"></app-breadcrumb>
 <app-sidebar *ngIf="navbarVisible" [class.addwidth]="themeService.addwidth"></app-sidebar>
-<article [class.dashboardMargin]="themeService.dashboardMargin"><router-outlet></router-outlet></article>
+<router-outlet></router-outlet>
