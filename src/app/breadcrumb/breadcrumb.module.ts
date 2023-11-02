@@ -11,7 +11,6 @@ import { heroHome } from '@ng-icons/heroicons/outline';
 
 @NgModule({
   declarations: [
-    BreadcrumbComponent
   ],
   imports: [
     CommonModule,

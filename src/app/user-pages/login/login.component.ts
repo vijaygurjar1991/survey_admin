@@ -8,7 +8,9 @@ import { DataService } from 'src/app/service/data.service';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent {
-  constructor(private visibilityService: DataService) { }
+  constructor(private visibilityService: DataService) {
+    visibilityService.articleVisible.next(false);
+  }
 
   hideHeader() {
     this.visibilityService.toggleHeaderVisibility(false);

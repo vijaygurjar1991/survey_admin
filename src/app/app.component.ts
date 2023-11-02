@@ -13,7 +13,7 @@ export class AppComponent {
   headerVisible: boolean = true;
   navbarVisible: boolean = true;
   breadcrumbVisible: boolean = true;
-  constructor(private router: ActivatedRoute, private visibilityService: DataService, public themeService: DataService) {
+  constructor(private router: ActivatedRoute, public visibilityService: DataService, public themeService: DataService) {
     this.visibilityService.headerVisible$.subscribe(visible => {
       this.headerVisible = visible;
     });

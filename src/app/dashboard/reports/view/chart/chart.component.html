@@ -1,0 +1,14 @@
+<div>
+    <div>
+        <label for="chartType">Select Chart Type:</label>
+        <select id="chartType" (change)="onChartTypeChange($event)">
+            <option *ngFor="let type of validChartTypes" [value]="type">
+                {{ type}}
+            </option>
+        </select>
+    </div>
+
+    <div>
+        <canvas id="canvas"></canvas>
+    </div>
+</div>

@@ -21,8 +21,9 @@ export class DataService {
   private headerVisibleSubject = new BehaviorSubject<boolean>(true);
   private footerVisibleSubject = new BehaviorSubject<boolean>(true);
   private navbarVisibleSubject = new BehaviorSubject<boolean>(true);
-
   private breadcrumbVisibleSubject = new BehaviorSubject<boolean>(true);
+
+  public articleVisible = new BehaviorSubject<boolean>(true);
 
   headerVisible$ = this.headerVisibleSubject.asObservable();
   footerVisible$ = this.footerVisibleSubject.asObservable();

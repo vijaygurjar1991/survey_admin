@@ -13,9 +13,9 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatInputModule } from '@angular/material/input';
 import { TagInputModule } from 'ngx-chips';
 import { ReactiveFormsModule } from '@angular/forms';
-import {MatChipsModule} from '@angular/material/chips';
-import {MatIconModule} from '@angular/material/icon';
-import {MatFormFieldModule} from '@angular/material/form-field';
+import { MatChipsModule } from '@angular/material/chips';
+import { MatIconModule } from '@angular/material/icon';
+import { MatFormFieldModule } from '@angular/material/form-field';
 import { NgxDropzoneModule } from 'ngx-dropzone';
 import { DecimalPipe, NgFor } from '@angular/common';
 //import { NgbPaginationModule, NgbTypeaheadModule } from '@ng-bootstrap/ng-bootstrap';
@@ -38,13 +38,18 @@ import { heroArrowUpTray } from '@ng-icons/heroicons/outline';
 import { heroPlusCircle } from '@ng-icons/heroicons/outline';
 import { heroArrowRight } from '@ng-icons/heroicons/outline';
 import { heroHome } from '@ng-icons/heroicons/outline';
+import { GenderPopupComponent } from './popups/gender-popup/gender-popup.component';
+import { ModalModule } from 'ngx-bootstrap/modal';
+import { AgePopupComponent } from './popups/age-popup/age-popup.component';
 // Icons
 
 @NgModule({
   declarations: [
     CreateSurveyComponent,
     EditSurveyComponent,
-    SurveyListingComponent
+    SurveyListingComponent,
+    GenderPopupComponent,
+    AgePopupComponent
   ],
   imports: [
     MatChipsModule,
@@ -52,13 +57,14 @@ import { heroHome } from '@ng-icons/heroicons/outline';
     MatFormFieldModule,
     CommonModule,
     SurveyRoutingModule,
-    DragDropModule,    
+    DragDropModule,
     FormsModule,
     MatAutocompleteModule,
     MatInputModule,
     ReactiveFormsModule,
     TagInputModule,
     NgxDropzoneModule,
+    ModalModule,
     //DecimalPipe, NgFor, FormsModule, NgbTypeaheadModule, NgbPaginationModule,
     NgIconsModule.withIcons({
       heroQuestionMarkCircle,
@@ -89,4 +95,4 @@ export class SurveyModule {
   onDrop(event: CdkDragDrop<string[]>) {
     moveItemInArray(this.items, event.previousIndex, event.currentIndex);
   }
- }
+}

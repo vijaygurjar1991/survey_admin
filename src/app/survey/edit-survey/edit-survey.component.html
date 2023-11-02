@@ -1,262 +1,289 @@
-<article [class.dashboardMargin]="themeService.dashboardMargin">
-    <div ngClass="survey-question ms-0">
-        <div ngClass="survey-name">
-            <div>
-                <h4 ngClass="mb-3">Ed-Tech Brand Ranking Surevy</h4>
-                <span>Cosmetics, Personal Care, Toiletries</span>
-            </div>
-            <a routerLink="#"><ng-icon name="heroPencilSquare"></ng-icon></a>
+<div ngClass="survey-question ms-0">
+    <div ngClass="survey-name">
+        <div>
+            <h4 ngClass="mb-3">Ed-Tech Brand Ranking Surevy</h4>
+            <span>Cosmetics, Personal Care, Toiletries</span>
         </div>
-        <div ngClass="question">
-            <ul>
-                <li>
-                    <div ngClass="ques-header">
-                        <h5 ngClass="mb-0">Edit Question</h5>
-                        <a routerLink="/survey/create-survey">Cancel</a>                        
+        <a routerLink="#"><ng-icon name="heroPencilSquare"></ng-icon></a>
+    </div>
+    <div ngClass="question">
+        <ul>
+            <li>
+                <div ngClass="ques-header">
+                    <h5 ngClass="mb-0">Edit Question</h5>
+                    <a routerLink="/survey/create-survey">Cancel</a>
+                </div>
+                <div ngClass="ques-body p-4">
+                    <div ngClass="update-ques-type generic-ques mt-0 mb-5">
+                        <h5 class="mb-3">Select Question Type</h5>
+                        <ul>
+                            <li>
+                                <a routerLink="javascript:">
+                                    <figure><img src="../../../assets/images/icons/multiple-choice-1.png" width="38"
+                                            height="30" /></figure>
+                                    <figcaption>Multiple Choice <br /><small>(One Answer)</small></figcaption>
+                                </a>
+                            </li>
+                            <li>
+                                <a routerLink="javascript:">
+                                    <figure><img src="../../../assets/images/icons/multiple-choice-2.png" width="37"
+                                            height="30" /></figure>
+                                    <figcaption>Multiple Choice <br /><small>(Many Answer)</small></figcaption>
+                                </a>
+                            </li>
+                            <li>
+                                <a routerLink="javascript:">
+                                    <figure><img src="../../../assets/images/icons/dropdown-1.png" width="40"
+                                            height="21" /></figure>
+                                    <figcaption>Dropdown <br /><small>(One Answer)</small></figcaption>
+                                </a>
+                            </li>
+                            <li>
+                                <a routerLink="javascript:">
+                                    <figure><img src="../../../assets/images/icons/dropdown-1.png" width="40"
+                                            height="21" /></figure>
+                                    <figcaption>Dropdown <br /><small>(Many Answer)</small></figcaption>
+                                </a>
+                            </li>
+                            <li>
+                                <a routerLink="javascript:">
+                                    <figure><img src="../../../assets/images/icons/image-select.png" width="39"
+                                            height="30" /></figure>
+                                    <figcaption>Image Selection</figcaption>
+                                </a>
+                            </li>
+                            <li>
+                                <a routerLink="javascript:">
+                                    <figure><img src="../../../assets/images/icons/rating-scale.png" width="28"
+                                            height="30" /></figure>
+                                    <figcaption>Rating Scale</figcaption>
+                                </a>
+                            </li>
+                            <li>
+                                <a routerLink="javascript:">
+                                    <figure><img src="../../../assets/images/icons/star-rating.png" width="31"
+                                            height="30" /></figure>
+                                    <figcaption>Star Rating</figcaption>
+                                </a>
+                            </li>
+                            <li>
+                                <a routerLink="javascript:">
+                                    <figure><img src="../../../assets/images/icons/NPS.png" width="16" height="30" />
+                                    </figure>
+                                    <figcaption>NPS</figcaption>
+                                </a>
+                            </li>
+                            <li>
+                                <a routerLink="javascript:">
+                                    <figure><img src="../../../assets/images/icons/slider-scale.png" width="30"
+                                            height="17" /></figure>
+                                    <figcaption>Slider Scale</figcaption>
+                                </a>
+                            </li>
+                            <li>
+                                <a routerLink="javascript:">
+                                    <figure><img src="../../../assets/images/icons/Continuous-Sum.png" width="24"
+                                            height="30" /></figure>
+                                    <figcaption>Continuous Sum</figcaption>
+                                </a>
+                            </li>
+                            <li>
+                                <a routerLink="javascript:">
+                                    <figure><img src="../../../assets/images/icons/ranking.png" width="28"
+                                            height="30" /></figure>
+                                    <figcaption>Ranking</figcaption>
+                                </a>
+                            </li>
+                            <li>
+                                <a routerLink="javascript:">
+                                    <figure><img src="../../../assets/images/icons/boolean.png" width="30"
+                                            height="30" /></figure>
+                                    <figcaption>Boolean <br /><small>(Yes/No)</small></figcaption>
+                                </a>
+                            </li>
+                            <li>
+                                <a routerLink="javascript:">
+                                    <figure><img src="../../../assets/images/icons/matrix-choice.png" width="31"
+                                            height="30" /></figure>
+                                    <figcaption>Matrix Choice <br /><small>(One Answer)</small></figcaption>
+                                </a>
+                            </li>
+                            <li>
+                                <a routerLink="javascript:">
+                                    <figure><img src="../../../assets/images/icons/matrix-choice.png" width="31"
+                                            height="30" /></figure>
+                                    <figcaption>Matrix Choice <br /><small>(Many Answer)</small></figcaption>
+                                </a>
+                            </li>
+
+                        </ul>
                     </div>
-                    <div ngClass="ques-body p-4">
-                        <div ngClass="update-ques-type generic-ques mt-0 mb-5">
-                            <h5 class="mb-3">Select Question Type</h5>
-                            <ul>
-                                <li>
-                                    <a routerLink="javascript:">
-                                        <figure><img src="../../../assets/images/icons/multiple-choice-1.png" width="38" height="30" /></figure>
-                                        <figcaption>Multiple Choice <br/><small>(One Answer)</small></figcaption>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a routerLink="javascript:">
-                                        <figure><img src="../../../assets/images/icons/multiple-choice-2.png" width="37" height="30" /></figure>
-                                        <figcaption>Multiple Choice <br /><small>(Many Answer)</small></figcaption>
-                                    </a>                    
-                                </li>
-                                <li>
-                                    <a routerLink="javascript:">
-                                        <figure><img src="../../../assets/images/icons/dropdown-1.png" width="40" height="21" /></figure>
-                                        <figcaption>Dropdown <br/><small>(One Answer)</small></figcaption>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a routerLink="javascript:">
-                                        <figure><img src="../../../assets/images/icons/dropdown-1.png" width="40" height="21" /></figure>
-                                        <figcaption>Dropdown <br/><small>(Many Answer)</small></figcaption>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a routerLink="javascript:">
-                                        <figure><img src="../../../assets/images/icons/image-select.png" width="39" height="30" /></figure>
-                                        <figcaption>Image Selection</figcaption>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a routerLink="javascript:">
-                                        <figure><img src="../../../assets/images/icons/rating-scale.png" width="28" height="30" /></figure>
-                                        <figcaption>Rating Scale</figcaption>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a routerLink="javascript:">
-                                        <figure><img src="../../../assets/images/icons/star-rating.png" width="31" height="30" /></figure>
-                                        <figcaption>Star Rating</figcaption>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a routerLink="javascript:">
-                                        <figure><img src="../../../assets/images/icons/NPS.png" width="16" height="30" /></figure>
-                                        <figcaption>NPS</figcaption>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a routerLink="javascript:">
-                                        <figure><img src="../../../assets/images/icons/slider-scale.png" width="30" height="17" /></figure>
-                                        <figcaption>Slider Scale</figcaption>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a routerLink="javascript:">
-                                        <figure><img src="../../../assets/images/icons/Continuous-Sum.png" width="24" height="30" /></figure>
-                                        <figcaption>Continuous Sum</figcaption>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a routerLink="javascript:">
-                                        <figure><img src="../../../assets/images/icons/ranking.png" width="28" height="30" /></figure>
-                                        <figcaption>Ranking</figcaption>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a routerLink="javascript:">
-                                        <figure><img src="../../../assets/images/icons/boolean.png" width="30" height="30" /></figure>
-                                        <figcaption>Boolean <br/><small>(Yes/No)</small></figcaption>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a routerLink="javascript:">
-                                        <figure><img src="../../../assets/images/icons/matrix-choice.png" width="31" height="30" /></figure>
-                                        <figcaption>Matrix Choice <br /><small>(One Answer)</small></figcaption>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a routerLink="javascript:">
-                                        <figure><img src="../../../assets/images/icons/matrix-choice.png" width="31" height="30" /></figure>
-                                        <figcaption>Matrix Choice <br/><small>(Many Answer)</small></figcaption>
-                                    </a>
-                                </li>
-                                
-                            </ul>
-                        </div>
-                        <div ngClass="mb-5">
-                            <h5 class="mb-3">Update Your Question</h5>
-                                <div class="row g-3 align-items-center">                                    
-                                    <div class="col-8">
-                                      <input type="text" id="" class="form-control" value="Please enter your age in completed years">
-                                    </div>
-                                    <div class="col-2">
-                                        <input type="text" id="" class="form-control" value="Age">
-                                    </div>
-                                    <div class="col-2">
-                                        <select class="form-select">
-                                            <option selected>Select Pipeing</option>
-                                            <option value="1">Select Pipeing 1</option>
-                                            <option value="2">Select Pipeing 2</option>
-                                        </select>
-                                    </div>
-                                </div>
-                        </div>
-                        <div ngClass="update-ques-type add-media generic-ques mt-0 mb-5">
-                            <h5 class="mb-3">Add Media</h5>
-                            <ul>
-                                <li>
-                                    <a routerLink="javascript:">
-                                        <figure><img src="../../../assets/images/icons/attach-image.png" width="64" height="58" /></figure>
-                                        <figcaption>Attach Image</figcaption>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a routerLink="javascript:">
-                                        <figure><img src="../../../assets/images/icons/attach-video.png" width="54" height="52" /></figure>
-                                        <figcaption>Attach Video</figcaption>
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div> 
-                    <div ngClass="border-top p-4">
-                        <div ngClass="select-ans-choice mb-5">
-                            <h5>Answer Choice</h5>
-                            <div ngClass="d-flex align-items-center">
-                                <span>Tag/Code(Optional)</span>
+                    <div ngClass="mb-5">
+                        <h5 class="mb-3">Update Your Question</h5>
+                        <div class="row g-3 align-items-center">
+                            <div class="col-8">
+                                <input type="text" id="" class="form-control"
+                                    value="Please enter your age in completed years">
+                            </div>
+                            <div class="col-2">
+                                <input type="text" id="" class="form-control" value="Age">
+                            </div>
+                            <div class="col-2">
                                 <select class="form-select">
-                                    <option selected>Select Option Pipeing</option>
+                                    <option selected>Select Pipeing</option>
                                     <option value="1">Select Pipeing 1</option>
                                     <option value="2">Select Pipeing 2</option>
                                 </select>
                             </div>
                         </div>
-                        <div ngClass="mb-4">
-                            <div class="row g-2 align-items-center mb-3"> 
-                                <div class="col-1">
-                                    <input type="text" id="" class="form-control" value="1">
-                                </div> 
-                                <div class="col-1">
-                                    <ngx-dropzone class="edit-survey-img" ngx-dropzone [accept]="'image/*'" (change)="onSelect($event)">
-                                        <ngx-dropzone-label>
-                                            <img src="../../../assets/images/icons/attach-image.png" />
-                                        </ngx-dropzone-label>
-                                        <ngx-dropzone-image-preview ngProjectAs="ngx-dropzone-preview" *ngFor="let f of files" [file]="f" [removable]="true" (removed)="onRemove(f)">
-                                            
-                                        </ngx-dropzone-image-preview>
-                                    </ngx-dropzone>
-                                </div>                                  
-                                <div class="col-7">
-                                  <input type="text" id="" class="form-control" value="Please enter your age in completed years">
+                    </div>
+                    <div ngClass="update-ques-type add-media generic-ques mt-0 mb-5">
+                        <h5 class="mb-3">Add Media</h5>
+                        <ul>
+                            <li>
+                                <a routerLink="javascript:">
+                                    <figure><img src="../../../assets/images/icons/attach-image.png" width="64"
+                                            height="58" /></figure>
+                                    <figcaption>Attach Image</figcaption>
+                                </a>
+                            </li>
+                            <li>
+                                <a routerLink="javascript:">
+                                    <figure><img src="../../../assets/images/icons/attach-video.png" width="54"
+                                            height="52" /></figure>
+                                    <figcaption>Attach Video</figcaption>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div ngClass="border-top p-4">
+                    <div ngClass="select-ans-choice mb-5">
+                        <h5>Answer Choice</h5>
+                        <div ngClass="d-flex align-items-center">
+                            <span>Tag/Code(Optional)</span>
+                            <select class="form-select">
+                                <option selected>Select Option Pipeing</option>
+                                <option value="1">Select Pipeing 1</option>
+                                <option value="2">Select Pipeing 2</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div ngClass="mb-4">
+                        <div class="row g-2 align-items-center mb-3">
+                            <div class="col-1">
+                                <input type="text" id="" class="form-control" value="1">
+                            </div>
+                            <div class="col-1">
+                                <ngx-dropzone class="edit-survey-img" ngx-dropzone [accept]="'image/*'"
+                                    (change)="onSelect($event)">
+                                    <ngx-dropzone-label>
+                                        <img src="../../../assets/images/icons/attach-image.png" />
+                                    </ngx-dropzone-label>
+                                    <ngx-dropzone-image-preview ngProjectAs="ngx-dropzone-preview"
+                                        *ngFor="let f of files" [file]="f" [removable]="true" (removed)="onRemove(f)">
+
+                                    </ngx-dropzone-image-preview>
+                                </ngx-dropzone>
+                            </div>
+                            <div class="col-7">
+                                <input type="text" id="" class="form-control"
+                                    value="Please enter your age in completed years">
+                            </div>
+                            <div class="col-2">
+                                <input type="text" id="" class="form-control" value="Add Keyword">
+                            </div>
+                            <div class="col-1 text-end">
+                                <ng-icon name="heroBars3"></ng-icon>
+                            </div>
+                        </div>
+                        <div class="row g-2 align-items-center mb-3">
+                            <div class="col-1">
+                                <input type="text" id="" class="form-control" value="2">
+                            </div>
+                            <div class="col-1">
+                                <ngx-dropzone class="edit-survey-img" ngx-dropzone [accept]="'image/*'"
+                                    (change)="onSelect($event)">
+                                    <ngx-dropzone-label>
+                                        <img src="../../../assets/images/icons/attach-image.png" />
+                                    </ngx-dropzone-label>
+                                    <ngx-dropzone-image-preview ngProjectAs="ngx-dropzone-preview"
+                                        *ngFor="let f of files" [file]="f" [removable]="true" (removed)="onRemove(f)">
+
+                                    </ngx-dropzone-image-preview>
+                                </ngx-dropzone>
+                            </div>
+                            <div class="col-7">
+                                <input type="text" id="" class="form-control"
+                                    value="Please enter your city do you live in">
+                            </div>
+                            <div class="col-2">
+                                <input type="text" id="" class="form-control" value="Add Keyword">
+                            </div>
+                            <div class="col-1 text-end">
+                                <ng-icon name="heroBars3"></ng-icon>
+                            </div>
+                        </div>
+                    </div>
+                    <div ngClass="mb-4">
+                        <div class="row g-2 align-items-center">
+                            <div class="col-auto">
+                                <div ngClass="new-options">
+                                    <a routerLink="javascript:"><ng-icon name="heroPlusCircle"></ng-icon> Add Option</a>
                                 </div>
-                                <div class="col-2">
-                                    <input type="text" id="" class="form-control" value="Add Keyword">
-                                </div>  
-                                <div class="col-1 text-end">
-                                    <ng-icon name="heroBars3"></ng-icon>
-                                </div>                               
                             </div>
-                            <div class="row g-2 align-items-center mb-3"> 
-                                <div class="col-1">
-                                    <input type="text" id="" class="form-control" value="2">
-                                </div> 
-                                <div class="col-1">                                   
-                                    <ngx-dropzone class="edit-survey-img" ngx-dropzone [accept]="'image/*'" (change)="onSelect($event)">
-                                        <ngx-dropzone-label>
-                                            <img src="../../../assets/images/icons/attach-image.png" />
-                                        </ngx-dropzone-label>
-                                        <ngx-dropzone-image-preview ngProjectAs="ngx-dropzone-preview" *ngFor="let f of files" [file]="f" [removable]="true" (removed)="onRemove(f)">
-                                            
-                                        </ngx-dropzone-image-preview>
-                                    </ngx-dropzone>
-                                </div>                                  
-                                <div class="col-7">
-                                  <input type="text" id="" class="form-control" value="Please enter your city do you live in">
+                            <div class="col-auto">
+                                <div ngClass="new-options">
+                                    <a routerLink="javascript:"><ng-icon name="heroPlusCircle"></ng-icon> Add "Other"
+                                        Option</a>
                                 </div>
-                                <div class="col-2">
-                                    <input type="text" id="" class="form-control" value="Add Keyword">
-                                </div>  
-                                <div class="col-1 text-end">
-                                    <ng-icon name="heroBars3"></ng-icon>
-                                </div>                               
                             </div>
-                        </div>
-                        <div ngClass="mb-4">
-                            <div class="row g-2 align-items-center"> 
-                                <div class="col-auto">
-                                    <div ngClass="new-options">
-                                        <a routerLink="javascript:"><ng-icon name="heroPlusCircle"></ng-icon> Add Option</a>
-                                    </div>
-                                </div> 
-                                <div class="col-auto">
-                                    <div ngClass="new-options">
-                                        <a routerLink="javascript:"><ng-icon name="heroPlusCircle"></ng-icon> Add "Other" Option</a>
-                                    </div>
-                                </div>                                  
-                                <div class="col-auto">
-                                    <div ngClass="new-options">
-                                        <a routerLink="javascript:"><ng-icon name="heroPlusCircle"></ng-icon> Add "None of above"
-                                            Option</a>
-                                    </div>
+                            <div class="col-auto">
+                                <div ngClass="new-options">
+                                    <a routerLink="javascript:"><ng-icon name="heroPlusCircle"></ng-icon> Add "None of
+                                        above"
+                                        Option</a>
                                 </div>
-                                <div class="col-auto">
-                                    <div ngClass="new-options">
-                                        <a routerLink="javascript:"><ng-icon name="heroPlusCircle"></ng-icon> Add "Don't know /Can't say"
-                                            Option</a>
-                                    </div>
-                                </div>  
-                                <div class="col-auto">
-                                    <div ngClass="new-options">
-                                        <a routerLink="javascript:"><ng-icon name="heroPlusCircle"></ng-icon> Add Bulk Option</a>
-                                    </div>
-                                </div>                               
+                            </div>
+                            <div class="col-auto">
+                                <div ngClass="new-options">
+                                    <a routerLink="javascript:"><ng-icon name="heroPlusCircle"></ng-icon> Add "Don't
+                                        know /Can't say"
+                                        Option</a>
+                                </div>
+                            </div>
+                            <div class="col-auto">
+                                <div ngClass="new-options">
+                                    <a routerLink="javascript:"><ng-icon name="heroPlusCircle"></ng-icon> Add Bulk
+                                        Option</a>
+                                </div>
                             </div>
                         </div>
-                        <div ngClass="mb-4">
-                            <div class="form-check form-switch">
-                                <input class="form-check-input" type="checkbox" role="switch" id="commentSwitch" checked>
-                                <label class="form-check-label" for="commentSwitch">Add Comment Field</label>
-                            </div>
+                    </div>
+                    <div ngClass="mb-4">
+                        <div class="form-check form-switch">
+                            <input class="form-check-input" type="checkbox" role="switch" id="commentSwitch" checked>
+                            <label class="form-check-label" for="commentSwitch">Add Comment Field</label>
                         </div>
-                    </div>                  
-                </li> 
-                <li>
-                    <div ngClass="p-4">
-                        <div ngClass="ans-group mb-4">
-                            <h5>Create Answer Group</h5>
-                            <a routerLink="javascript" ngClass="btn btn-primary">Create New Group <ng-icon name="heroArrowRight"></ng-icon></a>
-                        </div>
-                        <div ngClass="row">
-                            <div ngClass="col-md-6">
-                                <h6>Group 1</h6>
-                                <div class="tag-container"> 
-                                    <div ngClass="text-end mb-2">
-                                        <a routerLink="javascript:">Select All</a>
-                                    </div>                           
-                                    <div ngClass="mb-3">
-                                        <!-- <input
+                    </div>
+                </div>
+            </li>
+            <li>
+                <div ngClass="p-4">
+                    <div ngClass="ans-group mb-4">
+                        <h5>Create Answer Group</h5>
+                        <a routerLink="javascript" ngClass="btn btn-primary">Create New Group <ng-icon
+                                name="heroArrowRight"></ng-icon></a>
+                    </div>
+                    <div ngClass="row">
+                        <div ngClass="col-md-6">
+                            <h6>Group 1</h6>
+                            <div class="tag-container">
+                                <div ngClass="text-end mb-2">
+                                    <a routerLink="javascript:">Select All</a>
+                                </div>
+                                <div ngClass="mb-3">
+                                    <!-- <input
                                             type="text"
                                             [(ngModel)]="tagInput"
                                             ngClass="form-control"
@@ -273,168 +300,187 @@
                                             >&times;</button>
                                             </span> -->
 
-                                            <!-- <div class="tag-input">
+                                    <!-- <div class="tag-input">
                                                 <input [(ngModel)]="tagInput" (keydown)="onKeyDown($event)" placeholder="Add tags..." ngClass="form-control">
                                                 <div class="tags">
                                                   <div *ngFor="let tag of tags" class="tag">{{ tag }} <span (click)="removeTag(tag)">x</span></div>
                                                 </div>
                                             </div> -->
-                                            <form>
-                                                <mat-form-field class="example-chip-list">
-                                                  <mat-label></mat-label>
-                                                  <mat-chip-grid #chipGrid aria-label="City selection">
-                                                    <mat-chip-row *ngFor="let cities of cities" (removed)="remove(cities)">
-                                                      {{cities}}
-                                                      <button matChipRemove [attr.aria-label]="'remove ' + cities">
+                                    <form>
+                                        <mat-form-field class="example-chip-list">
+                                            <mat-label></mat-label>
+                                            <mat-chip-grid #chipGrid aria-label="City selection">
+                                                <mat-chip-row *ngFor="let cities of cities" (removed)="remove(cities)">
+                                                    {{cities}}
+                                                    <button matChipRemove [attr.aria-label]="'remove ' + cities">
                                                         <mat-icon>cancel</mat-icon>
-                                                      </button>
-                                                    </mat-chip-row>
-                                                    <input  #citiesInput [formControl]="citiesCtrl"
-                                                        [matChipInputFor]="chipGrid" [matAutocomplete]="auto"
-                                                        [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
-                                                        (matChipInputTokenEnd)="add($event)"/>
-                                                  </mat-chip-grid>                                                  
-                                                  <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
-                                                    <mat-option *ngFor="let cities of filteredCities | async" [value]="cities">
-                                                      {{cities}}
-                                                    </mat-option>
-                                                  </mat-autocomplete>
-                                                </mat-form-field>
-                                              </form>
-                                              
+                                                    </button>
+                                                </mat-chip-row>
+                                                <input #citiesInput [formControl]="citiesCtrl"
+                                                    [matChipInputFor]="chipGrid" [matAutocomplete]="auto"
+                                                    [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                                                    (matChipInputTokenEnd)="add($event)" />
+                                            </mat-chip-grid>
+                                            <mat-autocomplete #auto="matAutocomplete"
+                                                (optionSelected)="selected($event)">
+                                                <mat-option *ngFor="let cities of filteredCities | async"
+                                                    [value]="cities">
+                                                    {{cities}}
+                                                </mat-option>
+                                            </mat-autocomplete>
+                                        </mat-form-field>
+                                    </form>
+
+                                </div>
+                                <div ngClass="row">
+                                    <div ngClass="col-md-6">
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="checkbox" id="Randamize"
+                                                value="Randamize" checked>
+                                            <label class="form-check-label" for="Randamize">Randamize</label>
+                                        </div>
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="checkbox" id="Exclude"
+                                                value="Exclude">
+                                            <label class="form-check-label" for="Exclude">Exclude</label>
+                                        </div>
                                     </div>
-                                    <div ngClass="row">
-                                        <div ngClass="col-md-6">
-                                            <div class="form-check form-check-inline">
-                                                <input class="form-check-input" type="checkbox" id="Randamize" value="Randamize" checked>
-                                                <label class="form-check-label" for="Randamize">Randamize</label>
-                                              </div>
-                                              <div class="form-check form-check-inline">
-                                                <input class="form-check-input" type="checkbox" id="Exclude" value="Exclude">
-                                                <label class="form-check-label" for="Exclude">Exclude</label>
-                                              </div>
-                                        </div>
-                                        <div ngClass="col-md-6 text-end">
-                                            <button type="button" ngClass="btn btn-primary btn-sm">Delete</button>
-                                        </div>
+                                    <div ngClass="col-md-6 text-end">
+                                        <button type="button" ngClass="btn btn-primary btn-sm">Delete</button>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </li>  
-                <li>
-                    <div ngClass="p-4">
-                        <h5 ngClass="mb-4">Logic</h5>
-                        <div ngClass="mb-4">
-                            <div class="logic-tab">
-                                <!-- Nav tabs -->
-                                <ul class="nav flex-column nav-tabs" id="myTab" role="tablist">
-                                    <li class="nav-item" role="presentation">
-                                    <button class="nav-link active" id="branching-tab" data-bs-toggle="tab" data-bs-target="#branching" role="tab" aria-selected="true">Branching</button>
-                                    </li>
-                                    <li class="nav-item" role="presentation">
-                                    <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile" role="tab" aria-selected="false">Randomaisation</button>
-                                    </li>
-                                    <li class="nav-item" role="presentation">
-                                    <button class="nav-link" id="messages-tab" data-bs-toggle="tab" data-bs-target="#messages" role="tab" aria-selected="false">Custom Logic</button>
-                                    </li>
-                                    <li class="nav-item" role="presentation">
-                                    <button class="nav-link" id="settings-tab" data-bs-toggle="tab" data-bs-target="#settings" role="tab" aria-selected="false">Multiple Question</button>
-                                    </li>
-                                    <li class="nav-item" role="presentation">
-                                        <button class="nav-link" id="settings-tab" data-bs-toggle="tab" data-bs-target="#settings" role="tab" aria-selected="false">Calculator</button>
-                                    </li>
-                                    <li class="nav-item" role="presentation">
-                                        <button class="nav-link" id="settings-tab" data-bs-toggle="tab" data-bs-target="#settings" role="tab" aria-selected="false">Autocode</button>
-                                    </li>
-                                </ul>                                
-                                <!-- Logic Question -->
-                                <div class="tab-content p-4">
-                                    <div class="tab-pane active" id="branching" role="tabpanel" aria-labelledby="branching-tab">
-                                        <h5 ngClass="mb-4">Branching</h5>
-                                        <div ngClass="d-flex justify-content-between mb-3">
-                                            <h6>Redirect to different questions based on user's answer.</h6>
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" value="" id="verify">
-                                                <label class="form-check-label" for="verify">
-                                                  Double Verify
-                                                </label>
-                                            </div>
-                                        </div>
-                                        <div ngClass="logic-ques">
-                                            <div class="input-group flex-nowrap">
-                                                <span class="input-group-text" id="addon-wrapping">In</span>
-                                                <select class="form-select">
-                                                    <option selected>Q3: Please enter your age in completed years</option>
-                                                    <option value="1">Q3: Please enter your age in completed years</option>
-                                                    <option value="2">Q2: Please enter your age in completed years</option>
-                                                    <option value="3">Q1: Please enter your age in completed years</option>
-                                                </select>
-                                            </div>
-                                            <div ngClass="if-then">
-                                                <span>If</span>
-                                            </div>
-                                            <div ngClass="mb-4">
-                                                <div class="row g-2 align-items-center"> 
-                                                    <div class="col-md-1">
-                                                        <div>Value</div>
-                                                    </div> 
-                                                    <div class="col-md-3">
-                                                        <select class="form-select">
-                                                            <option selected>Is Greater then</option>
-                                                            <option value="1">Is Less than</option>
-                                                            <option value="2">Is equal to</option>
-                                                        </select>
-                                                    </div>                                  
-                                                    <div class="col-md-3">
-                                                      <input type="text" id="" class="form-control" value="5">
-                                                    </div>
-                                                    <div class="col-md-1">
-                                                        <a routerLink="javascript:"><ng-icon name="heroPlusCircle" ngClass="plus-circle"></ng-icon></a>
-                                                    </div>  
-                                                    <div class="col-md-4">
-                                                        <div class="form-check d-flex justify-content-end">
-                                                            <input class="form-check-input me-2" type="checkbox" value="" id="selectAll">
-                                                            <label class="form-check-label" for="selectAll">
-                                                              Select All
-                                                            </label>
-                                                        </div>
-                                                    </div>                               
-                                                </div>
-                                            </div>
-                                            <div ngClass="if-then">
-                                                <span>Then</span>
-                                            </div>
-                                            <div ngClass="mb-4">
-                                                <div class="row g-2 align-items-center">
-                                                    <div class="col-md-4">
-                                                        <select class="form-select">
-                                                            <option selected>Go To</option>
-                                                            <option value="1">Go To</option>
-                                                            <option value="2">Go To</option>
-                                                        </select>
-                                                    </div>                                  
-                                                    <div class="col-md-4">
-                                                      <input type="text" id="" class="form-control" value="5">
-                                                    </div>
-                                                    <div class="col-md-1">
-                                                        <a routerLink="javascript:"><ng-icon name="heroTrash" ngClass="trash-icon"></ng-icon></a>
-                                                    </div>                                
-                                                </div>
-                                            </div>
-                                            
+                </div>
+            </li>
+            <li>
+                <div ngClass="p-4">
+                    <h5 ngClass="mb-4">Logic</h5>
+                    <div ngClass="mb-4">
+                        <div class="logic-tab">
+                            <!-- Nav tabs -->
+                            <ul class="nav flex-column nav-tabs" id="myTab" role="tablist">
+                                <li class="nav-item" role="presentation">
+                                    <button class="nav-link active" id="branching-tab" data-bs-toggle="tab"
+                                        data-bs-target="#branching" role="tab" aria-selected="true">Branching</button>
+                                </li>
+                                <li class="nav-item" role="presentation">
+                                    <button class="nav-link" id="profile-tab" data-bs-toggle="tab"
+                                        data-bs-target="#profile" role="tab"
+                                        aria-selected="false">Randomaisation</button>
+                                </li>
+                                <li class="nav-item" role="presentation">
+                                    <button class="nav-link" id="messages-tab" data-bs-toggle="tab"
+                                        data-bs-target="#messages" role="tab" aria-selected="false">Custom
+                                        Logic</button>
+                                </li>
+                                <li class="nav-item" role="presentation">
+                                    <button class="nav-link" id="settings-tab" data-bs-toggle="tab"
+                                        data-bs-target="#settings" role="tab" aria-selected="false">Multiple
+                                        Question</button>
+                                </li>
+                                <li class="nav-item" role="presentation">
+                                    <button class="nav-link" id="settings-tab" data-bs-toggle="tab"
+                                        data-bs-target="#settings" role="tab" aria-selected="false">Calculator</button>
+                                </li>
+                                <li class="nav-item" role="presentation">
+                                    <button class="nav-link" id="settings-tab" data-bs-toggle="tab"
+                                        data-bs-target="#settings" role="tab" aria-selected="false">Autocode</button>
+                                </li>
+                            </ul>
+                            <!-- Logic Question -->
+                            <div class="tab-content p-4">
+                                <div class="tab-pane active" id="branching" role="tabpanel"
+                                    aria-labelledby="branching-tab">
+                                    <h5 ngClass="mb-4">Branching</h5>
+                                    <div ngClass="d-flex justify-content-between mb-3">
+                                        <h6>Redirect to different questions based on user's answer.</h6>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" value="" id="verify">
+                                            <label class="form-check-label" for="verify">
+                                                Double Verify
+                                            </label>
                                         </div>
                                     </div>
-                                    <div class="tab-pane" id="profile" role="tabpanel" aria-labelledby="profile-tab">zxcvb</div>
-                                    <div class="tab-pane" id="messages" role="tabpanel" aria-labelledby="messages-tab">...</div>
-                                    <div class="tab-pane" id="settings" role="tabpanel" aria-labelledby="settings-tab">...</div>
+                                    <div ngClass="logic-ques">
+                                        <div class="input-group flex-nowrap">
+                                            <span class="input-group-text" id="addon-wrapping">In</span>
+                                            <select class="form-select">
+                                                <option selected>Q3: Please enter your age in completed years</option>
+                                                <option value="1">Q3: Please enter your age in completed years</option>
+                                                <option value="2">Q2: Please enter your age in completed years</option>
+                                                <option value="3">Q1: Please enter your age in completed years</option>
+                                            </select>
+                                        </div>
+                                        <div ngClass="if-then">
+                                            <span>If</span>
+                                        </div>
+                                        <div ngClass="mb-4">
+                                            <div class="row g-2 align-items-center">
+                                                <div class="col-md-1">
+                                                    <div>Value</div>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <select class="form-select">
+                                                        <option selected>Is Greater then</option>
+                                                        <option value="1">Is Less than</option>
+                                                        <option value="2">Is equal to</option>
+                                                    </select>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <input type="text" id="" class="form-control" value="5">
+                                                </div>
+                                                <div class="col-md-1">
+                                                    <a routerLink="javascript:"><ng-icon name="heroPlusCircle"
+                                                            ngClass="plus-circle"></ng-icon></a>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <div class="form-check d-flex justify-content-end">
+                                                        <input class="form-check-input me-2" type="checkbox" value=""
+                                                            id="selectAll">
+                                                        <label class="form-check-label" for="selectAll">
+                                                            Select All
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div ngClass="if-then">
+                                            <span>Then</span>
+                                        </div>
+                                        <div ngClass="mb-4">
+                                            <div class="row g-2 align-items-center">
+                                                <div class="col-md-4">
+                                                    <select class="form-select">
+                                                        <option selected>Go To</option>
+                                                        <option value="1">Go To</option>
+                                                        <option value="2">Go To</option>
+                                                    </select>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <input type="text" id="" class="form-control" value="5">
+                                                </div>
+                                                <div class="col-md-1">
+                                                    <a routerLink="javascript:"><ng-icon name="heroTrash"
+                                                            ngClass="trash-icon"></ng-icon></a>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
                                 </div>
-                              </div>
+                                <div class="tab-pane" id="profile" role="tabpanel" aria-labelledby="profile-tab">zxcvb
+                                </div>
+                                <div class="tab-pane" id="messages" role="tabpanel" aria-labelledby="messages-tab">...
+                                </div>
+                                <div class="tab-pane" id="settings" role="tabpanel" aria-labelledby="settings-tab">...
+                                </div>
+                            </div>
                         </div>
                     </div>
-                </li>      
-            </ul>
-        </div>
+                </div>
+            </li>
+        </ul>
     </div>
-</article>
+</div>

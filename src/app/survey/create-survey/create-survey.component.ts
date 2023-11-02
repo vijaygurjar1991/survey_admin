@@ -1,4 +1,4 @@
-import { Component, OnInit, Renderer2, ElementRef } from '@angular/core';
+import { Component, OnInit, Renderer2, ElementRef, ViewChild } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ActivatedRoute, Router, NavigationEnd } from '@angular/router';
 import { FormControl } from '@angular/forms';
@@ -6,6 +6,7 @@ import { Observable } from 'rxjs';
 import { startWith, map } from 'rxjs/operators';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { DataService } from 'src/app/service/data.service'; // Import your DataService
+import { ModalDirective } from 'ngx-bootstrap/modal';
 
 
 @Component({
@@ -14,6 +15,9 @@ import { DataService } from 'src/app/service/data.service'; // Import your DataS
   styleUrls: ['./create-survey.component.css'],
 })
 export class CreateSurveyComponent implements OnInit {
+  @ViewChild('GenderModal', { static: true }) genderModal!: ModalDirective;
+  @ViewChild('AgeModal', { static: true }) ageModal!: ModalDirective;
+
   constructor(
     private visibilityService: DataService,
     private modalService: NgbModal,
@@ -51,7 +55,13 @@ export class CreateSurveyComponent implements OnInit {
   ngOnInit(): void {
     this.hideBreadcrumb();
   }
-
+  onGenericQuestionClick(type: any): void {
+    if (type === "gender") {
+      this.genderModal.show();
+    } else if (type === "age") {
+      this.ageModal.show();
+    }
+  }
   openFullscreen(content: any) {
     this.modalService.open(content, { fullscreen: true, windowClass: 'right-aligned-modal' });
   }
@@ -99,4 +109,6 @@ export class CreateSurveyComponent implements OnInit {
   onDragEnded(): void {
     // You can add code here if needed
   }
+
+
 }

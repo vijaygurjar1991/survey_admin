@@ -3,7 +3,6 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
 import { UserPagesRoutingModule } from './user-pages-routing.module';
-import { LoginComponent } from './login/login.component';
 import { CarouselModule } from 'ngx-owl-carousel-o';
 import { UserListingComponent } from './user-listing/user-listing.component';
 
@@ -16,7 +15,7 @@ import { NgxDropzoneModule } from 'ngx-dropzone';
 
 @NgModule({
   declarations: [
-    LoginComponent,
+    //  LoginComponent,
     UserListingComponent,
     AddUserComponent
   ],
@@ -26,11 +25,11 @@ import { NgxDropzoneModule } from 'ngx-dropzone';
     CarouselModule,
     FormsModule,
     NgxDropzoneModule,
-    NgIconsModule.withIcons({     
+    NgIconsModule.withIcons({
       heroEllipsisVertical,
       heroHome,
       heroPencil
-     
+
     }),
   ]
 })

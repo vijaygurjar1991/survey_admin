@@ -5,7 +5,7 @@ import { UserListingComponent } from './user-listing/user-listing.component';
 import { AddUserComponent } from './add-user/add-user.component';
 
 const routes: Routes = [
-  { path: 'login', component: LoginComponent, data: { layout: 'auth' } },
+  // { path: 'login', component: LoginComponent, data: { layout: 'auth' } },
   { path: 'all-users', component: UserListingComponent, data: { title: 'All User' } },
   { path: 'add-user', component: AddUserComponent, data: { title: 'Add New User' } }
 ];

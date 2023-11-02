@@ -115,7 +115,7 @@ a {
 .common-heading {
     border-bottom: 1px solid var(--border-color);
     padding-bottom: 1rem;
-    margin-bottom: 3rem;
+    margin-bottom: 2rem;
 }
 
 .common-heading .input-group.flex-nowrap span {
@@ -243,6 +243,7 @@ li.single-sidebar-menu {
 
 .single-sidebar-menu>.menu-link {
     display: flex;
+    align-items: center;
     cursor: pointer;
     border-radius: 4px;
     padding-left: 10px;
@@ -420,8 +421,8 @@ article {
 .add-ques-sidebar {
     background-color: var(--white);
     padding: var(--section-gap);
-    flex: 0 33%;
-    max-width: 33%;
+    flex: 0 25%;
+    max-width: 25%;
     margin: -1.5rem;
     box-shadow: 0px 20px 16px #d6d4d4;
 }
@@ -476,7 +477,7 @@ article {
 
 .generic-ques ul li a figure img {
     filter: invert(1) brightness(0);
-    opacity: 1;
+    opacity: 0.6;
     width: auto;
 }
 
@@ -497,6 +498,7 @@ article {
 
 .generic-ques ul li a:hover figure img {
     filter: inherit;
+    opacity: 1;
 }
 
 .generic-ques ul li a:hover {
@@ -709,7 +711,7 @@ article {
     background: var(--primary);
 }
 
-.select-state {
+.select-options {
     display: flex;
     justify-content: space-between;
     border-bottom: 1px solid var(--border-color);
@@ -1053,6 +1055,56 @@ span.mobile-cross {
     display: none;
 }
 
+/* Modal Layout */
+.select-values {
+    margin-top: 2rem;
+}
+.select-values ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+.select-values ul li {
+    flex: 0 200px;
+    max-width: 200px;
+    text-align: center;
+    min-height: 200px;
+}
+.select-values ul li button {
+    width: 100%;
+    padding: 1rem 0rem;
+    display: block;
+    color: var(--black);
+    border: 2px dashed var(--border-color);
+    border-radius: 0.25rem;
+    height: 100%;
+    background-color: var(--white);
+}
+.select-values ul li figure img {
+    opacity: 1;
+    width: auto;
+}
+.select-values ul li figcaption {
+    font-size: .875rem;
+    line-height: 1.1;
+}
+.select-values ul li button:hover {
+    background-color: #fdefe7;
+    border: 2px dashed var(--primary);
+    color: var(--primary);
+}
+.select-values ul li a:hover figure img {
+    filter: inherit;
+}
+
+.addwidth .menu-icon{
+    margin: 0px;
+}
+/* Modal Layout */
+
 
 /* Responsive */
 
@@ -1153,7 +1205,6 @@ span.mobile-cross {
     border: 1px solid var(--border-color);
     --mdc-filled-text-field-active-indicator-height: 0px;
     border-radius: .25rem;
-    min-height: 150px;
 }
 
 .mat-mdc-text-field-wrapper:not(.mdc-text-field--outlined) .mat-mdc-form-field-infix {
@@ -1162,17 +1213,19 @@ span.mobile-cross {
 }
 
 
-/* Breadcrumb */
-
-nav.newbreadcrumb {
-    margin-left: var(--menu-gap);
-}
-
-.addMargin .newbreadcrumb {
-    margin-left: 8rem;
-}
-
 /* drag */
 .cdk-drag {
     cursor: grab;
 }
+
+/* Reports */
+.view-tags{ background-color: var(--primary); color: var(--white); border-radius: 0.25rem; padding: 0.25rem 0.5rem; font-size: .875rem;}
+
+.Report-question-list{margin-bottom: 3rem;}
+.Report-question-list h3{ margin-bottom: 0px;}
+.Report-question-list select{ width: 250px;}
+.Report-question-list ol{ list-style: none; padding: 0px; margin: 0px;}
+.Report-question-list li{ margin-bottom: 3rem;}
+.Report-question-list figcaption>div{ display: flex; justify-content: space-between; align-items: center;}
+.Report-question-list figure{ margin-top: 1rem; margin-bottom: 0px; border: 1px solid var(--border-color); border-radius: 0.5rem; box-shadow: var(--box-shadow); padding: 1rem; }
+/* Reports */

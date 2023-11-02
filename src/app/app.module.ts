@@ -12,6 +12,9 @@ import { MatChipsModule } from '@angular/material/chips';
 
 // Icons
 import { NgIconsModule, provideNgIconsConfig } from '@ng-icons/core';
+
+import { heroHome } from '@ng-icons/heroicons/outline';
+
 import { heroUsers } from '@ng-icons/heroicons/outline';
 import { heroChevronRight } from '@ng-icons/heroicons/outline';
 import { heroStopCircle } from '@ng-icons/heroicons/outline';
@@ -35,6 +38,8 @@ import { CommonModule } from '@angular/common';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { BreadcrumbComponent } from './breadcrumb/breadcrumb/breadcrumb.component';
+import { LoginComponent } from './user-pages/login/login.component';
+import { CarouselModule } from 'ngx-owl-carousel-o';
 
 
 
@@ -44,12 +49,13 @@ import { BreadcrumbComponent } from './breadcrumb/breadcrumb/breadcrumb.componen
     HeaderComponent,
     FooterComponent,
     SidebarComponent,
-    BreadcrumbComponent
-
+    BreadcrumbComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
     CommonModule,
+    CarouselModule,
     AppRoutingModule,
     DragDropModule,
     FormsModule,
@@ -59,6 +65,8 @@ import { BreadcrumbComponent } from './breadcrumb/breadcrumb/breadcrumb.componen
     ReactiveFormsModule,
     MatChipsModule,
     NgIconsModule.withIcons({
+      heroHome,
+
       heroUsers,
       heroChevronRight,
       heroStopCircle,
@@ -78,7 +86,7 @@ import { BreadcrumbComponent } from './breadcrumb/breadcrumb/breadcrumb.componen
   providers: [
     { provide: TINYMCE_SCRIPT_SRC, useValue: 'tinymce/tinymce.min.js' },
     provideNgIconsConfig({
-      size: '1em',
+      size: '1.8em',
     }),
   ],
   bootstrap: [AppComponent]

@@ -17,7 +17,7 @@
             <li class="single-sidebar-menu menu-item-active">
                 <a class="menu-link active" routerLink="/dashboard">
                     <span class="menu-icon flex-grow-0">
-                        <ng-icon name="heroUsers"></ng-icon>
+                        <ng-icon name="heroHome"></ng-icon>
                     </span>
                     <div class="text-box flex-grow-1">Dashboard</div>
                 </a>
@@ -133,12 +133,29 @@
                         </div>
                     </div>
                 </div>
+                <div class="AngularCollapse-collapse" *ngIf="isSubMenu3Visible" aria-hidden="true"
+                    style="height: auto; overflow: initial;">
+                    <div class="AngularCollapse-content">
+                        <ul class="sub-menu">
+                            <li class="block pl-4 pr-1 first:pt-4  last:pb-4">
+                                <a class="" routerLink="/dashboard/reports">
+                                    <span class="d-flex align-items-center text-sm transition-all duration-150">
+                                        <span class="menu-icon">
+                                            <ng-icon name="heroStopCircle"></ng-icon>
+                                        </span>
+                                        <span class="flex-1">List of Reports</span>
+                                    </span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
             </li>
             <li class="single-sidebar-menu">
                 <div class="menulabel">Pages</div>
             </li>
             <li class="single-sidebar-menu">
-                <a class="menu-link" routerLink="/about">
+                <a class="menu-link" routerLink="/pages/about">
                     <span class="menu-icon flex-grow-0">
                         <ng-icon name="heroClipboardDocumentList"></ng-icon>
                     </span>
@@ -205,7 +222,7 @@
                 <input id="surveyname" type="text" class="form-control" placeholder="Ed-Tech Brand Ranking" />
             </div>
             <div class="mb-4" class="search-categories">
-                <label class="form-label">Select Survey Categories</label>               
+                <label class="form-label">Select Survey Categories</label>
                 <mat-form-field class="example-full-width">
                     <input type="text" placeholder="Search..." matInput [formControl]="searchControl"
                         [matAutocomplete]="auto" />
@@ -221,7 +238,8 @@
     </div>
     <div class="modal-footer">
         <button type="button" class="btn" (click)="modal.close('Close click')">Cancel</button>
-        <a routerLink="/survey/create-survey" type="button" class="btn btn-primary" (click)="modal.close('Close click')">Create
+        <a routerLink="/survey/create-survey" type="button" class="btn btn-primary"
+            (click)="modal.close('Close click')">Create
             <ng-icon name="heroArrowLongRight"></ng-icon></a>
     </div>
 </ng-template>

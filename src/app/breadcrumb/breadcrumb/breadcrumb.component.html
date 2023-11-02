@@ -1,21 +1,11 @@
-<!-- <nav aria-label="breadcrumb">
-    <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a routerLink="#"><ng-icon name="heroHome"></ng-icon>Dashboard</a></li>
-        <li class="breadcrumb-item active" aria-current="page">All Users</li>
-    </ol>
-</nav> -->
 <nav aria-label="breadcrumb" class="newbreadcrumb">
     <ol class="breadcrumb">
         <li class="breadcrumb-item">
             <a [routerLink]="['/']">
-                <ng-icon name="heroHome"></ng-icon>Dashboard
+                <ng-icon name="heroHome" [style.width.px]="30" [style.height.px]="30"></ng-icon>Dashboard
             </a>
         </li>
-
         <ng-container *ngFor="let breadcrumb of breadcrumbs; let last = last">
-            <!-- <li class="breadcrumb-item" *ngIf="!last">
-                <a [routerLink]="breadcrumb.url">{{ breadcrumb.label }}</a>
-            </li> -->
             <li class="breadcrumb-item active" aria-current="page" *ngIf="last">
                 {{ breadcrumb.label }}
             </li>

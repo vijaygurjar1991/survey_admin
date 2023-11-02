@@ -18,11 +18,17 @@ import { heroLockClosed } from '@ng-icons/heroicons/outline';
 import { heroBell } from '@ng-icons/heroicons/outline';
 import { heroArrowLongRight } from '@ng-icons/heroicons/outline';
 import { heroBars3 } from '@ng-icons/heroicons/outline';
+import { ReportsComponent } from './reports/reports.component';
+import { ViewComponent } from './reports/view/view.component';
+import { ChartComponent } from './reports/view/chart/chart.component';
 // Icons
 
 @NgModule({
   declarations: [
-    DashboardComponent
+    DashboardComponent,
+    ReportsComponent,
+    ViewComponent,
+    ChartComponent
   ],
   imports: [
     CommonModule,

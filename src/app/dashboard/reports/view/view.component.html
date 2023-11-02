@@ -1,0 +1,88 @@
+<div class="common-bg">
+    <div class="">
+        <div ngClass="row common-heading">
+            <div class="col">
+                <h4>ED- Tech Brand Ranking</h4>
+                <span class="view-tags">Cosmetics, Personal Care, Toiletries</span>
+            </div>
+            <div class="col">
+                <div class="d-flex justify-content-end">
+                    <div class="col input-group flex-nowrap">
+                        <select class="form-select">
+                            <option selected>Select Graph Type</option>
+                            <option value="1">Doughnut</option>
+                            <option value="2">Stacked bar/line</option>
+                            <option value="3">Point Styling</option>
+                            <option value="4">HTML Legend</option>
+                            <option value="5">Loop</option>
+                        </select>
+                    </div>
+                    <a href="#" class="btn btn-primary">Download CSV <ng-icon class="ms-3"
+                            name="heroArrowLongRight"></ng-icon></a>
+                </div>
+            </div>
+        </div>
+
+        <div class="Report-question-list">
+            <ol>
+                <li>
+                    <figcaption>
+                        <div class="">
+                            <h4>Q1. Which city do you currently live in?</h4>
+                            <!-- <select class="form-select" (change)="onChartTypeChange($event)">
+                                <option selected>Select Graph Type</option>
+                                <option value="line">Line Chart</option>
+                                <option value="bar">Bar Chart</option>
+                                <option value="doughnut">Doughnut Chart</option>
+                                <option value="radar">Radar</option>
+                            </select> -->
+                        </div>
+                    </figcaption>
+                    <figure>
+                        <div class="graph-gap">
+                            <canvas id="canvas1">{{charts[0]}}</canvas>
+                        </div>
+                    </figure>
+                    <!-- <figure>
+                        <div class="graph-gap">
+                            <canvas id="canvas">{{charts[0]}}</canvas>
+                        </div>
+                    </figure> -->
+                </li>
+                <li>
+                    <figcaption>
+                        <div class="">
+                            <h4>Q2. Please select your gender</h4>
+                            <!-- my-charts.component.html -->
+                            <div *ngFor="let canvasId of ['canvas', 'canvas1'];let i=index;">
+                                <div>
+                                    <label for="{{canvasId}}-chartType">Select Chart Type:</label>
+                                    <select id="{{canvasId}}-chartType" (change)="onChartTypeChange($event, canvasId)">
+                                        <option selected>Select Graph Type</option>
+                                        <option value="line">Line Chart</option>
+                                        <option value="bar">Bar Chart</option>
+                                        <option value="doughnut">Doughnut Chart</option>
+                                        <option value="radar">Radar</option>
+                                    </select>
+                                </div>
+                                <figure>
+                                    <div class="graph-gap">
+                                        <canvas id="canvas1">{{charts[0]}}</canvas>
+                                    </div>
+                                </figure>
+
+                            </div>
+
+                        </div>
+                    </figcaption>
+                    <figure>
+                        <div class="graph-gap">
+
+                        </div>
+                    </figure>
+                </li>
+            </ol>
+        </div>
+
+    </div>
+</div>
