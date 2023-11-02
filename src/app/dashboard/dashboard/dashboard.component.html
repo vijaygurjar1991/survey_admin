@@ -27,7 +27,7 @@
                                 tempor incididunt ut labore.</p>
                         </div>
                         <div class="col-md-4 text-end">
-                            <div class="tags">Servey</div>
+                            <div class="tags">Survey</div>
                         </div>
                     </div>
                     <div class="d-flex justify-content-between">
@@ -50,7 +50,7 @@
                                 tempor incididunt ut labore.</p>
                         </div>
                         <div class="col-md-4 text-end">
-                            <div class="tags">Servey</div>
+                            <div class="tags">Survey</div>
                         </div>
                     </div>
                     <div class="d-flex justify-content-between">
@@ -117,7 +117,7 @@
         <div class="card">
             <div class="d-flex align-items-center justify-content-between">
                 <div class="col-md-6">
-                    <h4 class="mb-3">Sessions Overview</h4>
+                    <h4 class="mb-2">Sessions Overview</h4>
                     <p>25/09/2023 - 25/10/2023</p>
                 </div>
                 <div class="col-md-6 text-end">
@@ -146,11 +146,12 @@
         <h4 class="modal-title" id="modal-basic-title">Create Your New Survey</h4>
         <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
     </div>
-    <div class="modal-body">
+    <div class="modal-body popup-ques">
         <form>
             <div class="mb-4">
                 <label for="surveyname" class="form-label">Enter your Survey Name</label>
                 <div class="input-group">
+
                     <input id="surveyname" type="text" class="form-control" placeholder="ED-Tech Brand Ranking" />
                 </div>
             </div>
@@ -160,10 +161,10 @@
             </div>
         </form>
     </div>
-    <div class="modal-footer">
+    <div class="modal-footer upload">
         <button type="button" class="btn">Cancel</button>
         <button type="button" class="btn btn-primary d-flex" (click)="modal.close('Save click')">Create <ng-icon
-                class="ms-3" name="heroArrowLongRight"></ng-icon>
+                class="ms-5" name="heroArrowLongRight"></ng-icon>
         </button>
     </div>
 </ng-template>

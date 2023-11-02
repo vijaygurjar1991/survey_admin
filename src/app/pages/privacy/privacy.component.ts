@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { DataService } from 'src/app/service/data.service';
+import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 
 @Component({
   selector: 'app-privacy',
@@ -7,6 +8,7 @@ import { DataService } from 'src/app/service/data.service';
   styleUrls: ['./privacy.component.css']
 })
 export class PrivacyComponent {
+  public Editor = ClassicEditor;
   constructor(public themeService: DataService) { }
   files: File[] = [];
 

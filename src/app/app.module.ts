@@ -4,7 +4,8 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { FormsModule } from '@angular/forms';
-import { EditorModule, TINYMCE_SCRIPT_SRC } from '@tinymce/tinymce-angular';
+
+// import { EditorModule, TINYMCE_SCRIPT_SRC } from '@tinymce/tinymce-angular';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatInputModule } from '@angular/material/input';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -28,6 +29,7 @@ import { heroBell } from '@ng-icons/heroicons/outline';
 import { heroArrowLongRight } from '@ng-icons/heroicons/outline';
 import { heroBars3 } from '@ng-icons/heroicons/outline';
 import { heroXMark } from '@ng-icons/heroicons/outline';
+import { heroMagnifyingGlass } from '@ng-icons/heroicons/outline';
 // Icons
 
 import { HeaderComponent } from './shared/header/header.component';
@@ -59,7 +61,7 @@ import { CarouselModule } from 'ngx-owl-carousel-o';
     AppRoutingModule,
     DragDropModule,
     FormsModule,
-    EditorModule,
+
     MatAutocompleteModule,
     MatInputModule,
     ReactiveFormsModule,
@@ -79,12 +81,13 @@ import { CarouselModule } from 'ngx-owl-carousel-o';
       heroBell,
       heroArrowLongRight,
       heroBars3,
-      heroXMark
+      heroXMark,
+      heroMagnifyingGlass
     }),
     BrowserAnimationsModule,
   ],
   providers: [
-    { provide: TINYMCE_SCRIPT_SRC, useValue: 'tinymce/tinymce.min.js' },
+    // { provide: TINYMCE_SCRIPT_SRC, useValue: 'tinymce/tinymce.min.js' },
     provideNgIconsConfig({
       size: '1.8em',
     }),

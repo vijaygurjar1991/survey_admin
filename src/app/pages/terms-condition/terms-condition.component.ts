@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { DataService } from 'src/app/service/data.service';
+import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 
 @Component({
   selector: 'app-terms-condition',
@@ -7,6 +8,7 @@ import { DataService } from 'src/app/service/data.service';
   styleUrls: ['./terms-condition.component.css']
 })
 export class TermsConditionComponent {
+  public Editor = ClassicEditor;
   constructor(public themeService: DataService) { }
   files: File[] = [];
 

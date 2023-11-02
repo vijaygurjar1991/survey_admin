@@ -421,8 +421,8 @@ article {
 .add-ques-sidebar {
     background-color: var(--white);
     padding: var(--section-gap);
-    flex: 0 25%;
-    max-width: 25%;
+    flex: 0 400px;
+    max-width: 400px;
     margin: -1.5rem;
     box-shadow: 0px 20px 16px #d6d4d4;
 }
@@ -583,6 +583,7 @@ article {
     display: flex;
     align-items: center;
     padding: .75rem .5rem;
+    border-bottom: 1px solid lightgrey;
 }
 
 .ques-header ul.dropdown-menu.show li a.delete-hover:hover {
@@ -611,6 +612,7 @@ article {
     border-radius: 5px;
     width: 100%;
     padding: .8rem 1rem;
+    color: var(--text-color)
 }
 
 .ques-radio label input:checked~span.checked {
@@ -968,12 +970,25 @@ ng-icon.trash-icon {
     align-items: center;
 }
 
+.account-picture h5 {
+    font-size: 1.15rem;
+}
+
+.account-picture h6 {
+    font-size: .9rem;
+    color: var(--text-color);
+}
+
 .change-password {
     display: flex;
     align-items: center;
     justify-content: space-between;
     border-bottom: 1px solid var(--border-color);
     padding-bottom: 1rem;
+}
+
+.change-password a {
+    color: black;
 }
 
 /* My Account */
@@ -1059,6 +1074,7 @@ span.mobile-cross {
 .select-values {
     margin-top: 2rem;
 }
+
 .select-values ul {
     list-style: none;
     padding: 0;
@@ -1067,12 +1083,14 @@ span.mobile-cross {
     flex-wrap: wrap;
     gap: 10px;
 }
+
 .select-values ul li {
     flex: 0 200px;
     max-width: 200px;
     text-align: center;
     min-height: 200px;
 }
+
 .select-values ul li button {
     width: 100%;
     padding: 1rem 0rem;
@@ -1083,26 +1101,31 @@ span.mobile-cross {
     height: 100%;
     background-color: var(--white);
 }
+
 .select-values ul li figure img {
     opacity: 1;
     width: auto;
 }
+
 .select-values ul li figcaption {
     font-size: .875rem;
     line-height: 1.1;
 }
+
 .select-values ul li button:hover {
     background-color: #fdefe7;
     border: 2px dashed var(--primary);
     color: var(--primary);
 }
+
 .select-values ul li a:hover figure img {
     filter: inherit;
 }
 
-.addwidth .menu-icon{
+.addwidth .menu-icon {
     margin: 0px;
 }
+
 /* Modal Layout */
 
 
@@ -1219,13 +1242,146 @@ span.mobile-cross {
 }
 
 /* Reports */
-.view-tags{ background-color: var(--primary); color: var(--white); border-radius: 0.25rem; padding: 0.25rem 0.5rem; font-size: .875rem;}
+.view-tags {
+    background-color: var(--primary);
+    color: var(--white);
+    border-radius: 0.25rem;
+    padding: 0.25rem 0.5rem;
+    font-size: .875rem;
+}
 
-.Report-question-list{margin-bottom: 3rem;}
-.Report-question-list h3{ margin-bottom: 0px;}
-.Report-question-list select{ width: 250px;}
-.Report-question-list ol{ list-style: none; padding: 0px; margin: 0px;}
-.Report-question-list li{ margin-bottom: 3rem;}
-.Report-question-list figcaption>div{ display: flex; justify-content: space-between; align-items: center;}
-.Report-question-list figure{ margin-top: 1rem; margin-bottom: 0px; border: 1px solid var(--border-color); border-radius: 0.5rem; box-shadow: var(--box-shadow); padding: 1rem; }
+.Report-question-list {
+    margin-bottom: 3rem;
+}
+
+.Report-question-list h3 {
+    margin-bottom: 0px;
+}
+
+.Report-question-list select {
+    width: 250px;
+}
+
+.Report-question-list ol {
+    list-style: none;
+    padding: 0px;
+    margin: 0px;
+}
+
+.Report-question-list li {
+    margin-bottom: 3rem;
+}
+
+.Report-question-list figcaption>div {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.Report-question-list figure {
+    margin-top: 1rem;
+    margin-bottom: 0px;
+    border: 1px solid var(--border-color);
+    border-radius: 0.5rem;
+    box-shadow: var(--box-shadow);
+    padding: 1rem;
+}
+
 /* Reports */
+
+
+
+/* new */
+
+/* header */
+.search-bar {
+    position: relative;
+}
+
+.search-bar input {
+    padding-right: 15rem;
+}
+
+.search-bar svg {
+    color: #d6d6d6;
+}
+
+.search-bar ng-icon {
+    --ng-icon__size: 1.4em !important;
+}
+
+.magnifyingicon {
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    transform: translateY(-50%);
+}
+
+.search-bar .form-control-small {
+    padding-top: 0.45rem;
+    padding-bottom: 0.45rem;
+}
+
+.bellicon {
+    color: #8e8e8e;
+}
+
+.newbreadcrumb .breadcrumb ng-icon {
+    --ng-icon__size: 1.4em !important;
+}
+
+
+/* account */
+
+.upload .btn {
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+}
+
+.upload .icon ng-icon {
+    --ng-icon__size: 1.4em !important;
+}
+
+.upload .close {
+    background-color: #f7f8fc;
+    padding-right: 3rem;
+    padding-left: 3rem
+}
+
+
+
+/* editor */
+
+.large-editor .ck.ck-editor__main>.ck-editor__editable:not(.ck-focused) {
+    min-height: 300px;
+}
+
+.popup-ques label {
+    color: #7c7c7c;
+}
+
+.popup-ques .form-label {
+    font-size: .85rem;
+}
+
+.mat-mdc-option:hover:not(.mdc-list-item--disabled) {
+    background-color: var(--primary-hover);
+}
+
+.input-icon {
+    position: relative;
+}
+
+.input-icon ng-icon {
+    position: absolute;
+    top: 50%;
+    left: 10px;
+    /* Adjust the left position as needed */
+    transform: translateY(-50%);
+    --ng-icon__size: 1.4em !important;
+}
+
+.input-icon input {
+    padding-left: 50px;
+    /* Adjust the left padding to create space for the icon */
+}

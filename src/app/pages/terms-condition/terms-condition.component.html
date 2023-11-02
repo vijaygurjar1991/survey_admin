@@ -13,19 +13,7 @@
             </div>
             <div class="mb-4">
                 <label for="text" class="form-label">Description</label>
-                <editor apiKey="" [init]="{
-                        height: 300,
-                        menubar: false,
-                        plugins: [
-                        'advlist autolink lists link image charmap print preview anchor',
-                        'searchreplace visualblocks code fullscreen',
-                        'insertdatetime media table paste code help wordcount'
-                        ],
-                        toolbar:
-                        'undo redo | formatselect | bold italic backcolor | \
-                        alignleft aligncenter alignright alignjustify | \
-                        bullist numlist outdent indent | removeformat | help'
-                    }"></editor>
+                <ckeditor [editor]="Editor" data="" class="large-editor"></ckeditor>
 
             </div>
             <div class="mb-4">
@@ -41,9 +29,9 @@
                     </ngx-dropzone-preview>
                 </ngx-dropzone>
             </div>
-            <div class="text-end">
-                <button type="button" class="btn btn-primary">Update <ng-icon
-                        name="heroArrowLongRight"></ng-icon></button>
+            <div class="text-end upload">
+                <button type="button" class="btn btn-primary">Update <ng-icon name="heroArrowLongRight"
+                        class="ms-5"></ng-icon></button>
             </div>
         </form>
     </div>
