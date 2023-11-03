@@ -494,6 +494,7 @@ article {
 .generic-ques ul li a figcaption {
     font-size: .875rem;
     line-height: 1.1;
+    color: #888;
 }
 
 .generic-ques ul li a:hover figure img {
@@ -789,6 +790,18 @@ article {
 .select-ans-choice div span {
     color: #bbb;
     margin-right: 1rem;
+}
+
+.flex-1 {
+    flex: 1;
+}
+
+.flex-2 {
+    flex: 2;
+}
+
+.flex-width {
+    width: 80px;
 }
 
 .new-options a {
@@ -1348,11 +1361,15 @@ span.mobile-cross {
     padding-left: 3rem
 }
 
+.upload a:hover {
+    color: var(--primary-hover);
+}
+
 
 
 /* editor */
 
-.large-editor .ck.ck-editor__main>.ck-editor__editable:not(.ck-focused) {
+.large-editor .ck.ck-editor__main>.ck-editor__editable {
     min-height: 300px;
 }
 
@@ -1384,4 +1401,19 @@ span.mobile-cross {
 .input-icon input {
     padding-left: 50px;
     /* Adjust the left padding to create space for the icon */
+}
+
+.checking .form-check-input {
+    width: 1.75em;
+    height: 1.75em;
+    margin-left: -2.5em;
+}
+
+
+.checking label.form-check-label {
+    padding-top: 0.25rem;
+}
+
+.sort span#addon-wrapping {
+    font-size: smaller;
 }

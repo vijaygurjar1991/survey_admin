@@ -1,0 +1,30 @@
+<div class="modal right-aligned-modal fade" bsModal #LocalityModal="bs-modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-fullscreen">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Please select your Locality</h4>
+                <button type="button" class="btn-close" (click)="close()"></button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="mb-4">
+                        <label for="surveyname" class="form-label">Enter Your Question</label>
+                        <div class="input-group">
+                            <input type="text" class="form-control" value="Please select your gender" />
+                        </div>
+                    </div>
+                    <div ngClass="mb-4">
+                        <div ngClass="select-options">
+                            <h5>Select Options</h5>
+                            <a routerLink="javascript:">Select All</a>
+                        </div>
+
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary w-100">Continue</button>
+            </div>
+        </div>
+    </div>
+</div>

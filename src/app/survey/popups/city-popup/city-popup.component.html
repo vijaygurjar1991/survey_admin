@@ -1,0 +1,93 @@
+<div class="modal right-aligned-modal fade" bsModal #CityModal="bs-modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-fullscreen">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">List of State & City</h4>
+                <button type="button" class="btn-close" (click)="close()"></button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="mb-4">
+                        <label for="surveyname" class="form-label">Search your State & City</label>
+                        <div class="input-group">
+                            <input id="surveyname" type="text" class="form-control" placeholder="Type to Search" />
+                        </div>
+                    </div>
+                    <div class="mb-4">
+                        <label class="form-label">Filter</label>
+                        <div ngClass="state-city">
+                            <div class="select-radio">
+                                <label> <input type="radio" name="state">
+                                    <span class="checked">select Country</span></label>
+                            </div>
+                            <div class="select-radio">
+                                <label> <input type="radio" name="state" checked>
+                                    <span class="checked">Select State</span></label>
+                            </div>
+                            <div class="select-radio">
+                                <label> <input type="radio" name="state">
+                                    <span class="checked">Pan India</span></label>
+                            </div>
+                        </div>
+                    </div>
+                    <div ngClass="mb-4">
+                        <div ngClass="select-state">
+                            <h5>Select State & City</h5>
+                            <a routerLink="javascript:">Select All</a>
+                        </div>
+                        <div ngClass="states">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="ADP" checked>
+                                <label class="form-check-label" for="ADP">
+                                    Andhra Pradesh
+                                </label>
+                                <div ngClass="cities">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" value="" id="Vishakhapatnam"
+                                            checked>
+                                        <label class="form-check-label" for="Vishakhapatnam">
+                                            Vishakhapatnam
+                                        </label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" value="" id="Eluru">
+                                        <label class="form-check-label" for="Eluru">
+                                            Eluru
+                                        </label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" value="" id="Vijaywada">
+                                        <label class="form-check-label" for="Vijaywada">
+                                            Vijaywada
+                                        </label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" value="" id="Ongole">
+                                        <label class="form-check-label" for="Ongole">
+                                            Ongole
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="ACP">
+                                <label class="form-check-label" for="AP">
+                                    Arunachal Pradesh
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="asam">
+                                <label class="form-check-label" for="asam">
+                                    Asam
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary w-100" (click)="close()">Continue</button>
+            </div>
+        </div>
+    </div>
+</div>
