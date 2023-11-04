@@ -43,10 +43,40 @@
                 </select>
             </div>
             <div class="change-password upload">
-                <a href="javascript;">Change Password</a>
-                <button type="button" class="btn btn-primary">Update<ng-icon name="heroArrowLongRight"
-                        class="ms-5"></ng-icon></button>
+                <a routerLink="javascript:" (click)="openLg(content)">Change Password</a>
+                <button type="button" class="btn btn-primary" (click)="showSweetAlert()">Update<ng-icon
+                        name="heroArrowLongRight" class="ms-5"></ng-icon></button>
             </div>
         </form>
     </div>
 </div>
+
+
+
+<ng-template #content let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title">Change Password</h4>
+        <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+    </div>
+    <div class="modal-body popup-ques">
+        <form>
+            <div class="mb-4">
+                <label for="current-password" class="form-label">Current Password</label>
+                <input id="current" type="password" class="form-control" placeholder="Current Password" />
+            </div>
+            <div class="mb-4">
+                <label for="new-password" class="form-label">New Passward</label>
+                <input id="new" type="password" class="form-control" placeholder="New Passward" />
+            </div>
+            <div class="mb-4">
+                <label for="confirm-password" class="form-label">Confirm Passward</label>
+                <input id="confirm" type="password" class="form-control" placeholder="Confirm Passward" />
+            </div>
+        </form>
+    </div>
+    <div class="modal-footer upload">
+        <button type="button" class="btn close" (click)="modal.close('Close click')">Cancel</button>
+        <a routerLink="" type="button" class="btn btn-primary icon" (click)="modal.close('Close click')">Update
+            <ng-icon name="heroArrowLongRight" class="ms-4"></ng-icon></a>
+    </div>
+</ng-template>

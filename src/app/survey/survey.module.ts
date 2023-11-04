@@ -67,6 +67,13 @@ import { OldFLsmPopupComponent } from './popups/old-f-lsm-popup/old-f-lsm-popup.
 import { StorePopupComponent } from './popups/store-popup/store-popup.component';
 import { SelfiePopupComponent } from './popups/selfie-popup/selfie-popup.component';
 import { AccomodationTypePopupComponent } from './popups/accomodation-type-popup/accomodation-type-popup.component';
+import { HomeAccessoriesPopupComponent } from './popups/home-accessories-popup/home-accessories-popup.component';
+import { NamePopupComponent } from './popups/name-popup/name-popup.component';
+import { EmailAddressPopupComponent } from './popups/email-address-popup/email-address-popup.component';
+import { PinCodePopupComponent } from './popups/pin-code-popup/pin-code-popup.component';
+import { AudioGenderDetectionPopupComponent } from './popups/audio-gender-detection-popup/audio-gender-detection-popup.component';
+import { StatePopupComponent } from './popups/state-popup/state-popup.component';
+import { IndustryHouseholdPopupComponent } from './popups/industry-household-popup/industry-household-popup.component';
 // Icons
 
 @NgModule({
@@ -101,7 +108,14 @@ import { AccomodationTypePopupComponent } from './popups/accomodation-type-popup
     OldFLsmPopupComponent,
     StorePopupComponent,
     SelfiePopupComponent,
-    AccomodationTypePopupComponent
+    AccomodationTypePopupComponent,
+    HomeAccessoriesPopupComponent,
+    NamePopupComponent,
+    EmailAddressPopupComponent,
+    PinCodePopupComponent,
+    AudioGenderDetectionPopupComponent,
+    StatePopupComponent,
+    IndustryHouseholdPopupComponent
   ],
   imports: [
     MatChipsModule,

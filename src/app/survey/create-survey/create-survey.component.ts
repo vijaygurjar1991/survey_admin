@@ -30,10 +30,11 @@ export class CreateSurveyComponent implements OnInit {
   @ViewChild('NewFLsmModal', { static: true }) newflsmModal!: ModalDirective;
   @ViewChild('MSlmModal', { static: true }) mslmModal!: ModalDirective;
   @ViewChild('SLsmModal', { static: true }) slsmModal!: ModalDirective;
-  @ViewChild('SLsmModal', { static: true }) languageModal!: ModalDirective;
+  @ViewChild('LanguageModal', { static: true }) languageModal!: ModalDirective;
   @ViewChild('GeoLocationModal', { static: true }) geolocationModal!: ModalDirective;
   @ViewChild('MartialStatusModal', { static: true }) martialStatusModal!: ModalDirective;
   @ViewChild('IndustryRespondantModal', { static: true }) industryrespondantModal!: ModalDirective;
+  @ViewChild('IndustryHouseholdModal', { static: true }) industryhouseholdModal!: ModalDirective;
   @ViewChild('LocalityModal', { static: true }) localityModal!: ModalDirective;
   @ViewChild('ForeignCountryTravelledModal', { static: true }) foreigncountrytravelledModal!: ModalDirective;
   @ViewChild('LanguageYouKnowModel', { static: true }) languageyouknowModal!: ModalDirective;
@@ -43,6 +44,15 @@ export class CreateSurveyComponent implements OnInit {
   @ViewChild('StoreModal', { static: true }) storeModal!: ModalDirective;
   @ViewChild('SelfieModal', { static: true }) selfieModal!: ModalDirective;
   @ViewChild('AccomodationTypeModal', { static: true }) accomodationtypeModal!: ModalDirective;
+  @ViewChild('HomeAccessoriesModal', { static: true }) homeaccessoriesModal!: ModalDirective;
+  @ViewChild('NameModal', { static: true }) nameModal!: ModalDirective;
+  @ViewChild('EmailAddressModal', { static: true }) emailaddressModal!: ModalDirective;
+  @ViewChild('PinCodeModal', { static: true }) pincodeModal!: ModalDirective;
+  @ViewChild('AudioGenderDetectionModal', { static: true }) audiogenderdetectionModal!: ModalDirective;
+  @ViewChild('StateModal', { static: true }) stateModal!: ModalDirective;
+
+
+
 
 
 
@@ -125,6 +135,8 @@ export class CreateSurveyComponent implements OnInit {
       this.martialStatusModal.show();
     } else if (type === "industryrespondant") {
       this.industryrespondantModal.show();
+    } else if (type === "industryhousehold") {
+      this.industryhouseholdModal.show();
     } else if (type === "locality") {
       this.localityModal.show();
     } else if (type === "foreigncountrytravelled") {
@@ -143,6 +155,18 @@ export class CreateSurveyComponent implements OnInit {
       this.selfieModal.show();
     } else if (type === "accomodationtype") {
       this.accomodationtypeModal.show();
+    } else if (type === "homeaccessories") {
+      this.homeaccessoriesModal.show();
+    } else if (type === "name") {
+      this.nameModal.show();
+    } else if (type === "emailaddress") {
+      this.emailaddressModal.show();
+    } else if (type === "pincode") {
+      this.pincodeModal.show();
+    } else if (type === "audiogenderdetection") {
+      this.audiogenderdetectionModal.show();
+    } else if (type === "state") {
+      this.stateModal.show();
     }
   }
   openFullscreen(content: any) {
@@ -192,6 +216,11 @@ export class CreateSurveyComponent implements OnInit {
   onDragEnded(): void {
     // You can add code here if needed
   }
+
+  openLg(content: any) {
+    this.modalService.open(content, { size: 'lg', centered: true });
+  }
+
 
 
 }

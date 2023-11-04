@@ -3,7 +3,7 @@
         <div>
             <h6 class="mb-3">Add Question</h6>
             <div class="common-ques">
-                <a routerLink="javascript:">
+                <a routerLink="javascript:" (click)="openLg(content)">
                     <figure><img src="../../../assets/images/icons/Add-new-question.png" width="35" height="35" />
                     </figure>
                     <figcaption>Add New Question</figcaption>
@@ -141,7 +141,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="javascript:" (click)="onGenericQuestionClick('industryrespondant')">
+                    <a href="javascript:" (click)="onGenericQuestionClick('industryhousehold')">
                         <figure><img src="../../../assets/images/icons/industry-household.png" width="35" height="35" />
                         </figure>
                         <figcaption>Industry Household</figcaption>
@@ -215,41 +215,41 @@
                     </a>
                 </li>
                 <li>
-                    <a routerLink="javascript:">
+                    <a href="javascript:" (click)="onGenericQuestionClick('homeaccessories')">
                         <figure><img src="../../../assets/images/icons/home-accessories.png" width="35" height="35" />
                         </figure>
                         <figcaption>Home Accessories</figcaption>
                     </a>
                 </li>
                 <li>
-                    <a routerLink="javascript:">
+                    <a href="javascript:" (click)="onGenericQuestionClick('name')">
                         <figure><img src="../../../assets/images/icons/name.png" width="35" height="35" /></figure>
                         <figcaption>Name</figcaption>
                     </a>
                 </li>
                 <li>
-                    <a routerLink="javascript:">
+                    <a href="javascript:" (click)="onGenericQuestionClick('emailaddress')">
                         <figure><img src="../../../assets/images/icons/email-address.png" width="35" height="35" />
                         </figure>
                         <figcaption>Email Address</figcaption>
                     </a>
                 </li>
                 <li>
-                    <a routerLink="javascript:">
+                    <a href="javascript:" (click)="onGenericQuestionClick('pincode')">
                         <figure><img src="../../../assets/images/icons/pincode.png" width="35" height="35" />
                         </figure>
                         <figcaption>Pincode</figcaption>
                     </a>
                 </li>
                 <li>
-                    <a routerLink="javascript:">
+                    <a href="javascript:" (click)="onGenericQuestionClick('audiogenderdetection')">
                         <figure><img src="../../../assets/images/icons/audio-gender-detection.png" width="35"
                                 height="35" /></figure>
                         <figcaption>Audio Gender Detection</figcaption>
                     </a>
                 </li>
                 <li>
-                    <a routerLink="javascript:">
+                    <a href="javascript:" (click)="onGenericQuestionClick('state')">
                         <figure><img src="../../../assets/images/icons/state.png" width="35" height="35" /></figure>
                         <figcaption>State</figcaption>
                     </a>
@@ -410,6 +410,124 @@
     </div>
 </div>
 
+
+
+<ng-template #content let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title">Select Question Type</h4>
+        <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+    </div>
+    <div class="modal-body popup-ques">
+        <div ngClass="update-ques-type generic-ques">
+            <ul>
+                <li>
+                    <a routerLink="javascript:">
+                        <figure><img src="../../../assets/images/icons/multiple-choice-1.png" width="38" height="30" />
+                        </figure>
+                        <figcaption>Multiple Choice <br /><small>(One Answer)</small></figcaption>
+                    </a>
+                </li>
+                <li>
+                    <a routerLink="javascript:">
+                        <figure><img src="../../../assets/images/icons/multiple-choice-2.png" width="37" height="30" />
+                        </figure>
+                        <figcaption>Multiple Choice <br /><small>(Many Answer)</small></figcaption>
+                    </a>
+                </li>
+                <li>
+                    <a routerLink="javascript:">
+                        <figure><img src="../../../assets/images/icons/dropdown-1.png" width="40" height="21" />
+                        </figure>
+                        <figcaption>Dropdown <br /><small>(One Answer)</small></figcaption>
+                    </a>
+                </li>
+                <li>
+                    <a routerLink="javascript:">
+                        <figure><img src="../../../assets/images/icons/dropdown-1.png" width="40" height="21" />
+                        </figure>
+                        <figcaption>Dropdown <br /><small>(Many Answer)</small></figcaption>
+                    </a>
+                </li>
+                <li>
+                    <a routerLink="javascript:">
+                        <figure><img src="../../../assets/images/icons/image-select.png" width="39" height="30" />
+                        </figure>
+                        <figcaption>Image Selection</figcaption>
+                    </a>
+                </li>
+                <li>
+                    <a routerLink="javascript:">
+                        <figure><img src="../../../assets/images/icons/rating-scale.png" width="28" height="30" />
+                        </figure>
+                        <figcaption>Rating Scale</figcaption>
+                    </a>
+                </li>
+                <li>
+                    <a routerLink="javascript:">
+                        <figure><img src="../../../assets/images/icons/star-rating.png" width="31" height="30" />
+                        </figure>
+                        <figcaption>Star Rating</figcaption>
+                    </a>
+                </li>
+                <li>
+                    <a routerLink="javascript:">
+                        <figure><img src="../../../assets/images/icons/NPS.png" width="16" height="30" />
+                        </figure>
+                        <figcaption>NPS</figcaption>
+                    </a>
+                </li>
+                <li>
+                    <a routerLink="javascript:">
+                        <figure><img src="../../../assets/images/icons/slider-scale.png" width="30" height="17" />
+                        </figure>
+                        <figcaption>Slider Scale</figcaption>
+                    </a>
+                </li>
+                <li>
+                    <a routerLink="javascript:">
+                        <figure><img src="../../../assets/images/icons/Continuous-Sum.png" width="24" height="30" />
+                        </figure>
+                        <figcaption>Continuous Sum</figcaption>
+                    </a>
+                </li>
+                <li>
+                    <a routerLink="javascript:">
+                        <figure><img src="../../../assets/images/icons/ranking.png" width="28" height="30" /></figure>
+                        <figcaption>Ranking</figcaption>
+                    </a>
+                </li>
+                <li>
+                    <a routerLink="javascript:">
+                        <figure><img src="../../../assets/images/icons/boolean.png" width="30" height="30" /></figure>
+                        <figcaption>Boolean <br /><small>(Yes/No)</small></figcaption>
+                    </a>
+                </li>
+                <li>
+                    <a routerLink="javascript:">
+                        <figure><img src="../../../assets/images/icons/matrix-choice.png" width="31" height="30" />
+                        </figure>
+                        <figcaption>Matrix Choice <br /><small>(One Answer)</small></figcaption>
+                    </a>
+                </li>
+                <li>
+                    <a routerLink="javascript:">
+                        <figure><img src="../../../assets/images/icons/matrix-choice.png" width="31" height="30" />
+                        </figure>
+                        <figcaption>Matrix Choice <br /><small>(Many Answer)</small></figcaption>
+                    </a>
+                </li>
+
+            </ul>
+        </div>
+    </div>
+    <div class="modal-footer upload">
+        <button type="button" class="btn close" (click)="modal.close('Close click')">Cancel</button>
+        <a routerLink="/survey/create-survey" type="button" class="btn btn-primary icon"
+            (click)="modal.close('Close click')">Create
+            <ng-icon name="heroArrowLongRight" class="ms-4"></ng-icon></a>
+    </div>
+</ng-template>
+
 <app-gender-popup #GenderModal></app-gender-popup>
 <app-age-popup #AgeModal></app-age-popup>
 <app-nccs-popup #NccsModal></app-nccs-popup>
@@ -429,6 +547,7 @@
 <app-geo-location-popup #GeoLocationModal></app-geo-location-popup>
 <app-marital-status-new-popup #MartialStatusModal></app-marital-status-new-popup>
 <app-industry-respondant-popup #IndustryRespondantModal></app-industry-respondant-popup>
+<app-industry-household-popup #IndustryHouseholdModal></app-industry-household-popup>
 <app-locality-popup #LocalityModal></app-locality-popup>
 <app-foreign-country-travelled-popup #ForeignCountryTravelledModal></app-foreign-country-travelled-popup>
 <app-language-you-know-popup #LanguageYouKnowModel></app-language-you-know-popup>
@@ -438,3 +557,9 @@
 <app-store-popup #StoreModal></app-store-popup>
 <app-selfie-popup #SelfieModal></app-selfie-popup>
 <app-accomodation-type-popup #AccomodationTypeModal></app-accomodation-type-popup>
+<app-home-accessories-popup #HomeAccessoriesModal></app-home-accessories-popup>
+<app-name-popup #NameModal></app-name-popup>
+<app-email-address-popup #EmailAddressModal></app-email-address-popup>
+<app-pin-code-popup #PinCodeModal></app-pin-code-popup>
+<app-audio-gender-detection-popup #AudioGenderDetectionModal></app-audio-gender-detection-popup>
+<app-state-popup #StateModal></app-state-popup>

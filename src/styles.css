@@ -965,6 +965,10 @@ ng-icon.trash-icon {
     font-size: .75rem;
 }
 
+.action .edit-action:hover {
+    background-color: var(--primary-hover);
+}
+
 .select-category .input-group.flex-nowrap span {
     background-color: transparent;
     border-right: none;

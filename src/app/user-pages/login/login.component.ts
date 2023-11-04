@@ -44,4 +44,22 @@ export class LoginComponent {
     nav: false,
     dots: true
   };
+
+
+  //login api
+
+  login(username: string, password: string) {
+    this.visibilityService.login(username, password).subscribe(
+      (response) => {
+        // Handle successful login
+        console.log('Login successful!', response);
+        // You might save the token or user information in local storage or a state management solution
+      },
+      (error) => {
+        // Handle login error
+        console.error('Login failed!', error);
+        // Show error message to the user or perform appropriate action
+      }
+    );
+  }
 }

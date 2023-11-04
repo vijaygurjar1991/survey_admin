@@ -43,6 +43,8 @@ import { BreadcrumbComponent } from './breadcrumb/breadcrumb/breadcrumb.componen
 import { LoginComponent } from './user-pages/login/login.component';
 import { CarouselModule } from 'ngx-owl-carousel-o';
 
+import { HttpClientModule } from '@angular/common/http';
+
 
 
 @NgModule({
@@ -66,6 +68,7 @@ import { CarouselModule } from 'ngx-owl-carousel-o';
     MatInputModule,
     ReactiveFormsModule,
     MatChipsModule,
+    HttpClientModule,
     NgIconsModule.withIcons({
       heroHome,
 

@@ -4,19 +4,22 @@
             <div class="col-md-6">
                 <div class="login-form h-100">
                     <div class="text-center">
-                        <img class="img-responsive" src="./assets/images/logo/logo.png" width="272" height="77" priority>
+                        <img class="img-responsive" src="./assets/images/logo/logo.png" width="272" height="77"
+                            priority>
                     </div>
                     <hr>
-                    <form>
+                    <form (ngSubmit)="login(username.value, password.value)">
                         <h2 class="text-center mb-3">Sign In</h2>
                         <h5 class="text-center mb-4">Welcome back! Please enter your details</h5>
                         <div class="mb-4">
                             <label for="email" class="form-label">Email</label>
-                            <input type="email" class="form-control" id="email" placeholder="Enter your email">
+                            <input type="email" class="form-control" id="email" placeholder="Enter your email"
+                                #username>
                         </div>
                         <div class="mb-4">
                             <label for="password" class="form-label">Password</label>
-                            <input type="password" class="form-control" id="password" placeholder="Enter your Password">
+                            <input type="password" class="form-control" id="password" placeholder="Enter your Password"
+                                #password>
                         </div>
                         <div class="col-12 mb-4">
                             <div class="d-flex justify-content-between">
@@ -40,12 +43,14 @@
                     <owl-carousel-o [options]="LoginSlider">
                         <ng-template carouselSlide>
                             <div class="slide">
-                                <img class="img-fluid" src="assets/images/slider/login-one.png" width="781" height="660">
+                                <img class="img-fluid" src="assets/images/slider/login-one.png" width="781"
+                                    height="660">
                             </div>
                         </ng-template>
                         <ng-template carouselSlide>
                             <div class="slide">
-                                <img class="img-fluid" src="assets/images/slider/login-one.png" width="781" height="660">
+                                <img class="img-fluid" src="assets/images/slider/login-one.png" width="781"
+                                    height="660">
                             </div>
                         </ng-template>
                     </owl-carousel-o>
