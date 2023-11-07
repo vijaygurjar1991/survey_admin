@@ -198,11 +198,11 @@
                 </a>
             </li>
             <li class="single-sidebar-menu">
-                <a class="menu-link" routerLink="#">
+                <a class="menu-link" routerLink="login" (click)="logOut()">
                     <span class="menu-icon flex-grow-0">
-                        <ng-icon name="heroLockClosed"></ng-icon>
+                        <ng-icon name="heroXMark"></ng-icon>
                     </span>
-                    <div class="text-box flex-grow-1">Logout</div>
+                    <div class="text-box flex-grow-1">Log Out</div>
                 </a>
             </li>
         </ul>
@@ -223,7 +223,7 @@
             </div>
             <div class="mb-4" class="search-categories input-icon">
                 <label class="form-label">Select Survey Categories</label>
-                <mat-form-field class="example-full-width">
+                <mat-form-field>
                     <ng-icon name="heroMagnifyingGlass" class=""></ng-icon>
                     <input type="text" placeholder="Search..." matInput [formControl]="searchControl"
                         [matAutocomplete]="auto" />

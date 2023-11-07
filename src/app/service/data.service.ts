@@ -1,9 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 
-import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
-
 @Injectable({
   providedIn: 'root'
 })
@@ -52,22 +49,6 @@ export class DataService {
   toggleBreadcrumbVisibility(visible: boolean) {
     this.breadcrumbVisibleSubject.next(visible);
   }
-
-
-  //login api
-
-  private apiUrl = 'https://beta.angular.opinionest.com';
-
-  constructor(private http: HttpClient) { }
-
-  login(username: string, password: string): Observable<any> {
-    const loginUrl = `${this.apiUrl}/Login`;
-    const params = { userName: username, password: password };
-
-    return this.http.get<any>(loginUrl, { params: params });
-  }
-
-
 
 
 }

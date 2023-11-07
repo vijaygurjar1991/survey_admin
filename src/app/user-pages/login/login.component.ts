@@ -1,6 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { OwlOptions } from 'ngx-owl-carousel-o';
 import { DataService } from 'src/app/service/data.service';
+
+import { ActivatedRoute, Router } from '@angular/router';
+import { first } from 'rxjs';
+import { AuthService } from 'src/app/service/auth.service';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MetaService } from 'src/app/service/meta.service';
 
 @Component({
   selector: 'app-login',
@@ -8,8 +14,23 @@ import { DataService } from 'src/app/service/data.service';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent {
-  constructor(private visibilityService: DataService) {
+
+  @Input('Component') isComponent = false;
+  errorMessage: string;
+  submitted = false;
+  loading = false;
+  loginForm: FormGroup;
+
+  constructor(
+    private visibilityService: DataService,
+    private fb: FormBuilder,
+    private route: ActivatedRoute,
+    private router: Router,
+    private authService: AuthService,
+    private meta: MetaService
+  ) {
     visibilityService.articleVisible.next(false);
+    meta.setTitle('Login');
   }
 
   hideHeader() {
@@ -37,6 +58,8 @@ export class LoginComponent {
     this.hideHeader();
     this.hideSideBar();
     this.hideBreadcrumb();
+
+    this.createForm();
   }
   LoginSlider: OwlOptions = {
     loop: true,
@@ -47,19 +70,54 @@ export class LoginComponent {
 
 
   //login api
-
-  login(username: string, password: string) {
-    this.visibilityService.login(username, password).subscribe(
-      (response) => {
-        // Handle successful login
-        console.log('Login successful!', response);
-        // You might save the token or user information in local storage or a state management solution
-      },
-      (error) => {
-        // Handle login error
-        console.error('Login failed!', error);
-        // Show error message to the user or perform appropriate action
-      }
-    );
+  createForm() {
+    this.loginForm = this.fb.group({
+      email: [
+        '',
+        [
+          Validators.required,
+          Validators.pattern(/^[A-Za-z0-9]+([._-][A-Za-z0-9]+)*@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$|^[A-Za-z0-9_-]+([.-][A-Za-z0-9_-]+)*$/),
+        ],
+      ],
+      password: ['', Validators.required],
+      rememberMe: [false],
+    });
   }
+
+  onSubmit() {
+    this.submitted = true;
+    if (this.loginForm.valid) {
+      this.loginForm.removeControl('rememberMe');
+      this.errorMessage = '';
+      this.loading = true;
+      const returnUrl =
+        this.route.snapshot.queryParamMap.get('returnUrl') || '/dashboard';
+      //this.router.navigate(['/dashboard']);
+
+      this.authService
+        .login(this.loginForm.value)
+        .pipe(first())
+        .subscribe({
+          next: (result) => {
+            if (result) {
+              this.loginForm.reset();
+
+              this.router.navigate([returnUrl]);
+            } else {
+              this.loading = false;
+              this.errorMessage = result;
+            }
+          },
+          error: (error) => {
+            console.log(error);
+            alert("Something went wrong. Please try again later and contact the administrator.");
+          },
+          complete: () => {
+            this.loading = false;
+          },
+        });
+    }
+  }
+
+
 }

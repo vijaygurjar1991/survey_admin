@@ -421,8 +421,8 @@ article {
 .add-ques-sidebar {
     background-color: var(--white);
     padding: var(--section-gap);
-    flex: 0 400px;
-    max-width: 400px;
+    flex: 0 450px;
+    max-width: 450px;
     margin: -1.5rem;
     box-shadow: 0px 20px 16px #d6d4d4;
 }
@@ -1144,11 +1144,13 @@ span.mobile-cross {
 }
 
 /* Modal Layout */
-
+.login-slider owl-carousel-o{ height: 100%; display: flex; align-items: center; }
 
 /* Responsive */
 
 @media (max-width:1199px) {
+    .login-form{ padding: 2rem;}
+    
     span.mobile-cross {
         display: block;
         position: absolute;
@@ -1161,9 +1163,11 @@ span.mobile-cross {
     }
 
     .addwidth .sidebar-wrapper {
-        width: 15rem;
+        width: 20rem;
     }
-
+    .addwidth .flex-0{
+        display: flex;
+    }
     .dashboard-header,
     article {
         margin-left: 0;
@@ -1219,6 +1223,7 @@ span.mobile-cross {
         font-size: .875rem;
         line-height: 1;
         padding: .5rem;
+        justify-content: center;
     }
 
     .common-ques a figure img {
@@ -1228,7 +1233,7 @@ span.mobile-cross {
     }
 
     .single-sidebar-menu>.menu-link {
-        justify-content: flex-start;
+        justify-content: space-between;
     }
 
     .addwidth .AngularCollapse-collapse,
@@ -1365,10 +1370,6 @@ span.mobile-cross {
     padding-left: 3rem
 }
 
-.upload a:hover {
-    color: var(--primary-hover);
-}
-
 
 
 /* editor */
@@ -1396,15 +1397,13 @@ span.mobile-cross {
 .input-icon ng-icon {
     position: absolute;
     top: 50%;
-    left: 10px;
-    /* Adjust the left position as needed */
+    left: 0px;
     transform: translateY(-50%);
-    --ng-icon__size: 1.4em !important;
+    --ng-icon__size: 1.2rem !important;
 }
 
 .input-icon input {
-    padding-left: 50px;
-    /* Adjust the left padding to create space for the icon */
+    padding-left: 30px;
 }
 
 .checking .form-check-input {
@@ -1420,4 +1419,12 @@ span.mobile-cross {
 
 .sort span#addon-wrapping {
     font-size: smaller;
+}
+
+/* Rishabh */
+.login-form .text-danger{ float: right; font-size: 12px; padding-top: 5px; }
+
+@media (max-width:991px){
+    .user-pages{ height: inherit;  min-height: inherit;}
+    .login-slider{ margin-top: 2rem;}
 }

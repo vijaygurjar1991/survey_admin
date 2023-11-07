@@ -4,6 +4,9 @@ import { FormControl } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { startWith, map } from 'rxjs/operators';
 import { DataService } from 'src/app/service/data.service';
+import { User } from 'src/app/models/user';
+import { AuthService } from 'src/app/service/auth.service';
+import { SurveyService } from 'src/app/service/survey.service';
 
 @Component({
   selector: 'app-sidebar',
@@ -12,12 +15,26 @@ import { DataService } from 'src/app/service/data.service';
 
 })
 export class SidebarComponent {
-
-  constructor(private modalService: NgbModal, public themeService: DataService) {
+  constructor(private modalService: NgbModal, public themeService: DataService, private auth: AuthService, private surveyservice: SurveyService) {
     this.filteredOptions = this.searchControl.valueChanges.pipe(
       startWith(''),
       map((value) => this._filter(value))
     );
+  }
+
+  ngOnInit() {
+    this.surveyservice.getData().subscribe(
+      (response) => {
+        console.log('Response', response);
+      },
+      (error) => {
+        console.error('Error', error);
+      }
+    );
+  }
+
+  logOut() {
+    this.auth.logout();
   }
 
   openLg(content: any) {
@@ -44,7 +61,7 @@ export class SidebarComponent {
     }
   }
 
-  
+
   searchControl = new FormControl();
   options: string[] = ['Automotive', 'Beverages - Alcholic',
     'Beverages - Alcholic',

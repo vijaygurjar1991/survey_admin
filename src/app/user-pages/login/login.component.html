@@ -1,44 +1,69 @@
 <section class="d-flex align-items-center user-pages my-5">
     <div class="container">
         <div class="row">
-            <div class="col-md-6">
+            <div class="col-lg-6 col-md-12">
                 <div class="login-form h-100">
                     <div class="text-center">
                         <img class="img-responsive" src="./assets/images/logo/logo.png" width="272" height="77"
                             priority>
                     </div>
                     <hr>
-                    <form (ngSubmit)="login(username.value, password.value)">
+                    <p class="alert alert-danger text-center" *ngIf="errorMessage">
+                        {{ errorMessage }}
+                    </p>
+                    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
                         <h2 class="text-center mb-3">Sign In</h2>
                         <h5 class="text-center mb-4">Welcome back! Please enter your details</h5>
                         <div class="mb-4">
                             <label for="email" class="form-label">Email</label>
-                            <input type="email" class="form-control" id="email" placeholder="Enter your email"
-                                #username>
+                            <input type="email" class="form-control" id="email" formControlName="email"
+                                placeholder="Enter your email" #username>
+                            <div *ngIf="
+                                    loginForm.get('email')?.invalid &&
+                                    (loginForm.get('email')?.dirty ||
+                                    loginForm.get('email')?.touched)
+                                ">
+                                <div class="text-danger" *ngIf="loginForm.get('email')?.errors?.required">
+                                    Email or username is required.
+                                </div>
+                                <div class="text-danger" *ngIf="loginForm.get('email')?.errors?.pattern">
+                                    Invalid email or username.
+                                </div>
+                            </div>
                         </div>
                         <div class="mb-4">
                             <label for="password" class="form-label">Password</label>
-                            <input type="password" class="form-control" id="password" placeholder="Enter your Password"
-                                #password>
+                            <input type="password" class="form-control" id="password" formControlName="password"
+                                placeholder="Enter your Password" #password>
+                            <div *ngIf="
+                                loginForm.get('password')?.invalid &&
+                                (loginForm.get('password')?.dirty ||
+                                    loginForm.get('password')?.touched)
+                                ">
+                                <div class="text-danger" *ngIf="loginForm.get('password')?.errors?.required">
+                                    Password is required.
+                                </div>
+                            </div>
                         </div>
                         <div class="col-12 mb-4">
                             <div class="d-flex justify-content-between">
                                 <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" id="remember">
+                                    <input class="form-check-input" type="checkbox" id="remember"
+                                        formControlName="rememberMe" />
                                     <label class="form-check-label" for="remember">Remember for 30 Days</label>
                                 </div>
-                                <div class="form-check">
+                                <!-- <div class="form-check">
                                     <a href="#">Forgot Password</a>
-                                </div>
+                                </div> -->
                             </div>
                         </div>
                         <div class="d-grid gap-2">
-                            <button type="submit" class="btn btn-primary">Sign In</button>
+                            <button type="submit" class="btn btn-primary" [disabled]="!loginForm.valid">Sign In</button>
                         </div>
                     </form>
                 </div>
             </div>
-            <div class="col-md-6">
+            <div class="col-lg-6 col-md-12">
                 <div class="login-slider h-100">
                     <owl-carousel-o [options]="LoginSlider">
                         <ng-template carouselSlide>
@@ -59,3 +84,4 @@
         </div>
     </div>
 </section>
+<!-- <app-loader [display]="loading"></app-loader> -->
