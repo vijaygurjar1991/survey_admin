@@ -11,9 +11,22 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 })
 export class DashboardComponent {
 
-  constructor(private visibilityService: DataService, private modalService: NgbModal, public themeService: DataService) { }
+  constructor(private visibilityService: DataService, private modalService: NgbModal, public themeService: DataService) {
+    visibilityService.articleVisible.next(true);
+
+  }
 
 
+  hideHeader() {
+    console.log("hideHeader function called");
+    this.visibilityService.toggleHeaderVisibility(false);
+
+  }
+  showHeader() {
+    console.log("showHeader function called");
+    this.visibilityService.toggleHeaderVisibility(true);
+
+  }
   hideSideBar() {
     this.visibilityService.toggleNavbarVisibility(false);
   }
@@ -52,6 +65,7 @@ export class DashboardComponent {
 
   chart: any = [];
   ngOnInit(): void {
+    this.showHeader();
     this.createChart();
     this.showSideBar();
     this.hideBreadcrumb();

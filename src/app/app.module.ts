@@ -43,8 +43,8 @@ import { BreadcrumbComponent } from './breadcrumb/breadcrumb/breadcrumb.componen
 import { LoginComponent } from './user-pages/login/login.component';
 import { CarouselModule } from 'ngx-owl-carousel-o';
 
-import { HttpClientModule } from '@angular/common/http';
-
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
+import { HttpInterceptorService } from './service/http-interceptor.service';
 
 
 @NgModule({
@@ -94,6 +94,7 @@ import { HttpClientModule } from '@angular/common/http';
     provideNgIconsConfig({
       size: '1.8em',
     }),
+    { provide: HTTP_INTERCEPTORS, useClass: HttpInterceptorService, multi: true }
   ],
   bootstrap: [AppComponent]
 })

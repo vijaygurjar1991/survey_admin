@@ -17,39 +17,41 @@ export class AuthService {
   login(userDetails: any) {
     return this.http.post(`${this.apiUrl}Login`, userDetails, { responseType: 'text' }).pipe(
       map((response) => {
+        debugger;
         if (response) {
-          localStorage.setItem('X-XSRF-TOKEN', response);
+          localStorage.setItem('authToken', response);
           this.setUserDetails();
         }
         return response;
-        //return response as responseDTO;
       })
     );
   }
 
   setUserDetails() {
     this.userData.next(null);
-    if (localStorage.getItem('X-XSRF-TOKEN')) {
+    if (localStorage.getItem('authToken')) {
       const userDetails = new User();
-      var token = localStorage.getItem('X-XSRF-TOKEN');
+      var token = localStorage.getItem('authToken');
 
       let decodeUserDetails;
       if (token) {
         decodeUserDetails = JSON.parse(window.atob(token.split('.')[1]));
       }
-
+      //debugger;
       userDetails.userName = decodeUserDetails.sub;
       userDetails.fullName = decodeUserDetails.name;
-      userDetails.userId = decodeUserDetails.userId;
-      userDetails.isActiveSubscriber = decodeUserDetails.isActiveSubscriber;
-      userDetails.role = decodeUserDetails.role;
+      var _userDetail = JSON.parse(decodeUserDetails.user);
+      userDetails.userId = _userDetail?.Id;
+      userDetails.role = _userDetail?.Role;
+      // userDetails.isActiveSubscriber = decodeUserDetails.isActiveSubscriber;
+      // userDetails.role = decodeUserDetails.role;
 
       this.userData.next(userDetails);
     }
   }
 
   logout(returnUrl = '') {
-    localStorage.removeItem('X-XSRF-TOKEN');
+    localStorage.removeItem('authToken');
     this.userData.next(null);
 
     if (returnUrl != '') {

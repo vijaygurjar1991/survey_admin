@@ -6,7 +6,6 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { first } from 'rxjs';
 import { AuthService } from 'src/app/service/auth.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { MetaService } from 'src/app/service/meta.service';
 
 @Component({
   selector: 'app-login',
@@ -27,10 +26,8 @@ export class LoginComponent {
     private route: ActivatedRoute,
     private router: Router,
     private authService: AuthService,
-    private meta: MetaService
   ) {
     visibilityService.articleVisible.next(false);
-    meta.setTitle('Login');
   }
 
   hideHeader() {

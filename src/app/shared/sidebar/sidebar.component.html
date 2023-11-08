@@ -12,7 +12,7 @@
     <div class="sidebar-menu">
         <ul>
             <li class="single-sidebar-menu">
-                <div class="menulabel">menu</div>
+                <div class="menulabel">menu{{role}}</div>
             </li>
             <li class="single-sidebar-menu menu-item-active">
                 <a class="menu-link active" routerLink="/dashboard">
@@ -200,7 +200,7 @@
             <li class="single-sidebar-menu">
                 <a class="menu-link" routerLink="login" (click)="logOut()">
                     <span class="menu-icon flex-grow-0">
-                        <ng-icon name="heroXMark"></ng-icon>
+                        <ng-icon name="heroLockClosed"></ng-icon>
                     </span>
                     <div class="text-box flex-grow-1">Log Out</div>
                 </a>
