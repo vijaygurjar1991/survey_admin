@@ -13,248 +13,16 @@
         <div ngClass="generic-ques">
             <h6 class="mb-3">Add Generic Question</h6>
             <ul>
-                <li>
-                    <a href="javascript:" (click)="onGenericQuestionClick('gender')">
-                        <figure><img src="../../../assets/images/icons/gender.png" width="35" height="35" />
+                <li *ngFor="let item of names">
+                    <a href="javascript:" (click)="onGenericQuestionClick(item.name)">
+                        <figure>
+                            <img src="../../../assets/images/icons/gender.png" width="35" height="35" />
                         </figure>
-                        <figcaption>Gender</figcaption>
-                    </a>
-                </li>
-                <li>
-                    <a href="javascript:" (click)="onGenericQuestionClick('age')">
-                        <figure><img src="../../../assets/images/icons/age.png" width="35" height="35" /></figure>
-                        <figcaption>Age</figcaption>
-                    </a>
-                </li>
-                <li>
-                    <a href="javascript:" (click)="onGenericQuestionClick('nccs')">
-                        <figure><img src="../../../assets/images/icons/nccs.png" width="35" height="35" /></figure>
-                        <figcaption>NCCS</figcaption>
-                    </a>
-                </li>
-                <li>
-                    <a href="javascript:" (click)="onGenericQuestionClick('monthlyincome')">
-                        <figure><img src="../../../assets/images/icons/monthly-income.png" width="35" height="35" />
-                        </figure>
-                        <figcaption>Monthly Income</figcaption>
-                    </a>
-                </li>
-                <li>
-                    <a href="javascript:" (click)="onGenericQuestionClick('household')">
-                        <figure><img src="../../../assets/images/icons/household-income.png" width="35" height="35" />
-                        </figure>
-                        <figcaption>Household Income</figcaption>
-                    </a>
-                </li>
-                <li>
-                    <a href="javascript:" (click)="onGenericQuestionClick('familymember')">
-                        <figure><img src="../../../assets/images/icons/family-member.png" width="35" height="35" />
-                        </figure>
-                        <figcaption>Family Member</figcaption>
-                    </a>
-                </li>
-                <li>
-                    <a href="javascript:" (click)="onGenericQuestionClick('numberofchild')">
-                        <figure><img src="../../../assets/images/icons/number-of-child.png" width="35" height="35" />
-                        </figure>
-                        <figcaption>No. of Child</figcaption>
-                    </a>
-                </li>
-                <li>
-                    <a href="javascript:" (click)="onGenericQuestionClick('workingstatus')">
-                        <figure><img src="../../../assets/images/icons/working-status.png" width="35" height="35" />
-                        </figure>
-                        <figcaption>Working Status</figcaption>
-                    </a>
-                </li>
-                <li>
-                    <a href="javascript:" (click)="onGenericQuestionClick('city')">
-                        <figure><img src="../../../assets/images/icons/city.png" width="35" height="35" /></figure>
-                        <figcaption>City</figcaption>
-                    </a>
-                </li>
-                <li>
-                    <a href="javascript:" (click)="onGenericQuestionClick('ageofchildren')">
-                        <figure><img src="../../../assets/images/icons/age-of-children.png" width="35" height="35" />
-                        </figure>
-                        <figcaption>Age of Children</figcaption>
-                    </a>
-                </li>
-                <li>
-                    <a href="javascript:" (click)="onGenericQuestionClick('oldsec')">
-                        <figure><img src="../../../assets/images/icons/old-SEC.png" width="35" height="35" />
-                        </figure>
-                        <figcaption>Old SEC</figcaption>
-                    </a>
-                </li>
-                <li>
-                    <a href="javascript:" (click)="onGenericQuestionClick('industry')">
-                        <figure><img src="../../../assets/images/icons/industry.png" width="35" height="35" />
-                        </figure>
-                        <figcaption>Industry</figcaption>
-                    </a>
-                </li>
-                <li>
-                    <a href="javascript:" (click)="onGenericQuestionClick('newflsm')">
-                        <figure><img src="" width="35" height="35" /></figure>
-                        <figcaption>New F-LSM</figcaption>
-                    </a>
-                </li>
-                <li>
-                    <a href="javascript:" (click)="onGenericQuestionClick('mslm')">
-                        <figure><img src="" width="35" height="35" /></figure>
-                        <figcaption>M-SLM</figcaption>
-                    </a>
-                </li>
-                <li>
-                    <a href="javascript:" (click)="onGenericQuestionClick('slsm')">
-                        <figure><img src="" width="35" height="35" /></figure>
-                        <figcaption>S-LSM</figcaption>
-                    </a>
-                </li>
-                <li>
-                    <a href="javascript:" (click)="onGenericQuestionClick('language')">
-                        <figure><img src="../../../assets/images/icons/language.png" width="35" height="35" />
-                        </figure>
-                        <figcaption>Language</figcaption>
-                    </a>
-                </li>
-                <li>
-                    <a href="javascript:" (click)="onGenericQuestionClick('geolocation')">
-                        <figure><img src="../../../assets/images/icons/geo-location.png" width="35" height="35" />
-                        </figure>
-                        <figcaption>Geo Location</figcaption>
-                    </a>
-                </li>
-                <li>
-                    <a href="javascript:" (click)="onGenericQuestionClick('martialstatus')">
-                        <figure><img src="../../../assets/images/icons/marital-status-new.png" width="35" height="35" />
-                        </figure>
-                        <figcaption>Marital Status New</figcaption>
-                    </a>
-                </li>
-                <li>
-                    <a href="javascript:" (click)="onGenericQuestionClick('industryrespondant')">
-                        <figure><img src="../../../assets/images/icons/industry.png" width="35" height="35" />
-                        </figure>
-                        <figcaption>Industry Respondant</figcaption>
-                    </a>
-                </li>
-                <li>
-                    <a href="javascript:" (click)="onGenericQuestionClick('industryhousehold')">
-                        <figure><img src="../../../assets/images/icons/industry-household.png" width="35" height="35" />
-                        </figure>
-                        <figcaption>Industry Household</figcaption>
-                    </a>
-                </li>
-                <li>
-                    <a href="javascript:" (click)="onGenericQuestionClick('locality')">
-                        <figure><img src="../../../assets/images/icons/location.png" width="35" height="35" />
-                        </figure>
-                        <figcaption>Locality</figcaption>
-                    </a>
-                </li>
-                <li>
-                    <a href="javascript:" (click)="onGenericQuestionClick('foreigncountrytravelled')">
-                        <figure><img src="../../../assets/images/icons/foreign-country-trevelled.png" width="35"
-                                height="35" /></figure>
-                        <figcaption>Foreign Country Travelled</figcaption>
-                    </a>
-                </li>
-                <li>
-                    <a href="javascript:" (click)="onGenericQuestionClick('languageyouknow')">
-                        <figure><img src="../../../assets/images/icons/languages-you-know.png" width="35" height="35" />
-                        </figure>
-                        <figcaption>Language You Know</figcaption>
-                    </a>
-                </li>
-                <li>
-                    <a href="javascript:" (click)="onGenericQuestionClick('homeareatype')">
-                        <figure><img src="../../../assets/images/icons/home-area-type.png" width="35" height="35" />
-                        </figure>
-                        <figcaption>Home Area Type</figcaption>
-                    </a>
-                </li>
-                <li>
-                    <a href="javascript:" (click)="onGenericQuestionClick('kidscount')">
-                        <figure><img src="../../../assets/images/icons/kids-count.png" width="35" height="35" />
-                        </figure>
-                        <figcaption>Kids + Count</figcaption>
-                    </a>
-                </li>
-                <li>
-                    <a href="javascript:" (click)="onGenericQuestionClick('oldflsm')">
-                        <figure><img src="" width="35" height="35" /></figure>
-                        <figcaption>Old F-LSM</figcaption>
-                    </a>
-                </li>
-                <li>
-                    <a href="javascript:" (click)="onGenericQuestionClick('')">
-                        <figure><img src="" width="35" height="35" /></figure>
-                        <figcaption>SEC (BN/SL/NPL)</figcaption>
-                    </a>
-                </li>
-                <li>
-                    <a href="javascript:" (click)="onGenericQuestionClick('store')">
-                        <figure><img src="../../../assets/images/icons/store.png" width="35" height="35" /></figure>
-                        <figcaption>Store</figcaption>
-                    </a>
-                </li>
-                <li>
-                    <a href="javascript:" (click)="onGenericQuestionClick('selfie')">
-                        <figure><img src="../../../assets/images/icons/selfie.png" width="35" height="35" />
-                        </figure>
-                        <figcaption>Selfie</figcaption>
-                    </a>
-                </li>
-                <li>
-                    <a href="javascript:" (click)="onGenericQuestionClick('accomodationtype')">
-                        <figure><img src="../../../assets/images/icons/accomodation-type.png" width="35" height="35" />
-                        </figure>
-                        <figcaption>Accomodation Type</figcaption>
-                    </a>
-                </li>
-                <li>
-                    <a href="javascript:" (click)="onGenericQuestionClick('homeaccessories')">
-                        <figure><img src="../../../assets/images/icons/home-accessories.png" width="35" height="35" />
-                        </figure>
-                        <figcaption>Home Accessories</figcaption>
-                    </a>
-                </li>
-                <li>
-                    <a href="javascript:" (click)="onGenericQuestionClick('name')">
-                        <figure><img src="../../../assets/images/icons/name.png" width="35" height="35" /></figure>
-                        <figcaption>Name</figcaption>
-                    </a>
-                </li>
-                <li>
-                    <a href="javascript:" (click)="onGenericQuestionClick('emailaddress')">
-                        <figure><img src="../../../assets/images/icons/email-address.png" width="35" height="35" />
-                        </figure>
-                        <figcaption>Email Address</figcaption>
-                    </a>
-                </li>
-                <li>
-                    <a href="javascript:" (click)="onGenericQuestionClick('pincode')">
-                        <figure><img src="../../../assets/images/icons/pincode.png" width="35" height="35" />
-                        </figure>
-                        <figcaption>Pincode</figcaption>
-                    </a>
-                </li>
-                <li>
-                    <a href="javascript:" (click)="onGenericQuestionClick('audiogenderdetection')">
-                        <figure><img src="../../../assets/images/icons/audio-gender-detection.png" width="35"
-                                height="35" /></figure>
-                        <figcaption>Audio Gender Detection</figcaption>
-                    </a>
-                </li>
-                <li>
-                    <a href="javascript:" (click)="onGenericQuestionClick('state')">
-                        <figure><img src="../../../assets/images/icons/state.png" width="35" height="35" /></figure>
-                        <figcaption>State</figcaption>
+                        <figcaption>{{ item.name }}</figcaption>
                     </a>
                 </li>
             </ul>
+
         </div>
         <div ngClass="my-3">
             <h6 class="mb-3">Add Screen</h6>
@@ -420,103 +188,18 @@
     <div class="modal-body popup-ques">
         <div ngClass="update-ques-type generic-ques">
             <ul>
-                <li>
-                    <a routerLink="javascript:">
-                        <figure><img src="../../../assets/images/icons/multiple-choice-1.png" width="38" height="30" />
+                <li *ngFor="let ques of question">
+                    <a [routerLink]="'javascript:'">
+                        <figure>
+                            <img src="../../../assets/images/icons/multiple-choice-1.png" width="38" height="30" />
                         </figure>
-                        <figcaption>Multiple Choice <br /><small>(One Answer)</small></figcaption>
+                        <figcaption>
+                            {{ ques.type }}
+                            <br />
+                            <small>{{ ques.subType }}</small>
+                        </figcaption>
                     </a>
                 </li>
-                <li>
-                    <a routerLink="javascript:">
-                        <figure><img src="../../../assets/images/icons/multiple-choice-2.png" width="37" height="30" />
-                        </figure>
-                        <figcaption>Multiple Choice <br /><small>(Many Answer)</small></figcaption>
-                    </a>
-                </li>
-                <li>
-                    <a routerLink="javascript:">
-                        <figure><img src="../../../assets/images/icons/dropdown-1.png" width="40" height="21" />
-                        </figure>
-                        <figcaption>Dropdown <br /><small>(One Answer)</small></figcaption>
-                    </a>
-                </li>
-                <li>
-                    <a routerLink="javascript:">
-                        <figure><img src="../../../assets/images/icons/dropdown-1.png" width="40" height="21" />
-                        </figure>
-                        <figcaption>Dropdown <br /><small>(Many Answer)</small></figcaption>
-                    </a>
-                </li>
-                <li>
-                    <a routerLink="javascript:">
-                        <figure><img src="../../../assets/images/icons/image-select.png" width="39" height="30" />
-                        </figure>
-                        <figcaption>Image Selection</figcaption>
-                    </a>
-                </li>
-                <li>
-                    <a routerLink="javascript:">
-                        <figure><img src="../../../assets/images/icons/rating-scale.png" width="28" height="30" />
-                        </figure>
-                        <figcaption>Rating Scale</figcaption>
-                    </a>
-                </li>
-                <li>
-                    <a routerLink="javascript:">
-                        <figure><img src="../../../assets/images/icons/star-rating.png" width="31" height="30" />
-                        </figure>
-                        <figcaption>Star Rating</figcaption>
-                    </a>
-                </li>
-                <li>
-                    <a routerLink="javascript:">
-                        <figure><img src="../../../assets/images/icons/NPS.png" width="16" height="30" />
-                        </figure>
-                        <figcaption>NPS</figcaption>
-                    </a>
-                </li>
-                <li>
-                    <a routerLink="javascript:">
-                        <figure><img src="../../../assets/images/icons/slider-scale.png" width="30" height="17" />
-                        </figure>
-                        <figcaption>Slider Scale</figcaption>
-                    </a>
-                </li>
-                <li>
-                    <a routerLink="javascript:">
-                        <figure><img src="../../../assets/images/icons/Continuous-Sum.png" width="24" height="30" />
-                        </figure>
-                        <figcaption>Continuous Sum</figcaption>
-                    </a>
-                </li>
-                <li>
-                    <a routerLink="javascript:">
-                        <figure><img src="../../../assets/images/icons/ranking.png" width="28" height="30" /></figure>
-                        <figcaption>Ranking</figcaption>
-                    </a>
-                </li>
-                <li>
-                    <a routerLink="javascript:">
-                        <figure><img src="../../../assets/images/icons/boolean.png" width="30" height="30" /></figure>
-                        <figcaption>Boolean <br /><small>(Yes/No)</small></figcaption>
-                    </a>
-                </li>
-                <li>
-                    <a routerLink="javascript:">
-                        <figure><img src="../../../assets/images/icons/matrix-choice.png" width="31" height="30" />
-                        </figure>
-                        <figcaption>Matrix Choice <br /><small>(One Answer)</small></figcaption>
-                    </a>
-                </li>
-                <li>
-                    <a routerLink="javascript:">
-                        <figure><img src="../../../assets/images/icons/matrix-choice.png" width="31" height="30" />
-                        </figure>
-                        <figcaption>Matrix Choice <br /><small>(Many Answer)</small></figcaption>
-                    </a>
-                </li>
-
             </ul>
         </div>
     </div>
@@ -554,7 +237,8 @@
 <app-home-area-type-popup #HomeAreaTypeModal></app-home-area-type-popup>
 <app-kids-count-popup #KidsCountModal></app-kids-count-popup>
 <app-old-f-lsm-popup #OldFLsmModal></app-old-f-lsm-popup>
-<app-store-popup #StoreModal></app-store-popup>
+<app-old-f-lsm-popup #OldFLsmModal></app-old-f-lsm-popup>
+<app-sec-bn-sl-popup #SecBnSlNpl></app-sec-bn-sl-popup>
 <app-selfie-popup #SelfieModal></app-selfie-popup>
 <app-accomodation-type-popup #AccomodationTypeModal></app-accomodation-type-popup>
 <app-home-accessories-popup #HomeAccessoriesModal></app-home-accessories-popup>

@@ -7,6 +7,8 @@ import { startWith, map } from 'rxjs/operators';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { DataService } from 'src/app/service/data.service'; // Import your DataService
 import { ModalDirective } from 'ngx-bootstrap/modal';
+import { SurveyService } from 'src/app/service/survey.service';
+import { responseDTO } from 'src/app/types/responseDTO';
 
 
 @Component({
@@ -41,6 +43,7 @@ export class CreateSurveyComponent implements OnInit {
   @ViewChild('HomeAreaTypeModal', { static: true }) homeareatypeModal!: ModalDirective;
   @ViewChild('KidsCountModal', { static: true }) kidscountModal!: ModalDirective;
   @ViewChild('OldFLsmModal', { static: true }) oldflsmModal!: ModalDirective;
+  @ViewChild('SecBnSlNpl', { static: true }) secbnslnplModal!: ModalDirective;
   @ViewChild('StoreModal', { static: true }) storeModal!: ModalDirective;
   @ViewChild('SelfieModal', { static: true }) selfieModal!: ModalDirective;
   @ViewChild('AccomodationTypeModal', { static: true }) accomodationtypeModal!: ModalDirective;
@@ -67,7 +70,8 @@ export class CreateSurveyComponent implements OnInit {
     private dataService: DataService,
     private renderer: Renderer2,
     private el: ElementRef,
-    public themeService: DataService
+    public themeService: DataService,
+    private surveyservice: SurveyService
   ) {
     this.filteredOptions = this.searchControl.valueChanges.pipe(
       startWith(''),
@@ -95,77 +99,81 @@ export class CreateSurveyComponent implements OnInit {
 
   ngOnInit(): void {
     this.hideBreadcrumb();
+    this.getNames();
+    this.getQuestion()
   }
   onGenericQuestionClick(type: any): void {
-    if (type === "gender") {
+    if (type === "Gender") {
       this.genderModal.show();
-    } else if (type === "age") {
+    } else if (type === "Age") {
       this.ageModal.show();
-    } else if (type === "nccs") {
+    } else if (type === "NCCS") {
       this.nccsModal.show();
-    } else if (type === "monthlyincome") {
+    } else if (type === "Monthly Income") {
       this.monthlyincomeModal.show();
-    } else if (type === "household") {
+    } else if (type === "Household Income") {
       this.householdModal.show();
-    } else if (type === "familymember") {
+    } else if (type === "Family Member") {
       this.familymenberModal.show();
-    } else if (type === "numberofchild") {
+    } else if (type === "No. of Child") {
       this.numberofchildModal.show();
-    } else if (type === "workingstatus") {
+    } else if (type === "Working Status") {
       this.workingstatusModal.show();
-    } else if (type === "city") {
+    } else if (type === "City") {
       this.cityModal.show();
-    } else if (type === "ageofchildren") {
+    } else if (type === "Age of Childern") {
       this.ageofchildrenModal.show();
-    } else if (type === "oldsec") {
+    } else if (type === "Old SEC") {
       this.oldsecModal.show();
-    } else if (type === "industry") {
+    } else if (type === "Industry") {
       this.industryModal.show();
-    } else if (type === "newflsm") {
+    } else if (type === "New F-LSM") {
       this.newflsmModal.show();
-    } else if (type === "mslm") {
+    } else if (type === "M-SLM") {
       this.mslmModal.show();
-    } else if (type === "slsm") {
+    } else if (type === "S-SLM") {
       this.slsmModal.show();
-    } else if (type === "language") {
+    } else if (type === "Language") {
       this.languageModal.show();
-    } else if (type === "geolocation") {
+    } else if (type === "Geo Location") {
       this.geolocationModal.show();
-    } else if (type === "martialstatus") {
+    } else if (type === "Marital Status New") {
       this.martialStatusModal.show();
-    } else if (type === "industryrespondant") {
+    } else if (type === "Industry Respondant") {
       this.industryrespondantModal.show();
-    } else if (type === "industryhousehold") {
+    } else if (type === "iIndustry Household") {
       this.industryhouseholdModal.show();
-    } else if (type === "locality") {
+    } else if (type === "Locality") {
       this.localityModal.show();
-    } else if (type === "foreigncountrytravelled") {
+    } else if (type === "Foreign Country Travelled") {
       this.foreigncountrytravelledModal.show();
-    } else if (type === "languageyouknow") {
+    } else if (type === "Language You Know") {
       this.languageyouknowModal.show();
-    } else if (type === "homeareatype") {
+    } else if (type === "Home Area Type") {
       this.homeareatypeModal.show();
-    } else if (type === "kidscount") {
+    } else if (type === "Kids + Count") {
       this.kidscountModal.show();
-    } else if (type === "oldflsm") {
+    } else if (type === "Old F-LSM") {
       this.oldflsmModal.show();
-    } else if (type === "store") {
+    } else if (type === "Sec (BN/SL/NPL)") {
+      this.secbnslnplModal.show();
+    } else if (type === "Store") {
       this.storeModal.show();
-    } else if (type === "selfie") {
+    } else if (type === "Selfie") {
       this.selfieModal.show();
-    } else if (type === "accomodationtype") {
+    } else if (type === "Accomodation Type") {
       this.accomodationtypeModal.show();
-    } else if (type === "homeaccessories") {
+    } else if (type === "Home Accessories") {
       this.homeaccessoriesModal.show();
-    } else if (type === "name") {
+    } else if (type === "Name") {
       this.nameModal.show();
-    } else if (type === "emailaddress") {
+    } else if (type === "Email Address") {
       this.emailaddressModal.show();
-    } else if (type === "pincode") {
+    } else if (type === "Pincode") {
       this.pincodeModal.show();
-    } else if (type === "audiogenderdetection") {
+    } else if (type === "Audio Gender Detection") {
       this.audiogenderdetectionModal.show();
-    } else if (type === "state") {
+    } else if (type === "State") {
       this.stateModal.show();
     }
   }
@@ -222,5 +230,37 @@ export class CreateSurveyComponent implements OnInit {
   }
 
 
+
+  role: string;
+  userId: number;
+  name: string;
+
+  type: string[] = [];
+  subType: string[] = [];
+
+
+  names: responseDTO[] = [];
+  getNames() {
+    this.surveyservice.GetGenericQuestion(this.userId).subscribe({
+      next: (resp: responseDTO[]) => {
+        console.log('Response:', resp);
+        this.names = resp;
+      },
+      error: (err) => console.log("An Error occur while fetching categories", err)
+    });
+  }
+
+  question: { type: string, subType: string }[] = [];
+
+  getQuestion() {
+    this.surveyservice.GetQuestionTypes(this.userId).subscribe({
+      next: (resp: responseDTO[]) => {
+        console.log('Response:', resp);
+        // Map the response to the desired format
+        this.question = resp.map(item => ({ type: item.type, subType: item.subType }));
+      },
+      error: (err) => console.log("An Error occurred while fetching question types", err)
+    });
+  }
 
 }

@@ -3,6 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { map } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { responseDTO } from '../types/responseDTO';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -15,5 +16,31 @@ export class SurveyService {
     return this.http
       .get<responseDTO>(`${this.apiUrl}api/admin/${userId}/Category/GetCategories`)
       .pipe(map((result) => result as responseDTO));
+  }
+
+  GetGenericQuestion(userId: any): Observable<responseDTO[]> {
+    const url = `${this.apiUrl}api/admin/${userId}/GenericQuestion/GetGenericType`;
+
+    return this.http.get<responseDTO[]>(url);
+  }
+  GetQuestionTypes(userId: any): Observable<responseDTO[]> {
+    const url = `${this.apiUrl}api/admin/${userId}/GenericQuestion/GetQuestionTypes`;
+
+    return this.http.get<responseDTO[]>(url);
+  }
+  GetStates(userId: any): Observable<responseDTO[]> {
+    const url = `${this.apiUrl}api/admin/${userId}/Geography/GetStates`;
+
+    return this.http.get<responseDTO[]>(url);
+  }
+  GetCountries(userId: any): Observable<responseDTO[]> {
+    const url = `${this.apiUrl}api/admin/${userId}/Geography/GetCountries`;
+
+    return this.http.get<responseDTO[]>(url);
+  }
+  GetListOfCountry(userId: any): Observable<responseDTO[]> {
+    const url = `${this.apiUrl}api/admin/${userId}/Geography/GetGeographyListByCountryId`;
+
+    return this.http.get<responseDTO[]>(url);
   }
 }
