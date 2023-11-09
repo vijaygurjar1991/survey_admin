@@ -16,7 +16,7 @@
                 <li *ngFor="let item of names">
                     <a href="javascript:" (click)="onGenericQuestionClick(item.name)">
                         <figure>
-                            <img src="../../../assets/images/icons/gender.png" width="35" height="35" />
+                            <img src="../../../assets/{{item.image}}" width="35" height="35" />
                         </figure>
                         <figcaption>{{ item.name }}</figcaption>
                     </a>

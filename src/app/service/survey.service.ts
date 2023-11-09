@@ -28,8 +28,8 @@ export class SurveyService {
 
     return this.http.get<responseDTO[]>(url);
   }
-  GetStateByCountryID(userId: any): Observable<responseDTO[]> {
-    const url = `${this.apiUrl}api/admin/${userId}/Geography/GetStateByCountryId`;
+  GetStateByCountryID(userId: any, country_id: any): Observable<responseDTO[]> {
+    const url = `${this.apiUrl}api/admin/${userId}/Geography/GetStateByCountryId?countryIds=${country_id}`;
 
     return this.http.get<responseDTO[]>(url);
   }

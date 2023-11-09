@@ -239,12 +239,12 @@ export class CreateSurveyComponent implements OnInit {
   subType: string[] = [];
 
 
-  names: responseDTO[] = [];
+  names: { name: string, image: string }[] = [];
   getNames() {
     this.surveyservice.GetGenericQuestion(this.userId).subscribe({
       next: (resp: responseDTO[]) => {
         console.log('Response:', resp);
-        this.names = resp;
+        this.names = resp.map(item => ({ name: item.name, image: item.image }));
       },
       error: (err) => console.log("An Error occur while fetching categories", err)
     });
@@ -262,5 +262,6 @@ export class CreateSurveyComponent implements OnInit {
       error: (err) => console.log("An Error occurred while fetching question types", err)
     });
   }
+
 
 }

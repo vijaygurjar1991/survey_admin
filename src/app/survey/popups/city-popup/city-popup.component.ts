@@ -23,36 +23,80 @@ export class CityPopupComponent {
 
   ngOnInit(): void {
     this.getCountries();
-    this.getstates();
 
   }
 
+  // userId: number;
+  // countries: { name: string, countryId: string }[] = [];
+
+  // getCountries() {
+  //   this.surveyservice.GetCountries(this.userId).subscribe({
+  //     next: (resp: responseDTO[]) => {
+  //       console.log('Response:', resp);
+  //       this.countries = resp.map(item => ({ name: item.name, countryId: item.countryId }));
+  //     },
+  //     error: (err) => console.log("An Error occurred while fetching countries", err)
+  //   });
+  // }
+
+  // statesbycountryid: { name: string, countryId: string }[] = []
+
+
+  // getstates() {
+  //   this.surveyservice.GetStateByCountryID(this.userId).subscribe({
+  //     next: (resp: responseDTO[]) => {
+  //       console.log('Response:', resp);
+  //       this.statesbycountryid = resp.map(item => ({ name: item.name, countryId: item.countryId }));
+  //     },
+  //     error: (err) => console.log("An Error occurred while fetching countries", err)
+  //   });
+  // }
+
   userId: number;
   countries: { name: string, countryId: string }[] = [];
+  statesbycountryid: { name: string, countryId: string }[] = [];
 
   getCountries() {
     this.surveyservice.GetCountries(this.userId).subscribe({
       next: (resp: responseDTO[]) => {
-        console.log('Response:', resp);
-        this.countries = resp.map(item => ({ name: item.name, countryId: item.countryId }));
+        console.log('Response Countries:', resp);
+        this.countries = resp.map(item => (
+          {
+            name: item.name,
+            countryId: item.countryId,
+            states: this.getStatesByCountryId(item.countryId),
+          }
+        ));
+
+        // After fetching countries, call the method to get states
+
       },
       error: (err) => console.log("An Error occurred while fetching countries", err)
     });
   }
 
-  statesbycountryid: { name: string, countryId: string }[] = []
-
-  getstates() {
-    this.surveyservice.GetStateByCountryID(this.userId).subscribe({
+  getStatesByCountryId(country_id: any) {
+    this.surveyservice.GetStateByCountryID(this.userId, country_id).subscribe({
       next: (resp: responseDTO[]) => {
-        console.log('Response:', resp);
+
+        console.log('Response States:', resp);
         this.statesbycountryid = resp.map(item => ({ name: item.name, countryId: item.countryId }));
+
+        this.displayStatesForMatchingCountryId();
       },
-      error: (err) => console.log("An Error occurred while fetching countries", err)
+      error: (err) => console.log("An Error occurred while fetching states", err)
     });
   }
 
+  displayStatesForMatchingCountryId() {
 
+    const matchingStates = this.statesbycountryid.filter(state =>
+      this.countries.some(country => country.countryId === state.countryId)
+    );
+
+    console.log('Matching States:', matchingStates);
+
+  }
 
 
 
