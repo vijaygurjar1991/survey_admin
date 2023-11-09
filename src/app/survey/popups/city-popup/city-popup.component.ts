@@ -22,9 +22,36 @@ export class CityPopupComponent {
   }
 
   ngOnInit(): void {
-    // this.cityNames();
+    this.getCountries();
+    this.getstates();
 
   }
+
+  userId: number;
+  countries: { name: string, countryId: string }[] = [];
+
+  getCountries() {
+    this.surveyservice.GetCountries(this.userId).subscribe({
+      next: (resp: responseDTO[]) => {
+        console.log('Response:', resp);
+        this.countries = resp.map(item => ({ name: item.name, countryId: item.countryId }));
+      },
+      error: (err) => console.log("An Error occurred while fetching countries", err)
+    });
+  }
+
+  statesbycountryid: { name: string, countryId: string }[] = []
+
+  getstates() {
+    this.surveyservice.GetStateByCountryID(this.userId).subscribe({
+      next: (resp: responseDTO[]) => {
+        console.log('Response:', resp);
+        this.statesbycountryid = resp.map(item => ({ name: item.name, countryId: item.countryId }));
+      },
+      error: (err) => console.log("An Error occurred while fetching countries", err)
+    });
+  }
+
 
 
 

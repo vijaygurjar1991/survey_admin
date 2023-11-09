@@ -36,10 +36,11 @@
                             <a routerLink="javascript:">Select All</a>
                         </div>
                         <div ngClass="states">
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value="" id="ADP" checked>
+                            <div class="form-check" *ngFor="let country of countries">
+                                <input class="form-check-input" type="checkbox" [value]="country.countryId" id="ADP"
+                                    checked>
                                 <label class="form-check-label" for="ADP">
-                                    Andhra Pradesh
+                                    {{ country.name }}
                                 </label>
                                 <div ngClass="cities">
                                     <div class="form-check">
@@ -49,37 +50,7 @@
                                             Vishakhapatnam
                                         </label>
                                     </div>
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" value="" id="Eluru">
-                                        <label class="form-check-label" for="Eluru">
-                                            Eluru
-                                        </label>
-                                    </div>
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" value="" id="Vijaywada">
-                                        <label class="form-check-label" for="Vijaywada">
-                                            Vijaywada
-                                        </label>
-                                    </div>
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" value="" id="Ongole">
-                                        <label class="form-check-label" for="Ongole">
-                                            Ongole
-                                        </label>
-                                    </div>
                                 </div>
-                            </div>
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value="" id="ACP">
-                                <label class="form-check-label" for="AP">
-                                    Arunachal Pradesh
-                                </label>
-                            </div>
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value="" id="asam">
-                                <label class="form-check-label" for="asam">
-                                    Asam
-                                </label>
                             </div>
                         </div>
                     </div>
