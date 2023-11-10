@@ -22,11 +22,14 @@ export class CityPopupComponent {
   }
 
   ngOnInit(): void {
-    this.getCountries();
+    this.surveyservice.GetStateByCountryID(this.userId, this.countryId).subscribe((data) => {
+      this.countries = data;
+    });
 
   }
 
-  // userId: number;
+  userId: number;
+  countryId = 'AT';
   // countries: { name: string, countryId: string }[] = [];
 
   // getCountries() {
@@ -52,51 +55,57 @@ export class CityPopupComponent {
   //   });
   // }
 
-  userId: number;
-  countries: { name: string, countryId: string }[] = [];
-  statesbycountryid: { name: string, countryId: string }[] = [];
+  // userId: number;
+  // countries: { name: string, countryId: string }[] = [];
+  // statesbycountryid: { name: string, countryId: string }[] = [];
 
-  getCountries() {
-    this.surveyservice.GetCountries(this.userId).subscribe({
-      next: (resp: responseDTO[]) => {
-        console.log('Response Countries:', resp);
-        this.countries = resp.map(item => (
-          {
-            name: item.name,
-            countryId: item.countryId,
-            states: this.getStatesByCountryId(item.countryId),
-          }
-        ));
+  // getCountries() {
+  //   this.surveyservice.GetCountries(this.userId).subscribe({
+  //     next: (resp: responseDTO[]) => {
+  //       console.log('Response Countries:', resp);
+  //       this.countries = resp.map(item => (
+  //         {
+  //           name: item.name,
+  //           countryId: item.countryId,
+  //           states: this.getStatesByCountryId(item.countryId),
+  //         }
+  //       ));
 
-        // After fetching countries, call the method to get states
 
-      },
-      error: (err) => console.log("An Error occurred while fetching countries", err)
-    });
-  }
 
-  getStatesByCountryId(country_id: any) {
-    this.surveyservice.GetStateByCountryID(this.userId, country_id).subscribe({
-      next: (resp: responseDTO[]) => {
+  //     },
+  //     error: (err) => console.log("An Error occurred while fetching countries", err)
+  //   });
+  // }
 
-        console.log('Response States:', resp);
-        this.statesbycountryid = resp.map(item => ({ name: item.name, countryId: item.countryId }));
+  // getStatesByCountryId(country_id: any) {
+  //   this.surveyservice.GetStateByCountryID(this.userId, country_id).subscribe({
+  //     next: (resp: responseDTO[]) => {
 
-        this.displayStatesForMatchingCountryId();
-      },
-      error: (err) => console.log("An Error occurred while fetching states", err)
-    });
-  }
+  //       console.log('Response States:', resp);
+  //       this.statesbycountryid = resp.map(item => ({ name: item.name, countryId: item.countryId }));
 
-  displayStatesForMatchingCountryId() {
+  //       this.displayStatesForMatchingCountryId();
+  //     },
+  //     error: (err) => console.log("An Error occurred while fetching states", err)
+  //   });
+  // }
 
-    const matchingStates = this.statesbycountryid.filter(state =>
-      this.countries.some(country => country.countryId === state.countryId)
-    );
+  // displayStatesForMatchingCountryId() {
+  //   console.log("country", this.countries);
+  //   console.log("state", this.statesbycountryid);
 
-    console.log('Matching States:', matchingStates);
+  //   const matchingStates = this.statesbycountryid.filter(state =>
+  //     this.countries.some(country => country.countryId === state.countryId)
+  //   );
 
-  }
+  //   console.log('Matching States:', matchingStates);
+
+  // }
+
+  countries: any[];
+
+
 
 
 

@@ -39,10 +39,12 @@ export class AuthService {
       }
       //debugger;
       userDetails.userName = decodeUserDetails.sub;
+      localStorage.setItem("userName", decodeUserDetails.sub)
       userDetails.fullName = decodeUserDetails.name;
       var _userDetail = JSON.parse(decodeUserDetails.user);
       userDetails.userId = _userDetail?.Id;
       userDetails.role = _userDetail?.Role;
+      localStorage.setItem("role", _userDetail?.Role)
       // userDetails.isActiveSubscriber = decodeUserDetails.isActiveSubscriber;
       // userDetails.role = decodeUserDetails.role;
 

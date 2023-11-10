@@ -16,7 +16,7 @@ import { SurveyService } from 'src/app/service/survey.service';
 })
 export class SidebarComponent {
   private subscription: Subscription;
-  role: string;
+  role: any;
   userId: number;
   categories: any;
 
@@ -27,7 +27,7 @@ export class SidebarComponent {
     );
 
     auth.userData.subscribe((user: User) => {
-      this.role = user.role;
+      //this.role = user.role;
       this.userId = user.userId;
     });
   }
@@ -45,6 +45,7 @@ export class SidebarComponent {
   }
   ngOnInit() {
     this.getNames();
+    this.role = localStorage.getItem("role")
     // this.surveyservice.GetCategories(this.userId).subscribe({
     //   next: (resp) => {
     //     this.categories = resp;
