@@ -1,6 +1,11 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { environment } from 'src/environments/environment';
+import { responseDTO } from '../types/responseDTO';
+import { Observable } from 'rxjs';
+
 @Injectable({
   providedIn: 'root'
 })
@@ -50,5 +55,15 @@ export class DataService {
     this.breadcrumbVisibleSubject.next(visible);
   }
 
+  // APIs
+  apiUrl = environment.apiUrl;
+  constructor(private http: HttpClient) { }
+
+  GetAboutUs(userId: any): Observable<responseDTO[]> {
+    const url = `${this.apiUrl}api/admin/${userId}/AboutUs/GetAboutUs`;
+    return this.http.get<responseDTO[]>(url);
+  }
+
+  // APIs
 
 }
