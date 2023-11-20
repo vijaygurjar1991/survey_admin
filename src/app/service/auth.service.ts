@@ -37,16 +37,27 @@ export class AuthService {
       if (token) {
         decodeUserDetails = JSON.parse(window.atob(token.split('.')[1]));
       }
-      //debugger;
-      userDetails.userName = decodeUserDetails.sub;
-      localStorage.setItem("userName", decodeUserDetails.sub)
-      userDetails.fullName = decodeUserDetails.name;
+      debugger;
+      // userDetails.userName = decodeUserDetails.sub;
+      // localStorage.setItem("userName", decodeUserDetails.sub)
+      // userDetails.fullName = decodeUserDetails.Name;
+
       var _userDetail = JSON.parse(decodeUserDetails.user);
-      userDetails.userId = _userDetail?.Id;
+
       userDetails.role = _userDetail?.Role;
       localStorage.setItem("role", _userDetail?.Role)
-      // userDetails.isActiveSubscriber = decodeUserDetails.isActiveSubscriber;
-      // userDetails.role = decodeUserDetails.role;
+
+      userDetails.userId = _userDetail?.Id;
+      localStorage.setItem("userId", _userDetail?.Id)
+
+      userDetails.userName = _userDetail?.Name;
+      localStorage.setItem("userName", _userDetail?.userName)
+
+      userDetails.userEmail = _userDetail?.Email;
+      localStorage.setItem("userEmail", _userDetail?.userEmail)
+
+      userDetails.RoleId = _userDetail?.RoleId;
+      localStorage.setItem("RoleId", _userDetail?.RoleId)
 
       this.userData.next(userDetails);
     }

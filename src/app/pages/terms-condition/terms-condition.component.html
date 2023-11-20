@@ -9,11 +9,11 @@
         <form>
             <div class="mb-4">
                 <label for="text" class="form-label">Title</label>
-                <input type="text" class="form-control" placeholder="Terms & Conditions">
+                <input type="text" class="form-control" [(ngModel)]="name" name="name">
             </div>
             <div class="mb-4">
                 <label for="text" class="form-label">Description</label>
-                <ckeditor [editor]="Editor" data="" class="large-editor"></ckeditor>
+                <ckeditor [editor]="Editor" [(ngModel)]="description" class="large-editor"></ckeditor>
 
             </div>
             <div class="mb-4">
@@ -30,8 +30,8 @@
                 </ngx-dropzone>
             </div>
             <div class="text-end upload">
-                <button type="button" class="btn btn-primary">Update <ng-icon name="heroArrowLongRight"
-                        class="ms-5"></ng-icon></button>
+                <button type="button" class="btn btn-primary" (click)="postData()">Update <ng-icon
+                        name="heroArrowLongRight" class="ms-5"></ng-icon></button>
             </div>
         </form>
     </div>

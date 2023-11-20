@@ -27,7 +27,6 @@ export class DataService {
   private footerVisibleSubject = new BehaviorSubject<boolean>(true);
   private navbarVisibleSubject = new BehaviorSubject<boolean>(true);
   private breadcrumbVisibleSubject = new BehaviorSubject<boolean>(true);
-
   public articleVisible = new BehaviorSubject<boolean>(true);
 
   headerVisible$ = this.headerVisibleSubject.asObservable();
@@ -59,11 +58,48 @@ export class DataService {
   apiUrl = environment.apiUrl;
   constructor(private http: HttpClient) { }
 
+  // About Us get & Post APIs
   GetAboutUs(userId: any): Observable<responseDTO[]> {
     const url = `${this.apiUrl}api/admin/${userId}/AboutUs/GetAboutUs`;
     return this.http.get<responseDTO[]>(url);
   }
+  CreateAboutUs(data: any): Observable<any> {
+    var userId = localStorage.getItem("userId")
+    const url = `${this.apiUrl}api/admin/${userId}/AboutUs/CreateAboutUs`;
+    console.log("posted data", data);
+    return this.http.post<responseDTO[]>(url, data);
+  }
+  // About Us get & Post APIs
+
+  // PrivacyPolicy get & Post APIs
+  GetPrivacyPolicy(userId: any): Observable<responseDTO[]> {
+    const url = `${this.apiUrl}api/admin/${userId}/PrivacyPolicy/GetPrivacyPolicy`;
+    return this.http.get<responseDTO[]>(url);
+  }
+  CreatePrivacyPolicy(data: any): Observable<any> {
+    var userId = localStorage.getItem("userId")
+    const url = `${this.apiUrl}api/admin/${userId}/PrivacyPolicy/CreatePrivacyPolicy`;
+    console.log("posted data", data);
+    return this.http.post<responseDTO[]>(url, data);
+  }
+  // PrivacyPolicy get & Post APIs
+
+  // Terms&Conditions get & Post APIs
+  GetTermsConditions(userId: any): Observable<responseDTO[]> {
+    const url = `${this.apiUrl}api/admin/${userId}/TermAndCondition/GetTermAndConditions`;
+    return this.http.get<responseDTO[]>(url);
+  }
+  CreateTermsConditions(data: any): Observable<any> {
+    var userId = localStorage.getItem("userId")
+    const url = `${this.apiUrl}api/admin/${userId}/TermAndCondition/CreateTermAndCondition`;
+    console.log("posted data", data);
+    return this.http.post<responseDTO[]>(url, data);
+  }
+  // Terms&Conditions get & Post APIs
+
+
 
   // APIs
+
 
 }

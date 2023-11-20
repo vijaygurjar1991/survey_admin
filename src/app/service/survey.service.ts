@@ -20,6 +20,7 @@ export class SurveyService {
 
   GetGenericQuestion(userId: any): Observable<responseDTO[]> {
     const url = `${this.apiUrl}api/admin/${userId}/GenericQuestion/GetGenericType`;
+
     return this.http.get<responseDTO[]>(url);
   }
 
@@ -27,6 +28,7 @@ export class SurveyService {
     const url = `${this.apiUrl}api/admin/${userId}/GenericQuestion/GetGenericQuestions?typeId=${typeId}`;
     return this.http.get<responseDTO[]>(url);
   }
+
 
   GetQuestionTypes(userId: any): Observable<responseDTO[]> {
     const url = `${this.apiUrl}api/admin/${userId}/GenericQuestion/GetQuestionTypes`;

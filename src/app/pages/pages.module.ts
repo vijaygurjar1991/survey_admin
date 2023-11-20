@@ -1,6 +1,7 @@
 import { NgModule, NO_ERRORS_SCHEMA } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
+import { FormsModule } from '@angular/forms';
 
 import { PagesRoutingModule } from './pages-routing.module';
 import { AboutComponent } from './about/about.component';
@@ -20,6 +21,7 @@ import { TermsConditionComponent } from './terms-condition/terms-condition.compo
     CommonModule,
     PagesRoutingModule,
     NgxDropzoneModule,
+    FormsModule,
     NgIconsModule.withIcons({
       heroHome
     }),

@@ -3,4 +3,5 @@ export interface responseDTO {
   result: any;
   [key: string]: any;
   name: string;
+
 }

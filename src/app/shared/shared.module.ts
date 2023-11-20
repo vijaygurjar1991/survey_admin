@@ -6,15 +6,18 @@ import { heroArrowLongRight } from '@ng-icons/heroicons/outline';
 import { heroXMark } from '@ng-icons/heroicons/outline';
 import { heroMagnifyingGlass } from '@ng-icons/heroicons/outline';
 
+import { RouterModule } from '@angular/router';
+
 @NgModule({
   declarations: [
   ],
   imports: [
     CommonModule,
+    RouterModule,
     NgIconsModule.withIcons({
       heroArrowLongRight,
       heroXMark,
-      heroMagnifyingGlass
+      heroMagnifyingGlass,
     })
   ],
 

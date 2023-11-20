@@ -1,7 +1,7 @@
 export class User {
   userId: number;
   userName: string;
-  fullName: string;
-  isActiveSubscriber: boolean;
+  userEmail: string;
+  RoleId: string;
   role: string;
 }

@@ -28,7 +28,7 @@ export class SidebarComponent {
 
     auth.userData.subscribe((user: User) => {
       //this.role = user.role;
-      this.userId = user.userId;
+      //this.userId = user.userId;
     });
   }
 
@@ -46,13 +46,6 @@ export class SidebarComponent {
   ngOnInit() {
     this.getNames();
     this.role = localStorage.getItem("role")
-    // this.surveyservice.GetCategories(this.userId).subscribe({
-    //   next: (resp) => {
-    //     this.categories = resp;
-    //     console.log(this.categories)
-    //   },
-    //   error: (err) => console.log("An Error occur while fetching categories", err)
-    // });
   }
 
   logOut() {

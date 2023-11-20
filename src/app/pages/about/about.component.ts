@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { DataService } from 'src/app/service/data.service';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import { responseDTO } from 'src/app/types/responseDTO';
+import { ChangeDetectorRef } from '@angular/core';
+import swal from 'sweetalert2';
 declare var Dropzone: any;
 
 @Component({
@@ -11,9 +13,12 @@ declare var Dropzone: any;
 })
 export class AboutComponent {
   public Editor = ClassicEditor;
-  constructor(public themeService: DataService) { }
+  constructor(public themeService: DataService, private cdr: ChangeDetectorRef) { }
   files: File[] = [];
-
+  id: number = 0;
+  name: any;
+  description: any;
+  image: any
   onSelect(event: any) { // Use 'any' as the event type
     console.log(event);
     this.files.push(...event.addedFiles);
@@ -25,21 +30,42 @@ export class AboutComponent {
   }
 
   ngOnInit(): void {
-    this.getAboutus()
+    this.getAboutus();
+
   }
 
-  userId: number;
-  question: { name: string, description: string }[] = [];
+  userId: any;
 
   getAboutus() {
-    this.themeService.GetAboutUs(this.userId).subscribe({
-      next: (resp: responseDTO[]) => {
-        console.log('Response:', resp);
-        // Map the response to the desired format
-        this.question = resp.map(item => ({ name: item.name, description: item.description }));
-      },
-      error: (err) => console.log("An Error occurred while fetching question types", err)
+    this.userId = localStorage.getItem("userId");
+    this.themeService.GetAboutUs(this.userId).subscribe((data: any) => {
+      console.log("data", data)
+      this.name = data.name;
+      this.id = data.id
+      this.description = data.description
+      this.image = data.image
+      this.cdr.detectChanges();
     });
+  }
+  postData() {
+    const dataToSend = {
+      id: this.id,
+      name: this.name,
+      description: this.description,
+      image: this.image
+    };
+    console.log("dataToSend", dataToSend)
+    this.themeService.CreateAboutUs(dataToSend).subscribe(
+      response => {
+        console.log('Response from server:', response);
+        swal.fire('', response, 'success');
+        // Handle response based on the server behavior
+      },
+      error => {
+        console.error('Error occurred while sending POST request:', error);
+        // Handle error, if needed
+      }
+    );
   }
 
 }

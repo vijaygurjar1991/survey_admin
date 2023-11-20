@@ -195,6 +195,12 @@ li.single-sidebar-menu {
     white-space: nowrap;
 }
 
+.single-sidebar-menu.menu-item-active>.menu-link .flex-0 .menu-arrow{
+    background-color: var(--primary);
+    border: 1px solid var(--white);
+    color: var(--white);
+}
+
 /* Header */
 
 /* Sidebar */

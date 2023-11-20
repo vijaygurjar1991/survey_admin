@@ -54,4 +54,5 @@ export class AppComponent {
     // debugger;
     //  console.log(this.router.snapshot?.url[0].path);
   }
+
 }
