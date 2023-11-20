@@ -2,7 +2,7 @@
     <div class="modal-dialog modal-fullscreen">
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title">Please select your Age</h4>
+                <h4 class="modal-title">Please select your gender</h4>
                 <button type="button" class="btn-close" (click)="close()"></button>
             </div>
             <div class="modal-body">
@@ -10,7 +10,7 @@
                     <div class="mb-4">
                         <label for="surveyname" class="form-label">Enter Your Question</label>
                         <div class="input-group">
-                            <input type="text" class="form-control" value="Please select your gender" />
+                            <input type="text" class="form-control" [value]="age[0].question " />
                         </div>
                     </div>
                     <div ngClass="mb-4">

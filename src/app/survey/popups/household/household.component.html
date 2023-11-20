@@ -10,13 +10,26 @@
                     <div class="mb-4">
                         <label for="surveyname" class="form-label">Enter Your Question</label>
                         <div class="input-group">
-                            <input type="text" class="form-control" value="Please select your gender" />
+                            <input type="text" class="form-control" [value]="householdincome[0].question" />
                         </div>
                     </div>
                     <div ngClass="mb-4">
                         <div ngClass="select-options">
                             <h5>Select Options</h5>
                             <a routerLink="javascript:">Select All</a>
+                        </div>
+                        <div class="nccs-option">
+                            <ul>
+                                <li *ngFor="let option of householdincome[0].options" class="mb-2">
+                                    <input class="form-check-input me-2" type="checkbox" id="checkboxNoLabel" value=""
+                                        aria-label="...">
+                                    <label class="form-check-label" for="flexCheckDefault">
+                                        {{ option.option }}
+                                    </label>
+
+
+                                </li>
+                            </ul>
                         </div>
 
                     </div>

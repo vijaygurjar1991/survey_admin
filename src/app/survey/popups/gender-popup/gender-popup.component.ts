@@ -57,11 +57,4 @@ export class GenderPopupComponent {
   }
 
 
-
-
-
-
-
-
-
 }

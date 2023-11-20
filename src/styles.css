@@ -195,7 +195,7 @@ li.single-sidebar-menu {
     white-space: nowrap;
 }
 
-.single-sidebar-menu.menu-item-active>.menu-link .flex-0 .menu-arrow{
+.single-sidebar-menu.menu-item-active>.menu-link .flex-0 .menu-arrow {
     background-color: var(--primary);
     border: 1px solid var(--white);
     color: var(--white);
@@ -1150,13 +1150,19 @@ span.mobile-cross {
 }
 
 /* Modal Layout */
-.login-slider owl-carousel-o{ height: 100%; display: flex; align-items: center; }
+.login-slider owl-carousel-o {
+    height: 100%;
+    display: flex;
+    align-items: center;
+}
 
 /* Responsive */
 
 @media (max-width:1199px) {
-    .login-form{ padding: 2rem;}
-    
+    .login-form {
+        padding: 2rem;
+    }
+
     span.mobile-cross {
         display: block;
         position: absolute;
@@ -1171,9 +1177,11 @@ span.mobile-cross {
     .addwidth .sidebar-wrapper {
         width: 20rem;
     }
-    .addwidth .flex-0{
+
+    .addwidth .flex-0 {
         display: flex;
     }
+
     .dashboard-header,
     article {
         margin-left: 0;
@@ -1428,9 +1436,32 @@ span.mobile-cross {
 }
 
 /* Rishabh */
-.login-form .text-danger{ float: right; font-size: 12px; padding-top: 5px; }
+.login-form .text-danger {
+    float: right;
+    font-size: 12px;
+    padding-top: 5px;
+}
 
-@media (max-width:991px){
-    .user-pages{ height: inherit;  min-height: inherit;}
-    .login-slider{ margin-top: 2rem;}
+@media (max-width:991px) {
+    .user-pages {
+        height: inherit;
+        min-height: inherit;
+    }
+
+    .login-slider {
+        margin-top: 2rem;
+    }
+}
+
+
+/* nccs */
+
+.nccs-option ul {
+    list-style: none;
+    padding-left: 0px;
+}
+
+.nccs-option .form-check-input[type=checkbox] {
+    width: 1.2rem;
+    height: 1.2rem;
 }

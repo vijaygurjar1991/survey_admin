@@ -141,7 +141,7 @@ export class CreateSurveyComponent implements OnInit {
       this.martialStatusModal.show();
     } else if (type === "Industry Respondant") {
       this.industryrespondantModal.show();
-    } else if (type === "iIndustry Household") {
+    } else if (type === "Industry Household") {
       this.industryhouseholdModal.show();
     } else if (type === "Locality") {
       this.localityModal.show();
@@ -250,14 +250,14 @@ export class CreateSurveyComponent implements OnInit {
     });
   }
 
-  question: { type: string, subType: string }[] = [];
+  question: { type: string, subType: string, image: string }[] = [];
 
   getQuestion() {
     this.surveyservice.GetQuestionTypes(this.userId).subscribe({
       next: (resp: responseDTO[]) => {
         console.log('Response:', resp);
         // Map the response to the desired format
-        this.question = resp.map(item => ({ type: item.type, subType: item.subType }));
+        this.question = resp.map(item => ({ type: item.type, subType: item.subType, image: item.image }));
       },
       error: (err) => console.log("An Error occurred while fetching question types", err)
     });

@@ -10,13 +10,27 @@
                     <div class="mb-4">
                         <label for="surveyname" class="form-label">Enter Your Question</label>
                         <div class="input-group">
-                            <input type="text" class="form-control" value="Please select your gender" />
+                            <input type="text" class="form-control" [value]="noofchild[0].question" />
                         </div>
                     </div>
                     <div ngClass="mb-4">
                         <div ngClass="select-options">
                             <h5>Select Options</h5>
                             <a routerLink="javascript:">Select All</a>
+                        </div>
+                        <div class="select-values">
+                            <ul>
+                                <li *ngFor="let option of noofchild[0].options">
+                                    <button>
+                                        <figure>
+                                            <img src="" [alt]="option.option" width="67" height="90" />
+                                        </figure>
+                                        <figcaption>
+                                            <h5>{{ option.option }}</h5>
+                                        </figcaption>
+                                    </button>
+                                </li>
+                            </ul>
                         </div>
 
                     </div>

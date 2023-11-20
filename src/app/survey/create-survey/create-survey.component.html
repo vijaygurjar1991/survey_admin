@@ -191,7 +191,7 @@
                 <li *ngFor="let ques of question">
                     <a [routerLink]="'javascript:'">
                         <figure>
-                            <img src="../../../assets/images/icons/multiple-choice-1.png" width="38" height="30" />
+                            <img src="../../../assets/{{ques.image}}" width="38" height="30" />
                         </figure>
                         <figcaption>
                             {{ ques.type }}
@@ -233,6 +233,7 @@
 <app-industry-household-popup #IndustryHouseholdModal></app-industry-household-popup>
 <app-locality-popup #LocalityModal></app-locality-popup>
 <app-foreign-country-travelled-popup #ForeignCountryTravelledModal></app-foreign-country-travelled-popup>
+<app-store-popup #StoreModal></app-store-popup>
 <app-language-you-know-popup #LanguageYouKnowModel></app-language-you-know-popup>
 <app-home-area-type-popup #HomeAreaTypeModal></app-home-area-type-popup>
 <app-kids-count-popup #KidsCountModal></app-kids-count-popup>
