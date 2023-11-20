@@ -13,9 +13,11 @@ export class DashboardComponent {
 
   constructor(private visibilityService: DataService, private modalService: NgbModal, public themeService: DataService) {
     visibilityService.articleVisible.next(true);
-
   }
-
+  role: any;
+  id: number = 0;
+  firstName: any;
+  lastName: any;
 
   hideHeader() {
     console.log("hideHeader function called");
@@ -62,6 +64,18 @@ export class DashboardComponent {
   //   }
   // }
 
+  userId: any;
+
+  getMyAccount() {
+    this.userId = localStorage.getItem("userId");
+    this.themeService.GetMyAccount(this.userId).subscribe((data: any) => {
+      console.log("Info", data)
+      this.firstName = data.firstName;
+      this.lastName = data.lastName
+      this.id = data.id
+    });
+  }
+
 
   chart: any = [];
   ngOnInit(): void {
@@ -69,7 +83,13 @@ export class DashboardComponent {
     this.createChart();
     this.showSideBar();
     this.hideBreadcrumb();
+
+    this.role = localStorage.getItem("role");
+    this.getMyAccount()
+
   }
+
+
   createChart() {
     this.chart = new Chart("canvas", {
       type: 'line',

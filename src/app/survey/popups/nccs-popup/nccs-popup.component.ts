@@ -37,18 +37,19 @@ export class NccsPopupComponent {
   nccs: {
     question: string,
     image: string | null,
-    options: { id: number, option: string, image: string, selected: boolean }[]
+    options: { id: number, option: string, image: string, selected: boolean }[];
+    selectAllChecked: boolean;
 
   }[] = [];
 
 
-  selectAllChecked = false;
+
 
 
   getNccs() {
     this.surveyservice.GetGenericQuestionType(this.userId, this.typeid).subscribe({
       next: (resp: responseDTO[]) => {
-        console.log('Response:', resp);
+        // console.log('Response:', resp);
         this.nccs = resp.map(item => ({
           question: item.question,
           image: item.image,
@@ -57,20 +58,19 @@ export class NccsPopupComponent {
             option: option.option,
             image: option.image,
             selected: false
-          }))
+          })),
+          selectAllChecked: false
         }));
       },
       error: (err) => console.log("An Error occur while fetching questions", err)
     });
   }
-  selectAllOptions() {
-    this.selectAllChecked = !this.selectAllChecked;
+  selectAllOptions(questionIndex: number) {
+    this.nccs[questionIndex].selectAllChecked = !this.nccs[questionIndex].selectAllChecked;
 
-    // Loop through each question's options and set selected property
-    this.nccs.forEach((question) => {
-      question.options.forEach((option) => {
-        option.selected = this.selectAllChecked;
-      });
+    // Loop through options for the specific question and set selected property
+    this.nccs[questionIndex].options.forEach((option) => {
+      option.selected = this.nccs[questionIndex].selectAllChecked;
     });
   }
 

@@ -7,17 +7,18 @@
             </div>
             <div class="modal-body">
                 <form>
-                    <div *ngFor="let question of nccs ">
+                    <div *ngFor="let question of nccs; let i = index">
                         <div class="mb-4">
                             <label for="surveyname" class="form-label">Enter Your Question</label>
                             <div class="input-group">
                                 <input type="text" class="form-control" [value]="question.question" />
                             </div>
                         </div>
+
                         <div class="mb-4">
                             <div class="select-options">
                                 <h5>Select Options</h5>
-                                <a routerLink="javascript:" (click)="selectAllOptions()">Select All</a>
+                                <a href="javascript:" (click)="selectAllOptions(i)">Select All</a>
                             </div>
                             <div class="nccs-option">
                                 <ul>
@@ -26,17 +27,17 @@
                                             id="{{ 'checkbox_' + question.question + '_' + option.id }}"
                                             [(ngModel)]="option.selected" [ngModelOptions]="{ standalone: true }"
                                             aria-label="..." />
-
-                                        <label class="form-check-label" for="flexCheckDefault">
+                                        <label class="form-check-label"
+                                            for="{{ 'checkbox_' + question.question + '_' + option.id }}">
                                             {{ option.option }}
                                         </label>
                                     </li>
                                 </ul>
-
                             </div>
                         </div>
                     </div>
                 </form>
+
 
             </div>
             <div class="modal-footer">
