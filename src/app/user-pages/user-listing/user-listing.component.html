@@ -39,9 +39,9 @@
                         <td>
                             <img src="../../../assets/images/profile/pic.png" class="me-2 rounded-circle"
                                 style="width: 30px;height: 30px;" />
-                                {{ item.firstName }} {{ item.lastName }}
+                                <span>{{ item.firstName }} {{ item.lastName }}</span>
                         </td>
-                        <td>{{item.roleId}}</td>
+                        <td>{{ getRoleName(item.roleId) }}</td>
                         <td>{{ item.email }}</td>
                         <td>+91-9876543210</td>
                         <td>28-09-2023 | 14:53</td>

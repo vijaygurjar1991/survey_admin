@@ -41,7 +41,10 @@ export class UserListingComponent {
       this.cdr.detectChanges();
     });
   }
-
+  getRoleName(roleId: number): string {
+    const role = this.roles.find(r => r.id === roleId);
+    return role ? role.name : 'Unknown Role';
+  }
 
 
 }

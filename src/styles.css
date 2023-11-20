@@ -209,7 +209,7 @@ li.single-sidebar-menu {
     position: fixed;
     top: 0px;
     z-index: 999;
-    height: 100vh;
+    height: 100%;
 }
 
 .shadow-base {
@@ -485,6 +485,7 @@ article {
     filter: invert(1) brightness(0);
     opacity: 0.6;
     width: auto;
+
 }
 
 .generic-ques ul li a {
@@ -1156,13 +1157,17 @@ span.mobile-cross {
     align-items: center;
 }
 
+.table>:not(caption)>*>*{ white-space: nowrap;}
 /* Responsive */
 
 @media (max-width:1199px) {
     .login-form {
         padding: 2rem;
     }
-
+    .logo-segment{padding: 0;}
+    .addwidth .logo-segment{ padding: var(--section-gap);}
+    .logo-segment .small-menu{ display: none !important;}
+    .logo-segment img{ display: block !important; height: 50px; width: auto;}
     span.mobile-cross {
         display: block;
         position: absolute;
@@ -1203,23 +1208,26 @@ span.mobile-cross {
     /* .addMargin .dashboard-header, article.dashboardMargin{margin-left: 15rem;} */
 
     .add-ques-sidebar {
-        flex: 0 15%;
-        max-width: 15%;
-        height: 100vh;
+        flex: 0 200px;
+        max-width: 200px;
+        min-height: 100vh;
+        height: 100%;
         overflow: auto;
-        padding: .5rem;
+        padding: .5rem;margin: -15px;
     }
 
     .generic-ques ul li {
-        flex: 0 100%;
-        max-width: 100%;
+        flex: 0 50%;
+        max-width: calc(50% - 5px);
     }
-
+    
+    .survey-question{margin-left: 2rem;}
     .generic-ques ul li a {
         display: flex;
         flex-wrap: wrap;
         align-items: center;
         justify-content: center;
+        min-height:90px;
     }
 
     .generic-ques ul li a figcaption {
@@ -1255,7 +1263,35 @@ span.mobile-cross {
         display: block;
     }
 }
+@media (max-width:991px) {    
+    article, .app-header{padding: 15px;}
+    
+}
+@media (max-width:767px){
+    body{font-size: .85rem;}
+    .btn-primary{padding-top: .5rem;padding-bottom: .5rem;font-size: .75rem;}
+    .form-control, .form-select {
+        padding-top: 0.5rem;
+        padding-bottom: 0.5rem;
+        font-size: .75rem;
+    }
+    .form-label {
+        font-size: 1rem;
+    }
+    .btn-primary ng-icon{margin-left: .5rem !important;}
+}
+@media (max-width:575px){
+    .add-ques-sidebar {
+        flex: 0 100px;
+        max-width: 100px;
+    }
 
+    .generic-ques ul li {
+        flex: 0 100%;
+        max-width: 100%;
+    }
+    .drag-ques p{font-size: 1rem;}
+}
 /* Responsive */
 
 
@@ -1334,9 +1370,9 @@ span.mobile-cross {
     position: relative;
 }
 
-.search-bar input {
+/* .search-bar input {
     padding-right: 15rem;
-}
+} */
 
 .search-bar svg {
     color: #d6d6d6;

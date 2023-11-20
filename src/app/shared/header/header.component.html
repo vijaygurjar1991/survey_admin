@@ -3,10 +3,10 @@
         <div class="d-flex justify-content-between align-items-center h-100">
             <div class="d-flex align-items-center">
                 <div class="">
-                    <button class="btn" type="button" (click)="themeService.toggle()"><ng-icon
+                    <button class="btn p-0" type="button" (click)="themeService.toggle()"><ng-icon
                             name="heroBars3"></ng-icon></button>
                 </div>
-                <div class="search-bar">
+                <div class="search-bar ms-3">
                     <input type="text" class="form-control form-control-small" placeholder="Search Survey">
                     <ng-icon name="heroMagnifyingGlass" class="magnifyingicon"></ng-icon>
                 </div>
@@ -21,8 +21,8 @@
                         <img class="object-fit-cover rounded-circle" src="./assets/images/profile/pic.png" width="45"
                             height="45" />
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <li><a class="dropdown-item py-2" href="#">My Account</a></li>
-                                <li><a class="dropdown-item py-2" href="#">Logout</a></li>
+                                <li><a class="dropdown-item py-2" routerLink="/account/my-account">My Account</a></li>
+                                <li><a class="dropdown-item py-2"  routerLink="login" (click)="logOut()">Logout</a></li>
                             </ul>
                     </a>
                 </div>

@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { AuthService } from 'src/app/service/auth.service';
 import { DataService } from 'src/app/service/data.service';
 
 @Component({
@@ -7,7 +8,11 @@ import { DataService } from 'src/app/service/data.service';
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent {
-  public constructor(public themeService: DataService) {
+  public constructor(public themeService: DataService, private auth: AuthService,) {
 
+  }
+
+  logOut() {
+    this.auth.logout();
   }
 }
