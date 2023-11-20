@@ -51,10 +51,10 @@ export class AuthService {
       localStorage.setItem("userId", _userDetail?.Id)
 
       userDetails.userName = _userDetail?.Name;
-      localStorage.setItem("userName", _userDetail?.userName)
+      localStorage.setItem("userName", _userDetail?.Name)
 
       userDetails.userEmail = _userDetail?.Email;
-      localStorage.setItem("userEmail", _userDetail?.userEmail)
+      localStorage.setItem("userEmail", _userDetail?.Email)
 
       userDetails.RoleId = _userDetail?.RoleId;
       localStorage.setItem("RoleId", _userDetail?.RoleId)
