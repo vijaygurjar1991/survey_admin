@@ -21,7 +21,8 @@ export class HttpInterceptorService implements HttpInterceptor {
     return next.handle(request).pipe(
       catchError((err) => {
         if (err.status === 401) {
-          alert("Session expired.")
+          alert("Session expired.");
+          this.authService.logout();
         } else if (err.status === 500) {
           console.error('Internal Server Error:', err);
         }

@@ -20,6 +20,12 @@ export class SidebarComponent {
   userId: number;
   categories: any;
 
+  isSuperAdmin = false;
+  isAdmin = false;
+  isUser = false;
+  isClient = false;
+
+
   constructor(private modalService: NgbModal, public themeService: DataService, private auth: AuthService, private surveyservice: SurveyService) {
     this.filteredOptions = this.searchControl.valueChanges.pipe(
       startWith(''),
@@ -27,8 +33,30 @@ export class SidebarComponent {
     );
 
     auth.userData.subscribe((user: User) => {
-      //this.role = user.role;
-      //this.userId = user.userId;
+      debugger;
+      if (user) {
+        let role = (user?.role || '').toLowerCase();
+        switch (role) {
+          case 'client': {
+            this.isClient = true;
+            break;
+          }
+          case 'superadmin': {
+            this.isSuperAdmin = true;
+            break;
+          }
+          case 'admin': {
+            this.isSuperAdmin = true;
+            break;
+          }
+          default: {
+            this.isUser = true;
+            break;
+          }
+        }
+        this.role = user.role;
+        this.userId = user.userId;
+      }
     });
   }
 
@@ -44,8 +72,10 @@ export class SidebarComponent {
     })
   }
   ngOnInit() {
-    this.getNames();
-    this.role = localStorage.getItem("role")
+    if (this.userId) {
+      this.getNames();
+      this.role = localStorage.getItem("role");
+    }
   }
 
   logOut() {

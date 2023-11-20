@@ -151,41 +151,43 @@
                     </div>
                 </div>
             </li>
-            <li class="single-sidebar-menu">
-                <div class="menulabel">Pages</div>
-            </li>
-            <li class="single-sidebar-menu" routerLinkActive="menu-item-active">
-                <a class="menu-link" routerLink="/pages/about">
-                    <span class="menu-icon flex-grow-0">
-                        <ng-icon name="heroClipboardDocumentList"></ng-icon>
-                    </span>
-                    <div class="text-box flex-grow-1">About Us</div>
-                </a>
-            </li>
-            <li class="single-sidebar-menu" routerLinkActive="menu-item-active">
-                <a class="menu-link" routerLink="#">
-                    <span class="menu-icon flex-grow-0">
-                        <ng-icon name="heroQuestionMarkCircle"></ng-icon>
-                    </span>
-                    <div class="text-box flex-grow-1">FAQ's</div>
-                </a>
-            </li>
-            <li class="single-sidebar-menu" routerLinkActive="menu-item-active">
-                <a class="menu-link" routerLink="/pages/terms-condition">
-                    <span class="menu-icon flex-grow-0">
-                        <ng-icon name="heroClipboardDocumentCheck"></ng-icon>
-                    </span>
-                    <div class="text-box flex-grow-1">Terms & Conditions</div>
-                </a>
-            </li>
-            <li class="single-sidebar-menu" routerLinkActive="menu-item-active">
-                <a class="menu-link" routerLink="/pages/privacy-policy">
-                    <span class="menu-icon flex-grow-0">
-                        <ng-icon name="heroShieldCheck"></ng-icon>
-                    </span>
-                    <div class="text-box flex-grow-1">Privacy Policy</div>
-                </a>
-            </li>
+            <ng-template *ngIf="!this.isUser || !this.isClient">
+                <li class="single-sidebar-menu">
+                    <div class="menulabel">Pages</div>
+                </li>
+                <li class="single-sidebar-menu" routerLinkActive="menu-item-active">
+                    <a class="menu-link" routerLink="/pages/about">
+                        <span class="menu-icon flex-grow-0">
+                            <ng-icon name="heroClipboardDocumentList"></ng-icon>
+                        </span>
+                        <div class="text-box flex-grow-1">About Us</div>
+                    </a>
+                </li>
+                <li class="single-sidebar-menu" routerLinkActive="menu-item-active">
+                    <a class="menu-link" routerLink="#">
+                        <span class="menu-icon flex-grow-0">
+                            <ng-icon name="heroQuestionMarkCircle"></ng-icon>
+                        </span>
+                        <div class="text-box flex-grow-1">FAQ's</div>
+                    </a>
+                </li>
+                <li class="single-sidebar-menu" routerLinkActive="menu-item-active">
+                    <a class="menu-link" routerLink="/pages/terms-condition">
+                        <span class="menu-icon flex-grow-0">
+                            <ng-icon name="heroClipboardDocumentCheck"></ng-icon>
+                        </span>
+                        <div class="text-box flex-grow-1">Terms & Conditions</div>
+                    </a>
+                </li>
+                <li class="single-sidebar-menu" routerLinkActive="menu-item-active">
+                    <a class="menu-link" routerLink="/pages/privacy-policy">
+                        <span class="menu-icon flex-grow-0">
+                            <ng-icon name="heroShieldCheck"></ng-icon>
+                        </span>
+                        <div class="text-box flex-grow-1">Privacy Policy</div>
+                    </a>
+                </li>
+            </ng-template>
             <li class="single-sidebar-menu">
                 <div class="menulabel">Settings</div>
             </li>

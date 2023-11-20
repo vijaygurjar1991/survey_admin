@@ -6,6 +6,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { first } from 'rxjs';
 import { AuthService } from 'src/app/service/auth.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-login',
@@ -105,9 +106,9 @@ export class LoginComponent {
               this.errorMessage = result;
             }
           },
-          error: (error) => {
-            console.log(error);
-            alert("Something went wrong. Please try again later and contact the administrator.");
+          error: (errObject) => {
+            //console.log(error);
+            Swal.fire('', errObject?.error, 'error');
           },
           complete: () => {
             this.loading = false;

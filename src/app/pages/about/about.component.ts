@@ -63,6 +63,7 @@ export class AboutComponent {
       },
       error => {
         console.error('Error occurred while sending POST request:', error);
+        swal.fire('', error, 'error');
         // Handle error, if needed
       }
     );

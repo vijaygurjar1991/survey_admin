@@ -50,7 +50,7 @@ export class MyAccountComponent {
       this.cdr.detectChanges();
     });
   }
-  
+
   postData() {
     const dataToSend = {
       id: this.id,
@@ -75,24 +75,34 @@ export class MyAccountComponent {
   }
 
   updatepassword() {
-    const dataToSend2 = {
-      id: this.id,
-      oldPassword: this.oldPassword,
-      newPassword: this.newPassword,
-      confirmPassword: this.confirmPassword,
-    };
-    console.log("dataToSend", dataToSend2)
-    this.themeService.ChangePassword(dataToSend2).subscribe(
-      response => {
-        console.log('Response from server:', response);
-        Swal.fire('', response, 'success');
-        // Handle response based on the server behavior
-      },
-      error => {
-        console.error('Error occurred while sending POST request:', error);
-        // Handle error, if needed
-      }
-    );
+
+    if (!this.oldPassword || !this.newPassword || !this.confirmPassword) {
+      Swal.fire('Error Occurs', 'All fields are required.', 'error');
+    }
+    else if (this.confirmPassword != this.newPassword) {
+      Swal.fire('Error Occurs', 'New password and c onfirm opassword should be same.', 'error');
+    } else {
+      const dataToSend2 = {
+        id: this.id,
+        oldPassword: this.oldPassword,
+        newPassword: this.newPassword,
+        confirmPassword: this.confirmPassword,
+      };
+      console.log("dataToSend", dataToSend2)
+      this.themeService.ChangePassword(dataToSend2).subscribe({
+        next: (response) => {
+          console.log('Response from server:', response);
+          Swal.fire('', response, 'success');
+          // Handle response based on the server behavior
+        },
+        error: (err) => {
+          console.error('Error occurred while sending POST request:', err);
+          Swal.fire('Error Occurs', err, 'error');
+
+          // Handle error, if needed
+        }
+      });
+    }
   }
 
 }

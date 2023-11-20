@@ -67,7 +67,7 @@ export class DataService {
     var userId = localStorage.getItem("userId")
     const url = `${this.apiUrl}api/admin/${userId}/AboutUs/CreateAboutUs`;
     console.log("posted data", data);
-    return this.http.post<responseDTO[]>(url, data);
+    return this.http.post(url, data, { responseType: 'text' });
   }
   // About Us get & Post APIs
 
@@ -115,7 +115,7 @@ export class DataService {
     var userId = localStorage.getItem("userId")
     const url = `${this.apiUrl}api/admin/${userId}/Profile/ChangePassword`;
     console.log("posted data", data);
-    return this.http.post<responseDTO[]>(url, data);
+    return this.http.post(url, data, { responseType: 'text' });
   }
   // ChangePassword Api
 
