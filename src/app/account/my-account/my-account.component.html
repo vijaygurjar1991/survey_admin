@@ -22,29 +22,26 @@
             <div class="row mb-4">
                 <div class="col">
                     <label for="name" class="form-label">First Name</label>
-                    <input type="text" class="form-control" placeholder="Rishabh" aria-label="First name">
+                    <input type="text" class="form-control" [(ngModel)]="firstName" name="firstName" aria-label="First name">
                 </div>
                 <div class="col">
                     <label for="last" class="form-label">Last Name</label>
-                    <input type="text" class="form-control" placeholder="Rawat" aria-label="Last name">
+                    <input type="text" class="form-control" [(ngModel)]="lastName" name="lastName" aria-label="Last name">
                 </div>
             </div>
             <div class="mb-4">
                 <label for="email" class="form-label">Email Address</label>
-                <input type="email" class="form-control" placeholder="ux.rishabh@gmail.com">
+                <input type="email" class="form-control" [(ngModel)]="email" name="email" disabled>
             </div>
             <div class="mb-4">
                 <label for="email" class="form-label">Role</label>
                 <select class="form-select" disabled>
-                    <option selected>User</option>
-                    <option value="1">Admin</option>
-                    <option value="2">Super Admin</option>
-                    <option value="3">Sub Admin</option>
+                    <option selected>{{role}}</option>
                 </select>
             </div>
             <div class="change-password upload">
                 <a routerLink="javascript:" (click)="openLg(content)">Change Password</a>
-                <button type="button" class="btn btn-primary" (click)="showSweetAlert()">Update<ng-icon
+                <button type="button" class="btn btn-primary" (click)="postData()">Update<ng-icon
                         name="heroArrowLongRight" class="ms-5"></ng-icon></button>
             </div>
         </form>
@@ -62,21 +59,21 @@
         <form>
             <div class="mb-4">
                 <label for="current-password" class="form-label">Current Password</label>
-                <input id="current" type="password" class="form-control" placeholder="Current Password" />
+                <input id="current" type="password" class="form-control" [(ngModel)]="oldPassword" name="oldPassword" />
             </div>
             <div class="mb-4">
                 <label for="new-password" class="form-label">New Passward</label>
-                <input id="new" type="password" class="form-control" placeholder="New Passward" />
+                <input id="new" type="password" class="form-control" [(ngModel)]="newPassword" name="newPassword" />
             </div>
             <div class="mb-4">
                 <label for="confirm-password" class="form-label">Confirm Passward</label>
-                <input id="confirm" type="password" class="form-control" placeholder="Confirm Passward" />
+                <input id="confirm" type="password" class="form-control" [(ngModel)]="confirmPassword" name="confirmPassword" />
             </div>
         </form>
     </div>
     <div class="modal-footer upload">
         <button type="button" class="btn close" (click)="modal.close('Close click')">Cancel</button>
-        <a routerLink="" type="button" class="btn btn-primary icon" (click)="modal.close('Close click')">Update
+        <a routerLink="" type="button" class="btn btn-primary icon" (click)="updatepassword()">Update
             <ng-icon name="heroArrowLongRight" class="ms-4"></ng-icon></a>
     </div>
 </ng-template>

@@ -33,16 +33,16 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
+                    <tr *ngFor="let item of UserData">
                         <td><input type="checkbox" ngClass="form-check-input" />
                         </td>
                         <td>
                             <img src="../../../assets/images/profile/pic.png" class="me-2 rounded-circle"
                                 style="width: 30px;height: 30px;" />
-                            Rishabh Rawat
+                                {{ item.firstName }} {{ item.lastName }}
                         </td>
-                        <td>Admin</td>
-                        <td>rishabh@gmail.com</td>
+                        <td>{{item.roleId}}</td>
+                        <td>{{ item.email }}</td>
                         <td>+91-9876543210</td>
                         <td>28-09-2023 | 14:53</td>
                         <td ngClass="done status"><span>Active</span></td>
@@ -50,43 +50,7 @@
                             <a routerLink="javascript:"><ng-icon name="heroPencil" ngClass="edit-action"></ng-icon></a>
                             <a routerLink="javascript:"><ng-icon name="heroEllipsisVertical"></ng-icon></a>
                         </td>
-                    </tr>
-                    <tr>
-                        <td><input type="checkbox" ngClass="form-check-input" />
-                        </td>
-                        <td>
-                            <img src="../../../assets/images/profile/pic.png" class="me-2 rounded-circle"
-                                style="width: 30px;height: 30px;" />
-                            Rishabh Rawat
-                        </td>
-                        <td>Admin</td>
-                        <td>rishabh@gmail.com</td>
-                        <td>+91-9876543210</td>
-                        <td>28-09-2023 | 14:53</td>
-                        <td ngClass="done status"><span>Active</span></td>
-                        <td ngClass="action">
-                            <a routerLink="javascript:"><ng-icon name="heroPencil" ngClass="edit-action"></ng-icon></a>
-                            <a routerLink="javascript:"><ng-icon name="heroEllipsisVertical"></ng-icon></a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td><input type="checkbox" ngClass="form-check-input" />
-                        </td>
-                        <td>
-                            <img src="../../../assets/images/profile/pic.png" class="me-2 rounded-circle"
-                                style="width: 30px;height: 30px;" />
-                            Rishabh Rawat
-                        </td>
-                        <td>Admin</td>
-                        <td>rishabh@gmail.com</td>
-                        <td>+91-9876543210</td>
-                        <td>28-09-2023 | 14:53</td>
-                        <td ngClass="paused status"><span>Inactive</span></td>
-                        <td ngClass="action">
-                            <a routerLink="javascript:"><ng-icon name="heroPencil" ngClass="edit-action"></ng-icon></a>
-                            <a routerLink="javascript:"><ng-icon name="heroEllipsisVertical"></ng-icon></a>
-                        </td>
-                    </tr>
+                    </tr>                   
                 </tbody>
             </table>
         </div>

@@ -97,6 +97,40 @@ export class DataService {
   }
   // Terms&Conditions get & Post APIs
 
+  // MyAccount get & Post APIs
+  GetMyAccount(userId: any): Observable<responseDTO[]> {
+    const url = `${this.apiUrl}api/admin/${userId}/Profile/GetProfileById?usetId=${userId}`;
+    return this.http.get<responseDTO[]>(url);
+  }
+  CreateMyAccount(data: any): Observable<any> {
+    var userId = localStorage.getItem("userId")
+    const url = `${this.apiUrl}api/admin/${userId}/Profile/UpdateProfile`;
+    console.log("posted data", data);
+    return this.http.post<responseDTO[]>(url, data);
+  }
+  // MyAccount get & Post APIs
+
+  // ChangePassword Api 
+  ChangePassword(data: any): Observable<any> {
+    var userId = localStorage.getItem("userId")
+    const url = `${this.apiUrl}api/admin/${userId}/Profile/ChangePassword`;
+    console.log("posted data", data);
+    return this.http.post<responseDTO[]>(url, data);
+  }
+  // ChangePassword Api
+
+  // User get & Post APIs
+  GetAllUser(userId: any): Observable<responseDTO[]> {
+    const url = `${this.apiUrl}api/admin/${userId}/Profile/GetProfile`;
+    return this.http.get<responseDTO[]>(url);
+  }
+  AddNewUser(data: any): Observable<any> {
+    var userId = localStorage.getItem("userId")
+    const url = `${this.apiUrl}api/admin/${userId}/Profile/CreateProfile`;
+    console.log("posted data", data);
+    return this.http.post<responseDTO[]>(url, data);
+  }
+  // User get & Post APIs
 
 
   // APIs

@@ -16,10 +16,14 @@
                 <div class="position-relative d-inline-block">
                     <a routerLink="#"><ng-icon name="heroBell" class="bellicon"></ng-icon></a>
                 </div>
-                <div class="position-relative d-inline-block ms-4">
-                    <a routerLink="#">
+                <div class="position-relative d-inline-block ms-4 dropdown">
+                    <a routerLink="#" class="nav-link" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         <img class="object-fit-cover rounded-circle" src="./assets/images/profile/pic.png" width="45"
                             height="45" />
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <li><a class="dropdown-item py-2" href="#">My Account</a></li>
+                                <li><a class="dropdown-item py-2" href="#">Logout</a></li>
+                            </ul>
                     </a>
                 </div>
             </div>
