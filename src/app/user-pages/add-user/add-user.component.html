@@ -37,7 +37,7 @@
                 </div>
                 <div class="mb-3">
                     <label for="">Phone No.</label>
-                    <input type="number" name="" id="" class="form-control" placeholder="+91-9876543218">
+                    <input type="number" name="" id="" class="form-control" [(ngModel)]="contactNo" name="contactNo">
                 </div>
                 <div class="mb-3">
                     <label for="">Role</label>
@@ -50,7 +50,7 @@
                 </div>
                 <div class="mb-3">
                     <label for="">Create Password</label>
-                    <input type="text" name="" id="" class="form-control">
+                    <input type="text" name="" id="" class="form-control" [(ngModel)]="password" name="password">
                 </div>
                 <div class="text-end">
                     <button type="button" class="btn btn-primary" (click)="AddUser()">Save</button>

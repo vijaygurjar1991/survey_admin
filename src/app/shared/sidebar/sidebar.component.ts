@@ -73,6 +73,7 @@ export class SidebarComponent {
   }
   ngOnInit() {
     this.role = localStorage.getItem("role");
+    this.getNames();
     if (this.userId) {
       this.getNames();
     }

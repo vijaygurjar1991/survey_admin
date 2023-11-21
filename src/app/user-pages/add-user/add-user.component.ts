@@ -12,9 +12,12 @@ export class AddUserComponent {
   constructor(public themeService: DataService) { }
   files: File[] = [];
   role: any;
-  id: number = 0;
+  id: number;
   firstName: any;
   lastName: any;
+  password: any;
+  status: "ACT";
+  contactNo: Number;
   email: any;
   roleId: number = 0;
   image: any;
@@ -35,6 +38,9 @@ export class AddUserComponent {
       id: this.id,
       firstName: this.firstName,
       lastName: this.lastName,
+      password: this.password,
+      status: this.status,
+      contactNo: this.contactNo,
       email: this.email,
       roleId: this.roleId,
       image: this.image

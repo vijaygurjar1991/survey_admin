@@ -15,6 +15,8 @@ export class UserListingComponent {
   firstName: any;
   lastName: any;
   email: any;
+  contactNo: number;
+  createdDate: any;
   roleId: number = 0;
   image: any;
 
@@ -37,7 +39,7 @@ export class UserListingComponent {
     this.themeService.GetAllUser(this.userId).subscribe((data: any) => {
       this.UserData = data;
       console.log("data", data)
-      
+
       this.cdr.detectChanges();
     });
   }
