@@ -39,18 +39,18 @@
                         <td>
                             <img src="../../../assets/images/profile/pic.png" class="me-2 rounded-circle"
                                 style="width: 30px;height: 30px;" />
-                                <span>{{ item.firstName }} {{ item.lastName }}</span>
+                            <span>{{ item.firstName }} {{ item.lastName }}</span>
                         </td>
                         <td>{{ getRoleName(item.roleId) }}</td>
                         <td>{{ item.email }}</td>
-                        <td>+91-9876543210</td>
-                        <td>28-09-2023 | 14:53</td>
+                        <td>{{ item.contactNo }}</td>
+                        <td>{{ item.createdDate }}</td>
                         <td ngClass="done status"><span>Active</span></td>
                         <td ngClass="action">
                             <a routerLink="javascript:"><ng-icon name="heroPencil" ngClass="edit-action"></ng-icon></a>
                             <a routerLink="javascript:"><ng-icon name="heroEllipsisVertical"></ng-icon></a>
                         </td>
-                    </tr>                   
+                    </tr>
                 </tbody>
             </table>
         </div>

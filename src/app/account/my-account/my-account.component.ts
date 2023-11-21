@@ -18,6 +18,7 @@ export class MyAccountComponent {
   firstName: any;
   lastName: any;
   email: any;
+  contactNo: any
   roleId: number = 0;
   image: any;
   oldPassword: any;
@@ -48,6 +49,7 @@ export class MyAccountComponent {
       this.lastName = data.lastName
       this.id = data.id
       this.email = data.email
+      this.contactNo = data.contactNo
       this.roleId = data.roleId
       this.image = data.image
       this.cdr.detectChanges();
@@ -61,6 +63,7 @@ export class MyAccountComponent {
       firstName: this.firstName,
       lastName: this.lastName,
       email: this.email,
+      contactNo: this.contactNo,
       roleId: this.roleId,
       imageName: imageName
     };
@@ -79,12 +82,11 @@ export class MyAccountComponent {
   }
 
   updatepassword() {
-
     if (!this.oldPassword || !this.newPassword || !this.confirmPassword) {
       Swal.fire('Error Occurs', 'All fields are required.', 'error');
     }
     else if (this.confirmPassword != this.newPassword) {
-      Swal.fire('Error Occurs', 'New password and c onfirm opassword should be same.', 'error');
+      Swal.fire('Error Occurs', 'New password and confirm password should be same.', 'error');
     } else {
       const dataToSend2 = {
         id: this.id,

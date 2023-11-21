@@ -17,7 +17,7 @@ export class AuthService {
   login(userDetails: any) {
     return this.http.post(`${this.apiUrl}Login`, userDetails, { responseType: 'text' }).pipe(
       map((response) => {
-        debugger;
+        //debugger;
         if (response) {
           localStorage.setItem('authToken', response);
           this.setUserDetails();
@@ -37,11 +37,7 @@ export class AuthService {
       if (token) {
         decodeUserDetails = JSON.parse(window.atob(token.split('.')[1]));
       }
-      debugger;
-      // userDetails.userName = decodeUserDetails.sub;
-      // localStorage.setItem("userName", decodeUserDetails.sub)
-      // userDetails.fullName = decodeUserDetails.Name;
-
+      //debugger;
       var _userDetail = JSON.parse(decodeUserDetails.user);
 
       userDetails.role = _userDetail?.Role;
@@ -65,6 +61,7 @@ export class AuthService {
 
   logout(returnUrl = '') {
     localStorage.removeItem('authToken');
+    localStorage.clear();
     this.userData.next(null);
 
     if (returnUrl != '') {
