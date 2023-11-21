@@ -10,6 +10,7 @@ import Swal from 'sweetalert2';
   styleUrls: ['./my-account.component.css']
 })
 export class MyAccountComponent {
+  imageName: any;
   constructor(public themeService: DataService, private modalService: NgbModal, private cdr: ChangeDetectorRef) { }
   files: File[] = [];
   role: any;
@@ -22,6 +23,8 @@ export class MyAccountComponent {
   oldPassword: any;
   newPassword: any;
   confirmPassword: any;
+ 
+
   openLg(content: any) {
     this.modalService.open(content, { size: 'lg', centered: true });
   }
@@ -52,13 +55,14 @@ export class MyAccountComponent {
   }
 
   postData() {
+    const imageName = this.image.split('\\').pop() || this.image;
     const dataToSend = {
       id: this.id,
       firstName: this.firstName,
       lastName: this.lastName,
       email: this.email,
       roleId: this.roleId,
-      image: this.image
+      imageName: imageName
     };
     console.log("dataToSend", dataToSend)
     this.themeService.CreateMyAccount(dataToSend).subscribe(
@@ -104,5 +108,20 @@ export class MyAccountComponent {
       });
     }
   }
+
+
+  // Upload Image
+  
+  selectedImage: File | undefined;
+  onFileSelected(event: any) {
+    const file = event.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = (e: any) => {
+        this.selectedImage = e.target.result;
+      };
+      reader.readAsDataURL(file);
+    }
+}
 
 }

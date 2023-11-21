@@ -46,4 +46,10 @@ export class SurveyService {
     const url = `${this.apiUrl}api/admin/${userId}/Geography/GetGeographyListByCountryId`;
     return this.http.get<responseDTO[]>(url);
   }
+
+  // GetSurveyList
+  GetSurveyList(userId: any): Observable<responseDTO[]> {
+    const url = `${this.apiUrl}api/admin/${userId}/Survey/GetSurveyList`;
+    return this.http.get<responseDTO[]>(url);
+  }
 }

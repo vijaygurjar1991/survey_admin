@@ -771,7 +771,7 @@ article {
 
 /* Edit Survey Question */
 .update-ques-type.generic-ques ul li {
-    flex: calc(120px - 5px);
+    flex: 120px;
     max-width: calc(120px - 5px);
 }
 
@@ -831,7 +831,7 @@ article {
 }
 
 .logic-tab {
-    display: flex;
+    display: flex;flex-wrap: wrap;
     align-items: flex-start;
     border: 1px solid var(--border-color);
     border-radius: .25rem;
@@ -1279,6 +1279,27 @@ span.mobile-cross {
         font-size: 1rem;
     }
     .btn-primary ng-icon{margin-left: .5rem !important;}
+    .logic-tab ul.nav.nav-tabs {
+        flex: inherit;
+        max-width: inherit;
+        flex-wrap: nowrap;
+        flex-direction: inherit !important;
+        overflow: auto;
+    }
+    .logic-tab ul.nav.nav-tabs li.nav-item {
+        flex: none;
+    }
+    .update-ques-type.generic-ques ul li {
+        flex: 100px; max-width: calc(100px - 10px);
+    }
+    .add-media.generic-ques ul li {
+        flex: 120px;max-width: calc(120px - 5px);
+    }
+    .add-media.generic-ques ul li a {
+        padding: 1rem 0;min-height: 120px;height: 120px;
+    }
+    .new-options a{font-size: .75rem;padding: .35rem .5rem;}
+    .logic-tab .nav-tabs .nav-item .nav-link{font-size: .75rem;padding: .5rem 1rem;}
 }
 @media (max-width:575px){
     .add-ques-sidebar {

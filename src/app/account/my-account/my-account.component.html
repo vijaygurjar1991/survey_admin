@@ -5,20 +5,22 @@
             <p>Manage your Track Opinion Profile</p>
         </div>
     </div>
-    <div ngClass="account-picture mb-4">
-        <figure>
-            <a href="javascript:" class="me-4">
-                <img class="object-fit-cover rounded-circle" src="./assets/images/profile/pic.png" width="80"
-                    height="80" />
-            </a>
-        </figure>
-        <figcaption>
-            <h5>Profile Pictures</h5>
-            <h6>PNG,JPG,GIF max size of 5MB</h6>
-        </figcaption>
-    </div>
+    
     <div class="account">
         <form>
+            <div ngClass="account-picture mb-4">
+                <figure>
+                    <a href="javascript:" class="me-4">
+                        <input type="file" (change)="onFileSelected($event)" accept="image/*" [(ngModel)]="imageName" name="imageName" />
+                        
+                        <img *ngIf="selectedImage" [src]="selectedImage" class="object-fit-cover rounded-circle" width="80" height="80" />
+                    </a>
+                </figure>
+                <figcaption>
+                    <h5>Profile Pictures</h5>
+                    <h6>PNG,JPG,GIF max size of 5MB</h6>
+                </figcaption>
+            </div>
             <div class="row">
                 <div class="col-md-6 mb-4">
                     <label for="name" class="form-label">First Name</label>
@@ -32,7 +34,7 @@
             <div class="mb-4">
                 <label for="email" class="form-label">Email Address</label>
                 <input type="email" class="form-control" [(ngModel)]="email" name="email" disabled>
-            </div>
+            </div>            
             <div class="mb-4">
                 <label for="email" class="form-label">Role</label>
                 <select class="form-select" disabled>
