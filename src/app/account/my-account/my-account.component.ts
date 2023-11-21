@@ -75,12 +75,11 @@ export class MyAccountComponent {
   }
 
   updatepassword() {
-
     if (!this.oldPassword || !this.newPassword || !this.confirmPassword) {
       Swal.fire('Error Occurs', 'All fields are required.', 'error');
     }
     else if (this.confirmPassword != this.newPassword) {
-      Swal.fire('Error Occurs', 'New password and c onfirm opassword should be same.', 'error');
+      Swal.fire('Error Occurs', 'New password and confirm password should be same.', 'error');
     } else {
       const dataToSend2 = {
         id: this.id,

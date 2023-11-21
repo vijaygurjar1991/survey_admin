@@ -80,7 +80,7 @@ export class DataService {
     var userId = localStorage.getItem("userId")
     const url = `${this.apiUrl}api/admin/${userId}/PrivacyPolicy/CreatePrivacyPolicy`;
     console.log("posted data", data);
-    return this.http.post<responseDTO[]>(url, data);
+    return this.http.post(url, data, { responseType: 'text' });
   }
   // PrivacyPolicy get & Post APIs
 
@@ -93,7 +93,7 @@ export class DataService {
     var userId = localStorage.getItem("userId")
     const url = `${this.apiUrl}api/admin/${userId}/TermAndCondition/CreateTermAndCondition`;
     console.log("posted data", data);
-    return this.http.post<responseDTO[]>(url, data);
+    return this.http.post(url, data, { responseType: 'text' });
   }
   // Terms&Conditions get & Post APIs
 
@@ -106,7 +106,7 @@ export class DataService {
     var userId = localStorage.getItem("userId")
     const url = `${this.apiUrl}api/admin/${userId}/Profile/UpdateProfile`;
     console.log("posted data", data);
-    return this.http.post<responseDTO[]>(url, data);
+    return this.http.post(url, data, { responseType: 'text' });
   }
   // MyAccount get & Post APIs
 
@@ -128,7 +128,7 @@ export class DataService {
     var userId = localStorage.getItem("userId")
     const url = `${this.apiUrl}api/admin/${userId}/Profile/CreateProfile`;
     console.log("posted data", data);
-    return this.http.post<responseDTO[]>(url, data);
+    return this.http.post(url, data, { responseType: 'text' });
   }
   // User get & Post APIs
 
