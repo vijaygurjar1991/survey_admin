@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { map } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { responseDTO } from '../types/responseDTO';
@@ -19,37 +19,74 @@ export class SurveyService {
   }
 
   GetGenericQuestion(userId: any): Observable<responseDTO[]> {
+    userId = localStorage.getItem("userId");
     const url = `${this.apiUrl}api/admin/${userId}/GenericQuestion/GetGenericType`;
 
     return this.http.get<responseDTO[]>(url);
   }
 
   GetGenericQuestionType(userId: any, typeId: any): Observable<responseDTO[]> {
+    userId = localStorage.getItem("userId");
     const url = `${this.apiUrl}api/admin/${userId}/GenericQuestion/GetGenericQuestions?typeId=${typeId}`;
     return this.http.get<responseDTO[]>(url);
   }
 
 
   GetQuestionTypes(userId: any): Observable<responseDTO[]> {
+    userId = localStorage.getItem("userId");
     const url = `${this.apiUrl}api/admin/${userId}/GenericQuestion/GetQuestionTypes`;
     return this.http.get<responseDTO[]>(url);
   }
   GetStateByCountryID(userId: any, country_id: any): Observable<responseDTO[]> {
+    userId = localStorage.getItem("userId");
     const url = `${this.apiUrl}api/admin/${userId}/Geography/GetStateByCountryId?countryIds=${country_id}`;
     return this.http.get<responseDTO[]>(url);
   }
   GetCountries(userId: any): Observable<responseDTO[]> {
+    userId = localStorage.getItem("userId");
     const url = `${this.apiUrl}api/admin/${userId}/Geography/GetCountries`;
     return this.http.get<responseDTO[]>(url);
   }
   GetListOfCountry(userId: any): Observable<responseDTO[]> {
+    userId = localStorage.getItem("userId");
     const url = `${this.apiUrl}api/admin/${userId}/Geography/GetGeographyListByCountryId`;
     return this.http.get<responseDTO[]>(url);
   }
 
   // GetSurveyList
   GetSurveyList(userId: any): Observable<responseDTO[]> {
+    userId = localStorage.getItem("userId");
     const url = `${this.apiUrl}api/admin/${userId}/Survey/GetSurveyList`;
     return this.http.get<responseDTO[]>(url);
   }
+
+
+  GetsurveyCategoryId(data: any, qwerty: string, categoryId: number): Observable<any> {
+    const userId = localStorage.getItem("userId");
+    const url = `${this.apiUrl}api/admin/${userId}/Survey/CreateSurvey?surveyName=${qwerty}&categoryId=${categoryId}`;
+
+    console.log("posted data", data);
+    return this.http.post(url, data, { responseType: 'text' });
+  }
+
+  GetSurveyById(userId: any, surveycategoryid: any): Observable<responseDTO[]> {
+    userId = localStorage.getItem("userId");
+    const url = `${this.apiUrl}api/admin/${userId}/Survey/GetSurveyById?surveyId=${surveycategoryid}`;
+    return this.http.get<responseDTO[]>(url);
+  }
+
+  CreateGeneralQuestion(userId: any): Observable<any> {
+    userId = localStorage.getItem("userId");
+    const url = `${this.apiUrl}api/admin/${userId}/GeneralQuestion/CreateGeneralQuestion`;
+    return this.http.post(url, { responseType: 'text' });
+  }
+
+
+
+  // GetCategoryId(data: any): Observable<any> {
+  //   var userId = localStorage.getItem("userId")
+  //   const url = `${this.apiUrl}api/admin/${userId}/Survey/CreateSurvey`;
+  //   console.log("posted data", data);
+  //   return this.http.post(url, data, { responseType: 'text' });
+  // }
 }

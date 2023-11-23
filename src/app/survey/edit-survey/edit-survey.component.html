@@ -17,104 +17,14 @@
                     <div ngClass="update-ques-type generic-ques mt-0 mb-5">
                         <h5 class="mb-3">Select Question Type</h5>
                         <ul>
-                            <li>
+                            <li *ngFor="let ques of question">
                                 <a routerLink="javascript:">
-                                    <figure><img src="../../../assets/images/icons/multiple-choice-1.png" width="38"
-                                            height="30" /></figure>
-                                    <figcaption>Multiple Choice <br /><small>(One Answer)</small></figcaption>
-                                </a>
-                            </li>
-                            <li>
-                                <a routerLink="javascript:">
-                                    <figure><img src="../../../assets/images/icons/multiple-choice-2.png" width="37"
-                                            height="30" /></figure>
-                                    <figcaption>Multiple Choice <br /><small>(Many Answer)</small></figcaption>
-                                </a>
-                            </li>
-                            <li>
-                                <a routerLink="javascript:">
-                                    <figure><img src="../../../assets/images/icons/dropdown-1.png" width="40"
-                                            height="21" /></figure>
-                                    <figcaption>Dropdown <br /><small>(One Answer)</small></figcaption>
-                                </a>
-                            </li>
-                            <li>
-                                <a routerLink="javascript:">
-                                    <figure><img src="../../../assets/images/icons/dropdown-1.png" width="40"
-                                            height="21" /></figure>
-                                    <figcaption>Dropdown <br /><small>(Many Answer)</small></figcaption>
-                                </a>
-                            </li>
-                            <li>
-                                <a routerLink="javascript:">
-                                    <figure><img src="../../../assets/images/icons/image-select.png" width="39"
-                                            height="30" /></figure>
-                                    <figcaption>Image Selection</figcaption>
-                                </a>
-                            </li>
-                            <li>
-                                <a routerLink="javascript:">
-                                    <figure><img src="../../../assets/images/icons/rating-scale.png" width="28"
-                                            height="30" /></figure>
-                                    <figcaption>Rating Scale</figcaption>
-                                </a>
-                            </li>
-                            <li>
-                                <a routerLink="javascript:">
-                                    <figure><img src="../../../assets/images/icons/star-rating.png" width="31"
-                                            height="30" /></figure>
-                                    <figcaption>Star Rating</figcaption>
-                                </a>
-                            </li>
-                            <li>
-                                <a routerLink="javascript:">
-                                    <figure><img src="../../../assets/images/icons/NPS.png" width="16" height="30" />
+                                    <figure><img src="../../../assets/{{ques.image}}" width="38" height="30" />
                                     </figure>
-                                    <figcaption>NPS</figcaption>
+                                    <figcaption>{{ ques.type }} <br /><small>{{ ques.subType }}</small></figcaption>
                                 </a>
                             </li>
-                            <li>
-                                <a routerLink="javascript:">
-                                    <figure><img src="../../../assets/images/icons/slider-scale.png" width="30"
-                                            height="17" /></figure>
-                                    <figcaption>Slider Scale</figcaption>
-                                </a>
-                            </li>
-                            <li>
-                                <a routerLink="javascript:">
-                                    <figure><img src="../../../assets/images/icons/Continuous-Sum.png" width="24"
-                                            height="30" /></figure>
-                                    <figcaption>Continuous Sum</figcaption>
-                                </a>
-                            </li>
-                            <li>
-                                <a routerLink="javascript:">
-                                    <figure><img src="../../../assets/images/icons/ranking.png" width="28"
-                                            height="30" /></figure>
-                                    <figcaption>Ranking</figcaption>
-                                </a>
-                            </li>
-                            <li>
-                                <a routerLink="javascript:">
-                                    <figure><img src="../../../assets/images/icons/boolean.png" width="30"
-                                            height="30" /></figure>
-                                    <figcaption>Boolean <br /><small>(Yes/No)</small></figcaption>
-                                </a>
-                            </li>
-                            <li>
-                                <a routerLink="javascript:">
-                                    <figure><img src="../../../assets/images/icons/matrix-choice.png" width="31"
-                                            height="30" /></figure>
-                                    <figcaption>Matrix Choice <br /><small>(One Answer)</small></figcaption>
-                                </a>
-                            </li>
-                            <li>
-                                <a routerLink="javascript:">
-                                    <figure><img src="../../../assets/images/icons/matrix-choice.png" width="31"
-                                            height="30" /></figure>
-                                    <figcaption>Matrix Choice <br /><small>(Many Answer)</small></figcaption>
-                                </a>
-                            </li>
+
 
                         </ul>
                     </div>

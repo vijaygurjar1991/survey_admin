@@ -9,6 +9,8 @@ import { map, startWith } from 'rxjs/operators';
 import { LiveAnnouncer } from '@angular/cdk/a11y';
 import { DataService } from 'src/app/service/data.service'; // Import your DataService
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
+import { SurveyService } from 'src/app/service/survey.service';
+import { responseDTO } from 'src/app/types/responseDTO';
 
 @Component({
   selector: 'app-edit-survey',
@@ -23,7 +25,7 @@ export class EditSurveyComponent {
   cities: string[] = ['Others'];
   allcities: string[] = [];
   constructor(public themeService: DataService, private router: Router,
-    private route: ActivatedRoute) {
+    private route: ActivatedRoute, private surveyservice: SurveyService) {
     this.filteredCities = this.citiesCtrl.valueChanges.pipe(
       startWith(null),
       map((cities: string | null) => (cities ? this._filter(cities) : this.allcities.slice())),
@@ -79,6 +81,10 @@ export class EditSurveyComponent {
 
     return this.allcities.filter(cities => cities.toLowerCase().includes(filterValue));
   }
+  ngOnInit(): void {
+    this.getQuestion();
+    this.CreateGeneralQuestion();
+  }
 
 
   // tags: string[] = [];
@@ -111,5 +117,53 @@ export class EditSurveyComponent {
   onRemove(event: any) { // Use 'any' as the event type
     console.log(event);
     this.files.splice(this.files.indexOf(event), 1);
+  }
+
+  userId: any
+  question: { type: string, subType: string, image: string }[] = [];
+
+  getQuestion() {
+    this.surveyservice.GetQuestionTypes(this.userId).subscribe({
+      next: (resp: responseDTO[]) => {
+
+        // Map the response to the desired format
+        this.question = resp.map(item => ({ type: item.type, subType: item.subType, image: item.image }));
+      },
+      error: (err) => console.log("An Error occurred while fetching question types", err)
+    });
+  }
+
+  creategeneralquestion: {
+    surveyTypeId: number,
+    questionTypeName: string,
+    surveyTypeName: string,
+    piping: string,
+    video: string,
+    image: string,
+    options: { id: number, option: string, image: string, keyword: string }[]
+  }[] = [];
+
+  CreateGeneralQuestion() {
+    this.surveyservice.CreateGeneralQuestion(this.userId).subscribe({
+      next: (resp: responseDTO[]) => {
+        console.log('Response:', resp);
+        this.creategeneralquestion = resp.map(item => ({
+          surveyTypeId: item.surveyTypeId,
+          questionTypeName: item.questionTypeName,
+          surveyTypeName: item.surveyTypeName,
+          piping: item.piping,
+          video: item.video,
+          image: item.image,
+          options: item.options.map((option: { id: number, option: string, image: string, keyword: string }) => ({
+            id: option.id,
+            option: option.option,
+            image: option.image,
+            keyword: option.keyword
+          }))
+
+        }));
+      },
+      error: (err) => console.log("An Error occurred while fetching question types", err)
+    });
   }
 }
