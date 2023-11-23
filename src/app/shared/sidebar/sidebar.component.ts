@@ -66,7 +66,7 @@ export class SidebarComponent {
 
   getNames() {
     this.surveyservice.GetCategories(this.userId).subscribe(response => {
-      debugger;
+      //debugger;
       var result = Object.keys(response).map(e => response[e]);
       var models: string[] = [];
       result.forEach((vcalue: any, index: any) => {

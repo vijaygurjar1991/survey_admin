@@ -90,6 +90,13 @@ export class CreateSurveyComponent implements OnInit {
   }
 
   ngOnInit(): void {
+
+    this.route.paramMap.subscribe(params => {
+      const id = params.get('id');
+      const name = params.get('name');
+    });
+    
+
     this.hideBreadcrumb();
     this.getNames();
     this.getQuestion();

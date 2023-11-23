@@ -75,6 +75,7 @@ import { AudioGenderDetectionPopupComponent } from './popups/audio-gender-detect
 import { StatePopupComponent } from './popups/state-popup/state-popup.component';
 import { IndustryHouseholdPopupComponent } from './popups/industry-household-popup/industry-household-popup.component';
 import { SecBnSlPopupComponent } from './popups/sec-bn-sl-popup/sec-bn-sl-popup.component';
+import { ConvertToUrlPipe } from '../pipes/convert-to-url.pipe';
 // Icons
 
 @NgModule({
@@ -117,7 +118,8 @@ import { SecBnSlPopupComponent } from './popups/sec-bn-sl-popup/sec-bn-sl-popup.
     AudioGenderDetectionPopupComponent,
     StatePopupComponent,
     IndustryHouseholdPopupComponent,
-    SecBnSlPopupComponent
+    SecBnSlPopupComponent,
+    ConvertToUrlPipe
   ],
   imports: [
     MatChipsModule,
