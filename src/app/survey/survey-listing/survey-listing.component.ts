@@ -11,18 +11,17 @@ import { SurveyService } from 'src/app/service/survey.service';
 })
 export class SurveyListingComponent {
   surveyData: any;
- 
+
   constructor(private visibilityService: DataService, private modalService: NgbModal, public themeService: SurveyService, private cdr: ChangeDetectorRef) { }
   files: File[] = [];
   role: any;
   id: number = 0;
   name: any;
-  status:any;
+  status: any;
   categoryId: any;
   categoryName: any;
   userId: any;
   userName: any;
-  
   image: any;
 
 
@@ -35,7 +34,7 @@ export class SurveyListingComponent {
   GetAllSurveyList() {
     this.userId = localStorage.getItem("userId");
     this.themeService.GetSurveyList(this.userId).subscribe((data: any) => {
-      this.surveyData = data;      
+      this.surveyData = data;
       this.cdr.detectChanges();
     });
   }

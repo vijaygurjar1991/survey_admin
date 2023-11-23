@@ -23,6 +23,7 @@
                     <tr>
                         <th scope="col"><input type="checkbox" ngClass="form-check-input" />
                         </th>
+                        <th scope="col">Survey Id</th>
                         <th scope="col">Survey Name</th>
                         <th scope="col">Category</th>
                         <th scope="col">Creator Name</th>
@@ -35,6 +36,7 @@
                     <tr *ngFor="let item of surveyData">
                         <td><input type="checkbox" ngClass="form-check-input" />
                         </td>
+                        <td>{{item.id}}</td>
                         <td>{{item.name}}</td>
                         <td>{{item.categoryName}}</td>
                         <td>
@@ -43,10 +45,12 @@
                             {{item.userName}}
                         </td>
                         <td>28-09-2023 | 14:53</td>
-                        <td [ngClass]="{ 'status': true, 'done': item.status === 'ACT', 'ongoing': item.status === 'ongoing' }"><span>{{item.status}}</span></td>
+                        <td
+                            [ngClass]="{ 'status': true, 'done': item.status === 'ACT', 'ongoing': item.status === 'ongoing' }">
+                            <span>{{item.status}}</span>
+                        </td>
                         <td ngClass="action">
                             <a routerLink="javascript:"><ng-icon name="heroPencil" ngClass="edit-action"></ng-icon></a>
-                            <a routerLink="javascript:"><ng-icon name="heroEllipsisVertical"></ng-icon></a>
                         </td>
                     </tr>
                 </tbody>

@@ -54,14 +54,6 @@ export class CreateSurveyComponent implements OnInit {
   @ViewChild('AudioGenderDetectionModal', { static: true }) audiogenderdetectionModal!: ModalDirective;
   @ViewChild('StateModal', { static: true }) stateModal!: ModalDirective;
 
-
-
-
-
-
-
-
-
   constructor(
     private visibilityService: DataService,
     private modalService: NgbModal,
@@ -100,7 +92,8 @@ export class CreateSurveyComponent implements OnInit {
   ngOnInit(): void {
     this.hideBreadcrumb();
     this.getNames();
-    this.getQuestion()
+    this.getQuestion();
+    this.GetSurvey()
   }
   onGenericQuestionClick(type: any): void {
     if (type === "Gender") {
@@ -262,6 +255,22 @@ export class CreateSurveyComponent implements OnInit {
       error: (err) => console.log("An Error occurred while fetching question types", err)
     });
   }
+
+  surveyId: number;
+  surveyName: any;
+  status: any;
+  createdDate: number
+
+  GetSurvey() {
+    this.surveyservice.GetSurveyById(this.userId).subscribe((data: any) => {
+      console.log("data", data)
+      this.surveyId = data.surveyId;
+      this.surveyName = data.surveyName
+      this.status = data.status
+      this.createdDate = data.createdDate
+    });
+  }
+
 
 
 }
