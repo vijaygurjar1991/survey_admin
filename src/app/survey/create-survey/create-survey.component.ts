@@ -95,7 +95,7 @@ export class CreateSurveyComponent implements OnInit {
       const id = params.get('id');
       const name = params.get('name');
     });
-    
+
 
     this.hideBreadcrumb();
     this.getNames();
@@ -265,16 +265,14 @@ export class CreateSurveyComponent implements OnInit {
 
   surveyId: number;
   surveyName: any;
-  status: any;
-  createdDate: number
+  categoryName: any
 
   GetSurvey() {
     this.surveyservice.GetSurveyById(this.userId).subscribe((data: any) => {
       console.log("data", data)
       this.surveyId = data.surveyId;
-      this.surveyName = data.surveyName
-      this.status = data.status
-      this.createdDate = data.createdDate
+      this.surveyName = data.surveyName;
+      this.categoryName = data.categoryName;
     });
   }
 

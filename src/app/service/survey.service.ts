@@ -73,7 +73,7 @@ export class SurveyService {
   // GetSurveyByID
   GetSurveyById(userId: any): Observable<responseDTO[]> {
     userId = localStorage.getItem("userId");
-    const url = `${this.apiUrl}api/admin/${userId}/Survey/GetSurveyById?$surveyId=22`;
+    const url = `${this.apiUrl}api/admin/${userId}/Survey/GetSurveyById?surveyId=3`;
     return this.http.get<responseDTO[]>(url);
   }
 

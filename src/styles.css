@@ -1158,8 +1158,16 @@ span.mobile-cross {
 }
 
 .table>:not(caption)>*>*{ white-space: nowrap;}
-/* Responsive */
+.tags.green-tag {
+    background-color: var(--online);
+}
 
+.tags .orange-tag {
+
+    background-color: var(--offline);
+}
+
+/* Responsive */
 @media (max-width:1199px) {
     .login-form {
         padding: 2rem;
