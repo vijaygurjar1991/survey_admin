@@ -90,6 +90,8 @@ export class CreateSurveyComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.readPathVariables();
+    this.getCategoryNames();
 
     this.route.paramMap.subscribe(params => {
       const id = params.get('id');
@@ -229,6 +231,11 @@ export class CreateSurveyComponent implements OnInit {
     this.modalService.open(content, { size: 'lg', centered: true });
   }
 
+  opensidecontent() {
+    const modalRef = this.modalService.open(this.opensidecontent, { /* modal options */ });
+  }
+
+
 
 
   role: string;
@@ -275,6 +282,41 @@ export class CreateSurveyComponent implements OnInit {
       this.categoryName = data.categoryName;
     });
   }
+
+  readSurveyName: any
+  readCategoryId: any
+  readCategoryName: any
+  readPathVariables() {
+    // Subscribe to the paramMap observable
+    this.route.paramMap.subscribe(params => {
+      // Use the get method to retrieve the values of path variables
+      const variable1 = params.get('id'); // For example, '1'
+      const variable2 = params.get('name'); // For example, 'test'
+      this.readCategoryId = variable1
+      this.readSurveyName = variable2
+      // Do something with the values
+      console.log('Variable 1:', variable1);
+      console.log('Variable 2:', variable2);
+    });
+  }
+
+  categoryList: any;
+
+  getCategoryNames() {
+    this.surveyservice.GetCategories(this.userId).subscribe(response => {
+      var result = Object.keys(response).map(e => response[e]);
+      console.log("categoryList", response)
+      this.categoryList = response
+      console.log("update", result);
+      var models: { id: number, name: string }[] = []; // Assuming 'id' is a number
+      result.forEach((value: any, index: any) => {
+        if (value['id'] == this.readCategoryId)
+          this.readCategoryName = value['name']
+      });
+
+    });
+  }
+
 
 
 

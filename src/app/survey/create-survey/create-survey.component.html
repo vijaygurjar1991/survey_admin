@@ -49,9 +49,9 @@
         <div ngClass="survey-name">
             <div>
                 <h4 ngClass="mb-3" [(ngModel)]="surveyName" name="surveyName"></h4>
-                <span>{{categoryName}}</span>
+                <span>{{readCategoryName}}/{{readSurveyName}}</span>
             </div>
-            <a routerLink="javascript:"><ng-icon name="heroPencilSquare"></ng-icon></a>
+            <a routerLink="javascript:" (click)="openLg(sidecontent)"><ng-icon name="heroPencilSquare"></ng-icon></a>
         </div>
         <div ngClass="question">
             <ul cdkDropList (cdkDropListDropped)="onItemDrop($event)">
@@ -144,6 +144,45 @@
         <button type="button" class="btn close" (click)="modal.close('Close click')">Cancel</button>
         <a routerLink="/survey/create-survey" type="button" class="btn btn-primary icon"
             (click)="modal.close('Close click')">Create
+            <ng-icon name="heroArrowLongRight" class="ms-4"></ng-icon></a>
+    </div>
+</ng-template>
+
+<ng-template #sidecontent let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title">Create Your New Survey</h4>
+        <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+    </div>
+    <div class="modal-body popup-ques">
+        <form>
+            <div class="mb-4">
+                <label for="surveyname" class="form-label">Enter Your Survey Name</label>
+                <input id="surveyname" type="text" class="form-control" name="surveyName"
+                    [(ngModel)]="readSurveyName" />
+            </div>
+            <div class="mb-4" class="search-categories input-icon">
+                <label class="form-label">Select Survey Categories</label>
+                <input id="surveyname" type="text" class="form-control" name="categoryId"
+                    [(ngModel)]="readCategoryName" />
+                <mat-form-field>
+                    <ng-icon name="heroMagnifyingGlass" class=""></ng-icon>
+                    <input type="text" placeholder="Search..." matInput placeholder="searchControl"
+                        [matAutocomplete]="auto" [(ngModel)]="readCategoryName" />
+                    <mat-autocomplete #auto="matAutocomplete">
+                        <mat-option *ngFor="let item of categoryList">
+                            {{item.name}}
+
+                        </mat-option>
+                    </mat-autocomplete>
+                </mat-form-field>
+            </div>
+
+        </form>
+    </div>
+    <div class="modal-footer upload">
+        <button type="button" class="btn close" (click)="modal.close('Close click')">Cancel</button>
+        <a routerLink="javascript:" type="button" class="btn btn-primary icon"
+            (click)=" modal.close('Close click')">Update
             <ng-icon name="heroArrowLongRight" class="ms-4"></ng-icon></a>
     </div>
 </ng-template>

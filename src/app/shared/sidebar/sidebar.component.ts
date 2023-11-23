@@ -8,6 +8,7 @@ import { User } from 'src/app/models/user';
 import { AuthService } from 'src/app/service/auth.service';
 import { SurveyService } from 'src/app/service/survey.service';
 import Swal from 'sweetalert2';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-sidebar',
@@ -30,11 +31,12 @@ export class SidebarComponent {
   categoryId: number;
   newsurveyId: number;
 
-  constructor(private modalService: NgbModal, public themeService: DataService, private auth: AuthService, private surveyservice: SurveyService) {
-    this.filteredOptions = this.searchControl.valueChanges.pipe(
-      startWith(''),
-      map((value) => this._filter(value))
-    );
+  constructor(private modalService: NgbModal, public themeService: DataService, private auth: AuthService, private surveyservice: SurveyService, private router: Router) {
+    this.filteredOptions = this.searchControl.valueChanges
+      .pipe(
+        startWith(''),
+        map(value => this._filter(value))
+      );
 
     /*auth.userData.subscribe((user: User) => {
       debugger
@@ -66,18 +68,23 @@ export class SidebarComponent {
 
   getNames() {
     this.surveyservice.GetCategories(this.userId).subscribe(response => {
-      //debugger;
       var result = Object.keys(response).map(e => response[e]);
-      var models: string[] = [];
-      result.forEach((vcalue: any, index: any) => {
-        var model = vcalue['id'];
+      var models: { id: number, name: string }[] = []; // Assuming 'id' is a number
+      result.forEach((value: any, index: any) => {
+        var model = {
+          id: value['id'],
+          name: value['name']
+        };
         models.push(model);
       });
       this.options = models;
-    })
+    });
   }
 
+
+
   CreateSurvey() {
+    debugger
     const dataToSend = {
       surveyName: this.surveyName,
       categoryId: this.categoryId
@@ -93,6 +100,11 @@ export class SidebarComponent {
         Swal.fire('', error, 'error');
       }
     );
+
+    if (this.categoryId) {
+      const url = `manage-survey/${this.categoryId}/${encodeURIComponent(this.surveyName)}`;
+      this.router.navigate([url]);
+    }
   }
 
   ngOnInit() {
@@ -143,12 +155,16 @@ export class SidebarComponent {
   }
 
   searchControl = new FormControl();
-  options: string[] = [];
-  filteredOptions: Observable<string[]> | undefined;
+  options: { id: number, name: string }[] = [];
+  filteredOptions: Observable<{ id: number, name: string }[]> | undefined;
+  selectedCategory: { id: number, name: string } | null = null;
 
-  private _filter(value: string): string[] {
-    const filterValue = value.toString();
-    return this.options.filter((option) => option.toString().includes(filterValue));
+  private _filter(value: string): { id: number, name: string }[] {
+    const filterValue = value.toLowerCase();
+    return this.options.filter(option =>
+      option.name.toLowerCase().includes(filterValue) || option.id.toString().includes(filterValue)
+    );
   }
+
 
 }

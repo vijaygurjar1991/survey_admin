@@ -11,6 +11,7 @@ import { ConvertToUrlPipe } from '../pipes/convert-to-url.pipe';
 
 @NgModule({
   declarations: [
+    ConvertToUrlPipe
   ],
   imports: [
     CommonModule,

@@ -7,12 +7,10 @@
             </div>
             <div class="col-md-3">
                 <div class="input-group flex-nowrap sort">
-                    <span class="input-group-text" id="addon-wrapping">Sort By:</span>
-                    <select class="form-select">
-                        <option selected>All Categories</option>
-                        <option value="1">One</option>
-                        <option value="2">Two</option>
-                        <option value="3">Three</option>
+                    <span class="input-group-text" id="addon-wrapping"></span>
+                    <select class="form-select" [(ngModel)]="selectedCategory">
+                        <option selected value="All Categories">All Categories</option>
+                        <option *ngFor="let item of categoryList" [value]="item.name">{{item.name}}</option>
                     </select>
                 </div>
             </div>
@@ -33,7 +31,8 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let item of surveyData">
+                    <tr *ngFor="let item of surveyData"
+                        [hidden]="selectedCategory !== 'All Categories' && item.categoryName !== selectedCategory">
                         <td><input type="checkbox" ngClass="form-check-input" />
                         </td>
                         <!-- <td>{{item.id}}</td> -->
@@ -45,12 +44,14 @@
                             {{item.userName}}
                         </td>
                         <td>28-09-2023 | 14:53</td>
-                        <td
-                            [ngClass]="{ 'status': true, 'done': item.status === 'ACT', 'ongoing': item.status === 'ongoing' }">
+                        <!-- <td
+                            [ngClass]="{ 'status': true, 'done': item.status === 'ACT', 'ongoing': item.status === 'ongoing' }"> -->
+                        <td [ngClass]="{'done': item.status === 'ACT', 'orange-tag': item.status !== 'ACT'}">
                             <span>{{item.status}}</span>
                         </td>
                         <td ngClass="action">
-                            <a href="javascript:" [routerLink]="'/survey/manage-survey/'+item.id + '/'+item.name | convertToUrl">
+                            <a href="javascript:"
+                                [routerLink]="'/survey/manage-survey/'+item.id + '/'+item.name | convertToUrl">
                                 <ng-icon name="heroPencil" ngClass="edit-action"></ng-icon></a>
                         </td>
                     </tr>
