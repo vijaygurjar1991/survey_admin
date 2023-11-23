@@ -13,6 +13,7 @@ export class SurveyService {
   apiUrl = environment.apiUrl;
   constructor(private http: HttpClient) { }
   GetCategories(userId: any) {
+    userId = localStorage.getItem("userId");
     return this.http
       .get<responseDTO>(`${this.apiUrl}api/admin/${userId}/Category/GetCategories`)
       .pipe(map((result) => result as responseDTO));
@@ -60,20 +61,20 @@ export class SurveyService {
     return this.http.get<responseDTO[]>(url);
   }
 
-
-  GetsurveyCategoryId(data: any, qwerty: string, categoryId: number): Observable<any> {
-    const userId = localStorage.getItem("userId");
-    const url = `${this.apiUrl}api/admin/${userId}/Survey/CreateSurvey?surveyName=${qwerty}&categoryId=${categoryId}`;
-
+  // Create Survey
+  CreateSurvey(data: any): Observable<any> {
+    var userId = localStorage.getItem("userId");
+    const { surveyName, categoryId } = data;
+    const url = `${this.apiUrl}api/admin/${userId}/Survey/CreateSurvey?surveyName=${encodeURIComponent(surveyName)}&categoryId=${categoryId}`;
     console.log("posted data", data);
     return this.http.post(url, data, { responseType: 'text' });
   }
 
-  GetSurveyById(userId: any, surveycategoryid: any): Observable<responseDTO[]> {
-    userId = localStorage.getItem("userId");
-    const url = `${this.apiUrl}api/admin/${userId}/Survey/GetSurveyById?surveyId=${surveycategoryid}`;
-    return this.http.get<responseDTO[]>(url);
-  }
+  // GetSurveyById(userId: any, surveycategoryid: any): Observable<responseDTO[]> {
+  //   userId = localStorage.getItem("userId");
+  //   const url = `${this.apiUrl}api/admin/${userId}/Survey/GetSurveyById?surveyId=${surveycategoryid}`;
+  //   return this.http.get<responseDTO[]>(url);
+  // }
 
   CreateGeneralQuestion(userId: any): Observable<any> {
     userId = localStorage.getItem("userId");
@@ -89,4 +90,11 @@ export class SurveyService {
   //   console.log("posted data", data);
   //   return this.http.post(url, data, { responseType: 'text' });
   // }
+  // GetSurveyByID
+  GetSurveyById(userId: any): Observable<responseDTO[]> {
+    userId = localStorage.getItem("userId");
+    const url = `${this.apiUrl}api/admin/${userId}/Survey/GetSurveyById?surveyId=3`;
+    return this.http.get<responseDTO[]>(url);
+  }
+
 }

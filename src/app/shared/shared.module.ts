@@ -7,6 +7,7 @@ import { heroXMark } from '@ng-icons/heroicons/outline';
 import { heroMagnifyingGlass } from '@ng-icons/heroicons/outline';
 
 import { RouterModule } from '@angular/router';
+import { ConvertToUrlPipe } from '../pipes/convert-to-url.pipe';
 
 @NgModule({
   declarations: [

@@ -15,12 +15,29 @@ export class AddUserComponent {
   id: number;
   firstName: any;
   lastName: any;
-  password: any;
+  //password: any;
   status: "ACT";
   contactNo: Number;
   email: any;
   roleId: number = 0;
   image: any;
+
+  password: string = '';
+
+  generatePassword(length: number): string {
+    const charset = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+    let password = '';
+    for (let i = 0; i < length; i++) {
+      const randomIndex = Math.floor(Math.random() * charset.length);
+      password += charset.charAt(randomIndex);
+    }
+    return password;
+  }
+
+  onGeneratePassword() {
+    // You can adjust the length of the password as needed
+    this.password = this.generatePassword(10);
+  }
 
   onSelect(event: any) { // Use 'any' as the event type
     console.log(event);

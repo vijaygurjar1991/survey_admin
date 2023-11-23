@@ -1158,8 +1158,16 @@ span.mobile-cross {
 }
 
 .table>:not(caption)>*>*{ white-space: nowrap;}
-/* Responsive */
+.tags.green-tag {
+    background-color: var(--online);
+}
 
+.tags .orange-tag {
+
+    background-color: var(--offline);
+}
+
+/* Responsive */
 @media (max-width:1199px) {
     .login-form {
         padding: 2rem;
@@ -1440,7 +1448,8 @@ span.mobile-cross {
     padding-right: 3rem;
     padding-left: 3rem
 }
-
+label{  margin-block: 0.5rem; }
+.login-form label{ margin-bottom: 0px;}
 
 
 /* editor */
@@ -1471,6 +1480,7 @@ span.mobile-cross {
     left: 0px;
     transform: translateY(-50%);
     --ng-icon__size: 1.2rem !important;
+    line-height: 1;
 }
 
 .input-icon input {

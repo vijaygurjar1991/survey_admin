@@ -7,6 +7,7 @@ import { DataService } from 'src/app/service/data.service';
 import { User } from 'src/app/models/user';
 import { AuthService } from 'src/app/service/auth.service';
 import { SurveyService } from 'src/app/service/survey.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-sidebar',
@@ -25,6 +26,9 @@ export class SidebarComponent {
   isUser = false;
   isClient = false;
 
+  surveyName: any;
+  categoryId: number;
+  newsurveyId: number;
 
   constructor(private modalService: NgbModal, public themeService: DataService, private auth: AuthService, private surveyservice: SurveyService) {
     this.filteredOptions = this.searchControl.valueChanges.pipe(
@@ -62,15 +66,35 @@ export class SidebarComponent {
 
   getNames() {
     this.surveyservice.GetCategories(this.userId).subscribe(response => {
+      //debugger;
       var result = Object.keys(response).map(e => response[e]);
       var models: string[] = [];
       result.forEach((vcalue: any, index: any) => {
-        var model = vcalue['name'];
+        var model = vcalue['id'];
         models.push(model);
       });
       this.options = models;
     })
   }
+
+  CreateSurvey() {
+    const dataToSend = {
+      surveyName: this.surveyName,
+      categoryId: this.categoryId
+    };
+    console.log("dataToSend", dataToSend)
+    this.surveyservice.CreateSurvey(dataToSend).subscribe(
+      response => {
+        console.log('Response from server:', response);
+        this.newsurveyId = response;
+      },
+      error => {
+        console.error('Error occurred while sending POST request:', error);
+        Swal.fire('', error, 'error');
+      }
+    );
+  }
+
   ngOnInit() {
     this.role = localStorage.getItem("role");
     this.getNames();
@@ -123,8 +147,8 @@ export class SidebarComponent {
   filteredOptions: Observable<string[]> | undefined;
 
   private _filter(value: string): string[] {
-    const filterValue = value.toLowerCase();
-    return this.options.filter((option) => option.toLowerCase().includes(filterValue));
+    const filterValue = value.toString();
+    return this.options.filter((option) => option.toString().includes(filterValue));
   }
 
 }

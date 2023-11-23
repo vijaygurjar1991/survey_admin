@@ -19,7 +19,7 @@
                     <span class="menu-icon flex-grow-0">
                         <ng-icon name="heroHome"></ng-icon>
                     </span>
-                    <div class="text-box flex-grow-1">Dashboard {{role}}</div>
+                    <div class="text-box flex-grow-1">Dashboard</div>
                 </a>
             </li>
             <li class="single-sidebar-menu">
@@ -219,14 +219,15 @@
         <form>
             <div class="mb-4">
                 <label for="surveyname" class="form-label">Enter Your Survey Name</label>
-                <input id="surveyname" type="text" class="form-control" placeholder="Ed-Tech Brand Ranking" />
+                <input id="surveyname" type="text" class="form-control" [(ngModel)]="surveyName" name="surveyName" />
             </div>
             <div class="mb-4" class="search-categories input-icon">
                 <label class="form-label">Select Survey Categories</label>
+                <input id="surveyname" type="text" class="form-control" [(ngModel)]="categoryId" name="categoryId" />
                 <mat-form-field>
                     <ng-icon name="heroMagnifyingGlass" class=""></ng-icon>
                     <input type="text" placeholder="Search..." matInput [formControl]="searchControl"
-                        [matAutocomplete]="auto" />
+                        [matAutocomplete]="auto" [(ngModel)]="categoryId" />
                     <mat-autocomplete #auto="matAutocomplete">
                         <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
                             {{ option }}
@@ -239,8 +240,8 @@
     </div>
     <div class="modal-footer upload">
         <button type="button" class="btn close" (click)="modal.close('Close click')">Cancel</button>
-        <a routerLink="/survey/create-survey" type="button" class="btn btn-primary icon"
-            (click)="modal.close('Close click')">Create
+        <a routerLink="/survey/manage-survey" type="button" class="btn btn-primary icon"
+            (click)="CreateSurvey(); modal.close('Close click')">Create
             <ng-icon name="heroArrowLongRight" class="ms-4"></ng-icon></a>
     </div>
 </ng-template>

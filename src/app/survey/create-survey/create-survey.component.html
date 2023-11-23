@@ -48,8 +48,8 @@
     <div ngClass="survey-question">
         <div ngClass="survey-name">
             <div>
-                <h4 ngClass="mb-3">Ed-Tech Brand Ranking Survey</h4>
-                <span>Cosmetics, Personal Care, Toiletries</span>
+                <h4 ngClass="mb-3" [(ngModel)]="surveyName" name="surveyName"></h4>
+                <span>{{categoryName}}</span>
             </div>
             <a routerLink="javascript:"><ng-icon name="heroPencilSquare"></ng-icon></a>
         </div>
@@ -97,69 +97,6 @@
                                     <label> <input type="radio" name="city">
                                         <span class="checked">Vijaywada</span></label>
                                 </div>
-                            </div>
-                        </div>
-                    </div>
-                </li>
-                <li cdkDrag (cdkDragStarted)="onDragStarted()" (cdkDragEnded)="onDragEnded()">
-                    <div class="drag-item">
-                        <div ngClass="ques-header">
-                            <h5 ngClass="mb-0"><ng-icon name="heroArrowsPointingOut"></ng-icon> Page 2</h5>
-                            <div class="nav-item dropdown">
-                                <a class="nav-link" routerLink="#" id="navbarDropdownMenuLink" role="button"
-                                    data-bs-toggle="dropdown" aria-expanded="false">
-                                    <ng-icon name="heroEllipsisVertical"></ng-icon>
-                                </a>
-                                <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                                    <li><a class="dropdown-item" routerLink="/edit-survey"><ng-icon
-                                                name="heroPencil"></ng-icon>Edit</a></li>
-                                    <li><a class="dropdown-item" routerLink="#"><ng-icon
-                                                name="heroDocumentDuplicate"></ng-icon>Clone</a></li>
-                                    <li><a class="dropdown-item delete-hover" routerLink="#"><ng-icon
-                                                name="heroTrash"></ng-icon>Delete</a></li>
-                                </ul>
-                            </div>
-
-                        </div>
-                        <div ngClass="ques-body p-4">
-                            <h5 ngClass="mb-4">Please select your gender</h5>
-                            <div ngClass="ques-ans">
-                                <div class="ques-radio">
-                                    <label> <input type="radio" name="gender">
-                                        <span class="checked">Male</span></label>
-                                </div>
-                                <div class="ques-radio">
-                                    <label> <input type="radio" name="gender">
-                                        <span class="checked">Female</span></label>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </li>
-                <li cdkDropList cdkDrag (cdkDragStarted)="onDragStarted()" (cdkDragEnded)="onDragEnded()">
-                    <div class="drag-item">
-                        <div ngClass="ques-header">
-                            <h5 ngClass="mb-0"><ng-icon name="heroArrowsPointingOut"></ng-icon> Page 3</h5>
-                            <div class="nav-item dropdown">
-                                <a class="nav-link" routerLink="#" id="navbarDropdownMenuLink" role="button"
-                                    data-bs-toggle="dropdown" aria-expanded="false">
-                                    <ng-icon name="heroEllipsisVertical"></ng-icon>
-                                </a>
-                                <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                                    <li><a class="dropdown-item" routerLink="/edit-survey"><ng-icon
-                                                name="heroPencil"></ng-icon>Edit</a></li>
-                                    <li><a class="dropdown-item" routerLink="#"><ng-icon
-                                                name="heroDocumentDuplicate"></ng-icon>Clone</a></li>
-                                    <li><a class="dropdown-item delete-hover" routerLink="#"><ng-icon
-                                                name="heroTrash"></ng-icon>Delete</a></li>
-                                </ul>
-                            </div>
-
-                        </div>
-                        <div ngClass="ques-body p-4">
-                            <h5 ngClass="mb-4">Please enter your age in completed years</h5>
-                            <div>
-                                <input type="date" class="form-control" placeholder="">
                             </div>
                         </div>
                     </div>

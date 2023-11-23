@@ -3,6 +3,8 @@ import { Component } from '@angular/core';
 import { Chart } from 'chart.js/auto';
 import { DataService } from 'src/app/service/data.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { SurveyService } from 'src/app/service/survey.service';
+import { responseDTO } from 'src/app/types/responseDTO';
 
 @Component({
   selector: 'app-dashboard',
@@ -11,7 +13,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 })
 export class DashboardComponent {
 
-  constructor(private visibilityService: DataService, private modalService: NgbModal, public themeService: DataService) {
+  constructor(private visibilityService: DataService, private modalService: NgbModal, public themeService: DataService, public surveyservice: SurveyService) {
     visibilityService.articleVisible.next(true);
   }
   role: any;
@@ -76,20 +78,16 @@ export class DashboardComponent {
     });
   }
 
-
   chart: any = [];
   ngOnInit(): void {
     this.showHeader();
     this.createChart();
     this.showSideBar();
     this.hideBreadcrumb();
-
     this.role = localStorage.getItem("role");
-    this.getMyAccount()
-
+    this.getMyAccount();
+    this.getSurveyList();
   }
-
-
   createChart() {
     this.chart = new Chart("canvas", {
       type: 'line',
@@ -130,6 +128,30 @@ export class DashboardComponent {
 
   openVerticallyCentered(content: any) {
     this.modalService.open(content, { centered: true, size: 'lg' });
+  }
+
+  surveylist: {
+    name: string,
+    status: string | number,
+    categoryName: string,
+    userName: string,
+    createdDate: any
+  }[] = [];
+
+  getSurveyList() {
+    this.surveyservice.GetSurveyList(this.userId).subscribe({
+      next: (resp: responseDTO[]) => {
+        console.log('surveylist:', resp);
+        this.surveylist = resp.map(item => ({
+          name: item.name,
+          status: item.status.toString(),
+          categoryName: item.categoryName,
+          userName: item.userName,
+          createdDate: new Date(item.createdDate)
+        }));
+      },
+      error: (err) => console.log("An Error occur while fetching survey list", err)
+    });
   }
 
 }
