@@ -9,6 +9,8 @@ import { AuthService } from 'src/app/service/auth.service';
 import { SurveyService } from 'src/app/service/survey.service';
 import Swal from 'sweetalert2';
 import { Router } from '@angular/router';
+import { MatOptionSelectionChange } from '@angular/material/core';
+import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 
 @Component({
   selector: 'app-sidebar',
@@ -30,6 +32,7 @@ export class SidebarComponent {
   surveyName: any;
   categoryId: number;
   newsurveyId: number;
+  selectedOption:any;
 
   constructor(private modalService: NgbModal, public themeService: DataService, private auth: AuthService, private surveyservice: SurveyService, private router: Router) {
     this.filteredOptions = this.searchControl.valueChanges
@@ -81,10 +84,12 @@ export class SidebarComponent {
     });
   }
 
-
+  filterOptions(e:MatAutocompleteSelectedEvent){
+    this.categoryId = e.option.value;
+    this.selectedOption = e.option.viewValue;
+  }
 
   CreateSurvey() {
-    debugger
     const dataToSend = {
       surveyName: this.surveyName,
       categoryId: this.categoryId

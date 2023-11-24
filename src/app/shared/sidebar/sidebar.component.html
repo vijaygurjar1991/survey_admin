@@ -223,15 +223,13 @@
             </div>
             <div class="mb-4" class="search-categories input-icon">
                 <label class="form-label">Select Survey Categories</label>
-                <input id="surveyname" type="text" class="form-control" [(ngModel)]="categoryId" name="categoryId" />
+
                 <mat-form-field>
                     <ng-icon name="heroMagnifyingGlass" class=""></ng-icon>
                     <input type="text" placeholder="Search..." matInput [formControl]="searchControl"
-                        [matAutocomplete]="auto" [(ngModel)]="categoryId" />
-                    <mat-autocomplete #auto="matAutocomplete">
-
+                        [matAutocomplete]="auto" [(ngModel)]="selectedOption" />
+                    <mat-autocomplete #auto="matAutocomplete" (optionSelected)="filterOptions($event)">
                         <mat-option *ngFor="let option of filteredOptions | async" [value]="option.id">
-
                             {{ option.name }}
                         </mat-option>
                     </mat-autocomplete>

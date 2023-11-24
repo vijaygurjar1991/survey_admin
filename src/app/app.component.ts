@@ -51,6 +51,9 @@ export class AppComponent {
   }
 
   ngOnInit() {
+   // debugger;
+    this.visibilityService.isSidebarVisibleSubject.next(true);
+
     // debugger;
     //  console.log(this.router.snapshot?.url[0].path);
   }
