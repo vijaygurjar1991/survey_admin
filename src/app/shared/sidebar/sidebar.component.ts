@@ -11,6 +11,7 @@ import Swal from 'sweetalert2';
 import { Router } from '@angular/router';
 import { MatOptionSelectionChange } from '@angular/material/core';
 import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
+import { CryptoService } from 'src/app/service/crypto.service';
 
 @Component({
   selector: 'app-sidebar',
@@ -34,7 +35,11 @@ export class SidebarComponent {
   newsurveyId: number;
   selectedOption:any;
 
-  constructor(private modalService: NgbModal, public themeService: DataService, private auth: AuthService, private surveyservice: SurveyService, private router: Router) {
+  constructor(private modalService: NgbModal, public themeService: DataService, 
+    private auth: AuthService, 
+    private surveyservice: SurveyService, 
+    private router: Router,
+    private crypto:CryptoService) {
     this.filteredOptions = this.searchControl.valueChanges
       .pipe(
         startWith(''),
@@ -107,7 +112,7 @@ export class SidebarComponent {
     );
 
     if (this.categoryId) {
-      const url = `manage-survey/${this.categoryId}/${encodeURIComponent(this.surveyName)}`;
+      const url = `manage-survey/${this.crypto.encryptParam(this.categoryId.toString())}}`;
       this.router.navigate([url]);
     }
   }

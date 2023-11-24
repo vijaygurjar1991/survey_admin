@@ -240,7 +240,7 @@
     </div>
     <div class="modal-footer upload">
         <button type="button" class="btn close" (click)="modal.close('Close click')">Cancel</button>
-        <a [routerLink]="['/survey/manage-survey', categoryId, (surveyName)]" type="button" class="btn btn-primary icon"
+        <a href="javascript:void(0);" type="button" class="btn btn-primary icon"
             (click)="CreateSurvey(); modal.close('Close click')">Create
             <ng-icon name="heroArrowLongRight" class="ms-4"></ng-icon></a>
     </div>

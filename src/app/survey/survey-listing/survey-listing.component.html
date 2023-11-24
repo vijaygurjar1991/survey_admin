@@ -51,7 +51,7 @@
                         </td>
                         <td ngClass="action">
                             <a href="javascript:"
-                                [routerLink]="'/survey/manage-survey/'+item.id + '/'+item.name | convertToUrl">
+                                [routerLink]="'/survey/manage-survey/'+ (item.id | encrypt)">
                                 <ng-icon name="heroPencil" ngClass="edit-action"></ng-icon></a>
                         </td>
                     </tr>

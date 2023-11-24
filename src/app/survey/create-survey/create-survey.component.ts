@@ -9,6 +9,7 @@ import { DataService } from 'src/app/service/data.service'; // Import your DataS
 import { ModalDirective } from 'ngx-bootstrap/modal';
 import { SurveyService } from 'src/app/service/survey.service';
 import { responseDTO } from 'src/app/types/responseDTO';
+import { CryptoService } from 'src/app/service/crypto.service';
 
 
 @Component({
@@ -63,7 +64,8 @@ export class CreateSurveyComponent implements OnInit {
     private renderer: Renderer2,
     private el: ElementRef,
     public themeService: DataService,
-    private surveyservice: SurveyService
+    private surveyservice: SurveyService,
+    private crypto:CryptoService
   ) {
     this.filteredOptions = this.searchControl.valueChanges.pipe(
       startWith(''),
@@ -89,13 +91,17 @@ export class CreateSurveyComponent implements OnInit {
     this.visibilityService.toggleBreadcrumbVisibility(true);
   }
 
+  surveyId = 0;
+
   ngOnInit(): void {
     this.readPathVariables();
     this.getCategoryNames();
 
     this.route.paramMap.subscribe(params => {
-      const id = params.get('id');
-      const name = params.get('name');
+      let _surveyId = params.get('id');
+      if(_surveyId){
+        this.surveyId = parseInt(this.crypto.decryptQueryParam(_surveyId));
+      }
     });
 
 
@@ -270,7 +276,6 @@ export class CreateSurveyComponent implements OnInit {
     });
   }
 
-  surveyId: number;
   surveyName: any;
   categoryName: any
 

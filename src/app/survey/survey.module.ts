@@ -76,6 +76,8 @@ import { StatePopupComponent } from './popups/state-popup/state-popup.component'
 import { IndustryHouseholdPopupComponent } from './popups/industry-household-popup/industry-household-popup.component';
 import { SecBnSlPopupComponent } from './popups/sec-bn-sl-popup/sec-bn-sl-popup.component';
 import { ConvertToUrlPipe } from '../pipes/convert-to-url.pipe';
+import { EncryptPipe } from '../pipes/encrypt.pipe';
+import { DecryptPipe } from '../pipes/decrypt.pipe';
 // Icons
 
 @NgModule({
@@ -119,7 +121,9 @@ import { ConvertToUrlPipe } from '../pipes/convert-to-url.pipe';
     StatePopupComponent,
     IndustryHouseholdPopupComponent,
     SecBnSlPopupComponent,
-    ConvertToUrlPipe
+    ConvertToUrlPipe,
+    EncryptPipe,
+    DecryptPipe
   ],
   imports: [
     MatChipsModule,

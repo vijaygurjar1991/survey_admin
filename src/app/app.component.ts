@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DataService } from './service/data.service';
 import { AuthService } from './service/auth.service';
+import { CryptoService } from './service/crypto.service';
 
 @Component({
   selector: 'app-root',
@@ -17,7 +18,8 @@ export class AppComponent {
   articleVisible: boolean = true;
 
 
-  constructor(private router: ActivatedRoute, public visibilityService: DataService, public themeService: DataService, private auth: AuthService) {
+  constructor(private router: ActivatedRoute, public visibilityService: DataService, public themeService: DataService,
+    private auth: AuthService) {
 
     this.visibilityService.headerVisible$.subscribe(visible => {
       this.headerVisible = visible;
@@ -51,7 +53,7 @@ export class AppComponent {
   }
 
   ngOnInit() {
-   // debugger;
+    // debugger;
     this.visibilityService.isSidebarVisibleSubject.next(true);
 
     // debugger;
