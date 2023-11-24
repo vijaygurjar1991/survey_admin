@@ -10,7 +10,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class DataService {
-  private isSidebarVisibleSubject = new BehaviorSubject<boolean>(true);
+  public isSidebarVisibleSubject = new BehaviorSubject<boolean>(true);
   isSidebarVisible$ = this.isSidebarVisibleSubject.asObservable();
 
   // Collapse left sidebar
@@ -21,6 +21,12 @@ export class DataService {
     this.addMargin = !this.addMargin;
     this.addwidth = !this.addwidth;
     this.dashboardMargin = !this.dashboardMargin;
+  }
+
+  public closeSideBar(){
+    this.addMargin = false;
+    this.addwidth = false;
+    this.dashboardMargin = false;
   }
 
   private headerVisibleSubject = new BehaviorSubject<boolean>(true);

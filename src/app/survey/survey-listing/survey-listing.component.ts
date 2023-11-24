@@ -32,6 +32,10 @@ export class SurveyListingComponent {
 
 
   ngOnInit(): void {
+    //debugger;
+    this.visibilityService.closeSideBar();
+    this.visibilityService.isSidebarVisibleSubject.next(false);
+
     this.role = localStorage.getItem("role")
     this.GetAllSurveyList()
     this.getNames()
