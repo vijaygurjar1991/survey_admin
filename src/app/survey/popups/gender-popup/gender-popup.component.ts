@@ -31,11 +31,7 @@ export class GenderPopupComponent {
   userId: number;
   typeid = 1;
 
-  questions: {
-    question: string,
-    image: string | null,
-    options: { id: number, option: string, image: string }[]
-  }[] = [];
+  questions: any[] = [];
 
 
   getQuestions() {
@@ -54,6 +50,23 @@ export class GenderPopupComponent {
       },
       error: (err) => console.log("An Error occur while fetching questions", err)
     });
+  }
+
+  selectedOptions: Set<number> = new Set<number>();
+
+
+  selectAllOptions() {
+    if (this.questions && this.questions.length > 0) {
+      const options = this.questions[0].options;
+
+      // Check if all options are currently selected
+      const allSelected = options.every((option: { selected: any; }) => option.selected);
+
+      // Toggle the selection based on the current state
+      for (const option of options) {
+        option.selected = !allSelected;
+      }
+    }
   }
 
 

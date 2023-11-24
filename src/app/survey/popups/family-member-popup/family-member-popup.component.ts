@@ -32,11 +32,7 @@ export class FamilyMemberPopupComponent {
   userId: number;
   typeid = 6;
 
-  familymember: {
-    question: string,
-    image: string | null,
-    options: { id: number, option: string, image: string }[]
-  }[] = [];
+  familymember: any[] = [];
 
 
   getFamilyMember() {

@@ -4,7 +4,7 @@ import { ActivatedRoute, Router, NavigationEnd } from '@angular/router';
 import { FormControl } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { startWith, map } from 'rxjs/operators';
-import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
+import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 import { DataService } from 'src/app/service/data.service'; // Import your DataService
 import { ModalDirective } from 'ngx-bootstrap/modal';
 import { SurveyService } from 'src/app/service/survey.service';
@@ -308,7 +308,7 @@ export class CreateSurveyComponent implements OnInit {
   categoryList: any;
 
   getCategoryNames() {
-    this.surveyservice.GetCategories(this.userId).subscribe(response => {
+    this.surveyservice.GetCategories(this.userId).subscribe((response: { [x: string]: any; }) => {
       var result = Object.keys(response).map(e => response[e]);
       console.log("categoryList", response)
       this.categoryList = response
@@ -322,6 +322,10 @@ export class CreateSurveyComponent implements OnInit {
     });
   }
 
+
+  // onDrop(event: CdkDragDrop<string[]>): void {
+  //   moveItemInArray(this.names, event.previousIndex, event.currentIndex);
+  // }
 
 
 

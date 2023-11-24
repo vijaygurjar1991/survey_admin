@@ -33,11 +33,7 @@ export class NoOfChildPopupComponent {
   userId: number;
   typeid = 7;
 
-  noofchild: {
-    question: string,
-    image: string | null,
-    options: { id: number, option: string, image: string }[]
-  }[] = [];
+  noofchild: any[] = [];
 
 
   getNoOfChild() {

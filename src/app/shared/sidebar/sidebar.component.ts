@@ -104,6 +104,7 @@ export class SidebarComponent {
       response => {
         console.log('Response from server:', response);
         this.newsurveyId = response;
+        console.log("newsurveyId", this.newsurveyId);
       },
       error => {
         console.error('Error occurred while sending POST request:', error);

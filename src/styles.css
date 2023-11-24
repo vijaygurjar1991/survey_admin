@@ -574,9 +574,9 @@ article {
     margin-right: 1rem;
 }
 
-.ques-radio {
+/* .ques-radio {
     margin-bottom: 1rem;
-}
+} */
 
 .ques-header ul.dropdown-menu.show {
     padding: 0;
@@ -831,7 +831,8 @@ article {
 }
 
 .logic-tab {
-    display: flex;flex-wrap: wrap;
+    display: flex;
+    flex-wrap: wrap;
     align-items: flex-start;
     border: 1px solid var(--border-color);
     border-radius: .25rem;
@@ -1157,7 +1158,10 @@ span.mobile-cross {
     align-items: center;
 }
 
-.table>:not(caption)>*>*{ white-space: nowrap;}
+.table>:not(caption)>*>* {
+    white-space: nowrap;
+}
+
 .tags.green-tag {
     background-color: var(--online);
 }
@@ -1172,10 +1176,25 @@ span.mobile-cross {
     .login-form {
         padding: 2rem;
     }
-    .logo-segment{padding: 0;}
-    .addwidth .logo-segment{ padding: var(--section-gap);}
-    .logo-segment .small-menu{ display: none !important;}
-    .logo-segment img{ display: block !important; height: 50px; width: auto;}
+
+    .logo-segment {
+        padding: 0;
+    }
+
+    .addwidth .logo-segment {
+        padding: var(--section-gap);
+    }
+
+    .logo-segment .small-menu {
+        display: none !important;
+    }
+
+    .logo-segment img {
+        display: block !important;
+        height: 50px;
+        width: auto;
+    }
+
     span.mobile-cross {
         display: block;
         position: absolute;
@@ -1221,21 +1240,25 @@ span.mobile-cross {
         min-height: 100vh;
         height: 100%;
         overflow: auto;
-        padding: .5rem;margin: -15px;
+        padding: .5rem;
+        margin: -15px;
     }
 
     .generic-ques ul li {
         flex: 0 50%;
         max-width: calc(50% - 5px);
     }
-    
-    .survey-question{margin-left: 2rem;}
+
+    .survey-question {
+        margin-left: 2rem;
+    }
+
     .generic-ques ul li a {
         display: flex;
         flex-wrap: wrap;
         align-items: center;
         justify-content: center;
-        min-height:90px;
+        min-height: 90px;
     }
 
     .generic-ques ul li a figcaption {
@@ -1271,22 +1294,42 @@ span.mobile-cross {
         display: block;
     }
 }
-@media (max-width:991px) {    
-    article, .app-header{padding: 15px;}
-    
+
+@media (max-width:991px) {
+
+    article,
+    .app-header {
+        padding: 15px;
+    }
+
 }
-@media (max-width:767px){
-    body{font-size: .85rem;}
-    .btn-primary{padding-top: .5rem;padding-bottom: .5rem;font-size: .75rem;}
-    .form-control, .form-select {
+
+@media (max-width:767px) {
+    body {
+        font-size: .85rem;
+    }
+
+    .btn-primary {
+        padding-top: .5rem;
+        padding-bottom: .5rem;
+        font-size: .75rem;
+    }
+
+    .form-control,
+    .form-select {
         padding-top: 0.5rem;
         padding-bottom: 0.5rem;
         font-size: .75rem;
     }
+
     .form-label {
         font-size: 1rem;
     }
-    .btn-primary ng-icon{margin-left: .5rem !important;}
+
+    .btn-primary ng-icon {
+        margin-left: .5rem !important;
+    }
+
     .logic-tab ul.nav.nav-tabs {
         flex: inherit;
         max-width: inherit;
@@ -1294,22 +1337,39 @@ span.mobile-cross {
         flex-direction: inherit !important;
         overflow: auto;
     }
+
     .logic-tab ul.nav.nav-tabs li.nav-item {
         flex: none;
     }
+
     .update-ques-type.generic-ques ul li {
-        flex: 100px; max-width: calc(100px - 10px);
+        flex: 100px;
+        max-width: calc(100px - 10px);
     }
+
     .add-media.generic-ques ul li {
-        flex: 120px;max-width: calc(120px - 5px);
+        flex: 120px;
+        max-width: calc(120px - 5px);
     }
+
     .add-media.generic-ques ul li a {
-        padding: 1rem 0;min-height: 120px;height: 120px;
+        padding: 1rem 0;
+        min-height: 120px;
+        height: 120px;
     }
-    .new-options a{font-size: .75rem;padding: .35rem .5rem;}
-    .logic-tab .nav-tabs .nav-item .nav-link{font-size: .75rem;padding: .5rem 1rem;}
+
+    .new-options a {
+        font-size: .75rem;
+        padding: .35rem .5rem;
+    }
+
+    .logic-tab .nav-tabs .nav-item .nav-link {
+        font-size: .75rem;
+        padding: .5rem 1rem;
+    }
 }
-@media (max-width:575px){
+
+@media (max-width:575px) {
     .add-ques-sidebar {
         flex: 0 100px;
         max-width: 100px;
@@ -1319,8 +1379,12 @@ span.mobile-cross {
         flex: 0 100%;
         max-width: 100%;
     }
-    .drag-ques p{font-size: 1rem;}
+
+    .drag-ques p {
+        font-size: 1rem;
+    }
 }
+
 /* Responsive */
 
 
@@ -1448,8 +1512,14 @@ span.mobile-cross {
     padding-right: 3rem;
     padding-left: 3rem
 }
-label{  margin-block: 0.5rem; }
-.login-form label{ margin-bottom: 0px;}
+
+label {
+    margin-block: 0.5rem;
+}
+
+.login-form label {
+    margin-bottom: 0px;
+}
 
 
 /* editor */

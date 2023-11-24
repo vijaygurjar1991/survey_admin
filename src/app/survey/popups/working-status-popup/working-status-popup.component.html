@@ -10,7 +10,9 @@
                     <div class="mb-4">
                         <label for="surveyname" class="form-label">Enter Your Question</label>
                         <div class="input-group">
-                            <input type="text" class="form-control" [value]="workingstatus[0].question" />
+                            <input type="text" class="form-control"
+                                [value]="workingstatus && workingstatus.length > 0 ? workingstatus[0].question : ''" />
+
                         </div>
                     </div>
                     <div ngClass="mb-4">

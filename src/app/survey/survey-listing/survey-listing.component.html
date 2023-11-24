@@ -46,8 +46,9 @@
                         <td>28-09-2023 | 14:53</td>
                         <!-- <td
                             [ngClass]="{ 'status': true, 'done': item.status === 'ACT', 'ongoing': item.status === 'ongoing' }"> -->
-                        <td [ngClass]="{'done': item.status === 'ACT', 'orange-tag': item.status !== 'ACT'}">
-                            <span>{{item.status}}</span>
+                        <td [ngClass]="{'done': item.status === 'ACT', 'paused': item.status !== 'ACT'}">
+                            <span>{{ item.status === 'ACT' ? 'Ongoing' : 'Pause' }}</span>
+
                         </td>
                         <td ngClass="action">
                             <a href="javascript:"

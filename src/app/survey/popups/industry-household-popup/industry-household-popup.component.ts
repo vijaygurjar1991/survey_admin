@@ -32,11 +32,7 @@ export class IndustryHouseholdPopupComponent {
   userId: number;
   typeid = 20;
 
-  industryhousehold: {
-    question: string,
-    image: string | null,
-    options: { id: number, option: string, image: string }[]
-  }[] = [];
+  industryhousehold: any[] = [];
 
 
   getIndustryHousehold() {

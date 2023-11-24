@@ -32,11 +32,7 @@ export class OldSecPopupComponent {
   userId: number;
   typeid = 11;
 
-  oldsec: {
-    question: string,
-    image: string | null,
-    options: { id: number, option: string, image: string }[]
-  }[] = [];
+  oldsec: any[] = [];
 
 
   getOldSEC() {

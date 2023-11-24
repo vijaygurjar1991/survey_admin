@@ -32,11 +32,7 @@ export class SelfiePopupComponent {
   userId: number;
   typeid = 29;
 
-  selfie: {
-    question: string,
-    image: string | null,
-    options: { id: number, option: string, image: string }[]
-  }[] = [];
+  selfie: any[] = [];
 
 
   getSelfie() {

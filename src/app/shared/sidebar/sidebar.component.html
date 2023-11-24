@@ -223,11 +223,11 @@
             </div>
             <div class="mb-4" class="search-categories input-icon">
                 <label class="form-label">Select Survey Categories</label>
-                
+
                 <mat-form-field>
                     <ng-icon name="heroMagnifyingGlass" class=""></ng-icon>
                     <input type="text" placeholder="Search..." matInput [formControl]="searchControl"
-                        [matAutocomplete]="auto" [(ngModel)]="selectedOption"  />
+                        [matAutocomplete]="auto" [(ngModel)]="selectedOption" />
                     <mat-autocomplete #auto="matAutocomplete" (optionSelected)="filterOptions($event)">
                         <mat-option *ngFor="let option of filteredOptions | async" [value]="option.id">
                             {{ option.name }}
@@ -235,7 +235,6 @@
                     </mat-autocomplete>
                 </mat-form-field>
             </div>
-
         </form>
     </div>
     <div class="modal-footer upload">

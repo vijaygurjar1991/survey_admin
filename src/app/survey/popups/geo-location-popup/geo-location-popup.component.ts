@@ -32,11 +32,7 @@ export class GeoLocationPopupComponent {
   userId: number;
   typeid = 17;
 
-  geolocation: {
-    question: string,
-    image: string | null,
-    options: { id: number, option: string, image: string }[]
-  }[] = [];
+  geolocation: any[] = [];
 
 
   getGeoLocation() {
