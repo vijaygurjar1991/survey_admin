@@ -10,7 +10,9 @@
                     <div class="mb-4">
                         <label for="surveyname" class="form-label">Enter Your Question</label>
                         <div class="input-group">
-                            <input type="text" class="form-control" [value]="noofchild[0].question" />
+                            <input type="text" class="form-control"
+                                [value]="noofchild && noofchild.length > 0 ? noofchild[0].question : ''" />
+
                         </div>
                     </div>
                     <div ngClass="mb-4">
@@ -18,7 +20,7 @@
                             <h5>Select Options</h5>
                             <a routerLink="javascript:">Select All</a>
                         </div>
-                        <div class="select-values">
+                        <div class="select-values" *ngIf="noofchild && noofchild.length > 0">
                             <ul>
                                 <li *ngFor="let option of noofchild[0].options">
                                     <button>

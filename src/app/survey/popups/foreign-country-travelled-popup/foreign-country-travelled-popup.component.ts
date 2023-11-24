@@ -33,11 +33,7 @@ export class ForeignCountryTravelledPopupComponent {
   userId: number;
   typeid = 22;
 
-  foreigncountrytravelled: {
-    question: string,
-    image: string | null,
-    options: { id: number, option: string, image: string }[]
-  }[] = [];
+  foreigncountrytravelled: any[] = [];
 
 
   getForeignCountryTravelled() {

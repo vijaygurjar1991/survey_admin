@@ -32,11 +32,7 @@ export class LanguagePopupComponent {
   userId: number;
   typeid = 16;
 
-  language: {
-    question: string,
-    image: string | null,
-    options: { id: number, option: string, image: string }[]
-  }[] = [];
+  language: any[] = [];
 
 
   getLanguage() {

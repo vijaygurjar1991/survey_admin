@@ -32,11 +32,7 @@ export class MaritalStatusNewPopupComponent {
   userId: number;
   typeid = 18;
 
-  maritalstatus: {
-    question: string,
-    image: string | null,
-    options: { id: number, option: string, image: string }[]
-  }[] = [];
+  maritalstatus: any[] = [];
 
 
   getMaritalStatus() {

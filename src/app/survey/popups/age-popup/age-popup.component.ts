@@ -32,11 +32,7 @@ export class AgePopupComponent {
   userId: number;
   typeid = 2;
 
-  age: {
-    question: string,
-    image: string | null,
-    options: { id: number, option: string, image: string }[]
-  }[] = [];
+  age: any[] = [];
 
 
   getAge() {

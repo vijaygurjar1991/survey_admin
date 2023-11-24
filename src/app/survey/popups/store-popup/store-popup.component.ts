@@ -32,11 +32,7 @@ export class StorePopupComponent {
   userId: number;
   typeid = 28;
 
-  store: {
-    question: string,
-    image: string | null,
-    options: { id: number, option: string, image: string }[]
-  }[] = [];
+  store: any[] = [];
 
 
   getStore() {

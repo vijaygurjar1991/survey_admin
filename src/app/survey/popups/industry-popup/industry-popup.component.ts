@@ -33,11 +33,7 @@ export class IndustryPopupComponent {
   userId: number;
   typeid = 12;
 
-  industry: {
-    question: string,
-    image: string | null,
-    options: { id: number, option: string, image: string }[]
-  }[] = [];
+  industry: any[] = [];
 
 
   getIndustry() {

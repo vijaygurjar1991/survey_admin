@@ -22,7 +22,6 @@
                     </a>
                 </li>
             </ul>
-
         </div>
         <div ngClass="my-3">
             <h6 class="mb-3">Add Screen</h6>
@@ -48,8 +47,8 @@
     <div ngClass="survey-question">
         <div ngClass="survey-name">
             <div>
-                <h4 ngClass="mb-3" [(ngModel)]="surveyName" name="surveyName"></h4>
-                <span>{{readCategoryName}}/{{readSurveyName}}</span>
+                <h4 ngClass="mb-3" [(ngModel)]="surveyName" name="surveyName">{{readSurveyName}}</h4>
+                <span>{{readCategoryName}}</span>
             </div>
             <a routerLink="javascript:" (click)="openLg(sidecontent)"><ng-icon name="heroPencilSquare"></ng-icon></a>
         </div>
@@ -104,7 +103,7 @@
             </ul>
         </div>
         <div ngClass="drag-ques">
-            <div>
+            <div cdkDrag>
                 <ng-icon name="heroArrowUpTray"></ng-icon>
                 <p>Create your New Question with Drag and Drop Option</p>
                 <span>It is a long established fact that a reader will be distracted by the readable content of a

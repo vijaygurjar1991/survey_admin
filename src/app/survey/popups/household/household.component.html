@@ -10,19 +10,24 @@
                     <div class="mb-4">
                         <label for="surveyname" class="form-label">Enter Your Question</label>
                         <div class="input-group">
-                            <input type="text" class="form-control" [value]="householdincome[0].question" />
+                            <input type="text" class="form-control"
+                                [value]="householdincome && householdincome.length > 0 ? householdincome[0].question : ''" />
+
                         </div>
                     </div>
                     <div ngClass="mb-4">
                         <div ngClass="select-options">
                             <h5>Select Options</h5>
-                            <a routerLink="javascript:">Select All</a>
+                            <a href="javascript:" (click)="selectAllOptions()">Select All</a>
                         </div>
-                        <div class="nccs-option">
+                        <div class="nccs-option" *ngIf="householdincome && householdincome.length > 0">
                             <ul>
                                 <li *ngFor="let option of householdincome[0].options" class="mb-2">
                                     <input class="form-check-input me-2" type="checkbox" id="checkboxNoLabel" value=""
-                                        aria-label="...">
+                                        aria-label="..." [(ngModel)]="option.selected"
+                                        [ngModelOptions]="{standalone: true}">
+
+
                                     <label class="form-check-label" for="flexCheckDefault">
                                         {{ option.option }}
                                     </label>

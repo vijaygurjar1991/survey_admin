@@ -94,6 +94,7 @@ export class SidebarComponent {
       response => {
         console.log('Response from server:', response);
         this.newsurveyId = response;
+        console.log("newsurveyId", this.newsurveyId);
       },
       error => {
         console.error('Error occurred while sending POST request:', error);
@@ -101,10 +102,11 @@ export class SidebarComponent {
       }
     );
 
-    if (this.categoryId) {
-      const url = `manage-survey/${this.categoryId}/${encodeURIComponent(this.surveyName)}`;
-      this.router.navigate([url]);
-    }
+    // if (this.categoryId) {
+
+    //   const url = `manage-survey/${this.categoryId}/${encodeURIComponent(this.surveyName)}`;
+    //   this.router.navigate([url]);
+    // }
   }
 
   ngOnInit() {

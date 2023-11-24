@@ -32,11 +32,7 @@ export class WorkingStatusPopupComponent {
   userId: number;
   typeid = 8;
 
-  workingstatus: {
-    question: string,
-    image: string | null,
-    options: { id: number, option: string, image: string }[]
-  }[] = [];
+  workingstatus: any[] = [];
 
 
   getWorkingStatus() {
