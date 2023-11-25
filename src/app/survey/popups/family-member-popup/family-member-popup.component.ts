@@ -17,26 +17,22 @@ export class FamilyMemberPopupComponent {
 
   show() {
     this.modal.show();
+    this.getFamilyMember();
   }
 
   close() {
     this.modal.hide();
   }
 
-  ngOnInit(): void {
-    this.getFamilyMember();
-  }
-
 
   role: string;
-  userId: number;
   typeid = 6;
 
   familymember: any[] = [];
 
 
   getFamilyMember() {
-    this.surveyservice.GetGenericQuestionType(this.userId, this.typeid).subscribe({
+    this.surveyservice.GetGenericQuestionType(this.typeid).subscribe({
       next: (resp: responseDTO[]) => {
         console.log('Response:', resp);
         this.familymember = resp.map(item => ({

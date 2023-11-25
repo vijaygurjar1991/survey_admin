@@ -15,20 +15,15 @@ export class CityPopupComponent {
 
   show() {
     this.modal.show();
+    this.surveyservice.GetStateByCountryID(this.countryId).subscribe((data) => {
+      this.countries = data;
+    });
   }
 
   close() {
     this.modal.hide();
   }
 
-  ngOnInit(): void {
-    this.surveyservice.GetStateByCountryID(this.userId, this.countryId).subscribe((data) => {
-      this.countries = data;
-    });
-
-  }
-
-  userId: number;
   countryId = 'AT';
   // countries: { name: string, countryId: string }[] = [];
 

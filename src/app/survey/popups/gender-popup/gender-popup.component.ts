@@ -16,26 +16,21 @@ export class GenderPopupComponent {
 
   show() {
     this.modal.show();
+    this.getQuestions();
   }
 
   close() {
     this.modal.hide();
   }
 
-  ngOnInit(): void {
-    this.getQuestions();
-  }
-
-
   role: string;
-  userId: number;
   typeid = 1;
 
   questions: any[] = [];
 
 
   getQuestions() {
-    this.surveyservice.GetGenericQuestionType(this.userId, this.typeid).subscribe({
+    this.surveyservice.GetGenericQuestionType(this.typeid).subscribe({
       next: (resp: responseDTO[]) => {
         console.log('Response:', resp);
         this.questions = resp.map(item => ({

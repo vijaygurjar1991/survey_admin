@@ -17,6 +17,7 @@ export class ForeignCountryTravelledPopupComponent {
 
   show() {
     this.modal.show();
+    this.getForeignCountryTravelled();
   }
 
   close() {
@@ -24,20 +25,14 @@ export class ForeignCountryTravelledPopupComponent {
   }
 
 
-  ngOnInit(): void {
-    this.getForeignCountryTravelled();
-  }
-
-
   role: string;
-  userId: number;
   typeid = 22;
 
   foreigncountrytravelled: any[] = [];
 
 
   getForeignCountryTravelled() {
-    this.surveyservice.GetGenericQuestionType(this.userId, this.typeid).subscribe({
+    this.surveyservice.GetGenericQuestionType(this.typeid).subscribe({
       next: (resp: responseDTO[]) => {
         console.log('Response:', resp);
         this.foreigncountrytravelled = resp.map(item => ({

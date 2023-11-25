@@ -17,6 +17,7 @@ export class SurveyListingComponent {
   categoryList: any;
   selectedCategory: string = 'All Categories';
   constructor(private visibilityService: DataService, private modalService: NgbModal, public themeService: SurveyService, private cdr: ChangeDetectorRef) {
+    visibilityService.closeSideBar();
   }
   files: File[] = [];
   role: any;
@@ -42,8 +43,7 @@ export class SurveyListingComponent {
   }
 
   GetAllSurveyList() {
-    this.userId = localStorage.getItem("userId");
-    this.themeService.GetSurveyList(this.userId).subscribe((data: any) => {
+    this.themeService.GetSurveyList().subscribe((data: any) => {
       this.surveyData = data;
       this.cdr.detectChanges();
     });
@@ -51,7 +51,7 @@ export class SurveyListingComponent {
   models: { id: number, name: string }[] = []; // Assuming 'id' is a number
 
   getNames() {
-    this.themeService.GetCategories(this.userId).subscribe((data: any) => {
+    this.themeService.GetCategories().subscribe((data: any) => {
       console.log("categoryList", data)
       this.categoryList = data
     });

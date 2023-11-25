@@ -16,26 +16,22 @@ export class MonthlyIncomePopupComponent {
 
   show() {
     this.modal.show();
+    this.getQuestions();
   }
 
   close() {
     this.modal.hide();
   }
 
-  ngOnInit(): void {
-    this.getQuestions();
-  }
-
 
   role: string;
-  userId: number;
   typeid = 5;
 
   monthlyincome: any[] = [];
 
 
   getQuestions() {
-    this.surveyservice.GetGenericQuestionType(this.userId, this.typeid).subscribe({
+    this.surveyservice.GetGenericQuestionType(this.typeid).subscribe({
       next: (resp: responseDTO[]) => {
         console.log('Response:', resp);
         this.monthlyincome = resp.map(item => ({

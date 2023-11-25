@@ -17,26 +17,22 @@ export class AgeOfChildrenPopupComponent {
 
   show() {
     this.modal.show();
+    this.getAgeOfChildren();
+
   }
 
   close() {
     this.modal.hide();
   }
 
-  ngOnInit(): void {
-    this.getAgeOfChildren();
-  }
-
-
   role: string;
-  userId: number;
   typeid = 10;
 
   ageofchildren: any[] = [];
 
 
   getAgeOfChildren() {
-    this.surveyservice.GetGenericQuestionType(this.userId, this.typeid).subscribe({
+    this.surveyservice.GetGenericQuestionType(this.typeid).subscribe({
       next: (resp: responseDTO[]) => {
         console.log('Response:', resp);
         this.ageofchildren = resp.map(item => ({

@@ -17,26 +17,21 @@ export class MaritalStatusNewPopupComponent {
 
   show() {
     this.modal.show();
+    this.getMaritalStatus();
   }
 
   close() {
     this.modal.hide();
   }
 
-  ngOnInit(): void {
-    this.getMaritalStatus();
-  }
-
-
   role: string;
-  userId: number;
   typeid = 18;
 
   maritalstatus: any[] = [];
 
 
   getMaritalStatus() {
-    this.surveyservice.GetGenericQuestionType(this.userId, this.typeid).subscribe({
+    this.surveyservice.GetGenericQuestionType(this.typeid).subscribe({
       next: (resp: responseDTO[]) => {
         console.log('Response:', resp);
         this.maritalstatus = resp.map(item => ({

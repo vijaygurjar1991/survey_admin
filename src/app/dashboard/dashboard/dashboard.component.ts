@@ -5,6 +5,8 @@ import { DataService } from 'src/app/service/data.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { SurveyService } from 'src/app/service/survey.service';
 import { responseDTO } from 'src/app/types/responseDTO';
+import { AuthService } from 'src/app/service/auth.service';
+import { User } from 'src/app/models/user';
 
 @Component({
   selector: 'app-dashboard',
@@ -13,9 +15,15 @@ import { responseDTO } from 'src/app/types/responseDTO';
 })
 export class DashboardComponent {
 
-  constructor(private visibilityService: DataService, private modalService: NgbModal, public themeService: DataService, public surveyservice: SurveyService) {
+  constructor(private visibilityService: DataService, private modalService: NgbModal, public themeService: DataService, 
+    public surveyservice: SurveyService,private auth:AuthService) {
     visibilityService.articleVisible.next(true);
-  }
+
+    this.auth.userData$.subscribe((user:User)=>{
+      this.userId = user.userId;
+    });
+  }  
+  userId: any;
   role: any;
   id: number = 0;
   firstName: any;
@@ -66,10 +74,8 @@ export class DashboardComponent {
   //   }
   // }
 
-  userId: any;
 
   getMyAccount() {
-    this.userId = localStorage.getItem("userId");
     this.themeService.GetMyAccount(this.userId).subscribe((data: any) => {
       console.log("Info", data)
       this.firstName = data.firstName;
@@ -139,7 +145,7 @@ export class DashboardComponent {
   }[] = [];
 
   getSurveyList() {
-    this.surveyservice.GetSurveyList(this.userId).subscribe({
+    this.surveyservice.GetSurveyList().subscribe({
       next: (resp: responseDTO[]) => {
         console.log('surveylist:', resp);
         this.surveylist = resp.map(item => ({

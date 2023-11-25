@@ -17,26 +17,21 @@ export class OldSecPopupComponent {
 
   show() {
     this.modal.show();
+    this.getOldSEC();
   }
 
   close() {
     this.modal.hide();
   }
 
-  ngOnInit(): void {
-    this.getOldSEC();
-  }
-
-
   role: string;
-  userId: number;
   typeid = 11;
 
   oldsec: any[] = [];
 
 
   getOldSEC() {
-    this.surveyservice.GetGenericQuestionType(this.userId, this.typeid).subscribe({
+    this.surveyservice.GetGenericQuestionType(this.typeid).subscribe({
       next: (resp: responseDTO[]) => {
         console.log('Response:', resp);
         this.oldsec = resp.map(item => ({

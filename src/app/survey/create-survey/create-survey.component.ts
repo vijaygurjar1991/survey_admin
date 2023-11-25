@@ -10,6 +10,8 @@ import { ModalDirective } from 'ngx-bootstrap/modal';
 import { SurveyService } from 'src/app/service/survey.service';
 import { responseDTO } from 'src/app/types/responseDTO';
 import { CryptoService } from 'src/app/service/crypto.service';
+import { UtilsService } from 'src/app/service/utils.service';
+import { isArray } from 'chart.js/dist/helpers/helpers.core';
 
 
 @Component({
@@ -55,6 +57,19 @@ export class CreateSurveyComponent implements OnInit {
   @ViewChild('AudioGenderDetectionModal', { static: true }) audiogenderdetectionModal!: ModalDirective;
   @ViewChild('StateModal', { static: true }) stateModal!: ModalDirective;
 
+
+  role: string;
+  userId: number;
+  name: string;
+  type: string[] = [];
+  subType: string[] = [];
+  readSurveyName: any
+  readCategoryId: any
+  readCategoryName: any
+  categoryList: any;
+  names: { name: string, image: string }[] = [];
+
+
   constructor(
     private visibilityService: DataService,
     private modalService: NgbModal,
@@ -65,7 +80,8 @@ export class CreateSurveyComponent implements OnInit {
     private el: ElementRef,
     public themeService: DataService,
     private surveyservice: SurveyService,
-    private crypto:CryptoService
+    private crypto: CryptoService,
+    private utils: UtilsService
   ) {
     this.filteredOptions = this.searchControl.valueChanges.pipe(
       startWith(''),
@@ -81,6 +97,13 @@ export class CreateSurveyComponent implements OnInit {
       }
     });
 
+    this.route.paramMap.subscribe(params => {
+      let _surveyId = params.get('param1');
+      if (_surveyId) {
+        this.surveyId = parseInt(this.crypto.decryptQueryParam(_surveyId));
+      }
+    });
+
   }
 
   hideBreadcrumb() {
@@ -93,22 +116,14 @@ export class CreateSurveyComponent implements OnInit {
 
   surveyId = 0;
 
-  ngOnInit(): void {
-    this.readPathVariables();
-    this.getCategoryNames();
+  ngOnInit() {
+    this.userId = this.utils.getUserId();
 
-    this.route.paramMap.subscribe(params => {
-      let _surveyId = params.get('id');
-      if(_surveyId){
-        this.surveyId = parseInt(this.crypto.decryptQueryParam(_surveyId));
-      }
-    });
-
-
+   // this.getCategoryNames();
     this.hideBreadcrumb();
     this.getNames();
     this.getQuestion();
-    this.GetSurvey()
+    this.GetSurveyDetails()
   }
   onGenericQuestionClick(type: any): void {
     if (type === "Gender") {
@@ -241,20 +256,8 @@ export class CreateSurveyComponent implements OnInit {
     const modalRef = this.modalService.open(this.opensidecontent, { /* modal options */ });
   }
 
-
-
-
-  role: string;
-  userId: number;
-  name: string;
-
-  type: string[] = [];
-  subType: string[] = [];
-
-
-  names: { name: string, image: string }[] = [];
   getNames() {
-    this.surveyservice.GetGenericQuestion(this.userId).subscribe({
+    this.surveyservice.GetGenericQuestion().subscribe({
       next: (resp: responseDTO[]) => {
         console.log('Response:', resp);
         this.names = resp.map(item => ({ name: item.name, image: item.image }));
@@ -266,7 +269,7 @@ export class CreateSurveyComponent implements OnInit {
   question: { type: string, subType: string, image: string }[] = [];
 
   getQuestion() {
-    this.surveyservice.GetQuestionTypes(this.userId).subscribe({
+    this.surveyservice.GetQuestionTypes().subscribe({
       next: (resp: responseDTO[]) => {
         console.log('Response:', resp);
         // Map the response to the desired format
@@ -279,36 +282,24 @@ export class CreateSurveyComponent implements OnInit {
   surveyName: any;
   categoryName: any
 
-  GetSurvey() {
-    this.surveyservice.GetSurveyById(this.userId).subscribe((data: any) => {
+  GetSurveyDetails() {
+    this.surveyservice.GetSurveyById(this.surveyId).subscribe((data: any) => {
+
+      if (Array.isArray(data)) {
+        this.surveyName = data[0]?.surveyName;
+        this.categoryName = data[0]?.categoryName;
+      } else {
+        this.surveyName = data.surveyName;
+        this.categoryName = data.categoryName;
+      }
       console.log("data", data)
-      this.surveyId = data.surveyId;
-      this.surveyName = data.surveyName;
-      this.categoryName = data.categoryName;
+
     });
   }
 
-  readSurveyName: any
-  readCategoryId: any
-  readCategoryName: any
-  readPathVariables() {
-    // Subscribe to the paramMap observable
-    this.route.paramMap.subscribe(params => {
-      // Use the get method to retrieve the values of path variables
-      const variable1 = params.get('id'); // For example, '1'
-      const variable2 = params.get('name'); // For example, 'test'
-      this.readCategoryId = variable1
-      this.readSurveyName = variable2
-      // Do something with the values
-      console.log('Variable 1:', variable1);
-      console.log('Variable 2:', variable2);
-    });
-  }
-
-  categoryList: any;
 
   getCategoryNames() {
-    this.surveyservice.GetCategories(this.userId).subscribe((response: { [x: string]: any; }) => {
+    this.surveyservice.GetCategories().subscribe((response: { [x: string]: any; }) => {
       var result = Object.keys(response).map(e => response[e]);
       console.log("categoryList", response)
       this.categoryList = response

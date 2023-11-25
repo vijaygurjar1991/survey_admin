@@ -17,26 +17,21 @@ export class StorePopupComponent {
 
   show() {
     this.modal.show();
+    this.getStore();
   }
 
   close() {
     this.modal.hide();
   }
 
-  ngOnInit(): void {
-    this.getStore();
-  }
-
-
   role: string;
-  userId: number;
   typeid = 28;
 
   store: any[] = [];
 
 
   getStore() {
-    this.surveyservice.GetGenericQuestionType(this.userId, this.typeid).subscribe({
+    this.surveyservice.GetGenericQuestionType(this.typeid).subscribe({
       next: (resp: responseDTO[]) => {
         console.log('Response:', resp);
         this.store = resp.map(item => ({

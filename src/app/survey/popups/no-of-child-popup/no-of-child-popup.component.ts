@@ -13,31 +13,25 @@ export class NoOfChildPopupComponent {
   @ViewChild('NumberOfChildModal', { static: true }) modal!: ModalDirective;
 
   constructor(private surveyservice: SurveyService) {
-
   }
 
   show() {
     this.modal.show();
+    this.getNoOfChild();
   }
 
   close() {
     this.modal.hide();
   }
 
-  ngOnInit(): void {
-    this.getNoOfChild();
-  }
-
-
   role: string;
-  userId: number;
   typeid = 7;
 
   noofchild: any[] = [];
 
 
   getNoOfChild() {
-    this.surveyservice.GetGenericQuestionType(this.userId, this.typeid).subscribe({
+    this.surveyservice.GetGenericQuestionType(this.typeid).subscribe({
       next: (resp: responseDTO[]) => {
         console.log('Response:', resp);
         this.noofchild = resp.map(item => ({

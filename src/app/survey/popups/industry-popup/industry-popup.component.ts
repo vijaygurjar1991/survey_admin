@@ -17,27 +17,22 @@ export class IndustryPopupComponent {
 
   show() {
     this.modal.show();
+    this.getIndustry();
+
   }
 
   close() {
     this.modal.hide();
   }
 
-
-  ngOnInit(): void {
-    this.getIndustry();
-  }
-
-
   role: string;
-  userId: number;
   typeid = 12;
 
   industry: any[] = [];
 
 
   getIndustry() {
-    this.surveyservice.GetGenericQuestionType(this.userId, this.typeid).subscribe({
+    this.surveyservice.GetGenericQuestionType(this.typeid).subscribe({
       next: (resp: responseDTO[]) => {
         console.log('Response:', resp);
         this.industry = resp.map(item => ({

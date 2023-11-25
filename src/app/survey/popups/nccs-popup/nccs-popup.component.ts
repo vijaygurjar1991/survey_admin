@@ -13,25 +13,18 @@ export class NccsPopupComponent {
   @ViewChild('NccsModal', { static: true }) modal!: ModalDirective;
 
   constructor(private surveyservice: SurveyService) {
-    this.getNccs();
-
   }
 
   show() {
     this.modal.show();
+    this.getNccs();
   }
 
   close() {
     this.modal.hide();
   }
 
-  ngOnInit(): void {
-    this.getNccs();
-  }
-
-
   role: string;
-  userId: number;
   typeid = 3;
 
   nccs: {
@@ -47,7 +40,7 @@ export class NccsPopupComponent {
 
 
   getNccs() {
-    this.surveyservice.GetGenericQuestionType(this.userId, this.typeid).subscribe({
+    this.surveyservice.GetGenericQuestionType(this.typeid).subscribe({
       next: (resp: responseDTO[]) => {
         // console.log('Response:', resp);
         this.nccs = resp.map(item => ({

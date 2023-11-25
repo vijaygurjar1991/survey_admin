@@ -17,26 +17,21 @@ export class SelfiePopupComponent {
 
   show() {
     this.modal.show();
+    this.getSelfie();
   }
 
   close() {
     this.modal.hide();
   }
 
-  ngOnInit(): void {
-    this.getSelfie();
-  }
-
-
   role: string;
-  userId: number;
   typeid = 29;
 
   selfie: any[] = [];
 
 
   getSelfie() {
-    this.surveyservice.GetGenericQuestionType(this.userId, this.typeid).subscribe({
+    this.surveyservice.GetGenericQuestionType(this.typeid).subscribe({
       next: (resp: responseDTO[]) => {
         console.log('Response:', resp);
         this.selfie = resp.map(item => ({

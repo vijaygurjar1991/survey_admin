@@ -17,26 +17,21 @@ export class WorkingStatusPopupComponent {
 
   show() {
     this.modal.show();
+    this.getWorkingStatus();
   }
 
   close() {
     this.modal.hide();
   }
 
-  ngOnInit(): void {
-    this.getWorkingStatus();
-  }
-
-
   role: string;
-  userId: number;
   typeid = 8;
 
   workingstatus: any[] = [];
 
 
   getWorkingStatus() {
-    this.surveyservice.GetGenericQuestionType(this.userId, this.typeid).subscribe({
+    this.surveyservice.GetGenericQuestionType(this.typeid).subscribe({
       next: (resp: responseDTO[]) => {
         console.log('Response:', resp);
         this.workingstatus = resp.map(item => ({

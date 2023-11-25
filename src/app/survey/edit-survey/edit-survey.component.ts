@@ -123,7 +123,7 @@ export class EditSurveyComponent {
   question: { type: string, subType: string, image: string }[] = [];
 
   getQuestion() {
-    this.surveyservice.GetQuestionTypes(this.userId).subscribe({
+    this.surveyservice.GetQuestionTypes().subscribe({
       next: (resp: responseDTO[]) => {
 
         // Map the response to the desired format
@@ -144,7 +144,7 @@ export class EditSurveyComponent {
   }[] = [];
 
   CreateGeneralQuestion() {
-    this.surveyservice.CreateGeneralQuestion(this.userId).subscribe({
+    this.surveyservice.CreateGeneralQuestion().subscribe({
       next: (resp: responseDTO[]) => {
         console.log('Response:', resp);
         this.creategeneralquestion = resp.map(item => ({

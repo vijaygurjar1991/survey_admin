@@ -17,26 +17,22 @@ export class HouseholdComponent {
 
   show() {
     this.modal.show();
+    this.getQuestions();
   }
 
   close() {
     this.modal.hide();
   }
 
-  ngOnInit(): void {
-    this.getQuestions();
-  }
-
 
   role: string;
-  userId: number;
   typeid = 4;
 
   householdincome: any[] = [];
 
 
   getQuestions() {
-    this.surveyservice.GetGenericQuestionType(this.userId, this.typeid).subscribe({
+    this.surveyservice.GetGenericQuestionType(this.typeid).subscribe({
       next: (resp: responseDTO[]) => {
         console.log('Response:', resp);
         this.householdincome = resp.map(item => ({

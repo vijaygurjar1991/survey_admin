@@ -17,14 +17,12 @@ export class LanguagePopupComponent {
 
   show() {
     this.modal.show();
+    this.getLanguage();
+
   }
 
   close() {
     this.modal.hide();
-  }
-
-  ngOnInit(): void {
-    this.getLanguage();
   }
 
 
@@ -36,7 +34,7 @@ export class LanguagePopupComponent {
 
 
   getLanguage() {
-    this.surveyservice.GetGenericQuestionType(this.userId, this.typeid).subscribe({
+    this.surveyservice.GetGenericQuestionType(this.typeid).subscribe({
       next: (resp: responseDTO[]) => {
         console.log('Response:', resp);
         this.language = resp.map(item => ({

@@ -44,7 +44,7 @@
                     <div class="AngularCollapse-content">
                         <ul class="sub-menu">
                             <li class="block pl-4 pr-1 first:pt-4  last:pb-4">
-                                <a routerLink="javascript:" (click)="openLg(content)">
+                                <a href="javascript:vaoid(0);" (click)="onAddNewSurveyClick()">
                                     <span class="d-flex align-items-center text-sm transition-all duration-150">
                                         <span class="menu-icon">
                                             <ng-icon name="heroStopCircle"></ng-icon>
@@ -208,39 +208,4 @@
         </ul>
     </div>
 </aside>
-
-
-<ng-template #content let-modal>
-    <div class="modal-header">
-        <h4 class="modal-title">Create Your New Survey</h4>
-        <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
-    </div>
-    <div class="modal-body popup-ques">
-        <form>
-            <div class="mb-4">
-                <label for="surveyname" class="form-label">Enter Your Survey Name</label>
-                <input id="surveyname" type="text" class="form-control" [(ngModel)]="surveyName" name="surveyName" />
-            </div>
-            <div class="mb-4" class="search-categories input-icon">
-                <label class="form-label">Select Survey Categories</label>
-
-                <mat-form-field>
-                    <ng-icon name="heroMagnifyingGlass" class=""></ng-icon>
-                    <input type="text" placeholder="Search..." matInput [formControl]="searchControl"
-                        [matAutocomplete]="auto" [(ngModel)]="selectedOption" />
-                    <mat-autocomplete #auto="matAutocomplete" (optionSelected)="filterOptions($event)">
-                        <mat-option *ngFor="let option of filteredOptions | async" [value]="option.id">
-                            {{ option.name }}
-                        </mat-option>
-                    </mat-autocomplete>
-                </mat-form-field>
-            </div>
-        </form>
-    </div>
-    <div class="modal-footer upload">
-        <button type="button" class="btn close" (click)="modal.close('Close click')">Cancel</button>
-        <a href="javascript:void(0);" type="button" class="btn btn-primary icon"
-            (click)="CreateSurvey(); modal.close('Close click')">Create
-            <ng-icon name="heroArrowLongRight" class="ms-4"></ng-icon></a>
-    </div>
-</ng-template>
+<app-create-survey-popup #CreateSurveyModal></app-create-survey-popup>

@@ -10,9 +10,14 @@ import { environment } from 'src/environments/environment';
 })
 export class AuthService {
   apiUrl = environment.apiUrl;
-  userData = new BehaviorSubject<User | any>(null);
 
-  constructor(private http: HttpClient, private router: Router) { }
+  private userData = new BehaviorSubject<User | any>(null);
+  public userData$ = this.userData.asObservable();
+
+
+  constructor(private http: HttpClient, private router: Router) {
+
+  }
 
   login(userDetails: any) {
     return this.http.post(`${this.apiUrl}Login`, userDetails, { responseType: 'text' }).pipe(
@@ -36,27 +41,24 @@ export class AuthService {
       let decodeUserDetails;
       if (token) {
         decodeUserDetails = JSON.parse(window.atob(token.split('.')[1]));
+
+        var _userDetail = JSON.parse(decodeUserDetails.user);
+
+        userDetails.role = _userDetail?.Role;
+        userDetails.userId = _userDetail?.Id;
+        userDetails.userName = _userDetail?.Name;
+        userDetails.userEmail = _userDetail?.Email;
+        userDetails.RoleId = _userDetail?.RoleId;
+
+        this.userData.next(userDetails);
+      } else {
+        this.logout();
       }
-      //debugger;
-      var _userDetail = JSON.parse(decodeUserDetails.user);
-
-      userDetails.role = _userDetail?.Role;
-      localStorage.setItem("role", _userDetail?.Role)
-
-      userDetails.userId = _userDetail?.Id;
-      localStorage.setItem("userId", _userDetail?.Id)
-
-      userDetails.userName = _userDetail?.Name;
-      localStorage.setItem("userName", _userDetail?.Name)
-
-      userDetails.userEmail = _userDetail?.Email;
-      localStorage.setItem("userEmail", _userDetail?.Email)
-
-      userDetails.RoleId = _userDetail?.RoleId;
-      localStorage.setItem("RoleId", _userDetail?.RoleId)
-
-      this.userData.next(userDetails);
     }
+  }
+
+  initializeUserDetails() {
+    this.setUserDetails();
   }
 
   logout(returnUrl = '') {

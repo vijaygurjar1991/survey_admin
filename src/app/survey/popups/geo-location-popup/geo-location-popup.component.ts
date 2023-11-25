@@ -17,26 +17,23 @@ export class GeoLocationPopupComponent {
 
   show() {
     this.modal.show();
+    this.getGeoLocation();
+
   }
 
   close() {
     this.modal.hide();
   }
 
-  ngOnInit(): void {
-    this.getGeoLocation();
-  }
-
 
   role: string;
-  userId: number;
   typeid = 17;
 
   geolocation: any[] = [];
 
 
   getGeoLocation() {
-    this.surveyservice.GetGenericQuestionType(this.userId, this.typeid).subscribe({
+    this.surveyservice.GetGenericQuestionType(this.typeid).subscribe({
       next: (resp: responseDTO[]) => {
         console.log('Response:', resp);
         this.geolocation = resp.map(item => ({

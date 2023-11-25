@@ -46,6 +46,8 @@ import { CarouselModule } from 'ngx-owl-carousel-o';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { HttpInterceptorService } from './service/http-interceptor.service';
 import { CaptchaComponent } from './shared/captcha/captcha.component';
+import { CreateSurveyPopupComponent } from './survey/popups/create-survey-popup/create-survey-popup.component';
+import { ModalModule } from 'ngx-bootstrap/modal';
 
 @NgModule({
   declarations: [
@@ -55,7 +57,8 @@ import { CaptchaComponent } from './shared/captcha/captcha.component';
     SidebarComponent,
     BreadcrumbComponent,
     LoginComponent,
-    CaptchaComponent
+    CaptchaComponent,
+    CreateSurveyPopupComponent
   ],
   imports: [
     BrowserModule,
@@ -64,7 +67,7 @@ import { CaptchaComponent } from './shared/captcha/captcha.component';
     AppRoutingModule,
     DragDropModule,
     FormsModule,
-
+    ModalModule,
     MatAutocompleteModule,
     MatInputModule,
     ReactiveFormsModule,

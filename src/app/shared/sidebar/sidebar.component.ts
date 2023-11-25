@@ -1,17 +1,11 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { FormControl } from '@angular/forms';
-import { Observable, Subscription } from 'rxjs';
-import { startWith, map } from 'rxjs/operators';
 import { DataService } from 'src/app/service/data.service';
-import { User } from 'src/app/models/user';
 import { AuthService } from 'src/app/service/auth.service';
 import { SurveyService } from 'src/app/service/survey.service';
-import Swal from 'sweetalert2';
-import { Router } from '@angular/router';
-import { MatOptionSelectionChange } from '@angular/material/core';
-import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
-import { CryptoService } from 'src/app/service/crypto.service';
+import { User } from 'src/app/models/user';
+import { ModalDirective } from 'ngx-bootstrap/modal';
+import { UtilsService } from 'src/app/service/utils.service';
 
 @Component({
   selector: 'app-sidebar',
@@ -20,7 +14,8 @@ import { CryptoService } from 'src/app/service/crypto.service';
 
 })
 export class SidebarComponent {
-  private subscription: Subscription;
+  @ViewChild('CreateSurveyModal', { static: true }) CreateSurveyModal!: ModalDirective;
+
   role: any;
   userId: any;
   categories: any;
@@ -30,21 +25,11 @@ export class SidebarComponent {
   isUser = false;
   isClient = false;
 
-  surveyName: any;
-  categoryId: number;
-  newsurveyId: number;
-  selectedOption:any;
 
-  constructor(private modalService: NgbModal, public themeService: DataService, 
-    private auth: AuthService, 
-    private surveyservice: SurveyService, 
-    private router: Router,
-    private crypto:CryptoService) {
-    this.filteredOptions = this.searchControl.valueChanges
-      .pipe(
-        startWith(''),
-        map(value => this._filter(value))
-      );
+
+  constructor(public themeService: DataService,
+    private auth: AuthService, private util: UtilsService) {
+
 
     /*auth.userData.subscribe((user: User) => {
       debugger
@@ -73,57 +58,8 @@ export class SidebarComponent {
       //}
     });*/
   }
-
-  getNames() {
-    this.surveyservice.GetCategories(this.userId).subscribe(response => {
-      var result = Object.keys(response).map(e => response[e]);
-      var models: { id: number, name: string }[] = []; // Assuming 'id' is a number
-      result.forEach((value: any, index: any) => {
-        var model = {
-          id: value['id'],
-          name: value['name']
-        };
-        models.push(model);
-      });
-      this.options = models;
-    });
-  }
-
-  filterOptions(e:MatAutocompleteSelectedEvent){
-    this.categoryId = e.option.value;
-    this.selectedOption = e.option.viewValue;
-  }
-
-  CreateSurvey() {
-    const dataToSend = {
-      surveyName: this.surveyName,
-      categoryId: this.categoryId
-    };
-    console.log("dataToSend", dataToSend)
-    this.surveyservice.CreateSurvey(dataToSend).subscribe(
-      response => {
-        console.log('Response from server:', response);
-        this.newsurveyId = response;
-        console.log("newsurveyId", this.newsurveyId);
-      },
-      error => {
-        console.error('Error occurred while sending POST request:', error);
-        Swal.fire('', error, 'error');
-      }
-    );
-
-    if (this.categoryId) {
-      const url = `manage-survey/${this.crypto.encryptParam(this.categoryId.toString())}}`;
-      this.router.navigate([url]);
-    }
-  }
-
   ngOnInit() {
-    this.role = localStorage.getItem("role");
-    this.getNames();
-    if (this.userId) {
-      this.getNames();
-    }
+    this.role = this.util.getRole();
     this.role = this.role.toLowerCase()
     console.log("SideBar Role", this.role)
     if (this.role == 'client')
@@ -134,15 +70,10 @@ export class SidebarComponent {
       this.isAdmin = true
     else if (this.role == 'user')
       this.isUser = true
-
   }
 
   logOut() {
     this.auth.logout();
-  }
-
-  openLg(content: any) {
-    this.modalService.open(content, { size: 'lg', centered: true });
   }
 
   isSubMenu1Visible = false;
@@ -165,17 +96,10 @@ export class SidebarComponent {
     }
   }
 
-  searchControl = new FormControl();
-  options: { id: number, name: string }[] = [];
-  filteredOptions: Observable<{ id: number, name: string }[]> | undefined;
-  selectedCategory: { id: number, name: string } | null = null;
-
-  private _filter(value: string): { id: number, name: string }[] {
-    const filterValue = value.toLowerCase();
-    return this.options.filter(option =>
-      option.name.toLowerCase().includes(filterValue) || option.id.toString().includes(filterValue)
-    );
+  onAddNewSurveyClick() {
+    this.CreateSurveyModal.show();
   }
+
 
 
 }

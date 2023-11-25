@@ -24,9 +24,9 @@ export class DataService {
   }
 
   public closeSideBar(){
-    this.addMargin = false;
-    this.addwidth = false;
-    this.dashboardMargin = false;
+    this.addMargin = true;
+    this.addwidth = true;
+    this.dashboardMargin = true;
   }
 
   private headerVisibleSubject = new BehaviorSubject<boolean>(true);

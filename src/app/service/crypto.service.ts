@@ -28,8 +28,8 @@ export class CryptoService {
   }
 
   decryptQueryParam(encryptedText: string): string {
-    const decryptedBytes = CryptoJS.AES.decrypt(encryptedText, this.secretKey);
+    const decryptedBytes = CryptoJS.AES.decrypt(decodeURIComponent(encryptedText), this.secretKey);
     const decryptedText = decryptedBytes.toString(CryptoJS.enc.Utf8);
-    return decodeURIComponent(decryptedText);
+    return decryptedText;
   }
 }
