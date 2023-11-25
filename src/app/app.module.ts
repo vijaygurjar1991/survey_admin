@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule,CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppComponent } from './app.component';
@@ -45,7 +45,7 @@ import { CarouselModule } from 'ngx-owl-carousel-o';
 
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { HttpInterceptorService } from './service/http-interceptor.service';
-
+import { CaptchaComponent } from './shared/captcha/captcha.component';
 
 @NgModule({
   declarations: [
@@ -54,7 +54,8 @@ import { HttpInterceptorService } from './service/http-interceptor.service';
     FooterComponent,
     SidebarComponent,
     BreadcrumbComponent,
-    LoginComponent
+    LoginComponent,
+    CaptchaComponent
   ],
   imports: [
     BrowserModule,
@@ -89,6 +90,7 @@ import { HttpInterceptorService } from './service/http-interceptor.service';
     }),
     BrowserAnimationsModule,
   ],
+  schemas:[CUSTOM_ELEMENTS_SCHEMA],
   providers: [
     // { provide: TINYMCE_SCRIPT_SRC, useValue: 'tinymce/tinymce.min.js' },
     provideNgIconsConfig({

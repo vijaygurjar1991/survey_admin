@@ -8,6 +8,7 @@ import { heroMagnifyingGlass } from '@ng-icons/heroicons/outline';
 
 import { RouterModule } from '@angular/router';
 import { ConvertToUrlPipe } from '../pipes/convert-to-url.pipe';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -16,12 +17,13 @@ import { ConvertToUrlPipe } from '../pipes/convert-to-url.pipe';
   imports: [
     CommonModule,
     RouterModule,
+    FormsModule,
     NgIconsModule.withIcons({
       heroArrowLongRight,
       heroXMark,
       heroMagnifyingGlass,
     })
-  ],
+  ]
 
 })
 export class SharedModule { }

@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, ViewChild } from '@angular/core';
 import { OwlOptions } from 'ngx-owl-carousel-o';
 import { DataService } from 'src/app/service/data.service';
 
@@ -7,6 +7,7 @@ import { first } from 'rxjs';
 import { AuthService } from 'src/app/service/auth.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import Swal from 'sweetalert2';
+import { CaptchaComponent } from 'src/app/shared/captcha/captcha.component';
 
 @Component({
   selector: 'app-login',
@@ -14,6 +15,8 @@ import Swal from 'sweetalert2';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent {
+  @ViewChild(CaptchaComponent) captchaComponent: CaptchaComponent;
+
 
   @Input('Component') isComponent = false;
   errorMessage: string;
@@ -83,39 +86,39 @@ export class LoginComponent {
   }
 
   onSubmit() {
-    this.submitted = true;
-    if (this.loginForm.valid) {
-      this.loginForm.removeControl('rememberMe');
-      this.errorMessage = '';
-      this.loading = true;
-      const returnUrl =
-        this.route.snapshot.queryParamMap.get('returnUrl') || '/dashboard';
-      //this.router.navigate(['/dashboard']);
+    if (this.captchaComponent.validateCaptcha()) {
+      this.submitted = true;
+      if (this.loginForm.valid) {
+        this.loginForm.removeControl('rememberMe');
+        this.errorMessage = '';
+        this.loading = true;
+        const returnUrl =
+          this.route.snapshot.queryParamMap.get('returnUrl') || '/dashboard';
+        //this.router.navigate(['/dashboard']);
 
-      this.authService
-        .login(this.loginForm.value)
-        .pipe(first())
-        .subscribe({
-          next: (result) => {
-            if (result) {
-              this.loginForm.reset();
+        this.authService
+          .login(this.loginForm.value)
+          .pipe(first())
+          .subscribe({
+            next: (result) => {
+              if (result) {
+                this.loginForm.reset();
 
-              this.router.navigate([returnUrl]);
-            } else {
+                this.router.navigate([returnUrl]);
+              } else {
+                this.loading = false;
+                this.errorMessage = result;
+              }
+            },
+            error: (errObject) => {
+              //console.log(error);
+              Swal.fire('', errObject?.error, 'error');
+            },
+            complete: () => {
               this.loading = false;
-              this.errorMessage = result;
-            }
-          },
-          error: (errObject) => {
-            //console.log(error);
-            Swal.fire('', errObject?.error, 'error');
-          },
-          complete: () => {
-            this.loading = false;
-          },
-        });
+            },
+          });
+      }
     }
   }
-
-
 }
