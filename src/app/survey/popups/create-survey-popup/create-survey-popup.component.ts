@@ -92,11 +92,16 @@ export class CreateSurveyPopupComponent {
         console.log('Response from server:', response);
         this.newsurveyId = response;
 
-        if (this.categoryId) {
-          const url = `/survey/manage-survey/${this.crypto.encryptParam(this.newsurveyId.toString())}`;
-          this.router.navigate([url]);
+        if (this.newsurveyId) {
+          const encryptedId = this.crypto.encryptParam(`${this.newsurveyId}`);
+          const url = `/survey/manage-survey/${encryptedId}`;
+          this.modal.hide();
+
+          this.router.navigateByUrl(url);
+          if(this.router.url.includes('/manage-survey')){
+            location.reload();
+          }
         }
-        this.modal.hide();
       },
       error => {
         console.error('Error occurred while sending POST request:', error);

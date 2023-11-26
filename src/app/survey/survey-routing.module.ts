@@ -7,7 +7,7 @@ import { SurveyListingComponent } from './survey-listing/survey-listing.componen
 
 const routes: Routes = [
   { path: 'manage-survey/:param1', component: CreateSurveyComponent, data: { triggerToggle: true } },
-  // { path: 'edit-survey', component: EditSurveyComponent, data: { triggerToggle: true } },
+  { path: 'manage-question/:param1', component: EditSurveyComponent, data: { triggerToggle: true } },
   { path: 'all-survey', component: SurveyListingComponent, data: { title: 'View Survey' } },
   { path: 'user/:id/:name', component: CreateSurveyComponent }
 ];

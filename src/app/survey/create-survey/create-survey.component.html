@@ -3,7 +3,7 @@
         <div>
             <h6 class="mb-3">Add Question</h6>
             <div class="common-ques">
-                <a routerLink="javascript:" (click)="openLg(content)">
+                <a href="javascript:void(0);" (click)="openLg(content)">
                     <figure><img src="../../../assets/images/icons/Add-new-question.png" width="35" height="35" />
                     </figure>
                     <figcaption>Add New Question</figcaption>
@@ -54,10 +54,11 @@
         </div>
         <div ngClass="question">
             <ul cdkDropList (cdkDropListDropped)="onItemDrop($event)">
-                <li cdkDrag (cdkDragStarted)="onDragStarted()" (cdkDragEnded)="onDragEnded()">
+                <li cdkDrag (cdkDragStarted)="onDragStarted()" (cdkDragEnded)="onDragEnded()"
+                    *ngFor="let question of questions;let i=index;">
                     <div class="drag-item">
                         <div ngClass="ques-header">
-                            <h5 ngClass="mb-0"><ng-icon name="heroArrowsPointingOut"></ng-icon> Page 1</h5>
+                            <h5 ngClass="mb-0"><ng-icon name="heroArrowsPointingOut"></ng-icon> Question {{i + 1}}</h5>
                             <div class="nav-item dropdown">
                                 <a class="nav-link" routerLink="#" id="navbarDropdownMenuLink" role="button"
                                     data-bs-toggle="dropdown" aria-expanded="false">
@@ -74,7 +75,13 @@
                             </div>
                         </div>
                         <div ngClass="ques-body p-4">
-                            <h5 ngClass="mb-4">Which city do you currently live in?</h5>
+                            <h5 ngClass="mb-4">{{question?.question}}</h5>
+                            <!-- <div ngClass="ques-ans" *ngFor="let option of questions?.options">
+                                <div class="ques-radio">
+                                    <label> <input type="radio" name="city">
+                                        <span class="checked">{{option}}</span></label>
+                                </div>
+                            </div> -->
                             <div ngClass="ques-ans">
                                 <div class="ques-radio">
                                     <label> <input type="radio" name="city">
@@ -125,9 +132,10 @@
         <div ngClass="update-ques-type generic-ques">
             <ul>
                 <li *ngFor="let ques of question">
-                    <a [routerLink]="'javascript:'">
+                    <a [ngClass]="{'active':(ques.id === selectedQuestionType)}" href="javascript:void(0);"
+                        (click)="onQuestionTypeClick(ques.id)">
                         <figure>
-                            <img src="../../../assets/{{ques.image}}" width="38" height="30" />
+                            <img loading="lazy" src="../../../assets/{{ques.image}}" width="38" height="30" />
                         </figure>
                         <figcaption>
                             {{ ques.type }}
@@ -141,9 +149,10 @@
     </div>
     <div class="modal-footer upload">
         <button type="button" class="btn close" (click)="modal.close('Close click')">Cancel</button>
-        <a routerLink="/survey/create-survey" type="button" class="btn btn-primary icon"
-            (click)="modal.close('Close click')">Create
-            <ng-icon name="heroArrowLongRight" class="ms-4"></ng-icon></a>
+        <button type="button" class="btn btn-primary icon"
+            (click)="onCreateQuesClick();modal.close('Close click')">Create
+            <ng-icon name="heroArrowLongRight" class="ms-4"></ng-icon>
+        </button>
     </div>
 </ng-template>
 

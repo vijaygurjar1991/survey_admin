@@ -18,7 +18,7 @@ export class CryptoService {
   }
   encryptParam(text: string): string {
     const encryptedText = CryptoJS.AES.encrypt(text, this.secretKey).toString();
-    return encodeURI(encryptedText);
+    return encodeURIComponent(encryptedText);
   }
 
   decrypt(encryptedText: string): string {

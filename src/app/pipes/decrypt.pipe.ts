@@ -11,7 +11,7 @@ export class DecryptPipe implements PipeTransform {
   }
   transform(value: any): string {
     if(value){
-      return this.crypto.decrypt(value);
+      return this.crypto.decrypt(decodeURIComponent(value));
     }
     return value;
   }

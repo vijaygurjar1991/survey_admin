@@ -14,8 +14,7 @@ export class GenderPopupComponent {
   constructor(private surveyservice: SurveyService) {
   }
 
-  show() {
-    this.modal.show();
+  show(surveyId:any) {
     this.getQuestions();
   }
 
@@ -32,6 +31,8 @@ export class GenderPopupComponent {
   getQuestions() {
     this.surveyservice.GetGenericQuestionType(this.typeid).subscribe({
       next: (resp: responseDTO[]) => {
+        this.modal.show();
+
         console.log('Response:', resp);
         this.questions = resp.map(item => ({
           question: item.question,
@@ -62,6 +63,10 @@ export class GenderPopupComponent {
         option.selected = !allSelected;
       }
     }
+  }
+
+  onContinue(){
+    
   }
 
 

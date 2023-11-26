@@ -1,39 +1,37 @@
 <div ngClass="survey-question ms-0">
-    <div ngClass="survey-name">
+    <!-- <div ngClass="survey-name">
         <div>
             <h4 ngClass="mb-3">Ed-Tech Brand Ranking Surevy</h4>
             <span>Cosmetics, Personal Care, Toiletries</span>
         </div>
         <a routerLink="#"><ng-icon name="heroPencilSquare"></ng-icon></a>
-    </div>
+    </div> -->
     <div ngClass="question">
         <ul>
             <li>
                 <div ngClass="ques-header">
-                    <h5 ngClass="mb-0">Edit Question</h5>
-                    <a routerLink="/survey/create-survey">Cancel</a>
+                    <h5 ngClass="mb-0">Manage Question</h5>
+                    <a routerLink="/survey/manage-survey/{{surveyId | encrypt}}">Cancel</a>
                 </div>
                 <div ngClass="ques-body p-lg-4 p-2">
                     <div ngClass="update-ques-type generic-ques mt-0 mb-5">
                         <h5 class="mb-3">Select Question Type</h5>
                         <ul>
-                            <li *ngFor="let ques of question">
-                                <a routerLink="javascript:">
+                            <li *ngFor="let ques of questionTypes">
+                                <a (click)="onQuestionTypeClick(ques.id)" href="javascript:void(0);"
+                                    [ngClass]="{'active':(ques.id == questionTypeId)}">
                                     <figure><img src="../../../assets/{{ques.image}}" width="38" height="30" />
                                     </figure>
                                     <figcaption>{{ ques.type }} <br /><small>{{ ques.subType }}</small></figcaption>
                                 </a>
                             </li>
-
-
                         </ul>
                     </div>
                     <div ngClass="mb-5">
                         <h5 class="mb-3">Update Your Question</h5>
                         <div class="row g-3 align-items-center">
                             <div class="col-8">
-                                <input type="text" id="" class="form-control"
-                                    value="Please enter your age in completed years">
+                                <input type="text" [(ngModel)]="question.question" class="form-control" />
                             </div>
                             <div class="col-2">
                                 <input type="text" id="" class="form-control" value="Age">
@@ -79,37 +77,10 @@
                             </select>
                         </div>
                     </div>
-                    <div ngClass="mb-4">
-                        <div class="row g-2 align-items-center mb-3">
+                    <div ngClass="mb-4" cdkDropList (cdkDropListDropped)="onDropOption($event)">
+                        <div class="row g-2 align-items-center mb-3" *ngFor="let option of question.options;let i=index;"  cdkDrag >
                             <div class="flex-width">
-                                <input type="text" id="" class="form-control" value="1">
-                            </div>
-                            <div class="flex-width">
-                                <ngx-dropzone class="edit-survey-img" ngx-dropzone [accept]="'image/*'"
-                                    (change)="onSelect($event)">
-                                    <ngx-dropzone-label>
-                                        <img src="../../../assets/images/icons/attach-image.png" />
-                                    </ngx-dropzone-label>
-                                    <ngx-dropzone-image-preview ngProjectAs="ngx-dropzone-preview"
-                                        *ngFor="let f of files" [file]="f" [removable]="true" (removed)="onRemove(f)">
-
-                                    </ngx-dropzone-image-preview>
-                                </ngx-dropzone>
-                            </div>
-                            <div class="flex-2">
-                                <input type="text" id="" class="form-control"
-                                    value="Please enter your age in completed years">
-                            </div>
-                            <div class="flex-1">
-                                <input type="text" id="" class="form-control" value="Add Keyword">
-                            </div>
-                            <div class="flex-width text-end">
-                                <ng-icon name="heroBars3"></ng-icon>
-                            </div>
-                        </div>
-                        <div class="row g-2 align-items-center mb-3">
-                            <div class="flex-width">
-                                <input type="text" id="" class="form-control" value="2">
+                                <input type="text" id="" class="form-control" value="{{i+1}}" readonly />
                             </div>
                             <div class="flex-width">
                                 <ngx-dropzone class="edit-survey-img" ngx-dropzone [accept]="'image/*'"
@@ -124,12 +95,11 @@
                                 </ngx-dropzone>
                             </div>
                             <div class="flex-2">
-                                <input type="text" id="" class="form-control"
-                                    value="Please enter your city do you live in">
+                                <input type="text" id="" class="form-control" [(ngModel)]="option.option" />
                             </div>
-                            <div class="flex-1">
+                            <!-- <div class="flex-1">
                                 <input type="text" id="" class="form-control" value="Add Keyword">
-                            </div>
+                            </div> -->
                             <div class="flex-width text-end">
                                 <ng-icon name="heroBars3"></ng-icon>
                             </div>
@@ -138,33 +108,33 @@
                     <div ngClass="mb-4">
                         <div class="row g-2 align-items-center">
                             <div class="col-auto">
-                                <div ngClass="new-options">
-                                    <a routerLink="javascript:"><ng-icon name="heroPlusCircle"></ng-icon> Add Option</a>
+                                <div class="new-options">
+                                    <a herf="javascript:void(0);" (click)="hanldeAddOptionClick()"><ng-icon name="heroPlusCircle"></ng-icon> Add Option</a>
                                 </div>
                             </div>
                             <div class="col-auto">
                                 <div ngClass="new-options">
-                                    <a routerLink="javascript:"><ng-icon name="heroPlusCircle"></ng-icon> Add "Other"
+                                    <a herf="javascript:void(0);" (click)="hanldeAddOptionClick('other')"><ng-icon name="heroPlusCircle"></ng-icon> Add "Other"
                                         Option</a>
                                 </div>
                             </div>
                             <div class="col-auto">
                                 <div ngClass="new-options">
-                                    <a routerLink="javascript:"><ng-icon name="heroPlusCircle"></ng-icon> Add "None of
+                                    <a herf="javascript:void(0);" (click)="hanldeAddOptionClick('noneOfAbove')"><ng-icon name="heroPlusCircle"></ng-icon> Add "None of
                                         above"
                                         Option</a>
                                 </div>
                             </div>
                             <div class="col-auto">
                                 <div ngClass="new-options">
-                                    <a routerLink="javascript:"><ng-icon name="heroPlusCircle"></ng-icon> Add "Don't
+                                    <a herf="javascript:void(0);" (click)="hanldeAddOptionClick('dontKnow')"><ng-icon name="heroPlusCircle"></ng-icon> Add "Don't
                                         know /Can't say"
                                         Option</a>
                                 </div>
                             </div>
                             <div class="col-auto">
                                 <div ngClass="new-options">
-                                    <a routerLink="javascript:"><ng-icon name="heroPlusCircle"></ng-icon> Add Bulk
+                                    <a herf="javascript:void(0);" ><ng-icon name="heroPlusCircle"></ng-icon> Add Bulk
                                         Option</a>
                                 </div>
                             </div>
@@ -182,7 +152,7 @@
                 <div ngClass="p-4">
                     <div ngClass="ans-group mb-4">
                         <h5>Create Answer Group</h5>
-                        <a routerLink="javascript" ngClass="btn btn-primary">Create New Group <ng-icon
+                        <a href="javascript:void(0);" ngClass="btn btn-primary">Create New Group <ng-icon
                                 name="heroArrowRight"></ng-icon></a>
                     </div>
                     <div ngClass="row">
@@ -260,7 +230,15 @@
                                     </div>
                                 </div>
                             </div>
+
                         </div>
+                    </div>
+                </div>
+            </li>
+            <li>
+                <div class="row">
+                    <div class="col-12 text-end">
+                        <button type="button" class="btn btn-primary" (click)="onSave()">Save</button>
                     </div>
                 </div>
             </li>

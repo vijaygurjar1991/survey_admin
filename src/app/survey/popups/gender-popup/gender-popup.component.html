@@ -26,7 +26,7 @@
                                     <button [(ngModel)]="option.selected" [ngModelOptions]="{standalone: true}">
 
                                         <figure>
-                                            <img src="../../../../assets/images/{{option.image}}" [alt]="option.option"
+                                            <img loading="lazy" src="../../../../assets/images/{{option.image}}" [alt]="option.option"
                                                 width="67" height="90" />
                                         </figure>
                                         <figcaption>
@@ -55,7 +55,7 @@
                 </form>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-primary w-100">Continue</button>
+                <button type="button" class="btn btn-primary w-100" (click)="onContinue()">Continue</button>
             </div>
         </div>
     </div>

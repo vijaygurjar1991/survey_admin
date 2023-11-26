@@ -12,6 +12,7 @@ import { responseDTO } from 'src/app/types/responseDTO';
 import { CryptoService } from 'src/app/service/crypto.service';
 import { UtilsService } from 'src/app/service/utils.service';
 import { isArray } from 'chart.js/dist/helpers/helpers.core';
+import { GenderPopupComponent } from '../popups/gender-popup/gender-popup.component';
 
 
 @Component({
@@ -20,7 +21,7 @@ import { isArray } from 'chart.js/dist/helpers/helpers.core';
   styleUrls: ['./create-survey.component.css'],
 })
 export class CreateSurveyComponent implements OnInit {
-  @ViewChild('GenderModal', { static: true }) genderModal!: ModalDirective;
+  @ViewChild('GenderModal', { static: true }) genderModal!: GenderPopupComponent;
   @ViewChild('AgeModal', { static: true }) ageModal!: ModalDirective;
   @ViewChild('NccsModal', { static: true }) nccsModal!: ModalDirective;
   @ViewChild('MonthlyIncomeModal', { static: true }) monthlyincomeModal!: ModalDirective;
@@ -68,7 +69,8 @@ export class CreateSurveyComponent implements OnInit {
   readCategoryName: any
   categoryList: any;
   names: { name: string, image: string }[] = [];
-
+  questions:any;
+  selectedQuestionType:any;
 
   constructor(
     private visibilityService: DataService,
@@ -117,6 +119,7 @@ export class CreateSurveyComponent implements OnInit {
   surveyId = 0;
 
   ngOnInit() {
+    this.visibilityService.closeSideBar();
     this.userId = this.utils.getUserId();
 
    // this.getCategoryNames();
@@ -127,7 +130,7 @@ export class CreateSurveyComponent implements OnInit {
   }
   onGenericQuestionClick(type: any): void {
     if (type === "Gender") {
-      this.genderModal.show();
+      this.genderModal.show(this.surveyId);
     } else if (type === "Age") {
       this.ageModal.show();
     } else if (type === "NCCS") {
@@ -266,14 +269,14 @@ export class CreateSurveyComponent implements OnInit {
     });
   }
 
-  question: { type: string, subType: string, image: string }[] = [];
+  question:any[]=[];
 
   getQuestion() {
     this.surveyservice.GetQuestionTypes().subscribe({
-      next: (resp: responseDTO[]) => {
+      next: (resp: any) => {
         console.log('Response:', resp);
         // Map the response to the desired format
-        this.question = resp.map(item => ({ type: item.type, subType: item.subType, image: item.image }));
+        this.question = resp;
       },
       error: (err) => console.log("An Error occurred while fetching question types", err)
     });
@@ -288,9 +291,11 @@ export class CreateSurveyComponent implements OnInit {
       if (Array.isArray(data)) {
         this.surveyName = data[0]?.surveyName;
         this.categoryName = data[0]?.categoryName;
+        this.questions = data[0]?.questions;
       } else {
         this.surveyName = data.surveyName;
         this.categoryName = data.categoryName;
+        this.questions = data.questions;
       }
       console.log("data", data)
 
@@ -311,6 +316,16 @@ export class CreateSurveyComponent implements OnInit {
       });
 
     });
+  }
+
+  onQuestionTypeClick(id:any){
+    this.selectedQuestionType=id;
+  }
+  onCreateQuesClick(){
+    let _data = `${this.surveyId}_${this.selectedQuestionType}`;
+    let encryptedText = this.crypto.encryptParam(_data);
+    let url = `/survey/manage-question/${encryptedText}`;
+    this.router.navigateByUrl(url);
   }
 
 

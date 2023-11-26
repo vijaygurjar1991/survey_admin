@@ -509,7 +509,7 @@ article {
     opacity: 1;
 }
 
-.generic-ques ul li a:hover {
+.generic-ques ul li a:hover, .generic-ques ul li a.active {
     background-color: #fdefe7;
     border: 2px dashed var(--primary);
     color: var(--primary);

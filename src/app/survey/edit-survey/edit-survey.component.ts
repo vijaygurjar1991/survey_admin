@@ -11,6 +11,10 @@ import { DataService } from 'src/app/service/data.service'; // Import your DataS
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { SurveyService } from 'src/app/service/survey.service';
 import { responseDTO } from 'src/app/types/responseDTO';
+import { CryptoService } from 'src/app/service/crypto.service';
+import { Question } from 'src/app/models/question';
+import { Option } from 'src/app/models/option';
+import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 
 @Component({
   selector: 'app-edit-survey',
@@ -24,21 +28,26 @@ export class EditSurveyComponent {
   filteredCities: Observable<string[]>;
   cities: string[] = ['Others'];
   allcities: string[] = [];
+
+  surveyId: any;
+  questionTypeId: any;
+  question: Question = new Question();
+
   constructor(public themeService: DataService, private router: Router,
-    private route: ActivatedRoute, private surveyservice: SurveyService) {
+    private route: ActivatedRoute, private surveyservice: SurveyService,
+    private crypto: CryptoService) {
     this.filteredCities = this.citiesCtrl.valueChanges.pipe(
       startWith(null),
       map((cities: string | null) => (cities ? this._filter(cities) : this.allcities.slice())),
     );
 
-
-    this.router.events.subscribe((event) => {
-      if (event instanceof NavigationEnd) {
-        const shouldTriggerToggle = this.route.snapshot.data['triggerToggle'];
-        if (shouldTriggerToggle) {
-          // Trigger the toggle action when the user lands on this page
-          this.themeService.toggle();
-        }
+    this.route.paramMap.subscribe(params => {
+      let _queryData = params.get('param1');
+      if (_queryData) {
+        let _queryDecodedData = this.crypto.decryptQueryParam(_queryData);
+        let _data = _queryDecodedData.split('_');
+        this.surveyId = _data[0];
+        this.questionTypeId = _data[1];
       }
     });
   }
@@ -81,31 +90,15 @@ export class EditSurveyComponent {
 
     return this.allcities.filter(cities => cities.toLowerCase().includes(filterValue));
   }
-  ngOnInit(): void {
-    this.getQuestion();
-    this.CreateGeneralQuestion();
+  ngOnInit() {
+    this.themeService.closeSideBar();
+    this.getQuestionTypes();
+    this.intializeDefaultValue();
   }
 
-
-  // tags: string[] = [];
-  // tagInput: string = '';
-
-  // onKeyDown(event: KeyboardEvent) {
-  //   if (event.key === 'Enter') {
-  //     this.addTag();
-  //   }
-  // }
-
-  // addTag() {
-  //   if (this.tagInput.trim() !== '' && !this.tags.includes(this.tagInput)) {
-  //     this.tags.push(this.tagInput);
-  //     this.tagInput = '';
-  //   }
-  // }
-
-  // removeTag(tag: string) {
-  //   this.tags = this.tags.filter((t) => t !== tag);
-  // }
+  onQuestionTypeClick(id: any) {
+    this.questionTypeId = id;
+  }
 
   files: File[] = [];
 
@@ -120,50 +113,91 @@ export class EditSurveyComponent {
   }
 
   userId: any
-  question: { type: string, subType: string, image: string }[] = [];
+  questionTypes: any[] = [];
 
-  getQuestion() {
+  getQuestionTypes() {
     this.surveyservice.GetQuestionTypes().subscribe({
-      next: (resp: responseDTO[]) => {
-
-        // Map the response to the desired format
-        this.question = resp.map(item => ({ type: item.type, subType: item.subType, image: item.image }));
+      next: (resp: any) => {
+        this.questionTypes = resp;
       },
       error: (err) => console.log("An Error occurred while fetching question types", err)
     });
   }
 
-  creategeneralquestion: {
-    surveyTypeId: number,
-    questionTypeName: string,
-    surveyTypeName: string,
-    piping: string,
-    video: string,
-    image: string,
-    options: { id: number, option: string, image: string, keyword: string }[]
-  }[] = [];
-
-  CreateGeneralQuestion() {
-    this.surveyservice.CreateGeneralQuestion().subscribe({
-      next: (resp: responseDTO[]) => {
-        console.log('Response:', resp);
-        this.creategeneralquestion = resp.map(item => ({
-          surveyTypeId: item.surveyTypeId,
-          questionTypeName: item.questionTypeName,
-          surveyTypeName: item.surveyTypeName,
-          piping: item.piping,
-          video: item.video,
-          image: item.image,
-          options: item.options.map((option: { id: number, option: string, image: string, keyword: string }) => ({
-            id: option.id,
-            option: option.option,
-            image: option.image,
-            keyword: option.keyword
-          }))
-
-        }));
-      },
-      error: (err) => console.log("An Error occurred while fetching question types", err)
-    });
+  intializeDefaultValue() {
+    this.question.questionTypeId = parseInt(this.questionTypeId);
+    this.question.surveyTypeId = parseInt(this.surveyId);
+    this.question.question = 'Please enter your age in completed years';
+    this.question.createdDate = this.getCurrentDateTime();
+    this.question.modifiedDate = this.getCurrentDateTime();
   }
+
+  hanldeAddOptionClick(type: string | null = null) {
+    let newOption = new Option();
+
+    newOption.createdDate = this.getCurrentDateTime();
+    newOption.modifiedDate = this.getCurrentDateTime();
+
+
+    if (type == 'other')
+      newOption.option = "Other"
+    else if (type == 'other')
+      newOption.option = "Other"
+    else if (type == 'noneOfAbove')
+      newOption.option = "None of above"
+    else if (type == 'dontKnow')
+      newOption.option = "Don't know /Can't say"
+    else
+      newOption.option = ""
+
+
+    this.question.options.push(newOption);
+  }
+
+  onSave() {
+    console.log(this.question);
+  }
+
+  getCurrentDateTime(): string {
+    const currentDateTime = new Date().toISOString();
+    return currentDateTime.substring(0, currentDateTime.length - 1) + 'Z';
+  }
+
+  onDropOption(e: CdkDragDrop<string[]>) {
+    moveItemInArray(this.question.options, e.previousIndex, e.currentIndex);
+  }
+
+  // creategeneralquestion: {
+  //   surveyTypeId: number,
+  //   questionTypeName: string,
+  //   surveyTypeName: string,
+  //   piping: string,
+  //   video: string,
+  //   image: string,
+  //   options: { id: number, option: string, image: string, keyword: string }[]
+  // }[] = [];
+
+  // CreateGeneralQuestion() {
+  //   this.surveyservice.CreateGeneralQuestion().subscribe({
+  //     next: (resp: responseDTO[]) => {
+  //       console.log('Response:', resp);
+  //       this.creategeneralquestion = resp.map(item => ({
+  //         surveyTypeId: item.surveyTypeId,
+  //         questionTypeName: item.questionTypeName,
+  //         surveyTypeName: item.surveyTypeName,
+  //         piping: item.piping,
+  //         video: item.video,
+  //         image: item.image,
+  //         options: item.options.map((option: { id: number, option: string, image: string, keyword: string }) => ({
+  //           id: option.id,
+  //           option: option.option,
+  //           image: option.image,
+  //           keyword: option.keyword
+  //         }))
+
+  //       }));
+  //     },
+  //     error: (err) => console.log("An Error occurred while fetching question types", err)
+  //   });
+  // }
 }
