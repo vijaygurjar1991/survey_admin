@@ -33,6 +33,10 @@ export class EditSurveyComponent {
   questionTypeId: any;
   question: Question = new Question();
 
+  optionsArr1: any[] = [];
+  optionsArr2: any[] = [];
+
+
   constructor(public themeService: DataService, private router: Router,
     private route: ActivatedRoute, private surveyservice: SurveyService,
     private crypto: CryptoService) {
@@ -139,22 +143,34 @@ export class EditSurveyComponent {
     newOption.modifiedDate = this.getCurrentDateTime();
 
 
-    if (type == 'other')
-      newOption.option = "Other"
-    else if (type == 'other')
-      newOption.option = "Other"
-    else if (type == 'noneOfAbove')
-      newOption.option = "None of above"
-    else if (type == 'dontKnow')
-      newOption.option = "Don't know /Can't say"
-    else
-      newOption.option = ""
+    if (type == 'other') {
+      newOption.option = "Other";
+    }
+    else if (type == 'noneOfAbove') {
+      newOption.option = "None of above";
+    }
+    else if (type == 'dontKnow') {
+      newOption.option = "Don't know /Can't say";
+    }
+    else {
+      newOption.option = "";
+    }
 
+    if (type != null) {
+      this.optionsArr2 = [];
+      this.optionsArr2.push(newOption);
+    } else {
+      this.optionsArr1.push(newOption);
+    }
 
-    this.question.options.push(newOption);
+    // this.question.options.push(newOption);
   }
 
   onSave() {
+
+    let options:Option[] = this.optionsArr1.concat(this.optionsArr2);
+
+    this.question.options = options;
     console.log(this.question);
   }
 
