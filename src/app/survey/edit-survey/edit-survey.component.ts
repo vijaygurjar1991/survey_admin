@@ -168,7 +168,7 @@ export class EditSurveyComponent {
 
   onSave() {
 
-    let options:Option[] = this.optionsArr1.concat(this.optionsArr2);
+    let options: Option[] = this.optionsArr1.concat(this.optionsArr2);
 
     this.question.options = options;
     console.log(this.question);
@@ -180,8 +180,40 @@ export class EditSurveyComponent {
   }
 
   onDropOption(e: CdkDragDrop<string[]>) {
-    moveItemInArray(this.question.options, e.previousIndex, e.currentIndex);
+    moveItemInArray(this.optionsArr1, e.previousIndex, e.currentIndex);
   }
+
+  onDeleteOption(type: string, index = 0) {
+    if (type == 'optionArr1') {
+      this.optionsArr1.splice(index, 1);
+    } else {
+      this.optionsArr2 = [];
+    }
+  }
+
+  groups: any[] = [];
+  onCreateGroup() {
+    let id = 1;
+    if (this.groups.length > 0) {
+      let lastIndex = this.groups.length - 1;
+      let lastItem = this.groups[lastIndex];
+      id = ((lastItem?.id || 1) + 1);
+    }
+    let newGroup = {
+      id: id,
+      randomize: false,
+      exclude: false,
+      ids: []
+    }
+
+    this.groups.push(newGroup);
+
+  }
+
+  onDeleteGroup(index: number) {
+    this.groups.splice(index, 1);
+  }
+
 
   // creategeneralquestion: {
   //   surveyTypeId: number,
