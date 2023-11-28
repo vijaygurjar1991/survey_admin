@@ -12,8 +12,8 @@ import { UtilsService } from './utils.service';
 export class SurveyService {
 
   apiUrl = environment.apiUrl;
-  userId =0;
-  constructor(private http: HttpClient,private util:UtilsService) { 
+  userId = 0;
+  constructor(private http: HttpClient, private util: UtilsService) {
     this.userId = util.getUserId();
   }
   GetCategories() {
@@ -71,9 +71,9 @@ export class SurveyService {
   //   return this.http.get<responseDTO[]>(url);
   // }
 
-  CreateGeneralQuestion(): Observable<any> {
+  CreateGeneralQuestion(data: any): Observable<any> {
     const url = `${this.apiUrl}api/admin/${this.userId}/GeneralQuestion/CreateGeneralQuestion`;
-    return this.http.post(url, { responseType: 'text' });
+    return this.http.post(url, data, { responseType: 'text' });
   }
 
 
@@ -85,7 +85,7 @@ export class SurveyService {
   //   return this.http.post(url, data, { responseType: 'text' });
   // }
   // GetSurveyByID
-  GetSurveyById(surveyId:any): Observable<responseDTO[]> {
+  GetSurveyById(surveyId: any): Observable<responseDTO[]> {
     const url = `${this.apiUrl}api/admin/${this.userId}/Survey/GetSurveyById?surveyId=${surveyId}`;
     return this.http.get<responseDTO[]>(url);
   }

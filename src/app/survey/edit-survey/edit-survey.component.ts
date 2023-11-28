@@ -15,6 +15,7 @@ import { CryptoService } from 'src/app/service/crypto.service';
 import { Question } from 'src/app/models/question';
 import { Option } from 'src/app/models/option';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-edit-survey',
@@ -24,10 +25,6 @@ import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 })
 export class EditSurveyComponent {
   separatorKeysCodes: number[] = [ENTER, COMMA];
-  citiesCtrl = new FormControl('');
-  filteredCities: Observable<string[]>;
-  cities: string[] = ['Others'];
-  allcities: string[] = [];
 
   surveyId: any;
   questionTypeId: any;
@@ -35,16 +32,13 @@ export class EditSurveyComponent {
 
   optionsArr1: any[] = [];
   optionsArr2: any[] = [];
+  filteredOptions: any[] = [];
+  allOptions: any[] = [];
 
 
   constructor(public themeService: DataService, private router: Router,
     private route: ActivatedRoute, private surveyservice: SurveyService,
     private crypto: CryptoService) {
-    this.filteredCities = this.citiesCtrl.valueChanges.pipe(
-      startWith(null),
-      map((cities: string | null) => (cities ? this._filter(cities) : this.allcities.slice())),
-    );
-
     this.route.paramMap.subscribe(params => {
       let _queryData = params.get('param1');
       if (_queryData) {
@@ -55,45 +49,8 @@ export class EditSurveyComponent {
       }
     });
   }
-  @ViewChild('citiesInput')
-  citiesInput!: ElementRef<HTMLInputElement>;
 
-  announcer = inject(LiveAnnouncer);
-  add(event: MatChipInputEvent): void {
-    const value = (event.value || '').trim();
 
-    // Add our cities
-    if (value) {
-      this.cities.push(value);
-    }
-
-    // Clear the input value
-    event.chipInput!.clear();
-
-    this.citiesCtrl.setValue(null);
-  }
-
-  remove(cities: string): void {
-    const index = this.cities.indexOf(cities);
-
-    if (index >= 0) {
-      this.cities.splice(index, 1);
-
-      this.announcer.announce(`Removed ${cities}`);
-    }
-  }
-
-  selected(event: MatAutocompleteSelectedEvent): void {
-    this.cities.push(event.option.viewValue);
-    this.citiesInput.nativeElement.value = '';
-    this.citiesCtrl.setValue(null);
-  }
-
-  private _filter(value: string): string[] {
-    const filterValue = value.toLowerCase();
-
-    return this.allcities.filter(cities => cities.toLowerCase().includes(filterValue));
-  }
   ngOnInit() {
     this.themeService.closeSideBar();
     this.getQuestionTypes();
@@ -109,6 +66,59 @@ export class EditSurveyComponent {
   onSelect(event: any) { // Use 'any' as the event type
     console.log(event);
     this.files.push(...event.addedFiles);
+  }
+
+  selected(event: MatAutocompleteSelectedEvent, groupIndex: number) {
+    let option = event.option.value;
+    let optionValue = option.option;
+
+    this.groups[groupIndex].options.push(option);
+
+
+    if (option) {
+      const indexToRemove = this.filteredOptions.findIndex(option => option.option === optionValue);
+
+      if (indexToRemove !== -1) {
+        this.filteredOptions.splice(indexToRemove, 1);
+      } else {
+        console.log(`Item with option '${optionValue}' not found in filtered Options.`);
+      }
+    }
+
+    let groupDetail = this.groups[groupIndex];
+
+    let indexToModify = this.allOptions.findIndex((option: any) => option.option === optionValue);
+    if (indexToModify !== -1) {
+      this.allOptions[indexToModify].group = groupDetail.id;
+      this.allOptions[indexToModify].isRandomize = groupDetail.isRandomize;
+      this.allOptions[indexToModify].isExcluded = groupDetail.isExcluded;
+    } else {
+      console.log(`Item with option '${optionValue}' not found in all Options.`);
+    }
+
+  }
+
+  Remove(data: any, groupIndex: number) {
+    let optionValue = data.option;
+    const indexToRemove = this.groups[groupIndex].options.findIndex((option: any) => option.option === optionValue);
+
+    if (indexToRemove !== -1) {
+      this.groups[groupIndex].options.splice(indexToRemove, 1);
+    } else {
+      console.log(`Item with option '${optionValue}' not found.`);
+    }
+
+    this.filteredOptions.push(data);
+
+    let indexToModify = this.allOptions.findIndex((option: any) => option.option === optionValue);
+    if (indexToModify !== -1) {
+      this.allOptions[indexToModify].group = 0;
+      this.allOptions[indexToModify].isRandomize = false;
+      this.allOptions[indexToModify].isExcluded = false;
+    } else {
+      console.log(`Item with option '${optionValue}' not found in all Options.`);
+    }
+
   }
 
   onRemove(event: any) { // Use 'any' as the event type
@@ -134,6 +144,34 @@ export class EditSurveyComponent {
     this.question.question = 'Please enter your age in completed years';
     this.question.createdDate = this.getCurrentDateTime();
     this.question.modifiedDate = this.getCurrentDateTime();
+
+    let newOption1 = new Option();
+    newOption1.createdDate = this.getCurrentDateTime();
+    newOption1.modifiedDate = this.getCurrentDateTime();
+    newOption1.option = 'testing 1';
+    this.optionsArr1.push(newOption1);
+
+    let newOption2 = new Option();
+    newOption2.createdDate = this.getCurrentDateTime();
+    newOption2.modifiedDate = this.getCurrentDateTime();
+    newOption2.option = 'testing 2';
+    this.optionsArr1.push(newOption2);
+
+    let newOption3 = new Option();
+    newOption3.createdDate = this.getCurrentDateTime();
+    newOption3.modifiedDate = this.getCurrentDateTime();
+    newOption3.option = 'testing 3';
+    this.optionsArr1.push(newOption3);
+
+    let newOption4 = new Option();
+    newOption4.createdDate = this.getCurrentDateTime();
+    newOption4.modifiedDate = this.getCurrentDateTime();
+    newOption4.option = 'Other';
+    this.optionsArr2.push(newOption4);
+
+    this.filteredOptions.push(...this.optionsArr1, ...this.optionsArr2);
+    this.allOptions.push(...this.optionsArr1, ...this.optionsArr2);
+
   }
 
   hanldeAddOptionClick(type: string | null = null) {
@@ -163,15 +201,58 @@ export class EditSurveyComponent {
       this.optionsArr1.push(newOption);
     }
 
+    this.filteredOptions = [];
+    this.filteredOptions.push(...this.optionsArr1, ...this.optionsArr2);
+
+
+    this.allOptions = [];
+    this.allOptions.push(...this.optionsArr1, ...this.optionsArr2);
     // this.question.options.push(newOption);
   }
 
   onSave() {
 
-    let options: Option[] = this.optionsArr1.concat(this.optionsArr2);
+    if (this.groups.length > 0) {
+      this.question.isGrouping = true;
+    }
 
-    this.question.options = options;
+    this.question.options = this.allOptions;
+
+    this.surveyservice.CreateGeneralQuestion(this.question).subscribe({
+      next: (resp: any) => {
+        Swal.fire('', 'Question Generated Sucessfully.', 'success');
+
+        let url = `/survey/manage-survey/${this.crypto.encryptParam(this.surveyId)}`;
+
+        this.router.navigateByUrl(url);
+      },
+      error: (err: any) => {
+        Swal.fire('', err.error, 'error');
+      }
+    });
+
     console.log(this.question);
+  }
+
+  onGroupValueChange(type: string, value: boolean, groupId: number) {
+
+    const matchingOptions = this.allOptions.filter(option => option.group === groupId);
+
+    if (type == 'randomize') {
+      if (matchingOptions.length > 0) {
+        matchingOptions.forEach(option => {
+          option.isRandomize = value;
+        });
+      }
+    }
+
+    if (type == 'excluded') {
+      if (matchingOptions.length > 0) {
+        matchingOptions.forEach(option => {
+          option.isExcluded = value;
+        });
+      }
+    }
   }
 
   getCurrentDateTime(): string {
@@ -201,9 +282,9 @@ export class EditSurveyComponent {
     }
     let newGroup = {
       id: id,
-      randomize: false,
-      exclude: false,
-      ids: []
+      isRandomize: false,
+      isExcluded: false,
+      options: []
     }
 
     this.groups.push(newGroup);
