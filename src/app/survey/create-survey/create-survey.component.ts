@@ -332,7 +332,15 @@ export class CreateSurveyComponent implements OnInit {
     this.selectedQuestionType=id;
   }
   onCreateQuesClick(){
-    let _data = `${this.surveyId}_${this.selectedQuestionType}+_add_0`;
+    let _data = `${this.surveyId}_${this.selectedQuestionType}_add_0`;
+    let encryptedText = this.crypto.encryptParam(_data);
+    let url = `/survey/manage-question/${encryptedText}`;
+    this.router.navigateByUrl(url);
+  }
+  //onEditQuestionClick
+  onEditQuestionClick(questionId:any){
+    console.log("modifyQuestionId",questionId)
+    let _data = `${this.surveyId}_${this.selectedQuestionType}_modify_${questionId}`;
     let encryptedText = this.crypto.encryptParam(_data);
     let url = `/survey/manage-question/${encryptedText}`;
     this.router.navigateByUrl(url);

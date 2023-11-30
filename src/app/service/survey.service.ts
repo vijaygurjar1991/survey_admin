@@ -96,5 +96,9 @@ export class SurveyService {
     const url = `${this.apiUrl}api/admin/${this.userId}/Survey/GetSurveyById?surveyId=${surveyId}`;
     return this.http.get<responseDTO[]>(url);
   }
+  getQuestionDetailsById(questionId: any): Observable<responseDTO[]> {
+    const url = `${this.apiUrl}api/admin/${this.userId}/GeneralQuestion/QuestionById?qid=${questionId}`;
+    return this.http.get<responseDTO[]>(url);
+  }
 
 }

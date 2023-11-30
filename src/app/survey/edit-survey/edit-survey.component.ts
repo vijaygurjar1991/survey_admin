@@ -29,8 +29,8 @@ export class EditSurveyComponent {
   surveyId: any;
   questionTypeId: any;
   question: Question = new Question();
-  mode:any
-  questionId:any
+  mode: any
+  questionId: any
 
   optionsArr1: any[] = [];
   optionsArr2: any[] = [];
@@ -48,19 +48,60 @@ export class EditSurveyComponent {
         let _data = _queryDecodedData.split('_');
         this.surveyId = _data[0];
         this.questionTypeId = _data[1];
-        this.mode=_data[2];
-        this.questionId=_data[3]
-        console.log("mode",this.mode)
-        console.log("questionId",this.questionId)
+        this.mode = _data[2];
+        this.questionId = _data[3]
+        console.log("surveyId", this.surveyId)
+        console.log("questionTypeId", this.questionTypeId)
+        console.log("mode", this.mode)
+        console.log("questionId", this.questionId)
+        if (this.mode == 'modify') {
+          this.getQuestionDetails();
+        }
       }
     });
   }
+  getQuestionDetails() {
+    this.surveyservice.getQuestionDetailsById(this.questionId).subscribe((data: any) => {
+      console.log("data", data)
+      console.log("questionTypeId",data.questionTypeId)
+      this.questionTypeId=data.questionTypeId
+      this.surveyId=data.surveyTypeId
+      this.question.questionTypeId = parseInt(data.questionTypeId);
+      this.question.surveyTypeId = parseInt(data.surveyTypeId);
+      this.question.question = data.question;
+      this.question.createdDate = data.createdDate;
+      this.question.modifiedDate = this.getCurrentDateTime();
 
+      data.options.forEach((opt: any) => {
+        let newOption = new Option();
+        newOption.id = opt.id;
+        newOption.option = opt.option;
+        newOption.image = opt.image;
+        newOption.createdDate = opt.createdDate;
+        newOption.modifiedDate = opt.modifiedDate;
+        newOption.keyword = opt.keyword;
+        newOption.status = opt.status;
+        newOption.isRandomize = opt.isRandomize;
+        newOption.isExcluded = opt.isExcluded;
+        newOption.group = opt.group;
+        newOption.sort = opt.sort;
+  
+        this.optionsArr1.push(newOption); // Push the new Option object to optionsArr1
+      });
+
+      this.filteredOptions.push(...this.optionsArr1, ...this.optionsArr2);
+      this.allOptions.push(...this.optionsArr1, ...this.optionsArr2);
+
+    });
+  }
 
   ngOnInit() {
     this.themeService.closeSideBar();
     this.getQuestionTypes();
-    this.intializeDefaultValue();
+    if(this.mode!='modify'){
+      this.intializeDefaultValue();
+    }
+      
   }
 
   onQuestionTypeClick(id: any) {
@@ -145,6 +186,7 @@ export class EditSurveyComponent {
   }
 
   intializeDefaultValue() {
+    console.log("Inside IntializeDefaultValue")
     this.question.questionTypeId = parseInt(this.questionTypeId);
     this.question.surveyTypeId = parseInt(this.surveyId);
     this.question.question = 'Please enter your age in completed years';

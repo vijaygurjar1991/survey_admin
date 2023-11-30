@@ -60,13 +60,17 @@
                         <div ngClass="ques-header">
                             <h5 ngClass="mb-0"><ng-icon name="heroArrowsPointingOut"></ng-icon> Question {{i + 1}}</h5>
                             <div class="nav-item dropdown">
-                                <a class="nav-link" routerLink="#" id="navbarDropdownMenuLink" role="button"
+                                <a class="nav-link" href="javascript:void(0);" id="navbarDropdownMenuLink" role="button"
                                     data-bs-toggle="dropdown" aria-expanded="false">
                                     <ng-icon name="heroEllipsisVertical"></ng-icon>
                                 </a>
                                 <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                                    <li><a class="dropdown-item" routerLink="/survey/edit-survey"><ng-icon
-                                                name="heroPencil"></ng-icon>Edit</a></li>
+                                    <li>
+                                        <a href="javascript:void(0);" class="dropdown-item">
+                                            <ng-icon name="heroPencil" (click)="onEditQuestionClick(question?.id)"></ng-icon>
+                                            Edit
+                                        </a>
+                                    </li>
                                     <li><a class="dropdown-item" routerLink="#"><ng-icon
                                                 name="heroDocumentDuplicate"></ng-icon>Clone</a></li>
                                     <li><a class="dropdown-item delete-hover" routerLink="#"><ng-icon
