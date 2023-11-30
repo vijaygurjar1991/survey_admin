@@ -1,4 +1,4 @@
-import { NgModule,CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppComponent } from './app.component';
@@ -30,6 +30,7 @@ import { heroArrowLongRight } from '@ng-icons/heroicons/outline';
 import { heroBars3 } from '@ng-icons/heroicons/outline';
 import { heroXMark } from '@ng-icons/heroicons/outline';
 import { heroMagnifyingGlass } from '@ng-icons/heroicons/outline';
+import { heroTrash } from '@ng-icons/heroicons/outline';
 // Icons
 
 import { HeaderComponent } from './shared/header/header.component';
@@ -89,11 +90,12 @@ import { ModalModule } from 'ngx-bootstrap/modal';
       heroArrowLongRight,
       heroBars3,
       heroXMark,
-      heroMagnifyingGlass
+      heroMagnifyingGlass,
+      heroTrash
     }),
     BrowserAnimationsModule,
   ],
-  schemas:[CUSTOM_ELEMENTS_SCHEMA],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
   providers: [
     // { provide: TINYMCE_SCRIPT_SRC, useValue: 'tinymce/tinymce.min.js' },
     provideNgIconsConfig({

@@ -106,7 +106,7 @@
                             </div>
                             <div class="flex-width text-end">
                                 <a href="javascript:void(0);" (click)="onDeleteOption('optionArr1',i)">
-                                    <ng-icon name="heroBars3"></ng-icon>
+                                    <ng-icon name="heroTrash"></ng-icon>
                                 </a>
                             </div>
                         </div>
@@ -140,7 +140,7 @@
                                 <ng-icon name="heroBars3"></ng-icon>
                             </div> -->
                             <div class="flex-width text-end">
-                                <ng-icon name="heroBars3" (click)="onDeleteOption('optionArr2')"></ng-icon>
+                                <ng-icon name="heroTrash" (click)="onDeleteOption('optionArr2')"></ng-icon>
                             </div>
                         </div>
                     </div>
@@ -212,19 +212,18 @@
                                             <mat-chip-grid #chipGrid aria-label="City selection">
                                                 <mat-chip-row *ngFor="let option of group.options">
                                                     {{option.option}}
-                                                    <button matChipRemove [attr.aria-label]="'remove'" (click)="Remove(option,groupIndex)">
+                                                    <button matChipRemove [attr.aria-label]="'remove'"
+                                                        (click)="Remove(option,groupIndex)">
                                                         <mat-icon>cancel</mat-icon>
                                                     </button>
                                                 </mat-chip-row>
-                                                <input #citiesInput
-                                                    [matChipInputFor]="chipGrid" [matAutocomplete]="auto"
-                                                    [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
-                                                     />
+                                                <input #citiesInput [matChipInputFor]="chipGrid"
+                                                    [matAutocomplete]="auto"
+                                                    [matChipInputSeparatorKeyCodes]="separatorKeysCodes" />
                                             </mat-chip-grid>
                                             <mat-autocomplete #auto="matAutocomplete"
                                                 (optionSelected)="selected($event,groupIndex)">
-                                                <mat-option *ngFor="let option of filteredOptions"
-                                                    [value]="option">
+                                                <mat-option *ngFor="let option of filteredOptions" [value]="option">
                                                     {{option.option}}
                                                 </mat-option>
                                             </mat-autocomplete>
@@ -235,18 +234,23 @@
                                 <div ngClass="row">
                                     <div ngClass="col-md-6">
                                         <div class="form-check form-check-inline">
-                                            <input class="form-check-input" type="checkbox" id="Randamize" [(ngModel)]="group.isRandomize" (change)="onGroupValueChange('randomize', group.isRandomize, group.id)" [value]="group?.isRandomize"
-                                                [checked]="group?.isRandomize">
+                                            <input class="form-check-input" type="checkbox" id="Randamize"
+                                                [(ngModel)]="group.isRandomize"
+                                                (change)="onGroupValueChange('randomize', group.isRandomize, group.id)"
+                                                [value]="group?.isRandomize" [checked]="group?.isRandomize">
                                             <label class="form-check-label" for="Randamize">Randamize</label>
                                         </div>
                                         <div class="form-check form-check-inline">
-                                            <input class="form-check-input" type="checkbox" id="Exclude" [(ngModel)]="group.isExcluded" (change)="onGroupValueChange('excluded', group.isExcluded, group.id)" [value]="group?.isExcluded"
-                                            [checked]="group?.isExcluded">
+                                            <input class="form-check-input" type="checkbox" id="Exclude"
+                                                [(ngModel)]="group.isExcluded"
+                                                (change)="onGroupValueChange('excluded', group.isExcluded, group.id)"
+                                                [value]="group?.isExcluded" [checked]="group?.isExcluded">
                                             <label class="form-check-label" for="Exclude">Exclude</label>
                                         </div>
                                     </div>
                                     <div ngClass="col-md-6 text-end">
-                                        <button type="button" ngClass="btn btn-primary btn-sm" (click)="onDeleteGroup(groupIndex)" >Delete</button>
+                                        <button type="button" ngClass="btn btn-primary btn-sm"
+                                            (click)="onDeleteGroup(groupIndex)">Delete</button>
                                     </div>
                                 </div>
                             </div>
