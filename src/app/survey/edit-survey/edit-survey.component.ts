@@ -29,6 +29,8 @@ export class EditSurveyComponent {
   surveyId: any;
   questionTypeId: any;
   question: Question = new Question();
+  mode:any
+  questionId:any
 
   optionsArr1: any[] = [];
   optionsArr2: any[] = [];
@@ -46,6 +48,10 @@ export class EditSurveyComponent {
         let _data = _queryDecodedData.split('_');
         this.surveyId = _data[0];
         this.questionTypeId = _data[1];
+        this.mode=_data[2];
+        this.questionId=_data[3]
+        console.log("mode",this.mode)
+        console.log("questionId",this.questionId)
       }
     });
   }

@@ -64,6 +64,13 @@ export class SurveyService {
     console.log("posted data", data);
     return this.http.post(url, data, { responseType: 'text' });
   }
+  //Update Survey
+  updateSurvey(data: any): Observable<any> {
+    const { surveyId,surveyName, categoryId } = data;
+    const url = `${this.apiUrl}api/admin/${this.userId}/Survey/UpdateSurvey?surveyId=${encodeURIComponent(surveyId)}&surveyName=${encodeURIComponent(surveyName)}&categoryId=${categoryId}`;
+    console.log("posted data", data);
+    return this.http.post(url, data, { responseType: 'text' });
+  }
 
   // GetSurveyById(userId: any, surveycategoryid: any): Observable<responseDTO[]> {
   //   userId = localStorage.getItem("userId");

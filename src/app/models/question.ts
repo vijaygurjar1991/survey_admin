@@ -16,7 +16,7 @@ export class Question {
     public createdDate: string = '';
     public modifiedDate: string = '';
     public isGrouping: boolean = false;
-    public sort: number = 0;
+    public sort: number = 1;
     public isLogic: boolean = false;
     public options: Option[] = [];
     public logics: Logic[] = []

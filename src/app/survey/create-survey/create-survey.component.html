@@ -50,7 +50,7 @@
                 <h4 ngClass="mb-3">{{surveyName}}</h4>
                 <span>{{categoryName}}</span>
             </div>
-            <a routerLink="javascript:" (click)="openLg(sidecontent)"><ng-icon name="heroPencilSquare"></ng-icon></a>
+            <a  (click)="openLg(sidecontent)"><ng-icon name="heroPencilSquare"></ng-icon></a>
         </div>
         <div ngClass="question">
             <ul cdkDropList (cdkDropListDropped)="onItemDrop($event)">
@@ -83,15 +83,11 @@
                                 </div>
                             </div> -->
                             <div ngClass="ques-ans">
-                                <div class="ques-radio">
-                                    <label> <input type="radio" name="city">
-                                        <span class="checked">Vishakhapatnam</span></label>
+                                <div class="ques-radio" *ngFor="let question of question?.options;let i=index;">
+                                    <label> <input type="radio" [id]="'question_option_' + i" name="question_option">
+                                        <span class="checked">{{question.option}}</span></label>
                                 </div>
-                                <div class="ques-radio">
-                                    <label> <input type="radio" name="city">
-                                        <span class="checked">Vijaywada</span></label>
-                                </div>
-                                <div class="ques-radio">
+                                <!-- <div class="ques-radio">
                                     <label> <input type="radio" name="city">
                                         <span class="checked">Vijaywada</span></label>
                                 </div>
@@ -103,6 +99,10 @@
                                     <label> <input type="radio" name="city">
                                         <span class="checked">Vijaywada</span></label>
                                 </div>
+                                <div class="ques-radio">
+                                    <label> <input type="radio" name="city">
+                                        <span class="checked">Vijaywada</span></label>
+                                </div> -->
                             </div>
                         </div>
                     </div>
@@ -166,20 +166,17 @@
             <div class="mb-4">
                 <label for="surveyname" class="form-label">Enter Your Survey Name</label>
                 <input id="surveyname" type="text" class="form-control" name="surveyName"
-                    [(ngModel)]="readSurveyName" />
+                    [(ngModel)]="surveyName"  [ngModelOptions]="{standalone: true}"/>
             </div>
             <div class="mb-4" class="search-categories input-icon">
                 <label class="form-label">Select Survey Categories</label>
-                <input id="surveyname" type="text" class="form-control" name="categoryId"
-                    [(ngModel)]="readCategoryName" />
                 <mat-form-field>
                     <ng-icon name="heroMagnifyingGlass" class=""></ng-icon>
-                    <input type="text" placeholder="Search..." matInput placeholder="searchControl"
-                        [matAutocomplete]="auto" [(ngModel)]="readCategoryName" />
-                    <mat-autocomplete #auto="matAutocomplete">
-                        <mat-option *ngFor="let item of categoryList">
-                            {{item.name}}
-
+                    <input type="text" placeholder="Search..." matInput [formControl]="searchControl"
+                        [matAutocomplete]="auto" [(ngModel)]="categoryName" />
+                    <mat-autocomplete #auto="matAutocomplete" (optionSelected)="filterOptions($event)">
+                        <mat-option *ngFor="let option of options" [value]="option.id">
+                            {{ option.name }}
                         </mat-option>
                     </mat-autocomplete>
                 </mat-form-field>
@@ -189,8 +186,8 @@
     </div>
     <div class="modal-footer upload">
         <button type="button" class="btn close" (click)="modal.close('Close click')">Cancel</button>
-        <a routerLink="javascript:" type="button" class="btn btn-primary icon"
-            (click)=" modal.close('Close click')">Update
+        <a href="javascript:void(0);"  type="button" class="btn btn-primary icon"
+            (click)="updateSurvey();modal.close('Close click')">Update
             <ng-icon name="heroArrowLongRight" class="ms-4"></ng-icon></a>
     </div>
 </ng-template>

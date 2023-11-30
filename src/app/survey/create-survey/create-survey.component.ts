@@ -13,7 +13,8 @@ import { CryptoService } from 'src/app/service/crypto.service';
 import { UtilsService } from 'src/app/service/utils.service';
 import { isArray } from 'chart.js/dist/helpers/helpers.core';
 import { GenderPopupComponent } from '../popups/gender-popup/gender-popup.component';
-
+import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-create-survey',
@@ -57,6 +58,7 @@ export class CreateSurveyComponent implements OnInit {
   @ViewChild('PinCodeModal', { static: true }) pincodeModal!: ModalDirective;
   @ViewChild('AudioGenderDetectionModal', { static: true }) audiogenderdetectionModal!: ModalDirective;
   @ViewChild('StateModal', { static: true }) stateModal!: ModalDirective;
+  
 
 
   role: string;
@@ -71,7 +73,8 @@ export class CreateSurveyComponent implements OnInit {
   names: { name: string, image: string }[] = [];
   questions:any;
   selectedQuestionType:any;
-
+  categoryId: number;
+  selectedOption: any;
   constructor(
     private visibilityService: DataService,
     private modalService: NgbModal,
@@ -85,10 +88,6 @@ export class CreateSurveyComponent implements OnInit {
     private crypto: CryptoService,
     private utils: UtilsService
   ) {
-    this.filteredOptions = this.searchControl.valueChanges.pipe(
-      startWith(''),
-      map((value) => this._filter(value))
-    );
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
         const shouldTriggerToggle = this.route.snapshot.data['triggerToggle'];
@@ -122,7 +121,7 @@ export class CreateSurveyComponent implements OnInit {
     this.visibilityService.closeSideBar();
     this.userId = this.utils.getUserId();
 
-   // this.getCategoryNames();
+    this.getCategoryNames();
     this.hideBreadcrumb();
     this.getNames();
     this.getQuestion();
@@ -236,15 +235,23 @@ export class CreateSurveyComponent implements OnInit {
   }
 
   searchControl = new FormControl();
-  options: string[] = ['Automotive', 'Beverages - Alcholic',
-    'Beverages - Alcholic',
-    'Cosmetic, Personal Care, Toiletries', 'Education', 'Electronics', 'Entertaiment', 'Fashion, Clothing'];
+  // options: string[] = ['Automotive', 'Beverages - Alcholic',
+  //   'Beverages - Alcholic',
+  //   'Cosmetic, Personal Care, Toiletries', 'Education', 'Electronics', 'Entertaiment', 'Fashion, Clothing'];
+  options: { id: number, name: string }[] = [];
   filteredOptions: Observable<string[]> | undefined;
 
 
-  private _filter(value: string): string[] {
+  _filter(value: string): { id: number, name: string }[] {
     const filterValue = value.toLowerCase();
-    return this.options.filter((option) => option.toLowerCase().includes(filterValue));
+    return this.options.filter(option =>
+      option.name.toLowerCase().includes(filterValue) || option.id.toString().includes(filterValue)
+    );
+  }
+
+  filterOptions(e: MatAutocompleteSelectedEvent) {
+    this.categoryId = e.option.value;
+    this.categoryName = e.option.viewValue;
   }
 
   onDragEnded(): void {
@@ -309,12 +316,15 @@ export class CreateSurveyComponent implements OnInit {
       console.log("categoryList", response)
       this.categoryList = response
       console.log("update", result);
-      var models: { id: number, name: string }[] = []; // Assuming 'id' is a number
       result.forEach((value: any, index: any) => {
         if (value['id'] == this.readCategoryId)
           this.readCategoryName = value['name']
       });
-
+      const models: { id: number; name: string }[] = result.map((value: any) => ({
+        id: value['id'],
+        name: value['name']
+      }));
+      this.options = models;
     });
   }
 
@@ -322,17 +332,41 @@ export class CreateSurveyComponent implements OnInit {
     this.selectedQuestionType=id;
   }
   onCreateQuesClick(){
-    let _data = `${this.surveyId}_${this.selectedQuestionType}`;
+    let _data = `${this.surveyId}_${this.selectedQuestionType}+_add_0`;
     let encryptedText = this.crypto.encryptParam(_data);
     let url = `/survey/manage-question/${encryptedText}`;
     this.router.navigateByUrl(url);
   }
+  updateSurvey() {
+    const dataToSend = {
+      surveyId: this.surveyId,
+      surveyName: this.surveyName,
+      categoryId: this.categoryId
+    };
+    console.log("dataToSend", dataToSend)
+    this.surveyservice.updateSurvey(dataToSend).subscribe(
+      response => {
+        console.log('Response from server:', response);
+        this.surveyId = response;
+
+        if (this.surveyId) {
+          const encryptedId = this.crypto.encryptParam(`${this.surveyId}`);
+          const url = `/survey/manage-survey/${encryptedId}`;
+          //this.modal.hide();
+
+          this.router.navigateByUrl(url);
+          /*if(this.router.url.includes('/manage-survey')){
+            location.reload();
+          }*/
+        }
+      },
+      error => {
+        console.error('Error occurred while sending POST request:', error);
+        Swal.fire('', error, 'error');
+      }
+    );
 
 
-  // onDrop(event: CdkDragDrop<string[]>): void {
-  //   moveItemInArray(this.names, event.previousIndex, event.currentIndex);
-  // }
-
-
+  }
 
 }
