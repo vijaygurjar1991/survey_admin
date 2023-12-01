@@ -82,6 +82,10 @@ export class SurveyService {
     const url = `${this.apiUrl}api/admin/${this.userId}/GeneralQuestion/CreateGeneralQuestion`;
     return this.http.post(url, data, { responseType: 'text' });
   }
+  updateGeneralQuestion(data: any): Observable<any> {
+    const url = `${this.apiUrl}api/admin/${this.userId}/GeneralQuestion/UpdateGeneralQuestion`;
+    return this.http.post(url, data, { responseType: 'text' });
+  }
 
 
 

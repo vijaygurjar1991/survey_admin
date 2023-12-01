@@ -36,6 +36,7 @@ export class EditSurveyComponent {
   optionsArr2: any[] = [];
   filteredOptions: any[] = [];
   allOptions: any[] = [];
+  groups: any[] = [];
 
 
   constructor(public themeService: DataService, private router: Router,
@@ -60,12 +61,13 @@ export class EditSurveyComponent {
       }
     });
   }
+  groupedOptions: { [key: number]: { options: Option[], isRandomize: boolean, isExcluded: boolean } } = {};
   getQuestionDetails() {
     this.surveyservice.getQuestionDetailsById(this.questionId).subscribe((data: any) => {
       console.log("data", data)
-      console.log("questionTypeId",data.questionTypeId)
-      this.questionTypeId=data.questionTypeId
-      this.surveyId=data.surveyTypeId
+      console.log("questionTypeId", data.questionTypeId)
+      this.questionTypeId = data.questionTypeId
+      this.surveyId = data.surveyTypeId
       this.question.questionTypeId = parseInt(data.questionTypeId);
       this.question.surveyTypeId = parseInt(data.surveyTypeId);
       this.question.question = data.question;
@@ -73,6 +75,7 @@ export class EditSurveyComponent {
       this.question.modifiedDate = this.getCurrentDateTime();
 
       data.options.forEach((opt: any) => {
+
         let newOption = new Option();
         newOption.id = opt.id;
         newOption.option = opt.option;
@@ -85,23 +88,61 @@ export class EditSurveyComponent {
         newOption.isExcluded = opt.isExcluded;
         newOption.group = opt.group;
         newOption.sort = opt.sort;
-  
-        this.optionsArr1.push(newOption); // Push the new Option object to optionsArr1
-      });
 
+        this.optionsArr1.push(newOption); // Push the new Option object to optionsArr1
+
+        if (opt.group > 0) {
+          if (!this.groupedOptions[opt.group]) {
+            this.groupedOptions[opt.group] = {
+              options: [], // Initialize array for the options
+              isRandomize: opt.isRandomize || false, // Set isRandomize for the group
+              isExcluded: opt.isExcluded || false, // Set isExcluded for the group
+            };
+          }
+          this.groupedOptions[opt.group].options.push(newOption);
+        }
+        
+      });
+      //console.log('Grouped Options:', this.groupedOptions);
+      //console.log('length:', Object.keys(this.groupedOptions).length);
       this.filteredOptions.push(...this.optionsArr1, ...this.optionsArr2);
       this.allOptions.push(...this.optionsArr1, ...this.optionsArr2);
-
+      this.getGroupValue();
     });
+    
+    
   }
-
+  getGroupValue() {
+    if (this.groupedOptions && Object.keys(this.groupedOptions).length > 0) {
+      for (const groupKey in this.groupedOptions) {
+        if (this.groupedOptions.hasOwnProperty(groupKey)) {
+          const groupOptions = this.groupedOptions[groupKey];
+          const isRandomize = groupOptions.isRandomize || false;
+          const isExcluded = groupOptions.isExcluded || false;
+  
+          let newGroup = {
+            id: +groupKey, // Convert groupKey to number if needed
+            isRandomize: isRandomize,
+            isExcluded: isExcluded,
+            options: groupOptions.options // Assign options for this group
+          };
+  
+          this.groups.push(newGroup); // Push newGroup to groups array
+        }
+      }
+      console.log('Groups:', this.groups);
+    } else {
+      console.log('groupedOptions is empty or does not have keys.');
+    }
+  }
+  
   ngOnInit() {
     this.themeService.closeSideBar();
     this.getQuestionTypes();
-    if(this.mode!='modify'){
+    if (this.mode != 'modify') {
       this.intializeDefaultValue();
     }
-      
+
   }
 
   onQuestionTypeClick(id: any) {
@@ -263,9 +304,25 @@ export class EditSurveyComponent {
     if (this.groups.length > 0) {
       this.question.isGrouping = true;
     }
+    if(this.questionId>0){
+      this.question.id=this.questionId
+    }
 
     this.question.options = this.allOptions;
+    if(parseFloat(this.questionId)>0){
+    this.surveyservice.updateGeneralQuestion(this.question).subscribe({
+      next: (resp: any) => {
+        Swal.fire('', 'Question Updated Sucessfully.', 'success');
 
+        let url = `/survey/manage-survey/${this.crypto.encryptParam(this.surveyId)}`;
+
+        this.router.navigateByUrl(url);
+      },
+      error: (err: any) => {
+        Swal.fire('', err.error, 'error');
+      }
+    });
+  }else{
     this.surveyservice.CreateGeneralQuestion(this.question).subscribe({
       next: (resp: any) => {
         Swal.fire('', 'Question Generated Sucessfully.', 'success');
@@ -277,8 +334,8 @@ export class EditSurveyComponent {
       error: (err: any) => {
         Swal.fire('', err.error, 'error');
       }
-    });
-
+    });  
+  }
     console.log(this.question);
   }
 
@@ -320,7 +377,7 @@ export class EditSurveyComponent {
     }
   }
 
-  groups: any[] = [];
+  
   onCreateGroup() {
     let id = 1;
     if (this.groups.length > 0) {
