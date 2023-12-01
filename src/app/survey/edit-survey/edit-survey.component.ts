@@ -101,7 +101,7 @@ export class EditSurveyComponent {
           }
           this.groupedOptions[opt.group].options.push(newOption);
         }
-        
+
       });
       //console.log('Grouped Options:', this.groupedOptions);
       //console.log('length:', Object.keys(this.groupedOptions).length);
@@ -109,8 +109,8 @@ export class EditSurveyComponent {
       this.allOptions.push(...this.optionsArr1, ...this.optionsArr2);
       this.getGroupValue();
     });
-    
-    
+
+
   }
   getGroupValue() {
     if (this.groupedOptions && Object.keys(this.groupedOptions).length > 0) {
@@ -119,14 +119,14 @@ export class EditSurveyComponent {
           const groupOptions = this.groupedOptions[groupKey];
           const isRandomize = groupOptions.isRandomize || false;
           const isExcluded = groupOptions.isExcluded || false;
-  
+
           let newGroup = {
             id: +groupKey, // Convert groupKey to number if needed
             isRandomize: isRandomize,
             isExcluded: isExcluded,
             options: groupOptions.options // Assign options for this group
           };
-  
+
           this.groups.push(newGroup); // Push newGroup to groups array
         }
       }
@@ -135,7 +135,7 @@ export class EditSurveyComponent {
       console.log('groupedOptions is empty or does not have keys.');
     }
   }
-  
+
   ngOnInit() {
     this.themeService.closeSideBar();
     this.getQuestionTypes();
@@ -230,7 +230,7 @@ export class EditSurveyComponent {
     console.log("Inside IntializeDefaultValue")
     this.question.questionTypeId = parseInt(this.questionTypeId);
     this.question.surveyTypeId = parseInt(this.surveyId);
-    this.question.question = 'Please enter your age in completed years';
+    this.question.question = '';
     this.question.createdDate = this.getCurrentDateTime();
     this.question.modifiedDate = this.getCurrentDateTime();
 
@@ -304,38 +304,38 @@ export class EditSurveyComponent {
     if (this.groups.length > 0) {
       this.question.isGrouping = true;
     }
-    if(this.questionId>0){
-      this.question.id=this.questionId
+    if (this.questionId > 0) {
+      this.question.id = this.questionId
     }
 
     this.question.options = this.allOptions;
-    if(parseFloat(this.questionId)>0){
-    this.surveyservice.updateGeneralQuestion(this.question).subscribe({
-      next: (resp: any) => {
-        Swal.fire('', 'Question Updated Sucessfully.', 'success');
+    if (parseFloat(this.questionId) > 0) {
+      this.surveyservice.updateGeneralQuestion(this.question).subscribe({
+        next: (resp: any) => {
+          Swal.fire('', 'Question Updated Sucessfully.', 'success');
 
-        let url = `/survey/manage-survey/${this.crypto.encryptParam(this.surveyId)}`;
+          let url = `/survey/manage-survey/${this.crypto.encryptParam(this.surveyId)}`;
 
-        this.router.navigateByUrl(url);
-      },
-      error: (err: any) => {
-        Swal.fire('', err.error, 'error');
-      }
-    });
-  }else{
-    this.surveyservice.CreateGeneralQuestion(this.question).subscribe({
-      next: (resp: any) => {
-        Swal.fire('', 'Question Generated Sucessfully.', 'success');
+          this.router.navigateByUrl(url);
+        },
+        error: (err: any) => {
+          Swal.fire('', err.error, 'error');
+        }
+      });
+    } else {
+      this.surveyservice.CreateGeneralQuestion(this.question).subscribe({
+        next: (resp: any) => {
+          Swal.fire('', 'Question Generated Sucessfully.', 'success');
 
-        let url = `/survey/manage-survey/${this.crypto.encryptParam(this.surveyId)}`;
+          let url = `/survey/manage-survey/${this.crypto.encryptParam(this.surveyId)}`;
 
-        this.router.navigateByUrl(url);
-      },
-      error: (err: any) => {
-        Swal.fire('', err.error, 'error');
-      }
-    });  
-  }
+          this.router.navigateByUrl(url);
+        },
+        error: (err: any) => {
+          Swal.fire('', err.error, 'error');
+        }
+      });
+    }
     console.log(this.question);
   }
 
@@ -377,7 +377,7 @@ export class EditSurveyComponent {
     }
   }
 
-  
+
   onCreateGroup() {
     let id = 1;
     if (this.groups.length > 0) {

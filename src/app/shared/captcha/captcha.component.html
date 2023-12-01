@@ -1,6 +1,8 @@
 <div>
-    <p> Solve the following math problem: </p>
-    <p><span class="captcha-box">{{ num1 }} {{ operator }} {{ num2 }} = ? </span></p>
-    <p><input class="form-control" [ngStyle]="{'max-width':'100px'}" type="text" [(ngModel)]="userInput" /></p>
+    <label class="form-label mb-2">Solve the following math problem: </label>
+    <div class="d-flex align-items-center">
+        <div class="me-3"><span class="captcha-box">{{ num1 }} {{ operator }} {{ num2 }} = ? </span></div>
+        <div><input class="form-control" [ngStyle]="{'max-width':'100px'}" type="text" [(ngModel)]="userInput" /></div>
+    </div>
     <p class="text-danger" *ngIf="!isValid">Captcha is incorrect. Please try again.</p>
 </div>

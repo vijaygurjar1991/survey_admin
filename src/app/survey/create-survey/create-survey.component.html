@@ -50,7 +50,7 @@
                 <h4 ngClass="mb-3">{{surveyName}}</h4>
                 <span>{{categoryName}}</span>
             </div>
-            <a  (click)="openLg(sidecontent)"><ng-icon name="heroPencilSquare"></ng-icon></a>
+            <a (click)="openLg(sidecontent)"><ng-icon name="heroPencilSquare"></ng-icon></a>
         </div>
         <div ngClass="question">
             <ul cdkDropList (cdkDropListDropped)="onItemDrop($event)">
@@ -66,8 +66,9 @@
                                 </a>
                                 <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                                     <li>
-                                        <a href="javascript:void(0);" class="dropdown-item">
-                                            <ng-icon name="heroPencil" (click)="onEditQuestionClick(question?.id)"></ng-icon>
+                                        <a href="javascript:void(0);" class="dropdown-item"
+                                            (click)="onEditQuestionClick(question?.id)">
+                                            <ng-icon name="heroPencil"></ng-icon>
                                             Edit
                                         </a>
                                     </li>
@@ -169,8 +170,8 @@
         <form>
             <div class="mb-4">
                 <label for="surveyname" class="form-label">Enter Your Survey Name</label>
-                <input id="surveyname" type="text" class="form-control" name="surveyName"
-                    [(ngModel)]="surveyName"  [ngModelOptions]="{standalone: true}"/>
+                <input id="surveyname" type="text" class="form-control" name="surveyName" [(ngModel)]="surveyName"
+                    [ngModelOptions]="{standalone: true}" />
             </div>
             <div class="mb-4" class="search-categories input-icon">
                 <label class="form-label">Select Survey Categories</label>
@@ -190,7 +191,7 @@
     </div>
     <div class="modal-footer upload">
         <button type="button" class="btn close" (click)="modal.close('Close click')">Cancel</button>
-        <a href="javascript:void(0);"  type="button" class="btn btn-primary icon"
+        <a href="javascript:void(0);" type="button" class="btn btn-primary icon"
             (click)="updateSurvey();modal.close('Close click')">Update
             <ng-icon name="heroArrowLongRight" class="ms-4"></ng-icon></a>
     </div>
