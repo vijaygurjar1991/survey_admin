@@ -234,7 +234,7 @@ export class EditSurveyComponent {
     this.question.createdDate = this.getCurrentDateTime();
     this.question.modifiedDate = this.getCurrentDateTime();
 
-    let newOption1 = new Option();
+    /*let newOption1 = new Option();
     newOption1.createdDate = this.getCurrentDateTime();
     newOption1.modifiedDate = this.getCurrentDateTime();
     newOption1.option = 'testing 1';
@@ -257,7 +257,7 @@ export class EditSurveyComponent {
     newOption4.modifiedDate = this.getCurrentDateTime();
     newOption4.option = 'Other';
     this.optionsArr2.push(newOption4);
-
+    */
     this.filteredOptions.push(...this.optionsArr1, ...this.optionsArr2);
     this.allOptions.push(...this.optionsArr1, ...this.optionsArr2);
 

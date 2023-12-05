@@ -10,9 +10,8 @@
                     <div class="mb-4">
                         <label for="surveyname" class="form-label">Enter Your Question</label>
                         <div class="input-group">
-                            <input type="text" class="form-control"
-                                [value]="questions && questions.length > 0 ? questions[0].question : ''" />
-
+                            <input type="text" class="form-control" [ngModel]="questionText"
+                                (ngModelChange)="questionText = $event" id="questionText" name="questionText" />
                         </div>
                     </div>
                     <div class="mb-4">
@@ -23,11 +22,11 @@
                         <div class="select-values" *ngIf="questions && questions.length > 0">
                             <ul>
                                 <li *ngFor="let option of questions[0]?.options">
-                                    <button [(ngModel)]="option.selected" [ngModelOptions]="{standalone: true}">
+                                    <button>
 
                                         <figure>
-                                            <img loading="lazy" src="../../../../assets/images/{{option.image}}" [alt]="option.option"
-                                                width="67" height="90" />
+                                            <img loading="lazy" src="../../../../assets/images/{{option.image}}"
+                                                [alt]="option.option" width="67" height="90" />
                                         </figure>
                                         <figcaption>
                                             <h5>{{ option.option }}</h5>
