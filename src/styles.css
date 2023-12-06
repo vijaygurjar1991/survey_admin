@@ -619,7 +619,7 @@ article {
     border: 1px solid #dee2e6;
     border-radius: 5px;
     width: 100%;
-    padding: .8rem 1rem;
+    padding: .6rem 1rem;
     color: var(--text-color)
 }
 
@@ -1564,9 +1564,9 @@ label {
 }
 
 
-.checking label.form-check-label {
+/* .checking label.form-check-label {
     padding-top: 0.25rem;
-}
+} */
 
 .sort span#addon-wrapping {
     font-size: smaller;

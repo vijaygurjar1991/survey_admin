@@ -80,7 +80,7 @@
                             </div>
                         </div>
                         <div ngClass="ques-body p-4">
-                            <h5 ngClass="mb-4">{{question?.question}}</h5>
+                            <h5 ngClass="mb-3">{{question?.question}}</h5>
                             <!-- <div ngClass="ques-ans" *ngFor="let option of questions?.options">
                                 <div class="ques-radio">
                                     <label> <input type="radio" name="city">
@@ -92,15 +92,16 @@
                                     <label> <input type="radio" [id]="'question_option_' + i" name="question_option">
                                         <span class="checked">{{question.option}}</span></label>
                                 </div>
-                                <div ngClass="p-4">
+                                <div ngClass="py-4">
                                     <h5 ngClass="mb-4">Logic</h5>
                                     <div ngClass="mb-4">
                                         <div class="logic-tab">
                                             <!-- Nav tabs -->
                                             <ul class="nav flex-column nav-tabs" id="myTab" role="tablist">
                                                 <li class="nav-item" role="presentation">
-                                                    <button class="nav-link active" id="branching-tab" data-bs-toggle="tab"
-                                                        data-bs-target="#branching" role="tab" aria-selected="true">Branching</button>
+                                                    <button class="nav-link active" id="branching-tab"
+                                                        data-bs-toggle="tab" data-bs-target="#branching" role="tab"
+                                                        aria-selected="true">Branching</button>
                                                 </li>
                                                 <li class="nav-item" role="presentation">
                                                     <button class="nav-link" id="profile-tab" data-bs-toggle="tab"
@@ -109,21 +110,25 @@
                                                 </li>
                                                 <li class="nav-item" role="presentation">
                                                     <button class="nav-link" id="messages-tab" data-bs-toggle="tab"
-                                                        data-bs-target="#messages" role="tab" aria-selected="false">Custom
+                                                        data-bs-target="#messages" role="tab"
+                                                        aria-selected="false">Custom
                                                         Logic</button>
                                                 </li>
                                                 <li class="nav-item" role="presentation">
                                                     <button class="nav-link" id="settings-tab" data-bs-toggle="tab"
-                                                        data-bs-target="#settings" role="tab" aria-selected="false">Multiple
+                                                        data-bs-target="#settings" role="tab"
+                                                        aria-selected="false">Multiple
                                                         Question</button>
                                                 </li>
                                                 <li class="nav-item" role="presentation">
                                                     <button class="nav-link" id="settings-tab" data-bs-toggle="tab"
-                                                        data-bs-target="#settings" role="tab" aria-selected="false">Calculator</button>
+                                                        data-bs-target="#settings" role="tab"
+                                                        aria-selected="false">Calculator</button>
                                                 </li>
                                                 <li class="nav-item" role="presentation">
                                                     <button class="nav-link" id="settings-tab" data-bs-toggle="tab"
-                                                        data-bs-target="#settings" role="tab" aria-selected="false">Autocode</button>
+                                                        data-bs-target="#settings" role="tab"
+                                                        aria-selected="false">Autocode</button>
                                                 </li>
                                             </ul>
                                             <!-- Logic Question -->
@@ -134,7 +139,8 @@
                                                     <div ngClass="d-flex justify-content-between mb-3">
                                                         <h6>Redirect to different questions based on user's answer.</h6>
                                                         <div class="form-check checking">
-                                                            <input class="form-check-input" type="checkbox" value="" id="verify">
+                                                            <input class="form-check-input" type="checkbox" value=""
+                                                                id="verify">
                                                             <label class="form-check-label" for="verify">
                                                                 Double Verify
                                                             </label>
@@ -144,10 +150,14 @@
                                                         <div class="input-group flex-nowrap">
                                                             <span class="input-group-text" id="addon-wrapping">In</span>
                                                             <select class="form-select">
-                                                                <option selected>Q3: Please enter your age in completed years</option>
-                                                                <option value="1">Q3: Please enter your age in completed years</option>
-                                                                <option value="2">Q2: Please enter your age in completed years</option>
-                                                                <option value="3">Q1: Please enter your age in completed years</option>
+                                                                <option selected>Q3: Please enter your age in completed
+                                                                    years</option>
+                                                                <option value="1">Q3: Please enter your age in completed
+                                                                    years</option>
+                                                                <option value="2">Q2: Please enter your age in completed
+                                                                    years</option>
+                                                                <option value="3">Q1: Please enter your age in completed
+                                                                    years</option>
                                                             </select>
                                                         </div>
                                                         <div ngClass="if-then">
@@ -166,16 +176,18 @@
                                                                     </select>
                                                                 </div>
                                                                 <div class="col-md-3">
-                                                                    <input type="text" id="" class="form-control" value="5">
+                                                                    <input type="text" id="" class="form-control"
+                                                                        value="5">
                                                                 </div>
                                                                 <div class="col-md-1">
-                                                                    <a routerLink="javascript:"><ng-icon name="heroPlusCircle"
+                                                                    <a routerLink="javascript:"><ng-icon
+                                                                            name="heroPlusCircle"
                                                                             ngClass="plus-circle"></ng-icon></a>
                                                                 </div>
                                                                 <div class="col-md-4 checking">
                                                                     <div class="form-check d-flex justify-content-end">
-                                                                        <input class="form-check-input me-2" type="checkbox" value=""
-                                                                            id="selectAll">
+                                                                        <input class="form-check-input me-2"
+                                                                            type="checkbox" value="" id="selectAll">
                                                                         <label class="form-check-label" for="selectAll">
                                                                             Select All
                                                                         </label>
@@ -196,22 +208,27 @@
                                                                     </select>
                                                                 </div>
                                                                 <div class="col-md-4">
-                                                                    <input type="text" id="" class="form-control" value="5">
+                                                                    <input type="text" id="" class="form-control"
+                                                                        value="5">
                                                                 </div>
                                                                 <div class="col-md-1">
-                                                                    <a routerLink="javascript:"><ng-icon name="heroTrash"
+                                                                    <a routerLink="javascript:"><ng-icon
+                                                                            name="heroTrash"
                                                                             ngClass="trash-icon"></ng-icon></a>
                                                                 </div>
                                                             </div>
                                                         </div>
-                
+
                                                     </div>
                                                 </div>
-                                                <div class="tab-pane" id="profile" role="tabpanel" aria-labelledby="profile-tab">zxcvb
+                                                <div class="tab-pane" id="profile" role="tabpanel"
+                                                    aria-labelledby="profile-tab">zxcvb
                                                 </div>
-                                                <div class="tab-pane" id="messages" role="tabpanel" aria-labelledby="messages-tab">...
+                                                <div class="tab-pane" id="messages" role="tabpanel"
+                                                    aria-labelledby="messages-tab">...
                                                 </div>
-                                                <div class="tab-pane" id="settings" role="tabpanel" aria-labelledby="settings-tab">...
+                                                <div class="tab-pane" id="settings" role="tabpanel"
+                                                    aria-labelledby="settings-tab">...
                                                 </div>
                                             </div>
                                         </div>
