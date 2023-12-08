@@ -417,6 +417,7 @@ export class CreateSurveyComponent implements OnInit {
     });
   }
   createLogic(questionId: any,ifId:any,ifExpected:any,thanId:any,thanExpected:any) {
+    this.questionLogic.surveyId=this.surveyId
     this.questionLogic.questionId =questionId
     this.questionLogic.ifId=ifId
     this.questionLogic.ifExpected=ifExpected
