@@ -416,17 +416,18 @@ export class CreateSurveyComponent implements OnInit {
       this.logicQuestionList = response
     });
   }
-  createLogic() {
-    const dataToSend = {
-      surveyId: this.surveyId,
-      surveyName: this.surveyName,
-      categoryId: this.categoryId
-    };
-    console.log("dataToSend", dataToSend)
-    this.surveyservice.createLogic(dataToSend).subscribe(
+  createLogic(questionId: any,ifId:any,ifExpected:any,thanId:any,thanExpected:any) {
+    this.questionLogic.questionId =questionId
+    this.questionLogic.ifId=ifId
+    this.questionLogic.ifExpected=ifExpected
+    this.questionLogic.thanId=thanId
+    this.questionLogic.thanExpected=thanExpected
+    
+    console.log("dataToSend", this.questionLogic)
+    this.surveyservice.createLogic(this.questionLogic).subscribe(
       response => {
         console.log('Response from server:', response);
-        this.surveyId = response;
+        Swal.fire('', 'Logic Created Sucessfully.', 'success');
       },
       error => {
         console.error('Error occurred while sending POST request:', error);

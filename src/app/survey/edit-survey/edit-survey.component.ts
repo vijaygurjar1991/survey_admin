@@ -141,6 +141,9 @@ export class EditSurveyComponent {
     this.getQuestionTypes();
     if (this.mode != 'modify') {
       this.intializeDefaultValue();
+      this.hanldeAddOptionClick();
+      this.hanldeAddOptionClick();
+      this.hanldeAddOptionClick();
     }
 
   }

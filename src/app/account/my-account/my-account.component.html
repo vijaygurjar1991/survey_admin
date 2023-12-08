@@ -10,17 +10,16 @@
         <form>
             <div ngClass="account-picture mb-4">
                 <figure>
-                    <a href="javascript:" class="me-4">
-                        <input type="file" (change)="onFileSelected($event)" accept="image/*" [(ngModel)]="imageName" name="imageName" />
-                        
-                        <img *ngIf="selectedImage" [src]="selectedImage" class="object-fit-cover rounded-circle" width="80" height="80" />
-                    </a>
+                  <a href="javascript:" class="me-4">
+                    <input type="file" (change)="onFileSelected($event)" accept="image/*" />
+                    <img *ngIf="selectedImage" [src]="selectedImage" class="object-fit-cover rounded-circle" width="80" height="80" />
+                  </a>
                 </figure>
                 <figcaption>
-                    <h5>Profile Pictures</h5>
-                    <h6>PNG,JPG,GIF max size of 5MB</h6>
+                  <h5>Profile Pictures</h5>
+                  <h6>PNG, JPG, GIF max size of 5MB</h6>
                 </figcaption>
-            </div>
+            </div>              
             <div class="row">
                 <div class="col-md-6 mb-4">
                     <label for="name" class="form-label">First Name</label>

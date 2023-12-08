@@ -68,7 +68,7 @@ export class SurveyListingComponent {
   toggleSlider(event: Event, itemId: number, item: any) {
     const isChecked = (event.target as HTMLInputElement).checked;
     const originalStatus = item.status;
-    if (this.role === 'admin' || this.role === 'superadmin' || this.role === 'user') {
+    if (this.role === 'admin' || this.role === 'superadmin') {
       let surveyStatus = isChecked ? 'ACT' : 'DEL';
       const dataToSend = {
         surveyId: itemId,

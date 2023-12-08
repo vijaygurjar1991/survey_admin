@@ -45,28 +45,28 @@
                         </td>
                         <td>  
                             {{
-                                (item.modifiedDate ? (item.modifiedDate | date:'medium':'UTC') : (item.createdDate | date:'medium':'UTC'))
+                                (item.modifiedDate ? (item.modifiedDate | date:'medium':'IST') : (item.createdDate | date:'medium':'IST'))
                             }}
                         </td>
                         <!-- <td [ngClass]="{'done': item.status === 'ACT', 'paused': item.status !== 'ACT'}">
                             <span>{{ item.status === 'ACT' ? 'Ongoing' : 'Pause' }}</span>
                         </td> -->
                         <td>
-                            <label class="toggle" ><!--*ngIf="role === 'admin' || role === 'superadmin'"-->>
+                            <label class="toggle" *ngIf="role === 'admin' || role === 'superadmin'"><!--*ngIf="role === 'admin' || role === 'superadmin'"-->
                               <input type="checkbox" [checked]="item.status === 'ACT'" (change)="toggleSlider($event, item.id, item)">
                               <span class="slider round"></span>
                             </label>
-                            <!-- <label class="toggle" *ngIf="role !== 'admin' && role !== 'superadmin'">
-                                <input type="checkbox" [checked]="item.status === 'ACT'" readonly>
+                            <label class="toggle" *ngIf="role !== 'admin' && role !== 'superadmin'">
+                                <input type="checkbox" [checked]="item.status === 'ACT'" [disabled]="true">
                                 <span class="slider round"></span>
-                            </label> -->
+                            </label>
                           </td>
                         <td ngClass="action" >
                             <a *ngIf="item.status!='ACT'" href="javascript:"
                                 [routerLink]="'/survey/manage-survey/'+ (item.id | encrypt)">
                                 <ng-icon name="heroPencil" ngClass="edit-action"></ng-icon></a>
-                            <a *ngIf="item.status=='ACT' && (role=='admin' || role=='superadmin')" href="javascript:">
-                                <ng-icon name="heroPencil" ngClass="edit-action"></ng-icon></a>
+                            <!-- <a *ngIf="item.status=='ACT'" href="javascript:">
+                                <ng-icon name="heroPencil" ngClass="edit-action"></ng-icon></a> -->
                         </td>
 
                     </tr>

@@ -5,6 +5,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { responseDTO } from '../types/responseDTO';
 import { Observable } from 'rxjs';
+import { UtilsService } from './utils.service';
 
 @Injectable({
   providedIn: 'root'
@@ -12,6 +13,8 @@ import { Observable } from 'rxjs';
 export class DataService {
   public isSidebarVisibleSubject = new BehaviorSubject<boolean>(true);
   isSidebarVisible$ = this.isSidebarVisibleSubject.asObservable();
+
+  private userId:any;
 
   // Collapse left sidebar
   public addMargin: boolean = false;
@@ -62,7 +65,9 @@ export class DataService {
 
   // APIs
   apiUrl = environment.apiUrl;
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient,private util: UtilsService) { 
+    this.userId = util.getUserId();
+  }
 
   // About Us get & Post APIs
   GetAboutUs(userId: any): Observable<responseDTO[]> {
@@ -135,6 +140,14 @@ export class DataService {
     const url = `${this.apiUrl}api/admin/${userId}/Profile/CreateProfile`;
     console.log("posted data", data);
     return this.http.post(url, data, { responseType: 'text' });
+  }
+  uploadImage(file: File): Observable<any> {
+    const formData = new FormData();
+    formData.append('file', file);
+    var userId = localStorage.getItem("userId")
+    const url = `${this.apiUrl}api/admin/${this.userId}/Profile/ChangeProfileImage`;
+    // Replace 'your_upload_endpoint' with your actual upload API endpoint
+    return this.http.post<any>(url, formData);
   }
   // User get & Post APIs
 
