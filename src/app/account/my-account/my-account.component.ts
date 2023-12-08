@@ -117,16 +117,36 @@ export class MyAccountComponent {
 
   // Upload Image
   
-  selectedImage: File | undefined;
-  onFileSelected(event: any) {
-    const file = event.target.files[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onload = (e: any) => {
-        this.selectedImage = e.target.result;
-      };
-      reader.readAsDataURL(file);
+  selectedImage: string | ArrayBuffer | null = null;
+
+onFileSelected(event: any): void {
+  const file = event.target.files[0];
+  if (file) {
+    const reader = new FileReader();
+    reader.onload = (e: any) => {
+      this.selectedImage = e.target.result;
+      this.onUpload(file); // Trigger upload after selecting the file
+    };
+    reader.readAsDataURL(file);
+  }
+}
+
+onUpload(file: File): void {
+  if (!file) {
+    console.error('No file selected.');
+    return;
+  }
+  console.log("inside onUpload");
+  this.themeService.uploadImage(file).subscribe(
+    (response) => {
+      console.log('Upload successful:', response);
+      // Handle response from server
+    },
+    (error) => {
+      console.error('Error occurred while uploading:', error);
+      // Handle error
     }
+  );
 }
 
 }
