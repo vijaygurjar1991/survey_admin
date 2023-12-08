@@ -104,5 +104,31 @@ export class SurveyService {
     const url = `${this.apiUrl}api/admin/${this.userId}/GeneralQuestion/QuestionById?qid=${questionId}`;
     return this.http.get<responseDTO[]>(url);
   }
+  getLogicValues() {
+    return this.http
+      .get<responseDTO>(`${this.apiUrl}api/admin/${this.userId}/Logics/GetValues`)
+      .pipe(map((result) => result as responseDTO));
+  }
+  getLogicThens() {
+    return this.http
+      .get<responseDTO>(`${this.apiUrl}api/admin/${this.userId}/Logics/GetThens`)
+      .pipe(map((result) => result as responseDTO));
+  }
+  updateSurveyStatus(data: any): Observable<any> {
+    const { surveyId,surveyStatus } = data;
+    const url = `${this.apiUrl}api/admin/${this.userId}/Survey/UpdateSurvey?surveyId=${encodeURIComponent(surveyId)}&status=${encodeURIComponent(surveyStatus)}`;
+    console.log("posted data", data);
+    return this.http.post(url, data, { responseType: 'text' });
+  }
+  getLogicQuestionList(data: any) {
+    const { surveyId,questionId } = data;
+    return this.http
+      .get<responseDTO>(`${this.apiUrl}api/admin/${this.userId}/GeneralQuestion/GetList?surveyID=${encodeURIComponent(surveyId)}`)
+      .pipe(map((result) => result as responseDTO));
+  }
+  createLogic(data: any): Observable<any> {
+    const url = `${this.apiUrl}api/admin/${this.userId}/GeneralQuestion/CreateLogicsOnGeneralQuestion`;
+    return this.http.post(url, data, { responseType: 'text' });
+  }
 
 }

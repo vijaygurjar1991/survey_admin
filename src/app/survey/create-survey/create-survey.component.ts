@@ -15,6 +15,7 @@ import { isArray } from 'chart.js/dist/helpers/helpers.core';
 import { GenderPopupComponent } from '../popups/gender-popup/gender-popup.component';
 import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import Swal from 'sweetalert2';
+import { QuestionLogic } from 'src/app/models/question-logic';
 
 @Component({
   selector: 'app-create-survey',
@@ -58,7 +59,7 @@ export class CreateSurveyComponent implements OnInit {
   @ViewChild('PinCodeModal', { static: true }) pincodeModal!: ModalDirective;
   @ViewChild('AudioGenderDetectionModal', { static: true }) audiogenderdetectionModal!: ModalDirective;
   @ViewChild('StateModal', { static: true }) stateModal!: ModalDirective;
-  
+
 
 
   role: string;
@@ -71,10 +72,16 @@ export class CreateSurveyComponent implements OnInit {
   readCategoryName: any
   categoryList: any;
   names: { name: string, image: string }[] = [];
-  questions:any;
-  selectedQuestionType:any;
+  questions: any;
+  selectedQuestionType: any;
   categoryId: number;
   selectedOption: any;
+  isLogicShow: boolean = false
+  logicValuesList:any
+  logicThensList:any
+  logicQuestionList:any
+
+  questionLogic: QuestionLogic = new QuestionLogic();
   constructor(
     private visibilityService: DataService,
     private modalService: NgbModal,
@@ -126,6 +133,8 @@ export class CreateSurveyComponent implements OnInit {
     this.getNames();
     this.getQuestion();
     this.GetSurveyDetails()
+    this.getLogicValues();
+    this.getLogicThens();
   }
   onGenericQuestionClick(type: any): void {
     if (type === "Gender") {
@@ -276,7 +285,7 @@ export class CreateSurveyComponent implements OnInit {
     });
   }
 
-  question:any[]=[];
+  question: any[] = [];
 
   getQuestion() {
     this.surveyservice.GetQuestionTypes().subscribe({
@@ -328,18 +337,18 @@ export class CreateSurveyComponent implements OnInit {
     });
   }
 
-  onQuestionTypeClick(id:any){
-    this.selectedQuestionType=id;
+  onQuestionTypeClick(id: any) {
+    this.selectedQuestionType = id;
   }
-  onCreateQuesClick(){
+  onCreateQuesClick() {
     let _data = `${this.surveyId}_${this.selectedQuestionType}_add_0`;
     let encryptedText = this.crypto.encryptParam(_data);
     let url = `/survey/manage-question/${encryptedText}`;
     this.router.navigateByUrl(url);
   }
   //onEditQuestionClick
-  onEditQuestionClick(questionId:any){
-    console.log("modifyQuestionId",questionId)
+  onEditQuestionClick(questionId: any) {
+    console.log("modifyQuestionId", questionId)
     let _data = `${this.surveyId}_${this.selectedQuestionType}_modify_${questionId}`;
     let encryptedText = this.crypto.encryptParam(_data);
     let url = `/survey/manage-question/${encryptedText}`;
@@ -376,5 +385,57 @@ export class CreateSurveyComponent implements OnInit {
 
 
   }
+  toggleLogic(index: number,questionId:any) {
+    this.questions[index].isLogicShow = !this.questions[index].isLogicShow;
+    this.getLogicQuestionList(questionId)
+  }
+
+  getLogicValues() {
+    this.surveyservice.getLogicValues().subscribe((response: { [x: string]: any; }) => {
+      var result = Object.keys(response).map(e => response[e]);
+      console.log("logicValues", response)
+      this.logicValuesList = response
+    });
+  }
+  getLogicThens() {
+    this.surveyservice.getLogicThens().subscribe((response: { [x: string]: any; }) => {
+      var result = Object.keys(response).map(e => response[e]);
+      console.log("logicThens", response)
+      this.logicThensList = response
+    });
+  }
+  getLogicQuestionList(questionId:any){
+    this.logicQuestionList='';
+    const dataToSend = {
+      surveyId: this.surveyId,
+      surveyStatus: questionId
+    };
+    this.surveyservice.getLogicQuestionList(dataToSend).subscribe((response: { [x: string]: any; }) => {
+      var result = Object.keys(response).map(e => response[e]);
+      console.log("logicQuestionList", response)
+      this.logicQuestionList = response
+    });
+  }
+  createLogic() {
+    const dataToSend = {
+      surveyId: this.surveyId,
+      surveyName: this.surveyName,
+      categoryId: this.categoryId
+    };
+    console.log("dataToSend", dataToSend)
+    this.surveyservice.createLogic(dataToSend).subscribe(
+      response => {
+        console.log('Response from server:', response);
+        this.surveyId = response;
+      },
+      error => {
+        console.error('Error occurred while sending POST request:', error);
+        Swal.fire('', error, 'error');
+      }
+    );
+
+
+  }
+  
 
 }

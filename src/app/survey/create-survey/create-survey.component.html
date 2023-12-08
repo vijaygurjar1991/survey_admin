@@ -72,6 +72,12 @@
                                             Edit
                                         </a>
                                     </li>
+                                    <li>
+                                        <a href="javascript:void(0);" class="dropdown-item" (click)="toggleLogic(i,question?.id)">
+                                            <ng-icon name="heroPencil"></ng-icon>
+                                            Logic
+                                        </a>
+                                    </li>
                                     <li><a class="dropdown-item" routerLink="#"><ng-icon
                                                 name="heroDocumentDuplicate"></ng-icon>Clone</a></li>
                                     <li><a class="dropdown-item delete-hover" routerLink="#"><ng-icon
@@ -81,18 +87,12 @@
                         </div>
                         <div ngClass="ques-body p-4">
                             <h5 ngClass="mb-4">{{question?.question}}</h5>
-                            <!-- <div ngClass="ques-ans" *ngFor="let option of questions?.options">
-                                <div class="ques-radio">
-                                    <label> <input type="radio" name="city">
-                                        <span class="checked">{{option}}</span></label>
-                                </div>
-                            </div> -->
                             <div ngClass="ques-ans">
                                 <div class="ques-radio" *ngFor="let question of question?.options;let i=index;">
                                     <label> <input type="radio" [id]="'question_option_' + i" name="question_option">
                                         <span class="checked">{{question.option}}</span></label>
                                 </div>
-                                <div ngClass="p-4">
+                                <div ngClass="p-4" *ngIf="question.isLogicShow">
                                     <h5 ngClass="mb-4">Logic</h5>
                                     <div ngClass="mb-4">
                                         <div class="logic-tab">
@@ -144,10 +144,7 @@
                                                         <div class="input-group flex-nowrap">
                                                             <span class="input-group-text" id="addon-wrapping">In</span>
                                                             <select class="form-select">
-                                                                <option selected>Q3: Please enter your age in completed years</option>
-                                                                <option value="1">Q3: Please enter your age in completed years</option>
-                                                                <option value="2">Q2: Please enter your age in completed years</option>
-                                                                <option value="3">Q1: Please enter your age in completed years</option>
+                                                                <option selected>{{question?.question}}</option>
                                                             </select>
                                                         </div>
                                                         <div ngClass="if-then">
@@ -160,13 +157,13 @@
                                                                 </div>
                                                                 <div class="col-md-3">
                                                                     <select class="form-select">
-                                                                        <option selected>Is Greater then</option>
-                                                                        <option value="1">Is Less than</option>
-                                                                        <option value="2">Is equal to</option>
+                                                                        <option *ngFor="let item of logicValuesList;let i=index;" value="{{item.id}}">{{item.name}}</option>
                                                                     </select>
                                                                 </div>
                                                                 <div class="col-md-3">
-                                                                    <input type="text" id="" class="form-control" value="5">
+                                                                    <select class="form-select">
+                                                                        <option *ngFor="let item of question?.options;let i=index;" value="{{item.id}}">{{item.option}}</option>
+                                                                    </select>  
                                                                 </div>
                                                                 <div class="col-md-1">
                                                                     <a routerLink="javascript:"><ng-icon name="heroPlusCircle"
@@ -190,13 +187,13 @@
                                                             <div class="row g-2 align-items-center">
                                                                 <div class="col-md-4">
                                                                     <select class="form-select">
-                                                                        <option selected>Go To</option>
-                                                                        <option value="1">Go To</option>
-                                                                        <option value="2">Go To</option>
+                                                                        <option *ngFor="let item of logicThensList;let i=index;" value="{{item.id}}">{{item.name}}</option>
                                                                     </select>
                                                                 </div>
                                                                 <div class="col-md-4">
-                                                                    <input type="text" id="" class="form-control" value="5">
+                                                                    <select class="form-select">
+                                                                        <option *ngFor="let item of logicQuestionList;let i=index;" value="{{item.id}}">{{item.item}}</option>
+                                                                    </select>
                                                                 </div>
                                                                 <div class="col-md-1">
                                                                     <a routerLink="javascript:"><ng-icon name="heroTrash"
@@ -205,6 +202,11 @@
                                                             </div>
                                                         </div>
                 
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-12 text-end">
+                                                            <button type="button" class="btn btn-primary" (click)="createLogic()">Save</button>
+                                                        </div>
                                                     </div>
                                                 </div>
                                                 <div class="tab-pane" id="profile" role="tabpanel" aria-labelledby="profile-tab">zxcvb
@@ -217,22 +219,6 @@
                                         </div>
                                     </div>
                                 </div>
-                                <!-- <div class="ques-radio">
-                                    <label> <input type="radio" name="city">
-                                        <span class="checked">Vijaywada</span></label>
-                                </div>
-                                <div class="ques-radio">
-                                    <label> <input type="radio" name="city">
-                                        <span class="checked">Vijaywada</span></label>
-                                </div>
-                                <div class="ques-radio">
-                                    <label> <input type="radio" name="city">
-                                        <span class="checked">Vijaywada</span></label>
-                                </div>
-                                <div class="ques-radio">
-                                    <label> <input type="radio" name="city">
-                                        <span class="checked">Vijaywada</span></label>
-                                </div> -->
                             </div>
                         </div>
                     </div>

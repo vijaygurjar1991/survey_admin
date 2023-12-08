@@ -7,6 +7,8 @@ import { FormsModule } from '@angular/forms';
 
 // import { EditorModule, TINYMCE_SCRIPT_SRC } from '@tinymce/tinymce-angular';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+
 import { MatInputModule } from '@angular/material/input';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatChipsModule } from '@angular/material/chips';
@@ -70,6 +72,7 @@ import { ModalModule } from 'ngx-bootstrap/modal';
     FormsModule,
     ModalModule,
     MatAutocompleteModule,
+    MatSlideToggleModule,
     MatInputModule,
     ReactiveFormsModule,
     MatChipsModule,
@@ -94,6 +97,7 @@ import { ModalModule } from 'ngx-bootstrap/modal';
       heroTrash
     }),
     BrowserAnimationsModule,
+    
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   providers: [

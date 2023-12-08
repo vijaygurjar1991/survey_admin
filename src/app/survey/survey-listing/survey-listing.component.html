@@ -43,18 +43,32 @@
                                 style="width: 30px;height: 30px;" />
                             {{item.userName}}
                         </td>
-                        <td>28-09-2023 | 14:53</td>
-                        <!-- <td
-                            [ngClass]="{ 'status': true, 'done': item.status === 'ACT', 'ongoing': item.status === 'ongoing' }"> -->
-                        <td [ngClass]="{'done': item.status === 'ACT', 'paused': item.status !== 'ACT'}">
-                            <span>{{ item.status === 'ACT' ? 'Ongoing' : 'Pause' }}</span>
-
+                        <td>  
+                            {{
+                                (item.modifiedDate ? (item.modifiedDate | date:'medium':'UTC') : (item.createdDate | date:'medium':'UTC'))
+                            }}
                         </td>
-                        <td ngClass="action">
-                            <a href="javascript:"
+                        <!-- <td [ngClass]="{'done': item.status === 'ACT', 'paused': item.status !== 'ACT'}">
+                            <span>{{ item.status === 'ACT' ? 'Ongoing' : 'Pause' }}</span>
+                        </td> -->
+                        <td>
+                            <label class="toggle" ><!--*ngIf="role === 'admin' || role === 'superadmin'"-->>
+                              <input type="checkbox" [checked]="item.status === 'ACT'" (change)="toggleSlider($event, item.id, item)">
+                              <span class="slider round"></span>
+                            </label>
+                            <!-- <label class="toggle" *ngIf="role !== 'admin' && role !== 'superadmin'">
+                                <input type="checkbox" [checked]="item.status === 'ACT'" readonly>
+                                <span class="slider round"></span>
+                            </label> -->
+                          </td>
+                        <td ngClass="action" >
+                            <a *ngIf="item.status!='ACT'" href="javascript:"
                                 [routerLink]="'/survey/manage-survey/'+ (item.id | encrypt)">
                                 <ng-icon name="heroPencil" ngClass="edit-action"></ng-icon></a>
+                            <a *ngIf="item.status=='ACT' && (role=='admin' || role=='superadmin')" href="javascript:">
+                                <ng-icon name="heroPencil" ngClass="edit-action"></ng-icon></a>
                         </td>
+
                     </tr>
                 </tbody>
             </table>

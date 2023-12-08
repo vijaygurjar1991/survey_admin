@@ -3,6 +3,7 @@ import { DataService } from 'src/app/service/data.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ChangeDetectorRef } from '@angular/core';
 import Swal from 'sweetalert2';
+import { UtilsService } from 'src/app/service/utils.service';
 
 @Component({
   selector: 'app-my-account',
@@ -11,7 +12,7 @@ import Swal from 'sweetalert2';
 })
 export class MyAccountComponent {
   imageName: any;
-  constructor(public themeService: DataService, private modalService: NgbModal, private cdr: ChangeDetectorRef) { }
+  constructor(public themeService: DataService, private modalService: NgbModal, private cdr: ChangeDetectorRef,private util: UtilsService) { }
   files: File[] = [];
   role: any;
   id: number = 0;
@@ -34,7 +35,8 @@ export class MyAccountComponent {
   }
 
   ngOnInit(): void {
-    this.role = localStorage.getItem("role")
+    //this.role = localStorage.getItem("role")
+    this.role = this.util.getRole();
     this.getMyAccount()
   }
 
@@ -42,7 +44,8 @@ export class MyAccountComponent {
 
 
   getMyAccount() {
-    this.userId = localStorage.getItem("userId");
+    //this.userId = localStorage.getItem("userId");
+    this.userId = this.util.getUserId();
     this.themeService.GetMyAccount(this.userId).subscribe((data: any) => {
       console.log("data", data)
       this.firstName = data.firstName;
