@@ -141,11 +141,11 @@ export class DataService {
     console.log("posted data", data);
     return this.http.post(url, data, { responseType: 'text' });
   }
-  uploadImage(file: File): Observable<any> {
+  uploadImage(file: File,userId:any): Observable<any> {
     const formData = new FormData();
     formData.append('file', file);
-    var userId = localStorage.getItem("userId")
-    const url = `${this.apiUrl}api/admin/${this.userId}/Profile/ChangeProfileImage`;
+    //var userId = localStorage.getItem("userId")
+    const url = `${this.apiUrl}api/admin/${userId}/Profile/ChangeProfileImage`;
     // Replace 'your_upload_endpoint' with your actual upload API endpoint
     return this.http.post<any>(url, formData);
   }

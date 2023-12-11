@@ -68,7 +68,8 @@ export class MyAccountComponent {
       email: this.email,
       contactNo: this.contactNo,
       roleId: this.roleId,
-      imageName: imageName
+      imageName: imageName,
+      status:'ACT'
     };
     console.log("dataToSend", dataToSend)
     this.themeService.CreateMyAccount(dataToSend).subscribe(
@@ -137,7 +138,7 @@ onUpload(file: File): void {
     return;
   }
   console.log("inside onUpload");
-  this.themeService.uploadImage(file).subscribe(
+  this.themeService.uploadImage(file,this.userId).subscribe(
     (response) => {
       console.log('Upload successful:', response);
       // Handle response from server
