@@ -25,7 +25,8 @@
                                 <li *ngFor="let option of noofchild[0].options">
                                     <button>
                                         <figure>
-                                            <img src="" [alt]="option.option" width="67" height="90" />
+                                            <img loading="lazy" src="../../../../assets/images/Images/{{option.image}}"
+                                                [alt]="option.option" width="67" height="90" />
                                         </figure>
                                         <figcaption>
                                             <h5>{{ option.option }}</h5>
