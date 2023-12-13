@@ -55,6 +55,7 @@ export class MyAccountComponent {
       this.contactNo = data.contactNo
       this.roleId = data.roleId
       this.image = data.image
+      this.selectedImage = data.image
       this.cdr.detectChanges();
     });
   }
