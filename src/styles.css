@@ -509,7 +509,8 @@ article {
     opacity: 1;
 }
 
-.generic-ques ul li a:hover, .generic-ques ul li a.active {
+.generic-ques ul li a:hover,
+.generic-ques ul li a.active {
     background-color: #fdefe7;
     border: 2px dashed var(--primary);
     color: var(--primary);
@@ -953,7 +954,8 @@ ng-icon.trash-icon {
 
 .action a {
     color: #b4b4b4;
-    font-size: 1.3rem; display: flex;
+    font-size: 1.3rem;
+    display: flex;
     align-items: center;
     justify-content: space-between;
 }
@@ -1593,9 +1595,58 @@ label {
 .nccs-option ul {
     list-style: none;
     padding-left: 0px;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.nccs-option ul li {
+    flex: 0 50%;
+    max-width: 50%;
 }
 
 .nccs-option .form-check-input[type=checkbox] {
     width: 1.2rem;
     height: 1.2rem;
+    margin: 0;
+}
+
+.nccs-option label.form-check-label {
+    margin: 0;
+}
+
+
+.advancedoption {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.advancedoption .form-select {
+    flex: 4;
+}
+
+.advancedoption p {
+    flex: 1;
+    margin: 0;
+}
+
+.advancedtext {
+    display: flex;
+    justify-content: end;
+    align-items: center;
+}
+
+.advancedtext input.form-control {
+    width: 81%;
+}
+
+.nametext {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 40px;
+}
+
+.nametext .form-control {
+    flex: 5;
 }

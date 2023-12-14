@@ -11,7 +11,7 @@
                         <label for="surveyname" class="form-label">Enter Your Question</label>
                         <div class="input-group">
                             <input type="text" class="form-control"
-                                [value]="familymember && familymember.length > 0 ? familymember[0].question : ''" /> />
+                                [value]="familymember && familymember.length > 0 ? familymember[0].question : ''" />
 
                         </div>
                     </div>
@@ -25,7 +25,8 @@
                                 <li *ngFor="let option of familymember[0].options">
                                     <button>
                                         <figure>
-                                            <img src="" [alt]="option.option" width="67" height="90" />
+                                            <img loading="lazy" src="../../../../assets/images/Images/{{option.image}}"
+                                                [alt]="option.option" width="67" height="90" />
                                         </figure>
                                         <figcaption>
                                             <h5>{{ option.option }}</h5>
