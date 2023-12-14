@@ -21,7 +21,16 @@ export class NoOfChildPopupComponent {
   questions: Question[] = [];
   surveyId=0;
   questionTypeId=7
-  constructor(private surveyservice: SurveyService) {
+  constructor(private surveyservice: SurveyService, private route: ActivatedRoute, private crypto: CryptoService, private router: Router) {
+
+    this.route.paramMap.subscribe(params => {
+      let _surveyId = params.get('param1');
+      console.log("param1 Inside Gender Question", params.get('param1'))
+      if (_surveyId) {
+        this.surveyId = parseInt(this.crypto.decryptQueryParam(_surveyId));
+        console.log("surveyId Inside NCCS Question", this.surveyId)
+      }
+    });
   }
 
   show() {
@@ -39,24 +48,6 @@ export class NoOfChildPopupComponent {
 
   noofchild: any[] = [];
 
-
-  getNoOfChild() {
-    this.surveyservice.GetGenericQuestionType(this.typeid).subscribe({
-      next: (resp: responseDTO[]) => {
-        console.log('Response:', resp);
-        this.noofchild = resp.map(item => ({
-          question: item.question,
-          image: item.image,
-          options: item.options.map((option: { id: number, option: string, image: string }) => ({
-            id: option.id,
-            option: option.option,
-            image: option.image
-          }))
-        }));
-      },
-      error: (err) => console.log("An Error occur while fetching questions", err)
-    });
-  }
   getQuestions() {
     this.surveyservice.getGenericQuestionType1(this.typeid).subscribe({
       next: (resp: responseGenericQuestion[]) => {

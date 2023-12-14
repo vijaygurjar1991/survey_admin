@@ -59,8 +59,10 @@ export class NccsPopupComponent {
   selectAllOptions(questionIndex: number) {
     const question = this.questions[questionIndex];
     if (question) {
+      const areAllSelected = question.options.every(option => option.selected);
+  
       question.options.forEach(option => {
-        option.selected = true;
+        option.selected = !areAllSelected;
       });
     }
   }
