@@ -126,6 +126,23 @@ export class NccsPopupComponent {
         option.modifiedDate = currentDateTime;
       });
 
+      const selectedOptions = currentQuestion.options.filter(option => option.selected);
+
+    if (selectedOptions.length === 0) {
+      // No options selected for this question, skip API call
+      successfulAPICalls++; // Increment the counter as this operation counts as a successful API call for the progress check
+
+      if (successfulAPICalls === this.questions.length) {
+        Swal.fire('', 'Question Generated Successfully.', 'success').then((result) => {
+          if (result.isConfirmed) {
+            window.location.reload();
+          }
+        });
+      }
+
+      continue; // Skip this question and move to the next one
+    }
+
       // Make an API call for each question with its selected options
       this.surveyservice.CreateGeneralQuestion(currentQuestion).subscribe({
         next: (resp: any) => {
