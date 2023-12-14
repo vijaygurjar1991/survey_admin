@@ -19,11 +19,6 @@ export class TermsConditionComponent {
   description: any;
   image: any
 
-  onSelect(event: any) { // Use 'any' as the event type
-    console.log(event);
-    this.files.push(...event.addedFiles);
-  }
-
   onRemove(event: any) { // Use 'any' as the event type
     console.log(event);
     this.files.splice(this.files.indexOf(event), 1);
@@ -63,6 +58,30 @@ export class TermsConditionComponent {
       error => {
         console.error('Error occurred while sending POST request:', error);
         // Handle error, if needed
+      }
+    );
+  }
+  onSelect(event: any) {
+    const file = event.addedFiles && event.addedFiles.length > 0 ? event.addedFiles[0] : null;
+
+    if (file) {
+      this.files.push(file); // Store the selected file
+      this.uploadImage(file); // Trigger upload after selecting the file
+    }
+  }
+  
+  uploadImage(file: File): void {
+  
+    this.themeService.uploadImageAboutUs(file,this.userId).subscribe(
+      (response:String) => {
+        console.log('Upload successful:', response);
+        this.image=response
+        // Handle response from the image upload
+        // You may want to retrieve the URL or any other relevant information from the response
+      },
+      (error) => {
+        console.error('Error occurred while uploading:', error);
+        // Handle error
       }
     );
   }

@@ -149,6 +149,25 @@ export class DataService {
     // Replace 'your_upload_endpoint' with your actual upload API endpoint
     return this.http.post<any>(url, formData);
   }
+  uploadImageAboutUs(file: File, userId: number): Observable<any> {
+    const formData = new FormData();
+    formData.append('file', file, file.name);
+    const url = `${this.apiUrl}api/admin/${userId}/AboutUs/UploadAboutImage`;
+    return this.http.post(url, formData,{responseType: 'text'});
+  }
+  uploadImageTNC(file: File, userId: number): Observable<any> {
+    const formData = new FormData();
+    formData.append('file', file, file.name);
+    const url = `${this.apiUrl}api/admin/${userId}/TermAndCondition/UploadTermAndConditionsImage`;
+    return this.http.post(url, formData,{responseType: 'text'});
+  }
+  uploadImagePP(file: File, userId: number): Observable<any> {
+    const formData = new FormData();
+    formData.append('file', file, file.name);
+    const url = `${this.apiUrl}api/admin/${userId}/PrivacyPolicy/UploadPrivacyPolicyImage`;
+    return this.http.post(url, formData,{responseType: 'text'});
+  }
+
   // User get & Post APIs
 
 

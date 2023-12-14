@@ -4,6 +4,7 @@ import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import { responseDTO } from 'src/app/types/responseDTO';
 import { ChangeDetectorRef } from '@angular/core';
 import swal from 'sweetalert2';
+import { UtilsService } from 'src/app/service/utils.service';
 declare var Dropzone: any;
 
 @Component({
@@ -13,16 +14,14 @@ declare var Dropzone: any;
 })
 export class AboutComponent {
   public Editor = ClassicEditor;
-  constructor(public themeService: DataService, private cdr: ChangeDetectorRef) { }
+  userId: any;
+  constructor(public themeService: DataService, private cdr: ChangeDetectorRef,private util: UtilsService) { }
   files: File[] = [];
   id: number = 0;
   name: any;
   description: any;
   image: any
-  onSelect(event: any) { // Use 'any' as the event type
-    console.log(event);
-    this.files.push(...event.addedFiles);
-  }
+  
 
   onRemove(event: any) { // Use 'any' as the event type
     console.log(event);
@@ -30,14 +29,15 @@ export class AboutComponent {
   }
 
   ngOnInit(): void {
+    this.userId = this.util.getUserId();
     this.getAboutus();
 
   }
 
-  userId: any;
+  
 
   getAboutus() {
-    this.userId = localStorage.getItem("userId");
+    this.userId = this.util.getUserId();
     this.themeService.GetAboutUs(this.userId).subscribe((data: any) => {
       console.log("data", data)
       this.name = data.name;
@@ -46,6 +46,8 @@ export class AboutComponent {
       this.image = data.image
       this.cdr.detectChanges();
     });
+
+    
   }
   postData() {
     const dataToSend = {
@@ -68,5 +70,29 @@ export class AboutComponent {
       }
     );
   }
+  onSelect(event: any) {
+    const file = event.addedFiles && event.addedFiles.length > 0 ? event.addedFiles[0] : null;
 
+    if (file) {
+      this.files.push(file); // Store the selected file
+      this.uploadImage(file); // Trigger upload after selecting the file
+    }
+  }
+  
+  uploadImage(file: File): void {
+  
+    this.themeService.uploadImageAboutUs(file,this.userId).subscribe(
+      (response:String) => {
+        console.log('Upload successful:', response);
+        this.image=response
+        // Handle response from the image upload
+        // You may want to retrieve the URL or any other relevant information from the response
+      },
+      (error) => {
+        console.error('Error occurred while uploading:', error);
+        // Handle error
+      }
+    );
+  }
+  
 }
