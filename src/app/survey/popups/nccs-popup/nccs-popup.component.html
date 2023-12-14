@@ -6,12 +6,14 @@
                 <button type="button" class="btn-close" (click)="close()"></button>
             </div>
             <div class="modal-body">
-                <form>
-                    <div *ngFor="let question of nccs; let i = index">
+                <form *ngIf="questions && questions.length > 0">
+                    <div *ngFor="let question of questions; let i = index; trackBy: trackByFn">
                         <div class="mb-4">
                             <label for="surveyname" class="form-label">Enter Your Question</label>
                             <div class="input-group">
-                                <input type="text" class="form-control" [value]="question.question" />
+                                <input type="text" class="form-control" [ngModel]="question.question"
+            (ngModelChange)="question.question = $event" id="{{ 'question_' + i }}"
+            name="{{ 'question_' + i }}" />
                             </div>
                         </div>
 
@@ -24,37 +26,22 @@
                                 <ul>
                                     <li *ngFor="let option of question.options" class="mb-2">
                                         <input class="form-check-input me-2" type="checkbox"
-                                            id="{{ 'checkbox_' + question.question + '_' + option.id }}"
+                                            id="{{ 'checkbox_' + question.id + '_' + option.id }}"
                                             [(ngModel)]="option.selected" [ngModelOptions]="{ standalone: true }"
                                             aria-label="..." />
                                         <label class="form-check-label"
-                                            for="{{ 'checkbox_' + question.question + '_' + option.id }}">
-                                            {{ option.option }}
-                                        </label>
+                                            for="{{ 'checkbox_' + question.id + '_' + option.id }}">{{ option.option
+                                            }}</label>
                                     </li>
                                 </ul>
                             </div>
                         </div>
                     </div>
                 </form>
-
-
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-primary w-100">Continue</button>
+                <button type="button" (click)="continueClicked()" class="btn btn-primary w-100">Continue</button>
             </div>
         </div>
     </div>
 </div>
-
-<!-- <div class="select-values">
-    <ul>
-        <li *ngFor="let option of question.options">
-            <button>
-                <figcaption>
-                    <h5>{{ option.option }}</h5>
-                </figcaption>
-            </button>
-        </li>
-    </ul>
-</div> -->

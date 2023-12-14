@@ -50,32 +50,6 @@ export class GenderPopupComponent {
 
   questions: Question[] = [];
 
-
-  /*getQuestions() {
-    this.surveyservice.GetGenericQuestionType(this.typeid).subscribe({
-      next: (resp: responseDTO[]) => {
-        this.modal.show();
-
-        console.log('Response:', resp);
-        this.questions = resp.map(item => ({
-          question: item.question,
-          image: item.image,
-          options: item.options.map((option: { id: number, option: string, image: string }) => ({
-            id: option.id,
-            option: option.option,
-            image: option.image
-          }))
-        }));
-        if (this.questions && this.questions.length > 0) {
-          console.log('Value of questionText 1:', this.questionText); 
-          this.questionText = this.questions[0].question;
-        }
-      },
-      error: (err) => console.log("An Error occur while fetching questions", err)
-    });
-    
-  }*/
-
   getQuestions() {
     this.surveyservice.getGenericQuestionType1(this.typeid).subscribe({
       next: (resp: responseGenericQuestion[]) => {
