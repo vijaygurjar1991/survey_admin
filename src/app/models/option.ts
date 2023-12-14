@@ -11,6 +11,9 @@ export class Option {
         public isExcluded: boolean = false,
         public group: number = 0,
         public sort: number = 0,
-        public selected: boolean = false
+        public selected: boolean = false,
+        public isVisible: boolean = false,
+        public isSelected: boolean = false
+        
     ) { }
 }
