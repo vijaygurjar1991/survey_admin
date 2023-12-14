@@ -3,6 +3,7 @@ import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { map } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { responseDTO } from '../types/responseDTO';
+import { responseGenericQuestion } from '../types/responseGenericQuestion';
 import { Observable } from 'rxjs';
 import { UtilsService } from './utils.service';
 
@@ -129,6 +130,10 @@ export class SurveyService {
   createLogic(data: any): Observable<any> {
     const url = `${this.apiUrl}api/admin/${this.userId}/GeneralQuestion/CreateLogicsOnGeneralQuestion`;
     return this.http.post(url, data, { responseType: 'text' });
+  }
+  getGenericQuestionType1(typeId: any): Observable<responseGenericQuestion[]> {
+    const url = `${this.apiUrl}api/admin/${this.userId}/GenericQuestion/GetGenericQuestions?typeId=${typeId}`;
+    return this.http.get<responseGenericQuestion[]>(url);
   }
 
 }

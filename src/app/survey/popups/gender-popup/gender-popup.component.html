@@ -21,35 +21,24 @@
                         </div>
                         <div class="select-values" *ngIf="questions && questions.length > 0">
                             <ul>
-                                <li *ngFor="let option of questions[0]?.options">
-                                    <button>
-
-                                        <figure>
-                                            <img loading="lazy" src="../../../../assets/images/{{option.image}}"
-                                                [alt]="option.option" width="67" height="90" />
-                                        </figure>
-                                        <figcaption>
-                                            <h5>{{ option.option }}</h5>
-                                        </figcaption>
-                                    </button>
+                                <li *ngFor="let option of questions[0]?.options" 
+                                    [class.active]="option.selected" 
+                                    (click)="selectOption(option)">
+                                  <button>
+                                    <figure>
+                                      <img *ngIf="option.image" [src]="'../../../../assets/images/Images/' + option.image" [alt]="option.option" width="67" height="90" />
+                                    </figure>
+                                    <figcaption>
+                                      <h5 [ngClass]="{'active': option.selected}">{{ option.option }}</h5>
+                                    </figcaption>
+                                  </button>
                                 </li>
-                                <!-- <li *ngFor="let option of questions[0]?.options">
-                                    <label>
-                                        <input type="checkbox" [(ngModel)]="option.selected"
-                                            [ngModelOptions]="{ standalone: true }">
-                                        <figure>
-                                            <img src="../../../../assets/images/{{option.image}}" [alt]="option.option"
-                                                width="67" height="90" />
-                                        </figure>
-                                        <figcaption>
-                                            <h5>{{ option.option }}</h5>
-                                        </figcaption>
-                                    </label>
-                                </li> -->
-
-                            </ul>
-                        </div>
-
+                              </ul>
+                              
+                          </div>
+                          
+                          
+                                               
                     </div>
                 </form>
             </div>

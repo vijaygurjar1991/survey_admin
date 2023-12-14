@@ -108,6 +108,7 @@ export class CreateSurveyComponent implements OnInit {
     this.route.paramMap.subscribe(params => {
       let _surveyId = params.get('param1');
       if (_surveyId) {
+        console.log("_surveyId : ",this.crypto.decryptQueryParam(_surveyId))
         this.surveyId = parseInt(this.crypto.decryptQueryParam(_surveyId));
       }
     });

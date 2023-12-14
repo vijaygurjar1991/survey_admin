@@ -10,6 +10,7 @@ export class Option {
         public isRandomize: boolean = false,
         public isExcluded: boolean = false,
         public group: number = 0,
-        public sort: number = 0
+        public sort: number = 0,
+        public selected: boolean = false
     ) { }
 }

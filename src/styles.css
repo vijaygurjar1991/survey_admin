@@ -1134,7 +1134,7 @@ span.mobile-cross {
     line-height: 1.1;
 }
 
-.select-values ul li button:hover {
+.select-values ul li button:hover, .select-values ul li.active button {
     background-color: #fdefe7;
     border: 2px dashed var(--primary);
     color: var(--primary);
