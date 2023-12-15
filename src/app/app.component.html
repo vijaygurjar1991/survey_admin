@@ -1,5 +1,13 @@
 <app-header *ngIf="headerVisible" [class.addMargin]="themeService.addMargin"></app-header>
-<app-sidebar *ngIf="navbarVisible" [class.addwidth]="themeService.addwidth"></app-sidebar>
+<!-- Your component template -->
+<!-- your-component-template.html -->
+
+<app-sidebar *ngIf="navbarVisible" [class.addwidth]="themeService.addwidth"
+    [class.hoveraddwidth]="themeService.hoveraddwidth" (mouseenter)="onMouseEnter()"
+    (mouseleave)="onMouseLeave()"></app-sidebar>
+
+
+
 <article *ngIf="visibilityService.articleVisible.value; else elseBlock;"
     [class.dashboardMargin]="themeService.dashboardMargin">
     <app-breadcrumb *ngIf="breadcrumbVisible" [class.addMargin]="themeService.addMargin"></app-breadcrumb>
