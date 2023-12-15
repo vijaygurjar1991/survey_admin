@@ -43,9 +43,10 @@
                                 style="width: 30px;height: 30px;" />
                             {{item.userName}}
                         </td>
-                        <td>  
+                        <td>
                             {{
-                                (item.modifiedDate ? (item.modifiedDate | date:'medium':'IST') : (item.createdDate | date:'medium':'IST'))
+                            (item.modifiedDate ? (item.modifiedDate | date:'medium':'IST') : (item.createdDate |
+                            date:'medium':'IST'))
                             }}
                         </td>
                         <!-- <td [ngClass]="{'done': item.status === 'ACT', 'paused': item.status !== 'ACT'}">
@@ -61,21 +62,23 @@
                                 <span class="slider round"></span>
                             </label>
                           </td> -->
-                          <td>
+                        <td>
                             <ng-container *ngIf="role === 'admin' || role === 'superadmin'">
-                              <select [(ngModel)]="item.status" (change)="toggleSlider($event, item.id, item)" class="form-select">
-                                <option [ngValue]="'ACT'">Active</option>
-                                <option [ngValue]="'DEL'">Inactive</option>
-                                <option [ngValue]="'HOL'">Hold</option>
-                              </select>
+                                <select [(ngModel)]="item.status" (change)="toggleSlider($event, item.id, item)"
+                                    class="form-select form-select-sm">
+                                    <option [ngValue]="'ACT'">Active</option>
+                                    <option [ngValue]="'DEL'">Inactive</option>
+                                    <option [ngValue]="'HOL'">Hold</option>
+                                </select>
                             </ng-container>
                             <ng-container *ngIf="role !== 'admin' && role !== 'superadmin'">
-                              <select class="form-select" disabled>
-                                <option [ngValue]="item.status">{{ item.status === 'ACT' ? 'Active' : 'Inactive' }}</option>
-                              </select>
+                                <select class="form-select" disabled>
+                                    <option [ngValue]="item.status">{{ item.status === 'ACT' ? 'Active' : 'Inactive' }}
+                                    </option>
+                                </select>
                             </ng-container>
-                          </td>
-                        <td ngClass="action" >
+                        </td>
+                        <td ngClass="action">
                             <a *ngIf="item.status!='ACT' && item.status!='HOL'" href="javascript:"
                                 [routerLink]="'/survey/manage-survey/'+ (item.id | encrypt)">
                                 <ng-icon name="heroPencil" ngClass="edit-action"></ng-icon></a>
