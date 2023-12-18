@@ -100,7 +100,7 @@ a {
 }
 
 .table>:not(caption)>*>* {
-    padding: 1rem 1rem;
+    padding: 0.8rem;
     vertical-align: middle;
 }
 
