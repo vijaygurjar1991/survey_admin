@@ -396,12 +396,14 @@ export class EditSurveyComponent {
   }
   uploadImage(file: File): void {
   
-    const queryParams = {
-      Id: this.userId,
-      qid: this.questionId
-    };
+    let queryParams=null;
+    if(this.questionId != 0){
+       queryParams = {
+        qid: this.questionId
+      };
+    }
 
-    this.surveyservice.uploadImageQuestion(file,this.userId).subscribe(
+    this.surveyservice.uploadImageQuestion(file,queryParams).subscribe(
       (response:String) => {
         console.log('Upload successful:', response);
         this.questionImage=response
@@ -429,12 +431,15 @@ export class EditSurveyComponent {
   }
   uploadVideo(file: File): void {
   
-    const queryParams = {
-      Id: this.userId,
-      qid: this.questionId
-    };
+    let queryParams=null;
+    if(this.questionId != 0){
+       queryParams = {
+        qid: this.questionId
+      };
+    }
+    
 
-    this.surveyservice.uploadImageQuestion(file,this.userId).subscribe(
+    this.surveyservice.uploadVideoQuestion(file,queryParams).subscribe(
       (response:String) => {
         console.log('Upload successful:', response);
         this.questionImage=response
