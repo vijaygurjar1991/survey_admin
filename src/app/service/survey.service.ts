@@ -135,5 +135,25 @@ export class SurveyService {
     const url = `${this.apiUrl}api/admin/${this.userId}/GenericQuestion/GetGenericQuestions?typeId=${typeId}`;
     return this.http.get<responseGenericQuestion[]>(url);
   }
+  uploadImageQuestion(file: File,queryParams: any): Observable<any> {
+    const formData = new FormData();
+    formData.append('file', file, file.name);
+    let url = `${this.apiUrl}api/admin/${this.userId}/GeneralQuestion/UploadQuestionImage`;
+    if (queryParams) {
+      const queryParamsString = new URLSearchParams(queryParams).toString();
+      url += `?${queryParamsString}`;
+    }
+    return this.http.post(url, formData,{responseType: 'text'});
+  }
+  uploadVideoQuestion(file: File,queryParams: any): Observable<any> {
+    const formData = new FormData();
+    formData.append('file', file, file.name);
+    let url = `${this.apiUrl}api/admin/${this.userId}/GeneralQuestion/UploadQuestionVideo`;
+    if (queryParams) {
+      const queryParamsString = new URLSearchParams(queryParams).toString();
+      url += `?${queryParamsString}`;
+    }
+    return this.http.post(url, formData,{responseType: 'text'});
+  }
 
 }
