@@ -26,16 +26,10 @@ export class DataService {
     this.dashboardMargin = !this.dashboardMargin;
   }
 
-  public closeSideBar() {
+  public closeSideBar(){
     this.addMargin = true;
     this.addwidth = true;
     this.dashboardMargin = true;
-  }
-
-  public hoveraddwidth: boolean = false;
-
-  setHoverAddWidth(hover: boolean): void {
-    this.hoveraddwidth = hover;
   }
 
   private headerVisibleSubject = new BehaviorSubject<boolean>(true);
@@ -71,7 +65,7 @@ export class DataService {
 
   // APIs
   apiUrl = environment.apiUrl;
-  constructor(private http: HttpClient, private util: UtilsService) {
+  constructor(private http: HttpClient,private util: UtilsService) { 
     this.userId = util.getUserId();
   }
 
@@ -147,7 +141,7 @@ export class DataService {
     console.log("posted data", data);
     return this.http.post(url, data, { responseType: 'text' });
   }
-  uploadImage(file: File, userId: any): Observable<any> {
+  uploadImage(file: File,userId:any): Observable<any> {
     const formData = new FormData();
     formData.append('file', file);
     //var userId = localStorage.getItem("userId")
@@ -159,25 +153,29 @@ export class DataService {
     const formData = new FormData();
     formData.append('file', file, file.name);
     const url = `${this.apiUrl}api/admin/${userId}/AboutUs/UploadAboutImage`;
-    return this.http.post(url, formData, { responseType: 'text' });
+    return this.http.post(url, formData,{responseType: 'text'});
   }
   uploadImageTNC(file: File, userId: number): Observable<any> {
     const formData = new FormData();
     formData.append('file', file, file.name);
     const url = `${this.apiUrl}api/admin/${userId}/TermAndCondition/UploadTermAndConditionsImage`;
-    return this.http.post(url, formData, { responseType: 'text' });
+    return this.http.post(url, formData,{responseType: 'text'});
   }
   uploadImagePP(file: File, userId: number): Observable<any> {
     const formData = new FormData();
     formData.append('file', file, file.name);
     const url = `${this.apiUrl}api/admin/${userId}/PrivacyPolicy/UploadPrivacyPolicyImage`;
-    return this.http.post(url, formData, { responseType: 'text' });
+    return this.http.post(url, formData,{responseType: 'text'});
   }
+  
 
   // User get & Post APIs
 
 
   // APIs
+
+
+
 
 
 }
