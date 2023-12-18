@@ -38,4 +38,13 @@ export class AppComponent {
     this.visibilityService.isSidebarVisibleSubject.next(true);
   }
 
+  onMouseEnter() {
+    this.themeService.setHoverAddWidth(true);
+  }
+
+  onMouseLeave() {
+    this.themeService.setHoverAddWidth(false);
+  }
+
+
 }
