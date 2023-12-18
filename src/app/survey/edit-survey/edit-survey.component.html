@@ -50,18 +50,48 @@
                         <h5 class="mb-3">Add Media</h5>
                         <ul>
                             <li>
-                                <a routerLink="javascript:">
+                                <!-- <a routerLink="javascript:">
                                     <figure><img src="../../../assets/images/icons/attach-image.png" width="64"
                                             height="58" /></figure>
                                     <figcaption>Attach Image</figcaption>
-                                </a>
+                                </a> -->
+                                <!-- <ngx-dropzone (change)="onSelect($event)" [ngClass]="'drop-file'">
+                                    <ngx-dropzone-label>
+                                      <img src="../../../assets/images/icons/attach-image.png" />
+                                      <a href="javascript:"><u>Click to upload</u></a> <span> or drag and drop</span>
+                                      <p>Max. File Size: 15MB</p>
+                                    </ngx-dropzone-label>
+                                    <ngx-dropzone-preview *ngFor="let f of files" [removable]="true" (removed)="onRemove(f)">
+                                      <ngx-dropzone-label>{{ f.name }} ({{ f.type }})</ngx-dropzone-label>
+                                    </ngx-dropzone-preview>
+                                </ngx-dropzone> -->
+
+                                <ngx-dropzone ngx-dropzone [accept]="'image/*'"
+                                    (change)="onSelectImage($event)">
+                                    <ngx-dropzone-label>
+                                        <figure><img src="../../../assets/images/icons/attach-image.png" width="64"
+                                            height="58" /></figure>
+                                    <figcaption>Attach Image</figcaption>
+                                    </ngx-dropzone-label>
+                                    <ngx-dropzone-image-preview ngProjectAs="ngx-dropzone-preview"
+                                        *ngFor="let f of filesImage" [file]="f" [removable]="true" (removed)="onRemoveImage(f)">
+
+                                    </ngx-dropzone-image-preview>
+                                </ngx-dropzone>
                             </li>
                             <li>
-                                <a routerLink="javascript:">
-                                    <figure><img src="../../../assets/images/icons/attach-video.png" width="54"
-                                            height="52" /></figure>
+                                <ngx-dropzone ngx-dropzone [accept]="'video/*'"
+                                    (change)="onSelectVideo($event)">
+                                    <ngx-dropzone-label>
+                                        <figure><img src="../../../assets/images/icons/attach-video.png" width="64"
+                                            height="58" /></figure>
                                     <figcaption>Attach Video</figcaption>
-                                </a>
+                                    </ngx-dropzone-label>
+                                    <ngx-dropzone-image-preview ngProjectAs="ngx-dropzone-preview"
+                                        *ngFor="let f of filesVideo" [file]="f" [removable]="true" (removed)="onRemoveVideo(f)">
+
+                                    </ngx-dropzone-image-preview>
+                                </ngx-dropzone>
                             </li>
                         </ul>
                     </div>

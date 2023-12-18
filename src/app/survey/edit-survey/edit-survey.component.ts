@@ -37,7 +37,9 @@ export class EditSurveyComponent {
   filteredOptions: any[] = [];
   allOptions: any[] = [];
   groups: any[] = [];
-
+  questionImage: any
+  filesImage: File[] = [];
+  filesVideo: File[] = [];
 
   constructor(public themeService: DataService, private router: Router,
     private route: ActivatedRoute, private surveyservice: SurveyService,
@@ -237,30 +239,7 @@ export class EditSurveyComponent {
     this.question.createdDate = this.getCurrentDateTime();
     this.question.modifiedDate = this.getCurrentDateTime();
 
-    /*let newOption1 = new Option();
-    newOption1.createdDate = this.getCurrentDateTime();
-    newOption1.modifiedDate = this.getCurrentDateTime();
-    newOption1.option = 'testing 1';
-    this.optionsArr1.push(newOption1);
-
-    let newOption2 = new Option();
-    newOption2.createdDate = this.getCurrentDateTime();
-    newOption2.modifiedDate = this.getCurrentDateTime();
-    newOption2.option = 'testing 2';
-    this.optionsArr1.push(newOption2);
-
-    let newOption3 = new Option();
-    newOption3.createdDate = this.getCurrentDateTime();
-    newOption3.modifiedDate = this.getCurrentDateTime();
-    newOption3.option = 'testing 3';
-    this.optionsArr1.push(newOption3);
-
-    let newOption4 = new Option();
-    newOption4.createdDate = this.getCurrentDateTime();
-    newOption4.modifiedDate = this.getCurrentDateTime();
-    newOption4.option = 'Other';
-    this.optionsArr2.push(newOption4);
-    */
+    
     this.filteredOptions.push(...this.optionsArr1, ...this.optionsArr2);
     this.allOptions.push(...this.optionsArr1, ...this.optionsArr2);
 
@@ -310,7 +289,7 @@ export class EditSurveyComponent {
     if (this.questionId > 0) {
       this.question.id = this.questionId
     }
-
+    this.question.image=this.questionImage
     this.question.options = this.allOptions;
     if (parseFloat(this.questionId) > 0) {
       this.surveyservice.updateGeneralQuestion(this.question).subscribe({
@@ -403,38 +382,69 @@ export class EditSurveyComponent {
     this.groups.splice(index, 1);
   }
 
+  onSelectImage(event: any) {
+    const file = event.addedFiles && event.addedFiles.length > 0 ? event.addedFiles[0] : null;
 
-  // creategeneralquestion: {
-  //   surveyTypeId: number,
-  //   questionTypeName: string,
-  //   surveyTypeName: string,
-  //   piping: string,
-  //   video: string,
-  //   image: string,
-  //   options: { id: number, option: string, image: string, keyword: string }[]
-  // }[] = [];
+    if (file) {
+      this.filesImage.push(file); // Store the selected file
+      this.uploadImage(file); // Trigger upload after selecting the file
+    }
+  }
+  onRemoveImage(event: any) { // Use 'any' as the event type
+    console.log(event);
+    this.filesImage.splice(this.files.indexOf(event), 1);
+  }
+  uploadImage(file: File): void {
+  
+    const queryParams = {
+      Id: this.userId,
+      qid: this.questionId
+    };
 
-  // CreateGeneralQuestion() {
-  //   this.surveyservice.CreateGeneralQuestion().subscribe({
-  //     next: (resp: responseDTO[]) => {
-  //       console.log('Response:', resp);
-  //       this.creategeneralquestion = resp.map(item => ({
-  //         surveyTypeId: item.surveyTypeId,
-  //         questionTypeName: item.questionTypeName,
-  //         surveyTypeName: item.surveyTypeName,
-  //         piping: item.piping,
-  //         video: item.video,
-  //         image: item.image,
-  //         options: item.options.map((option: { id: number, option: string, image: string, keyword: string }) => ({
-  //           id: option.id,
-  //           option: option.option,
-  //           image: option.image,
-  //           keyword: option.keyword
-  //         }))
+    this.surveyservice.uploadImageQuestion(file,this.userId).subscribe(
+      (response:String) => {
+        console.log('Upload successful:', response);
+        this.questionImage=response
+        // Handle response from the image upload
+        // You may want to retrieve the URL or any other relevant information from the response
+      },
+      (error) => {
+        console.error('Error occurred while uploading:', error);
+        // Handle error
+      }
+    );
+  }
 
-  //       }));
-  //     },
-  //     error: (err) => console.log("An Error occurred while fetching question types", err)
-  //   });
-  // }
+  onSelectVideo(event: any) {
+    const file = event.addedFiles && event.addedFiles.length > 0 ? event.addedFiles[0] : null;
+
+    if (file) {
+      this.filesVideo.push(file); // Store the selected file
+      this.uploadVideo(file); // Trigger upload after selecting the file
+    }
+  }
+  onRemoveVideo(event: any) { // Use 'any' as the event type
+    console.log(event);
+    this.filesVideo.splice(this.files.indexOf(event), 1);
+  }
+  uploadVideo(file: File): void {
+  
+    const queryParams = {
+      Id: this.userId,
+      qid: this.questionId
+    };
+
+    this.surveyservice.uploadImageQuestion(file,this.userId).subscribe(
+      (response:String) => {
+        console.log('Upload successful:', response);
+        this.questionImage=response
+        // Handle response from the image upload
+        // You may want to retrieve the URL or any other relevant information from the response
+      },
+      (error) => {
+        console.error('Error occurred while uploading:', error);
+        // Handle error
+      }
+    );
+  }
 }
