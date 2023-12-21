@@ -40,7 +40,12 @@ export class EditSurveyComponent {
   questionImage: any
   filesImage: File[] = [];
   filesVideo: File[] = [];
-
+  logicQuestionList:any
+  isLogicShow: boolean = false
+  logicValuesList:any
+  optionLogicValuesList:any
+  optionListByQuestionId:any
+  selectedOptions: any[] = [];
   constructor(public themeService: DataService, private router: Router,
     private route: ActivatedRoute, private surveyservice: SurveyService,
     private crypto: CryptoService) {
@@ -57,8 +62,13 @@ export class EditSurveyComponent {
         console.log("questionTypeId", this.questionTypeId)
         console.log("mode", this.mode)
         console.log("questionId", this.questionId)
+        if(this.questionId>1)
+          this.isLogicShow=true
         if (this.mode == 'modify') {
           this.getQuestionDetails();
+          this.getLogicQuestionList(this.questionId);
+          this.getLogicValues()
+          this.getOptionsLogicValues()
         }
       }
     });
@@ -75,6 +85,7 @@ export class EditSurveyComponent {
       this.question.question = data.question;
       this.question.createdDate = data.createdDate;
       this.question.modifiedDate = this.getCurrentDateTime();
+      this.question.sort=data.sort
 
       data.options.forEach((opt: any) => {
 
@@ -437,19 +448,65 @@ export class EditSurveyComponent {
         qid: this.questionId
       };
     }
-    
-
     this.surveyservice.uploadVideoQuestion(file,queryParams).subscribe(
       (response:String) => {
         console.log('Upload successful:', response);
         this.questionImage=response
-        // Handle response from the image upload
-        // You may want to retrieve the URL or any other relevant information from the response
       },
       (error) => {
         console.error('Error occurred while uploading:', error);
         // Handle error
       }
     );
+  }
+  getLogicQuestionList(questionId:any){
+    this.logicQuestionList='';
+    const dataToSend = {
+      surveyId: this.surveyId,
+      surveyStatus: questionId
+    };
+    this.surveyservice.getLogicQuestionList(dataToSend).subscribe((response: responseDTO) => {
+      console.log("logicQuestionList", response);
+      console.log("Question Sort Value", this.question.sort);
+      this.logicQuestionList = response.filter((item: Question) => item.sort < this.question.sort);
+      if (this.logicQuestionList.length > 0) {
+        this.getOptionsByQuestionId(this.logicQuestionList[0].id);
+      }
+      console.log("Filtered logicQuestionList", this.logicQuestionList);
+    }); 
+  }
+  getLogicValues() {
+    this.surveyservice.getLogicValues().subscribe((response: { [x: string]: any; }) => {
+      var result = Object.keys(response).map(e => response[e]);
+      console.log("logicValues", response)
+      this.logicValuesList = response
+    });
+  }
+  getOptionsLogicValues() {
+    this.surveyservice.getOptionsLogicValues().subscribe((response: { [x: string]: any; }) => {
+      var result = Object.keys(response).map(e => response[e]);
+      console.log("optionLogicValues", response)
+      this.optionLogicValuesList = response
+    });
+  }
+  getOptionsByQuestionId(selectedQuestion: any){
+    this.optionListByQuestionId=''
+    console.log("selectedQuestio",selectedQuestion);
+    const selectedValue = selectedQuestion;
+    let queryParams = {
+      qid: selectedValue
+    }
+    this.surveyservice.getOptionsByQuestionId(queryParams).subscribe((response: { [x: string]: any; }) => {
+      var result = Object.keys(response).map(e => response[e]);
+      
+      this.optionListByQuestionId = response
+      console.log("optionListByQuestionId", this.optionListByQuestionId)
+      this.optionListByQuestionId = JSON.parse(this.optionListByQuestionId)
+    });
+  }
+  removeOption(data: any) {
+  }
+  selectedOption(event: MatAutocompleteSelectedEvent){
+
   }
 }

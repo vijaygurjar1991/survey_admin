@@ -155,5 +155,28 @@ export class SurveyService {
     }
     return this.http.post(url, formData,{responseType: 'text'});
   }
+  changeQuestionPosition(queryParams: any): Observable<any> {
+  
+    let url = `${this.apiUrl}api/admin/${this.userId}/GeneralQuestion/ChangeQuestionPosition`;
+    if (queryParams) {
+      const queryParamsString = new URLSearchParams(queryParams).toString();
+      url += `?${queryParamsString}`;
+    }
+    return this.http.get(url,{responseType: 'text'});
+  }
+  getOptionsLogicValues() {
+    return this.http
+      .get<responseDTO>(`${this.apiUrl}api/admin/${this.userId}/Logics/GetOptionLogicValue`)
+      .pipe(map((result) => result as responseDTO));
+  }
+  getOptionsByQuestionId(queryParams: any): Observable<any> {
+  
+    let url = `${this.apiUrl}api/admin/${this.userId}/GeneralQuestion/GetOptions`;
+    if (queryParams) {
+      const queryParamsString = new URLSearchParams(queryParams).toString();
+      url += `?${queryParamsString}`;
+    }
+    return this.http.get(url,{responseType: 'text'});
+  }
 
 }

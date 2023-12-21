@@ -12,7 +12,7 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatInputModule } from '@angular/material/input';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatChipsModule } from '@angular/material/chips';
-
+import { MatSelectModule } from '@angular/material/select';
 // Icons
 import { NgIconsModule, provideNgIconsConfig } from '@ng-icons/core';
 

@@ -136,6 +136,7 @@ export class CreateSurveyComponent implements OnInit {
     this.GetSurveyDetails()
     this.getLogicValues();
     this.getLogicThens();
+    this.getLogicQuestionList(0)
   }
   onGenericQuestionClick(type: any): void {
     if (type === "Gender") {
@@ -439,6 +440,32 @@ export class CreateSurveyComponent implements OnInit {
 
 
   }
-  
+  onSelectChange(event: Event,questionSortValue:any,questionId:number) {
+    const target = event.target as HTMLSelectElement;
+    const selectedValue = target.value;
+    // Use selectedValue as needed
+    console.log('Selected value:', selectedValue);
+    console.log('Question Sort value:', questionSortValue);
+
+    let queryParams=null;
+    if(questionId != 0){
+       queryParams = {
+        qid: questionId,
+        sid: this.surveyId,
+        sordId: selectedValue,
+        curntId:questionSortValue
+
+      };
+    }
+    this.surveyservice.changeQuestionPosition(queryParams).subscribe(
+      (response:String) => {
+        console.log('Update successful:', response);
+      },
+      (error) => {
+        console.error('Error occurred while uploading:', error);
+        // Handle error
+      }
+    );
+}
 
 }
