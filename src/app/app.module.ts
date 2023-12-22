@@ -1,5 +1,6 @@
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { RECAPTCHA_SETTINGS, RecaptchaFormsModule, RecaptchaModule, RecaptchaSettings } from 'ng-recaptcha';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
@@ -51,6 +52,7 @@ import { HttpInterceptorService } from './service/http-interceptor.service';
 import { CaptchaComponent } from './shared/captcha/captcha.component';
 import { CreateSurveyPopupComponent } from './survey/popups/create-survey-popup/create-survey-popup.component';
 import { ModalModule } from 'ngx-bootstrap/modal';
+import { environment } from '../environments/environment';
 
 @NgModule({
   declarations: [
@@ -97,6 +99,8 @@ import { ModalModule } from 'ngx-bootstrap/modal';
       heroTrash
     }),
     BrowserAnimationsModule,
+    RecaptchaModule,
+    RecaptchaFormsModule
     
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
@@ -105,7 +109,13 @@ import { ModalModule } from 'ngx-bootstrap/modal';
     provideNgIconsConfig({
       size: '1.8em',
     }),
-    { provide: HTTP_INTERCEPTORS, useClass: HttpInterceptorService, multi: true }
+    { provide: HTTP_INTERCEPTORS, useClass: HttpInterceptorService, multi: true },
+    {
+      provide: RECAPTCHA_SETTINGS,
+      useValue: {
+        siteKey: environment.recaptcha.siteKey,
+      } as RecaptchaSettings,
+    },
   ],
   bootstrap: [AppComponent]
 })

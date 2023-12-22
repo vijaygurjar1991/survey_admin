@@ -23,7 +23,7 @@ export class LoginComponent {
   submitted = false;
   loading = false;
   loginForm: FormGroup;
-
+  token: string|undefined;
   constructor(
     private visibilityService: DataService,
     private fb: FormBuilder,
@@ -32,6 +32,7 @@ export class LoginComponent {
     private authService: AuthService,
   ) {
     visibilityService.articleVisible.next(false);
+    this.token = undefined;
   }
 
   hideHeader() {
