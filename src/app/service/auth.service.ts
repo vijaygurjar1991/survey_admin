@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient,HttpParams  } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { BehaviorSubject, map } from 'rxjs';
@@ -19,7 +19,7 @@ export class AuthService {
 
   }
 
-  login(userDetails: any) {
+  /*login(userDetails: any) {
     return this.http.post(`${this.apiUrl}Login`, userDetails, { responseType: 'text' }).pipe(
       map((response) => {
         //debugger;
@@ -30,7 +30,25 @@ export class AuthService {
         return response;
       })
     );
+  }*/
+
+  login(userDetails: any) {
+    const params = new HttpParams()
+      .set('email', userDetails.email)
+      .set('password', userDetails.password)
+      .set('captchertoken', userDetails.captchertoken);
+    return this.http.post(`${this.apiUrl}Login?${params.toString()}`, userDetails, { responseType: 'text' }).pipe(
+      map((response) => {
+        //debugger;
+        if (response) {
+          localStorage.setItem('authToken', response);
+          this.setUserDetails();
+        }
+        return response;
+      })
+    );
   }
+
 
   setUserDetails() {
     this.userData.next(null);

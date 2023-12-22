@@ -83,6 +83,8 @@ export class LoginComponent {
       ],
       password: ['', Validators.required],
       rememberMe: [false],
+      captchertoken:[false],
+      
     });
   }
 
@@ -97,8 +99,14 @@ export class LoginComponent {
           this.route.snapshot.queryParamMap.get('returnUrl') || '/dashboard';
         //this.router.navigate(['/dashboard']);
 
+        const userDetails = {
+          email: this.loginForm.get('email')?.value,
+          password: this.loginForm.get('password')?.value,
+          captchertoken: this.loginForm.get('captchertoken')?.value
+        };
+
         this.authService
-          .login(this.loginForm.value)
+          .login(userDetails)
           .pipe(first())
           .subscribe({
             next: (result) => {

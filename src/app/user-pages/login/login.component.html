@@ -59,14 +59,24 @@
                         </div>
                         <div class="row mt-3">
                             <div class="col-sm-12 mb-2">
-                              <re-captcha id="recaptcha" name="recaptcha" #recaptcha="ngModel" [(ngModel)]="token" required [class.is-invalid]="recaptcha.invalid && (recaptcha.dirty || recaptcha.touched)"  [ngModelOptions]="{standalone: true}"></re-captcha>
-                              <div *ngIf="recaptcha.invalid && (recaptcha.dirty || recaptcha.touched)" class="invalid-feedback">
-                                <div *ngIf="recaptcha.errors?.['required']">This field is required.</div>
+                                <re-captcha
+                                id="recaptcha"
+                                name="recaptcha"
+                                formControlName="captchertoken"
+                                [(ngModel)]="token"
+                                required
+                                [class.is-invalid]="loginForm.get('captchertoken')?.invalid && (loginForm.get('captchertoken')?.dirty || loginForm.get('captchertoken')?.touched)"
+                                [ngModelOptions]="{ standalone: true }"
+                              ></re-captcha>
+                              <div *ngIf="loginForm.get('captchertoken')?.invalid && (loginForm.get('captchertoken')?.dirty || loginForm.get('captchertoken')?.touched)" class="invalid-feedback">
+                                <div *ngIf="loginForm.get('captchertoken')?.errors?.['required']">This field is required.</div>
                               </div>
+                              
                             </div>
-                          </div>
-                        <div class="d-grid gap-2">
-                            <button type="submit" class="btn btn-primary" [disabled]="!loginForm.valid">Sign In</button>
+                            <div class="d-grid gap-2">
+                                <button type="submit" class="btn btn-primary" [disabled]="!loginForm.valid">Sign
+                                    In</button>
+                            </div>
                         </div>
                     </form>
                 </div>
