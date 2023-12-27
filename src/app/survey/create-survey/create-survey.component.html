@@ -54,13 +54,13 @@
         </div>
         <div ngClass="question">
             <ul cdkDropList (cdkDropListDropped)="onItemDrop($event)">
-                <li cdkDrag (cdkDragStarted)="onDragStarted()" (cdkDragEnded)="onDragEnded()"
-                    *ngFor="let question of questions;let i=index;">
+                <li *ngFor="let question of questions;let i=index;">
                     <div class="drag-item">
                         <div ngClass="ques-header">
-                            <h5 ngClass="mb-0"><ng-icon name="heroArrowsPointingOut"></ng-icon> Question {{i + 1}}</h5>
+                            <h5 ngClass="mb-0">Question {{i + 1}}</h5>
                             <div class="col-md-4">
-                                <select class="form-select" (change)="onSelectChange($event,question?.sort,question?.id)">
+                                <select class="form-select"
+                                    (change)="onSelectChange($event,question?.sort,question?.id)">
                                     <option *ngFor="let item of logicQuestionList" [value]="item.sort"
                                         [attr.selected]="question && question.id === item.id ? true : null">
                                         {{ item.item }}

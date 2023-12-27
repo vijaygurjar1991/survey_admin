@@ -348,7 +348,8 @@
                                     <div ngClass="logic-ques">
                                         <div class="input-group flex-nowrap">
                                             <span class="input-group-text" id="addon-wrapping">In</span>
-                                            <select class="form-select" #selectedQuestion (change)="getOptionsByQuestionId(selectedQuestion.value)">
+                                            <select class="form-select" #selectedQuestion
+                                                (change)="getOptionsByQuestionId(selectedQuestion.value)">
                                                 <option *ngFor="let item of logicQuestionList;let i=index;"
                                                     value="{{item.id}}">{{item.item}}</option>
                                             </select>
@@ -371,10 +372,11 @@
                                                     <mat-form-field class="example-chip-list">
                                                         <mat-label></mat-label>
                                                         <mat-chip-grid #chipGrid aria-label="City selection">
-                                                            <mat-chip-row *ngFor="let option of optionListByQuestionId;let i=index;">
+                                                            <mat-chip-row
+                                                                *ngFor="let option of optionListByQuestionId;let i=index;">
                                                                 {{option.option}}
                                                                 <button matChipRemove [attr.aria-label]="'remove'"
-                                                                (click)="removeOption(option)" >
+                                                                    (click)="removeOption(option)">
                                                                     <mat-icon>cancel</mat-icon>
                                                                 </button>
                                                             </mat-chip-row>
@@ -384,7 +386,8 @@
                                                         </mat-chip-grid>
                                                         <mat-autocomplete #auto="matAutocomplete"
                                                             (optionSelected)="selectedOption($event)">
-                                                            <mat-option *ngFor="let option of optionListByQuestionId" [value]="option">
+                                                            <mat-option *ngFor="let option of optionListByQuestionId"
+                                                                [value]="option">
                                                                 {{option.option}}
                                                             </mat-option>
                                                         </mat-autocomplete>
