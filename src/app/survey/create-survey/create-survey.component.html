@@ -58,41 +58,52 @@
                     <div class="drag-item">
                         <div ngClass="ques-header">
                             <h5 ngClass="mb-0">Question {{i + 1}}</h5>
-                            <div class="col-md-4">
-                                <select class="form-select"
+                            <div class="d-flex align-items-center">
+                                <!-- <select class="form-select"
                                     (change)="onSelectChange($event,question?.sort,question?.id)">
                                     <option *ngFor="let item of logicQuestionList" [value]="item.sort"
                                         [attr.selected]="question && question.id === item.id ? true : null">
                                         {{ item.item }}
                                     </option>
-                                </select>
+                                </select> -->
+
+                                <mat-form-field>
+                                     <!-- <mat-label>Favorite food</mat-label>  -->
+                                    <mat-select (selectionChange)="onSelectChange($event,question?.sort,question?.id)">
+                                      <mat-option *ngFor="let item of logicQuestionList" [value]="item.sort"
+                                      [attr.selected]="question && question.id === item.id ? true : null">
+                                        {{ item.item }}
+                                      </mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                                <div class="nav-item dropdown">
+                                    <a class="nav-link" href="javascript:void(0);" id="navbarDropdownMenuLink" role="button"
+                                        data-bs-toggle="dropdown" aria-expanded="false">
+                                        <ng-icon name="heroEllipsisVertical"></ng-icon>
+                                    </a>
+                                    <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                                        <li>
+                                            <a href="javascript:void(0);" class="dropdown-item"
+                                                (click)="onEditQuestionClick(question?.id)">
+                                                <ng-icon name="heroPencil"></ng-icon>
+                                                Edit
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="javascript:void(0);" class="dropdown-item"
+                                                (click)="toggleLogic(i,question?.id)">
+                                                <ng-icon name="heroPencil"></ng-icon>
+                                                Logic
+                                            </a>
+                                        </li>
+                                        <li><a class="dropdown-item" routerLink="#"><ng-icon
+                                                    name="heroDocumentDuplicate"></ng-icon>Clone</a></li>
+                                        <li><a class="dropdown-item delete-hover" routerLink="#"><ng-icon
+                                                    name="heroTrash"></ng-icon>Delete</a></li>
+                                    </ul>
+                                </div>
                             </div>
-                            <div class="nav-item dropdown">
-                                <a class="nav-link" href="javascript:void(0);" id="navbarDropdownMenuLink" role="button"
-                                    data-bs-toggle="dropdown" aria-expanded="false">
-                                    <ng-icon name="heroEllipsisVertical"></ng-icon>
-                                </a>
-                                <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                                    <li>
-                                        <a href="javascript:void(0);" class="dropdown-item"
-                                            (click)="onEditQuestionClick(question?.id)">
-                                            <ng-icon name="heroPencil"></ng-icon>
-                                            Edit
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="javascript:void(0);" class="dropdown-item"
-                                            (click)="toggleLogic(i,question?.id)">
-                                            <ng-icon name="heroPencil"></ng-icon>
-                                            Logic
-                                        </a>
-                                    </li>
-                                    <li><a class="dropdown-item" routerLink="#"><ng-icon
-                                                name="heroDocumentDuplicate"></ng-icon>Clone</a></li>
-                                    <li><a class="dropdown-item delete-hover" routerLink="#"><ng-icon
-                                                name="heroTrash"></ng-icon>Delete</a></li>
-                                </ul>
-                            </div>
+                            
                         </div>
                         <div ngClass="ques-body p-4">
                             <h5 ngClass="mb-4">{{question?.question}}</h5>

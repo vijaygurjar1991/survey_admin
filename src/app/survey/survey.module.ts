@@ -19,7 +19,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { NgxDropzoneModule } from 'ngx-dropzone';
 import { DecimalPipe, NgFor } from '@angular/common';
 //import { NgbPaginationModule, NgbTypeaheadModule } from '@ng-bootstrap/ng-bootstrap';
-
+import { MatSelectModule } from '@angular/material/select';
 
 // Icons
 import { NgIconsModule, provideNgIconsConfig } from '@ng-icons/core';
@@ -139,6 +139,7 @@ import { DecryptPipe } from '../pipes/decrypt.pipe';
     TagInputModule,
     NgxDropzoneModule,
     ModalModule,
+    MatSelectModule,
     //DecimalPipe, NgFor, FormsModule, NgbTypeaheadModule, NgbPaginationModule,
     NgIconsModule.withIcons({
       heroQuestionMarkCircle,

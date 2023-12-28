@@ -16,6 +16,9 @@ import { GenderPopupComponent } from '../popups/gender-popup/gender-popup.compon
 import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import Swal from 'sweetalert2';
 import { QuestionLogic } from 'src/app/models/question-logic';
+import { MatSelectChange } from '@angular/material/select';
+
+
 
 @Component({
   selector: 'app-create-survey',
@@ -80,6 +83,7 @@ export class CreateSurveyComponent implements OnInit {
   logicValuesList:any
   logicThensList:any
   logicQuestionList:any
+  selectedValue: any;
 
   questionLogic: QuestionLogic = new QuestionLogic();
   constructor(
@@ -440,9 +444,10 @@ export class CreateSurveyComponent implements OnInit {
 
 
   }
-  onSelectChange(event: Event,questionSortValue:any,questionId:number) {
-    const target = event.target as HTMLSelectElement;
-    const selectedValue = target.value;
+  onSelectChange(event: MatSelectChange, questionSortValue:any,questionId:number) {
+    
+    //const target = event.target as HTMLSelectElement;
+    const selectedValue = event.value;
     // Use selectedValue as needed
     console.log('Selected value:', selectedValue);
     console.log('Question Sort value:', questionSortValue);
