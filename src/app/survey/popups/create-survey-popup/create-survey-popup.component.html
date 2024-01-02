@@ -27,12 +27,17 @@
                             </mat-autocomplete>
                         </mat-form-field>
                     </div>
+                    <div class="mb-4" *ngIf="selectedOption === 'Others'">
+                        <label for="categoryName" class="form-label">Enter Category Name</label>
+                        <input id="categoryName" type="text" class="form-control" [(ngModel)]="categoryName"
+                            name="categoryName" />
+                    </div>
                 </form>
             </div>
             <div class="modal-footer upload">
                 <button type="button" class="btn close" (click)="close()">Cancel</button>
                 <a href="javascript:void(0);" type="button" class="btn btn-primary icon"
-                    (click)="CreateSurvey();">Create
+                    (click)="createSurvey();">Create
                     <ng-icon name="heroArrowLongRight" class="ms-4"></ng-icon></a>
             </div>
         </div>

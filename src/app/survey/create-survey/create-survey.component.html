@@ -72,7 +72,7 @@
                                         (selectionChange)="onSelectChange($event, question?.sort, question?.id)">
                                         <mat-option *ngFor="let item of logicQuestionList" [value]="item.sort"
                                             [attr.selected]="idIsEqual(question.id, item.id) ? true : null">
-                                            {{ item.item }}
+                                            {{ item.term }}
                                         </mat-option>
                                     </mat-select>
                                 </mat-form-field>
@@ -228,6 +228,7 @@
                                                                 </div>
                                                                 <div class="col-md-4">
                                                                     <select class="form-select" #thanExpectedSelect>
+                                                                        <option value="null" >Select Question</option>
                                                                         <option
                                                                             *ngFor="let item of logicQuestionList;let i=index;"
                                                                             value="{{item.id}}">{{item.item}}</option>

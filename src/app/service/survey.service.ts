@@ -59,12 +59,12 @@ export class SurveyService {
   }
 
   // Create Survey
-  CreateSurvey(data: any): Observable<any> {
+  /*createSurvey(data: any): Observable<any> {
     const { surveyName, categoryId } = data;
     const url = `${this.apiUrl}api/admin/${this.userId}/Survey/CreateSurvey?surveyName=${encodeURIComponent(surveyName)}&categoryId=${categoryId}`;
     console.log("posted data", data);
     return this.http.post(url, data, { responseType: 'text' });
-  }
+  }*/
   //Update Survey
   updateSurvey(data: any): Observable<any> {
     const { surveyId,surveyName, categoryId } = data;
@@ -128,7 +128,7 @@ export class SurveyService {
       .pipe(map((result) => result as responseDTO));
   }
   createLogic(data: any): Observable<any> {
-    const url = `${this.apiUrl}api/admin/${this.userId}/GeneralQuestion/CreateLogicsOnGeneralQuestion`;
+    const url = `${this.apiUrl}api/admin/${this.userId}/GeneralQuestion/CreateLogics`;
     return this.http.post(url, data, { responseType: 'text' });
   }
   getGenericQuestionType1(typeId: any): Observable<responseGenericQuestion[]> {
@@ -178,5 +178,13 @@ export class SurveyService {
     }
     return this.http.get(url,{responseType: 'text'});
   }
-
+  createSurvey(data: any): Observable<any> {
+    const params = new HttpParams()
+      .set('name', data.surveyName)
+      .set('categoryId', data.categoryId)
+      .set('otherCategory', data.otherCategory);
+    const url = `${this.apiUrl}api/admin/${this.userId}/Survey/CreateSurvey?${params.toString()}`;
+    console.log("posted data", data);
+    return this.http.post(url, data, { responseType: 'text' });
+  }
 }

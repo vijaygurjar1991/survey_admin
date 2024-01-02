@@ -19,6 +19,7 @@ export class CreateSurveyPopupComponent {
 
   @ViewChild('CreateSurveyModal', { static: true }) modal!: ModalDirective;
 
+  categoryName: any="";
   surveyName: any;
   categoryId: number;
   newsurveyId: number;
@@ -78,16 +79,20 @@ export class CreateSurveyPopupComponent {
   filterOptions(e: MatAutocompleteSelectedEvent) {
     this.categoryId = e.option.value;
     this.selectedOption = e.option.viewValue;
+
   }
 
 
-  CreateSurvey() {
-    const dataToSend = {
+  createSurvey() {
+
+    let dataToSend = {
       surveyName: this.surveyName,
-      categoryId: this.categoryId
+      categoryId: this.categoryId,
+      otherCategory : this.categoryName
     };
+    
     console.log("dataToSend", dataToSend)
-    this.surveyservice.CreateSurvey(dataToSend).subscribe(
+    this.surveyservice.createSurvey(dataToSend).subscribe(
       response => {
         console.log('Response from server:', response);
         this.newsurveyId = response;
@@ -98,7 +103,7 @@ export class CreateSurveyPopupComponent {
           this.modal.hide();
 
           this.router.navigateByUrl(url);
-          if(this.router.url.includes('/manage-survey')){
+          if (this.router.url.includes('/manage-survey')) {
             location.reload();
           }
         }

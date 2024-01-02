@@ -25,7 +25,7 @@ import Swal from 'sweetalert2';
 })
 export class EditSurveyComponent {
   separatorKeysCodes: number[] = [ENTER, COMMA];
-  
+
   surveyId: any;
   questionTypeId: any;
   question: Question = new Question();
@@ -41,7 +41,7 @@ export class EditSurveyComponent {
   filesImage: File[] = [];
   filesVideo: File[] = [];
   logicQuestionList: any
-  pipeQuestionList:any
+  pipeQuestionList: any
   isLogicShow: boolean = false
   logicValuesList: any
   optionLogicValuesList: any
@@ -87,7 +87,7 @@ export class EditSurveyComponent {
       this.question.createdDate = data.createdDate;
       this.question.modifiedDate = this.getCurrentDateTime();
       this.question.sort = data.sort
-      this.question.questionTypeName=data.questionTypeName
+      this.question.questionTypeName = data.questionTypeName
 
       data.options.forEach((opt: any) => {
 
@@ -152,7 +152,7 @@ export class EditSurveyComponent {
   }
 
   ngOnInit() {
-    
+
     this.themeService.closeSideBar();
     this.getQuestionTypes();
     if (this.mode != 'modify') {
@@ -252,7 +252,7 @@ export class EditSurveyComponent {
     this.question.question = '';
     this.question.createdDate = this.getCurrentDateTime();
     this.question.modifiedDate = this.getCurrentDateTime();
-     
+
 
 
     this.filteredOptions.push(...this.optionsArr1, ...this.optionsArr2);
@@ -472,7 +472,7 @@ export class EditSurveyComponent {
     this.surveyservice.getLogicQuestionList(dataToSend).subscribe((response: responseDTO) => {
       console.log("logicQuestionList", response);
       console.log("Question Sort Value", this.question.sort);
-      this.pipeQuestionList=response
+      this.pipeQuestionList = response
       this.logicQuestionList = response.filter((item: Question) => item.sort < this.question.sort);
       if (this.logicQuestionList.length > 0) {
         this.getOptionsByQuestionId(this.logicQuestionList[0].id);

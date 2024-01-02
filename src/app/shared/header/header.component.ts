@@ -75,8 +75,8 @@ export class HeaderComponent {
           console.log(`${key}:`, selectedSurvey[key]);
         }
       }
-      console.log("selectedSurveyId",selectedSurvey.id)
-      const encryptedId = this.encryptId(selectedSurvey.id); // Assuming you have a function to encrypt the ID
+      console.log("selectedSurveyId",selectedSurvey.surveyId)
+      const encryptedId = this.encryptId(selectedSurvey.surveyId); // Assuming you have a function to encrypt the ID
       this.router.navigate(['/survey/manage-survey/', encryptedId]);
       // You can also store this information in a variable for further use if needed
       // this.selectedSurveyDetails = selectedSurvey;
