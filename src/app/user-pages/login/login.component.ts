@@ -89,7 +89,7 @@ export class LoginComponent {
   }
 
   onSubmit() {
-    if (this.captchaComponent.validateCaptcha()) {
+    //if (this.captchaComponent.validateCaptcha()) {
       this.submitted = true;
       if (this.loginForm.valid) {
         this.loginForm.removeControl('rememberMe');
@@ -128,6 +128,6 @@ export class LoginComponent {
             },
           });
       }
-    }
+    //}
   }
 }
