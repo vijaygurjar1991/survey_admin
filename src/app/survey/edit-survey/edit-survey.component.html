@@ -35,13 +35,13 @@
                                 <input type="text" [(ngModel)]="question.question" class="form-control" />
                             </div>
                             <div class="col-2">
-                                <input type="text" id="" class="form-control" value="Age">
+                                <input type="text" [(ngModel)]="question.questionTypeName"class="form-control" >
                             </div>
                             <div class="col-2">
-                                <select class="form-select">
-                                    <option selected>Select Pipeing</option>
-                                    <option value="1">Select Pipeing 1</option>
-                                    <option value="2">Select Pipeing 2</option>
+                                <select class="form-select" >
+                                    <option *ngFor="let item of pipeQuestionList;let i=index;"
+                                    value="{{item.id}}">{{item.item}}</option>
+                                    
                                 </select>
                             </div>
                         </div>
@@ -302,7 +302,7 @@
                     <div ngClass="mb-4">
                         <div class="logic-tab">
                             <!-- Nav tabs -->
-                            <!-- <ul class="nav flex-column nav-tabs" id="myTab" role="tablist">
+                            <ul class="nav flex-column nav-tabs" id="myTab" role="tablist">
                                 <li class="nav-item" role="presentation">
                                     <button class="nav-link active" id="branching-tab" data-bs-toggle="tab"
                                         data-bs-target="#branching" role="tab" aria-selected="true">Branching</button>
@@ -330,7 +330,7 @@
                                     <button class="nav-link" id="settings-tab" data-bs-toggle="tab"
                                         data-bs-target="#settings" role="tab" aria-selected="false">Autocode</button>
                                 </li>
-                            </ul> -->
+                            </ul>
                             <!-- Logic Question -->
                             <div class="tab-content p-4" *ngIf="isLogicShow">
                                 <div class="tab-pane active" id="branching" role="tabpanel"
@@ -348,8 +348,7 @@
                                     <div ngClass="logic-ques">
                                         <div class="input-group flex-nowrap">
                                             <span class="input-group-text" id="addon-wrapping">In</span>
-                                            <select class="form-select" #selectedQuestion
-                                                (change)="getOptionsByQuestionId(selectedQuestion.value)">
+                                            <select class="form-select" #selectedQuestion (change)="getOptionsByQuestionId(selectedQuestion.value)">
                                                 <option *ngFor="let item of logicQuestionList;let i=index;"
                                                     value="{{item.id}}">{{item.item}}</option>
                                             </select>
@@ -370,24 +369,19 @@
                                                 </div>
                                                 <div class="col-md-3">
                                                     <mat-form-field class="example-chip-list">
-                                                        <mat-label></mat-label>
+                                                        <mat-label>Options</mat-label>
                                                         <mat-chip-grid #chipGrid aria-label="City selection">
-                                                            <mat-chip-row
-                                                                *ngFor="let option of optionListByQuestionId;let i=index;">
+                                                            <mat-chip-row *ngFor="let option of selectedOptions; let i=index;">
                                                                 {{option.option}}
-                                                                <button matChipRemove [attr.aria-label]="'remove'"
-                                                                    (click)="removeOption(option)">
+                                                                <button matChipRemove [attr.aria-label]="'remove'" (click)="removeOption(option)">
                                                                     <mat-icon>cancel</mat-icon>
                                                                 </button>
                                                             </mat-chip-row>
-                                                            <input #citiesInput [matChipInputFor]="chipGrid"
-                                                                [matAutocomplete]="auto"
-                                                                [matChipInputSeparatorKeyCodes]="separatorKeysCodes" />
+                                                            <input #citiesInput [matChipInputFor]="chipGrid" [matAutocomplete]="auto"
+                                                                [matChipInputSeparatorKeyCodes]="separatorKeysCodes" (matChipInputTokenEnd)="addOption($event)">
                                                         </mat-chip-grid>
-                                                        <mat-autocomplete #auto="matAutocomplete"
-                                                            (optionSelected)="selectedOption($event)">
-                                                            <mat-option *ngFor="let option of optionListByQuestionId"
-                                                                [value]="option">
+                                                        <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selectedOption($event)">
+                                                            <mat-option *ngFor="let option of optionListByQuestionId" [value]="option">
                                                                 {{option.option}}
                                                             </mat-option>
                                                         </mat-autocomplete>
@@ -434,12 +428,12 @@
 
                                     </div>
                                 </div>
-                                <!-- <div class="tab-pane" id="profile" role="tabpanel" aria-labelledby="profile-tab">zxcvb
+                                <div class="tab-pane" id="profile" role="tabpanel" aria-labelledby="profile-tab">zxcvb
                                 </div>
                                 <div class="tab-pane" id="messages" role="tabpanel" aria-labelledby="messages-tab">...
                                 </div>
                                 <div class="tab-pane" id="settings" role="tabpanel" aria-labelledby="settings-tab">...
-                                </div> -->
+                                </div>
                             </div>
                         </div>
                     </div>

@@ -16,7 +16,7 @@ import { GenderPopupComponent } from '../popups/gender-popup/gender-popup.compon
 import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import Swal from 'sweetalert2';
 import { QuestionLogic } from 'src/app/models/question-logic';
-import { MatSelectChange } from '@angular/material/select';
+import { MatSelect, MatSelectChange } from '@angular/material/select';
 
 
 
@@ -62,7 +62,7 @@ export class CreateSurveyComponent implements OnInit {
   @ViewChild('PinCodeModal', { static: true }) pincodeModal!: ModalDirective;
   @ViewChild('AudioGenderDetectionModal', { static: true }) audiogenderdetectionModal!: ModalDirective;
   @ViewChild('StateModal', { static: true }) stateModal!: ModalDirective;
-
+  @ViewChild('selectElement') selectElement!: MatSelect; 
 
 
   role: string;
@@ -84,8 +84,9 @@ export class CreateSurveyComponent implements OnInit {
   logicThensList:any
   logicQuestionList:any
   selectedValue: any;
-
+  defaultSelectedValue: any = null;
   questionLogic: QuestionLogic = new QuestionLogic();
+  
   constructor(
     private visibilityService: DataService,
     private modalService: NgbModal,
@@ -112,6 +113,7 @@ export class CreateSurveyComponent implements OnInit {
     this.route.paramMap.subscribe(params => {
       let _surveyId = params.get('param1');
       if (_surveyId) {
+        this.reloadIfAlreadyOnManageSurvey(_surveyId);
         console.log("_surveyId : ",this.crypto.decryptQueryParam(_surveyId))
         this.surveyId = parseInt(this.crypto.decryptQueryParam(_surveyId));
       }
@@ -130,6 +132,7 @@ export class CreateSurveyComponent implements OnInit {
   surveyId = 0;
 
   ngOnInit() {
+    console.log('ngOnInit called');
     this.visibilityService.closeSideBar();
     this.userId = this.utils.getUserId();
 
@@ -141,6 +144,11 @@ export class CreateSurveyComponent implements OnInit {
     this.getLogicValues();
     this.getLogicThens();
     this.getLogicQuestionList(0)
+    this.defaultSelectedValue = null;
+  }
+  ngAfterViewInit() {
+    // Set the default value after the view initialization
+    this.selectElement.value = null; // Set the default value to null or any desired default value
   }
   onGenericQuestionClick(type: any): void {
     if (type === "Gender") {
@@ -472,5 +480,20 @@ export class CreateSurveyComponent implements OnInit {
       }
     );
 }
+idIsEqual(a: string, b: string): boolean {
+  return a === b;
+}
+reloadIfAlreadyOnManageSurvey(encryptedId: string) {
+  console.log("reloadIfAlreadyOnManageSurvey")
+  if (this.router.url.includes('/survey/manage-survey')) {
+    const navigationExtras = {
+      relativeTo: this.route,
+      queryParams: { id: encryptedId },
+      queryParamsHandling: 'merge' as const,
+    };
 
+    // Navigate with the updated query parameter without full page reload
+    this.router.navigate([], navigationExtras);
+  }
+}
 }

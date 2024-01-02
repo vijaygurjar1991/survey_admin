@@ -68,14 +68,13 @@
                                 </select> -->
 
                                 <mat-form-field>
-                                     <!-- <mat-label>Favorite food</mat-label>  -->
-                                    <mat-select (selectionChange)="onSelectChange($event,question?.sort,question?.id)">
-                                      <mat-option *ngFor="let item of logicQuestionList" [value]="item.sort"
-                                      [attr.selected]="question && question.id === item.id ? true : null">
+                                    <mat-label>Select an Option</mat-label>
+                                    <mat-select #selectElement (selectionChange)="onSelectChange($event, question?.sort, question?.id)">
+                                      <mat-option *ngFor="let item of logicQuestionList" [value]="item.sort" [attr.selected]="idIsEqual(question.id, item.id) ? true : null">
                                         {{ item.item }}
                                       </mat-option>
                                     </mat-select>
-                                </mat-form-field>
+                                  </mat-form-field>
                                 <div class="nav-item dropdown">
                                     <a class="nav-link" href="javascript:void(0);" id="navbarDropdownMenuLink" role="button"
                                         data-bs-toggle="dropdown" aria-expanded="false">

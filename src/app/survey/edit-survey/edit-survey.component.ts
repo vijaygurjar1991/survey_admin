@@ -25,7 +25,7 @@ import Swal from 'sweetalert2';
 })
 export class EditSurveyComponent {
   separatorKeysCodes: number[] = [ENTER, COMMA];
-
+  
   surveyId: any;
   questionTypeId: any;
   question: Question = new Question();
@@ -40,11 +40,12 @@ export class EditSurveyComponent {
   questionImage: any
   filesImage: File[] = [];
   filesVideo: File[] = [];
-  logicQuestionList:any
+  logicQuestionList: any
+  pipeQuestionList:any
   isLogicShow: boolean = false
-  logicValuesList:any
-  optionLogicValuesList:any
-  optionListByQuestionId:any
+  logicValuesList: any
+  optionLogicValuesList: any
+  optionListByQuestionId: any
   selectedOptions: any[] = [];
   constructor(public themeService: DataService, private router: Router,
     private route: ActivatedRoute, private surveyservice: SurveyService,
@@ -62,8 +63,8 @@ export class EditSurveyComponent {
         console.log("questionTypeId", this.questionTypeId)
         console.log("mode", this.mode)
         console.log("questionId", this.questionId)
-        if(this.questionId>1)
-          this.isLogicShow=true
+        if (this.questionId > 1)
+          this.isLogicShow = true
         if (this.mode == 'modify') {
           this.getQuestionDetails();
           this.getLogicQuestionList(this.questionId);
@@ -85,7 +86,8 @@ export class EditSurveyComponent {
       this.question.question = data.question;
       this.question.createdDate = data.createdDate;
       this.question.modifiedDate = this.getCurrentDateTime();
-      this.question.sort=data.sort
+      this.question.sort = data.sort
+      this.question.questionTypeName=data.questionTypeName
 
       data.options.forEach((opt: any) => {
 
@@ -150,6 +152,7 @@ export class EditSurveyComponent {
   }
 
   ngOnInit() {
+    
     this.themeService.closeSideBar();
     this.getQuestionTypes();
     if (this.mode != 'modify') {
@@ -249,8 +252,9 @@ export class EditSurveyComponent {
     this.question.question = '';
     this.question.createdDate = this.getCurrentDateTime();
     this.question.modifiedDate = this.getCurrentDateTime();
+     
 
-    
+
     this.filteredOptions.push(...this.optionsArr1, ...this.optionsArr2);
     this.allOptions.push(...this.optionsArr1, ...this.optionsArr2);
 
@@ -300,7 +304,7 @@ export class EditSurveyComponent {
     if (this.questionId > 0) {
       this.question.id = this.questionId
     }
-    this.question.image=this.questionImage
+    this.question.image = this.questionImage
     this.question.options = this.allOptions;
     if (parseFloat(this.questionId) > 0) {
       this.surveyservice.updateGeneralQuestion(this.question).subscribe({
@@ -406,18 +410,18 @@ export class EditSurveyComponent {
     this.filesImage.splice(this.files.indexOf(event), 1);
   }
   uploadImage(file: File): void {
-  
-    let queryParams=null;
-    if(this.questionId != 0){
-       queryParams = {
+
+    let queryParams = null;
+    if (this.questionId != 0) {
+      queryParams = {
         qid: this.questionId
       };
     }
 
-    this.surveyservice.uploadImageQuestion(file,queryParams).subscribe(
-      (response:String) => {
+    this.surveyservice.uploadImageQuestion(file, queryParams).subscribe(
+      (response: String) => {
         console.log('Upload successful:', response);
-        this.questionImage=response
+        this.questionImage = response
         // Handle response from the image upload
         // You may want to retrieve the URL or any other relevant information from the response
       },
@@ -441,17 +445,17 @@ export class EditSurveyComponent {
     this.filesVideo.splice(this.files.indexOf(event), 1);
   }
   uploadVideo(file: File): void {
-  
-    let queryParams=null;
-    if(this.questionId != 0){
-       queryParams = {
+
+    let queryParams = null;
+    if (this.questionId != 0) {
+      queryParams = {
         qid: this.questionId
       };
     }
-    this.surveyservice.uploadVideoQuestion(file,queryParams).subscribe(
-      (response:String) => {
+    this.surveyservice.uploadVideoQuestion(file, queryParams).subscribe(
+      (response: String) => {
         console.log('Upload successful:', response);
-        this.questionImage=response
+        this.questionImage = response
       },
       (error) => {
         console.error('Error occurred while uploading:', error);
@@ -459,8 +463,8 @@ export class EditSurveyComponent {
       }
     );
   }
-  getLogicQuestionList(questionId:any){
-    this.logicQuestionList='';
+  getLogicQuestionList(questionId: any) {
+    this.logicQuestionList = '';
     const dataToSend = {
       surveyId: this.surveyId,
       surveyStatus: questionId
@@ -468,12 +472,13 @@ export class EditSurveyComponent {
     this.surveyservice.getLogicQuestionList(dataToSend).subscribe((response: responseDTO) => {
       console.log("logicQuestionList", response);
       console.log("Question Sort Value", this.question.sort);
+      this.pipeQuestionList=response
       this.logicQuestionList = response.filter((item: Question) => item.sort < this.question.sort);
       if (this.logicQuestionList.length > 0) {
         this.getOptionsByQuestionId(this.logicQuestionList[0].id);
       }
       console.log("Filtered logicQuestionList", this.logicQuestionList);
-    }); 
+    });
   }
   getLogicValues() {
     this.surveyservice.getLogicValues().subscribe((response: { [x: string]: any; }) => {
@@ -489,24 +494,48 @@ export class EditSurveyComponent {
       this.optionLogicValuesList = response
     });
   }
-  getOptionsByQuestionId(selectedQuestion: any){
-    this.optionListByQuestionId=''
-    console.log("selectedQuestio",selectedQuestion);
+  getOptionsByQuestionId(selectedQuestion: any) {
+    this.selectedOptions = [];
+    this.optionListByQuestionId = ''
+    console.log("selectedQuestion", selectedQuestion);
     const selectedValue = selectedQuestion;
     let queryParams = {
       qid: selectedValue
     }
     this.surveyservice.getOptionsByQuestionId(queryParams).subscribe((response: { [x: string]: any; }) => {
       var result = Object.keys(response).map(e => response[e]);
-      
+
       this.optionListByQuestionId = response
       console.log("optionListByQuestionId", this.optionListByQuestionId)
       this.optionListByQuestionId = JSON.parse(this.optionListByQuestionId)
     });
   }
-  removeOption(data: any) {
-  }
-  selectedOption(event: MatAutocompleteSelectedEvent){
+  addOption(event: MatChipInputEvent): void {
+    const input = event.input;
+    const value = event.value.trim();
 
+    // Check if the entered value is in the available options
+    const matchingOption = this.optionListByQuestionId.find((option: Option) => option.option === value);
+
+    if (matchingOption && !this.selectedOptions.includes(matchingOption)) {
+      this.selectedOptions.push(matchingOption);
+    }
+
+    if (input) {
+      input.value = '';
+    }
+  }
+  removeOption(option: any): void {
+    const index = this.selectedOptions.indexOf(option);
+    if (index >= 0) {
+      this.selectedOptions.splice(index, 1);
+    }
+  }
+
+  selectedOption(event: MatAutocompleteSelectedEvent): void {
+    const selectedOption = event.option.value;
+    if (!this.selectedOptions.includes(selectedOption)) {
+      this.selectedOptions.push(selectedOption);
+    }
   }
 }
