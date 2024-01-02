@@ -80,7 +80,7 @@
                         </td>
                         <td ngClass="action">
                             <a *ngIf="item.status!='ACT' && item.status!='HOL'" href="javascript:"
-                                [routerLink]="'/survey/manage-survey/'+ (item.id | encrypt)">
+                                [routerLink]="'/survey/manage-survey/'+ (item.surveyId | encrypt)">
                                 <ng-icon name="heroPencil" ngClass="edit-action"></ng-icon></a>
                             <!-- <a *ngIf="item.status=='ACT'" href="javascript:">
                                 <ng-icon name="heroPencil" ngClass="edit-action"></ng-icon></a> -->
