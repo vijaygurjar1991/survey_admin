@@ -34,6 +34,7 @@ import { heroBars3 } from '@ng-icons/heroicons/outline';
 import { heroXMark } from '@ng-icons/heroicons/outline';
 import { heroMagnifyingGlass } from '@ng-icons/heroicons/outline';
 import { heroTrash } from '@ng-icons/heroicons/outline';
+import { heroCommandLine } from '@ng-icons/heroicons/outline';
 // Icons
 
 import { HeaderComponent } from './shared/header/header.component';
@@ -82,7 +83,7 @@ import { environment } from '../environments/environment';
     HttpClientModule,
     NgIconsModule.withIcons({
       heroHome,
-
+      heroCommandLine,
       heroUsers,
       heroChevronRight,
       heroStopCircle,
@@ -102,7 +103,7 @@ import { environment } from '../environments/environment';
     BrowserAnimationsModule,
     RecaptchaModule,
     RecaptchaFormsModule
-    
+
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   providers: [

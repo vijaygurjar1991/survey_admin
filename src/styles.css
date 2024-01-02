@@ -1129,6 +1129,7 @@ span.mobile-cross {
 .select-values ul li figure img {
     opacity: 1;
     width: auto;
+    object-fit: none;
 }
 
 .select-values ul li figcaption {
@@ -1389,7 +1390,7 @@ span.mobile-cross {
 
 
 .mdc-text-field--filled:not(.mdc-text-field--disabled) {
-    background-color: transparent !important;
+    background-color: var(--white) !important;
     border: 1px solid var(--border-color);
     --mdc-filled-text-field-active-indicator-height: 0px;
     border-radius: .25rem;
@@ -1705,6 +1706,6 @@ label {
 
 
 .mdc-text-field--no-label:not(.mdc-text-field--outlined):not(.mdc-text-field--textarea) .mat-mdc-form-field-infix{
-    padding-top: 10px;padding-bottom: 10px;min-height: 0;
+    padding-top: 6px;padding-bottom: 6px;min-height: 0;
 }
 .mat-mdc-form-field-subscript-wrapper{display: none;}
