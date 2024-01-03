@@ -13,7 +13,16 @@
                         <input id="surveyname" type="text" class="form-control" [(ngModel)]="surveyName"
                             name="surveyName" />
                     </div>
-                    <div class="mb-4" class="search-categories input-icon">
+                    <div class="mb-4">
+                        <label class="form-label">Select Your Country</label>
+                        <mat-form-field>
+                            <mat-select >
+                              <mat-option value="option1">Option 1</mat-option>
+                              <mat-option value="option3">Option 3</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                    <div class="mb-4 search-categories input-icon">
                         <label class="form-label">Select Survey Categories</label>
 
                         <mat-form-field>

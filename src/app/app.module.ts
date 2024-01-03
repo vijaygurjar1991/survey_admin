@@ -56,6 +56,7 @@ import { ModalModule } from 'ngx-bootstrap/modal';
 import { environment } from '../environments/environment';
 
 
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -81,6 +82,7 @@ import { environment } from '../environments/environment';
     ReactiveFormsModule,
     MatChipsModule,
     HttpClientModule,
+    MatSelectModule,
     NgIconsModule.withIcons({
       heroHome,
       heroCommandLine,

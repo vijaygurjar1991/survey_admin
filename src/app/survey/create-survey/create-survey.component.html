@@ -45,6 +45,14 @@
         </div>
     </div>
     <div ngClass="survey-question">
+        <div>
+            <div class="alert alert-danger py-2 px-3" role="alert">
+                A simple danger alert—check it out!
+            </div>
+            <div class="alert alert-warning py-2 px-3" role="alert">
+                A simple warning alert—check it out!
+            </div>
+        </div>
         <div ngClass="survey-name">
             <div>
                 <h4 ngClass="mb-3">{{surveyName}}</h4>
@@ -58,7 +66,7 @@
                     <div class="drag-item">
                         <div ngClass="ques-header">
                             <h5 ngClass="mb-0">Question {{i + 1}}</h5>
-                            <div class="d-flex align-items-center">
+                            <div class="d-flex align-items-center justify-content-end">
                                 <!-- <select class="form-select"
                                     (change)="onSelectChange($event,question?.sort,question?.id)">
                                     <option *ngFor="let item of logicQuestionList" [value]="item.sort"
@@ -276,6 +284,14 @@
                 <span>It is a long established fact that a reader will be distracted by the readable content of a
                     page
                     when looking at its layout.</span>
+            </div>
+        </div>
+        <div class="updated-preview">
+            <div class="last-updated">
+                <p class="mb-0">Survey Created on <span>01-01-2024</span></p>
+            </div>
+            <div class="preview">
+                <a href="#" class="btn btn-primary">Preview</a>
             </div>
         </div>
     </div>

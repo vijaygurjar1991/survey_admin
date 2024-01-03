@@ -6,13 +6,19 @@
                 <p>Manage your Track Opinion "Survey List" page</p>
             </div>
             <div class="col-md-3">
-                <div class="input-group flex-nowrap sort">
-                    <span class="input-group-text" id="addon-wrapping"></span>
-                    <select class="form-select" [(ngModel)]="selectedCategory">
-                        <option selected value="All Categories">All Categories</option>
-                        <option *ngFor="let item of categoryList" [value]="item.name">{{item.name}}</option>
-                    </select>
-                </div>
+                    <!-- <div class="input-group flex-nowrap sort">
+                        <span class="input-group-text" id="addon-wrapping"></span>
+                        <select class="form-select" [(ngModel)]="selectedCategory">
+                            <option selected value="All Categories">All Categories</option>
+                            <option *ngFor="let item of categoryList" [value]="item.name">{{item.name}}</option>
+                        </select>                    
+                    </div> -->
+                <mat-form-field>
+                    <mat-select [(ngModel)]="selectedCategory">
+                    <mat-option selected value="All Categories">All Categories</mat-option>
+                      <mat-option *ngFor="let item of categoryList" [value]="item.name">{{item.name}}</mat-option>
+                    </mat-select>
+                </mat-form-field>
             </div>
         </div>
         <div class="table-responsive">
