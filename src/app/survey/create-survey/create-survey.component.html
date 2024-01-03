@@ -108,7 +108,7 @@
                         <div ngClass="ques-body p-4">
                             <h5 ngClass="mb-4">{{question?.question}}</h5>
                             <div ngClass="ques-ans">
-                                <div class="d-flex gap-3">
+                                <div class="">
                                     <div class="ques-radio" *ngFor="let question of question?.options;let i=index;">
                                         <label> <input type="radio" [id]="'question_option_' + i"
                                                 name="question_option">
@@ -228,7 +228,7 @@
                                                                 </div>
                                                                 <div class="col-md-4">
                                                                     <select class="form-select" #thanExpectedSelect>
-                                                                        <option value="null" >Select Question</option>
+                                                                        <option value="null">Select Question</option>
                                                                         <option
                                                                             *ngFor="let item of logicQuestionList;let i=index;"
                                                                             value="{{item.id}}">{{item.item}}</option>
