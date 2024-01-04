@@ -46,17 +46,18 @@
     </div>
     <div ngClass="survey-question">
         <div>
-            <div class="alert alert-danger py-2 px-3" role="alert">
+            <div *ngIf="surveyStatus=='ACT'" class="alert alert-danger py-2 px-3" role="alert">
                 A simple danger alert—check it out!
             </div>
-            <div class="alert alert-warning py-2 px-3" role="alert">
+            <div *ngIf="surveyStatus=='HOL'" class="alert alert-warning py-2 px-3" role="alert">
                 A simple warning alert—check it out!
             </div>
         </div>
         <div ngClass="survey-name">
             <div>
                 <h4 ngClass="mb-3">{{surveyName}}</h4>
-                <span>{{categoryName}}</span>
+                <span *ngIf="categoryName !='Others'">{{categoryName}}</span>
+                <span *ngIf="categoryName =='Others'">{{otherCategoryName}}</span>
             </div>
             <a (click)="openLg(sidecontent)"><ng-icon name="heroPencilSquare"></ng-icon></a>
         </div>
@@ -65,7 +66,7 @@
                 <li *ngFor="let question of questions;let i=index;">
                     <div class="drag-item">
                         <div ngClass="ques-header">
-                            <h5 ngClass="mb-0">Question {{i + 1}}</h5>
+                            <h5 ngClass="mb-0">Q-{{i + 1}} {{question?.question}}</h5>
                             <div class="d-flex align-items-center justify-content-end">
                                 <!-- <select class="form-select"
                                     (change)="onSelectChange($event,question?.sort,question?.id)">
@@ -78,9 +79,9 @@
                                 <mat-form-field>
                                     <mat-select #selectElement
                                         (selectionChange)="onSelectChange($event, question?.sort, question?.id)">
-                                        <mat-option *ngFor="let item of logicQuestionList" [value]="item.sort"
-                                            [attr.selected]="idIsEqual(question.id, item.id) ? true : null">
-                                            {{ item.term }}
+                                        <mat-option *ngFor="let item of logicQuestionList" [value]="item.sort" [attr.selected]="idIsEqual(question.id, item.id) ? true : null"
+      [title]="item.item">
+                                            {{ item.item.split(' ').slice(0, 3).join(' ') }}{{item.item.split(' ').length > 3 ? ' ...' : ''}}
                                         </mat-option>
                                     </mat-select>
                                 </mat-form-field>
@@ -114,7 +115,6 @@
 
                         </div>
                         <div ngClass="ques-body p-4">
-                            <h5 ngClass="mb-4">{{question?.question}}</h5>
                             <div ngClass="ques-ans">
                                 <div class="">
                                     <div class="ques-radio" *ngFor="let question of question?.options;let i=index;">

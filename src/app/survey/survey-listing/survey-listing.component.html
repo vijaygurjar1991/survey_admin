@@ -43,7 +43,8 @@
                         </td>
                         <!-- <td>{{item.id}}</td> -->
                         <td>{{item.name}}</td>
-                        <td>{{item.categoryName}}</td>
+                        <td *ngIf="item.categoryName !='Others'">{{item.categoryName}}</td>
+                        <td *ngIf="item.categoryName =='Others'">{{item.otherCategory}}</td>
                         <td>
                             <img src="../../../assets/images/profile/pic.png" class="me-2 rounded-circle"
                                 style="width: 30px;height: 30px;" />
@@ -70,7 +71,7 @@
                           </td> -->
                         <td>
                             <ng-container *ngIf="role === 'admin' || role === 'superadmin'">
-                                <select [(ngModel)]="item.status" (change)="toggleSlider($event, item.id, item)"
+                                <select [(ngModel)]="item.status" (change)="toggleSlider($event, item.surveyId, item)"
                                     class="form-select form-select-sm">
                                     <option [ngValue]="'ACT'">Active</option>
                                     <option [ngValue]="'DEL'">Inactive</option>

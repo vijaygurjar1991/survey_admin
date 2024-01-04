@@ -26,10 +26,11 @@ export class CreateSurveyPopupComponent {
   selectedOption: any;
   searchControl = new FormControl();
   options: { id: number, name: string }[] = [];
+  country : { id: string, name: string }[] = [];
   filteredOptions: Observable<{ id: number, name: string }[]> | undefined;
   selectedCategory: { id: number, name: string } | null = null;
   userId = 0;
-
+  selectedCountry: string = "IN";
   constructor(private surveyservice: SurveyService,
     private router: Router,
     private crypto: CryptoService,
@@ -47,6 +48,7 @@ export class CreateSurveyPopupComponent {
   show() {
     this.modal.show();
     this.getNames();
+    this.getCountries();
   }
 
   close() {
@@ -65,6 +67,22 @@ export class CreateSurveyPopupComponent {
 
       this.options = models;
     });
+  }
+
+  getCountries(){
+    this.surveyservice.getCountries().subscribe(response => {
+
+      const result = Object.keys(response).map((key) => response[key]);
+      console.log(result)
+      const countries: { id: string; name: string }[] = result.map((value: any) => ({
+        id: value['countryId'],
+        name: value['name']
+      }));
+
+      this.country = countries;
+      console.log("country",this.country)
+    });
+    
   }
 
 
@@ -88,7 +106,8 @@ export class CreateSurveyPopupComponent {
     let dataToSend = {
       surveyName: this.surveyName,
       categoryId: this.categoryId,
-      otherCategory : this.categoryName
+      otherCategory : this.categoryName,
+      countryId : this.searchControl
     };
     
     console.log("dataToSend", dataToSend)

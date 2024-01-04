@@ -182,9 +182,15 @@ export class SurveyService {
     const params = new HttpParams()
       .set('name', data.surveyName)
       .set('categoryId', data.categoryId)
-      .set('otherCategory', data.otherCategory);
+      .set('otherCategory', data.otherCategory)
+      .set('countryId',data.countryId)
     const url = `${this.apiUrl}api/admin/${this.userId}/Survey/CreateSurvey?${params.toString()}`;
     console.log("posted data", data);
     return this.http.post(url, data, { responseType: 'text' });
+  }
+  getCountries() {
+    return this.http
+      .get<responseDTO>(`${this.apiUrl}api/admin/${this.userId}/Geography/GetCountries`)
+      .pipe(map((result) => result as responseDTO));
   }
 }
