@@ -350,7 +350,7 @@
         <div ngClass="update-ques-type generic-ques">
             <ul>
                 <li *ngFor="let item of names">
-                    <a href="javascript:" (click)="onGenericQuestionClick(item.name)">
+                    <a href="javascript:" (click)="onGenericQuestionClick(item.name);modal.close('Close click')">
                         <figure>
                             <img src="../../../assets/{{item.image}}" width="35" height="35" />
                         </figure>
