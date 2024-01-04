@@ -1,18 +1,25 @@
 <div ngClass="survey">
     <div ngClass="add-ques-sidebar">
         <div>
-            <h6 class="mb-3">Add Question</h6>
+            <h6 class="mb-2">Add Question</h6>
             <div class="common-ques">
                 <a href="javascript:void(0);" (click)="openLg(content)">
-                    <figure><img src="../../../assets/images/icons/Add-new-question.png" width="35" height="35" />
+                    <figure><img src="../../../assets/images/icons/Add-new-question.png" width="30" height="30" />
                     </figure>
                     <figcaption>Add New Question</figcaption>
                 </a>
             </div>
         </div>
         <div ngClass="generic-ques">
-            <h6 class="mb-3">Add Generic Question</h6>
-            <ul>
+            <h6 class="mb-2">Add Generic Question</h6>
+            <div class="common-ques">
+                <a href="javascript:void(0);" (click)="openGenric(genricQuestion)">
+                    <figure><img src="../../../assets/images/icons/Add-new-question.png" width="30" height="30" />
+                    </figure>
+                    <figcaption>Add New Generic Question</figcaption>
+                </a>
+            </div>
+            <!-- <ul>
                 <li *ngFor="let item of names">
                     <a href="javascript:" (click)="onGenericQuestionClick(item.name)">
                         <figure>
@@ -21,26 +28,34 @@
                         <figcaption>{{ item.name }}</figcaption>
                     </a>
                 </li>
-            </ul>
+            </ul> -->
         </div>
         <div ngClass="my-3">
-            <h6 class="mb-3">Add Screen</h6>
+            <h6 class="mb-2">Add Screen</h6>
             <div class="common-ques">
                 <a routerLink="javascript:">
-                    <figure><img src="../../../assets/images/icons/Add-new-screen.png" width="35" height="35" />
+                    <figure><img src="../../../assets/images/icons/Add-new-screen.png" width="30" height="30" />
                     </figure>
                     <figcaption>Add New Screen</figcaption>
                 </a>
             </div>
         </div>
         <div ngClass="my-3">
-            <h6 class="mb-3">Add Logic</h6>
+            <h6 class="mb-2">Add Logic</h6>
             <div class="common-ques">
                 <a routerLink="javascript:">
-                    <figure><img src="../../../assets/images/icons/Add-new-logic.png" width="35" height="35" />
+                    <figure><img src="../../../assets/images/icons/Add-new-logic.png" width="30" height="30" />
                     </figure>
                     <figcaption>Add New Logic</figcaption>
                 </a>
+            </div>
+        </div>
+        <div class="updated-preview">            
+            <div class="preview">
+                <a href="#" class="btn btn-primary w-100">Preview</a>
+            </div>
+            <div class="last-updated text-center">
+                <p class="mt-2">Survey Created on <span>01-01-2024</span></p>
             </div>
         </div>
     </div>
@@ -114,9 +129,9 @@
                             </div>
 
                         </div>
-                        <div ngClass="ques-body p-4">
+                        <div ngClass="ques-body p-3">
                             <div ngClass="ques-ans">
-                                <div class="">
+                                <div class="d-flex flex-wrap gap-2">
                                     <div class="ques-radio" *ngFor="let question of question?.options;let i=index;">
                                         <label> <input type="radio" [id]="'question_option_' + i"
                                                 name="question_option">
@@ -286,19 +301,12 @@
                     when looking at its layout.</span>
             </div>
         </div>
-        <div class="updated-preview">
-            <div class="last-updated">
-                <p class="mb-0">Survey Created on <span>01-01-2024</span></p>
-            </div>
-            <div class="preview">
-                <a href="#" class="btn btn-primary">Preview</a>
-            </div>
-        </div>
+        
     </div>
 </div>
 
 
-
+<!-- Add New Question -->
 <ng-template #content let-modal>
     <div class="modal-header">
         <h4 class="modal-title">Select Question Type</h4>
@@ -327,6 +335,35 @@
         <button type="button" class="btn close" (click)="modal.close('Close click')">Cancel</button>
         <button type="button" class="btn btn-primary icon"
             (click)="onCreateQuesClick();modal.close('Close click')">Create
+            <ng-icon name="heroArrowLongRight" class="ms-4"></ng-icon>
+        </button>
+    </div>
+</ng-template>
+
+<!-- Add new Genric Question -->
+<ng-template #genricQuestion let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title">Select Generic question Type</h4>
+        <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+    </div>
+    <div class="modal-body popup-ques">
+        <div ngClass="update-ques-type generic-ques">
+            <ul>
+                <li *ngFor="let item of names">
+                    <a href="javascript:" (click)="onGenericQuestionClick(item.name)">
+                        <figure>
+                            <img src="../../../assets/{{item.image}}" width="35" height="35" />
+                        </figure>
+                        <figcaption>{{ item.name }}</figcaption>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="modal-footer upload">
+        <button type="button" class="btn close" (click)="modal.close('Close click')">Cancel</button>
+        <button type="button" class="btn btn-primary icon"
+            (click)="modal.close('Close click')">Create
             <ng-icon name="heroArrowLongRight" class="ms-4"></ng-icon>
         </button>
     </div>

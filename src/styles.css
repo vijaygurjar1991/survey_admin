@@ -138,7 +138,7 @@ a {
 }
 
 .app-header {
-    padding: var(--section-gap);
+    padding: .875rem 1.5rem;
     box-shadow: 0px 0px 20px #e2dede;
     z-index: 9;
     position: relative;
@@ -424,16 +424,12 @@ article {
     margin-left: 3rem;position: relative;
 }
 .updated-preview {
-    background-color: #fff;
-    box-shadow: 0px 0px 20px #d8d8d8;
-    padding: 1rem;
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+    margin-top: 2rem;    
+    border-top: 1px solid #ccc;
+    padding-top: 2rem;
+}
+.last-updated p {
+    font-size: 12px;
 }
 .add-ques-sidebar {
     background-color: var(--white);
@@ -441,7 +437,7 @@ article {
     flex: 0 450px;
     max-width: 450px;
     margin: -1.5rem;
-    box-shadow: 0px 20px 16px #d6d4d4;
+    box-shadow: 0px 20px 16px #d6d4d4;position: sticky;top: 0;height: 100vh;
 }
 
 .common-ques a {
@@ -449,7 +445,7 @@ article {
     align-items: center;
     border: 2px dashed var(--border-color);
     border-radius: .25rem;
-    padding: 1rem;
+    padding: .7rem;
     color: var(--black);
 }
 
@@ -473,7 +469,7 @@ article {
 }
 
 .generic-ques {
-    margin-top: 2rem;
+    margin-top: 1rem;
 }
 
 .generic-ques ul {
@@ -559,7 +555,7 @@ article {
 .ques-header {
     display: flex;
     justify-content: space-between;
-    background-color: #2ccaa9;
+    background-color: #f48b3f;
     color: var(--white);
     padding: .5rem;
 }
@@ -570,7 +566,7 @@ article {
 
 .survey-question .question>ul>li {
     border: 1px solid var(--border-color);
-    border-radius: 0.25rem;
+    border-radius: 0.5rem;overflow: hidden;
     background-color: var(--white);
     margin-bottom: 1rem;
     box-shadow: 0px 0px 20px #d8d8d8;
@@ -578,7 +574,7 @@ article {
 
 .ques-header h5 {
     display: flex;
-    align-items: center;
+    align-items: center;font-size: 16px;
 }
 
 .ques-header h5 ng-icon {
@@ -618,7 +614,7 @@ article {
 .ques-radio label {
     position: relative;
     cursor: pointer;
-    width: 100%;
+    width: 100%;margin: 0;
 }
 
 .ques-radio label input {
@@ -631,8 +627,8 @@ article {
     border: 1px solid #dee2e6;
     border-radius: 5px;
     width: 100%;
-    padding: .6rem 1rem;
-    color: var(--text-color)
+    padding: .5rem .875rem;
+    color: var(--text-color);font-size: 14px;
 }
 
 .ques-radio label input:checked~span.checked {
@@ -1720,10 +1716,13 @@ label {
 
 
 .ques-header .mdc-text-field--no-label:not(.mdc-text-field--outlined):not(.mdc-text-field--textarea) .mat-mdc-form-field-infix{
-    padding-top: 6px;padding-bottom: 6px;min-height: 0;
+    padding-top: 2px;padding-bottom: 2px;min-height: 0px;
 }
 .mat-mdc-form-field-subscript-wrapper{display: none;}
-.ques-header mat-form-field.mat-mdc-form-field {width: 50%;}
+.ques-header mat-form-field.mat-mdc-form-field {width: 60%;}
+.ques-header .mdc-text-field--filled:not(.mdc-text-field--disabled){background-color: #f6f7fbb3 !important;}
+ .mat-mdc-option .mdc-list-item__primary-text{font-size: 14px !important;}
+.mat-mdc-option{padding-left: 6px !important;padding-right: 6px !important;}
 .mat-mdc-form-field-focus-overlay { background-color: transparent;}
 /* Scroll Style */
 ::-webkit-scrollbar-track
