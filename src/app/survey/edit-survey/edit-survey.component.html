@@ -40,7 +40,7 @@
                             <div class="col-2">
                                 <select class="form-select" >
                                     <option *ngFor="let item of pipeQuestionList;let i=index;"
-                                    value="{{item.id}}">{{item.term}}</option>
+                                    value="{{item.id}}" title="{{item.item}}">{{ item.item.split(' ').slice(0, 3).join(' ') }}{{item.item.split(' ').length > 3 ? ' ...' : ''}}</option>
                                     
                                 </select>
                             </div>

@@ -316,6 +316,7 @@ export class CreateSurveyComponent implements OnInit {
   categoryName: any
   otherCategoryName: any
   surveyStatus:any
+  countryName:any
 
   GetSurveyDetails() {
     this.surveyservice.GetSurveyById(this.surveyId).subscribe((data: any) => {
@@ -326,12 +327,14 @@ export class CreateSurveyComponent implements OnInit {
         this.otherCategoryName = data[0]?.otherCategory;
         this.questions = data[0]?.questions;
         this.surveyStatus = data[0]?.status;
+        this.countryName = data[0]?.countryName;
       } else {
         this.surveyName = data.surveyName;
         this.categoryName = data.categoryName;
         this.questions = data.questions;
         this.otherCategoryName = data[0]?.otherCategory;
         this.surveyStatus = data[0]?.status;
+        this.countryName = data[0]?.countryName;
       }
       console.log("data", data)
 
