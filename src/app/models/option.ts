@@ -9,7 +9,7 @@ export class Option {
         public status: string = '',
         public isRandomize: boolean = false,
         public isExcluded: boolean = false,
-        public group: number = 0,
+        public group: number | null = null,
         public sort: number = 0,
         public selected: boolean = false,
         public isVisible: boolean = false,
