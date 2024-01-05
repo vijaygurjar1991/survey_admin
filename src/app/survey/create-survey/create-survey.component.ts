@@ -285,6 +285,10 @@ export class CreateSurveyComponent implements OnInit {
     this.modalService.open(content, { size: 'lg', centered: true });
   }
 
+  openGenric(genricQuestion: any){
+    this.modalService.open(genricQuestion, { size: 'lg', centered: true });
+  }
+
   opensidecontent() {
     const modalRef = this.modalService.open(this.opensidecontent, { /* modal options */ });
   }

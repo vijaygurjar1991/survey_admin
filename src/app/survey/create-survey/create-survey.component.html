@@ -1,18 +1,25 @@
 <div ngClass="survey">
     <div ngClass="add-ques-sidebar">
         <div>
-            <h6 class="mb-3">Add Question</h6>
+            <h6 class="mb-2">Add Question</h6>
             <div class="common-ques">
                 <a href="javascript:void(0);" (click)="openLg(content)">
-                    <figure><img src="../../../assets/images/icons/Add-new-question.png" width="35" height="35" />
+                    <figure><img src="../../../assets/images/icons/Add-new-question.png" width="30" height="30" />
                     </figure>
                     <figcaption>Add New Question</figcaption>
                 </a>
             </div>
         </div>
         <div ngClass="generic-ques">
-            <h6 class="mb-3">Add Generic Question</h6>
-            <ul>
+            <h6 class="mb-2">Add Generic Question</h6>
+            <div class="common-ques">
+                <a href="javascript:void(0);" (click)="openGenric(genricQuestion)">
+                    <figure><img src="../../../assets/images/icons/Add-new-question.png" width="30" height="30" />
+                    </figure>
+                    <figcaption>Add New Generic Question</figcaption>
+                </a>
+            </div>
+            <!-- <ul>
                 <li *ngFor="let item of names">
                     <a href="javascript:" (click)="onGenericQuestionClick(item.name)">
                         <figure>
@@ -21,26 +28,34 @@
                         <figcaption>{{ item.name }}</figcaption>
                     </a>
                 </li>
-            </ul>
+            </ul> -->
         </div>
         <div ngClass="my-3">
-            <h6 class="mb-3">Add Screen</h6>
+            <h6 class="mb-2">Add Screen</h6>
             <div class="common-ques">
                 <a routerLink="javascript:">
-                    <figure><img src="../../../assets/images/icons/Add-new-screen.png" width="35" height="35" />
+                    <figure><img src="../../../assets/images/icons/Add-new-screen.png" width="30" height="30" />
                     </figure>
                     <figcaption>Add New Screen</figcaption>
                 </a>
             </div>
         </div>
         <div ngClass="my-3">
-            <h6 class="mb-3">Add Logic</h6>
+            <h6 class="mb-2">Add Logic</h6>
             <div class="common-ques">
                 <a routerLink="javascript:">
-                    <figure><img src="../../../assets/images/icons/Add-new-logic.png" width="35" height="35" />
+                    <figure><img src="../../../assets/images/icons/Add-new-logic.png" width="30" height="30" />
                     </figure>
                     <figcaption>Add New Logic</figcaption>
                 </a>
+            </div>
+        </div>
+        <div class="updated-preview">            
+            <div class="preview">
+                <a href="#" class="btn btn-primary w-100">Preview</a>
+            </div>
+            <div class="last-updated text-center">
+                <p class="mt-2">Survey Created on <span>01-01-2024</span></p>
             </div>
         </div>
     </div>
@@ -114,9 +129,9 @@
                             </div>
 
                         </div>
-                        <div ngClass="ques-body p-4">
+                        <div ngClass="ques-body p-3">
                             <div ngClass="ques-ans">
-                                <div class="">
+                                <div class="d-flex flex-wrap gap-2">
                                     <div class="ques-radio" *ngFor="let question of question?.options;let i=index;">
                                         <label> <input type="radio" [id]="'question_option_' + i"
                                                 name="question_option">
@@ -135,30 +150,30 @@
                                                         aria-selected="true">Branching</button>
                                                 </li>
                                                 <li class="nav-item" role="presentation">
-                                                    <button class="nav-link" id="profile-tab" data-bs-toggle="tab"
-                                                        data-bs-target="#profile" role="tab"
+                                                    <button class="nav-link" id="randomaisation-tab" data-bs-toggle="tab"
+                                                        data-bs-target="#randomaisation" role="tab"
                                                         aria-selected="false">Randomaisation</button>
                                                 </li>
                                                 <li class="nav-item" role="presentation">
-                                                    <button class="nav-link" id="messages-tab" data-bs-toggle="tab"
-                                                        data-bs-target="#messages" role="tab"
+                                                    <button class="nav-link" id="customLogic-tab" data-bs-toggle="tab"
+                                                        data-bs-target="#customLogic" role="tab"
                                                         aria-selected="false">Custom
                                                         Logic</button>
                                                 </li>
                                                 <li class="nav-item" role="presentation">
-                                                    <button class="nav-link" id="settings-tab" data-bs-toggle="tab"
-                                                        data-bs-target="#settings" role="tab"
+                                                    <button class="nav-link" id="multipleQuestion-tab" data-bs-toggle="tab"
+                                                        data-bs-target="#multipleQuestion" role="tab"
                                                         aria-selected="false">Multiple
                                                         Question</button>
                                                 </li>
                                                 <li class="nav-item" role="presentation">
-                                                    <button class="nav-link" id="settings-tab" data-bs-toggle="tab"
-                                                        data-bs-target="#settings" role="tab"
+                                                    <button class="nav-link" id="calculator-tab" data-bs-toggle="tab"
+                                                        data-bs-target="#calculator" role="tab"
                                                         aria-selected="false">Calculator</button>
                                                 </li>
                                                 <li class="nav-item" role="presentation">
-                                                    <button class="nav-link" id="settings-tab" data-bs-toggle="tab"
-                                                        data-bs-target="#settings" role="tab"
+                                                    <button class="nav-link" id="autocode-tab" data-bs-toggle="tab"
+                                                        data-bs-target="#autocode" role="tab"
                                                         aria-selected="false">Autocode</button>
                                                 </li>
                                             </ul>
@@ -258,14 +273,64 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="tab-pane" id="profile" role="tabpanel"
-                                                    aria-labelledby="profile-tab">zxcvb
+                                                <div class="tab-pane" id="randomaisation" role="tabpanel"
+                                                    aria-labelledby="randomaisation-tab">
+                                                    <h5 ngClass="mb-4">Randomaisation</h5>
+                                                    <div ngClass="mb-3 row">
+                                                        <h6 class="mb-3">Randamize a set  of questions/screens/groups</h6>
+                                                        <div class="mb-3">
+                                                            <select class="form-select" aria-label="Default select example">
+                                                                <option selected>Open this select menu</option>
+                                                                <option value="1">One</option>
+                                                                <option value="2">Two</option>
+                                                                <option value="3">Three</option>
+                                                            </select>
+                                                        </div>
+                                                        <div class="mb-3">
+                                                            <select class="form-select">
+                                                                <option selected>Select</option>
+                                                                <option value="1">One</option>
+                                                                <option value="2">Two</option>
+                                                                <option value="3">Three</option>
+                                                            </select>
+                                                        </div>
+                                                        <div class=" mb-3">
+                                                            <a routerLink="javascript:" class="d-flex align-items-center"><ng-icon name="heroPlusCircle"
+                                                                    ngClass="plus-circle me-3" style="width: 40px;height: 40px;"></ng-icon> <span>Add Questions/Screens/Groups</span></a>
+                                                        </div>
+                                                        <div class="mb-3 ms-4 form-check checking">
+                                                            <input class="form-check-input" type="checkbox" value=""
+                                                                id="Randomise">
+                                                            <label class="form-check-label" for="Randomise">
+                                                                Randomise these question
+                                                            </label>
+                                                        </div>                                                       
+                                                        <div class="ms-4 form-check checking">
+                                                            <input class="form-check-input" type="checkbox" value=""
+                                                                id="instances">
+                                                            <label class="form-check-label" for="instances">
+                                                                Show instances consequently
+                                                            </label>
+                                                        </div>
+                                                    </div>
                                                 </div>
-                                                <div class="tab-pane" id="messages" role="tabpanel"
-                                                    aria-labelledby="messages-tab">...
+                                                <div class="tab-pane" id="customLogic" role="tabpanel"
+                                                    aria-labelledby="customLogic-tab">
+                                                    <div class="alert alert-success p-5" role="alert">
+                                                        <h4 class="alert-heading">Custom Logic !</h4>
+                                                        <p>For Adding new custom logic, connect to our developer.</p>
+                                                        <hr>
+                                                        <p class="mb-0">Whenever you need to, be sure to use margin utilities to keep things nice and tidy.</p>
+                                                    </div>
                                                 </div>
-                                                <div class="tab-pane" id="settings" role="tabpanel"
-                                                    aria-labelledby="settings-tab">...
+                                                <div class="tab-pane" id="multipleQuestion" role="tabpanel"
+                                                    aria-labelledby="multipleQuestion-tab">...
+                                                </div>
+                                                <div class="tab-pane" id="calculator" role="tabpanel"
+                                                    aria-labelledby="calculator-tab">...
+                                                </div>
+                                                <div class="tab-pane" id="autocode" role="tabpanel"
+                                                    aria-labelledby="autocode-tab">...
                                                 </div>
                                             </div>
                                         </div>
@@ -286,19 +351,12 @@
                     when looking at its layout.</span>
             </div>
         </div>
-        <div class="updated-preview">
-            <div class="last-updated">
-                <p class="mb-0">Survey Created on <span>01-01-2024</span></p>
-            </div>
-            <div class="preview">
-                <a href="#" class="btn btn-primary">Preview</a>
-            </div>
-        </div>
+        
     </div>
 </div>
 
 
-
+<!-- Add New Question -->
 <ng-template #content let-modal>
     <div class="modal-header">
         <h4 class="modal-title">Select Question Type</h4>
@@ -327,6 +385,35 @@
         <button type="button" class="btn close" (click)="modal.close('Close click')">Cancel</button>
         <button type="button" class="btn btn-primary icon"
             (click)="onCreateQuesClick();modal.close('Close click')">Create
+            <ng-icon name="heroArrowLongRight" class="ms-4"></ng-icon>
+        </button>
+    </div>
+</ng-template>
+
+<!-- Add new Genric Question -->
+<ng-template #genricQuestion let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title">Select Generic question Type</h4>
+        <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+    </div>
+    <div class="modal-body popup-ques">
+        <div ngClass="update-ques-type generic-ques">
+            <ul>
+                <li *ngFor="let item of names">
+                    <a href="javascript:" (click)="onGenericQuestionClick(item.name);modal.close('Close click')">
+                        <figure>
+                            <img src="../../../assets/{{item.image}}" width="35" height="35" />
+                        </figure>
+                        <figcaption>{{ item.name }}</figcaption>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="modal-footer upload">
+        <button type="button" class="btn close" (click)="modal.close('Close click')">Cancel</button>
+        <button type="button" class="btn btn-primary icon"
+            (click)="modal.close('Close click')">Create
             <ng-icon name="heroArrowLongRight" class="ms-4"></ng-icon>
         </button>
     </div>

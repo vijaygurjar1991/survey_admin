@@ -208,7 +208,7 @@
                             </div>
                             <div class="col-auto">
                                 <div ngClass="new-options">
-                                    <a herf="javascript:void(0);"><ng-icon name="heroPlusCircle"></ng-icon> Add Bulk
+                                    <a herf="javascript:void(0);" (click)="openLg(content)"><ng-icon name="heroPlusCircle"></ng-icon> Add Bulk
                                         Option</a>
                                 </div>
                             </div>
@@ -289,48 +289,12 @@
                     </div>
                 </div>
             </li>
-            <li>
-                <div class="row">
-                    <div class="col-12 text-end">
-                        <button type="button" class="btn btn-primary" (click)="onSave()">Save</button>
-                    </div>
-                </div>
-            </li>
+            
             <li>
                 <div ngClass="p-4">
                     <h5 ngClass="mb-4">Logic</h5>
                     <div ngClass="mb-4">
-                        <div class="logic-tab">
-                            <!-- Nav tabs -->
-                            <ul class="nav flex-column nav-tabs" id="myTab" role="tablist">
-                                <li class="nav-item" role="presentation">
-                                    <button class="nav-link active" id="branching-tab" data-bs-toggle="tab"
-                                        data-bs-target="#branching" role="tab" aria-selected="true">Branching</button>
-                                </li>
-                                <li class="nav-item" role="presentation">
-                                    <button class="nav-link" id="profile-tab" data-bs-toggle="tab"
-                                        data-bs-target="#profile" role="tab"
-                                        aria-selected="false">Randomaisation</button>
-                                </li>
-                                <li class="nav-item" role="presentation">
-                                    <button class="nav-link" id="messages-tab" data-bs-toggle="tab"
-                                        data-bs-target="#messages" role="tab" aria-selected="false">Custom
-                                        Logic</button>
-                                </li>
-                                <li class="nav-item" role="presentation">
-                                    <button class="nav-link" id="settings-tab" data-bs-toggle="tab"
-                                        data-bs-target="#settings" role="tab" aria-selected="false">Multiple
-                                        Question</button>
-                                </li>
-                                <li class="nav-item" role="presentation">
-                                    <button class="nav-link" id="settings-tab" data-bs-toggle="tab"
-                                        data-bs-target="#settings" role="tab" aria-selected="false">Calculator</button>
-                                </li>
-                                <li class="nav-item" role="presentation">
-                                    <button class="nav-link" id="settings-tab" data-bs-toggle="tab"
-                                        data-bs-target="#settings" role="tab" aria-selected="false">Autocode</button>
-                                </li>
-                            </ul>
+                        <div class="logic-tab">                            
                             <!-- Logic Question -->
                             <div class="tab-content p-4" *ngIf="isLogicShow">
                                 <div class="tab-pane active" id="branching" role="tabpanel"
@@ -369,7 +333,6 @@
                                                 </div>
                                                 <div class="col-md-3">
                                                     <mat-form-field class="example-chip-list">
-                                                        <mat-label>Options</mat-label>
                                                         <mat-chip-grid #chipGrid aria-label="City selection">
                                                             <mat-chip-row *ngFor="let option of selectedOptions; let i=index;">
                                                                 {{option.option}}
@@ -428,17 +391,47 @@
 
                                     </div>
                                 </div>
-                                <div class="tab-pane" id="profile" role="tabpanel" aria-labelledby="profile-tab">zxcvb
-                                </div>
-                                <div class="tab-pane" id="messages" role="tabpanel" aria-labelledby="messages-tab">...
-                                </div>
-                                <div class="tab-pane" id="settings" role="tabpanel" aria-labelledby="settings-tab">...
-                                </div>
+                                
                             </div>
                         </div>
                     </div>
                 </div>
             </li>
         </ul>
+        <div class="row">
+            <div class="col-12 text-end">
+                <button type="button" class="btn btn-primary px-5" (click)="onSave()">Save</button>
+            </div>
+        </div>
     </div>
 </div>
+
+
+<!-- Add Bulk options -->
+<ng-template #content let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title">Add Bulk Options</h4>
+        <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+    </div>
+    <div class="modal-body popup-ques">
+        <div class="row">
+            <div class="col-md-6">
+                <form>
+                    <textarea class="form-control" name="" id="" cols="30" rows="10"></textarea>
+                </form>
+            </div>
+            <div class="col-md-6">
+                <form>
+                    <textarea class="form-control" name="" id="" cols="30" rows="10"></textarea>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer upload">
+        <button type="button" class="btn close" (click)="modal.close('Close click')">Cancel</button>
+        <button type="button" class="btn btn-primary icon"
+            (click)="modal.close('Close click')">Add
+            <ng-icon name="heroArrowLongRight" class="ms-4"></ng-icon>
+        </button>
+    </div>
+</ng-template>
