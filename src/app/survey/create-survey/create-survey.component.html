@@ -50,9 +50,10 @@
                 </a>
             </div>
         </div>
-        <div class="updated-preview">            
+        <div class="updated-preview">
             <div class="preview">
-                <a [href]="'http://localhost:4201/survey/preview/' + surveyId" target="_blank" rel="noopener noreferrer" class="btn btn-primary w-100">Preview</a>
+                <a [href]="'http://localhost:4201/survey/preview/' + surveyId" target="_blank" rel="noopener noreferrer"
+                    class="btn btn-primary w-100">Preview</a>
             </div>
             <div class="last-updated text-center">
                 <p class="mt-2">Survey Created on <span>01-01-2024</span></p>
@@ -70,7 +71,7 @@
         </div>
         <div ngClass="survey-name">
             <div>
-                <h4 ngClass="mb-3">{{countryName}}   {{surveyName}}  </h4>
+                <h4 ngClass="mb-3">{{countryName}} {{surveyName}} </h4>
                 <span *ngIf="categoryName !='Others'">{{categoryName}}</span>
                 <span *ngIf="categoryName =='Others'">{{otherCategoryName}}</span>
             </div>
@@ -94,9 +95,11 @@
                                 <mat-form-field>
                                     <mat-select #selectElement
                                         (selectionChange)="onSelectChange($event, question?.sort, question?.id)">
-                                        <mat-option *ngFor="let item of logicQuestionList" [value]="item.sort" [attr.selected]="idIsEqual(question.id, item.id) ? true : null"
-      [title]="item.item">
-                                            {{ item.item.split(' ').slice(0, 3).join(' ') }}{{item.item.split(' ').length > 3 ? ' ...' : ''}}
+                                        <mat-option *ngFor="let item of logicQuestionList" [value]="item.sort"
+                                            [attr.selected]="idIsEqual(question.id, item.id) ? true : null"
+                                            [title]="item.item">
+                                            {{ item.item.split(' ').slice(0, 3).join(' ') }}{{item.item.split('
+                                            ').length > 3 ? ' ...' : ''}}
                                         </mat-option>
                                     </mat-select>
                                 </mat-form-field>
@@ -131,8 +134,9 @@
                         </div>
                         <div ngClass="ques-body p-3">
                             <div ngClass="ques-ans">
-                                <div class="d-flex flex-wrap gap-2">
-                                    <div class="ques-radio" *ngFor="let question of question?.options;let i=index;">
+                                <div class="">
+                                    <div class="ques-radio mb-3"
+                                        *ngFor="let question of question?.options;let i=index;">
                                         <label> <input type="radio" [id]="'question_option_' + i"
                                                 name="question_option">
                                             <span class="checked">{{question.option}}</span></label>
@@ -150,8 +154,8 @@
                                                         aria-selected="true">Branching</button>
                                                 </li>
                                                 <li class="nav-item" role="presentation">
-                                                    <button class="nav-link" id="randomaisation-tab" data-bs-toggle="tab"
-                                                        data-bs-target="#randomaisation" role="tab"
+                                                    <button class="nav-link" id="randomaisation-tab"
+                                                        data-bs-toggle="tab" data-bs-target="#randomaisation" role="tab"
                                                         aria-selected="false">Randomaisation</button>
                                                 </li>
                                                 <li class="nav-item" role="presentation">
@@ -161,9 +165,9 @@
                                                         Logic</button>
                                                 </li>
                                                 <li class="nav-item" role="presentation">
-                                                    <button class="nav-link" id="multipleQuestion-tab" data-bs-toggle="tab"
-                                                        data-bs-target="#multipleQuestion" role="tab"
-                                                        aria-selected="false">Multiple
+                                                    <button class="nav-link" id="multipleQuestion-tab"
+                                                        data-bs-toggle="tab" data-bs-target="#multipleQuestion"
+                                                        role="tab" aria-selected="false">Multiple
                                                         Question</button>
                                                 </li>
                                                 <li class="nav-item" role="presentation">
@@ -277,9 +281,11 @@
                                                     aria-labelledby="randomaisation-tab">
                                                     <h5 ngClass="mb-4">Randomaisation</h5>
                                                     <div ngClass="mb-3 row">
-                                                        <h6 class="mb-3">Randamize a set  of questions/screens/groups</h6>
+                                                        <h6 class="mb-3">Randamize a set of questions/screens/groups
+                                                        </h6>
                                                         <div class="mb-3">
-                                                            <select class="form-select" aria-label="Default select example">
+                                                            <select class="form-select"
+                                                                aria-label="Default select example">
                                                                 <option selected>Open this select menu</option>
                                                                 <option value="1">One</option>
                                                                 <option value="2">Two</option>
@@ -295,8 +301,11 @@
                                                             </select>
                                                         </div>
                                                         <div class=" mb-3">
-                                                            <a routerLink="javascript:" class="d-flex align-items-center"><ng-icon name="heroPlusCircle"
-                                                                    ngClass="plus-circle me-3" style="width: 40px;height: 40px;"></ng-icon> <span>Add Questions/Screens/Groups</span></a>
+                                                            <a routerLink="javascript:"
+                                                                class="d-flex align-items-center"><ng-icon
+                                                                    name="heroPlusCircle" ngClass="plus-circle me-3"
+                                                                    style="width: 40px;height: 40px;"></ng-icon>
+                                                                <span>Add Questions/Screens/Groups</span></a>
                                                         </div>
                                                         <div class="mb-3 ms-4 form-check checking">
                                                             <input class="form-check-input" type="checkbox" value=""
@@ -304,7 +313,7 @@
                                                             <label class="form-check-label" for="Randomise">
                                                                 Randomise these question
                                                             </label>
-                                                        </div>                                                       
+                                                        </div>
                                                         <div class="ms-4 form-check checking">
                                                             <input class="form-check-input" type="checkbox" value=""
                                                                 id="instances">
@@ -320,7 +329,8 @@
                                                         <h4 class="alert-heading">Custom Logic !</h4>
                                                         <p>For Adding new custom logic, connect to our developer.</p>
                                                         <hr>
-                                                        <p class="mb-0">Whenever you need to, be sure to use margin utilities to keep things nice and tidy.</p>
+                                                        <p class="mb-0">Whenever you need to, be sure to use margin
+                                                            utilities to keep things nice and tidy.</p>
                                                     </div>
                                                 </div>
                                                 <div class="tab-pane" id="multipleQuestion" role="tabpanel"
@@ -351,7 +361,7 @@
                     when looking at its layout.</span>
             </div>
         </div>
-        
+
     </div>
 </div>
 
@@ -412,8 +422,7 @@
     </div>
     <div class="modal-footer upload">
         <button type="button" class="btn close" (click)="modal.close('Close click')">Cancel</button>
-        <button type="button" class="btn btn-primary icon"
-            (click)="modal.close('Close click')">Create
+        <button type="button" class="btn btn-primary icon" (click)="modal.close('Close click')">Create
             <ng-icon name="heroArrowLongRight" class="ms-4"></ng-icon>
         </button>
     </div>

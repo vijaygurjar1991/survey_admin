@@ -434,8 +434,8 @@ article {
 .add-ques-sidebar {
     background-color: var(--white);
     padding: var(--section-gap);
-    flex: 0 450px;
-    max-width: 450px;
+    flex: 0 400px;
+    max-width: 400px;
     margin: -1.5rem;
     box-shadow: 0px 20px 16px #d6d4d4;position: sticky;top: 0;height: 100vh;
 }
@@ -555,10 +555,9 @@ article {
 .ques-header {
     display: flex;
     justify-content: space-between;
-    background-color: #6c6c6c;
+    background-color: #2ccaa9;
     color: var(--white);
-    padding: .5rem;border-top-left-radius: 0.5rem;
-    border-top-right-radius: 0.5rem;
+    padding: .5rem;
 }
 
 .ques-header>a {
@@ -567,7 +566,7 @@ article {
 
 .survey-question .question>ul>li {
     border: 1px solid var(--border-color);
-    border-radius: 0.5rem;
+    border-radius: 0.5rem;overflow: hidden;
     background-color: var(--white);
     margin-bottom: 1rem;
     box-shadow: 0px 0px 20px #d8d8d8;
@@ -599,8 +598,8 @@ article {
 .ques-header ul.dropdown-menu.show li a {
     display: flex;
     align-items: center;
-    padding: .5rem .5rem;
-    border-bottom: 1px solid lightgrey;font-size: 14px;
+    padding: .75rem .5rem;
+    border-bottom: 1px solid lightgrey;
 }
 .ques-header ul.dropdown-menu.show li a.dropdown-item:active{background-color: #f0621b;}
 .ques-header ul.dropdown-menu.show li a.delete-hover:hover {
@@ -826,7 +825,7 @@ article {
     padding: .65rem 1rem;
     color: var(--black);
     display: flex;
-    align-items: center;cursor: pointer;
+    align-items: center;
 }
 
 .new-options a ng-icon {
