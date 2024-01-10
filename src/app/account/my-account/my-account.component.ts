@@ -117,9 +117,9 @@ export class MyAccountComponent {
   }
 
 
-  // Upload Image
+// Upload Image
   
-  selectedImage: string | ArrayBuffer | null = null;
+selectedImage: string | ArrayBuffer | null = null;
 
 onFileSelected(event: any): void {
   const file = event.target.files[0];

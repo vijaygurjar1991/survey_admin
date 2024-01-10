@@ -1,0 +1,183 @@
+<section class="d-flex align-items-center my-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6 col-md-12">
+                <div class="login-form h-100">
+                    <div class="text-center">
+                        <img class="img-responsive" src="./assets/images/logo/logo.png" width="272" height="77"
+                            priority>
+                    </div>
+                    <hr>
+                    <!-- <p class="alert alert-danger text-center">                        
+                    </p> -->
+                    <form>
+                        <h2 class="text-center mb-3">Sign Up</h2>
+                        <h5 class="text-center mb-4">Welcome back! Please enter your details</h5>
+                        <div class="company-detail-signup" [hidden]="showUserDetails">
+                            <div class="mb-4 d-flex align-items-center gap-3">                                  
+                                <div class="upload-logo">
+                                    <input type="file" (change)="onFileSelected($event)" accept="image/*" />
+                                    <img  [src]="selectedImage ? selectedImage : defaultImage" class="object-fit-cover rounded-circle" width="80" height="80" />
+                                </div>
+                                <label class="form-label">Upload Your Organisation Logo</label>
+                           </div>
+                            <div class="mb-4">
+                                <label for="o_name" class="form-label">Organisation Name</label>
+                                <input type="text" class="form-control" id="o_name"
+                                    placeholder="Enter Your Organisation Name">                                    
+                                
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6 mb-4">
+                                    <label for="address" class="form-label">Address</label>
+                                    <input type="text" class="form-control" id="address"
+                                        placeholder="Enter Your Address">                                    
+                                    
+                                </div>
+                                <div class="col-md-6 mb-4">
+                                    <label for="city" class="form-label">City</label>
+                                    <input type="text" class="form-control" id="city"
+                                        placeholder="Enter Your City">                                    
+                                    
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6 mb-4">
+                                    <label for="State" class="form-label">State</label>
+                                    <select class="form-select">
+                                        <option selected>Select State</option>
+                                        <option value="1">Noida</option>
+                                        <option value="2">Delhi</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-6 mb-4">
+                                    <label for="Country" class="form-label">Country</label>
+                                    <select class="form-select">
+                                        <option selected>Select Country</option>
+                                        <option value="1">India</option>
+                                        <option value="2">USA</option>
+                                        <option value="3">UK</option>
+                                    </select> 
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6 mb-4">
+                                    <label for="zip" class="form-label">Zip Code</label>
+                                    <input type="text" class="form-control" id="zip"
+                                        placeholder="Enter Your Zip Code">
+                                </div>
+                                <div class="col-md-6 mb-4">
+                                    <label for="phone" class="form-label">Phone No.</label>
+                                    <input type="text" class="form-control" id="phone"
+                                        placeholder="Enter Your Phone No.">  
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6 mb-4">
+                                    <label for="fax" class="form-label">Fax Number</label>
+                                    <input type="text" class="form-control" id="fax"
+                                        placeholder="Enter Your Fax Number">
+                                </div>
+                                <div class="col-md-6 mb-4">
+                                    <label for="url" class="form-label">Url</label>
+                                    <input type="text" class="form-control" id="url"
+                                        placeholder="Url">   
+                                </div>
+                            </div>
+                            <div class="row mt-3">
+                                <div class="d-grid gap-2">
+                                    <button type="submit" class="btn btn-primary" (click)="showUserDetails = true">Next</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="user-detail-signup" *ngIf="showUserDetails">
+                            <div class="mb-4 d-flex align-items-center gap-3">                                  
+                                <div class="upload-logo">
+                                    <input type="file" (change)="onFileSelected($event)" accept="image/*" />
+                                    <img  [src]="selectedImage ? selectedImage : defaultImage" class="object-fit-cover rounded-circle" width="80" height="80" />
+                                </div>
+                                <label class="form-label">Upload Your Profile Photo</label>
+                           </div>
+                            <div class="row">
+                                <div class="col-md-6 mb-4">
+                                    <label for="first_name" class="form-label">First Name</label>
+                                    <input type="text" class="form-control" id="first_name"
+                                        placeholder="Enter Your First Name">
+                                </div>
+                                <div class="col-md-6 mb-4">
+                                    <label for="last_name" class="form-label">Last Name</label>
+                                    <input type="text" class="form-control" id="last_name"
+                                        placeholder="Enter Your Last Name">                                    
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12 mb-4">
+                                    <label for="email" class="form-label">Email</label>
+                                    <input type="email" class="form-control" id="email" formControlName="email"
+                                        placeholder="Enter your email">
+                                    <!-- <div>
+                                        <div class="text-danger">
+                                            Email or username is required.
+                                        </div>
+                                        <div class="text-danger">
+                                            Invalid email or username.
+                                        </div>
+                                    </div> -->
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="mb-4">
+                                    <label for="password" class="form-label">Password</label>
+                                    <input type="password" class="form-control" id="password" formControlName="password"
+                                        placeholder="Enter your Password">
+                                    <!-- <div>
+                                        <div class="text-danger">
+                                            Password is required.
+                                        </div>
+                                    </div> -->
+                                </div>
+                                <div class="mb-4">
+                                    <label for="c_password" class="form-label">Confirm Password</label>
+                                    <input type="password" class="form-control" id="c_password" formControlName="password"
+                                        placeholder="Enter your Password">
+                                    <!-- <div>
+                                        <div class="text-danger">
+                                            Password is not verified.
+                                        </div>
+                                    </div> -->
+                                </div>
+                            </div>
+                            
+                            <div class="row mt-3">
+                                <div class="d-flex gap-2 justify-content-between">
+                                    <button type="submit" class="btn btn-primary px-3" (click)="showUserDetails = false">Previous</button>
+                                    <button type="submit" class="btn btn-primary px-3">Submit</button>
+                                </div>
+                            </div>
+                        </div>
+                        
+                    </form>
+                </div>
+            </div>
+            <div class="col-lg-6 col-md-12">
+                <div class="login-slider h-100">
+                    <owl-carousel-o [options]="LoginSlider">
+                        <ng-template carouselSlide>
+                            <div class="slide">
+                                <img class="img-fluid" src="assets/images/slider/login-one.png" width="781"
+                                    height="660">
+                            </div>
+                        </ng-template>
+                        <ng-template carouselSlide>
+                            <div class="slide">
+                                <img class="img-fluid" src="assets/images/slider/login-one.png" width="781"
+                                    height="660">
+                            </div>
+                        </ng-template>
+                    </owl-carousel-o>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- <app-loader [display]="loading"></app-loader> -->

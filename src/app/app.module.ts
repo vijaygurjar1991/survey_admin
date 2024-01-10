@@ -55,7 +55,7 @@ import { CreateSurveyPopupComponent } from './survey/popups/create-survey-popup/
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { environment } from '../environments/environment';
 import { NgxPaginationModule } from 'ngx-pagination';
-
+import { SignUpComponent } from './user-pages/sign-up/sign-up.component';
 
 
 @NgModule({
@@ -67,7 +67,8 @@ import { NgxPaginationModule } from 'ngx-pagination';
     BreadcrumbComponent,
     LoginComponent,
     CaptchaComponent,
-    CreateSurveyPopupComponent
+    CreateSurveyPopupComponent,
+    SignUpComponent
   ],
   imports: [
     BrowserModule,
