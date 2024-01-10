@@ -86,7 +86,9 @@ export class CreateSurveyComponent implements OnInit {
   selectedValue: any;
   defaultSelectedValue: any = null;
   questionLogic: QuestionLogic = new QuestionLogic();
-  
+  pageSize:number = 5;
+  pageNumber:number = 1
+  countryId:any
   constructor(
     private visibilityService: DataService,
     private modalService: NgbModal,
@@ -139,9 +141,9 @@ export class CreateSurveyComponent implements OnInit {
 
     this.getCategoryNames();
     this.hideBreadcrumb();
-    this.getNames();
+    
     this.getQuestion();
-    this.GetSurveyDetails()
+    this.GetSurveyDetails(this.pageSize,this.pageNumber)
     this.getLogicValues();
     this.getLogicThens();
     this.getLogicQuestionList(0)
@@ -295,7 +297,8 @@ export class CreateSurveyComponent implements OnInit {
   }
 
   getNames() {
-    this.surveyservice.GetGenericQuestion().subscribe({
+    this.countryId="IN"
+    this.surveyservice.GetGenericQuestion(this.countryId).subscribe({
       next: (resp: responseDTO[]) => {
         console.log('Response:', resp);
         this.names = resp.map(item => ({ name: item.name, image: item.image }));
@@ -322,10 +325,16 @@ export class CreateSurveyComponent implements OnInit {
   otherCategoryName: any
   surveyStatus:any
   countryName:any
-
-  GetSurveyDetails() {
-    this.surveyservice.GetSurveyById(this.surveyId).subscribe((data: any) => {
-
+  totalItemsCount:number=10
+  GetSurveyDetails(pageSize:number,pageNumber:number) {
+    const dataToSend = {
+      pageSize: pageSize,
+      pageNumber: pageNumber,
+      surveyId:this.surveyId
+    };
+    this.surveyservice.getSurveyDetailsById(dataToSend).subscribe((data: any) => {
+      
+    
       if (Array.isArray(data)) {
         this.surveyName = data[0]?.surveyName;
         this.categoryName = data[0]?.categoryName;
@@ -333,6 +342,7 @@ export class CreateSurveyComponent implements OnInit {
         this.questions = data[0]?.questions;
         this.surveyStatus = data[0]?.status;
         this.countryName = data[0]?.countryName;
+        this.countryId= data[0]?.countryId
       } else {
         this.surveyName = data.surveyName;
         this.categoryName = data.categoryName;
@@ -340,7 +350,9 @@ export class CreateSurveyComponent implements OnInit {
         this.otherCategoryName = data[0]?.otherCategory;
         this.surveyStatus = data[0]?.status;
         this.countryName = data[0]?.countryName;
+        this.countryId= data[0]?.countryId
       }
+      this.getNames();
       console.log("data", data)
 
     });
@@ -510,5 +522,12 @@ reloadIfAlreadyOnManageSurvey(encryptedId: string) {
     // Navigate with the updated query parameter without full page reload
     this.router.navigate([], navigationExtras);
   }
+}
+onPageChange(pageNumber: number) {
+  console.log(pageNumber);
+  // Handle page change event
+  this.pageNumber = pageNumber;
+  this.GetSurveyDetails(this.pageSize,this.pageNumber)
+  // You can also fetch data for the selected page here based on the pageNumber
 }
 }

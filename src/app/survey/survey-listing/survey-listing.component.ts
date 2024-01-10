@@ -7,6 +7,7 @@ import { DataService } from 'src/app/service/data.service';
 import { SurveyService } from 'src/app/service/survey.service';
 import { FormControl } from '@angular/forms';
 import { UtilsService } from 'src/app/service/utils.service';
+
 import Swal from 'sweetalert2';
 
 @Component({
@@ -33,7 +34,9 @@ export class SurveyListingComponent {
   image: any;
   isadminsuperadmin:boolean=false
   isActive: boolean = false;
-
+  pageSize:number = 5;
+  pageNumber:number = 1
+  totalItemsCount:number=20
 
   ngOnInit(): void {
     //debugger;
@@ -47,13 +50,19 @@ export class SurveyListingComponent {
     if(this.role=='admin' || this.role=='superadmin'){
       this.isadminsuperadmin=true;
     }
-    this.GetAllSurveyList()
+    this.GetAllSurveyList(this.pageNumber,this.pageSize)
     this.getNames()
   }
-
-  GetAllSurveyList() {
-    this.themeService.GetSurveyList().subscribe((data: any) => {
+  
+  GetAllSurveyList(pageNumber:number,pageSize:number) {
+    const dataToSend = {
+      pageSize: pageSize,
+      pageNumber: pageNumber
+    };
+    this.themeService.getSurveyListWithPage(dataToSend).subscribe((data: any) => {
       this.surveyData = data;
+      //this.totalItemsCount=this.surveyData.length
+      //alert( this.totalItemsCount)
       this.cdr.detectChanges();
     });
   }
@@ -95,7 +104,13 @@ export class SurveyListingComponent {
       // Additional action or feedback for insufficient permissions
     }
   }
-  
+  onPageChange(pageNumber: number) {
+    console.log(pageNumber);
+    // Handle page change event
+    this.pageNumber = pageNumber;
+    this.GetAllSurveyList(this.pageNumber,this.pageSize)
+    // You can also fetch data for the selected page here based on the pageNumber
+  }
   
   
 }

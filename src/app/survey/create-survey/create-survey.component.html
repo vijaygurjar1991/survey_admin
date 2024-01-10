@@ -79,7 +79,7 @@
         </div>
         <div ngClass="question">
             <ul cdkDropList (cdkDropListDropped)="onItemDrop($event)">
-                <li *ngFor="let question of questions;let i=index;">
+                <li *ngFor="let question of questions | paginate: { id: 'server', itemsPerPage: 5, currentPage: pageNumber, totalItems: totalItemsCount } ;let i=index;">
                     <div class="drag-item">
                         <div ngClass="ques-header">
                             <h5 ngClass="mb-0">Q-{{i + 1}} {{question?.question}}</h5>
@@ -352,6 +352,8 @@
                 </li>
             </ul>
         </div>
+        <pagination-controls *ngIf="questions != null && questions.length>0" class="d-flex justify-content-center"
+            id="server" (pageChange)="onPageChange($event)"></pagination-controls>
         <div ngClass="drag-ques">
             <div cdkDrag>
                 <ng-icon name="heroArrowUpTray"></ng-icon>

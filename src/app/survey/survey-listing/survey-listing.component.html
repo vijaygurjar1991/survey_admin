@@ -38,8 +38,8 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let item of surveyData"
-                        [hidden]="selectedCategory !== 'All Categories' && item.categoryName !== selectedCategory">
+                    <tr *ngFor="let item of surveyData | paginate: { id: 'server', itemsPerPage: 5, currentPage: pageNumber, totalItems: totalItemsCount }"
+                        [hidden]="selectedCategory !== 'All Categories' && item.categoryName !== selectedCategory" >
                         <td><input type="checkbox" ngClass="form-check-input" />
                         </td>
                         <!-- <td>{{item.id}}</td> -->
@@ -97,7 +97,10 @@
 
                     </tr>
                 </tbody>
+                
             </table>
+            <pagination-controls *ngIf="surveyData != null && surveyData.length>0" class="d-flex justify-content-center"
+                id="server" (pageChange)="onPageChange($event)"></pagination-controls>
         </div>
     </div>
 </div>
