@@ -102,21 +102,23 @@ export class CreateSurveyPopupComponent {
 
 
   createSurvey() {
-
-    let dataToSend = {
-      surveyName: this.surveyName,
+    const dataToSend = {
+      name: this.surveyName,
       categoryId: this.categoryId,
-      otherCategory : this.categoryName,
-      countryId : this.searchControl
+      otherCategory: this.categoryName,
+      countryId: this.selectedCountry
     };
-    
-    console.log("dataToSend", dataToSend)
+
+    console.log("dataToSend", dataToSend);
+
     this.surveyservice.createSurvey(dataToSend).subscribe(
       response => {
         console.log('Response from server:', response);
-        this.newsurveyId = response;
-
-        if (this.newsurveyId) {
+        const result = this.convertStringToNumber(this.removeQuotes(response));
+        console.log("result",result)
+        if (result !== null) {
+          this.newsurveyId=result
+          console.log(this.newsurveyId)
           const encryptedId = this.crypto.encryptParam(`${this.newsurveyId}`);
           const url = `/survey/manage-survey/${encryptedId}`;
           this.modal.hide();
@@ -132,7 +134,12 @@ export class CreateSurveyPopupComponent {
         Swal.fire('', error, 'error');
       }
     );
-
-
+  }
+  convertStringToNumber(str: string): number | null {
+    const converted = +str; // Using the unary plus operator to attempt conversion
+    return isNaN(converted) ? null : converted;
+  }
+  removeQuotes(str: string): string {
+    return str.replace(/"/g, ''); // Replaces all occurrences of double quotes with an empty string
   }
 }

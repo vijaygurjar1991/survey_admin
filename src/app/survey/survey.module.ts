@@ -20,6 +20,7 @@ import { NgxDropzoneModule } from 'ngx-dropzone';
 import { DecimalPipe, NgFor } from '@angular/common';
 //import { NgbPaginationModule, NgbTypeaheadModule } from '@ng-bootstrap/ng-bootstrap';
 import { MatSelectModule } from '@angular/material/select';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 // Icons
 import { NgIconsModule, provideNgIconsConfig } from '@ng-icons/core';
@@ -158,6 +159,7 @@ import { DecryptPipe } from '../pipes/decrypt.pipe';
       heroArrowRight,
       heroHome
     }),
+    NgxPaginationModule
   ],
   providers: [
     provideNgIconsConfig({

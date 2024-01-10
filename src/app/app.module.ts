@@ -54,6 +54,7 @@ import { CaptchaComponent } from './shared/captcha/captcha.component';
 import { CreateSurveyPopupComponent } from './survey/popups/create-survey-popup/create-survey-popup.component';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { environment } from '../environments/environment';
+import { NgxPaginationModule } from 'ngx-pagination';
 import { SignUpComponent } from './user-pages/sign-up/sign-up.component';
 
 
@@ -105,7 +106,8 @@ import { SignUpComponent } from './user-pages/sign-up/sign-up.component';
     }),
     BrowserAnimationsModule,
     RecaptchaModule,
-    RecaptchaFormsModule
+    RecaptchaFormsModule,
+    NgxPaginationModule
 
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],

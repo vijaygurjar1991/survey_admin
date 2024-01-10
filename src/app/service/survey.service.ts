@@ -23,8 +23,8 @@ export class SurveyService {
       .pipe(map((result) => result as responseDTO));
   }
 
-  GetGenericQuestion(): Observable<responseDTO[]> {
-    const url = `${this.apiUrl}api/admin/${this.userId}/GenericQuestion/GetGenericType`;
+  GetGenericQuestion(countryId:any): Observable<responseDTO[]> {
+    const url = `${this.apiUrl}api/admin/${this.userId}/GenericQuestion/GetGenericType?countryId=${countryId}`;
 
     return this.http.get<responseDTO[]>(url);
   }
@@ -59,12 +59,15 @@ export class SurveyService {
   }
 
   // Create Survey
-  /*createSurvey(data: any): Observable<any> {
-    const { surveyName, categoryId } = data;
-    const url = `${this.apiUrl}api/admin/${this.userId}/Survey/CreateSurvey?surveyName=${encodeURIComponent(surveyName)}&categoryId=${categoryId}`;
-    console.log("posted data", data);
-    return this.http.post(url, data, { responseType: 'text' });
-  }*/
+  createSurvey(data: any): Observable<any> {
+    const url = `${this.apiUrl}api/admin/${this.userId}/Survey/CreateSurvey`;
+
+    // Create a new object without circular references
+    const sanitizedData = this.removeCircularReferences(data);
+
+    console.log("posted data", sanitizedData);
+    return this.http.post(url, sanitizedData, { responseType: 'text' });
+  }
   //Update Survey
   updateSurvey(data: any): Observable<any> {
     const { surveyId,surveyName, categoryId } = data;
@@ -178,19 +181,32 @@ export class SurveyService {
     }
     return this.http.get(url,{responseType: 'text'});
   }
-  createSurvey(data: any): Observable<any> {
-    const params = new HttpParams()
-      .set('name', data.surveyName)
-      .set('categoryId', data.categoryId)
-      .set('otherCategory', data.otherCategory)
-      .set('countryId',data.countryId)
-    const url = `${this.apiUrl}api/admin/${this.userId}/Survey/CreateSurvey?${params.toString()}`;
-    console.log("posted data", data);
-    return this.http.post(url, data, { responseType: 'text' });
-  }
   getCountries() {
     return this.http
       .get<responseDTO>(`${this.apiUrl}api/admin/${this.userId}/Geography/GetCountries`)
       .pipe(map((result) => result as responseDTO));
+  }
+  removeCircularReferences(data: any): any {
+    const seen = new WeakSet();
+    const sanitizedData = JSON.parse(JSON.stringify(data, (key, value) => {
+      if (typeof value === 'object' && value !== null) {
+        if (seen.has(value)) {
+          return;
+        }
+        seen.add(value);
+      }
+      return value;
+    }));
+
+    return sanitizedData;
+  }
+  getSurveyListWithPage(dataToSend: any): Observable<responseDTO[]> {
+    const url = `${this.apiUrl}api/admin/${this.userId}/Survey/GetSurveyList`;
+    return this.http.post<responseDTO[]>(url, dataToSend);
+  }
+  //getSurveyDetailsById
+  getSurveyDetailsById(dataToSend: any): Observable<responseDTO[]> {
+    const url = `${this.apiUrl}api/admin/${this.userId}/Survey/GetSurveyById`;
+    return this.http.post<responseDTO[]>(url,dataToSend);
   }
 }
