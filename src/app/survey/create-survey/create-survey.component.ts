@@ -354,7 +354,7 @@ export class CreateSurveyComponent implements OnInit {
         this.countryId= data.countryId
         this.totalItemsCount=data.totalQuestionCount
       }
-      alert(this.totalItemsCount)
+
       this.getNames();
       console.log("data", data)
 

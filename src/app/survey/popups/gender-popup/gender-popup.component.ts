@@ -130,7 +130,7 @@ export class GenderPopupComponent {
       option.createdDate = currentDateTime;
       option.modifiedDate = currentDateTime;
     });
-
+    this.question.genericTypeId=this.typeid
     this.surveyservice.CreateGeneralQuestion(this.question).subscribe({
       next: (resp: any) => {
         Swal.fire('', 'Question Generated Successfully.', 'success').then((result) => {

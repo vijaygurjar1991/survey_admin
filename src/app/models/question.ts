@@ -15,6 +15,7 @@ export class Question {
     public status: string = '';
     public createdDate: string = '';
     public modifiedDate: string = '';
+    public genericTypeId:number=0
     public isGrouping: boolean = false;
     public sort: number = 1;
     public isLogic: boolean = false;
