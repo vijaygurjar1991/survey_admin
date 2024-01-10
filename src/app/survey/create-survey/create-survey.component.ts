@@ -124,6 +124,12 @@ export class CreateSurveyComponent implements OnInit {
     
   }
 
+  toggleClass: boolean = false;
+
+    toggle() {
+        this.toggleClass = !this.toggleClass;
+    }
+
   hideBreadcrumb() {
     this.visibilityService.toggleBreadcrumbVisibility(false);
   }

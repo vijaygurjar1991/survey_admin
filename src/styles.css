@@ -439,7 +439,33 @@ article {
     margin: -1.5rem;
     box-shadow: 0px 20px 16px #d6d4d4;position: sticky;top: 0;height: 100vh;
 }
-
+.add-ques-sidebar.toggle-sidebar {
+    flex: 0 150px;
+    max-width: 150px;
+}
+.add-ques-sidebar.toggle-sidebar .common-ques a{justify-content: center;}
+.add-ques-sidebar.toggle-sidebar .common-ques a figure{padding-right: 0;}
+.heroChevronRight {
+    display: none !important;;
+}
+.add-ques-sidebar.toggle-sidebar .heroChevronRight {
+    display: flex !important;
+}
+.add-ques-sidebar.toggle-sidebar .heroChevronLeft {
+    display: none;
+}
+.heroChevronLeft, .heroChevronRight {
+    background-color: #dcdcdc;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    line-height: 20px;
+    display: flex;justify-content: center;align-items: center;
+    margin-bottom: 1rem;
+}
+.add-ques-sidebar.toggle-sidebar .common-ques a figcaption {
+    display: none;
+}
 .common-ques a {
     display: flex;
     align-items: center;
@@ -566,7 +592,7 @@ article {
 
 .survey-question .question>ul>li {
     border: 1px solid var(--border-color);
-    border-radius: 0.5rem;overflow: hidden;
+    border-radius: 0.5rem;
     background-color: var(--white);
     margin-bottom: 1rem;
     box-shadow: 0px 0px 20px #d8d8d8;
@@ -1741,8 +1767,10 @@ label {
 	-webkit-box-shadow: inset 0 0 6px rgba(44, 44, 44, 0.3);
 	background-color: #b7b4b4;
 }
-
+/* Signup */
 .mat-mdc-option{ min-height: 38px !important;}
 .upload-logo {position: relative;height: 120px;width: 120px;display: block;margin-bottom: 1rem;border-radius: 50%;}
 .upload-logo input{opacity: 0;width: 120px;height: 120px; cursor: pointer;z-index: 9;position: relative;  }
 .upload-logo img{position: absolute; width: 120px; height: 120px;top: 0;left: 0;}  
+
+.ngx-pagination .current{background: var(--primary) !important;}
