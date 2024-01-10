@@ -54,7 +54,7 @@ import { CaptchaComponent } from './shared/captcha/captcha.component';
 import { CreateSurveyPopupComponent } from './survey/popups/create-survey-popup/create-survey-popup.component';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { environment } from '../environments/environment';
-
+import { SignUpComponent } from './user-pages/sign-up/sign-up.component';
 
 
 @NgModule({
@@ -66,7 +66,8 @@ import { environment } from '../environments/environment';
     BreadcrumbComponent,
     LoginComponent,
     CaptchaComponent,
-    CreateSurveyPopupComponent
+    CreateSurveyPopupComponent,
+    SignUpComponent
   ],
   imports: [
     BrowserModule,
