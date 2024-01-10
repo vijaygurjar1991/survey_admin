@@ -331,7 +331,7 @@ export class CreateSurveyComponent implements OnInit {
   otherCategoryName: any
   surveyStatus:any
   countryName:any
-  totalItemsCount:number=10
+  totalItemsCount:number
   GetSurveyDetails(pageSize:number,pageNumber:number) {
     const dataToSend = {
       pageSize: pageSize,
@@ -354,12 +354,13 @@ export class CreateSurveyComponent implements OnInit {
         this.surveyName = data.surveyName;
         this.categoryName = data.categoryName;
         this.questions = data.questions;
-        this.otherCategoryName = data[0]?.otherCategory;
-        this.surveyStatus = data[0]?.status;
-        this.countryName = data[0]?.countryName;
-        this.countryId= data[0]?.countryId
-        this.totalItemsCount=data[0]?.totalQuestionCount
+        this.otherCategoryName = data.otherCategory;
+        this.surveyStatus = data.status;
+        this.countryName = data.countryName;
+        this.countryId= data.countryId
+        this.totalItemsCount=data.totalQuestionCount
       }
+
       this.getNames();
       console.log("data", data)
 
