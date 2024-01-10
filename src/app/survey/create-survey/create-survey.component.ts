@@ -343,6 +343,7 @@ export class CreateSurveyComponent implements OnInit {
         this.surveyStatus = data[0]?.status;
         this.countryName = data[0]?.countryName;
         this.countryId= data[0]?.countryId
+        this.totalItemsCount=data[0]?.totalQuestionCount
       } else {
         this.surveyName = data.surveyName;
         this.categoryName = data.categoryName;
@@ -351,6 +352,7 @@ export class CreateSurveyComponent implements OnInit {
         this.surveyStatus = data[0]?.status;
         this.countryName = data[0]?.countryName;
         this.countryId= data[0]?.countryId
+        this.totalItemsCount=data[0]?.totalQuestionCount
       }
       this.getNames();
       console.log("data", data)

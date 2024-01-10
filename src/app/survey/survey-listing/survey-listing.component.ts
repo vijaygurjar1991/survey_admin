@@ -60,8 +60,8 @@ export class SurveyListingComponent {
       pageNumber: pageNumber
     };
     this.themeService.getSurveyListWithPage(dataToSend).subscribe((data: any) => {
-      this.surveyData = data;
-      //this.totalItemsCount=this.surveyData.length
+      this.surveyData = data.surveyType;
+      this.totalItemsCount=data.totalCount
       //alert( this.totalItemsCount)
       this.cdr.detectChanges();
     });
