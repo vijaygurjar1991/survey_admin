@@ -50,19 +50,15 @@ export class SurveyListingComponent {
     if(this.role=='admin' || this.role=='superadmin'){
       this.isadminsuperadmin=true;
     }
-    this.GetAllSurveyList(this.pageNumber,this.pageSize)
+    this.getAllSurveyList(this.pageNumber,this.pageSize)
     this.getNames()
   }
   
-  GetAllSurveyList(pageNumber:number,pageSize:number) {
-    const dataToSend = {
-      pageSize: pageSize,
-      pageNumber: pageNumber
-    };
-    this.themeService.getSurveyListWithPage(dataToSend).subscribe((data: any) => {
+  getAllSurveyList(pageNumber: number, pageSize: number) {
+    this.themeService.getSurveyListWithPage(pageNumber, pageSize).subscribe((data: any) => {
       this.surveyData = data.surveyType;
-      this.totalItemsCount=data.totalCount
-      //alert( this.totalItemsCount)
+      this.totalItemsCount = data.totalCount;
+      // alert(this.totalItemsCount);
       this.cdr.detectChanges();
     });
   }
@@ -108,7 +104,7 @@ export class SurveyListingComponent {
     console.log(pageNumber);
     // Handle page change event
     this.pageNumber = pageNumber;
-    this.GetAllSurveyList(this.pageNumber,this.pageSize)
+    this.getAllSurveyList(this.pageNumber,this.pageSize)
     // You can also fetch data for the selected page here based on the pageNumber
   }
   

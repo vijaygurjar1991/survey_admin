@@ -200,9 +200,9 @@ export class SurveyService {
 
     return sanitizedData;
   }
-  getSurveyListWithPage(dataToSend: any): Observable<responseDTO[]> {
-    const url = `${this.apiUrl}api/admin/${this.userId}/Survey/GetSurveyList`;
-    return this.http.post<responseDTO[]>(url, dataToSend);
+  getSurveyListWithPage(pageNumber: number, pageSize: number): Observable<responseDTO[]> {
+    const url = `${this.apiUrl}api/admin/${this.userId}/Survey/GetSurveyList?pageNumber=${pageNumber}&pageSize=${pageSize}`;
+    return this.http.get<responseDTO[]>(url);
   }
   //getSurveyDetailsById
   getSurveyDetailsById(dataToSend: any): Observable<responseDTO[]> {
