@@ -44,7 +44,10 @@
                         </td>
                         <!-- <td>{{item.id}}</td> -->
                         <td>{{item.name}}</td>
-                        <td>{{item.countryName}}</td>
+                        <td><img src="../../../assets/images/Images/flag.png" class="me-2 rounded-circle"
+                            style="width: 30px;height: 30px;" /> 
+                            {{item.countryName}}
+                        </td>
                         <td *ngIf="item.categoryName !='Others'">{{item.categoryName}}</td>
                         <td *ngIf="item.categoryName =='Others'">{{item.otherCategory}}</td>
                         <td>
