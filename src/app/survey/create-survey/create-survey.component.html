@@ -454,12 +454,20 @@
     <div class="modal-body popup-ques">
         <div ngClass="update-ques-type generic-ques">
             <ul>
-                <li *ngFor="let item of names">
-                    <a href="javascript:" (click)="onGenericQuestionClick(item.name);modal.close('Close click')">
+                <li>
+                    <a href="javascript:">
                         <figure>
-                            <img src="../../../assets/{{item.image}}" width="35" height="35" />
+                            <img src="../../../assets/images/icons/nccs.png" width="35" height="35" />
                         </figure>
-                        <figcaption>{{ item.name }}</figcaption>
+                        <figcaption>NCCS</figcaption>
+                    </a>
+                </li>
+                <li>
+                    <a href="javascript:">
+                        <figure>
+                            <img src="../../../assets/images/icons/nccs.png" width="35" height="35" />
+                        </figure>
+                        <figcaption>NCCS</figcaption>
                     </a>
                 </li>
             </ul>
