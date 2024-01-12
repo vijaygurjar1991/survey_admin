@@ -51,6 +51,16 @@
                 </a>
             </div>
         </div>
+        <div ngClass="my-3">
+            <h6 class="mb-2">Add NCCS</h6>
+            <div class="common-ques">
+                <a routerLink="javascript:" (click)="opennccs(nccsQuestion)">
+                    <figure><img src="../../../assets/images/icons/Add-new-logic.png" width="30" height="30" />
+                    </figure>
+                    <figcaption>Add New NCCS</figcaption>
+                </a>
+            </div>
+        </div>
         <div class="updated-preview">
             <div class="preview">
                 <a [href]="'http://localhost:4201/survey/preview/' + surveyId" target="_blank" rel="noopener noreferrer"
@@ -411,7 +421,34 @@
 <!-- Add new Genric Question -->
 <ng-template #genricQuestion let-modal>
     <div class="modal-header">
-        <h4 class="modal-title">Select Generic question Type</h4>
+        <h4 class="modal-title">Select Generic Question Type</h4>
+        <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+    </div>
+    <div class="modal-body popup-ques">
+        <div ngClass="update-ques-type generic-ques">
+            <ul>
+                <li *ngFor="let item of names">
+                    <a href="javascript:" (click)="onGenericQuestionClick(item.name);modal.close('Close click')">
+                        <figure>
+                            <img src="../../../assets/{{item.image}}" width="35" height="35" />
+                        </figure>
+                        <figcaption>{{ item.name }}</figcaption>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="modal-footer upload">
+        <button type="button" class="btn close" (click)="modal.close('Close click')">Cancel</button>
+        <button type="button" class="btn btn-primary icon" (click)="modal.close('Close click')">Create
+            <ng-icon name="heroArrowLongRight" class="ms-4"></ng-icon>
+        </button>
+    </div>
+</ng-template>
+<!-- Add new nccs Question -->
+<ng-template #nccsQuestion let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title">Select NCCS Question Type</h4>
         <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
     </div>
     <div class="modal-body popup-ques">
