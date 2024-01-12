@@ -336,12 +336,7 @@ export class CreateSurveyComponent implements OnInit {
   countryName:any
   totalItemsCount:number
   GetSurveyDetails(pageSize:number,pageNumber:number) {
-    const dataToSend = {
-      pageSize: pageSize,
-      pageNumber: pageNumber,
-      surveyId:this.surveyId
-    };
-    this.surveyservice.getSurveyDetailsById(dataToSend).subscribe((data: any) => {
+    this.surveyservice.getSurveyDetailsById(pageNumber,pageSize,this.surveyId).subscribe((data: any) => {
       
     
       if (Array.isArray(data)) {
