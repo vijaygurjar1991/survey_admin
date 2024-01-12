@@ -299,6 +299,9 @@ export class CreateSurveyComponent implements OnInit {
   openGenric(genricQuestion: any){
     this.modalService.open(genricQuestion, { size: 'lg', centered: true });
   }
+  opennccs(nccsQuestion: any){
+    this.modalService.open(nccsQuestion, { size: 'lg', centered: true });
+  }
 
   opensidecontent() {
     const modalRef = this.modalService.open(this.opensidecontent, { /* modal options */ });
