@@ -17,14 +17,16 @@ export class CityPopupComponent {
     this.modal.show();
     this.surveyservice.GetStateByCountryID(this.countryId).subscribe((data) => {
       this.countries = data;
+      console.log("GetStateByCountryID "+this.countries)
     });
+    
   }
 
   close() {
     this.modal.hide();
   }
 
-  countryId = 'AT';
+  countryId = 'IN';
  
 
   countries: any[];

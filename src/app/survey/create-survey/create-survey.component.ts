@@ -75,6 +75,8 @@ export class CreateSurveyComponent implements OnInit {
   readCategoryName: any
   categoryList: any;
   names: { name: string, image: string }[] = [];
+  country : { id: string, name: string }[] = [];
+  selectedCountry: string = "IN";
   questions: any;
   selectedQuestionType: any;
   categoryId: number;
@@ -306,7 +308,7 @@ export class CreateSurveyComponent implements OnInit {
   }
 
   getNames() {
-    this.countryId="IN"
+    //this.countryId="IN"
     this.surveyservice.GetGenericQuestion(this.countryId).subscribe({
       next: (resp: responseDTO[]) => {
         console.log('Response:', resp);
@@ -536,5 +538,20 @@ onPageChange(pageNumber: number) {
   this.pageNumber = pageNumber;
   this.GetSurveyDetails(this.pageSize,this.pageNumber)
   // You can also fetch data for the selected page here based on the pageNumber
+}
+getCountries(){
+  this.surveyservice.getCountries().subscribe(response => {
+
+    const result = Object.keys(response).map((key) => response[key]);
+    console.log(result)
+    const countries: { id: string; name: string }[] = result.map((value: any) => ({
+      id: value['countryId'],
+      name: value['name']
+    }));
+
+    this.country = countries;
+    console.log("country",this.country)
+  });
+  
 }
 }
