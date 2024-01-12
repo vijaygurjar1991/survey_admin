@@ -156,6 +156,7 @@ export class CreateSurveyComponent implements OnInit {
     this.getLogicThens();
     this.getLogicQuestionList(0)
     this.defaultSelectedValue = null;
+    this.getCountries();
   }
   ngAfterViewInit() {
     // Set the default value after the view initialization
@@ -289,6 +290,7 @@ export class CreateSurveyComponent implements OnInit {
   filterOptions(e: MatAutocompleteSelectedEvent) {
     this.categoryId = e.option.value;
     this.categoryName = e.option.viewValue;
+    this.selectedOption = e.option.viewValue;
   }
 
   onDragEnded(): void {
@@ -354,6 +356,7 @@ export class CreateSurveyComponent implements OnInit {
         this.countryId= data[0]?.countryId
         this.totalItemsCount=data[0]?.totalQuestionCount
         this.selectedCountry=this.countryId
+        this.selectedOption=this.categoryName
       } else {
         this.surveyName = data.surveyName;
         this.categoryName = data.categoryName;
@@ -364,6 +367,7 @@ export class CreateSurveyComponent implements OnInit {
         this.countryId= data.countryId
         this.totalItemsCount=data.totalQuestionCount
         this.selectedCountry=this.countryId
+        this.selectedOption=this.categoryName
       }
 
       this.getNames();
@@ -411,8 +415,10 @@ export class CreateSurveyComponent implements OnInit {
   updateSurvey() {
     const dataToSend = {
       surveyId: this.surveyId,
-      surveyName: this.surveyName,
-      categoryId: this.categoryId
+      name: this.surveyName,
+      categoryId: this.categoryId,
+      otherCategory: this.otherCategoryName,
+      countryId: this.selectedCountry
     };
     console.log("dataToSend", dataToSend)
     this.surveyservice.updateSurvey(dataToSend).subscribe(

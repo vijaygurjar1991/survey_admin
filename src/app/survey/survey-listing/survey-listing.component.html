@@ -102,8 +102,15 @@
                 </tbody>
                 
             </table>
-            <pagination-controls *ngIf="surveyData != null && surveyData.length>0" class="d-flex justify-content-center"
-                id="server" (pageChange)="onPageChange($event)"></pagination-controls>
+            <div class="d-flex">
+                <input type="number" [(ngModel)]="currentPage" (keyup.enter)="jumpToPage()" class="form-control" />
+                
+                <pagination-controls *ngIf="surveyData != null && surveyData.length > 0"
+                                    class="d-flex justify-content-center"
+                                    id="server"
+                                    (pageChange)="onPageChange($event)">
+                </pagination-controls>
+              </div>
         </div>
     </div>
 </div>

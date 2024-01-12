@@ -37,7 +37,7 @@ export class SurveyListingComponent {
   pageSize:number = 5;
   pageNumber:number = 1
   totalItemsCount:number=20
-
+  currentPage:number = 1
   ngOnInit(): void {
     //debugger;
     this.visibilityService.closeSideBar();
@@ -105,7 +105,14 @@ export class SurveyListingComponent {
     // Handle page change event
     this.pageNumber = pageNumber;
     this.getAllSurveyList(this.pageNumber,this.pageSize)
+    this.currentPage=this.pageNumber
     // You can also fetch data for the selected page here based on the pageNumber
+  }
+  jumpToPage() {
+    // Add any necessary validation logic before emitting the pageChange event
+    if (this.currentPage > 0 && this.currentPage <= Math.ceil(this.totalItemsCount / this.pageSize)) {
+      this.onPageChange(this.currentPage);
+    }
   }
   
   
