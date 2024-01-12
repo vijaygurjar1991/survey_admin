@@ -89,6 +89,8 @@ export class CreateSurveyComponent implements OnInit {
   pageSize:number = 5;
   pageNumber:number = 1
   countryId:any
+  selectedCountry: string = "IN";
+  country : { id: string, name: string }[] = [];
   constructor(
     private visibilityService: DataService,
     private modalService: NgbModal,
@@ -541,5 +543,20 @@ onPageChange(pageNumber: number) {
   this.pageNumber = pageNumber;
   this.GetSurveyDetails(this.pageSize,this.pageNumber)
   // You can also fetch data for the selected page here based on the pageNumber
+}
+getCountries(){
+  this.surveyservice.getCountries().subscribe(response => {
+
+    const result = Object.keys(response).map((key) => response[key]);
+    console.log(result)
+    const countries: { id: string; name: string }[] = result.map((value: any) => ({
+      id: value['countryId'],
+      name: value['name']
+    }));
+
+    this.country = countries;
+    console.log("country",this.country)
+  });
+  
 }
 }
