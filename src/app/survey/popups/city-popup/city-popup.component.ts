@@ -3,6 +3,12 @@ import { ModalDirective } from 'ngx-bootstrap/modal';
 import { SurveyService } from 'src/app/service/survey.service';
 import { responseDTO } from 'src/app/types/responseDTO';
 
+interface State {
+  stateId: string;
+  name: string;
+  selected: boolean;
+}
+
 @Component({
   selector: 'app-city-popup',
   templateUrl: './city-popup.component.html',
@@ -10,14 +16,19 @@ import { responseDTO } from 'src/app/types/responseDTO';
 })
 export class CityPopupComponent {
   @ViewChild('CityModal', { static: true }) modal!: ModalDirective;
+  locations: State[] = [];
+  isPanIndiaShow:boolean=false;
 
   constructor(private surveyservice: SurveyService) { }
 
   show() {
     this.modal.show();
+    if(this.countryId=="IN")
+    this.isPanIndiaShow=true
+
     this.surveyservice.GetStateByCountryID(this.countryId).subscribe((data) => {
       this.countries = data;
-      console.log("GetStateByCountryID "+this.countries)
+      this.locations = data[0]?.states || [];
     });
     
   }
@@ -31,8 +42,12 @@ export class CityPopupComponent {
 
   countries: any[];
 
+  selectAllOptions() {
+    const areAllSelected = this.locations.every(state => state.selected);
 
-
-
-
+    this.locations.forEach(state => {
+      state.selected = !areAllSelected;
+    });
+  }
+  
 }
