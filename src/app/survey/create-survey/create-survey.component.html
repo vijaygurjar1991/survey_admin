@@ -448,6 +448,15 @@
                 <input id="surveyname" type="text" class="form-control" name="surveyName" [(ngModel)]="surveyName"
                     [ngModelOptions]="{standalone: true}" />
             </div>
+            <div class="mb-4">
+                <label class="form-label">Select Your Country</label>
+                <mat-form-field>
+                    <mat-select name="countryString" [(value)]="selectedCountry" placeholder="Country">
+                      <mat-option *ngFor="let item of country" [value]="item.id">{{item.name}}</mat-option>
+                    </mat-select>
+                    
+                </mat-form-field>
+            </div>
             <div class="mb-4" class="search-categories input-icon">
                 <label class="form-label">Select Survey Categories</label>
                 <mat-form-field>
@@ -460,6 +469,11 @@
                         </mat-option>
                     </mat-autocomplete>
                 </mat-form-field>
+            </div>
+            <div class="mb-4" *ngIf="selectedOption === 'Others'">
+                <label for="categoryName" class="form-label">Enter Category Name</label>
+                <input id="categoryName" type="text" class="form-control" [(ngModel)]="categoryName"
+                    name="categoryName" />
             </div>
 
         </form>
