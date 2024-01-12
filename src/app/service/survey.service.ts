@@ -25,7 +25,6 @@ export class SurveyService {
 
   GetGenericQuestion(countryId:any): Observable<responseDTO[]> {
     const url = `${this.apiUrl}api/admin/${this.userId}/GenericQuestion/GetGenericType?countryId=${countryId}`;
-
     return this.http.get<responseDTO[]>(url);
   }
 
@@ -205,8 +204,8 @@ export class SurveyService {
     return this.http.get<responseDTO[]>(url);
   }
   //getSurveyDetailsById
-  getSurveyDetailsById(dataToSend: any): Observable<responseDTO[]> {
-    const url = `${this.apiUrl}api/admin/${this.userId}/Survey/GetSurveyById`;
-    return this.http.post<responseDTO[]>(url,dataToSend);
+  getSurveyDetailsById(pageNumber: number, pageSize: number,surveyId:number): Observable<responseDTO[]> {
+    const url = `${this.apiUrl}api/admin/${this.userId}/Survey/GetSurveyById?surveyId=${surveyId}&pageNumber=${pageNumber}&pageSize=${pageSize}`;
+    return this.http.get<responseDTO[]>(url);
   }
 }
