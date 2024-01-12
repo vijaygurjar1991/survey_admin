@@ -455,7 +455,7 @@
         <div ngClass="update-ques-type generic-ques">
             <ul>
                 <li>
-                    <a href="javascript:">
+                    <a href="javascript:" (click)="onGenericQuestionClick('NCCS');modal.close('Close click')">
                         <figure>
                             <img src="../../../assets/images/icons/nccs.png" width="35" height="35" />
                         </figure>
@@ -463,11 +463,11 @@
                     </a>
                 </li>
                 <li>
-                    <a href="javascript:">
+                    <a href="javascript:" (click)="onGenericQuestionClick('FLSM');modal.close('Close click')">
                         <figure>
                             <img src="../../../assets/images/icons/nccs.png" width="35" height="35" />
                         </figure>
-                        <figcaption>NCCS</figcaption>
+                        <figcaption>FLSM</figcaption>
                     </a>
                 </li>
             </ul>
