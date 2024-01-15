@@ -43,8 +43,8 @@
         </div>
         <div ngClass="my-3">
             <h6 class="mb-2">Add Logic</h6>
-            <div class="common-ques">
-                <a routerLink="javascript:">
+            <div class="common-ques" >
+                <a routerLink="javascript:"  (click)="toggleDivVisibility()">
                     <figure><img src="../../../assets/images/icons/Add-new-logic.png" width="30" height="30" />
                     </figure>
                     <figcaption>Add New Logic</figcaption>
@@ -92,6 +92,81 @@
                 <span *ngIf="categoryName =='Others'">{{otherCategoryName}}</span>
             </div>
             <a (click)="openLg(sidecontent)"><ng-icon name="heroPencilSquare"></ng-icon></a>
+        </div>
+        <div ngClass="pt-4 add-new-logic"  *ngIf="isDivVisible">
+            <h5 ngClass="mb-4">Logic</h5>
+            <div ngClass="mb-4">
+                <div class="logic-tab">
+                    <!-- Nav tabs -->
+                    <ul class="nav flex-column nav-tabs" id="myTab" role="tablist">
+                        
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link active" id="randomaisation-tab"
+                                data-bs-toggle="tab" data-bs-target="#randomaisation" role="tab"
+                                aria-selected="false">Randomaisation</button>
+                        </li>
+                      
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link" id="autocode-tab" data-bs-toggle="tab"
+                                data-bs-target="#autocode" role="tab"
+                                aria-selected="false">Autocode</button>
+                        </li>
+                    </ul>
+                    <!-- Logic Question -->
+                    <div class="tab-content p-4">                        
+                        <div class="tab-pane active" id="randomaisation" role="tabpanel"
+                            aria-labelledby="randomaisation-tab">
+                            <h5 ngClass="mb-4">Randomaisation</h5>
+                            <div ngClass="mb-3 row">
+                                <h6 class="mb-3">Randamize a set of questions/screens/groups
+                                </h6>
+                                <div class="mb-3">
+                                    <select class="form-select"
+                                        aria-label="Default select example">
+                                        <option selected>Open this select menu</option>
+                                        <option value="1">One</option>
+                                        <option value="2">Two</option>
+                                        <option value="3">Three</option>
+                                    </select>
+                                </div>
+                                <div class="mb-3">
+                                    <select class="form-select">
+                                        <option selected>Select</option>
+                                        <option value="1">One</option>
+                                        <option value="2">Two</option>
+                                        <option value="3">Three</option>
+                                    </select>
+                                </div>
+                                <div class=" mb-3">
+                                    <a routerLink="javascript:"
+                                        class="d-flex align-items-center"><ng-icon
+                                            name="heroPlusCircle" ngClass="plus-circle me-3"
+                                            style="width: 40px;height: 40px;"></ng-icon>
+                                        <span>Add Questions/Screens/Groups</span></a>
+                                </div>
+                                <div class="mb-3 ms-4 form-check checking">
+                                    <input class="form-check-input" type="checkbox" value=""
+                                        id="Randomise">
+                                    <label class="form-check-label" for="Randomise">
+                                        Randomise these question
+                                    </label>
+                                </div>
+                                <div class="ms-4 form-check checking">
+                                    <input class="form-check-input" type="checkbox" value=""
+                                        id="instances">
+                                    <label class="form-check-label" for="instances">
+                                        Show instances consequently
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="tab-pane" id="autocode" role="tabpanel"
+                            aria-labelledby="autocode-tab">...
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
         <div ngClass="question">
             <ul cdkDropList (cdkDropListDropped)="onItemDrop($event)">
@@ -170,31 +245,15 @@
                                                         aria-selected="true">Branching</button>
                                                 </li>
                                                 <li class="nav-item" role="presentation">
-                                                    <button class="nav-link" id="randomaisation-tab"
-                                                        data-bs-toggle="tab" data-bs-target="#randomaisation" role="tab"
-                                                        aria-selected="false">Randomaisation</button>
-                                                </li>
-                                                <li class="nav-item" role="presentation">
                                                     <button class="nav-link" id="customLogic-tab" data-bs-toggle="tab"
                                                         data-bs-target="#customLogic" role="tab"
                                                         aria-selected="false">Custom
                                                         Logic</button>
                                                 </li>
                                                 <li class="nav-item" role="presentation">
-                                                    <button class="nav-link" id="multipleQuestion-tab"
-                                                        data-bs-toggle="tab" data-bs-target="#multipleQuestion"
-                                                        role="tab" aria-selected="false">Multiple
-                                                        Question</button>
-                                                </li>
-                                                <li class="nav-item" role="presentation">
                                                     <button class="nav-link" id="calculator-tab" data-bs-toggle="tab"
                                                         data-bs-target="#calculator" role="tab"
                                                         aria-selected="false">Calculator</button>
-                                                </li>
-                                                <li class="nav-item" role="presentation">
-                                                    <button class="nav-link" id="autocode-tab" data-bs-toggle="tab"
-                                                        data-bs-target="#autocode" role="tab"
-                                                        aria-selected="false">Autocode</button>
                                                 </li>
                                             </ul>
                                             <!-- Logic Question -->
@@ -247,7 +306,7 @@
                                                                             ngClass="plus-circle"></ng-icon></a>
                                                                 </div>
                                                                 <div class="col-md-4 checking">
-                                                                    <div class="form-check d-flex justify-content-end">
+                                                                    <div class="form-check d-flex justify-content-end align-items-center">
                                                                         <input class="form-check-input me-2"
                                                                             type="checkbox" value="" id="selectAll">
                                                                         <label class="form-check-label" for="selectAll">
@@ -293,52 +352,7 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="tab-pane" id="randomaisation" role="tabpanel"
-                                                    aria-labelledby="randomaisation-tab">
-                                                    <h5 ngClass="mb-4">Randomaisation</h5>
-                                                    <div ngClass="mb-3 row">
-                                                        <h6 class="mb-3">Randamize a set of questions/screens/groups
-                                                        </h6>
-                                                        <div class="mb-3">
-                                                            <select class="form-select"
-                                                                aria-label="Default select example">
-                                                                <option selected>Open this select menu</option>
-                                                                <option value="1">One</option>
-                                                                <option value="2">Two</option>
-                                                                <option value="3">Three</option>
-                                                            </select>
-                                                        </div>
-                                                        <div class="mb-3">
-                                                            <select class="form-select">
-                                                                <option selected>Select</option>
-                                                                <option value="1">One</option>
-                                                                <option value="2">Two</option>
-                                                                <option value="3">Three</option>
-                                                            </select>
-                                                        </div>
-                                                        <div class=" mb-3">
-                                                            <a routerLink="javascript:"
-                                                                class="d-flex align-items-center"><ng-icon
-                                                                    name="heroPlusCircle" ngClass="plus-circle me-3"
-                                                                    style="width: 40px;height: 40px;"></ng-icon>
-                                                                <span>Add Questions/Screens/Groups</span></a>
-                                                        </div>
-                                                        <div class="mb-3 ms-4 form-check checking">
-                                                            <input class="form-check-input" type="checkbox" value=""
-                                                                id="Randomise">
-                                                            <label class="form-check-label" for="Randomise">
-                                                                Randomise these question
-                                                            </label>
-                                                        </div>
-                                                        <div class="ms-4 form-check checking">
-                                                            <input class="form-check-input" type="checkbox" value=""
-                                                                id="instances">
-                                                            <label class="form-check-label" for="instances">
-                                                                Show instances consequently
-                                                            </label>
-                                                        </div>
-                                                    </div>
-                                                </div>
+                                                
                                                 <div class="tab-pane" id="customLogic" role="tabpanel"
                                                     aria-labelledby="customLogic-tab">
                                                     <div class="alert alert-success p-5" role="alert">
@@ -349,14 +363,8 @@
                                                             utilities to keep things nice and tidy.</p>
                                                     </div>
                                                 </div>
-                                                <div class="tab-pane" id="multipleQuestion" role="tabpanel"
-                                                    aria-labelledby="multipleQuestion-tab">...
-                                                </div>
                                                 <div class="tab-pane" id="calculator" role="tabpanel"
                                                     aria-labelledby="calculator-tab">...
-                                                </div>
-                                                <div class="tab-pane" id="autocode" role="tabpanel"
-                                                    aria-labelledby="autocode-tab">...
                                                 </div>
                                             </div>
                                         </div>

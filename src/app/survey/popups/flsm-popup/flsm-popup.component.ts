@@ -8,5 +8,17 @@ import { ModalDirective } from 'ngx-bootstrap/modal';
 })
 export class FlsmPopupComponent {
   @ViewChild('FlsmModal', { static: true })  flsmModal!: ModalDirective;
+  modal: any;
+ 
+  constructor() {
 
+  }
+
+  show() {
+    this.modal.show();
+  }
+
+  close() {
+    this.modal.hide();
+  }
 }
