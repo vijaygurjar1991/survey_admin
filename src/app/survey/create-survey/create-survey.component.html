@@ -173,7 +173,7 @@
                 <li *ngFor="let question of questions | paginate: { id: 'server', itemsPerPage: 5, currentPage: pageNumber, totalItems: totalItemsCount } ;let i=index;">
                     <div class="drag-item">
                         <div ngClass="ques-header">
-                            <h5 ngClass="mb-0">Q-{{i + 1}} {{question?.question}}</h5>
+                            <h5 ngClass="mb-0">Q-{{question?.sort}} {{question?.question}}</h5>
                             <div class="d-flex align-items-center justify-content-end">
                                 <!-- <select class="form-select"
                                     (change)="onSelectChange($event,question?.sort,question?.id)">

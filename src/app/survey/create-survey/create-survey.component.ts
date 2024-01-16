@@ -156,6 +156,7 @@ export class CreateSurveyComponent implements OnInit {
     this.getLogicThens();
     this.getLogicQuestionList(0)
     this.defaultSelectedValue = null;
+    this.getCountries();
   }
   ngAfterViewInit() {
     // Set the default value after the view initialization
@@ -311,7 +312,7 @@ export class CreateSurveyComponent implements OnInit {
   }
 
   getNames() {
-    this.countryId="IN"
+    //this.countryId="IN"
     this.surveyservice.GetGenericQuestion(this.countryId).subscribe({
       next: (resp: responseDTO[]) => {
         console.log('Response:', resp);
@@ -354,6 +355,7 @@ export class CreateSurveyComponent implements OnInit {
         this.countryId= data[0]?.countryId
         this.totalItemsCount=data[0]?.totalQuestionCount
         this.selectedCountry=this.countryId
+        this.categoryId=data[0]?.categoryId
       } else {
         this.surveyName = data.surveyName;
         this.categoryName = data.categoryName;
@@ -363,6 +365,7 @@ export class CreateSurveyComponent implements OnInit {
         this.countryName = data.countryName;
         this.countryId= data.countryId
         this.totalItemsCount=data.totalQuestionCount
+        this.categoryId=data.categoryId
         this.selectedCountry=this.countryId
       }
 
@@ -411,14 +414,16 @@ export class CreateSurveyComponent implements OnInit {
   updateSurvey() {
     const dataToSend = {
       surveyId: this.surveyId,
-      surveyName: this.surveyName,
-      categoryId: this.categoryId
+      name: this.surveyName,
+      categoryId: this.categoryId,
+      otherCategory: this.otherCategoryName,
+      countryId: this.selectedCountry
     };
     console.log("dataToSend", dataToSend)
     this.surveyservice.updateSurvey(dataToSend).subscribe(
       response => {
         console.log('Response from server:', response);
-        this.surveyId = response;
+        //this.surveyId = response;
 
         if (this.surveyId) {
           const encryptedId = this.crypto.encryptParam(`${this.surveyId}`);

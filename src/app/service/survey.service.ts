@@ -46,16 +46,16 @@ export class SurveyService {
     const url = `${this.apiUrl}api/admin/${this.userId}/Geography/GetCountries`;
     return this.http.get<responseDTO[]>(url);
   }
-  GetListOfCountry(): Observable<responseDTO[]> {
-    const url = `${this.apiUrl}api/admin/${this.userId}/Geography/GetGeographyListByCountryId`;
+  GetListOfCountry(country_id: any): Observable<responseDTO[]> {
+    const url = `${this.apiUrl}api/admin/${this.userId}/Geography/GetGeographyListByCountryId?countryIds=${country_id}`;
     return this.http.get<responseDTO[]>(url);
   }
 
   // GetSurveyList
-  GetSurveyList(): Observable<responseDTO[]> {
-    const url = `${this.apiUrl}api/admin/${this.userId}/Survey/GetSurveyList`;
-    return this.http.get<responseDTO[]>(url);
-  }
+  // GetSurveyList(): Observable<responseDTO[]> {
+  //   const url = `${this.apiUrl}api/admin/${this.userId}/Survey/GetSurveyList`;
+  //   return this.http.get<responseDTO[]>(url);
+  // }
 
   // Create Survey
   createSurvey(data: any): Observable<any> {
@@ -205,6 +205,18 @@ export class SurveyService {
   //getSurveyDetailsById
   getSurveyDetailsById(pageNumber: number, pageSize: number,surveyId:number): Observable<responseDTO[]> {
     const url = `${this.apiUrl}api/admin/${this.userId}/Survey/GetSurveyById?surveyId=${surveyId}&pageNumber=${pageNumber}&pageSize=${pageSize}`;
+    return this.http.get<responseDTO[]>(url);
+  }
+  GetRecentSurveyList(): Observable<responseDTO[]> {
+    const url = `${this.apiUrl}api/admin/${this.userId}/Survey/RecentCreatedSurvey`;
+    return this.http.get<responseDTO[]>(url);
+  }
+  // GetSurveyList(): Observable<responseDTO[]> {
+  //   const url = `${this.apiUrl}api/admin/${this.userId}/Survey/GetSurveyList`;
+  //   return this.http.get<responseDTO[]>(url);
+  // }
+  GetSurveyList(): Observable<responseDTO[]> {
+    const url = `${this.apiUrl}api/admin/${this.userId}/Survey/GetSurveyList?pageNumber=1&pageSize=100`;
     return this.http.get<responseDTO[]>(url);
   }
 }

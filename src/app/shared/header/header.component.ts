@@ -49,8 +49,8 @@ export class HeaderComponent {
   }
   getAllSurveyList() {
     this.surveyService.GetSurveyList().subscribe((data: any) => {
-      this.surveyData = data;
-      console.log("surveyData",this.surveyData)
+      this.surveyData = data.surveyType;
+      console.log("surveyData In Header",this.surveyData)
     });
   }
   filterSurveys(value: string) {

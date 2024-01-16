@@ -8,9 +8,15 @@
             <div class="modal-body">
                 <form>
                     <div class="mb-4">
+                        <label for="surveyname" class="form-label">Question</label>
+                        <div class="input-group">
+                            <input id="questionText" type="text" class="form-control" [(ngModel)]="questionText" [ngModelOptions]="{standalone: true}" placeholder="Question" readonly/>
+                        </div>
+                    </div>
+                    <div class="mb-4">
                         <label for="surveyname" class="form-label">Search your State & City</label>
                         <div class="input-group">
-                            <input id="surveyname" type="text" class="form-control" placeholder="Type to Search" />
+                            <input id="Search" type="text" class="form-control"  placeholder="Type to Search" />
                         </div>
                     </div>
                     <!-- <div class="mb-4">
@@ -63,7 +69,7 @@
                         <div class="tab-pane fade show active" id="home-tab-pane" role="tabpanel" aria-labelledby="home-tab" tabindex="0">
                             <div class="mb-4">
                                 <div class="select-options">
-                                    <h5>Select States</h5>
+                                    <h5></h5>
                                     <a href="javascript:" (click)="selectAllOptions()">Select All</a>
                                 </div>
                                 <div class="nccs-option">
@@ -81,7 +87,34 @@
                             </div>
                         </div>
                         <div class="tab-pane fade" id="profile-tab-pane" role="tabpanel" aria-labelledby="profile-tab" tabindex="0">
-
+                            <div class="tab-pane fade show active" id="home-tab-pane" role="tabpanel" aria-labelledby="home-tab" tabindex="0">
+                                <div class="mb-4">
+                                    <div class="select-options">
+                                        <!-- <h5>Select City</h5> -->
+                                    </div>
+                                    <div class="nccs-option">
+                                        <ul>
+                                            <li *ngFor="let state of state" class="nccs-option-w-100">
+                                                <div class="d-flex justify-content-between">
+                                                    <div><strong>{{ state.name }}</strong> ({{ state.abbreviation }})</div>
+                                                    <a href="javascript:" (click)="selectAllCityOptions(state)">Select All</a>
+                                                    
+                                                </div>
+                                              <ul>
+                                                <li *ngFor="let city of state.cities" class="mb-2">
+                                                    <input class="form-check-input me-2" type="checkbox"
+                                                        id="{{ 'checkbox_' + city.stateId }}"
+                                                        [(ngModel)]="city.selected" [ngModelOptions]="{ standalone: true }"
+                                                        aria-label="..." />
+                                                    <label class="form-check-label"
+                                                        for="{{ 'checkbox_' + city.stateId }}">{{ city.name }}</label>
+                                                </li>
+                                            </ul>
+                                            </li>
+                                          </ul>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                         <div class="tab-pane fade" id="contact-tab-pane" role="tabpanel" aria-labelledby="contact-tab" tabindex="0">
 
@@ -90,7 +123,7 @@
                 </form>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-primary w-100" (click)="close()">Continue</button>
+                <button type="button" class="btn btn-primary w-100" (click)="onConfirmSelection()">Continue</button>
             </div>
         </div>
     </div>

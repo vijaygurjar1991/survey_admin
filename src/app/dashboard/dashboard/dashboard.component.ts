@@ -145,7 +145,7 @@ export class DashboardComponent {
   }[] = [];
 
   getSurveyList() {
-    this.surveyservice.GetSurveyList().subscribe({
+    this.surveyservice.GetRecentSurveyList().subscribe({
       next: (resp: responseDTO[]) => {
         console.log('surveylist:', resp);
         this.surveylist = resp.map(item => ({
