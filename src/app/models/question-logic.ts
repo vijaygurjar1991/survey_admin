@@ -1,3 +1,4 @@
+import { LogicConditions } from "./logic-conditions";
 export class QuestionLogic {
     constructor(
         public id: number = 0,
@@ -6,10 +7,13 @@ export class QuestionLogic {
         public ifId: number = 0,
         public ifExpected: string = '',
         public thanId: number = 0,
+        public thanTerm:string ='',
         public thanExpected: string = '',
         public elseId: number = 0,
+        public elseTerm:string ='',
         public elseExpected: string = '',
         public sort: number=0,
-        public name: string = ''
+        public name: string = '',
+        public logicConditions: LogicConditions[] = []
     ) { }
 }
