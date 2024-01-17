@@ -62,8 +62,12 @@ export class CreateSurveyComponent implements OnInit {
   @ViewChild('PinCodeModal', { static: true }) pincodeModal!: ModalDirective;
   @ViewChild('AudioGenderDetectionModal', { static: true }) audiogenderdetectionModal!: ModalDirective;
   @ViewChild('StateModal', { static: true }) stateModal!: ModalDirective;
-  @ViewChild('selectElement') selectElement!: MatSelect; 
-  @ViewChild('FlsmModal', { static: true })  flsmModal!: ModalDirective;
+  @ViewChild('selectElement') selectElement!: MatSelect;
+  @ViewChild('FlsmModal', { static: true }) flsmModal!: ModalDirective;
+  @ViewChild('ifIdSelect') ifIdSelect: ElementRef;
+  @ViewChild('ifExpectedSelect') ifExpectedSelect: ElementRef;
+  @ViewChild('thanIdSelect') thanIdSelect: ElementRef;
+  @ViewChild('thanExpectedSelect') thanExpectedSelect: ElementRef;
 
   role: string;
   userId: number;
@@ -80,17 +84,17 @@ export class CreateSurveyComponent implements OnInit {
   categoryId: number;
   selectedOption: any;
   isLogicShow: boolean = false
-  logicValuesList:any
-  logicThensList:any
-  logicQuestionList:any
+  logicValuesList: any
+  logicThensList: any
+  logicQuestionList: any
   selectedValue: any;
   defaultSelectedValue: any = null;
   questionLogic: QuestionLogic = new QuestionLogic();
-  pageSize:number = 5;
-  pageNumber:number = 1
-  countryId:any
+  pageSize: number = 5;
+  pageNumber: number = 1
+  countryId: any
   selectedCountry: string = "IN";
-  country : { id: string, name: string }[] = [];
+  country: { id: string, name: string }[] = [];
   constructor(
     private visibilityService: DataService,
     private modalService: NgbModal,
@@ -118,19 +122,19 @@ export class CreateSurveyComponent implements OnInit {
       let _surveyId = params.get('param1');
       if (_surveyId) {
         this.reloadIfAlreadyOnManageSurvey(_surveyId);
-        console.log("_surveyId : ",this.crypto.decryptQueryParam(_surveyId))
+        console.log("_surveyId : ", this.crypto.decryptQueryParam(_surveyId))
         this.surveyId = parseInt(this.crypto.decryptQueryParam(_surveyId));
       }
     });
 
-    
+
   }
 
   toggleClass: boolean = false;
 
-    toggle() {
-        this.toggleClass = !this.toggleClass;
-    }
+  toggle() {
+    this.toggleClass = !this.toggleClass;
+  }
 
   hideBreadcrumb() {
     this.visibilityService.toggleBreadcrumbVisibility(false);
@@ -141,7 +145,7 @@ export class CreateSurveyComponent implements OnInit {
   }
 
   surveyId = 0;
-  
+
   ngOnInit() {
     console.log('ngOnInit called');
     this.visibilityService.closeSideBar();
@@ -149,9 +153,9 @@ export class CreateSurveyComponent implements OnInit {
 
     this.getCategoryNames();
     this.hideBreadcrumb();
-    
+
     this.getQuestion();
-    this.GetSurveyDetails(this.pageSize,this.pageNumber)
+    this.GetSurveyDetails(this.pageSize, this.pageNumber)
     this.getLogicValues();
     this.getLogicThens();
     this.getLogicQuestionList(0)
@@ -235,7 +239,7 @@ export class CreateSurveyComponent implements OnInit {
       this.audiogenderdetectionModal.show();
     } else if (type === "State") {
       this.stateModal.show();
-    }else if (type === "FLSM") {
+    } else if (type === "FLSM") {
       this.flsmModal.show();
     }
 
@@ -300,10 +304,10 @@ export class CreateSurveyComponent implements OnInit {
     this.modalService.open(content, { size: 'lg', centered: true });
   }
 
-  openGenric(genricQuestion: any){
+  openGenric(genricQuestion: any) {
     this.modalService.open(genricQuestion, { size: 'lg', centered: true });
   }
-  opennccs(nccsQuestion: any){
+  opennccs(nccsQuestion: any) {
     this.modalService.open(nccsQuestion, { size: 'lg', centered: true });
   }
 
@@ -338,13 +342,13 @@ export class CreateSurveyComponent implements OnInit {
   surveyName: any;
   categoryName: any
   otherCategoryName: any
-  surveyStatus:any
-  countryName:any
-  totalItemsCount:number
-  GetSurveyDetails(pageSize:number,pageNumber:number) {
-    this.surveyservice.getSurveyDetailsById(pageNumber,pageSize,this.surveyId).subscribe((data: any) => {
-      
-    
+  surveyStatus: any
+  countryName: any
+  totalItemsCount: number
+  GetSurveyDetails(pageSize: number, pageNumber: number) {
+    this.surveyservice.getSurveyDetailsById(pageNumber, pageSize, this.surveyId).subscribe((data: any) => {
+
+
       if (Array.isArray(data)) {
         this.surveyName = data[0]?.surveyName;
         this.categoryName = data[0]?.categoryName;
@@ -352,10 +356,10 @@ export class CreateSurveyComponent implements OnInit {
         this.questions = data[0]?.questions;
         this.surveyStatus = data[0]?.status;
         this.countryName = data[0]?.countryName;
-        this.countryId= data[0]?.countryId
-        this.totalItemsCount=data[0]?.totalQuestionCount
-        this.selectedCountry=this.countryId
-        this.categoryId=data[0]?.categoryId
+        this.countryId = data[0]?.countryId
+        this.totalItemsCount = data[0]?.totalQuestionCount
+        this.selectedCountry = this.countryId
+        this.categoryId = data[0]?.categoryId
       } else {
         this.surveyName = data.surveyName;
         this.categoryName = data.categoryName;
@@ -363,10 +367,10 @@ export class CreateSurveyComponent implements OnInit {
         this.otherCategoryName = data.otherCategory;
         this.surveyStatus = data.status;
         this.countryName = data.countryName;
-        this.countryId= data.countryId
-        this.totalItemsCount=data.totalQuestionCount
-        this.categoryId=data.categoryId
-        this.selectedCountry=this.countryId
+        this.countryId = data.countryId
+        this.totalItemsCount = data.totalQuestionCount
+        this.categoryId = data.categoryId
+        this.selectedCountry = this.countryId
       }
 
       this.getNames();
@@ -444,11 +448,30 @@ export class CreateSurveyComponent implements OnInit {
 
 
   }
-  toggleLogic(index: number,questionId:any) {
+  toggleLogic(index: number, questionId: any) {
     this.questions[index].isLogicShow = !this.questions[index].isLogicShow;
     this.getLogicQuestionList(questionId)
   }
-
+  getQuestionLogic(index: number, questionId: number): void {
+    this.questions[index].isLogicShow = !this.questions[index].isLogicShow;
+    this.surveyservice.getQuestionLogics(questionId, this.surveyId).subscribe(
+      (response) => {
+        if (response && response.length > 0) {
+          const logic = response[0]; // Assuming you are dealing with the first logic item in the response array
+          
+          // Set the values of the select elements
+          this.ifIdSelect.nativeElement.value = logic.ifId.toString();
+          this.ifExpectedSelect.nativeElement.value = logic.ifExpected;
+          this.thanIdSelect.nativeElement.value = logic.thanId.toString();
+          this.thanExpectedSelect.nativeElement.value = logic.thanExpected.toString();
+        }
+      },
+      (error) => {
+        // Handle errors
+        console.error(error);
+      }
+    );
+  }
   getLogicValues() {
     this.surveyservice.getLogicValues().subscribe((response: { [x: string]: any; }) => {
       var result = Object.keys(response).map(e => response[e]);
@@ -463,8 +486,8 @@ export class CreateSurveyComponent implements OnInit {
       this.logicThensList = response
     });
   }
-  getLogicQuestionList(questionId:any){
-    this.logicQuestionList='';
+  getLogicQuestionList(questionId: any) {
+    this.logicQuestionList = '';
     const dataToSend = {
       surveyId: this.surveyId,
       surveyStatus: questionId
@@ -475,14 +498,14 @@ export class CreateSurveyComponent implements OnInit {
       this.logicQuestionList = response
     });
   }
-  createLogic(questionId: any,ifId:any,ifExpected:any,thanId:any,thanExpected:any) {
-    this.questionLogic.surveyId=this.surveyId
-    this.questionLogic.questionId =questionId
-    this.questionLogic.ifId=ifId
-    this.questionLogic.ifExpected=ifExpected
-    this.questionLogic.thanId=thanId
-    this.questionLogic.thanExpected=thanExpected
-    
+  createLogic(questionId: any, ifId: any, ifExpected: any, thanId: any, thanExpected: any) {
+    this.questionLogic.surveyId = this.surveyId
+    this.questionLogic.questionId = questionId
+    this.questionLogic.ifId = ifId
+    this.questionLogic.ifExpected = ifExpected
+    this.questionLogic.thanId = thanId
+    this.questionLogic.thanExpected = thanExpected
+
     console.log("dataToSend", this.questionLogic)
     this.surveyservice.createLogic(this.questionLogic).subscribe(
       response => {
@@ -497,26 +520,26 @@ export class CreateSurveyComponent implements OnInit {
 
 
   }
-  onSelectChange(event: MatSelectChange, questionSortValue:any,questionId:number) {
-    
+  onSelectChange(event: MatSelectChange, questionSortValue: any, questionId: number) {
+
     //const target = event.target as HTMLSelectElement;
     const selectedValue = event.value;
     // Use selectedValue as needed
     console.log('Selected value:', selectedValue);
     console.log('Question Sort value:', questionSortValue);
 
-    let queryParams=null;
-    if(questionId != 0){
-       queryParams = {
+    let queryParams = null;
+    if (questionId != 0) {
+      queryParams = {
         qid: questionId,
         sid: this.surveyId,
         sordId: selectedValue,
-        curntId:questionSortValue
+        curntId: questionSortValue
 
       };
     }
     this.surveyservice.changeQuestionPosition(queryParams).subscribe(
-      (response:String) => {
+      (response: String) => {
         console.log('Update successful:', response);
         window.location.reload();
       },
@@ -525,45 +548,45 @@ export class CreateSurveyComponent implements OnInit {
         // Handle error
       }
     );
-}
-idIsEqual(a: string, b: string): boolean {
-  return a === b;
-}
-reloadIfAlreadyOnManageSurvey(encryptedId: string) {
-  console.log("reloadIfAlreadyOnManageSurvey")
-  if (this.router.url.includes('/survey/manage-survey')) {
-    const navigationExtras = {
-      relativeTo: this.route,
-      queryParams: { id: encryptedId },
-      queryParamsHandling: 'merge' as const,
-    };
-
-    // Navigate with the updated query parameter without full page reload
-    this.router.navigate([], navigationExtras);
   }
-}
-onPageChange(pageNumber: number) {
-  console.log(pageNumber);
-  // Handle page change event
-  this.pageNumber = pageNumber;
-  this.GetSurveyDetails(this.pageSize,this.pageNumber)
-  // You can also fetch data for the selected page here based on the pageNumber
-}
-getCountries(){
-  this.surveyservice.getCountries().subscribe(response => {
+  idIsEqual(a: string, b: string): boolean {
+    return a === b;
+  }
+  reloadIfAlreadyOnManageSurvey(encryptedId: string) {
+    console.log("reloadIfAlreadyOnManageSurvey")
+    if (this.router.url.includes('/survey/manage-survey')) {
+      const navigationExtras = {
+        relativeTo: this.route,
+        queryParams: { id: encryptedId },
+        queryParamsHandling: 'merge' as const,
+      };
 
-    const result = Object.keys(response).map((key) => response[key]);
-    console.log(result)
-    const countries: { id: string; name: string }[] = result.map((value: any) => ({
-      id: value['countryId'],
-      name: value['name']
-    }));
+      // Navigate with the updated query parameter without full page reload
+      this.router.navigate([], navigationExtras);
+    }
+  }
+  onPageChange(pageNumber: number) {
+    console.log(pageNumber);
+    // Handle page change event
+    this.pageNumber = pageNumber;
+    this.GetSurveyDetails(this.pageSize, this.pageNumber)
+    // You can also fetch data for the selected page here based on the pageNumber
+  }
+  getCountries() {
+    this.surveyservice.getCountries().subscribe(response => {
 
-    this.country = countries;
-    console.log("country",this.country)
-  });
-  
-}
+      const result = Object.keys(response).map((key) => response[key]);
+      console.log(result)
+      const countries: { id: string; name: string }[] = result.map((value: any) => ({
+        id: value['countryId'],
+        name: value['name']
+      }));
+
+      this.country = countries;
+      console.log("country", this.country)
+    });
+
+  }
   isDivVisible = false;
   toggleDivVisibility() {
     this.isDivVisible = !this.isDivVisible;

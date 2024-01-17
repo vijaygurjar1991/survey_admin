@@ -289,7 +289,11 @@
                     </div>
                 </div>
             </li>
-            
+            <div class="row mb-3">
+                <div class="col-12 text-end">
+                    <button type="button" class="btn btn-primary px-5" (click)="onSave()">Save</button>
+                </div>
+            </div>
             <li>
                 <div ngClass="p-4">
                     <h5 ngClass="mb-4">Logic</h5>
@@ -393,16 +397,18 @@
                                 </div>
                                 
                             </div>
+
+                        </div>
+                        <div class="row mt-3">
+                            <div class="col-12 text-end">
+                                <button type="button" class="btn btn-primary px-5" (click)="onLogicSave()">Save Logic</button>
+                            </div>
                         </div>
                     </div>
                 </div>
             </li>
         </ul>
-        <div class="row">
-            <div class="col-12 text-end">
-                <button type="button" class="btn btn-primary px-5" (click)="onSave()">Save</button>
-            </div>
-        </div>
+        
     </div>
 </div>
 

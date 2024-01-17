@@ -543,5 +543,8 @@ export class EditSurveyComponent {
   openLg(content: any) {
     this.modalService.open(content, { size: 'lg', centered: true });
   }
+  onLogicSave():void{
+    
+  }
 
 }

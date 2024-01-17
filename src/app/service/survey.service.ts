@@ -219,4 +219,12 @@ export class SurveyService {
     const url = `${this.apiUrl}api/admin/${this.userId}/Survey/GetSurveyList?pageNumber=1&pageSize=100`;
     return this.http.get<responseDTO[]>(url);
   }
+  getQuestionLogics(qid: number, sid: number): Observable<any> {
+    const params = {
+      qid: qid.toString(),
+      sid: sid.toString()
+    };
+    const url = `${this.apiUrl}api/admin/${this.userId}/GeneralQuestion/GetLogics`;
+    return this.http.get<any>(url, { params });
+  }
 }

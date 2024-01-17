@@ -174,15 +174,8 @@
                     <div class="drag-item">
                         <div ngClass="ques-header">
                             <h5 ngClass="mb-0">Q-{{question?.sort}} {{question?.question}}</h5>
+                            <ng-icon  *ngIf="question?.logics.length>0" name="heroCommandLine" (click)="getQuestionLogic(i,question?.id)"></ng-icon>
                             <div class="d-flex align-items-center justify-content-end">
-                                <!-- <select class="form-select"
-                                    (change)="onSelectChange($event,question?.sort,question?.id)">
-                                    <option *ngFor="let item of logicQuestionList" [value]="item.sort"
-                                        [attr.selected]="question && question.id === item.id ? true : null">
-                                        {{ item.item }}
-                                    </option>
-                                </select> -->
-
                                 <mat-form-field>
                                     <mat-select #selectElement
                                         (selectionChange)="onSelectChange($event, question?.sort, question?.id)">
@@ -207,7 +200,7 @@
                                                 Edit
                                             </a>
                                         </li>
-                                        <li>
+                                        <li  *ngIf="question?.logics.length==0">
                                             <a href="javascript:void(0);" class="dropdown-item"
                                                 (click)="toggleLogic(i,question?.id)">
                                                 <ng-icon name="heroCommandLine"></ng-icon>
