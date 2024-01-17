@@ -6,7 +6,7 @@
                 <p>Manage your Track Opinion "Survey List" page</p>
             </div>
             <div class="col-md-3">
-                    <!-- <div class="input-group flex-nowrap sort">
+                <!-- <div class="input-group flex-nowrap sort">
                         <span class="input-group-text" id="addon-wrapping"></span>
                         <select class="form-select" [(ngModel)]="selectedCategory">
                             <option selected value="All Categories">All Categories</option>
@@ -15,8 +15,8 @@
                     </div> -->
                 <mat-form-field>
                     <mat-select [(ngModel)]="selectedCategory">
-                    <mat-option selected value="All Categories">All Categories</mat-option>
-                      <mat-option *ngFor="let item of categoryList" [value]="item.name">{{item.name}}</mat-option>
+                        <mat-option selected value="All Categories">All Categories</mat-option>
+                        <mat-option *ngFor="let item of categoryList" [value]="item.name">{{item.name}}</mat-option>
                     </mat-select>
                 </mat-form-field>
             </div>
@@ -38,14 +38,14 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let item of surveyData | paginate: { id: 'server', itemsPerPage: 5, currentPage: pageNumber, totalItems: totalItemsCount }"
-                        [hidden]="selectedCategory !== 'All Categories' && item.categoryName !== selectedCategory" >
+                    <tr *ngFor="let item of surveyData | paginate: { id: 'server', itemsPerPage: 10, currentPage: pageNumber, totalItems: totalItemsCount }"
+                        [hidden]="selectedCategory !== 'All Categories' && item.categoryName !== selectedCategory">
                         <td><input type="checkbox" ngClass="form-check-input" />
                         </td>
                         <!-- <td>{{item.id}}</td> -->
                         <td>{{item.name}}</td>
                         <td><img src="../../../assets/images/Images/flag.png" class="me-2 rounded-circle"
-                            style="width: 30px;height: 30px;" /> 
+                                style="width: 30px;height: 30px;" />
                             {{item.countryName}}
                         </td>
                         <td *ngIf="item.categoryName !='Others'">{{item.categoryName}}</td>
@@ -100,17 +100,18 @@
 
                     </tr>
                 </tbody>
-                
+
             </table>
-            <div class="d-flex">
-                <input type="number" [(ngModel)]="currentPage" (keyup.enter)="jumpToPage()" class="form-control" />
-                
+            <div class="custom-pagination d-flex justify-content-between align-items-center mt-5">
                 <pagination-controls *ngIf="surveyData != null && surveyData.length > 0"
-                                    class="d-flex justify-content-center"
-                                    id="server"
-                                    (pageChange)="onPageChange($event)">
+                    class="d-flex justify-content-center" id="server" (pageChange)="onPageChange($event)">
                 </pagination-controls>
-              </div>
+                <div class="d-flex align-items-center">
+                    <span class="me-2">Jump to:</span>
+                    <input style="flex: 1;" type="number" [(ngModel)]="currentPage" (keyup.enter)="jumpToPage()"
+                        class="form-control" />
+                </div>
+            </div>
         </div>
     </div>
 </div>

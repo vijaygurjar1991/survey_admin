@@ -1779,6 +1779,10 @@ label {
 .upload-logo input{opacity: 0;width: 120px;height: 120px; cursor: pointer;z-index: 9;position: relative;  }
 .upload-logo img{position: absolute; width: 120px; height: 120px;top: 0;left: 0;}  
 
-.ngx-pagination .current{background: var(--primary) !important;}
+.custom-pagination .ngx-pagination li{ border-radius: 4px; }
+.custom-pagination .ngx-pagination .current{background: var(--primary); }
 
 .nccs-option ul li.nccs-option-w-100{ flex: 0 100%; max-width: 100%; margin-bottom: 10px;}
+
+
+.custom-pagination .ngx-pagination{ padding: 0px; margin: 0px;}

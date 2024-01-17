@@ -19,7 +19,7 @@ export class SurveyListingComponent {
   surveyData: any;
   categoryList: any;
   selectedCategory: string = 'All Categories';
-  constructor(private visibilityService: DataService, private util: UtilsService,private modalService: NgbModal, public themeService: SurveyService, private cdr: ChangeDetectorRef) {
+  constructor(private visibilityService: DataService, private util: UtilsService, private modalService: NgbModal, public themeService: SurveyService, private cdr: ChangeDetectorRef) {
     visibilityService.closeSideBar();
   }
   files: File[] = [];
@@ -32,28 +32,28 @@ export class SurveyListingComponent {
   userId: any;
   userName: any;
   image: any;
-  isadminsuperadmin:boolean=false
+  isadminsuperadmin: boolean = false
   isActive: boolean = false;
-  pageSize:number = 5;
-  pageNumber:number = 1
-  totalItemsCount:number=20
-  currentPage:number = 1
+  pageSize: number = 10;
+  pageNumber: number = 1
+  totalItemsCount: number = 20
+  currentPage: number = 1
   ngOnInit(): void {
     //debugger;
     this.visibilityService.closeSideBar();
     this.visibilityService.isSidebarVisibleSubject.next(false);
 
     this.role = this.util.getRole();
-    console.log("role",this.role)
+    console.log("role", this.role)
     this.role = this.role.toLowerCase()
-    
-    if(this.role=='admin' || this.role=='superadmin'){
-      this.isadminsuperadmin=true;
+
+    if (this.role == 'admin' || this.role == 'superadmin') {
+      this.isadminsuperadmin = true;
     }
-    this.getAllSurveyList(this.pageNumber,this.pageSize)
+    this.getAllSurveyList(this.pageNumber, this.pageSize)
     this.getNames()
   }
-  
+
   getAllSurveyList(pageNumber: number, pageSize: number) {
     this.themeService.getSurveyListWithPage(pageNumber, pageSize).subscribe((data: any) => {
       this.surveyData = data.surveyType;
@@ -104,8 +104,8 @@ export class SurveyListingComponent {
     console.log(pageNumber);
     // Handle page change event
     this.pageNumber = pageNumber;
-    this.getAllSurveyList(this.pageNumber,this.pageSize)
-    this.currentPage=this.pageNumber
+    this.getAllSurveyList(this.pageNumber, this.pageSize)
+    this.currentPage = this.pageNumber
     // You can also fetch data for the selected page here based on the pageNumber
   }
   jumpToPage() {
@@ -114,6 +114,6 @@ export class SurveyListingComponent {
       this.onPageChange(this.currentPage);
     }
   }
-  
-  
+
+
 }
