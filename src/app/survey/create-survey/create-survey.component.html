@@ -378,8 +378,8 @@
         </div>
         <pagination-controls *ngIf="questions != null && questions.length>0" class="d-flex justify-content-center"
             id="server" (pageChange)="onPageChange($event)"></pagination-controls>
-        <div ngClass="drag-ques">
-            <div cdkDrag>
+        <div ngClass="drag-ques" *ngIf="questions == null || questions.length==0">
+            <div>
                 <ng-icon name="heroArrowUpTray"></ng-icon>
                 <p>Create your New Question with Drag and Drop Option</p>
                 <span>It is a long established fact that a reader will be distracted by the readable content of a

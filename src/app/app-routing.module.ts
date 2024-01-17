@@ -5,7 +5,7 @@ import { SignUpComponent } from './user-pages/sign-up/sign-up.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent, data: { layout: 'auth' } },
-  { path: 'sign-up', component: SignUpComponent, data: {  } },
+  { path: 'signup', component: SignUpComponent, data: {  } },
   { path: 'user-pages', loadChildren: () => import('./user-pages/user-pages.module').then(m => m.UserPagesModule) },
   { path: 'dashboard', loadChildren: () => import('./dashboard/dashboard.module').then(m => m.DashboardModule) },
   { path: 'survey', loadChildren: () => import('./survey/survey.module').then(m => m.SurveyModule) },
