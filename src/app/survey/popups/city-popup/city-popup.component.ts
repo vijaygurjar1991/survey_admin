@@ -11,6 +11,7 @@ import { responseGenericQuestion } from 'src/app/types/responseGenericQuestion';
 interface State {
   stateId: string;
   name: string;
+  isPanIndia:boolean
   selected: boolean;
 }
 export interface City {
@@ -36,6 +37,7 @@ export interface StateCity {
 export class CityPopupComponent {
   @ViewChild('CityModal', { static: true }) modal!: ModalDirective;
   locations: State[] = [];
+  locationsPanIndia: State[] = [];
   state: StateCity[] = [];
   isPanIndiaShow: boolean = false;
   questions: Question[] = [];
@@ -65,6 +67,8 @@ export class CityPopupComponent {
       this.surveyservice.GetStateByCountryID(this.countryId).subscribe((data) => {
         this.countries = data;
         this.locations = data[0]?.states || [];
+        if (this.countryId == "IN")
+          this.filterPanIndiaLocations();
       });
       this.surveyservice.GetListOfCountry(this.countryId).subscribe((data) => {
         this.state = data[0]?.states || [];
@@ -76,7 +80,9 @@ export class CityPopupComponent {
     this.modal.show();
 
   }
-
+  filterPanIndiaLocations() {
+    this.locationsPanIndia = this.locations.filter(location => location.isPanIndia === true);
+  }
   close() {
     this.modal.hide();
   }
@@ -114,9 +120,13 @@ export class CityPopupComponent {
     });
     return selectedCities;
   }
+  getSelectedPanIndiaStates(): State[] {
+    return this.locationsPanIndia.filter(state => state.selected);
+  }
   onConfirmSelection() {
     const selectedStates = this.getSelectedStates();
     const selectedCities = this.getSelectedCities();
+    const selectedPanIndiaStates = this.getSelectedPanIndiaStates();
 
     console.log('Selected States:', selectedStates);
     console.log('Selected Cities:', selectedCities);
