@@ -227,4 +227,8 @@ export class SurveyService {
     const url = `${this.apiUrl}api/admin/${this.userId}/GeneralQuestion/GetLogics`;
     return this.http.get<any>(url, { params });
   }
+  postRandomizedQuestions(data: any[]): Observable<any> {
+    const url = `${this.apiUrl}api/admin/${this.userId}/GeneralQuestion/QuestionRandomize`;
+    return this.http.post(url, data);
+  }
 }
