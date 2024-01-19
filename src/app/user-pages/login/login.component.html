@@ -48,22 +48,19 @@
                         <!-- <div class="mb-4">
                             <app-captcha></app-captcha>
                         </div> -->
-                        
+
                         <div class="row mt-3">
                             <div class="col-sm-12 mb-2">
-                                <re-captcha
-                                id="recaptcha"
-                                name="recaptcha"
-                                formControlName="captchertoken"
-                                [(ngModel)]="token"
-                                required
-                                [class.is-invalid]="loginForm.get('captchertoken')?.invalid && (loginForm.get('captchertoken')?.dirty || loginForm.get('captchertoken')?.touched)"
-                                [ngModelOptions]="{ standalone: true }"
-                              ></re-captcha>
-                              <div *ngIf="loginForm.get('captchertoken')?.invalid && (loginForm.get('captchertoken')?.dirty || loginForm.get('captchertoken')?.touched)" class="invalid-feedback">
-                                <div *ngIf="loginForm.get('captchertoken')?.errors?.['required']">This field is required.</div>
-                              </div>
-                              
+                                <re-captcha id="recaptcha" name="recaptcha" formControlName="captchertoken"
+                                    [(ngModel)]="token" required
+                                    [class.is-invalid]="loginForm.get('captchertoken')?.invalid && (loginForm.get('captchertoken')?.dirty || loginForm.get('captchertoken')?.touched)"
+                                    [ngModelOptions]="{ standalone: true }"></re-captcha>
+                                <div *ngIf="loginForm.get('captchertoken')?.invalid && (loginForm.get('captchertoken')?.dirty || loginForm.get('captchertoken')?.touched)"
+                                    class="invalid-feedback">
+                                    <div *ngIf="loginForm.get('captchertoken')?.errors?.['required']">This field is
+                                        required.</div>
+                                </div>
+
                             </div>
                             <div class="col-12 mb-4">
                                 <div class="d-flex justify-content-between">
@@ -79,7 +76,11 @@
                                     In</button>
                             </div>
                         </div>
-                        
+
+                        <div class="mt-4">
+                            <p>Don't have an account? <a routerLink="/signup">Sign up</a></p>
+                        </div>
+
                     </form>
                 </div>
             </div>

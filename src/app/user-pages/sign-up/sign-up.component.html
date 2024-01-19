@@ -75,26 +75,33 @@
                                 </div>
                             </div>
                         </div>
+
+                        <div class="mt-4">
+                            <p>Already have an account? <a routerLink="/login">Login</a></p>
+                        </div>
                     </form>
 
                     <!-- emailOTP outside the main form -->
-                    <div class="user-detail-signup" *ngIf="showUserDetails">
+                    <div class=" user-detail-signup" *ngIf="showUserDetails">
                         <form [formGroup]="verificationForm">
-                          <div class="row">
-                            <div class="col-md-12 mb-4">
-                              <label for="email_otp" class="form-label">Email OTP</label>
-                              <input type="password" class="form-control" id="email_otp" formControlName="email_otp" placeholder="Enter your email">
+                            <div class="row">
+                                <div class="col-md-12 mb-4">
+                                    <label for="email_otp" class="form-label">Email OTP</label>
+                                    <input type="password" class="form-control" id="email_otp"
+                                        formControlName="email_otp" placeholder="Enter your email">
+                                </div>
                             </div>
-                          </div>
-                      
-                          <div class="row mt-3">
-                            <div class="d-flex gap-2 justify-content-between">
-                              <button type="button" class="btn btn-primary px-3" (click)="showUserDetails = false">Previous</button>
-                              <button type="button" class="btn btn-primary px-3" (click)="verifyEmail()">Submit</button>
+
+                            <div class="row mt-3">
+                                <div class="d-flex gap-2 justify-content-between">
+                                    <button type="button" class="btn btn-primary px-3"
+                                        (click)="showUserDetails = false">Previous</button>
+                                    <button type="button" class="btn btn-primary px-3"
+                                        (click)="verifyEmail()">Submit</button>
+                                </div>
                             </div>
-                          </div>
                         </form>
-                      </div>
+                    </div>
                 </div>
             </div>
 
