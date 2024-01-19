@@ -103,7 +103,7 @@
                         <li class="nav-item" role="presentation">
                             <button class="nav-link active" id="randomaisation-tab" data-bs-toggle="tab"
                                 data-bs-target="#randomaisation" role="tab"
-                                aria-selected="false">Randomaisation</button>
+                                aria-selected="false">Randomization</button>
                         </li>
 
                         <li class="nav-item" role="presentation">
@@ -115,47 +115,37 @@
                     <div class="tab-content p-4">
                         <div class="tab-pane active" id="randomaisation" role="tabpanel"
                             aria-labelledby="randomaisation-tab">
-                            <h5 ngClass="mb-4">Randomaisation</h5>
+                            <h5 ngClass="mb-4">Randomization</h5>
                             <div ngClass="mb-3 row">
                                 <h6 class="mb-3">Randamize a set of questions/screens/groups
                                 </h6>
-                                <div class="mb-3">
-                                    <select class="form-select" aria-label="Default select example">
-                                        <option selected>Open this select menu</option>
-                                        <option value="1">One</option>
-                                        <option value="2">Two</option>
-                                        <option value="3">Three</option>
+                                <div class="mb-3" *ngFor="let randomQuestion of randormizeEntries">
+                                    <select class="form-select" aria-label="Default select example" [(ngModel)]="randomQuestion.selectedOption">
+                                        <option [value]="null" selected disabled>Select Question</option>
+                                      <option *ngFor="let option of logicQuestionList" [value]="option.id">{{ option.item }}</option>
                                     </select>
-                                </div>
-                                <div class="mb-3">
-                                    <select class="form-select">
-                                        <option selected>Select</option>
-                                        <option value="1">One</option>
-                                        <option value="2">Two</option>
-                                        <option value="3">Three</option>
-                                    </select>
-                                </div>
+                                  </div>
                                 <div class=" mb-3">
-                                    <a routerLink="javascript:" class="d-flex align-items-center"><ng-icon
+                                    <a routerLink="javascript:" class="d-flex align-items-center" (click)="addNewRandomization()"><ng-icon
                                             name="heroPlusCircle" ngClass="plus-circle me-3"
                                             style="width: 40px;height: 40px;"></ng-icon>
                                         <span>Add Questions/Screens/Groups</span></a>
                                 </div>
                                 <div class="mb-3 ms-4 form-check checking">
-                                    <input class="form-check-input" type="checkbox" value="" id="Randomise">
+                                    <input class="form-check-input" type="checkbox" [(ngModel)]="isRandomizationChecked" id="Randomise">
                                     <label class="form-check-label" for="Randomise">
-                                        Randomise these question
+                                      Randomization these question
                                     </label>
-                                </div>
-                                <div class="ms-4 form-check checking">
-                                    <input class="form-check-input" type="checkbox" value="" id="instances">
-                                    <label class="form-check-label" for="instances">
-                                        Show instances consequently
-                                    </label>
-                                </div>
+                                  </div>
+                                
                             </div>
                         </div>
-
+                        <div class="row">
+                            <div class="col-12 text-end d-flex justify-content-between">
+                                <button type="button" class="btn btn-primary btn-sm"
+                                (click)="saveRandomization()">Save</button>
+                            </div>
+                        </div>
                         <div class="tab-pane" id="autocode" role="tabpanel" aria-labelledby="autocode-tab">...
                         </div>
                     </div>
@@ -359,8 +349,17 @@
                 </li>
             </ul>
         </div>
-        <pagination-controls *ngIf="questions != null && questions.length>0" class="d-flex justify-content-center"
-            id="server" (pageChange)="onPageChange($event)"></pagination-controls>
+        <!-- <pagination-controls *ngIf="questions != null && questions.length>0" class="d-flex justify-content-center"
+            id="server" (pageChange)="onPageChange($event)"></pagination-controls> -->
+            <div class="custom-pagination d-flex justify-content-between align-items-center mt-5">
+                <pagination-controls *ngIf="questions != null && questions.length>0" class="d-flex justify-content-center"
+                    id="server" (pageChange)="onPageChange($event)"></pagination-controls>
+                <div class="d-flex align-items-center">
+                    <span class="me-2">Jump to:</span>
+                    <input style="flex: 1;" type="number" [(ngModel)]="currentPage" (keyup.enter)="jumpToPage()"
+                        class="form-control" />
+                </div>
+            </div>
         <div ngClass="drag-ques" *ngIf="questions == null || questions.length==0">
             <div>
                 <ng-icon name="heroArrowUpTray"></ng-icon>

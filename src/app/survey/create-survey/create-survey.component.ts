@@ -1,4 +1,4 @@
-import { Component, OnInit, Renderer2, ElementRef, ViewChild,AfterViewInit } from '@angular/core';
+import { Component, OnInit, Renderer2, ElementRef, ViewChild, AfterViewInit } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ActivatedRoute, Router, NavigationEnd } from '@angular/router';
 import { FormControl } from '@angular/forms';
@@ -25,7 +25,7 @@ import { MatSelect, MatSelectChange } from '@angular/material/select';
   templateUrl: './create-survey.component.html',
   styleUrls: ['./create-survey.component.css'],
 })
-export class CreateSurveyComponent implements OnInit,AfterViewInit  {
+export class CreateSurveyComponent implements OnInit, AfterViewInit {
   @ViewChild('GenderModal', { static: true }) genderModal!: GenderPopupComponent;
   @ViewChild('AgeModal', { static: true }) ageModal!: ModalDirective;
   @ViewChild('NccsModal', { static: true }) nccsModal!: ModalDirective;
@@ -96,6 +96,7 @@ export class CreateSurveyComponent implements OnInit,AfterViewInit  {
   selectedCountry: string = "IN";
   country: { id: string, name: string }[] = [];
   logicEntriesPerQuestion: any[] = [];
+  currentPage: number = 1
   constructor(
     private visibilityService: DataService,
     private modalService: NgbModal,
@@ -162,6 +163,7 @@ export class CreateSurveyComponent implements OnInit,AfterViewInit  {
     this.getLogicQuestionList(0)
     this.defaultSelectedValue = null;
     this.getCountries();
+    this.defaultRandomValueEnter();
   }
   ngAfterViewInit() {
     // Set the default value after the view initialization
@@ -456,7 +458,7 @@ export class CreateSurveyComponent implements OnInit,AfterViewInit  {
     this.getLogicQuestionList(questionId)
 
   }
-  
+
   getLogicValues() {
     this.surveyservice.getLogicValues().subscribe((response: { [x: string]: any; }) => {
       var result = Object.keys(response).map(e => response[e]);
@@ -483,7 +485,7 @@ export class CreateSurveyComponent implements OnInit,AfterViewInit  {
       this.logicQuestionList = response
     });
   }
-  
+
   onSelectChange(event: MatSelectChange, questionSortValue: any, questionId: number) {
 
     //const target = event.target as HTMLSelectElement;
@@ -534,7 +536,14 @@ export class CreateSurveyComponent implements OnInit,AfterViewInit  {
     // Handle page change event
     this.pageNumber = pageNumber;
     this.GetSurveyDetails(this.pageSize, this.pageNumber)
+    this.currentPage = this.pageNumber
     // You can also fetch data for the selected page here based on the pageNumber
+  }
+  jumpToPage() {
+    // Add any necessary validation logic before emitting the pageChange event
+    if (this.currentPage > 0 && this.currentPage <= Math.ceil(this.totalItemsCount / this.pageSize)) {
+      this.onPageChange(this.currentPage);
+    }
   }
   getCountries() {
     this.surveyservice.getCountries().subscribe(response => {
@@ -555,24 +564,13 @@ export class CreateSurveyComponent implements OnInit,AfterViewInit  {
   toggleDivVisibility() {
     this.isDivVisible = !this.isDivVisible;
   }
-  // addNewLogicEntry(): void {
-  //   alert();
-  //   const newLogicEntry = {
-  //     ifId: null,
-  //     ifExpected: null,
-  //     thanId: null,
-  //     thanExpected: null
-  //     // Add other properties as needed
-  //   };
 
-  //   this.logicEntriesPerQuestion.push(newLogicEntry);
-  // }
   addNewLogicEntry(index: number): void {
     // Initialize an array for the question if not already done
     if (!this.logicEntriesPerQuestion[index]) {
       this.logicEntriesPerQuestion[index] = [];
     }
-  
+
     // Add an empty logic entry for the question
     //this.logicEntriesPerQuestion[index].push({});
     const newLogicEntry = {
@@ -582,7 +580,7 @@ export class CreateSurveyComponent implements OnInit,AfterViewInit  {
       thanExpected: null
       // Add other properties as needed
     };
-  
+
     // Add the new logic entry to the array for the specific question
     this.logicEntriesPerQuestion[index].push(newLogicEntry);
   }
@@ -596,8 +594,8 @@ export class CreateSurveyComponent implements OnInit,AfterViewInit  {
     console.log(this.logicEntriesPerQuestion);
   }
   getQuestionLogic(index: number, questionId: number): void {
-    
-  
+
+
     this.surveyservice.getQuestionLogics(questionId, this.surveyId).subscribe(
       (response) => {
         if (response && response.length > 0) {
@@ -605,29 +603,29 @@ export class CreateSurveyComponent implements OnInit,AfterViewInit  {
           if (!this.logicEntriesPerQuestion[index]) {
             this.logicEntriesPerQuestion[index] = [];
           }
-  
+
           // Clear existing logic entries for the question
           this.logicEntriesPerQuestion[index] = [];
-  
+
           // Add the new logic entries to the corresponding array
           this.logicEntriesPerQuestion[index] = response.map((logic: any) => {
             // Set the values of the select elements
             if (this.ifIdSelect && this.ifIdSelect.nativeElement) {
               this.ifIdSelect.nativeElement.value = logic.ifId.toString();
             }
-  
+
             if (this.ifExpectedSelect && this.ifExpectedSelect.nativeElement) {
               this.ifExpectedSelect.nativeElement.value = logic.ifExpected;
             }
-  
+
             if (this.thanIdSelect && this.thanIdSelect.nativeElement) {
               this.thanIdSelect.nativeElement.value = logic.thanId.toString();
             }
-  
+
             if (this.thanExpectedSelect && this.thanExpectedSelect.nativeElement) {
               this.thanExpectedSelect.nativeElement.value = logic.thanExpected.toString();
             }
-  
+
             return logic;
           });
           this.questions[index].isLogicShow = !this.questions[index].isLogicShow;
@@ -643,12 +641,12 @@ export class CreateSurveyComponent implements OnInit,AfterViewInit  {
   createLogic(questionId: any, logicEntries: any[]): void {
     // You may need to adjust this logic based on your actual implementation
     for (const logicEntry of logicEntries) {
-      const id=logicEntry.id
+      const id = logicEntry.id
       const ifIdValue = logicEntry.ifId;
       const ifExpectedValue = logicEntry.ifExpected;
       const thanIdValue = logicEntry.thanId;
       const thanExpectedValue = logicEntry.thanExpected;
-  
+
       this.questionLogic.id = id
       this.questionLogic.surveyId = this.surveyId;
       this.questionLogic.questionId = questionId;
@@ -656,9 +654,9 @@ export class CreateSurveyComponent implements OnInit,AfterViewInit  {
       this.questionLogic.ifExpected = ifExpectedValue;
       this.questionLogic.thanId = thanIdValue;
       this.questionLogic.thanExpected = thanExpectedValue;
-  
+
       console.log("dataToSend", this.questionLogic);
-  
+
       this.surveyservice.createLogic(this.questionLogic).subscribe(
         response => {
           console.log('Response from server:', response);
@@ -671,5 +669,44 @@ export class CreateSurveyComponent implements OnInit,AfterViewInit  {
       );
     }
   }
-  
+  randormizeEntries: any[] = [];
+  isRandomizationChecked: boolean = false;
+  addNewRandomization(): void {
+    const newRandomEntry = { id: this.randormizeEntries.length + 1, selectedOption: 'null' };
+    this.randormizeEntries.push(newRandomEntry);
+  }
+  defaultRandomValueEnter(): void {
+    const defaultEntry1 = { id: 1, selectedOption: 'null' };
+    const defaultEntry2 = { id: 2, selectedOption: 'null' };
+    this.randormizeEntries.push(defaultEntry1, defaultEntry2);
+  }
+  saveRandomization(): void {
+
+    console.log(this.randormizeEntries)
+    if (!this.isRandomizationChecked) {
+      const formattedData = this.randormizeEntries.map(entry => {
+        return {
+          surveyId: this.surveyId, // Use entry.surveyId if it exists, otherwise default to 0
+          quesionId: entry.selectedOption || 0, // Use entry.quesionId if it exists, otherwise default to 0
+          isRandomize: true, // Hardcoded value as true based on the request body structure
+        };
+      });
+
+      // Call the service to post the formatted data
+      this.surveyservice.postRandomizedQuestions(formattedData).subscribe(
+        response => {
+          // Handle the response if needed
+          console.log('POST request successful', response);
+          Swal.fire('', 'Randomization Created Successfully.', 'success');
+        },
+        error => {
+          // Handle errors
+          console.error('Error in POST request', error);
+          Swal.fire('', 'Please confirm you want to randomization these question ', 'error');
+        }
+      );
+    }else{
+
+    }
+  }
 }

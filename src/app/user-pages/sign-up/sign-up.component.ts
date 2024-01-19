@@ -128,7 +128,7 @@ verifyEmail() {
       if(response==true)
         this.router.navigate(['/login']);
       else
-      Swal.fire('Error Occurs', 'Please enter correct OTP.', 'error');
+      Swal.fire('Error', 'Please enter correct OTP.', 'error');
       // Handle successful email verification, display a success message, etc.
     },
     (error) => {
