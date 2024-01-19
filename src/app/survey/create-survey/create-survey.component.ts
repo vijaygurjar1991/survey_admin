@@ -545,6 +545,9 @@ export class CreateSurveyComponent implements OnInit, AfterViewInit {
       this.onPageChange(this.currentPage);
     }
   }
+  onPageSizeChange(){
+    this.onPageChange(this.pageNumber)
+  }
   getCountries() {
     this.surveyservice.getCountries().subscribe(response => {
 

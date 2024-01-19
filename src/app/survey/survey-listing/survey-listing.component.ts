@@ -105,7 +105,7 @@ export class SurveyListingComponent {
     // Handle page change event
     this.pageNumber = pageNumber;
     this.getAllSurveyList(this.pageNumber, this.pageSize)
-    this.currentPage = this.pageNumber
+      this.currentPage = this.pageNumber
     // You can also fetch data for the selected page here based on the pageNumber
   }
   jumpToPage() {
@@ -113,6 +113,9 @@ export class SurveyListingComponent {
     if (this.currentPage > 0 && this.currentPage <= Math.ceil(this.totalItemsCount / this.pageSize)) {
       this.onPageChange(this.currentPage);
     }
+  }
+  onPageSizeChange(){
+    this.onPageChange(this.pageNumber)
   }
 
 

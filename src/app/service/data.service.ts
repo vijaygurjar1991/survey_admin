@@ -14,7 +14,7 @@ export class DataService {
   public isSidebarVisibleSubject = new BehaviorSubject<boolean>(true);
   isSidebarVisible$ = this.isSidebarVisibleSubject.asObservable();
 
-  private userId: any;
+  userId: any;
 
   // Collapse left sidebar
   public addMargin: boolean = false;
@@ -138,7 +138,7 @@ export class DataService {
 
   // User get & Post APIs
   GetAllUser(userId: any): Observable<responseDTO[]> {
-    const url = `${this.apiUrl}api/admin/${userId}/Profile/GetProfile`;
+    const url = `${this.apiUrl}api/admin/${this.userId}/Profile/GetProfile`;
     return this.http.get<responseDTO[]>(url);
   }
   AddNewUser(data: any): Observable<any> {

@@ -44,7 +44,7 @@
                         </td>
                         <!-- <td>{{item.id}}</td> -->
                         <td>{{item.name}}</td>
-                        <td><img src="../../../assets/images/Images/flag.png" class="me-2 rounded-circle"
+                        <td><img *ngIf="item.countryName=='India'" src="../../../assets/images/Images/flag.png" class="me-2 rounded-circle"
                                 style="width: 30px;height: 30px;" />
                             {{item.countryName}}
                         </td>
@@ -102,12 +102,33 @@
                 </tbody>
 
             </table>
-            <div class="custom-pagination d-flex justify-content-between align-items-center mt-5">
+            <!-- <div class="custom-pagination d-flex justify-content-between align-items-center mt-5">
                 <pagination-controls *ngIf="surveyData != null && surveyData.length > 0"
                     class="d-flex justify-content-center" id="server" (pageChange)="onPageChange($event)">
                 </pagination-controls>
                 <div class="d-flex align-items-center">
                     <span class="me-2">Jump to:</span>
+                    <input style="flex: 1;" type="number" [(ngModel)]="currentPage" (keyup.enter)="jumpToPage()"
+                        class="form-control" />
+                </div>
+            </div> -->
+            <div class="custom-pagination d-flex justify-content-between align-items-center mt-5">
+                <pagination-controls *ngIf="surveyData != null && surveyData.length > 0"
+                    class="d-flex justify-content-center" id="server" (pageChange)="onPageChange($event)">
+                </pagination-controls>
+
+                <div class="d-flex align-items-center">
+                    <span class="me-2">Page Size:</span>
+                    <select [(ngModel)]="pageSize" (change)="onPageSizeChange()" class="form-select">
+                        <option value="10">10</option>
+                        <option value="20">20</option>
+                        <option value="50">50</option>
+                        <!-- Add more options as needed -->
+                    </select>
+                </div>
+            
+                <div class="d-flex align-items-center">
+                    <span class="me-2 ms-4">Jump to:</span>
                     <input style="flex: 1;" type="number" [(ngModel)]="currentPage" (keyup.enter)="jumpToPage()"
                         class="form-control" />
                 </div>
