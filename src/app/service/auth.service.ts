@@ -1,7 +1,7 @@
 import { HttpClient,HttpParams  } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { BehaviorSubject, map } from 'rxjs';
+import { BehaviorSubject, Observable, map } from 'rxjs';
 import { User } from '../models/user';
 import { environment } from 'src/environments/environment';
 
@@ -89,5 +89,13 @@ export class AuthService {
     } else {
       this.router.navigate(['/login']);
     }
+  }
+  registerOrganization(data: any): Observable<any> {
+    const url=`${this.apiUrl}RegisterOrganization`
+    return this.http.post(url, data);
+  }
+  verifyEmail(organizationId: number, otp: string): Observable<any> {
+    const url = `${this.apiUrl}EmailVerify?oId=${organizationId}&otp=${otp}`;
+    return this.http.get(url);
   }
 }

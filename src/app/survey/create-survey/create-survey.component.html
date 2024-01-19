@@ -1,6 +1,6 @@
 <div ngClass="survey">
     <div [ngClass]="{'add-ques-sidebar': true, 'toggle-sidebar': toggleClass}">
-        
+
         <div>
             <h6 class="mb-2">Add Question</h6>
             <div class="common-ques">
@@ -43,8 +43,8 @@
         </div>
         <div ngClass="my-3">
             <h6 class="mb-2">Add Logic</h6>
-            <div class="common-ques" >
-                <a routerLink="javascript:"  (click)="toggleDivVisibility()">
+            <div class="common-ques">
+                <a routerLink="javascript:" (click)="toggleDivVisibility()">
                     <figure><img src="../../../assets/images/icons/Add-new-logic.png" width="30" height="30" />
                     </figure>
                     <figcaption>Add New Logic</figcaption>
@@ -87,33 +87,32 @@
         <div ngClass="survey-name">
             <div>
                 <h4 ngClass="mb-3"><img src="../../../assets/images/Images/flag.png" class="me-2 rounded-circle"
-                    style="width: 30px;height: 30px;" /> {{countryName}} {{surveyName}} </h4>
+                        style="width: 30px;height: 30px;" /> {{countryName}} {{surveyName}} </h4>
                 <span *ngIf="categoryName !='Others'">{{categoryName}}</span>
                 <span *ngIf="categoryName =='Others'">{{otherCategoryName}}</span>
             </div>
             <a (click)="openLg(sidecontent)"><ng-icon name="heroPencilSquare"></ng-icon></a>
         </div>
-        <div ngClass="pt-4 add-new-logic"  *ngIf="isDivVisible">
+        <div ngClass="pt-4 add-new-logic" *ngIf="isDivVisible">
             <h5 ngClass="mb-4">Logic</h5>
             <div ngClass="mb-4">
                 <div class="logic-tab">
                     <!-- Nav tabs -->
                     <ul class="nav flex-column nav-tabs" id="myTab" role="tablist">
-                        
+
                         <li class="nav-item" role="presentation">
-                            <button class="nav-link active" id="randomaisation-tab"
-                                data-bs-toggle="tab" data-bs-target="#randomaisation" role="tab"
+                            <button class="nav-link active" id="randomaisation-tab" data-bs-toggle="tab"
+                                data-bs-target="#randomaisation" role="tab"
                                 aria-selected="false">Randomaisation</button>
                         </li>
-                      
+
                         <li class="nav-item" role="presentation">
-                            <button class="nav-link" id="autocode-tab" data-bs-toggle="tab"
-                                data-bs-target="#autocode" role="tab"
-                                aria-selected="false">Autocode</button>
+                            <button class="nav-link" id="autocode-tab" data-bs-toggle="tab" data-bs-target="#autocode"
+                                role="tab" aria-selected="false">Autocode</button>
                         </li>
                     </ul>
                     <!-- Logic Question -->
-                    <div class="tab-content p-4">                        
+                    <div class="tab-content p-4">
                         <div class="tab-pane active" id="randomaisation" role="tabpanel"
                             aria-labelledby="randomaisation-tab">
                             <h5 ngClass="mb-4">Randomaisation</h5>
@@ -121,8 +120,7 @@
                                 <h6 class="mb-3">Randamize a set of questions/screens/groups
                                 </h6>
                                 <div class="mb-3">
-                                    <select class="form-select"
-                                        aria-label="Default select example">
+                                    <select class="form-select" aria-label="Default select example">
                                         <option selected>Open this select menu</option>
                                         <option value="1">One</option>
                                         <option value="2">Two</option>
@@ -138,31 +136,27 @@
                                     </select>
                                 </div>
                                 <div class=" mb-3">
-                                    <a routerLink="javascript:"
-                                        class="d-flex align-items-center"><ng-icon
+                                    <a routerLink="javascript:" class="d-flex align-items-center"><ng-icon
                                             name="heroPlusCircle" ngClass="plus-circle me-3"
                                             style="width: 40px;height: 40px;"></ng-icon>
                                         <span>Add Questions/Screens/Groups</span></a>
                                 </div>
                                 <div class="mb-3 ms-4 form-check checking">
-                                    <input class="form-check-input" type="checkbox" value=""
-                                        id="Randomise">
+                                    <input class="form-check-input" type="checkbox" value="" id="Randomise">
                                     <label class="form-check-label" for="Randomise">
                                         Randomise these question
                                     </label>
                                 </div>
                                 <div class="ms-4 form-check checking">
-                                    <input class="form-check-input" type="checkbox" value=""
-                                        id="instances">
+                                    <input class="form-check-input" type="checkbox" value="" id="instances">
                                     <label class="form-check-label" for="instances">
                                         Show instances consequently
                                     </label>
                                 </div>
                             </div>
                         </div>
-                        
-                        <div class="tab-pane" id="autocode" role="tabpanel"
-                            aria-labelledby="autocode-tab">...
+
+                        <div class="tab-pane" id="autocode" role="tabpanel" aria-labelledby="autocode-tab">...
                         </div>
                     </div>
                 </div>
@@ -170,12 +164,14 @@
         </div>
         <div ngClass="question">
             <ul cdkDropList (cdkDropListDropped)="onItemDrop($event)">
-                <li *ngFor="let question of questions | paginate: { id: 'server', itemsPerPage: 5, currentPage: pageNumber, totalItems: totalItemsCount } ;let i=index;">
+                <li
+                    *ngFor="let question of questions | paginate: { id: 'server', itemsPerPage: 5, currentPage: pageNumber, totalItems: totalItemsCount } ;let i=index;">
                     <div class="drag-item">
                         <div ngClass="ques-header">
                             <h5 ngClass="mb-0">Q-{{question?.sort}} {{question?.question}}</h5>
-                            <ng-icon  *ngIf="question?.logics.length>0" name="heroCommandLine" (click)="getQuestionLogic(i,question?.id)"></ng-icon>
                             <div class="d-flex align-items-center justify-content-end">
+                                <ng-icon class="me-3" *ngIf="question?.logics.length>0" name="heroCommandLine"
+                                    (click)="getQuestionLogic(i,question?.id)"></ng-icon>
                                 <mat-form-field>
                                     <mat-select #selectElement
                                         (selectionChange)="onSelectChange($event, question?.sort, question?.id)">
@@ -200,7 +196,7 @@
                                                 Edit
                                             </a>
                                         </li>
-                                        <li  *ngIf="question?.logics.length==0">
+                                        <li *ngIf="question?.logics.length==0">
                                             <a href="javascript:void(0);" class="dropdown-item"
                                                 (click)="toggleLogic(i,question?.id)">
                                                 <ng-icon name="heroCommandLine"></ng-icon>
@@ -271,81 +267,75 @@
                                                                 <option selected>{{question?.question}}</option>
                                                             </select>
                                                         </div>
-                                                        <div ngClass="if-then">
-                                                            <span>If</span>
-                                                        </div>
-                                                        <div ngClass="mb-4">
-                                                            <div class="row g-2 align-items-center">
+
+                                                        <div class="add-multiple-logic" *ngFor="let logicEntry of logicEntriesPerQuestion[i]; let j = index">
+                                                            <div ngClass="if-then">
+                                                              <span>If</span>
+                                                            </div>
+                                                            <div ngClass="mb-4">
+                                                              <div class="row g-2 align-items-center">
                                                                 <div class="col-md-1">
-                                                                    <div>Value</div>
+                                                                  <div>Value</div>
                                                                 </div>
                                                                 <div class="col-md-3">
-                                                                    <select class="form-select" #ifIdSelect>
-                                                                        <option
-                                                                            *ngFor="let item of logicValuesList;let i=index;"
-                                                                            value="{{item.id}}">{{item.name}}</option>
-                                                                    </select>
+                                                                  <!-- Use unique template reference variables by appending the index -->
+                                                                  <select class="form-select" #ifIdSelect="ngModel" [(ngModel)]="logicEntry.ifId">
+                                                                    <option *ngFor="let item of logicValuesList;let j=index;" [value]="item.id">{{item.name}}</option>
+                                                                  </select>
                                                                 </div>
                                                                 <div class="col-md-3">
-                                                                    <select class="form-select" #ifExpectedSelect>
-                                                                        <option
-                                                                            *ngFor="let item of question?.options;let i=index;"
-                                                                            value="{{item.id}}">{{item.option}}</option>
-                                                                    </select>
+                                                                  <!-- Use unique template reference variables by appending the index -->
+                                                                  <select class="form-select" #ifExpectedSelect="ngModel" [(ngModel)]="logicEntry.ifExpected">
+                                                                    <option *ngFor="let item of question?.options;let j=index;" [value]="item.id">{{item.option}}</option>
+                                                                  </select>
                                                                 </div>
                                                                 <div class="col-md-1">
-                                                                    <a routerLink="javascript:"><ng-icon
-                                                                            name="heroPlusCircle"
-                                                                            ngClass="plus-circle"></ng-icon></a>
+                                                                  <a routerLink="javascript:"><ng-icon name="heroPlusCircle" ngClass="plus-circle"></ng-icon></a>
                                                                 </div>
                                                                 <div class="col-md-4 checking">
-                                                                    <div class="form-check d-flex justify-content-end align-items-center">
-                                                                        <input class="form-check-input me-2"
-                                                                            type="checkbox" value="" id="selectAll">
-                                                                        <label class="form-check-label" for="selectAll">
-                                                                            Select All
-                                                                        </label>
-                                                                    </div>
+                                                                  <div class="form-check d-flex justify-content-end align-items-center">
+                                                                    <input class="form-check-input me-2" type="checkbox" value="" id="selectAll">
+                                                                    <label class="form-check-label" for="selectAll">Select All</label>
+                                                                  </div>
                                                                 </div>
+                                                              </div>
                                                             </div>
-                                                        </div>
-                                                        <div ngClass="if-then">
-                                                            <span>Then</span>
-                                                        </div>
-                                                        <div ngClass="mb-4">
-                                                            <div class="row g-2 align-items-center">
+                                                            <div ngClass="if-then">
+                                                              <span>Then</span>
+                                                            </div>
+                                                            <div ngClass="mb-4">
+                                                              <div class="row g-2 align-items-center">
                                                                 <div class="col-md-4">
-                                                                    <select class="form-select" #thanIdSelect>
-                                                                        <option
-                                                                            *ngFor="let item of logicThensList;let i=index;"
-                                                                            value="{{item.id}}">{{item.name}}</option>
-                                                                    </select>
+                                                                  <!-- Use unique template reference variables by appending the index -->
+                                                                  <select class="form-select" #thanIdSelect="ngModel" [(ngModel)]="logicEntry.thanId">
+                                                                    <option *ngFor="let item of logicThensList;let j=index;" [value]="item.id">{{item.name}}</option>
+                                                                  </select>
                                                                 </div>
                                                                 <div class="col-md-4">
-                                                                    <select class="form-select" #thanExpectedSelect>
-                                                                        <option value="null">Select Question</option>
-                                                                        <option
-                                                                            *ngFor="let item of logicQuestionList;let i=index;"
-                                                                            value="{{item.id}}">{{item.item}}</option>
-                                                                    </select>
+                                                                  <!-- Use unique template reference variables by appending the index -->
+                                                                  <select class="form-select" #thanExpectedSelect="ngModel" [(ngModel)]="logicEntry.thanExpected">
+                                                                    <option value="null">Select Question</option>
+                                                                    <option *ngFor="let item of logicQuestionList;let j=index;" [value]="item.id">{{item.item}}</option>
+                                                                  </select>
                                                                 </div>
                                                                 <div class="col-md-1">
-                                                                    <a routerLink="javascript:"><ng-icon
-                                                                            name="heroTrash"
-                                                                            ngClass="trash-icon"></ng-icon></a>
+                                                                  <a routerLink="javascript:"><ng-icon name="heroTrash" ngClass="trash-icon"></ng-icon></a>
                                                                 </div>
+                                                              </div>
                                                             </div>
-                                                        </div>
+                                                          </div>
+                                                          
 
                                                     </div>
                                                     <div class="row">
-                                                        <div class="col-12 text-end">
-                                                            <button type="button" class="btn btn-primary"
-                                                                (click)="createLogic(question?.id,ifIdSelect.value,ifExpectedSelect.value,thanIdSelect.value,thanExpectedSelect.value)">Save</button>
+                                                        <div class="col-12 text-end d-flex justify-content-between">
+                                                            <button type="button" class="btn btn-primary btn-sm" (click)="addNewLogicEntry(i)">Add New Logic</button>
+                                                            <button type="button" class="btn btn-primary btn-sm"
+                                                            (click)="createLogic(question?.id, logicEntriesPerQuestion[i])">Save</button>
                                                         </div>
                                                     </div>
                                                 </div>
-                                                
+
                                                 <div class="tab-pane" id="customLogic" role="tabpanel"
                                                     aria-labelledby="customLogic-tab">
                                                     <div class="alert alert-success p-5" role="alert">
@@ -498,9 +488,9 @@
                 <label class="form-label">Select Your Country</label>
                 <mat-form-field>
                     <mat-select name="countryString" [(value)]="selectedCountry" placeholder="Country">
-                      <mat-option *ngFor="let item of country" [value]="item.id">{{item.name}}</mat-option>
+                        <mat-option *ngFor="let item of country" [value]="item.id">{{item.name}}</mat-option>
                     </mat-select>
-                    
+
                 </mat-form-field>
             </div>
             <div class="mb-4" class="search-categories input-icon">

@@ -1,4 +1,4 @@
-import { Component, OnInit, Renderer2, ElementRef, ViewChild } from '@angular/core';
+import { Component, OnInit, Renderer2, ElementRef, ViewChild,AfterViewInit } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ActivatedRoute, Router, NavigationEnd } from '@angular/router';
 import { FormControl } from '@angular/forms';
@@ -25,7 +25,7 @@ import { MatSelect, MatSelectChange } from '@angular/material/select';
   templateUrl: './create-survey.component.html',
   styleUrls: ['./create-survey.component.css'],
 })
-export class CreateSurveyComponent implements OnInit {
+export class CreateSurveyComponent implements OnInit,AfterViewInit  {
   @ViewChild('GenderModal', { static: true }) genderModal!: GenderPopupComponent;
   @ViewChild('AgeModal', { static: true }) ageModal!: ModalDirective;
   @ViewChild('NccsModal', { static: true }) nccsModal!: ModalDirective;
@@ -95,6 +95,7 @@ export class CreateSurveyComponent implements OnInit {
   countryId: any
   selectedCountry: string = "IN";
   country: { id: string, name: string }[] = [];
+  logicEntriesPerQuestion: any[] = [];
   constructor(
     private visibilityService: DataService,
     private modalService: NgbModal,
@@ -449,29 +450,13 @@ export class CreateSurveyComponent implements OnInit {
 
   }
   toggleLogic(index: number, questionId: any) {
+    //this.logicEntriesPerQuestion = [];
+    this.addNewLogicEntry(index)
     this.questions[index].isLogicShow = !this.questions[index].isLogicShow;
     this.getLogicQuestionList(questionId)
+
   }
-  getQuestionLogic(index: number, questionId: number): void {
-    this.questions[index].isLogicShow = !this.questions[index].isLogicShow;
-    this.surveyservice.getQuestionLogics(questionId, this.surveyId).subscribe(
-      (response) => {
-        if (response && response.length > 0) {
-          const logic = response[0]; // Assuming you are dealing with the first logic item in the response array
-          
-          // Set the values of the select elements
-          this.ifIdSelect.nativeElement.value = logic.ifId.toString();
-          this.ifExpectedSelect.nativeElement.value = logic.ifExpected;
-          this.thanIdSelect.nativeElement.value = logic.thanId.toString();
-          this.thanExpectedSelect.nativeElement.value = logic.thanExpected.toString();
-        }
-      },
-      (error) => {
-        // Handle errors
-        console.error(error);
-      }
-    );
-  }
+  
   getLogicValues() {
     this.surveyservice.getLogicValues().subscribe((response: { [x: string]: any; }) => {
       var result = Object.keys(response).map(e => response[e]);
@@ -498,28 +483,7 @@ export class CreateSurveyComponent implements OnInit {
       this.logicQuestionList = response
     });
   }
-  createLogic(questionId: any, ifId: any, ifExpected: any, thanId: any, thanExpected: any) {
-    this.questionLogic.surveyId = this.surveyId
-    this.questionLogic.questionId = questionId
-    this.questionLogic.ifId = ifId
-    this.questionLogic.ifExpected = ifExpected
-    this.questionLogic.thanId = thanId
-    this.questionLogic.thanExpected = thanExpected
-
-    console.log("dataToSend", this.questionLogic)
-    this.surveyservice.createLogic(this.questionLogic).subscribe(
-      response => {
-        console.log('Response from server:', response);
-        Swal.fire('', 'Logic Created Sucessfully.', 'success');
-      },
-      error => {
-        console.error('Error occurred while sending POST request:', error);
-        Swal.fire('', error, 'error');
-      }
-    );
-
-
-  }
+  
   onSelectChange(event: MatSelectChange, questionSortValue: any, questionId: number) {
 
     //const target = event.target as HTMLSelectElement;
@@ -591,4 +555,121 @@ export class CreateSurveyComponent implements OnInit {
   toggleDivVisibility() {
     this.isDivVisible = !this.isDivVisible;
   }
+  // addNewLogicEntry(): void {
+  //   alert();
+  //   const newLogicEntry = {
+  //     ifId: null,
+  //     ifExpected: null,
+  //     thanId: null,
+  //     thanExpected: null
+  //     // Add other properties as needed
+  //   };
+
+  //   this.logicEntriesPerQuestion.push(newLogicEntry);
+  // }
+  addNewLogicEntry(index: number): void {
+    // Initialize an array for the question if not already done
+    if (!this.logicEntriesPerQuestion[index]) {
+      this.logicEntriesPerQuestion[index] = [];
+    }
+  
+    // Add an empty logic entry for the question
+    //this.logicEntriesPerQuestion[index].push({});
+    const newLogicEntry = {
+      ifId: null,
+      ifExpected: null,
+      thanId: null,
+      thanExpected: null
+      // Add other properties as needed
+    };
+  
+    // Add the new logic entry to the array for the specific question
+    this.logicEntriesPerQuestion[index].push(newLogicEntry);
+  }
+  removeLogicEntry(index: number): void {
+    this.logicEntriesPerQuestion.splice(index, 1);
+  }
+
+  // Function to save all logic entries
+  saveLogicEntries(): void {
+    // Implement logic to save all entries
+    console.log(this.logicEntriesPerQuestion);
+  }
+  getQuestionLogic(index: number, questionId: number): void {
+    
+  
+    this.surveyservice.getQuestionLogics(questionId, this.surveyId).subscribe(
+      (response) => {
+        if (response && response.length > 0) {
+          // Initialize an array for the question if not already done
+          if (!this.logicEntriesPerQuestion[index]) {
+            this.logicEntriesPerQuestion[index] = [];
+          }
+  
+          // Clear existing logic entries for the question
+          this.logicEntriesPerQuestion[index] = [];
+  
+          // Add the new logic entries to the corresponding array
+          this.logicEntriesPerQuestion[index] = response.map((logic: any) => {
+            // Set the values of the select elements
+            if (this.ifIdSelect && this.ifIdSelect.nativeElement) {
+              this.ifIdSelect.nativeElement.value = logic.ifId.toString();
+            }
+  
+            if (this.ifExpectedSelect && this.ifExpectedSelect.nativeElement) {
+              this.ifExpectedSelect.nativeElement.value = logic.ifExpected;
+            }
+  
+            if (this.thanIdSelect && this.thanIdSelect.nativeElement) {
+              this.thanIdSelect.nativeElement.value = logic.thanId.toString();
+            }
+  
+            if (this.thanExpectedSelect && this.thanExpectedSelect.nativeElement) {
+              this.thanExpectedSelect.nativeElement.value = logic.thanExpected.toString();
+            }
+  
+            return logic;
+          });
+          this.questions[index].isLogicShow = !this.questions[index].isLogicShow;
+          console.log("this.logicEntriesPerQuestion", this.logicEntriesPerQuestion);
+        }
+      },
+      (error) => {
+        // Handle errors
+        console.error(error);
+      }
+    );
+  }
+  createLogic(questionId: any, logicEntries: any[]): void {
+    // You may need to adjust this logic based on your actual implementation
+    for (const logicEntry of logicEntries) {
+      const id=logicEntry.id
+      const ifIdValue = logicEntry.ifId;
+      const ifExpectedValue = logicEntry.ifExpected;
+      const thanIdValue = logicEntry.thanId;
+      const thanExpectedValue = logicEntry.thanExpected;
+  
+      this.questionLogic.id = id
+      this.questionLogic.surveyId = this.surveyId;
+      this.questionLogic.questionId = questionId;
+      this.questionLogic.ifId = ifIdValue;
+      this.questionLogic.ifExpected = ifExpectedValue;
+      this.questionLogic.thanId = thanIdValue;
+      this.questionLogic.thanExpected = thanExpectedValue;
+  
+      console.log("dataToSend", this.questionLogic);
+  
+      this.surveyservice.createLogic(this.questionLogic).subscribe(
+        response => {
+          console.log('Response from server:', response);
+          Swal.fire('', 'Logic Created Successfully.', 'success');
+        },
+        error => {
+          console.error('Error occurred while sending POST request:', error);
+          Swal.fire('', error, 'error');
+        }
+      );
+    }
+  }
+  
 }
