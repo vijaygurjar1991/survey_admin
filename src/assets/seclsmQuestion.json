@@ -1,0 +1,367 @@
+[
+  {
+    "questionId": 1,
+    "question": "Which of these best describes the highest level of education of the chief wage earner or head of your household?",
+    "image": "sample_image_url_1",
+    "options": [
+      {
+        "id": 1,
+        "option": "Post graduate studies complete (post graduate degree)",
+        "image": ""
+      },
+      {
+        "id": 2,
+        "option": "Post graduate studies incomplete (no post graduate degree)",
+        "image": ""
+      },
+      {
+        "id": 3,
+        "option": "College / university complete (graduate)",
+        "image": ""
+      },
+      {
+        "id": 4,
+        "option": "College / university incomplete",
+        "image": ""
+      },
+      {
+        "id": 5,
+        "option": "Secondary/senior / high school complete",
+        "image": ""
+      },
+      {
+        "id": 6,
+        "option": "Secondary / senior/high school incomplete",
+        "image": ""
+      },
+      {
+        "id": 7,
+        "option": "Junior/ middle school complete",
+        "image": ""
+      },
+      {
+        "id": 8,
+        "option": "Junior/ middle school incomplete",
+        "image": ""
+      },
+      {
+        "id": 9,
+        "option": "Primary complete",
+        "image": ""
+      },
+      {
+        "id": 10,
+        "option": "Primary incomplete ",
+        "image": ""
+      },
+      {
+        "id": 11,
+        "option": "Literate but no formal / school education",
+        "image": ""
+      },
+      {
+        "id": 12,
+        "option": "Illiterate",
+        "image": ""
+      }
+    ]
+  },
+  {
+    "questionId": 2,
+    "question": "Do you have at home, or own, any of these sporting or leisure items?",
+    "image": "",
+    "options": [
+      {
+        "id": 1,
+        "option": "Golf equipment ",
+        "image": ""
+      },
+      {
+        "id": 2,
+        "option": "Scuba diving/surfing",
+        "image": ""
+      },
+      {
+        "id": 3,
+        "option": "Skiing / snowboarding/ice skating equipment",
+        "image": ""
+      },
+      {
+        "id": 4,
+        "option": "Glider/hang-glider/para-glider (no engine)",
+        "image": ""
+      },
+      {
+        "id": 5,
+        "option": "Treadmill / other gym machines",
+        "image": ""
+      },
+      {
+        "id": 6,
+        "option": "Motor boat/sailing boat",
+        "image": ""
+      },
+      {
+        "id": 7,
+        "option": "Swimming pool",
+        "image": ""
+      },
+      {
+        "id": 8,
+        "option": "Professional quality musical instrument (e.g. piano, violin etc.)",
+        "image": ""
+      },
+      {
+        "id": 9,
+        "option": "Hot tub / Jacuzzi/Sauna",
+        "image": ""
+      },
+      {
+        "id": 10,
+        "option": "None of the above",
+        "image": ""
+      }
+    ]
+  },
+  {
+    "questionId": 3,
+    "question": "Which of these items do you have in working order in your home?",
+    "image": "",
+    "options": [
+      {
+        "id": 1,
+        "option": "Kitchen sink",
+        "image": ""
+      },
+      {
+        "id": 2,
+        "option": "Dining table",
+        "image": ""
+      },
+      {
+        "id": 3,
+        "option": "Refrigerator (Stand alone - this may have ice box but NOT separate freezer section with its own door)",
+        "image": ""
+      },
+      {
+        "id": 4,
+        "option": "Fridge freezer (i.e. the freezer section has its own door separate from the refrigerator door)",
+        "image": ""
+      },
+      {
+        "id": 5,
+        "option": "Separate deep freezer",
+        "image": ""
+      },
+      {
+        "id": 6,
+        "option": "Cooker (ie. oven & hob appliance)",
+        "image": ""
+      },
+      {
+        "id": 7,
+        "option": "Vacuum cleaner",
+        "image": ""
+      },
+      {
+        "id": 8,
+        "option": "Microwave oven",
+        "image": ""
+      },
+      {
+        "id": 9,
+        "option": "Washing machine",
+        "image": ""
+      },
+      {
+        "id": 10,
+        "option": "Electric deep fat fryer",
+        "image": ""
+      },
+      {
+        "id": 11,
+        "option": "Electric mixer",
+        "image": ""
+      },
+      {
+        "id": 12,
+        "option": "Water filtering device",
+        "image": ""
+      },
+      {
+        "id": 13,
+        "option": "Telephone (landline)",
+        "image": ""
+      },
+      {
+        "id": 14,
+        "option": "Fax machine",
+        "image": ""
+      },
+      {
+        "id": 15,
+        "option": "Docking",
+        "image": ""
+      },
+      {
+        "id": 16,
+        "option": "Station (for MP3/iPod)",
+        "image": ""
+      },
+      {
+        "id": 17,
+        "option": "Home cinema/theatre/entertainment centre/ HDD multimedia player",
+        "image": ""
+      },
+      {
+        "id": 18,
+        "option": "Tumble dryer",
+        "image": ""
+      },
+      {
+        "id": 19,
+        "option": "Dish washing machine",
+        "image": ""
+      },
+      {
+        "id": 20,
+        "option": "Hi-Fi/stereo system (cassette, CD or vinyl)",
+        "image": ""
+      },
+      {
+        "id": 21,
+        "option": "Player/recorder (VCR)",
+        "image": ""
+      },
+      {
+        "id": 22,
+        "option": "DVD recorder (i.e. not just a DVD player)",
+        "image": ""
+      },
+      {
+        "id": 23,
+        "option": "Video",
+        "image": ""
+      },
+      {
+        "id": 24,
+        "option": "Electronic car navigation system (Sat Nav') / GPS system",
+        "image": ""
+      },
+      {
+        "id": 25,
+        "option": "Primus (paraffin stove) / cylinder based gas stove",
+        "image": ""
+      }
+    ]
+  },
+  {
+    "questionId": 4,
+    "question": "How many rooms do you have in your home? Please include bathrooms, toilets and kitchens in the count, but exclude attics and basements, unless used for living accommodation.",
+    "image": "",
+    "options": [
+      {
+        "id": 1,
+        "option": "01",
+        "image": ""
+      },
+      {
+        "id": 2,
+        "option": "02",
+        "image": ""
+      },
+      {
+        "id": 3,
+        "option": "03",
+        "image": ""
+      },
+      {
+        "id": 4,
+        "option": "04",
+        "image": ""
+      },
+      {
+        "id": 5,
+        "option": "05",
+        "image": ""
+      },
+      {
+        "id": 6,
+        "option": "06",
+        "image": ""
+      },
+      {
+        "id": 7,
+        "option": "07",
+        "image": ""
+      },
+      {
+        "id": 8,
+        "option": "08",
+        "image": ""
+      },
+      {
+        "id": 9,
+        "option": "09",
+        "image": ""
+      },
+      {
+        "id": 10,
+        "option": "10",
+        "image": ""
+      },
+      {
+        "id": 11,
+        "option": "11",
+        "image": ""
+      },
+      {
+        "id": 12,
+        "option": "12+",
+        "image": ""
+      }
+    ]
+  },
+  {
+    "questionId": 5,
+    "question": "Which of the following utilities do you have in your home?",
+    "image": "",
+    "options": [
+      {
+        "id": 1,
+        "option": "Electricity",
+        "image": ""
+      },
+      {
+        "id": 2,
+        "option": "Gas supply (piped directly into your home)",
+        "image": ""
+      },
+      {
+        "id": 3,
+        "option": "Central heating",
+        "image": ""
+      },
+      {
+        "id": 4,
+        "option": "Air conditioning (built in NOT portable)",
+        "image": ""
+      },
+      {
+        "id": 5,
+        "option": "Electronic home security system (e.g. burglar alarm)",
+        "image": ""
+      },
+      {
+        "id": 6,
+        "option": "Seated/non-seated flushing toilet (NOT manually flushed using bucket)",
+        "image": ""
+      },
+      {
+        "id": 7,
+        "option": "No seated/non-seated flushing toilet",
+        "image": ""
+      }
+    ]
+  }
+]

@@ -17,6 +17,7 @@ import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import Swal from 'sweetalert2';
 import { QuestionLogic } from 'src/app/models/question-logic';
 import { MatSelect, MatSelectChange } from '@angular/material/select';
+import { SecLsmPopupComponent } from '../popups/sec-lsm-popup/sec-lsm-popup.component';
 
 interface LogicQuestion {
   id: number;
@@ -73,7 +74,7 @@ export class CreateSurveyComponent implements OnInit, AfterViewInit {
   @ViewChild('ifExpectedSelect') ifExpectedSelect: ElementRef;
   @ViewChild('thanIdSelect') thanIdSelect: ElementRef;
   @ViewChild('thanExpectedSelect') thanExpectedSelect: ElementRef;
-
+  @ViewChild('SecLsmModal', { static: true }) secLsmModal!: ModalDirective;
   
   role: string;
   userId: number;
@@ -251,7 +252,9 @@ export class CreateSurveyComponent implements OnInit, AfterViewInit {
       this.stateModal.show();
     } else if (type === "FLSM") {
       this.flsmModal.show();
-    }
+    } else if (type === "SECLSM") {
+      this.secLsmModal.show();
+    } 
 
   }
   openFullscreen(content: any) {

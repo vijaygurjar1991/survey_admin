@@ -82,6 +82,7 @@ import { ConvertToUrlPipe } from '../pipes/convert-to-url.pipe';
 import { EncryptPipe } from '../pipes/encrypt.pipe';
 import { DecryptPipe } from '../pipes/decrypt.pipe';
 import { FlsmPopupComponent } from './popups/flsm-popup/flsm-popup.component';
+import { SecLsmPopupComponent } from './popups/sec-lsm-popup/sec-lsm-popup.component';
 // Icons
 
 @NgModule({
@@ -128,7 +129,8 @@ import { FlsmPopupComponent } from './popups/flsm-popup/flsm-popup.component';
     ConvertToUrlPipe,
     EncryptPipe,
     DecryptPipe,
-    FlsmPopupComponent
+    FlsmPopupComponent,
+    SecLsmPopupComponent
   ],
   imports: [
     MatChipsModule,
