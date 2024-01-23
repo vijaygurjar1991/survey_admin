@@ -778,7 +778,6 @@ export class CreateSurveyComponent implements OnInit, AfterViewInit {
       console.log("surveyData In Header", this.surveylist);
     });
   }
-  
   saveAutoCode():void{
     const surveyId = this.surveyId;
     const dummySurveyId = this.selectedAutoCodeOption;
