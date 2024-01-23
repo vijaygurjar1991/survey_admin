@@ -8,7 +8,7 @@ import { Option } from 'src/app/models/option';
 import Swal from 'sweetalert2';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CryptoService } from 'src/app/service/crypto.service';
-import * as jsonData from 'src/assets/seclsmQuestion.json';
+import jsonData from '../../../../assets/seclsmQuestion.json';
 
 
 @Component({
@@ -72,12 +72,12 @@ export class SecLsmPopupComponent {
     return question.id; // Assuming 'id' is a unique identifier for each question
   }
   getQuestionsFromFile() {
-    this.questions = jsonData.map((item: responseGenericQuestion) => {
+    this.questions = jsonData.map((item: any) => {
       const question = new Question();
       question.id = item.questionId;
       question.question = item.question;
       question.image = item.image || '';
-  
+    
       question.options = item.options.map((optionItem: { id: number, option: string, image: string }) => {
         const option = new Option();
         option.id = optionItem.id;
@@ -85,10 +85,10 @@ export class SecLsmPopupComponent {
         option.image = optionItem.image || '';
         return option;
       });
-  
+    
       return question;
     });
-  
+    
     if (this.questions && this.questions.length > 0) {
       this.questionText = this.questions[0].question;
     }
