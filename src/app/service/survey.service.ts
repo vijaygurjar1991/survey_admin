@@ -126,7 +126,7 @@ export class SurveyService {
     const { surveyId,questionId } = data;
     return this.http
       .get<responseDTO>(`${this.apiUrl}api/admin/${this.userId}/GeneralQuestion/GetList?surveyID=${encodeURIComponent(surveyId)}`)
-      .pipe(map((result) => result as responseDTO));
+      .pipe(map((result) => result as any));
   }
   createLogic(data: any): Observable<any> {
     const url = `${this.apiUrl}api/admin/${this.userId}/GeneralQuestion/CreateLogics`;
@@ -230,5 +230,9 @@ export class SurveyService {
   postRandomizedQuestions(data: any[]): Observable<any> {
     const url = `${this.apiUrl}api/admin/${this.userId}/GeneralQuestion/QuestionRandomize`;
     return this.http.post(url, data);
+  }
+  surveyLooping(surveyId: number, dummySurveyId: number): Observable<any> {
+    const url = `${this.apiUrl}api/admin/${this.userId}/GeneralQuestion/SurveyLooping?surveyId=${surveyId}&dummySurveyId=${dummySurveyId}`;
+    return this.http.post(url, {});
   }
 }

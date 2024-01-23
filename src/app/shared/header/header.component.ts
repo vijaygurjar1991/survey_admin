@@ -19,20 +19,20 @@ export class HeaderComponent {
   filteredSurveys: any = [];
   surveyControl = new FormControl();
 
-  public constructor(public themeService: DataService, private auth: AuthService,private util: UtilsService,public surveyService: SurveyService,private crypto: CryptoService,private router: Router) {
+  public constructor(public themeService: DataService, private auth: AuthService, private util: UtilsService, public surveyService: SurveyService, private crypto: CryptoService, private router: Router) {
 
   }
   ngOnInit(): void {
     this.getMyAccount()
     this.getAllSurveyList()
     this.surveyControl.valueChanges
-    .pipe(
-      debounceTime(300), // Adjust debounce time as needed
-      distinctUntilChanged()
-    )
-    .subscribe((value: string) => {
-      this.filterSurveys(value);
-    });
+      .pipe(
+        debounceTime(300), // Adjust debounce time as needed
+        distinctUntilChanged()
+      )
+      .subscribe((value: string) => {
+        this.filterSurveys(value);
+      });
   }
   logOut() {
     this.auth.logout();
@@ -40,18 +40,23 @@ export class HeaderComponent {
   userId: any;
   image: any;
   getMyAccount() {
-    //this.userId = localStorage.getItem("userId");
+
     this.userId = this.util.getUserId();
-    this.themeService.GetMyAccount(this.userId).subscribe((data: any) => {
-      console.log("inside header data", data) 
-      this.image = data.image
-    });
+    if (this.userId) {
+      this.themeService.GetMyAccount(this.userId).subscribe((data: any) => {
+        console.log("inside header data", data)
+        this.image = data.image
+      })
+    }
   }
   getAllSurveyList() {
-    this.surveyService.GetSurveyList().subscribe((data: any) => {
-      this.surveyData = data.surveyType;
-      console.log("surveyData In Header",this.surveyData)
-    });
+    this.userId = this.util.getUserId();
+    if (this.userId) {
+      this.surveyService.GetSurveyList().subscribe((data: any) => {
+        this.surveyData = data.surveyType;
+        console.log("surveyData In Header", this.surveyData)
+      });
+    }
   }
   filterSurveys(value: string) {
     if (!value) {
@@ -67,7 +72,7 @@ export class HeaderComponent {
   onSurveySelected(event: any) {
     const selectedSurveyName = event.option.value;
     const selectedSurvey = this.surveyData.find((survey: any) => survey.name === selectedSurveyName);
-    
+
     if (selectedSurvey) {
       // Log all properties of the selected survey
       for (const key in selectedSurvey) {
@@ -75,7 +80,7 @@ export class HeaderComponent {
           console.log(`${key}:`, selectedSurvey[key]);
         }
       }
-      console.log("selectedSurveyId",selectedSurvey.surveyId)
+      console.log("selectedSurveyId", selectedSurvey.surveyId)
       const encryptedId = this.encryptId(selectedSurvey.surveyId); // Assuming you have a function to encrypt the ID
       this.router.navigate(['/survey/manage-survey/', encryptedId]);
       // You can also store this information in a variable for further use if needed

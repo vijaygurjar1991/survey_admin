@@ -18,7 +18,12 @@ import Swal from 'sweetalert2';
 import { QuestionLogic } from 'src/app/models/question-logic';
 import { MatSelect, MatSelectChange } from '@angular/material/select';
 
-
+interface LogicQuestion {
+  id: number;
+  term: string;
+  item: string;
+  sort: number;
+}
 
 @Component({
   selector: 'app-create-survey',
@@ -69,6 +74,7 @@ export class CreateSurveyComponent implements OnInit, AfterViewInit {
   @ViewChild('thanIdSelect') thanIdSelect: ElementRef;
   @ViewChild('thanExpectedSelect') thanExpectedSelect: ElementRef;
 
+  
   role: string;
   userId: number;
   name: string;
@@ -86,7 +92,7 @@ export class CreateSurveyComponent implements OnInit, AfterViewInit {
   isLogicShow: boolean = false
   logicValuesList: any
   logicThensList: any
-  logicQuestionList: any
+  logicQuestionList: LogicQuestion[] = [];
   selectedValue: any;
   defaultSelectedValue: any = null;
   questionLogic: QuestionLogic = new QuestionLogic();
@@ -97,6 +103,7 @@ export class CreateSurveyComponent implements OnInit, AfterViewInit {
   country: { id: string, name: string }[] = [];
   logicEntriesPerQuestion: any[] = [];
   currentPage: number = 1
+  
   constructor(
     private visibilityService: DataService,
     private modalService: NgbModal,
@@ -474,16 +481,21 @@ export class CreateSurveyComponent implements OnInit, AfterViewInit {
     });
   }
   getLogicQuestionList(questionId: any) {
-    this.logicQuestionList = '';
+    this.logicQuestionList = [];
     const dataToSend = {
       surveyId: this.surveyId,
       surveyStatus: questionId
     };
-    this.surveyservice.getLogicQuestionList(dataToSend).subscribe((response: { [x: string]: any; }) => {
-      var result = Object.keys(response).map(e => response[e]);
-      console.log("logicQuestionList", response)
-      this.logicQuestionList = response
-    });
+    this.surveyservice.getLogicQuestionList(dataToSend).subscribe(
+      (response: LogicQuestion[]) => {
+        console.log("logicQuestionList", response);
+        this.logicQuestionList = response;
+      },
+      error => {
+        console.error('Error fetching logic questions', error);
+      }
+    );
+    
   }
 
   onSelectChange(event: MatSelectChange, questionSortValue: any, questionId: number) {
@@ -515,7 +527,7 @@ export class CreateSurveyComponent implements OnInit, AfterViewInit {
       }
     );
   }
-  idIsEqual(a: string, b: string): boolean {
+  idIsEqual(a: any, b: any): boolean {
     return a === b;
   }
   reloadIfAlreadyOnManageSurvey(encryptedId: string) {
@@ -545,7 +557,7 @@ export class CreateSurveyComponent implements OnInit, AfterViewInit {
       this.onPageChange(this.currentPage);
     }
   }
-  onPageSizeChange(){
+  onPageSizeChange() {
     this.onPageChange(this.pageNumber)
   }
   getCountries() {
@@ -684,32 +696,102 @@ export class CreateSurveyComponent implements OnInit, AfterViewInit {
     this.randormizeEntries.push(defaultEntry1, defaultEntry2);
   }
   saveRandomization(): void {
-
-    console.log(this.randormizeEntries)
+    console.log(this.randormizeEntries);
+  
     if (!this.isRandomizationChecked) {
-      const formattedData = this.randormizeEntries.map(entry => {
-        return {
-          surveyId: this.surveyId, // Use entry.surveyId if it exists, otherwise default to 0
-          quesionId: entry.selectedOption || 0, // Use entry.quesionId if it exists, otherwise default to 0
-          isRandomize: true, // Hardcoded value as true based on the request body structure
-        };
-      });
+      const selectedOptions = this.randormizeEntries
+        .map(entry => entry.selectedOption || 0)
+        .filter(id => id !== 0); // Filter out the default value 0 if it exists
+  
+      if (selectedOptions.length > 0) {
+        const startId = Math.min(...selectedOptions);
+        const endId = Math.max(...selectedOptions);
+  
+        const filteredQuestions = this.logicQuestionList.filter(question => question.id >= startId && question.id <= endId);
 
-      // Call the service to post the formatted data
-      this.surveyservice.postRandomizedQuestions(formattedData).subscribe(
-        response => {
-          // Handle the response if needed
-          console.log('POST request successful', response);
-          Swal.fire('', 'Randomization Created Successfully.', 'success');
-        },
-        error => {
-          // Handle errors
-          console.error('Error in POST request', error);
-          Swal.fire('', 'Please confirm you want to randomization these question ', 'error');
+        const formattedData = filteredQuestions.map(question => {
+          return {
+            surveyId: this.surveyId,
+            quesionId: String(question.id),
+            isRandomize: true,
+          };
+        });
+  
+        if (formattedData.length > 0) {
+          // Call the service to post the formatted data
+          this.surveyservice.postRandomizedQuestions(formattedData).subscribe(
+            response => {
+              // Handle the response if needed
+              console.log('POST request successful', response);
+              Swal.fire('', 'Randomization Created Successfully.', 'success');
+            },
+            error => {
+              // Handle errors
+              console.error('Error in POST request', error);
+              Swal.fire('', 'Please confirm you want to randomization these question ', 'error');
+            }
+          );
+        } else {
+          console.warn('No entries found in the specified range.');
         }
-      );
-    }else{
-
+      } else {
+        console.warn('No valid selectedOption values found.');
+      }
+    } else {
+      // Handle the case when randomization is checked
     }
   }
-}
+  surveylist: {
+    surveyId: number | null,
+    name: string,
+    status: string | number | null,
+    categoryName: string,
+    userName: string,
+    createdDate: any
+  }[] = [];
+  
+  selectedAutoCodeOption: number=0;
+  
+  getAllSurveyList() {
+    this.surveyservice.GetSurveyList().subscribe((data: any) => {
+      const surveyType: any[] = data.surveyType;
+  
+      // Adding a default option
+      const defaultOption = {
+        surveyId: 0,
+        name: 'Select Survey',
+        status: null,
+        categoryName: '',
+        userName: '',
+        createdDate: null
+      };
+  
+      this.surveylist = [defaultOption, ...surveyType.map(item => ({
+        surveyId: item.surveyId,
+        name: item.name,
+        status: item.status !== null ? String(item.status) : null,
+        categoryName: item.categoryName,
+        userName: item.userName,
+        createdDate: new Date(item.createdDate)
+      }))];
+  
+      console.log("surveyData In Header", this.surveylist);
+    });
+  }
+  
+  saveAutoCode():void{
+    const surveyId = this.surveyId;
+    const dummySurveyId = this.selectedAutoCodeOption;
+
+    this.surveyservice.surveyLooping(surveyId, dummySurveyId).subscribe(
+      response => {
+        // Handle the response here
+        console.log('Survey Looping Response:', response);
+      },
+      error => {
+        // Handle errors here
+        console.error('Survey Looping Error:', error);
+      }
+    );
+  }
+  }

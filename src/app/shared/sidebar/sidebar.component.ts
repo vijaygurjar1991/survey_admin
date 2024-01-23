@@ -60,7 +60,9 @@ export class SidebarComponent {
   }
   ngOnInit() {
     this.role = this.util.getRole();
-    this.role = this.role.toLowerCase()
+    if (this.role) {
+      this.role = this.role.toLowerCase();
+    }
     console.log("SideBar Role", this.role)
     if (this.role == 'client')
       this.isClient = true;
