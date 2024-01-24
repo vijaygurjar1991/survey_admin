@@ -76,7 +76,7 @@ export class SignUpComponent {
     dots: true
   };
   // Upload Image
-  
+token: string|undefined;
 selectedImage: string | ArrayBuffer | null = null;
 defaultImage: string = './assets/images/profile/pic.png';
 onFileSelected(event: any) {
@@ -122,7 +122,8 @@ submitForm() {
 verifyEmail() {
   // Call the email verification service to make the GET request
   const otp = this.verificationForm.get('email_otp')?.value;
-  this.authService.verifyEmail(this.organizationId, otp).subscribe(
+  const captchertoken =this.verificationForm.get('captchertoken')?.value
+  this.authService.verifyEmail(this.organizationId, otp,captchertoken).subscribe(
     (response) => {
       console.log('Email verification successful:', response);
       if(response==true)

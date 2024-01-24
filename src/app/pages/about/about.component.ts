@@ -21,7 +21,7 @@ export class AboutComponent {
   name: any;
   description: any;
   image: any
-  
+  centerId:any
 
   onRemove(event: any) { // Use 'any' as the event type
     console.log(event);
@@ -30,6 +30,7 @@ export class AboutComponent {
 
   ngOnInit(): void {
     this.userId = this.util.getUserId();
+    this.centerId = this.util.getCenterId();
     this.getAboutus();
 
   }
@@ -54,7 +55,9 @@ export class AboutComponent {
       id: this.id,
       name: this.name,
       description: this.description,
-      image: this.image
+      image: this.image,
+      centerId: this.centerId
+      
     };
     console.log("dataToSend", dataToSend)
     this.themeService.CreateAboutUs(dataToSend).subscribe(

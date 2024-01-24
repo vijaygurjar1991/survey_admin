@@ -67,6 +67,7 @@ export class AuthService {
         userDetails.userName = _userDetail?.Name;
         userDetails.userEmail = _userDetail?.Email;
         userDetails.RoleId = _userDetail?.RoleId;
+        userDetails.CenterId = _userDetail?.CenterId;
 
         this.userData.next(userDetails);
       } else {
@@ -94,7 +95,7 @@ export class AuthService {
     const url=`${this.apiUrl}RegisterOrganization`
     return this.http.post(url, data);
   }
-  verifyEmail(organizationId: number, otp: string): Observable<any> {
+  verifyEmail(organizationId: number, otp: string,token: string): Observable<any> {
     const url = `${this.apiUrl}EmailVerify?oId=${organizationId}&otp=${otp}`;
     return this.http.get(url);
   }

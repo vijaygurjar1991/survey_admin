@@ -700,12 +700,13 @@ export class CreateSurveyComponent implements OnInit, AfterViewInit {
   }
   saveRandomization(): void {
     console.log(this.randormizeEntries);
+    console.log(this.isRandomizationChecked)
   
-    if (!this.isRandomizationChecked) {
+    if (this.isRandomizationChecked) {
       const selectedOptions = this.randormizeEntries
         .map(entry => entry.selectedOption || 0)
         .filter(id => id !== 0); // Filter out the default value 0 if it exists
-  
+      console.log(selectedOptions)
       if (selectedOptions.length > 0) {
         const startId = Math.min(...selectedOptions);
         const endId = Math.max(...selectedOptions);

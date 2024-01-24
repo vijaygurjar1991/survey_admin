@@ -81,7 +81,7 @@ export class DataService {
     return this.http.get<responseDTO[]>(url);
   }
   CreateAboutUs(data: any): Observable<any> {
-    var userId = localStorage.getItem("userId")
+    var userId = this.util.getUserId();
     const url = `${this.apiUrl}api/admin/${userId}/AboutUs/CreateAboutUs`;
     console.log("posted data", data);
     return this.http.post(url, data, { responseType: 'text' });
@@ -94,7 +94,7 @@ export class DataService {
     return this.http.get<responseDTO[]>(url);
   }
   CreatePrivacyPolicy(data: any): Observable<any> {
-    var userId = localStorage.getItem("userId")
+    var userId = this.util.getUserId();
     const url = `${this.apiUrl}api/admin/${userId}/PrivacyPolicy/CreatePrivacyPolicy`;
     console.log("posted data", data);
     return this.http.post(url, data, { responseType: 'text' });
@@ -107,7 +107,7 @@ export class DataService {
     return this.http.get<responseDTO[]>(url);
   }
   CreateTermsConditions(data: any): Observable<any> {
-    var userId = localStorage.getItem("userId")
+    var userId = this.util.getUserId();
     const url = `${this.apiUrl}api/admin/${userId}/TermAndCondition/CreateTermAndCondition`;
     console.log("posted data", data);
     return this.http.post(url, data, { responseType: 'text' });
@@ -120,7 +120,7 @@ export class DataService {
     return this.http.get<responseDTO[]>(url);
   }
   CreateMyAccount(data: any): Observable<any> {
-    var userId = localStorage.getItem("userId")
+    var userId = this.util.getUserId();
     const url = `${this.apiUrl}api/admin/${userId}/Profile/UpdateProfile`;
     console.log("posted data", data);
     return this.http.post(url, data, { responseType: 'text' });
@@ -129,7 +129,7 @@ export class DataService {
 
   // ChangePassword Api 
   ChangePassword(data: any): Observable<any> {
-    var userId = localStorage.getItem("userId")
+    var userId = this.util.getUserId();
     const url = `${this.apiUrl}api/admin/${userId}/Profile/ChangePassword`;
     console.log("posted data", data);
     return this.http.post(url, data, { responseType: 'text' });
@@ -142,7 +142,7 @@ export class DataService {
     return this.http.get<responseDTO[]>(url);
   }
   AddNewUser(data: any): Observable<any> {
-    var userId = localStorage.getItem("userId")
+    var userId = this.util.getUserId();
     const url = `${this.apiUrl}api/admin/${userId}/Profile/CreateProfile`;
     console.log("posted data", data);
     return this.http.post(url, data, { responseType: 'text' });

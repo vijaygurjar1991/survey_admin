@@ -4,4 +4,5 @@ export class User {
   userEmail: string;
   RoleId: string;
   role: string;
+  CenterId: string;
 }

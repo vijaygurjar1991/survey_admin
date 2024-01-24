@@ -4,6 +4,7 @@ import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import { responseDTO } from 'src/app/types/responseDTO';
 import { ChangeDetectorRef } from '@angular/core';
 import swal from 'sweetalert2';
+import { UtilsService } from 'src/app/service/utils.service';
 
 @Component({
   selector: 'app-privacy',
@@ -12,13 +13,13 @@ import swal from 'sweetalert2';
 })
 export class PrivacyComponent {
   public Editor = ClassicEditor;
-  constructor(public themeService: DataService, private cdr: ChangeDetectorRef) { }
+  constructor(public themeService: DataService, private cdr: ChangeDetectorRef,private util: UtilsService) { }
   files: File[] = [];
   id: number = 0;
   name: any;
   description: any;
   image: any
-
+  centerId:any
   
 
   onRemove(event: any) { // Use 'any' as the event type
@@ -28,12 +29,13 @@ export class PrivacyComponent {
 
   ngOnInit(): void {
     this.getPrivacy()
+    this.centerId = this.util.getCenterId();
   }
 
   userId: any;
 
   getPrivacy() {
-    this.userId = localStorage.getItem("userId");
+    this.userId = this.util.getUserId()
     this.themeService.GetPrivacyPolicy(this.userId).subscribe((data: any) => {
       console.log("data", data)
       this.name = data.name;
@@ -48,7 +50,8 @@ export class PrivacyComponent {
       id: this.id,
       name: this.name,
       description: this.description,
-      image: this.image
+      image: this.image,
+      centerId: this.centerId
     };
     console.log("dataToSend", dataToSend)
     this.themeService.CreatePrivacyPolicy(dataToSend).subscribe(

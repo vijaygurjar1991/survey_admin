@@ -151,13 +151,12 @@
                         <div class="tab-pane" id="autocode" role="tabpanel" aria-labelledby="autocode-tab">
                             <h5 ngClass="mb-4">Autocode</h5>
                             <div ngClass="mb-3 row">
-                                <h6 class="mb-3">Autocode
-                                </h6>
+                                
                                 <div class="mb-3">
                                     <select class="form-select" aria-label="Default select example"
                                         [(ngModel)]="selectedAutoCodeOption">
-                                        <option *ngFor="let option of surveylist" [value]="option.surveyId">{{
-                                            option.name }}</option>
+                                        <option *ngFor="let option of surveylist" [value]="option.surveyId"> {{
+                                            option.name }} ({{option.surveyId}})</option>
                                     </select>
                                 </div>
                                 <div class="row">

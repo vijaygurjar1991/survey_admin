@@ -9,6 +9,7 @@ export class UtilsService {
 
   private userId:any;
   private role:any;
+  private centerId:any;
   
 
   constructor(private auth: AuthService) { 
@@ -16,6 +17,7 @@ export class UtilsService {
       next: (user: User) => {
         this.userId = user.userId;
         this.role = user.role;
+        this.centerId = user.CenterId;
       }
     });
   }
@@ -26,5 +28,9 @@ export class UtilsService {
 
   getRole() {
     return this.role;
+  }
+
+  getCenterId(){
+    return this.centerId;
   }
 }
