@@ -11,7 +11,8 @@
                         <label for="surveyname" class="form-label">Enter Your Question</label>
                         <div class="input-group">
                             <input type="text" class="form-control" [ngModel]="questionText"
-                                (ngModelChange)="questionText = $event" id="questionText" name="questionText" readonly/>
+                                (ngModelChange)="questionText = $event" id="questionText" name="questionText"
+                                readonly />
                         </div>
                     </div>
                     <div class="mb-4">
@@ -21,24 +22,25 @@
                         </div>
                         <div class="select-values" *ngIf="questions && questions.length > 0">
                             <ul>
-                                <li *ngFor="let option of questions[0]?.options" 
-                                    [class.active]="option.selected" 
+                                <li *ngFor="let option of questions[0]?.options" [class.active]="option.selected"
                                     (click)="selectOption(option)">
-                                  <button>
-                                    <figure>
-                                      <img *ngIf="option.image" [src]="'../../../../assets/images/Images/' + option.image" [alt]="option.option" width="67" height="90" />
-                                    </figure>
-                                    <figcaption>
-                                      <h5 [ngClass]="{'active': option.selected}">{{ option.option }}</h5>
-                                    </figcaption>
-                                  </button>
+                                    <button>
+                                        <figure>
+                                            <img *ngIf="option.image"
+                                                [src]="baseUrl+'/assets/images/Images/' + option.image"
+                                                [alt]="option.option" width="67" height="90" />
+                                        </figure>
+                                        <figcaption>
+                                            <h5 [ngClass]="{'active': option.selected}">{{ option.option }}</h5>
+                                        </figcaption>
+                                    </button>
                                 </li>
-                              </ul>
-                              
-                          </div>
-                          
-                          
-                                               
+                            </ul>
+
+                        </div>
+
+
+
                     </div>
                 </form>
             </div>
