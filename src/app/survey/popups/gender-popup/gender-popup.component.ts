@@ -8,6 +8,7 @@ import { Option } from 'src/app/models/option';
 import Swal from 'sweetalert2';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CryptoService } from 'src/app/service/crypto.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-gender-popup',
@@ -25,7 +26,9 @@ export class GenderPopupComponent {
   groups: any[] = [];
   surveyId = 0;
   questionText: string = '';
-  constructor(private surveyservice: SurveyService, private route: ActivatedRoute, private crypto: CryptoService,private router: Router) {
+  baseUrl = '';
+  constructor(private surveyservice: SurveyService, private route: ActivatedRoute, private crypto: CryptoService, private router: Router) {
+    this.baseUrl = environment.baseURL;
     this.route.paramMap.subscribe(params => {
       let _surveyId = params.get('param1');
       console.log("param1 Inside Gender Question", params.get('param1'))
@@ -78,7 +81,7 @@ export class GenderPopupComponent {
 
         if (this.questions && this.questions.length > 0) {
           console.log('Value of questionText 1:', this.questions[0].question);
-          this.questionText=this.questions[0].question;
+          this.questionText = this.questions[0].question;
           // Set other properties here if needed
         }
       },
@@ -97,13 +100,13 @@ export class GenderPopupComponent {
     if (this.questions && this.questions.length > 0) {
       const options = this.questions[0]?.options;
       const allSelected = options.every(option => option.selected);
-  
+
       for (const option of options) {
         option.selected = !allSelected;
       }
     }
   }
-  
+
   intializeDefaultValue() {
     console.log("Inside IntializeDefaultValue")
     this.question.questionTypeId = 7;
@@ -130,7 +133,7 @@ export class GenderPopupComponent {
       option.createdDate = currentDateTime;
       option.modifiedDate = currentDateTime;
     });
-    this.question.genericTypeId=this.typeid
+    this.question.genericTypeId = this.typeid
     this.surveyservice.CreateGeneralQuestion(this.question).subscribe({
       next: (resp: any) => {
         Swal.fire('', 'Question Generated Successfully.', 'success').then((result) => {
@@ -139,7 +142,7 @@ export class GenderPopupComponent {
           }
         });
 
-        
+
       },
       error: (err: any) => {
         Swal.fire('', err.error, 'error');

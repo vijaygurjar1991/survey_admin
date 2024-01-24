@@ -1751,7 +1751,7 @@ label {
     padding-top: 2px;padding-bottom: 2px;min-height: 0px;
 }
 .mat-mdc-form-field-subscript-wrapper{display: none;}
-.ques-header mat-form-field.mat-mdc-form-field {width: 60%;}
+.ques-header mat-form-field.mat-mdc-form-field {width:150px;}
 .ques-header .mdc-text-field--filled:not(.mdc-text-field--disabled){background-color: #f6f7fbb3 !important;}
  .mat-mdc-option .mdc-list-item__primary-text{font-size: 14px !important;}
 .mat-mdc-option{padding-left: 6px !important;padding-right: 6px !important;}
@@ -1788,3 +1788,5 @@ label {
 .custom-pagination .ngx-pagination{ padding: 0px; margin: 0px;}
 .text-bg-primary{ background-color: rgba(255,255,255,0.2) !important; border: 1px solid #ffffff !important; }
 .badge{ cursor: pointer;}
+
+.custom-pagination select{ width: auto; }

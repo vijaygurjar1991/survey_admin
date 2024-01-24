@@ -4,5 +4,6 @@ export const environment = {
     CryptoKey: 'SurveyAdmin@2023',
     recaptcha: {
         siteKey: '6LeBkKoUAAAAAMRcP2yPpPCpbDP-TCEYj7f0IhVd',
-    }
+    },
+    baseURL: '/admin/'
 }
