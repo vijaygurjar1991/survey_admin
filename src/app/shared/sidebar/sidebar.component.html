@@ -2,8 +2,8 @@
     <div class="logo-segment">
         <a routerLink="/">
             <div class="logo-icon">
-                <img class="img-fluid" src="./assets/images/logo/logo.png" width="272" height="77" priority>
-                <img class="img-fluid small-menu" src="./assets/images/logo/T-logo.png" width="150" height="150"
+                <img class="img-fluid" src="./assets/images/logo/logo.png" width="150" height="50" priority>
+                <img class="img-fluid small-menu" src="./assets/images/logo/T-logo.png" width="120" height="120"
                     priority>
             </div>
         </a>
@@ -151,6 +151,16 @@
                     </div>
                 </div>
             </li>
+
+            <li class="single-sidebar-menu" routerLinkActive="menu-item-active">
+                <a class="menu-link" routerLink="/pages/expert-aid">
+                    <span class="menu-icon flex-grow-0">
+                        <ng-icon name="heroUser"></ng-icon>
+                    </span>
+                    <div class="text-box flex-grow-1">Expert Aid</div>
+                </a>
+            </li>
+
             <li class="single-sidebar-menu" *ngIf="!this.isUser">
                 <div class="menulabel">Pages</div>
             </li>
