@@ -789,6 +789,7 @@ export class CreateSurveyComponent implements OnInit, AfterViewInit {
     this.surveyservice.surveyLooping(surveyId, dummySurveyId).subscribe(
       response => {
         // Handle the response here
+        Swal.fire('', 'Auto Code Created Successfully.', 'success');
         console.log('Survey Looping Response:', response);
       },
       error => {
