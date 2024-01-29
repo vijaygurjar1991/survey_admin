@@ -18,6 +18,7 @@ import Swal from 'sweetalert2';
 import { QuestionLogic } from 'src/app/models/question-logic';
 import { MatSelect, MatSelectChange } from '@angular/material/select';
 import { SecLsmPopupComponent } from '../popups/sec-lsm-popup/sec-lsm-popup.component';
+import { Question } from 'src/app/models/question';
 
 interface LogicQuestion {
   id: number;
@@ -813,17 +814,17 @@ export class CreateSurveyComponent implements OnInit, AfterViewInit {
     this.isCalulationElseShow = true
   }
   hideCalculationElse() {
-    this.isCalulationElseShow = true
+    this.isCalulationElseShow = false
   }
-  calulationPerformOperationOption: any
-  calulationPerformOperationValue:any
-  calulationThenOption:any
-  calulationThenValue:any
-  calulationElseOption:any
-  calulationElseValue:any
+  calulationPerformOperationOption: any = null
+  calulationPerformOperationValue:any = 0
+  calulationThenOption:any = null
+  calulationThenValue:any = null
+  calulationElseOption:any = null
+  calulationElseValue:any = null
 
   saveCalculation(questionId:any){
-
+      //alert(questionId)
       this.questionCalculation.surveyId = this.surveyId;
       this.questionCalculation.questionId = questionId;
       this.questionCalculation.ifId = this.calulationPerformOperationOption;
@@ -832,9 +833,9 @@ export class CreateSurveyComponent implements OnInit, AfterViewInit {
       this.questionCalculation.thanExpected = this.calulationThenValue;
       this.questionCalculation.elseId =  this.calulationElseOption
       this.questionCalculation.elseExpected = this.calulationElseValue
-      console.log("dataToSend", this.questionLogic);
+      console.log("dataToSend", this.questionCalculation);
 
-      this.surveyservice.createCalculation(this.questionLogic).subscribe(
+      this.surveyservice.createCalculation(this.questionCalculation).subscribe(
         response => {
           console.log('Response from server:', response);
           Swal.fire('', 'Calculation Created Successfully.', 'success');
@@ -844,5 +845,22 @@ export class CreateSurveyComponent implements OnInit, AfterViewInit {
           Swal.fire('', error, 'error');
         }
       );
+  }
+  logicQuestionListForCalculation:any
+  pipeQuestionList: any
+  getLogicQuestionListForCalculation(questionId: any,sort:number) {
+    this.logicQuestionListForCalculation = '';
+    const dataToSend = {
+      surveyId: this.surveyId,
+      surveyStatus: questionId
+    };
+    this.surveyservice.getLogicQuestionList(dataToSend).subscribe((response: responseDTO) => {
+      console.log("logicQuestionListForCalculation", response);
+      console.log("Question Sort Value", sort);
+      this.pipeQuestionList = response
+      this.logicQuestionListForCalculation = response.filter((item: Question) => item.sort > sort);
+
+      console.log("Filtered logicQuestionList", this.logicQuestionList);
+    });
   }
 }
