@@ -19,6 +19,7 @@ import { QuestionLogic } from 'src/app/models/question-logic';
 import { MatSelect, MatSelectChange } from '@angular/material/select';
 import { SecLsmPopupComponent } from '../popups/sec-lsm-popup/sec-lsm-popup.component';
 import { Question } from 'src/app/models/question';
+import { QuestionItem } from 'src/app/models/question-items';
 
 interface LogicQuestion {
   id: number;
@@ -862,5 +863,26 @@ export class CreateSurveyComponent implements OnInit, AfterViewInit {
 
       console.log("Filtered logicQuestionList", this.logicQuestionList);
     });
+  }
+  questionListBranching: QuestionItem[] = [];
+  getQuestionListBranching(questionId: number): void {
+    this.surveyservice.getQuestionListBranching(questionId, this.surveyId).subscribe(
+      (response) => {
+        if (response && response.length > 0) {
+          this.questionListBranching=response
+        }
+      },
+      (error) => {
+        // Handle errors
+        console.error(error);
+      }
+    );
+  }
+  isBranchingElseShow: boolean = false
+  showBranchingElse() {
+    this.isBranchingElseShow = true
+  }
+  hideBranchingElse() {
+    this.isBranchingElseShow = false
   }
 }

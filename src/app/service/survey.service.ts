@@ -244,4 +244,12 @@ export class SurveyService {
     const url = `${this.apiUrl}api/admin/${this.userId}/GeneralQuestion/CreateLogicsOnAgeCalculation`;
     return this.http.post(url, data, { responseType: 'text' });
   }
+  getQuestionListBranching(qid: number, sid: number): Observable<any> {
+    const params = {
+      quesId: qid.toString(),
+      surveyID: sid.toString()
+    };
+    const url = `${this.apiUrl}api/admin/${this.userId}/GeneralQuestion/GetList`;
+    return this.http.get<any>(url, { params });
+  }
 }
