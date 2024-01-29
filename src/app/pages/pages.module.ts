@@ -10,12 +10,14 @@ import { heroHome } from '@ng-icons/heroicons/outline';
 import { NgIconsModule, provideNgIconsConfig } from '@ng-icons/core';
 import { PrivacyComponent } from './privacy/privacy.component';
 import { TermsConditionComponent } from './terms-condition/terms-condition.component';
+import { ExpertAidComponent } from './expert-aid/expert-aid.component';
 
 @NgModule({
   declarations: [
     AboutComponent,
     PrivacyComponent,
-    TermsConditionComponent
+    TermsConditionComponent,
+    ExpertAidComponent
   ],
   imports: [
     CommonModule,
