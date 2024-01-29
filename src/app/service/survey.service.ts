@@ -235,4 +235,13 @@ export class SurveyService {
     const url = `${this.apiUrl}api/admin/${this.userId}/GeneralQuestion/SurveyLooping?surveyId=${surveyId}&dummySurveyId=${dummySurveyId}`;
     return this.http.post(url, {});
   }
+  getAgeOptionsLogicValues() {
+    return this.http
+      .get<responseDTO>(`${this.apiUrl}api/admin/${this.userId}/Logics/GetAgeOperationValue`)
+      .pipe(map((result) => result as responseDTO));
+  }
+  createCalculation(data: any): Observable<any> {
+    const url = `${this.apiUrl}api/admin/${this.userId}/GeneralQuestion/CreateLogicsOnAgeCalculation`;
+    return this.http.post(url, data, { responseType: 'text' });
+  }
 }

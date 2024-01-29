@@ -75,7 +75,7 @@ export class CreateSurveyComponent implements OnInit, AfterViewInit {
   @ViewChild('thanIdSelect') thanIdSelect: ElementRef;
   @ViewChild('thanExpectedSelect') thanExpectedSelect: ElementRef;
   @ViewChild('SecLsmModal', { static: true }) secLsmModal!: ModalDirective;
-  
+
   role: string;
   userId: number;
   name: string;
@@ -97,6 +97,7 @@ export class CreateSurveyComponent implements OnInit, AfterViewInit {
   selectedValue: any;
   defaultSelectedValue: any = null;
   questionLogic: QuestionLogic = new QuestionLogic();
+  questionCalculation: QuestionLogic = new QuestionLogic();
   pageSize: number = 5;
   pageNumber: number = 1
   countryId: any
@@ -104,7 +105,7 @@ export class CreateSurveyComponent implements OnInit, AfterViewInit {
   country: { id: string, name: string }[] = [];
   logicEntriesPerQuestion: any[] = [];
   currentPage: number = 1
-  
+
   constructor(
     private visibilityService: DataService,
     private modalService: NgbModal,
@@ -172,6 +173,7 @@ export class CreateSurveyComponent implements OnInit, AfterViewInit {
     this.defaultSelectedValue = null;
     this.getCountries();
     this.defaultRandomValueEnter();
+    this.getAgeOptionsLogicValues();
   }
   ngAfterViewInit() {
     // Set the default value after the view initialization
@@ -254,7 +256,7 @@ export class CreateSurveyComponent implements OnInit, AfterViewInit {
       this.flsmModal.show();
     } else if (type === "SECLSM") {
       this.secLsmModal.show();
-    } 
+    }
 
   }
   openFullscreen(content: any) {
@@ -498,7 +500,7 @@ export class CreateSurveyComponent implements OnInit, AfterViewInit {
         console.error('Error fetching logic questions', error);
       }
     );
-    
+
   }
 
   onSelectChange(event: MatSelectChange, questionSortValue: any, questionId: number) {
@@ -701,7 +703,7 @@ export class CreateSurveyComponent implements OnInit, AfterViewInit {
   saveRandomization(): void {
     console.log(this.randormizeEntries);
     console.log(this.isRandomizationChecked)
-  
+
     if (this.isRandomizationChecked) {
       const selectedOptions = this.randormizeEntries
         .map(entry => entry.selectedOption || 0)
@@ -710,7 +712,7 @@ export class CreateSurveyComponent implements OnInit, AfterViewInit {
       if (selectedOptions.length > 0) {
         const startId = Math.min(...selectedOptions);
         const endId = Math.max(...selectedOptions);
-  
+
         const filteredQuestions = this.logicQuestionList.filter(question => question.id >= startId && question.id <= endId);
 
         const formattedData = filteredQuestions.map(question => {
@@ -720,7 +722,7 @@ export class CreateSurveyComponent implements OnInit, AfterViewInit {
             isRandomize: true,
           };
         });
-  
+
         if (formattedData.length > 0) {
           // Call the service to post the formatted data
           this.surveyservice.postRandomizedQuestions(formattedData).subscribe(
@@ -753,13 +755,13 @@ export class CreateSurveyComponent implements OnInit, AfterViewInit {
     userName: string,
     createdDate: any
   }[] = [];
-  
-  selectedAutoCodeOption: number=0;
-  
+
+  selectedAutoCodeOption: number = 0;
+
   getAllSurveyList() {
     this.surveyservice.GetSurveyList().subscribe((data: any) => {
       const surveyType: any[] = data.surveyType;
-  
+
       // Adding a default option
       const defaultOption = {
         surveyId: 0,
@@ -769,7 +771,7 @@ export class CreateSurveyComponent implements OnInit, AfterViewInit {
         userName: '',
         createdDate: null
       };
-  
+
       this.surveylist = [defaultOption, ...surveyType.map(item => ({
         surveyId: item.surveyId,
         name: item.name,
@@ -778,11 +780,11 @@ export class CreateSurveyComponent implements OnInit, AfterViewInit {
         userName: item.userName,
         createdDate: new Date(item.createdDate)
       }))];
-  
+
       console.log("surveyData In Header", this.surveylist);
     });
   }
-  saveAutoCode():void{
+  saveAutoCode(): void {
     const surveyId = this.surveyId;
     const dummySurveyId = this.selectedAutoCodeOption;
 
@@ -798,4 +800,49 @@ export class CreateSurveyComponent implements OnInit, AfterViewInit {
       }
     );
   }
+  ageOptionLogicValuesList: any
+  getAgeOptionsLogicValues() {
+    this.surveyservice.getAgeOptionsLogicValues().subscribe((response: { [x: string]: any; }) => {
+      var result = Object.keys(response).map(e => response[e]);
+      console.log("Age OptionLogicValues", response)
+      this.ageOptionLogicValuesList = response
+    });
   }
+  isCalulationElseShow: boolean = false
+  showCalculationElse() {
+    this.isCalulationElseShow = true
+  }
+  hideCalculationElse() {
+    this.isCalulationElseShow = true
+  }
+  calulationPerformOperationOption: any
+  calulationPerformOperationValue:any
+  calulationThenOption:any
+  calulationThenValue:any
+  calulationElseOption:any
+  calulationElseValue:any
+
+  saveCalculation(questionId:any){
+
+      this.questionCalculation.surveyId = this.surveyId;
+      this.questionCalculation.questionId = questionId;
+      this.questionCalculation.ifId = this.calulationPerformOperationOption;
+      this.questionCalculation.ifExpected = this.calulationPerformOperationValue;
+      this.questionCalculation.thanId = this.calulationThenOption;
+      this.questionCalculation.thanExpected = this.calulationThenValue;
+      this.questionCalculation.elseId =  this.calulationElseOption
+      this.questionCalculation.elseExpected = this.calulationElseValue
+      console.log("dataToSend", this.questionLogic);
+
+      this.surveyservice.createCalculation(this.questionLogic).subscribe(
+        response => {
+          console.log('Response from server:', response);
+          Swal.fire('', 'Calculation Created Successfully.', 'success');
+        },
+        error => {
+          console.error('Error occurred while sending POST request:', error);
+          Swal.fire('', error, 'error');
+        }
+      );
+  }
+}

@@ -403,16 +403,16 @@
                                                             <div class="col-md-3">
                                                                 <div>Perform Operation</div>
                                                             </div>
-                                                            <div class="col-md-3">
-                                                                <!-- Use unique template reference variables by appending the index -->
-                                                                <select class="form-select">
-                                                                    <option>one</option>
+                                                            <div class="col-md-4">
+                                                                <select class="form-select"  [(ngModel)]="calulationPerformOperationOption" [ngModelOptions]="{standalone: true}">
+                                                                    <option *ngFor="let item of ageOptionLogicValuesList;let i=index;"
+                                                                        value="{{item.id}}">{{item.name}}</option>
                                                                 </select>
                                                             </div>
+                                                           
                                                             <div class="col-md-3">
-                                                                <!-- Use unique template reference variables by appending the index -->
                                                                 <input class="form-control" type="number"
-                                                                    placeholder="Value">
+                                                                    placeholder="Value"  [(ngModel)]="calulationPerformOperationValue" [ngModelOptions]="{standalone: true}">
                                                             </div>
                                                         </div>
                                                     </div>
@@ -423,27 +423,60 @@
                                                                 <div>Then</div>
                                                             </div>
                                                             <div class="col-md-3">
+                                                                <select class="form-select" [(ngModel)]="calulationThenOption" [ngModelOptions]="{standalone: true}">
+                                                                    <option
+                                                                        *ngFor="let item of logicThensList;let j=index;"
+                                                                        [value]="item.id">{{item.name}}</option>
+                                                                </select>
+                                                            </div>
+                                                            <div class="col-md-3">
+                                                                <select class="form-select" [(ngModel)]="calulationThenValue" [ngModelOptions]="{standalone: true}">
+                                                                    <option value="null">Select Question
+                                                                    </option>
+                                                                    <option
+                                                                        *ngFor="let item of logicQuestionList;let j=index;"
+                                                                        [value]="item.id">{{item.item}}</option>
+                                                                </select>
+                                                            </div>
+                                                            <div class="col-md-3 checking">
+                                                                <button *ngIf="!isCalulationElseShow" type="button"
+                                                                    class="btn btn-outline-primary btn-sm" (click)="showCalculationElse()">Else</button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div ngClass="mb-4" *ngIf="isCalulationElseShow">
+                                                        <div class="row g-2 align-items-center">
+                                                            <div class="col-md-3">
+                                                                <div>Else</div>
+                                                            </div>
+                                                            <div class="col-md-3">
                                                                 <!-- Use unique template reference variables by appending the index -->
-                                                                <select class="form-select">
-                                                                    <option>one</option>
+                                                                <select class="form-select" [(ngModel)]="calulationElseOption" [ngModelOptions]="{standalone: true}">
+                                                                    <option
+                                                                        *ngFor="let item of logicThensList;let j=index;"
+                                                                        [value]="item.id">{{item.name}}</option>
                                                                 </select>
                                                             </div>
                                                             <div class="col-md-3">
                                                                 <!-- Use unique template reference variables by appending the index -->
-                                                                <select class="form-select">
-                                                                    <option>one</option>
+                                                                <select class="form-select" [(ngModel)]="calulationThenValue" [ngModelOptions]="{standalone: true}">
+                                                                    <option value="null">Select Question
+                                                                    </option>
+                                                                    <option
+                                                                        *ngFor="let item of logicQuestionList;let j=index;"
+                                                                        [value]="item.id">{{item.item}}</option>
                                                                 </select>
                                                             </div>
                                                             <div class="col-md-3 checking">
                                                                 <button type="button"
-                                                                    class="btn btn-outline-primary btn-sm">Else</button>
+                                                                    class="btn btn-outline-primary btn-sm" (click)="hideCalculationElse()">Remove</button>
                                                             </div>
                                                         </div>
                                                     </div>
 
                                                     <div class="row">
                                                         <div class="col-12 text-end d-flex justify-content-end">
-                                                            <button type="button" class="btn btn-primary">Save</button>
+                                                            <button type="button" class="btn btn-primary" (click)="saveCalculation(question?.id)">Save</button>
                                                         </div>
                                                     </div>
 
