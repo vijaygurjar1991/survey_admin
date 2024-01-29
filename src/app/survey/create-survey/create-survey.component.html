@@ -259,7 +259,7 @@
                                                 <li class="nav-item" role="presentation">
                                                     <button class="nav-link" id="calculator-tab" data-bs-toggle="tab"
                                                         data-bs-target="#calculator" role="tab"
-                                                        aria-selected="false">Calculations</button>
+                                                        aria-selected="false" (click)="getLogicQuestionListForCalculation(question?.id,question?.sort)">Calculations</button>
                                                 </li>
                                             </ul>
                                             <!-- Logic Question -->
@@ -405,6 +405,8 @@
                                                             </div>
                                                             <div class="col-md-4">
                                                                 <select class="form-select"  [(ngModel)]="calulationPerformOperationOption" [ngModelOptions]="{standalone: true}">
+                                                                    <option value="null">Select Option
+                                                                    </option>
                                                                     <option *ngFor="let item of ageOptionLogicValuesList;let i=index;"
                                                                         value="{{item.id}}">{{item.name}}</option>
                                                                 </select>
@@ -424,6 +426,8 @@
                                                             </div>
                                                             <div class="col-md-3">
                                                                 <select class="form-select" [(ngModel)]="calulationThenOption" [ngModelOptions]="{standalone: true}">
+                                                                    <option value="null">Select Option
+                                                                    </option>
                                                                     <option
                                                                         *ngFor="let item of logicThensList;let j=index;"
                                                                         [value]="item.id">{{item.name}}</option>
@@ -434,7 +438,7 @@
                                                                     <option value="null">Select Question
                                                                     </option>
                                                                     <option
-                                                                        *ngFor="let item of logicQuestionList;let j=index;"
+                                                                        *ngFor="let item of logicQuestionListForCalculation;let j=index;"
                                                                         [value]="item.id">{{item.item}}</option>
                                                                 </select>
                                                             </div>
@@ -452,6 +456,8 @@
                                                             <div class="col-md-3">
                                                                 <!-- Use unique template reference variables by appending the index -->
                                                                 <select class="form-select" [(ngModel)]="calulationElseOption" [ngModelOptions]="{standalone: true}">
+                                                                    <option value="null">Select Option
+                                                                    </option>
                                                                     <option
                                                                         *ngFor="let item of logicThensList;let j=index;"
                                                                         [value]="item.id">{{item.name}}</option>
@@ -459,11 +465,11 @@
                                                             </div>
                                                             <div class="col-md-3">
                                                                 <!-- Use unique template reference variables by appending the index -->
-                                                                <select class="form-select" [(ngModel)]="calulationThenValue" [ngModelOptions]="{standalone: true}">
+                                                                <select class="form-select" [(ngModel)]="calulationElseValue" [ngModelOptions]="{standalone: true}">
                                                                     <option value="null">Select Question
                                                                     </option>
                                                                     <option
-                                                                        *ngFor="let item of logicQuestionList;let j=index;"
+                                                                        *ngFor="let item of logicQuestionListForCalculation;let j=index;"
                                                                         [value]="item.id">{{item.item}}</option>
                                                                 </select>
                                                             </div>
