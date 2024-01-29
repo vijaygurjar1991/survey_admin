@@ -23,6 +23,7 @@ export class SecLsmPopupComponent {
   questions: Question[] = [];
   questionText: string = '';
   surveyId = 0;
+  newOptionValue: string = '';
   constructor(private surveyservice: SurveyService, private route: ActivatedRoute, private crypto: CryptoService, private router: Router) {
 
     this.route.paramMap.subscribe(params => {
@@ -47,7 +48,7 @@ export class SecLsmPopupComponent {
 
   role: string;
   typeid = 3;
-  questionTypeId = 8;
+  questionTypeId = 0;
 
 
   nccs: {
@@ -62,7 +63,7 @@ export class SecLsmPopupComponent {
     const question = this.questions[questionIndex];
     if (question) {
       const areAllSelected = question.options.every(option => option.selected);
-  
+
       question.options.forEach(option => {
         option.selected = !areAllSelected;
       });
@@ -77,7 +78,7 @@ export class SecLsmPopupComponent {
       question.id = item.questionId;
       question.question = item.question;
       question.image = item.image || '';
-    
+
       question.options = item.options.map((optionItem: { id: number, option: string, image: string }) => {
         const option = new Option();
         option.id = optionItem.id;
@@ -85,10 +86,10 @@ export class SecLsmPopupComponent {
         option.image = optionItem.image || '';
         return option;
       });
-    
+
       return question;
     });
-    
+
     if (this.questions && this.questions.length > 0) {
       this.questionText = this.questions[0].question;
     }
@@ -109,7 +110,7 @@ export class SecLsmPopupComponent {
       currentQuestion.surveyTypeId = this.surveyId
       currentQuestion.createdDate = this.getCurrentDateTime()
       currentQuestion.modifiedDate = this.getCurrentDateTime();
-      currentQuestion.genericTypeId=this.typeid
+      currentQuestion.genericTypeId = this.typeid
 
       // Filter selected options for the current question
       currentQuestion.options = currentQuestion.options.filter(option => option.selected);
@@ -120,20 +121,20 @@ export class SecLsmPopupComponent {
 
       const selectedOptions = currentQuestion.options.filter(option => option.selected);
 
-    if (selectedOptions.length === 0) {
-      // No options selected for this question, skip API call
-      successfulAPICalls++; // Increment the counter as this operation counts as a successful API call for the progress check
+      if (selectedOptions.length === 0) {
+        // No options selected for this question, skip API call
+        successfulAPICalls++; // Increment the counter as this operation counts as a successful API call for the progress check
 
-      if (successfulAPICalls === this.questions.length) {
-        Swal.fire('', 'Question Generated Successfully.', 'success').then((result) => {
-          if (result.isConfirmed) {
-            window.location.reload();
-          }
-        });
+        if (successfulAPICalls === this.questions.length) {
+          Swal.fire('', 'Question Generated Successfully.', 'success').then((result) => {
+            if (result.isConfirmed) {
+              window.location.reload();
+            }
+          });
+        }
+
+        continue; // Skip this question and move to the next one
       }
-
-      continue; // Skip this question and move to the next one
-    }
 
       // Make an API call for each question with its selected options
       this.surveyservice.CreateGeneralQuestion(currentQuestion).subscribe({
@@ -146,7 +147,7 @@ export class SecLsmPopupComponent {
           if (successfulAPICalls === this.questions.length) {
             Swal.fire('', 'Question Generated Successfully.', 'success').then((result) => {
               if (result.isConfirmed) {
-                window.location.reload();
+                //window.location.reload();
               }
             });
           }
@@ -160,5 +161,61 @@ export class SecLsmPopupComponent {
     }
     //window.location.reload()
 
+  }
+  addQuestion() {
+    console.log(this.questions)
+    if (this.questions.length > 0) {
+      const previousQuestion = this.questions[this.questions.length - 1];
+      console.log("previousQuestion",previousQuestion)
+      // Check if the previous question has the shouldAddOption flag set
+      if (previousQuestion.shouldAddOption && this.newOptionValue.trim() !== '') {
+        const newOption = new Option();
+        newOption.id = previousQuestion.options.length + 1;
+        newOption.option = this.newOptionValue;
+        newOption.selected = false;
+
+        previousQuestion.options.push(newOption);
+
+        // Clear the global newOptionValue after adding an option
+        this.newOptionValue = '';
+      }
+    }
+
+    const newQuestion = new Question();
+    newQuestion.id = this.questions.length + 1;
+    newQuestion.question = '';
+    //newQuestion.options = [];
+    newQuestion.shouldAddOption = true;  // Set to true for the newly added question
+
+    const defaultOption = new Option();
+    defaultOption.id = 1;
+    defaultOption.option = ''; // Set a default option text if needed
+    defaultOption.selected = false;
+
+    newQuestion.options = [defaultOption];
+
+    this.questions.push(newQuestion);
+    console.log(this.questions)
+  }
+  addOption(questionIndex: number) {
+    const question = this.questions[questionIndex];
+    console.log(question)
+    if (question && question.shouldAddOption) {
+      const newOption = new Option();
+      newOption.id = question.options.length + 1;
+      newOption.option = this.newOptionValue; // Assign the entered value to newOption.option
+      newOption.selected = false;
+
+      question.options.push(newOption);
+
+      const previousOptionIndex = question.options.length - 2; // Index of the previously added option
+      if (previousOptionIndex >= 0) {
+        question.options[previousOptionIndex].option = this.newOptionValue;
+      }
+      this.newOptionValue = ''; // Clear the global newOptionValue after adding an option
+    }
+  }
+  updateNewOptionValue(event: any) {
+    this.newOptionValue = (event.target as HTMLInputElement)?.value;
   }
 }

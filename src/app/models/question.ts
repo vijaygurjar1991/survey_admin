@@ -21,4 +21,6 @@ export class Question {
     public isLogic: boolean = false;
     public options: Option[] = [];
     public logics: Logic[] = []
+    public shouldAddOption: boolean=false
+    
 }

@@ -95,8 +95,18 @@ export class AuthService {
     const url=`${this.apiUrl}RegisterOrganization`
     return this.http.post(url, data);
   }
-  verifyEmail(organizationId: number, otp: string,token: string): Observable<any> {
-    const url = `${this.apiUrl}EmailVerify?oId=${organizationId}&otp=${otp}`;
-    return this.http.get(url);
+  verifyEmail(dataToSend:any): Observable<any> {
+    const url = `${this.apiUrl}EmailVerify`;
+    return this.http.post(url,dataToSend,{ responseType: 'text' }).pipe(
+      map((response) => {
+        //debugger;
+        if (response) {
+          localStorage.setItem('authToken', response);
+          this.setUserDetails();
+        }
+        return response;
+      })
+    );
   }
+  
 }

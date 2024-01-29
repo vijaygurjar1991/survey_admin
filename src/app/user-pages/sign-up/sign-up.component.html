@@ -92,13 +92,13 @@
                                 </div>
                             </div>
                             <div class="col-sm-12 mb-2">
-                                <re-captcha id="recaptcha" name="recaptcha" formControlName="captchertoken"
-                                    [(ngModel)]="token" required
+                                <re-captcha id="recaptcha" name="recaptcha" formControlName="captchertoken" required
                                     [class.is-invalid]="verificationForm.get('captchertoken')?.invalid && (verificationForm.get('captchertoken')?.dirty || verificationForm.get('captchertoken')?.touched)"
                                     [ngModelOptions]="{ standalone: true }"></re-captcha>
                                 <div *ngIf="verificationForm.get('captchertoken')?.invalid && (verificationForm.get('captchertoken')?.dirty || verificationForm.get('captchertoken')?.touched)"
                                     class="invalid-feedback">
-                                    <div *ngIf="verificationForm.get('captchertoken')?.errors?.['required']">This field is
+                                    <div *ngIf="verificationForm.get('captchertoken')?.errors?.['required']">This field
+                                        is
                                         required.</div>
                                 </div>
 

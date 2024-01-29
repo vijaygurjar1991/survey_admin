@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { OwlOptions } from 'ngx-owl-carousel-o';
 import { AuthService } from 'src/app/service/auth.service';
 import { DataService } from 'src/app/service/data.service';
@@ -17,7 +17,7 @@ export class SignUpComponent {
   themeService: any;
   signupForm: FormGroup;
   verificationForm: FormGroup;
-  constructor(private visibilityService: DataService,private fb: FormBuilder,private authService: AuthService,private router: Router) {
+  constructor(private visibilityService: DataService,private fb: FormBuilder,private authService: AuthService,private router: Router,private route: ActivatedRoute) {
     visibilityService.articleVisible.next(false);
   }
   organizationId:any
@@ -66,6 +66,7 @@ export class SignUpComponent {
     }, { validators: this.passwordMatchValidator });
     this.verificationForm = this.fb.group({
       email_otp: ['', Validators.required],
+      captchertoken: ['', Validators.required],
     });
   }
 
@@ -123,13 +124,20 @@ verifyEmail() {
   // Call the email verification service to make the GET request
   const otp = this.verificationForm.get('email_otp')?.value;
   const captchertoken =this.verificationForm.get('captchertoken')?.value
-  this.authService.verifyEmail(this.organizationId, otp,captchertoken).subscribe(
+  console.log("captchertoken : ",captchertoken)
+  const returnUrl = this.route.snapshot.queryParamMap.get('returnUrl') || '/dashboard';
+  const dataToSend ={
+    oId : this.organizationId,
+    otp : otp,
+    captcha : captchertoken
+  }
+  this.authService.verifyEmail(dataToSend).subscribe(
     (response) => {
       console.log('Email verification successful:', response);
-      if(response==true)
-        this.router.navigate(['/login']);
-      else
-      Swal.fire('Error', 'Please enter correct OTP.', 'error');
+      //if(response.startWith=='e')
+        this.router.navigate([returnUrl]);
+      //
+      //Swal.fire('Error', 'Please enter correct OTP.', 'error');
       // Handle successful email verification, display a success message, etc.
     },
     (error) => {
