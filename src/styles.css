@@ -1646,6 +1646,7 @@ label {
 .nccs-option ul li {
     flex: 0 50%;
     max-width: 50%;
+    display: flex;
 }
 
 .nccs-option .form-check-input[type=checkbox] {

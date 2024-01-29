@@ -13,7 +13,7 @@
                             <div class="input-group">
                                 <input type="text" class="form-control" [ngModel]="question.question"
                                     (ngModelChange)="question.question = $event" id="{{ 'question_' + i }}"
-                                    name="{{ 'question_' + i }}"  />
+                                    name="{{ 'question_' + i }}" />
                             </div>
                         </div>
 
@@ -39,33 +39,40 @@
                                       </label>
                                     </li>
                                   </ul> -->
-                                  <ul>
-                                    <li *ngFor="let option of question.options; let j = index" class="mb-2">
-                                      <input class="form-check-input me-2" type="checkbox"
-                                        id="{{ 'checkbox_' + question.id + '_' + option.id }}"
-                                        [(ngModel)]="option.selected" [ngModelOptions]="{ standalone: true }" aria-label="..." />
-                          
-                                      <!-- Replace static text with input field for option value -->
-                                      <input *ngIf="i === questions.length - 1 && question.shouldAddOption && j === question.options.length - 1"
-    type="text" class="form-control" placeholder="Enter Option" (input)="updateNewOptionValue($event)" />
-                                    
-                                      <!-- Display the entered option value -->
-                                      <label *ngIf="!(i === questions.length - 1 && question.shouldAddOption && j === question.options.length - 1)"
-                                        class="form-check-label" for="{{ 'checkbox_' + question.id + '_' + option.id }}">
-                                        {{ option.option }}
-                                      </label>
+                                <ul>
+                                    <li *ngFor="let option of question.options; let j = index"
+                                        class="mb-2 input-group-sm align-items-center">
+                                        <input class="form-check-input me-2" type="checkbox"
+                                            id="{{ 'checkbox_' + question.id + '_' + option.id }}"
+                                            [(ngModel)]="option.selected" [ngModelOptions]="{ standalone: true }"
+                                            aria-label="..." />
+
+                                        <!-- Replace static text with input field for option value -->
+                                        <input
+                                            *ngIf="i === questions.length - 1 && question.shouldAddOption && j === question.options.length - 1"
+                                            type="text" class="form-control" placeholder="Enter Your Option"
+                                            (input)="updateNewOptionValue($event)" />
+
+                                        <!-- Display the entered option value -->
+                                        <label
+                                            *ngIf="!(i === questions.length - 1 && question.shouldAddOption && j === question.options.length - 1)"
+                                            class="form-check-label"
+                                            for="{{ 'checkbox_' + question.id + '_' + option.id }}">
+                                            {{ option.option }}
+                                        </label>
                                     </li>
-                                  </ul>
+                                </ul>
                             </div>
                         </div>
-                        <div class="mb-4">
+                        <div class="mb-4 text-end">
                             <!-- Display "Add Option" button only for the last question and if shouldAddOption is true -->
                             <button *ngIf="i === questions.length - 1 && question.shouldAddOption" type="button"
-                                class="btn btn-success me-2" (click)="addOption(i)">Add Option</button>
+                                class="btn btn-outline-primary" (click)="addOption(i)">Add Option</button>
                         </div>
                     </div>
-                    <div class="mb-4">
-                        <button type="button" class="btn btn-success" (click)="addQuestion()">Add Question</button>
+                    <div class="border-top py-4 text-end">
+                        <button type="button" class="btn btn-outline-primary" (click)="addQuestion()">Add New
+                            Question</button>
                     </div>
                 </form>
             </div>
