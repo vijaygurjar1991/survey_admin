@@ -116,35 +116,42 @@
                         <div class="tab-pane active" id="randomaisation" role="tabpanel"
                             aria-labelledby="randomaisation-tab">
                             <h5 ngClass="mb-4">Randomization</h5>
-                            <div ngClass="mb-3 row">
-                                <h6 class="mb-3">Randamize a set of questions/screens/groups (From Question To Question)
-                                </h6>
-                                <div class="mb-3" *ngFor="let randomQuestion of randormizeEntries">
-                                    <select class="form-select" aria-label="Default select example"
-                                        [(ngModel)]="randomQuestion.selectedOption">
-                                        <option [value]="null" selected disabled>Select Question</option>
-                                        <option *ngFor="let option of logicQuestionList" [value]="option.id">{{
-                                            option.item }}</option>
+                            <div ngClass="mb-3 d-flex justify-content-between align-items-center">
+                                <h6 class="mb-0">Randamize a set of questions/screens/groups (From Question To Question)</h6>
+                                <button type="button" class="btn btn-primary btn-sm" (click)="addRandomizationSection()">Add New Randomization</button>
+                              </div>
+                              
+                              <div *ngFor="let randomization of randormizeEntries; let i = index">
+                                <div class="border rounded p-4 mb-2">
+                                  <h5>Randomization {{ i + 1 }}</h5>
+                                  <div class="d-flex gap-3">
+                                    <select class="form-select" aria-label="Default select example" [(ngModel)]="randomization.fromQuestion">
+                                      <option [value]="null" selected disabled>Select From Question</option>
+                                      <option *ngFor="let option of logicQuestionList" [value]="option.id">{{ option.item }}</option>
                                     </select>
+                              
+                                    <select class="form-select" aria-label="Default select example" [(ngModel)]="randomization.toQuestion">
+                                      <option [value]="null" selected disabled>Select To Question</option>
+                                      <option *ngFor="let option of logicQuestionList" [value]="option.id">{{ option.item }}</option>
+                                    </select>
+                              
+                                    <button type="button" class="btn btn-primary btn-sm" (click)="removeRandomizationSection(i)">Remove</button>
+                                  </div>
                                 </div>
-                                <div class=" mb-3">
-                                    <!-- <a routerLink="javascript:" class="d-flex align-items-center"
-                                        (click)="addNewRandomization()"><ng-icon name="heroPlusCircle"
-                                            ngClass="plus-circle me-3" style="width: 40px;height: 40px;"></ng-icon>
-                                        <span>Add Questions/Screens/Groups</span></a> -->
-                                </div>
-                                <div class="mb-3 ms-4 form-check checking">
-                                    <input class="form-check-input" type="checkbox" [(ngModel)]="isRandomizationChecked"
-                                        id="Randomise">
-                                    <label class="form-check-label" for="Randomise">
-                                        Randomization these question
-                                    </label>
-                                </div>
-                                <div class="row">
-                                    <div class="col-12 text-end d-flex justify-content-end">
-                                        <button type="button" class="btn btn-primary btn-sm"
-                                            (click)="saveRandomization()">Save</button>
-                                    </div>
+                              </div>
+
+
+                            <div class="mb-3 ms-4 form-check checking">
+                                <input class="form-check-input" type="checkbox" [(ngModel)]="isRandomizationChecked"
+                                    id="Randomise">
+                                <label class="form-check-label" for="Randomise">
+                                    Randomization these question
+                                </label>
+                            </div>
+                            <div class="row">
+                                <div class="col-12 text-end d-flex justify-content-end">
+                                    <button type="button" class="btn btn-primary btn-sm"
+                                        (click)="saveRandomization()">Save</button>
                                 </div>
                             </div>
                         </div>

@@ -174,7 +174,7 @@ export class CreateSurveyComponent implements OnInit, AfterViewInit {
     this.getLogicQuestionList(0)
     this.defaultSelectedValue = null;
     this.getCountries();
-    this.defaultRandomValueEnter();
+    //this.defaultRandomValueEnter();
     this.getAgeOptionsLogicValues();
   }
   ngAfterViewInit() {
@@ -697,58 +697,120 @@ export class CreateSurveyComponent implements OnInit, AfterViewInit {
     const newRandomEntry = { id: this.randormizeEntries.length + 1, selectedOption: 'null' };
     this.randormizeEntries.push(newRandomEntry);
   }
-  defaultRandomValueEnter(): void {
-    const defaultEntry1 = { id: 1, selectedOption: 'null' };
-    const defaultEntry2 = { id: 2, selectedOption: 'null' };
-    this.randormizeEntries.push(defaultEntry1, defaultEntry2);
+  // defaultRandomValueEnter(): void {
+  //   const defaultEntry1 = { id: 1, selectedOption: 'null' };
+  //   const defaultEntry2 = { id: 2, selectedOption: 'null' };
+  //   this.randormizeEntries.push(defaultEntry1, defaultEntry2);
+  // }
+  addRandomizationSection() {
+    this.randormizeEntries.push({
+      fromQuestion: null,
+      toQuestion: null,
+    });
+  }
+
+  removeRandomizationSection(index: number) {
+    this.randormizeEntries.splice(index, 1);
   }
   saveRandomization(): void {
     console.log(this.randormizeEntries);
-    console.log(this.isRandomizationChecked)
-
+    console.log(this.isRandomizationChecked);
+  
     if (this.isRandomizationChecked) {
-      const selectedOptions = this.randormizeEntries
-        .map(entry => entry.selectedOption || 0)
-        .filter(id => id !== 0); // Filter out the default value 0 if it exists
-      console.log(selectedOptions)
-      if (selectedOptions.length > 0) {
-        const startId = Math.min(...selectedOptions);
-        const endId = Math.max(...selectedOptions);
-
-        const filteredQuestions = this.logicQuestionList.filter(question => question.id >= startId && question.id <= endId);
-
-        const formattedData = filteredQuestions.map(question => {
-          return {
-            surveyId: this.surveyId,
-            quesionId: String(question.id),
-            isRandomize: true,
-          };
-        });
-
-        if (formattedData.length > 0) {
-          // Call the service to post the formatted data
-          this.surveyservice.postRandomizedQuestions(formattedData).subscribe(
-            response => {
-              // Handle the response if needed
-              console.log('POST request successful', response);
-              Swal.fire('', 'Randomization Created Successfully.', 'success');
-            },
-            error => {
-              // Handle errors
-              console.error('Error in POST request', error);
-              Swal.fire('', 'Please confirm you want to randomization these question ', 'error');
-            }
-          );
+      const formattedData = [];
+  
+      for (let i = 0; i < this.randormizeEntries.length; i++) {
+        const randomization = this.randormizeEntries[i];
+        const fromQuestionId = randomization.fromQuestion;
+        const toQuestionId = randomization.toQuestion;
+  
+        if (fromQuestionId && toQuestionId) {
+          const filteredQuestions = this.logicQuestionList.filter(question => question.id >= fromQuestionId && question.id <= toQuestionId);
+  
+          const formattedQuestions = filteredQuestions.map(question => {
+            return {
+              surveyId: this.surveyId,
+              questionId: String(question.id),
+              isRandomize: true,
+              groupNumber: i+1, // Add groupNumber based on the index of randormizeEntries
+            };
+          });
+  
+          formattedData.push(...formattedQuestions);
         } else {
-          console.warn('No entries found in the specified range.');
+          console.warn('From Question and To Question must be selected for each randomization entry.');
         }
+      }
+  
+      if (formattedData.length > 0) {
+        // Call the service to post the formatted data
+        this.surveyservice.postRandomizedQuestions(formattedData).subscribe(
+          response => {
+            // Handle the response if needed
+            console.log('POST request successful', response);
+            Swal.fire('', 'Randomization Created Successfully.', 'success');
+          },
+          error => {
+            // Handle errors
+            console.error('Error in POST request', error);
+            Swal.fire('', 'Please confirm you want to randomization these question ', 'error');
+          }
+        );
       } else {
-        console.warn('No valid selectedOption values found.');
+        console.warn('No valid range found for randomization.');
       }
     } else {
-      // Handle the case when randomization is checked
+      // Handle the case when randomization is not checked
     }
   }
+  
+  // saveRandomization(): void {
+  //   console.log(this.randormizeEntries);
+  //   console.log(this.isRandomizationChecked)
+
+  //   if (this.isRandomizationChecked) {
+  //     const selectedOptions = this.randormizeEntries
+  //       .map(entry => entry.selectedOption || 0)
+  //       .filter(id => id !== 0); // Filter out the default value 0 if it exists
+  //     console.log(selectedOptions)
+  //     if (selectedOptions.length > 0) {
+  //       const startId = Math.min(...selectedOptions);
+  //       const endId = Math.max(...selectedOptions);
+
+  //       const filteredQuestions = this.logicQuestionList.filter(question => question.id >= startId && question.id <= endId);
+
+  //       const formattedData = filteredQuestions.map(question => {
+  //         return {
+  //           surveyId: this.surveyId,
+  //           quesionId: String(question.id),
+  //           isRandomize: true,
+  //         };
+  //       });
+
+  //       if (formattedData.length > 0) {
+  //         // Call the service to post the formatted data
+  //         this.surveyservice.postRandomizedQuestions(formattedData).subscribe(
+  //           response => {
+  //             // Handle the response if needed
+  //             console.log('POST request successful', response);
+  //             Swal.fire('', 'Randomization Created Successfully.', 'success');
+  //           },
+  //           error => {
+  //             // Handle errors
+  //             console.error('Error in POST request', error);
+  //             Swal.fire('', 'Please confirm you want to randomization these question ', 'error');
+  //           }
+  //         );
+  //       } else {
+  //         console.warn('No entries found in the specified range.');
+  //       }
+  //     } else {
+  //       console.warn('No valid selectedOption values found.');
+  //     }
+  //   } else {
+  //     // Handle the case when randomization is checked
+  //   }
+  // }
   surveylist: {
     surveyId: number | null,
     name: string,
