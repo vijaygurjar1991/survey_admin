@@ -102,10 +102,9 @@
                     <ul class="nav flex-column nav-tabs" id="myTab" role="tablist">
 
                         <li class="nav-item" role="presentation">
-                            <button class="nav-link active" id="randomaisation-tab" data-bs-toggle="tab"
+                            <button (click)="getRandomization()" class="nav-link active" id="randomaisation-tab" data-bs-toggle="tab"
                                 data-bs-target="#randomaisation" role="tab" aria-selected="false">Randomization</button>
                         </li>
-
                         <li class="nav-item" role="presentation">
                             <button (click)="getAllSurveyList()" class="nav-link" id="autocode-tab" data-bs-toggle="tab"
                                 data-bs-target="#autocode" role="tab" aria-selected="false">Autocode</button>

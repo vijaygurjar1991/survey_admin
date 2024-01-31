@@ -730,7 +730,7 @@ export class CreateSurveyComponent implements OnInit, AfterViewInit {
           const formattedQuestions = filteredQuestions.map(question => {
             return {
               surveyId: this.surveyId,
-              questionId: String(question.id),
+              quesionId: (question.id),
               isRandomize: true,
               groupNumber: i+1, // Add groupNumber based on the index of randormizeEntries
             };
@@ -947,4 +947,87 @@ export class CreateSurveyComponent implements OnInit, AfterViewInit {
   hideBranchingElse() {
     this.isBranchingElseShow = false
   }
+  //getQuestionListRandomization
+  apiResponseRandomization: any[] = [];
+  groupedDataRandomization: { [key: string]: any[] } = {};
+
+  getRandomization():void{
+
+    this.surveyservice.getRandomizedQuestions(this.surveyId).subscribe(
+      (response: any[]) => {
+        // Store the API response
+        this.apiResponseRandomization = response;
+
+        // Handle the response from the API
+        this.handleApiData();
+      },
+      error => {
+        // Handle errors
+        console.error('Error in GET request', error);
+      }
+    );
+  }
+  handleApiData() {
+    // Group data by groupNumber
+    this.groupedDataRandomization = this.groupDataByGroupNumber();
+
+    // Transform data for each groupNumber
+    const transformedData = this.transformData();
+    
+    console.log('Transformed Data:', transformedData);
+    this.randormizeEntries=transformedData
+  }
+  groupDataByGroupNumber() {
+    const groupedData: { [key: string]: any[] } = {};
+
+    this.apiResponseRandomization.forEach(item => {
+      const groupNumber = item.groupNumber;
+
+      if (!groupedData[groupNumber]) {
+        groupedData[groupNumber] = [];
+      }
+
+      groupedData[groupNumber].push(item);
+    });
+
+    return groupedData;
+  }
+  transformData() {
+    const transformedData :any[]= [];
+  
+    Object.keys(this.groupedDataRandomization).forEach(groupNumber => {
+      const group = this.groupedDataRandomization[groupNumber];
+  
+      if (group && group.length > 0) {
+        const numericValues: number[] = group.map(item => {
+          if (typeof item.quesionId !== 'undefined') {
+            const value = +item.quesionId;
+            if (!isNaN(value)) {
+              return value;
+            } else {
+              console.warn(`Non-numeric value found for groupNumber ${groupNumber}:`, item.quesionId);
+            }
+          } else {
+            console.warn(`'questionId' is undefined for groupNumber ${groupNumber}`, item);
+          }
+          return NaN; // or handle this case as needed
+        }).filter(value => !isNaN(value));
+  
+        if (numericValues.length > 0) {
+          const fromQuestion = Math.min(...numericValues);
+          const toQuestion = Math.max(...numericValues);
+  
+          transformedData.push({
+            fromQuestion,
+            toQuestion,
+          });
+        } else {
+          console.warn('No valid numeric values found for groupNumber:', groupNumber);
+        }
+      }
+    });
+  
+    return transformedData;
+  }
+  
 }

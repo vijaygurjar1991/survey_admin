@@ -252,4 +252,11 @@ export class SurveyService {
     const url = `${this.apiUrl}api/admin/${this.userId}/GeneralQuestion/GetList`;
     return this.http.get<any>(url, { params });
   }
+  getRandomizedQuestions(sid: number): Observable<any> {
+    const params = {
+      sId: sid.toString()
+    };
+    const url = `${this.apiUrl}api/admin/${this.userId}/GeneralQuestion/GetQuestionRandomize`;
+    return this.http.get<any>(url, { params });
+  }
 }
