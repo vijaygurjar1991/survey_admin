@@ -176,6 +176,7 @@ export class CreateSurveyComponent implements OnInit, AfterViewInit {
     this.getCountries();
     //this.defaultRandomValueEnter();
     this.getAgeOptionsLogicValues();
+    //this.getSurveyLooping();
   }
   ngAfterViewInit() {
     // Set the default value after the view initialization
@@ -730,7 +731,7 @@ export class CreateSurveyComponent implements OnInit, AfterViewInit {
           const formattedQuestions = filteredQuestions.map(question => {
             return {
               surveyId: this.surveyId,
-              quesionId: (question.id),
+              questionId: (question.id),
               isRandomize: true,
               groupNumber: i+1, // Add groupNumber based on the index of randormizeEntries
             };
@@ -763,54 +764,6 @@ export class CreateSurveyComponent implements OnInit, AfterViewInit {
       // Handle the case when randomization is not checked
     }
   }
-  
-  // saveRandomization(): void {
-  //   console.log(this.randormizeEntries);
-  //   console.log(this.isRandomizationChecked)
-
-  //   if (this.isRandomizationChecked) {
-  //     const selectedOptions = this.randormizeEntries
-  //       .map(entry => entry.selectedOption || 0)
-  //       .filter(id => id !== 0); // Filter out the default value 0 if it exists
-  //     console.log(selectedOptions)
-  //     if (selectedOptions.length > 0) {
-  //       const startId = Math.min(...selectedOptions);
-  //       const endId = Math.max(...selectedOptions);
-
-  //       const filteredQuestions = this.logicQuestionList.filter(question => question.id >= startId && question.id <= endId);
-
-  //       const formattedData = filteredQuestions.map(question => {
-  //         return {
-  //           surveyId: this.surveyId,
-  //           quesionId: String(question.id),
-  //           isRandomize: true,
-  //         };
-  //       });
-
-  //       if (formattedData.length > 0) {
-  //         // Call the service to post the formatted data
-  //         this.surveyservice.postRandomizedQuestions(formattedData).subscribe(
-  //           response => {
-  //             // Handle the response if needed
-  //             console.log('POST request successful', response);
-  //             Swal.fire('', 'Randomization Created Successfully.', 'success');
-  //           },
-  //           error => {
-  //             // Handle errors
-  //             console.error('Error in POST request', error);
-  //             Swal.fire('', 'Please confirm you want to randomization these question ', 'error');
-  //           }
-  //         );
-  //       } else {
-  //         console.warn('No entries found in the specified range.');
-  //       }
-  //     } else {
-  //       console.warn('No valid selectedOption values found.');
-  //     }
-  //   } else {
-  //     // Handle the case when randomization is checked
-  //   }
-  // }
   surveylist: {
     surveyId: number | null,
     name: string,
@@ -823,10 +776,12 @@ export class CreateSurveyComponent implements OnInit, AfterViewInit {
   selectedAutoCodeOption: number = 0;
 
   getAllSurveyList() {
+    this.getSurveyLooping();
+    console.log("AutoCode Option",this.selectedAutoCodeOption)
     this.surveyservice.GetSurveyList().subscribe((data: any) => {
       const surveyType: any[] = data.surveyType;
 
-      // Adding a default option
+      if(this.selectedAutoCodeOption == 0){
       const defaultOption = {
         surveyId: 0,
         name: 'Select Survey',
@@ -844,7 +799,16 @@ export class CreateSurveyComponent implements OnInit, AfterViewInit {
         userName: item.userName,
         createdDate: new Date(item.createdDate)
       }))];
-
+    }else{
+      this.surveylist = [...surveyType.map(item => ({
+        surveyId: item.surveyId,
+        name: item.name,
+        status: item.status !== null ? String(item.status) : null,
+        categoryName: item.categoryName,
+        userName: item.userName,
+        createdDate: new Date(item.createdDate)
+      }))];  
+    }
       console.log("surveyData In Header", this.surveylist);
     });
   }
@@ -927,19 +891,19 @@ export class CreateSurveyComponent implements OnInit, AfterViewInit {
     });
   }
   questionListBranching: QuestionItem[] = [];
-  getQuestionListBranching(questionId: number): void {
-    this.surveyservice.getQuestionListBranching(questionId, this.surveyId).subscribe(
-      (response) => {
-        if (response && response.length > 0) {
-          this.questionListBranching=response
+    getQuestionListBranching(questionId: number): void {
+      this.surveyservice.getQuestionListBranching(questionId, this.surveyId).subscribe(
+        (response) => {
+          if (response && response.length > 0) {
+            this.questionListBranching=response
+          }
+        },
+        (error) => {
+          // Handle errors
+          console.error(error);
         }
-      },
-      (error) => {
-        // Handle errors
-        console.error(error);
-      }
-    );
-  }
+      );
+    }
   isBranchingElseShow: boolean = false
   showBranchingElse() {
     this.isBranchingElseShow = true
@@ -1000,12 +964,12 @@ export class CreateSurveyComponent implements OnInit, AfterViewInit {
   
       if (group && group.length > 0) {
         const numericValues: number[] = group.map(item => {
-          if (typeof item.quesionId !== 'undefined') {
-            const value = +item.quesionId;
+          if (typeof item.questionId !== 'undefined') {
+            const value = +item.questionId;
             if (!isNaN(value)) {
               return value;
             } else {
-              console.warn(`Non-numeric value found for groupNumber ${groupNumber}:`, item.quesionId);
+              console.warn(`Non-numeric value found for groupNumber ${groupNumber}:`, item.questionId);
             }
           } else {
             console.warn(`'questionId' is undefined for groupNumber ${groupNumber}`, item);
@@ -1029,5 +993,17 @@ export class CreateSurveyComponent implements OnInit, AfterViewInit {
   
     return transformedData;
   }
+  getSurveyLooping(): void {
+    this.surveyservice.getSurveyLooping(this.surveyId).subscribe(
+      (response) => {
+          if(response != '' && response != undefined)
+            this.selectedAutoCodeOption=response
+      },
+      (error) => {
+        // Handle errors
+        console.error(error);
+      }
+    );
+  }  
   
 }

@@ -44,7 +44,7 @@
         <div ngClass="my-3">
             <h6 class="mb-2">Add Logic</h6>
             <div class="common-ques">
-                <a routerLink="javascript:" (click)="toggleDivVisibility()">
+                <a routerLink="javascript:" (click)="toggleDivVisibility();getRandomization()">
                     <figure><img src="../../../assets/images/icons/Add-new-logic.png" width="30" height="30" />
                     </figure>
                     <figcaption>Add New Logic</figcaption>
@@ -102,7 +102,7 @@
                     <ul class="nav flex-column nav-tabs" id="myTab" role="tablist">
 
                         <li class="nav-item" role="presentation">
-                            <button (click)="getRandomization()" class="nav-link active" id="randomaisation-tab" data-bs-toggle="tab"
+                            <button class="nav-link active" id="randomaisation-tab" data-bs-toggle="tab"
                                 data-bs-target="#randomaisation" role="tab" aria-selected="false">Randomization</button>
                         </li>
                         <li class="nav-item" role="presentation">
@@ -116,7 +116,7 @@
                             aria-labelledby="randomaisation-tab">
                             <h5 ngClass="mb-4">Randomization</h5>
                             <div ngClass="mb-3 d-flex justify-content-between align-items-center">
-                                <h6 class="mb-0">Randamize a set of questions/screens/groups (From Question To Question)</h6>
+                                <h6 class="mb-0">Randomize a set of questions/screens/groups (From Question To Question)</h6>
                                 <button type="button" class="btn btn-primary btn-sm" (click)="addRandomizationSection()">Add New Randomization</button>
                               </div>
                               
