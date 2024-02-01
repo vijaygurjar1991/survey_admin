@@ -23,7 +23,8 @@
             "assets": [
               {"glob": "**/*", "input": "node_modules/tinymce", "output": "/tinymce/"},
               "src/favicon.ico",
-              "src/assets"
+              "src/assets",
+              "src/web.config"
             ],
             "styles": [              
               "src/custom-theme.scss",
