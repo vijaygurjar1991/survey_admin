@@ -59,6 +59,7 @@ import { ModalModule } from 'ngx-bootstrap/modal';
 import { environment } from '../environments/environment';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { SignUpComponent } from './user-pages/sign-up/sign-up.component';
+import { ErrorComponent } from './error/error.component';
 
 
 
@@ -72,7 +73,8 @@ import { SignUpComponent } from './user-pages/sign-up/sign-up.component';
     LoginComponent,
     CaptchaComponent,
     CreateSurveyPopupComponent,
-    SignUpComponent
+    SignUpComponent,
+    ErrorComponent
   ],
   imports: [
     BrowserModule,
