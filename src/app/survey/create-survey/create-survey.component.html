@@ -265,7 +265,7 @@
                                                 <li class="nav-item" role="presentation">
                                                     <button class="nav-link" id="calculator-tab" data-bs-toggle="tab"
                                                         data-bs-target="#calculator" role="tab"
-                                                        aria-selected="false" (click)="getLogicQuestionListForCalculation(question?.id,question?.sort)">Calculations</button>
+                                                        aria-selected="false" (click)="getLogicQuestionListForCalculation(question?.id,question?.sort);getQuestionListAgeCalculation(question?.id)">Calculations</button>
                                                 </li>
                                             </ul>
                                             <!-- Logic Question -->
@@ -283,61 +283,61 @@
                                                             </label>
                                                         </div> -->
                                                     </div>
-                                                    <div ngClass="logic-ques">
-                                                        <div class="input-group flex-nowrap">
-                                                            <span class="input-group-text" id="addon-wrapping">In</span>
-                                                            <select class="form-select">
-                                                                <option selected>{{question?.question}}</option>
-                                                            </select>
-                                                        </div>
+                                                    <div ngClass="logic-ques" *ngFor="let logicEntry of logicEntriesPerQuestion[i]; let j = index">
 
-                                                        <div class="add-multiple-logic"
-                                                            *ngFor="let logicEntry of logicEntriesPerQuestion[i]; let j = index">
-                                                            <div ngClass="if-then">
-                                                                <span>If</span>
+                                                        <div class="">
+                                                            <div class="input-group flex-nowrap">
+                                                                <span class="input-group-text" id="addon-wrapping">In</span>
+                                                                <select class="form-select">
+                                                                    <option selected>{{question?.question}}</option>
+                                                                </select>
                                                             </div>
-                                                            <div ngClass="mb-4">
-                                                                <div class="row g-2 align-items-center">
-                                                                    <div class="col-md-1">
-                                                                        <div>Value</div>
-                                                                    </div>
-                                                                    <div class="col-md-3">
-                                                                        <!-- Use unique template reference variables by appending the index -->
-                                                                        <select class="form-select"
-                                                                            #ifIdSelect="ngModel"
-                                                                            [(ngModel)]="logicEntry.ifId">
-                                                                            <option
-                                                                                *ngFor="let item of logicValuesList;let j=index;"
-                                                                                [value]="item.id">{{item.name}}</option>
-                                                                        </select>
-                                                                    </div>
-                                                                    <div class="col-md-3">
-                                                                        <!-- Use unique template reference variables by appending the index -->
-                                                                        <select class="form-select"
-                                                                            #ifExpectedSelect="ngModel"
-                                                                            [(ngModel)]="logicEntry.ifExpected">
-                                                                            <option
-                                                                                *ngFor="let item of question?.options;let j=index;"
-                                                                                [value]="item.id">{{item.option}}
-                                                                            </option>
-                                                                        </select>
-                                                                    </div>
-                                                                    <div class="col-md-1">
-                                                                        <a routerLink="javascript:"><ng-icon
-                                                                                name="heroPlusCircle"
-                                                                                ngClass="plus-circle"></ng-icon></a>
-                                                                    </div>
-                                                                    <!-- <div class="col-md-4 checking">
-                                                                        <div
-                                                                            class="form-check d-flex justify-content-end align-items-center">
-                                                                            <input class="form-check-input me-2"
-                                                                                type="checkbox" value="" id="selectAll">
-                                                                            <label class="form-check-label"
-                                                                                for="selectAll">Select All</label>
+                                                            <div class="add-multiple-logic">
+                                                                <div ngClass="if-then">
+                                                                    <span>If</span>
+                                                                </div>
+                                                                <div ngClass="mb-4">
+                                                                    <div class="row g-2 align-items-center">
+                                                                        <div class="col-md-1">
+                                                                            <div>Value</div>
                                                                         </div>
-                                                                    </div> -->
+                                                                        <div class="col-md-3">
+                                                                            <!-- Use unique template reference variables by appending the index -->
+                                                                            <select class="form-select"
+                                                                                #ifIdSelect="ngModel"
+                                                                                [(ngModel)]="logicEntry.ifId">
+                                                                                <option
+                                                                                    *ngFor="let item of logicValuesList;let j=index;"
+                                                                                    [value]="item.id">{{item.name}}</option>
+                                                                            </select>
+                                                                        </div>
+                                                                        <div class="col-md-3">
+                                                                            <!-- Use unique template reference variables by appending the index -->
+                                                                            <select class="form-select"
+                                                                                #ifExpectedSelect="ngModel"
+                                                                                [(ngModel)]="logicEntry.ifExpected">
+                                                                                <option
+                                                                                    *ngFor="let item of question?.options;let j=index;"
+                                                                                    [value]="item.id">{{item.option}}
+                                                                                </option>
+                                                                            </select>
+                                                                        </div>
+                                                                        <div class="col-md-4 d-flex ">
+                                                                            <div class="form-check form-check-inline d-flex align-items-center">
+                                                                                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1">
+                                                                                <label class="form-check-label ps-1" for="inlineRadio1">And</label>
+                                                                            </div>
+                                                                            <div class="form-check form-check-inline d-flex align-items-center">
+                                                                                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2">
+                                                                                <label class="form-check-label ps-1" for="inlineRadio2">Or</label>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
                                                                 </div>
                                                             </div>
+                                                        </div>
+                                                        
+                                                        <div class="add-multiple-logic">
                                                             <div ngClass="if-then">
                                                                 <span>Then</span>
                                                             </div>

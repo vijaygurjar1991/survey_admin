@@ -266,4 +266,12 @@ export class SurveyService {
     const url = `${this.apiUrl}api/admin/${this.userId}/GeneralQuestion/GetSurveyLooping`;
     return this.http.get<any>(url, { params });
   }
+  getQuestionListAgeCalculation(qid: number, sid: number): Observable<any> {
+    const params = {
+      qId: qid.toString(),
+      sId: sid.toString()
+    };
+    const url = `${this.apiUrl}api/admin/${this.userId}/GeneralQuestion/GetAgeCalculationLogics`;
+    return this.http.get<any>(url, { params });
+  }
 }
