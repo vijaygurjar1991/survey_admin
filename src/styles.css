@@ -1614,6 +1614,7 @@ label {
 .sort span#addon-wrapping {
     font-size: smaller;
 }
+.expert-aid table tr button.btn-outline-primary.added{background-color: var(--primary);color: var(--white);}
 
 /* Rishabh */
 .login-form .text-danger {

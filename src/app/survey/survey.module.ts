@@ -83,6 +83,7 @@ import { EncryptPipe } from '../pipes/encrypt.pipe';
 import { DecryptPipe } from '../pipes/decrypt.pipe';
 import { FlsmPopupComponent } from './popups/flsm-popup/flsm-popup.component';
 import { SecLsmPopupComponent } from './popups/sec-lsm-popup/sec-lsm-popup.component';
+import { heroShoppingBag } from '@ng-icons/heroicons/outline'; 
 // Icons
 
 @NgModule({
@@ -165,7 +166,8 @@ import { SecLsmPopupComponent } from './popups/sec-lsm-popup/sec-lsm-popup.compo
       heroArrowRight,
       heroHome,
       heroChevronLeft,
-      heroChevronRight
+      heroChevronRight,
+      heroShoppingBag
     }),
     NgxPaginationModule
   ],

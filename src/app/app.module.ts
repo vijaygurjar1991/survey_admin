@@ -37,6 +37,7 @@ import { heroXMark } from '@ng-icons/heroicons/outline';
 import { heroMagnifyingGlass } from '@ng-icons/heroicons/outline';
 import { heroTrash } from '@ng-icons/heroicons/outline';
 import { heroCommandLine } from '@ng-icons/heroicons/outline';
+import { heroShoppingBag } from '@ng-icons/heroicons/outline';
 // Icons
 
 import { HeaderComponent } from './shared/header/header.component';
@@ -58,6 +59,7 @@ import { ModalModule } from 'ngx-bootstrap/modal';
 import { environment } from '../environments/environment';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { SignUpComponent } from './user-pages/sign-up/sign-up.component';
+
 
 
 @NgModule({
@@ -104,7 +106,8 @@ import { SignUpComponent } from './user-pages/sign-up/sign-up.component';
       heroBars3,
       heroXMark,
       heroMagnifyingGlass,
-      heroTrash
+      heroTrash,
+      heroShoppingBag
     }),
     BrowserAnimationsModule,
     RecaptchaModule,
