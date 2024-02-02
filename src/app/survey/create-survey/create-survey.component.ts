@@ -107,6 +107,8 @@ export class CreateSurveyComponent implements OnInit, AfterViewInit {
   country: { id: string, name: string }[] = [];
   logicEntriesPerQuestion: any[] = [];
   currentPage: number = 1
+  files: any;
+  filesImage: any;
 
   constructor(
     private visibilityService: DataService,
@@ -331,6 +333,9 @@ export class CreateSurveyComponent implements OnInit, AfterViewInit {
 
   opensidecontent() {
     const modalRef = this.modalService.open(this.opensidecontent, { /* modal options */ });
+  }
+  openAddScreen(AddScreen: any) {
+    this.modalService.open(AddScreen, { size: 'xl', centered: true });
   }
 
   getNames() {
@@ -1004,6 +1009,25 @@ export class CreateSurveyComponent implements OnInit, AfterViewInit {
         console.error(error);
       }
     );
-  }  
+  }
+  
+
+  onSelect(event: any) {
+    const selectedFiles: FileList = event.addedFiles;
+    for (let i = 0; i < selectedFiles.length; i++) {
+      this.files.push(selectedFiles[i]);
+    }
+  }
+
+  onRemove(file: File) {
+    const index = this.files.indexOf(file);
+    if (index > -1) {
+      this.files.splice(index, 1);
+    }
+  }
+
+  getPreview(file: File): string {
+    return URL.createObjectURL(file);
+  }
   
 }

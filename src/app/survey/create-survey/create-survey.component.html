@@ -34,7 +34,7 @@
         <div ngClass="my-3">
             <h6 class="mb-2">Add Screen</h6>
             <div class="common-ques">
-                <a routerLink="javascript:">
+                <a routerLink="javascript:"  (click)="openAddScreen(AddScreen)">
                     <figure><img src="../../../assets/images/icons/Add-new-screen.png" width="30" height="30" />
                     </figure>
                     <figcaption>Add New Screen</figcaption>
@@ -724,6 +724,96 @@
         <a href="javascript:void(0);" type="button" class="btn btn-primary icon"
             (click)="updateSurvey();modal.close('Close click')">Update
             <ng-icon name="heroArrowLongRight" class="ms-4"></ng-icon></a>
+    </div>
+</ng-template>
+
+<!-- Add New Screen -->
+<ng-template #AddScreen let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title">Add New Screen</h4>
+        <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+    </div>
+    <div class="modal-body popup-ques">
+        <div class="logic-tab">
+            <!-- Nav tabs -->
+            <ul class="nav flex-column nav-tabs" id="myTab" role="tablist">
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link active" id="addText-tab" data-bs-toggle="tab"
+                        data-bs-target="#addText" role="tab" aria-selected="false">Add Text</button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="addImage-tab" data-bs-toggle="tab"
+                        data-bs-target="#addImage" role="tab" aria-selected="false">Add an Image</button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="addVideo-tab" data-bs-toggle="tab"
+                        data-bs-target="#addVideo" role="tab" aria-selected="false">Add Video</button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="addiFrame-tab" data-bs-toggle="tab"
+                        data-bs-target="#addiFrame" role="tab" aria-selected="false">Add iFrame</button>
+                </li>
+            </ul>
+            <!-- Logic Question -->
+            <div class="tab-content p-4">
+                <div class="tab-pane active" id="addText" role="tabpanel"
+                    aria-labelledby="addText-tab">
+                    <h5 ngClass="mb-4">Add text</h5>
+                    <form action="">
+                        <div class="mb-3">
+                            <input type="text" class="form-control" placeholder="add your text here" />
+                        </div>
+                    </form>
+                </div>
+
+                <div class="tab-pane" id="addImage" role="tabpanel" aria-labelledby="addImage-tab">
+                    <h5 ngClass="mb-4">Add an Image</h5>
+                    <div class="mb-3">
+                        <div ngClass="d-flex align-items-center justify-content-between">
+                            <h6>Please add image you want display before the next queston.</h6>
+                            <div>
+                                <select class="form-select">
+                                    <option selected>Select Pipeing</option>
+                                    <option value="1">Pipeing 1</option>
+                                    <option value="2">Pipeing 2</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <input type="text" class="form-control" placeholder="Insert Heading for Image Screen" />
+                    </div>
+                    <div class="mb-3">
+                        <ngx-dropzone (change)="onSelect($event)" [ngClass]="'drop-file'">
+                            <ngx-dropzone-label>
+                              <img src="../../../assets/images/icons/attach-image.png" />
+                              <a href="javascript:"><u>Click to upload</u></a> <span> or drag and drop</span>
+                              <p>Max. File Size: 15MB</p>
+                            </ngx-dropzone-label>
+                            <ngx-dropzone-preview *ngFor="let f of files" [removable]="true" (removed)="onRemove(f)">
+                              <ngx-dropzone-label>{{ f.name }} ({{ f.type }})</ngx-dropzone-label>
+                            </ngx-dropzone-preview>
+                        </ngx-dropzone>
+                    </div>
+                    <div class="mb-3 ms-3">
+                        <div class="form-check checking">
+                            <input class="form-check-input" type="checkbox" value="" id="redirectuser">
+                            <label class="form-check-label" for="redirectuser">
+                                Redirect User
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="tab-pane" id="addVideo" role="tabpanel" aria-labelledby="addVideo-tab">
+                    <h5 ngClass="mb-4">Add Video</h5>
+                    
+                </div>
+                <div class="tab-pane" id="addiFrame" role="tabpanel" aria-labelledby="addiFrame-tab">
+                    <h5 ngClass="mb-4">Add iFrame</h5>
+                    
+                </div>
+            </div>
+        </div>
     </div>
 </ng-template>
 

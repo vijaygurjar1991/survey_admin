@@ -16,30 +16,71 @@
             <tbody>
                 <tr>
                     <th scope="row">Expert Programmer/Scripter</th>
-                    <td><button type="button" class="btn btn-outline-primary btn-sm">Add to Cart</button></td>
+                    <td><button type="button" class="btn btn-outline-primary btn-sm" (click)="openLg(form)">Add to Cart</button></td>
                 </tr>
                 <tr>
                     <th scope="row">Expert Analysis</th>
-                    <td><button type="button" class="btn btn-outline-primary btn-sm">Add to Cart</button></td>
+                    <td><button type="button" class="btn btn-outline-primary btn-sm" (click)="openLg(form)">Add to Cart</button></td>
                 </tr>
                 <tr>
                     <th scope="row">Report Writing</th>
-                    <td><button type="button" class="btn btn-outline-primary btn-sm">Add to Cart</button></td>
+                    <td><button type="button" class="btn btn-outline-primary btn-sm" (click)="openLg(form)">Add to Cart</button></td>
                 </tr>
 
                 <tr>
                     <th scope="row">Data Validation</th>
-                    <td><button type="button" class="btn btn-outline-primary btn-sm">Add to Cart</button></td>
+                    <td><button type="button" class="btn btn-outline-primary btn-sm" (click)="openLg(form)">Add to Cart</button></td>
                 </tr>
                 <tr>
                     <th scope="row">Purchase Responses</th>
-                    <td><button type="button" class="btn btn-outline-primary btn-sm">Add to Cart</button></td>
+                    <td><button type="button" class="btn btn-outline-primary btn-sm" (click)="openLg(form)">Add to Cart</button></td>
                 </tr>
                 <tr>
                     <th scope="row">Customizable Report</th>
-                    <td><button type="button" class="btn btn-outline-primary btn-sm">Add to Cart</button></td>
+                    <td><button type="button" class="btn btn-outline-primary btn-sm" (click)="openLg(form)">Add to Cart</button></td>
                 </tr>
             </tbody>
         </table>
     </div>
 </div>
+
+<!--  -->
+<ng-template #form let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title">Add to Cart</h4>
+        <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+    </div>
+    <div class="modal-body popup-ques">
+        <form>
+            <div class="form-group mb-3">
+                <label>Full Name</label>
+                <input type="text" class="form-control" placeholder="Enter your full name">
+            </div>
+            <div class="form-group mb-3">
+                <label>Email Id</label>
+                <input type="email" class="form-control" placeholder="Enter your email">
+            </div>
+            <div class="form-group mb-3">
+                <label>Phone No.</label>
+                <input type="text" class="form-control" placeholder="Enter phone number">
+            </div>
+            <div class="form-group mb-3">
+                <label>Select Service</label>
+                <select class="form-control">
+                    <option>Expert Programmer/Scripter</option>
+                    <option>Expert Analysis</option>
+                    <option>Report Writing</option>
+                    <option>Data Validation</option>
+                    <option>Purchase Responses</option>
+                    <option>Customizable Report</option>
+                </select>
+            </div>
+            <div class="form-group mb-3">
+                <label>Message</label>
+                <textarea name="" class="form-control" rows="5"></textarea>
+            </div>
+            <div class="text-end"><button type="submit" class="btn btn-primary">Submit</button></div>
+        </form>
+    </div>
+    
+</ng-template>
