@@ -109,7 +109,7 @@ export class CreateSurveyComponent implements OnInit, AfterViewInit {
   currentPage: number = 1
   files: any;
   filesImage: any;
-
+  isRadomizeAndOr:boolean=false
   constructor(
     private visibilityService: DataService,
     private modalService: NgbModal,
@@ -721,33 +721,33 @@ export class CreateSurveyComponent implements OnInit, AfterViewInit {
   saveRandomization(): void {
     console.log(this.randormizeEntries);
     console.log(this.isRandomizationChecked);
-  
+
     if (this.isRandomizationChecked) {
       const formattedData = [];
-  
+
       for (let i = 0; i < this.randormizeEntries.length; i++) {
         const randomization = this.randormizeEntries[i];
         const fromQuestionId = randomization.fromQuestion;
         const toQuestionId = randomization.toQuestion;
-  
+
         if (fromQuestionId && toQuestionId) {
           const filteredQuestions = this.logicQuestionList.filter(question => question.id >= fromQuestionId && question.id <= toQuestionId);
-  
+
           const formattedQuestions = filteredQuestions.map(question => {
             return {
               surveyId: this.surveyId,
               questionId: (question.id),
               isRandomize: true,
-              groupNumber: i+1, // Add groupNumber based on the index of randormizeEntries
+              groupNumber: i + 1, // Add groupNumber based on the index of randormizeEntries
             };
           });
-  
+
           formattedData.push(...formattedQuestions);
         } else {
           console.warn('From Question and To Question must be selected for each randomization entry.');
         }
       }
-  
+
       if (formattedData.length > 0) {
         // Call the service to post the formatted data
         this.surveyservice.postRandomizedQuestions(formattedData).subscribe(
@@ -782,38 +782,38 @@ export class CreateSurveyComponent implements OnInit, AfterViewInit {
 
   getAllSurveyList() {
     this.getSurveyLooping();
-    console.log("AutoCode Option",this.selectedAutoCodeOption)
+    console.log("AutoCode Option", this.selectedAutoCodeOption)
     this.surveyservice.GetSurveyList().subscribe((data: any) => {
       const surveyType: any[] = data.surveyType;
 
-      if(this.selectedAutoCodeOption == 0){
-      const defaultOption = {
-        surveyId: 0,
-        name: 'Select Survey',
-        status: null,
-        categoryName: '',
-        userName: '',
-        createdDate: null
-      };
+      if (this.selectedAutoCodeOption == 0) {
+        const defaultOption = {
+          surveyId: 0,
+          name: 'Select Survey',
+          status: null,
+          categoryName: '',
+          userName: '',
+          createdDate: null
+        };
 
-      this.surveylist = [defaultOption, ...surveyType.map(item => ({
-        surveyId: item.surveyId,
-        name: item.name,
-        status: item.status !== null ? String(item.status) : null,
-        categoryName: item.categoryName,
-        userName: item.userName,
-        createdDate: new Date(item.createdDate)
-      }))];
-    }else{
-      this.surveylist = [...surveyType.map(item => ({
-        surveyId: item.surveyId,
-        name: item.name,
-        status: item.status !== null ? String(item.status) : null,
-        categoryName: item.categoryName,
-        userName: item.userName,
-        createdDate: new Date(item.createdDate)
-      }))];  
-    }
+        this.surveylist = [defaultOption, ...surveyType.map(item => ({
+          surveyId: item.surveyId,
+          name: item.name,
+          status: item.status !== null ? String(item.status) : null,
+          categoryName: item.categoryName,
+          userName: item.userName,
+          createdDate: new Date(item.createdDate)
+        }))];
+      } else {
+        this.surveylist = [...surveyType.map(item => ({
+          surveyId: item.surveyId,
+          name: item.name,
+          status: item.status !== null ? String(item.status) : null,
+          categoryName: item.categoryName,
+          userName: item.userName,
+          createdDate: new Date(item.createdDate)
+        }))];
+      }
       console.log("surveyData In Header", this.surveylist);
     });
   }
@@ -849,38 +849,38 @@ export class CreateSurveyComponent implements OnInit, AfterViewInit {
     this.isCalulationElseShow = false
   }
   calulationPerformOperationOption: any = null
-  calulationPerformOperationValue:any = 0
-  calulationThenOption:any = null
-  calulationThenValue:any = null
-  calulationElseOption:any = null
-  calulationElseValue:any = null
+  calulationPerformOperationValue: any = 0
+  calulationThenOption: any = null
+  calulationThenValue: any = null
+  calulationElseOption: any = null
+  calulationElseValue: any = null
 
-  saveCalculation(questionId:any){
-      //alert(questionId)
-      this.questionCalculation.surveyId = this.surveyId;
-      this.questionCalculation.questionId = questionId;
-      this.questionCalculation.ifId = this.calulationPerformOperationOption;
-      this.questionCalculation.ifExpected = this.calulationPerformOperationValue;
-      this.questionCalculation.thanId = this.calulationThenOption;
-      this.questionCalculation.thanExpected = this.calulationThenValue;
-      this.questionCalculation.elseId =  this.calulationElseOption
-      this.questionCalculation.elseExpected = this.calulationElseValue
-      console.log("dataToSend", this.questionCalculation);
+  saveCalculation(questionId: any) {
+    //alert(questionId)
+    this.questionCalculation.surveyId = this.surveyId;
+    this.questionCalculation.questionId = questionId;
+    this.questionCalculation.ifId = this.calulationPerformOperationOption;
+    this.questionCalculation.ifExpected = this.calulationPerformOperationValue;
+    this.questionCalculation.thanId = this.calulationThenOption;
+    this.questionCalculation.thanExpected = this.calulationThenValue;
+    this.questionCalculation.elseId = this.calulationElseOption
+    this.questionCalculation.elseExpected = this.calulationElseValue
+    console.log("dataToSend", this.questionCalculation);
 
-      this.surveyservice.createCalculation(this.questionCalculation).subscribe(
-        response => {
-          console.log('Response from server:', response);
-          Swal.fire('', 'Calculation Created Successfully.', 'success');
-        },
-        error => {
-          console.error('Error occurred while sending POST request:', error);
-          Swal.fire('', error, 'error');
-        }
-      );
+    this.surveyservice.createCalculation(this.questionCalculation).subscribe(
+      response => {
+        console.log('Response from server:', response);
+        Swal.fire('', 'Calculation Created Successfully.', 'success');
+      },
+      error => {
+        console.error('Error occurred while sending POST request:', error);
+        Swal.fire('', error, 'error');
+      }
+    );
   }
-  logicQuestionListForCalculation:any
+  logicQuestionListForCalculation: any
   pipeQuestionList: any
-  getLogicQuestionListForCalculation(questionId: any,sort:number) {
+  getLogicQuestionListForCalculation(questionId: any, sort: number) {
     this.logicQuestionListForCalculation = '';
     const dataToSend = {
       surveyId: this.surveyId,
@@ -896,19 +896,19 @@ export class CreateSurveyComponent implements OnInit, AfterViewInit {
     });
   }
   questionListBranching: QuestionItem[] = [];
-    getQuestionListBranching(questionId: number): void {
-      this.surveyservice.getQuestionListBranching(questionId, this.surveyId).subscribe(
-        (response) => {
-          if (response && response.length > 0) {
-            this.questionListBranching=response
-          }
-        },
-        (error) => {
-          // Handle errors
-          console.error(error);
+  getQuestionListBranching(questionId: number): void {
+    this.surveyservice.getQuestionListBranching(questionId, this.surveyId).subscribe(
+      (response) => {
+        if (response && response.length > 0) {
+          this.questionListBranching = response
         }
-      );
-    }
+      },
+      (error) => {
+        // Handle errors
+        console.error(error);
+      }
+    );
+  }
   isBranchingElseShow: boolean = false
   showBranchingElse() {
     this.isBranchingElseShow = true
@@ -920,7 +920,7 @@ export class CreateSurveyComponent implements OnInit, AfterViewInit {
   apiResponseRandomization: any[] = [];
   groupedDataRandomization: { [key: string]: any[] } = {};
 
-  getRandomization():void{
+  getRandomization(): void {
 
     this.surveyservice.getRandomizedQuestions(this.surveyId).subscribe(
       (response: any[]) => {
@@ -942,9 +942,9 @@ export class CreateSurveyComponent implements OnInit, AfterViewInit {
 
     // Transform data for each groupNumber
     const transformedData = this.transformData();
-    
+
     console.log('Transformed Data:', transformedData);
-    this.randormizeEntries=transformedData
+    this.randormizeEntries = transformedData
   }
   groupDataByGroupNumber() {
     const groupedData: { [key: string]: any[] } = {};
@@ -962,11 +962,11 @@ export class CreateSurveyComponent implements OnInit, AfterViewInit {
     return groupedData;
   }
   transformData() {
-    const transformedData :any[]= [];
-  
+    const transformedData: any[] = [];
+
     Object.keys(this.groupedDataRandomization).forEach(groupNumber => {
       const group = this.groupedDataRandomization[groupNumber];
-  
+
       if (group && group.length > 0) {
         const numericValues: number[] = group.map(item => {
           if (typeof item.questionId !== 'undefined') {
@@ -981,11 +981,11 @@ export class CreateSurveyComponent implements OnInit, AfterViewInit {
           }
           return NaN; // or handle this case as needed
         }).filter(value => !isNaN(value));
-  
+
         if (numericValues.length > 0) {
           const fromQuestion = Math.min(...numericValues);
           const toQuestion = Math.max(...numericValues);
-  
+
           transformedData.push({
             fromQuestion,
             toQuestion,
@@ -995,14 +995,14 @@ export class CreateSurveyComponent implements OnInit, AfterViewInit {
         }
       }
     });
-  
+
     return transformedData;
   }
   getSurveyLooping(): void {
     this.surveyservice.getSurveyLooping(this.surveyId).subscribe(
       (response) => {
-          if(response != '' && response != undefined)
-            this.selectedAutoCodeOption=response
+        if (response != '' && response != undefined)
+          this.selectedAutoCodeOption = response
       },
       (error) => {
         // Handle errors
@@ -1010,7 +1010,7 @@ export class CreateSurveyComponent implements OnInit, AfterViewInit {
       }
     );
   }
-  
+
 
   onSelect(event: any) {
     const selectedFiles: FileList = event.addedFiles;
@@ -1029,5 +1029,24 @@ export class CreateSurveyComponent implements OnInit, AfterViewInit {
   getPreview(file: File): string {
     return URL.createObjectURL(file);
   }
-  
+  getQuestionListAgeCalculation(questionId: number): void {
+    this.surveyservice.getQuestionListAgeCalculation(questionId, this.surveyId).subscribe(
+      (response) => {
+        if (response) {
+          this.calulationPerformOperationOption = response.ifId
+          this.calulationPerformOperationValue = response.ifExpected
+          this.calulationThenOption = response.thanId
+          this.calulationThenValue = response.thanExpected
+          this.calulationElseOption = response.elseId
+          this.calulationElseValue = response.elseExpected
+          if(this.calulationElseOption>0)
+            this.isCalulationElseShow=true
+        }
+      },
+      (error) => {
+        // Handle errors
+        console.error(error);
+      }
+    );
+  }
 }
