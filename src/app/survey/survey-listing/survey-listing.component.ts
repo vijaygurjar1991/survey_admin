@@ -7,6 +7,7 @@ import { DataService } from 'src/app/service/data.service';
 import { SurveyService } from 'src/app/service/survey.service';
 import { FormControl } from '@angular/forms';
 import { UtilsService } from 'src/app/service/utils.service';
+import { environment } from 'src/environments/environment';
 
 import Swal from 'sweetalert2';
 
@@ -20,6 +21,7 @@ export class SurveyListingComponent {
   categoryList: any;
   selectedCategory: string = 'All Categories';
   constructor(private visibilityService: DataService, private util: UtilsService, private modalService: NgbModal, public themeService: SurveyService, private cdr: ChangeDetectorRef) {
+    this.baseUrl = environment.baseURL;
     visibilityService.closeSideBar();
   }
   files: File[] = [];
@@ -37,7 +39,8 @@ export class SurveyListingComponent {
   pageSize: number = 10;
   pageNumber: number = 1
   totalItemsCount: number = 20
-  currentPage: number = 1
+  currentPage: number = 1;
+  baseUrl = '';
   ngOnInit(): void {
     //debugger;
     this.visibilityService.closeSideBar();
@@ -105,7 +108,7 @@ export class SurveyListingComponent {
     // Handle page change event
     this.pageNumber = pageNumber;
     this.getAllSurveyList(this.pageNumber, this.pageSize)
-      this.currentPage = this.pageNumber
+    this.currentPage = this.pageNumber
     // You can also fetch data for the selected page here based on the pageNumber
   }
   jumpToPage() {
@@ -114,7 +117,7 @@ export class SurveyListingComponent {
       this.onPageChange(this.currentPage);
     }
   }
-  onPageSizeChange(){
+  onPageSizeChange() {
     this.onPageChange(this.pageNumber)
   }
 

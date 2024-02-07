@@ -8,6 +8,7 @@ import { Option } from 'src/app/models/option';
 import Swal from 'sweetalert2';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CryptoService } from 'src/app/service/crypto.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-family-member-popup',
@@ -18,9 +19,11 @@ export class FamilyMemberPopupComponent {
   @ViewChild('FamilyMemberModal', { static: true }) modal!: ModalDirective;
 
   questions: Question[] = [];
-  surveyId=0;
-  questionTypeId=7
+  surveyId = 0;
+  questionTypeId = 7;
+  baseUrl = '';
   constructor(private surveyservice: SurveyService, private route: ActivatedRoute, private crypto: CryptoService, private router: Router) {
+    this.baseUrl = environment.baseURL;
     this.route.paramMap.subscribe(params => {
       let _surveyId = params.get('param1');
       console.log("param1 Inside Gender Question", params.get('param1'))
@@ -89,7 +92,7 @@ export class FamilyMemberPopupComponent {
     if (this.questions && this.questions.length > 0) {
       const options = this.questions[0]?.options;
       const allSelected = options.every(option => option.selected);
-  
+
       for (const option of options) {
         option.selected = !allSelected;
       }
@@ -111,7 +114,7 @@ export class FamilyMemberPopupComponent {
       currentQuestion.surveyTypeId = this.surveyId
       currentQuestion.createdDate = this.getCurrentDateTime()
       currentQuestion.modifiedDate = this.getCurrentDateTime();
-      currentQuestion.genericTypeId=this.typeid
+      currentQuestion.genericTypeId = this.typeid
 
       // Filter selected options for the current question
       currentQuestion.options = currentQuestion.options.filter(option => option.selected);

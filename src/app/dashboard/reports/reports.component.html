@@ -28,7 +28,7 @@
                         <td>{{item.surveyName}}</td>
                         <td>{{item.surveyCategory}}</td>
                         <td>
-                            <img src="../../../assets/images/profile/pic.png" class="me-2 rounded-circle"
+                            <img [src]="baseUrl+ '/assets/images/profile/pic.png'" class="me-2 rounded-circle"
                                 style="width: 30px;height: 30px;" />
                             {{item.creatorName}}
                         </td>

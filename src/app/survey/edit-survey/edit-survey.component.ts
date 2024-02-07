@@ -17,6 +17,7 @@ import { Option } from 'src/app/models/option';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import Swal from 'sweetalert2';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-edit-survey',
@@ -48,9 +49,11 @@ export class EditSurveyComponent {
   optionLogicValuesList: any
   optionListByQuestionId: any
   selectedOptions: any[] = [];
+  baseUrl = '';
   constructor(public themeService: DataService, private router: Router,
     private route: ActivatedRoute, private surveyservice: SurveyService, private modalService: NgbModal,
     private crypto: CryptoService) {
+    this.baseUrl = environment.baseURL;
     this.route.paramMap.subscribe(params => {
       let _queryData = params.get('param1');
       if (_queryData) {
@@ -543,8 +546,8 @@ export class EditSurveyComponent {
   openLg(content: any) {
     this.modalService.open(content, { size: 'lg', centered: true });
   }
-  onLogicSave():void{
-    
+  onLogicSave(): void {
+
   }
 
 }

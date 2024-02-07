@@ -19,16 +19,16 @@
             <div class="mb-4">
                 <label for="text" class="form-label">Upload Image</label>
                 <ngx-dropzone (change)="onSelect($event)" [ngClass]="'drop-file'">
-                  <ngx-dropzone-label>
-                    <img src="../../../assets/images/icons/attach-image.png" />
-                    <a href="javascript:"><u>Click to upload</u></a> <span> or drag and drop</span>
-                    <p>Max. File Size: 15MB</p>
-                  </ngx-dropzone-label>
-                  <ngx-dropzone-preview *ngFor="let f of files" [removable]="true" (removed)="onRemove(f)">
-                    <ngx-dropzone-label>{{ f.name }} ({{ f.type }})</ngx-dropzone-label>
-                  </ngx-dropzone-preview>
+                    <ngx-dropzone-label>
+                        <img [src]="baseUrl+'/assets/images/icons/attach-image.png'" />
+                        <a href="javascript:"><u>Click to upload</u></a> <span> or drag and drop</span>
+                        <p>Max. File Size: 15MB</p>
+                    </ngx-dropzone-label>
+                    <ngx-dropzone-preview *ngFor="let f of files" [removable]="true" (removed)="onRemove(f)">
+                        <ngx-dropzone-label>{{ f.name }} ({{ f.type }})</ngx-dropzone-label>
+                    </ngx-dropzone-preview>
                 </ngx-dropzone>
-            </div>       
+            </div>
             <div class="text-end upload">
                 <button type="button" class="btn btn-primary" (click)="postData()">Update <ng-icon
                         name="heroArrowLongRight" class="ms-5"></ng-icon></button>

@@ -44,14 +44,14 @@
                         </td>
                         <!-- <td>{{item.id}}</td> -->
                         <td>{{item.name}}</td>
-                        <td><img *ngIf="item.countryName=='India'" src="../../../assets/images/Images/flag.png" class="me-2 rounded-circle"
-                                style="width: 30px;height: 30px;" />
+                        <td><img *ngIf="item.countryName=='India'" [src]="baseUrl+'/assets/images/Images/flag.png'"
+                                class="me-2 rounded-circle" style="width: 30px;height: 30px;" />
                             {{item.countryName}}
                         </td>
                         <td *ngIf="item.categoryName !='Others'">{{item.categoryName}}</td>
                         <td *ngIf="item.categoryName =='Others'">{{item.otherCategory}}</td>
                         <td>
-                            <img src="../../../assets/images/profile/pic.png" class="me-2 rounded-circle"
+                            <img [src]="baseUrl+'/assets/images/profile/pic.png'" class="me-2 rounded-circle"
                                 style="width: 30px;height: 30px;" />
                             {{item.userName}}
                         </td>
@@ -126,7 +126,7 @@
                         <!-- Add more options as needed -->
                     </select>
                 </div>
-            
+
                 <div class="d-flex align-items-center">
                     <span class="me-2 ms-4">Jump to:</span>
                     <input style="flex: 1;" type="number" [(ngModel)]="currentPage" (keyup.enter)="jumpToPage()"

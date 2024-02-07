@@ -4,6 +4,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ChangeDetectorRef } from '@angular/core';
 import Swal from 'sweetalert2';
 import { UtilsService } from 'src/app/service/utils.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-my-account',
@@ -12,7 +13,9 @@ import { UtilsService } from 'src/app/service/utils.service';
 })
 export class MyAccountComponent {
   imageName: any;
-  constructor(public themeService: DataService, private modalService: NgbModal, private cdr: ChangeDetectorRef,private util: UtilsService) { }
+  constructor(public themeService: DataService, private modalService: NgbModal, private cdr: ChangeDetectorRef, private util: UtilsService) {
+    this.baseUrl = environment.baseURL;
+  }
   files: File[] = [];
   role: any;
   id: number = 0;
@@ -25,7 +28,8 @@ export class MyAccountComponent {
   oldPassword: any;
   newPassword: any;
   confirmPassword: any;
- 
+  baseUrl = '';
+
 
   openLg(content: any) {
     this.modalService.open(content, { size: 'lg', centered: true });
@@ -70,7 +74,7 @@ export class MyAccountComponent {
       contactNo: this.contactNo,
       roleId: this.roleId,
       imageName: imageName,
-      status:'ACT'
+      status: 'ACT'
     };
     console.log("dataToSend", dataToSend)
     this.themeService.CreateMyAccount(dataToSend).subscribe(
@@ -117,38 +121,38 @@ export class MyAccountComponent {
   }
 
 
-// Upload Image
-  
-selectedImage: string | ArrayBuffer | null = null;
+  // Upload Image
 
-onFileSelected(event: any): void {
-  const file = event.target.files[0];
-  if (file) {
-    const reader = new FileReader();
-    reader.onload = (e: any) => {
-      this.selectedImage = e.target.result;
-      this.onUpload(file); // Trigger upload after selecting the file
-    };
-    reader.readAsDataURL(file);
-  }
-}
+  selectedImage: string | ArrayBuffer | null = null;
 
-onUpload(file: File): void {
-  if (!file) {
-    console.error('No file selected.');
-    return;
-  }
-  console.log("inside onUpload");
-  this.themeService.uploadImage(file,this.userId).subscribe(
-    (response) => {
-      console.log('Upload successful:', response);
-      // Handle response from server
-    },
-    (error) => {
-      console.error('Error occurred while uploading:', error);
-      // Handle error
+  onFileSelected(event: any): void {
+    const file = event.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = (e: any) => {
+        this.selectedImage = e.target.result;
+        this.onUpload(file); // Trigger upload after selecting the file
+      };
+      reader.readAsDataURL(file);
     }
-  );
-}
+  }
+
+  onUpload(file: File): void {
+    if (!file) {
+      console.error('No file selected.');
+      return;
+    }
+    console.log("inside onUpload");
+    this.themeService.uploadImage(file, this.userId).subscribe(
+      (response) => {
+        console.log('Upload successful:', response);
+        // Handle response from server
+      },
+      (error) => {
+        console.error('Error occurred while uploading:', error);
+        // Handle error
+      }
+    );
+  }
 
 }

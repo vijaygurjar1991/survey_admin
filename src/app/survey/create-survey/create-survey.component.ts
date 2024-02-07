@@ -20,6 +20,7 @@ import { MatSelect, MatSelectChange } from '@angular/material/select';
 import { SecLsmPopupComponent } from '../popups/sec-lsm-popup/sec-lsm-popup.component';
 import { Question } from 'src/app/models/question';
 import { QuestionItem } from 'src/app/models/question-items';
+import { environment } from 'src/environments/environment';
 
 interface LogicQuestion {
   id: number;
@@ -109,7 +110,8 @@ export class CreateSurveyComponent implements OnInit, AfterViewInit {
   currentPage: number = 1
   files: File[] = [];
   filesImage: any;
-  isRadomizeAndOr:boolean=false
+  baseUrl = '';
+  isRadomizeAndOr: boolean = false
   constructor(
     private visibilityService: DataService,
     private modalService: NgbModal,
@@ -123,6 +125,7 @@ export class CreateSurveyComponent implements OnInit, AfterViewInit {
     private crypto: CryptoService,
     private utils: UtilsService
   ) {
+    this.baseUrl = environment.baseURL;
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
         const shouldTriggerToggle = this.route.snapshot.data['triggerToggle'];
@@ -1026,13 +1029,13 @@ export class CreateSurveyComponent implements OnInit, AfterViewInit {
       this.files.splice(index, 1);
     }
   }
-  screenImage:any
+  screenImage: any
   uploadImage(file: File): void {
-  
-    this.themeService.uploadImageAboutUs(file,this.userId).subscribe(
-      (response:String) => {
+
+    this.themeService.uploadImageAboutUs(file, this.userId).subscribe(
+      (response: String) => {
         console.log('Upload successful:', response);
-        this.screenImage=response
+        this.screenImage = response
         // Handle response from the image upload
         // You may want to retrieve the URL or any other relevant information from the response
       },
@@ -1055,8 +1058,8 @@ export class CreateSurveyComponent implements OnInit, AfterViewInit {
           this.calulationThenValue = response.thanExpected
           this.calulationElseOption = response.elseId
           this.calulationElseValue = response.elseExpected
-          if(this.calulationElseOption>0)
-            this.isCalulationElseShow=true
+          if (this.calulationElseOption > 0)
+            this.isCalulationElseShow = true
         }
       },
       (error) => {
@@ -1065,22 +1068,22 @@ export class CreateSurveyComponent implements OnInit, AfterViewInit {
       }
     );
   }
-  screenQuestion:any
-  screenRedirectUser:boolean
-  screenRedirectURL:any
-  screenQuestionObj:Question=new Question();
-  saveScreenImage():void{
-    this.screenQuestionObj.question=this.screenQuestion
-    this.screenQuestionObj.image=this.screenImage
-    this.screenQuestionObj.isScreening=this.screenRedirectUser
-    this.screenQuestionObj.screeningRedirectUrl=this.screenRedirectURL
-    this.screenQuestionObj.surveyTypeId=this.surveyId
+  screenQuestion: any
+  screenRedirectUser: boolean
+  screenRedirectURL: any
+  screenQuestionObj: Question = new Question();
+  saveScreenImage(): void {
+    this.screenQuestionObj.question = this.screenQuestion
+    this.screenQuestionObj.image = this.screenImage
+    this.screenQuestionObj.isScreening = this.screenRedirectUser
+    this.screenQuestionObj.screeningRedirectUrl = this.screenRedirectURL
+    this.screenQuestionObj.surveyTypeId = this.surveyId
 
     this.surveyservice.CreateGeneralQuestion(this.screenQuestionObj).subscribe({
       next: (resp: any) => {
         Swal.fire('', 'Question Generated Sucessfully.', 'success');
 
-        let url = `/survey/manage-survey/${this.crypto.encryptParam(""+this.surveyId)}`;
+        let url = `/survey/manage-survey/${this.crypto.encryptParam("" + this.surveyId)}`;
 
         //this.router.navigateByUrl(url);
       },

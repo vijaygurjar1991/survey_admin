@@ -5,6 +5,7 @@ import { responseDTO } from 'src/app/types/responseDTO';
 import { ChangeDetectorRef } from '@angular/core';
 import swal from 'sweetalert2';
 import { UtilsService } from 'src/app/service/utils.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-terms-condition',
@@ -13,13 +14,16 @@ import { UtilsService } from 'src/app/service/utils.service';
 })
 export class TermsConditionComponent {
   public Editor = ClassicEditor;
-  constructor(public themeService: DataService, private cdr: ChangeDetectorRef,private util: UtilsService) { }
+  constructor(public themeService: DataService, private cdr: ChangeDetectorRef, private util: UtilsService) {
+    this.baseUrl = environment.baseURL;
+  }
   files: File[] = [];
   id: number = 0;
   name: any;
   description: any;
   image: any
-  centerId:any
+  centerId: any;
+  baseUrl = '';
 
   onRemove(event: any) { // Use 'any' as the event type
     console.log(event);
@@ -73,13 +77,13 @@ export class TermsConditionComponent {
       this.uploadImage(file); // Trigger upload after selecting the file
     }
   }
-  
+
   uploadImage(file: File): void {
-  
-    this.themeService.uploadImageAboutUs(file,this.userId).subscribe(
-      (response:String) => {
+
+    this.themeService.uploadImageAboutUs(file, this.userId).subscribe(
+      (response: String) => {
         console.log('Upload successful:', response);
-        this.image=response
+        this.image = response
         // Handle response from the image upload
         // You may want to retrieve the URL or any other relevant information from the response
       },

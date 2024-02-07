@@ -12,8 +12,8 @@
                             <label for="surveyname" class="form-label">Enter Your Question</label>
                             <div class="input-group">
                                 <input type="text" class="form-control" [ngModel]="question.question"
-                                (ngModelChange)="question.question = $event" id="{{ 'question_' + i }}"
-                                name="{{ 'question_' + i }}" readonly/>
+                                    (ngModelChange)="question.question = $event" id="{{ 'question_' + i }}"
+                                    name="{{ 'question_' + i }}" readonly />
 
                             </div>
                         </div>
@@ -29,7 +29,7 @@
                                         <button>
                                             <figure>
                                                 <img *ngIf="option.image"
-                                                    [src]="'../../../../assets/images/Images/' + option.image"
+                                                    [src]="baseUrl+'/assets/images/Images/' + option.image"
                                                     [alt]="option.option" width="67" height="90" />
                                             </figure>
                                             <figcaption>
