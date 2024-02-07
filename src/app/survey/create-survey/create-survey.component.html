@@ -781,7 +781,7 @@
                         </div>
                     </div>
                     <div class="mb-3">
-                        <input type="text" class="form-control" placeholder="Insert Heading for Image Screen" />
+                        <input type="text" class="form-control" placeholder="Insert Heading for Image Screen" [(ngModel)]="screenQuestion" [ngModelOptions]="{standalone: true}"/>
                     </div>
                     <div class="mb-3">
                         <ngx-dropzone (change)="onSelect($event)" [ngClass]="'drop-file'">
@@ -797,11 +797,18 @@
                     </div>
                     <div class="mb-3 ms-3">
                         <div class="form-check checking">
-                            <input class="form-check-input" type="checkbox" value="" id="redirectuser">
+                            <input class="form-check-input" type="checkbox" value="" id="redirectuser" [(ngModel)]="screenRedirectUser" [ngModelOptions]="{standalone: true}">
                             <label class="form-check-label" for="redirectuser">
                                 Redirect User
                             </label>
                         </div>
+                    </div>
+                    <div class="mb-3">
+                        <input type="text" class="form-control" placeholder="Redirect URL" [(ngModel)]="screenRedirectURL" [ngModelOptions]="{standalone: true}"/>
+                    </div>
+                    <div class="mb-3">
+                            <button type="button" class="btn btn-primary btn-sm"
+                                        (click)="saveScreenImage()">Save</button>
                     </div>
                 </div>
                 <div class="tab-pane" id="addVideo" role="tabpanel" aria-labelledby="addVideo-tab">

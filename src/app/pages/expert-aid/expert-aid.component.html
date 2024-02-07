@@ -16,33 +16,39 @@
             <tbody>
                 <tr>
                     <th scope="row">Expert Programmer/Scripter</th>
-                    <td><button type="button" class="btn btn-outline-primary btn-sm">Add to Cart</button></td>
+                    <td><button type="button" class="btn btn-outline-primary btn-sm"
+                            (click)="toggleCartItem('Expert Programmer/Scripter')">Add to Cart</button></td>
                 </tr>
                 <tr>
                     <th scope="row">Expert Analysis</th>
-                    <td><button type="button" class="btn btn-outline-primary btn-sm">Add to Cart</button></td>
+                    <td><button type="button" class="btn btn-outline-primary btn-sm"
+                            (click)="toggleCartItem('Expert Analysis')">Add to Cart</button></td>
                 </tr>
                 <tr>
                     <th scope="row">Report Writing</th>
-                    <td><button type="button" class="btn btn-outline-primary btn-sm">Add to Cart</button></td>
+                    <td><button type="button" class="btn btn-outline-primary btn-sm"
+                            (click)="toggleCartItem('Report Writing')">Add to Cart</button></td>
                 </tr>
 
                 <tr>
                     <th scope="row">Data Validation</th>
-                    <td><button type="button" class="btn btn-outline-primary btn-sm">Add to Cart</button></td>
+                    <td><button type="button" class="btn btn-outline-primary btn-sm"
+                            (click)="toggleCartItem('Data Validation')">Add to Cart</button></td>
                 </tr>
                 <tr>
                     <th scope="row">Purchase Responses</th>
-                    <td><button type="button" class="btn btn-outline-primary btn-sm" >Add to Cart</button></td>
+                    <td><button type="button" class="btn btn-outline-primary btn-sm"
+                            (click)="toggleCartItem('Purchase Responses')">Add to Cart</button></td>
                 </tr>
                 <tr>
                     <th scope="row">Customizable Report</th>
-                    <td><button type="button" class="btn btn-outline-primary btn-sm">Add to Cart</button></td>
+                    <td><button type="button" class="btn btn-outline-primary btn-sm"
+                            (click)="toggleCartItem('Customizable Report')">Add to Cart</button></td>
                 </tr>
                 <tr>
                     <td><strong>Total</strong></td>
                     <td><button type="button" class="btn btn-outline-primary btn-sm" (click)="openLg(form)"><ng-icon
-                        name="heroShoppingBag"></ng-icon> (5)</button></td>
+                                name="heroShoppingBag"></ng-icon> ({{ selectedItems.length }})</button></td>
                 </tr>
             </tbody>
         </table>
@@ -56,54 +62,53 @@
         <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
     </div>
     <div class="modal-body popup-ques">
-        <form>
+        <form (submit)="onSaveExpertAid()">
             <div class="row">
                 <div class="col-md-6 form-group mb-3">
                     <label>Full Name</label>
-                    <input type="text" class="form-control" placeholder="Enter your full name">
+                    <input type="text" class="form-control" placeholder="Enter your full name"  [(ngModel)]="name" [ngModelOptions]="{standalone: true}">
                 </div>
                 <div class="col-md-6 form-group mb-3">
                     <label>Project type</label>
-                    <input type="text" class="form-control" placeholder="Enter your project type">
+                    <input type="text" class="form-control" placeholder="Enter your project type"  [(ngModel)]="projectType" [ngModelOptions]="{standalone: true}">
                 </div>
             </div>
             <div class="row">
                 <div class="col-md-6 form-group mb-3">
                     <label>Start date</label>
-                    <input type="date" class="form-control">
+                    <input type="date" class="form-control"  [(ngModel)]="startDate" [ngModelOptions]="{standalone: true}">
                 </div>
                 <div class="col-md-6 form-group mb-3">
                     <label>Start date</label>
-                    <input type="date" class="form-control">
+                    <input type="date" class="form-control" [(ngModel)]="endDate" [ngModelOptions]="{standalone: true}">
                 </div>
             </div>
             <div class="row">
                 <div class="col-md-6 form-group mb-3">
                     <label>Email Id</label>
-                    <input type="email" class="form-control" placeholder="Enter your email">
+                    <input type="email" class="form-control" placeholder="Enter your email" [(ngModel)]="email" [ngModelOptions]="{standalone: true}">
                 </div>
                 <div class="col-md-6 form-group mb-3">
                     <label>Phone Number</label>
-                    <input type="text" class="form-control" placeholder="Enter your phone number">
+                    <input type="number" class="form-control" placeholder="Enter your phone number" [(ngModel)]="mobile" [ngModelOptions]="{standalone: true}">
                 </div>
             </div>
             <div class="form-group mb-3">
                 <label>Select Service</label>
-                <select class="form-control">
-                    <option>Expert Programmer/Scripter</option>
-                    <option>Expert Analysis</option>
-                    <option>Report Writing</option>
-                    <option>Data Validation</option>
-                    <option>Purchase Responses</option>
-                    <option>Customizable Report</option>
-                </select>
-            </div>
+                <mat-chip-list>
+                  <mat-chip *ngFor="let service of selectedItems" [selectable]="selectable" [removable]="removable"
+                            (removed)="removeFromCart(service)" (click)="toggleService(service)">
+                    {{ service }}
+                    <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+                  </mat-chip>
+                </mat-chip-list>
+              </div>
             <div class="form-group mb-3">
                 <label>Message</label>
-                <textarea name="" class="form-control" rows="5"></textarea>
+                <textarea name="" class="form-control" rows="5" [(ngModel)]="comments" [ngModelOptions]="{standalone: true}"></textarea>
             </div>
             <div class="text-end"><button type="submit" class="btn btn-primary">Submit</button></div>
         </form>
     </div>
-    
+
 </ng-template>

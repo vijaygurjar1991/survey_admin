@@ -274,4 +274,8 @@ export class SurveyService {
     const url = `${this.apiUrl}api/admin/${this.userId}/GeneralQuestion/GetAgeCalculationLogics`;
     return this.http.get<any>(url, { params });
   }
+  createExpertAid(data: any): Observable<any> {
+    const url = `${this.apiUrl}api/admin/${this.userId}/ExpertAid/CreateExpertAid`;
+    return this.http.post(url, data, { responseType: 'text' });
+  }
 }

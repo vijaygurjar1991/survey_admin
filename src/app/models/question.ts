@@ -22,5 +22,7 @@ export class Question {
     public options: Option[] = [];
     public logics: Logic[] = []
     public shouldAddOption: boolean=false
+    public isScreening: boolean=false
+    public screeningRedirectUrl:string=""
     
 }

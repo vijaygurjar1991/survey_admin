@@ -107,7 +107,7 @@ export class CreateSurveyComponent implements OnInit, AfterViewInit {
   country: { id: string, name: string }[] = [];
   logicEntriesPerQuestion: any[] = [];
   currentPage: number = 1
-  files: any;
+  files: File[] = [];
   filesImage: any;
   isRadomizeAndOr:boolean=false
   constructor(
@@ -1016,6 +1016,7 @@ export class CreateSurveyComponent implements OnInit, AfterViewInit {
     const selectedFiles: FileList = event.addedFiles;
     for (let i = 0; i < selectedFiles.length; i++) {
       this.files.push(selectedFiles[i]);
+      this.uploadImage(selectedFiles[i])
     }
   }
 
@@ -1025,7 +1026,22 @@ export class CreateSurveyComponent implements OnInit, AfterViewInit {
       this.files.splice(index, 1);
     }
   }
-
+  screenImage:any
+  uploadImage(file: File): void {
+  
+    this.themeService.uploadImageAboutUs(file,this.userId).subscribe(
+      (response:String) => {
+        console.log('Upload successful:', response);
+        this.screenImage=response
+        // Handle response from the image upload
+        // You may want to retrieve the URL or any other relevant information from the response
+      },
+      (error) => {
+        console.error('Error occurred while uploading:', error);
+        // Handle error
+      }
+    );
+  }
   getPreview(file: File): string {
     return URL.createObjectURL(file);
   }
@@ -1048,5 +1064,29 @@ export class CreateSurveyComponent implements OnInit, AfterViewInit {
         console.error(error);
       }
     );
+  }
+  screenQuestion:any
+  screenRedirectUser:boolean
+  screenRedirectURL:any
+  screenQuestionObj:Question=new Question();
+  saveScreenImage():void{
+    this.screenQuestionObj.question=this.screenQuestion
+    this.screenQuestionObj.image=this.screenImage
+    this.screenQuestionObj.isScreening=this.screenRedirectUser
+    this.screenQuestionObj.screeningRedirectUrl=this.screenRedirectURL
+    this.screenQuestionObj.surveyTypeId=this.surveyId
+
+    this.surveyservice.CreateGeneralQuestion(this.screenQuestionObj).subscribe({
+      next: (resp: any) => {
+        Swal.fire('', 'Question Generated Sucessfully.', 'success');
+
+        let url = `/survey/manage-survey/${this.crypto.encryptParam(""+this.surveyId)}`;
+
+        //this.router.navigateByUrl(url);
+      },
+      error: (err: any) => {
+        Swal.fire('', err.error, 'error');
+      }
+    });
   }
 }
