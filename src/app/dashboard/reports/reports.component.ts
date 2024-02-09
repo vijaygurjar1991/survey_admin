@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 import { NgModule } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { DataService } from 'src/app/service/data.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-reports',
@@ -39,6 +40,8 @@ export class ReportsComponent {
       item.isChecked = this.selectAllChecked;
     });
   }
-
-  constructor(private visibilityService: DataService, private modalService: NgbModal, public themeService: DataService) { }
+  baseUrl = '';
+  constructor(private visibilityService: DataService, private modalService: NgbModal, public themeService: DataService) {
+    this.baseUrl = environment.baseURL;
+  }
 }

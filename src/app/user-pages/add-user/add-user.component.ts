@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { DataService } from 'src/app/service/data.service';
 import Swal from 'sweetalert2';
+import { environment } from 'src/environments/environment';
 
 
 @Component({
@@ -9,7 +10,10 @@ import Swal from 'sweetalert2';
   styleUrls: ['./add-user.component.css']
 })
 export class AddUserComponent {
-  constructor(public themeService: DataService) { }
+  baseUrl = '';
+  constructor(public themeService: DataService) {
+    this.baseUrl = environment.baseURL;
+  }
   files: File[] = [];
   role: any;
   id: number;

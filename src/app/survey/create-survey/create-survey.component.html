@@ -5,7 +5,7 @@
             <h6 class="mb-2">Add Question</h6>
             <div class="common-ques">
                 <a href="javascript:void(0);" (click)="openLg(content)">
-                    <figure><img src="../../../assets/images/icons/Add-new-question.png" width="30" height="30" />
+                    <figure><img [src]="baseUrl + '/assets/images/icons/Add-new-question.png'" width="30" height="30" />
                     </figure>
                     <figcaption>Add New Question</figcaption>
                 </a>
@@ -15,7 +15,7 @@
             <h6 class="mb-2">Add Generic Question</h6>
             <div class="common-ques">
                 <a href="javascript:void(0);" (click)="openGenric(genricQuestion)">
-                    <figure><img src="../../../assets/images/icons/Add-new-question.png" width="30" height="30" />
+                    <figure><img [src]="baseUrl + '/assets/images/icons/Add-new-question.png'" width="30" height="30" />
                     </figure>
                     <figcaption>Add New Generic Question</figcaption>
                 </a>
@@ -34,8 +34,8 @@
         <div ngClass="my-3">
             <h6 class="mb-2">Add Screen</h6>
             <div class="common-ques">
-                <a routerLink="javascript:"  (click)="openAddScreen(AddScreen)">
-                    <figure><img src="../../../assets/images/icons/Add-new-screen.png" width="30" height="30" />
+                <a routerLink="javascript:" (click)="openAddScreen(AddScreen)">
+                    <figure><img [src]="baseUrl + '/assets/images/icons/Add-new-screen.png'" width="30" height="30" />
                     </figure>
                     <figcaption>Add New Screen</figcaption>
                 </a>
@@ -45,7 +45,7 @@
             <h6 class="mb-2">Add Logic</h6>
             <div class="common-ques">
                 <a routerLink="javascript:" (click)="toggleDivVisibility();getRandomization()">
-                    <figure><img src="../../../assets/images/icons/Add-new-logic.png" width="30" height="30" />
+                    <figure><img [src]="baseUrl + '/assets/images/icons/Add-new-logic.png'" width="30" height="30" />
                     </figure>
                     <figcaption>Add New Logic</figcaption>
                 </a>
@@ -55,7 +55,7 @@
             <h6 class="mb-2">Add SEC/LSM</h6>
             <div class="common-ques">
                 <a routerLink="javascript:" (click)="onGenericQuestionClick('SECLSM')">
-                    <figure><img src="../../../assets/images/icons/Add-new-logic.png" width="30" height="30" />
+                    <figure><img [src]="baseUrl + '/assets/images/icons/Add-new-logic.png'" width="30" height="30" />
                     </figure>
                     <figcaption>Add New SEC/LSM</figcaption>
                 </a>
@@ -86,7 +86,7 @@
         </div>
         <div ngClass="survey-name">
             <div>
-                <h4 ngClass="mb-3"><img src="../../../assets/images/Images/flag.png" class="me-2 rounded-circle"
+                <h4 ngClass="mb-3"><img [src]="baseUrl + '/assets/images/Images/flag.png'" class="me-2 rounded-circle"
                         style="width: 30px;height: 30px;" *ngIf="countryName=='India'" /> {{countryName}} {{surveyName}}
                 </h4>
                 <span *ngIf="categoryName !='Others'">{{categoryName}}</span>
@@ -116,28 +116,35 @@
                             aria-labelledby="randomaisation-tab">
                             <h5 ngClass="mb-4">Randomization</h5>
                             <div ngClass="mb-3 d-flex justify-content-between align-items-center">
-                                <h6 class="mb-0">Randomize a set of questions/screens/groups (From Question To Question)</h6>
-                                <button type="button" class="btn btn-primary btn-sm" (click)="addRandomizationSection()">Add New Randomization</button>
-                              </div>
-                              
-                              <div *ngFor="let randomization of randormizeEntries; let i = index">
+                                <h6 class="mb-0">Randomize a set of questions/screens/groups (From Question To Question)
+                                </h6>
+                                <button type="button" class="btn btn-primary btn-sm"
+                                    (click)="addRandomizationSection()">Add New Randomization</button>
+                            </div>
+
+                            <div *ngFor="let randomization of randormizeEntries; let i = index">
                                 <div class="border rounded p-4 mb-2">
-                                  <h5>Randomization {{ i + 1 }}</h5>
-                                  <div class="d-flex gap-3">
-                                    <select class="form-select" aria-label="Default select example" [(ngModel)]="randomization.fromQuestion">
-                                      <option [value]="null" selected disabled>Select From Question</option>
-                                      <option *ngFor="let option of logicQuestionList" [value]="option.id">{{ option.item }}</option>
-                                    </select>
-                              
-                                    <select class="form-select" aria-label="Default select example" [(ngModel)]="randomization.toQuestion">
-                                      <option [value]="null" selected disabled>Select To Question</option>
-                                      <option *ngFor="let option of logicQuestionList" [value]="option.id">{{ option.item }}</option>
-                                    </select>
-                              
-                                    <button type="button" class="btn btn-primary btn-sm" (click)="removeRandomizationSection(i)">Remove</button>
-                                  </div>
+                                    <h5>Randomization {{ i + 1 }}</h5>
+                                    <div class="d-flex gap-3">
+                                        <select class="form-select" aria-label="Default select example"
+                                            [(ngModel)]="randomization.fromQuestion">
+                                            <option [value]="null" selected disabled>Select From Question</option>
+                                            <option *ngFor="let option of logicQuestionList" [value]="option.id">{{
+                                                option.item }}</option>
+                                        </select>
+
+                                        <select class="form-select" aria-label="Default select example"
+                                            [(ngModel)]="randomization.toQuestion">
+                                            <option [value]="null" selected disabled>Select To Question</option>
+                                            <option *ngFor="let option of logicQuestionList" [value]="option.id">{{
+                                                option.item }}</option>
+                                        </select>
+
+                                        <button type="button" class="btn btn-primary btn-sm"
+                                            (click)="removeRandomizationSection(i)">Remove</button>
+                                    </div>
                                 </div>
-                              </div>
+                            </div>
 
 
                             <div class="mb-3 ms-4 form-check checking">
@@ -264,8 +271,8 @@
                                                 </li>
                                                 <li class="nav-item" role="presentation">
                                                     <button class="nav-link" id="calculator-tab" data-bs-toggle="tab"
-                                                        data-bs-target="#calculator" role="tab"
-                                                        aria-selected="false" (click)="getLogicQuestionListForCalculation(question?.id,question?.sort);getQuestionListAgeCalculation(question?.id)">Calculations</button>
+                                                        data-bs-target="#calculator" role="tab" aria-selected="false"
+                                                        (click)="getLogicQuestionListForCalculation(question?.id,question?.sort);getQuestionListAgeCalculation(question?.id)">Calculations</button>
                                                 </li>
                                             </ul>
                                             <!-- Logic Question -->
@@ -283,11 +290,13 @@
                                                             </label>
                                                         </div> -->
                                                     </div>
-                                                    <div ngClass="logic-ques" *ngFor="let logicEntry of logicEntriesPerQuestion[i]; let j = index">
+                                                    <div ngClass="logic-ques"
+                                                        *ngFor="let logicEntry of logicEntriesPerQuestion[i]; let j = index">
 
                                                         <div class="">
                                                             <div class="input-group flex-nowrap">
-                                                                <span class="input-group-text" id="addon-wrapping">In</span>
+                                                                <span class="input-group-text"
+                                                                    id="addon-wrapping">In</span>
                                                                 <select class="form-select">
                                                                     <option selected>{{question?.question}}</option>
                                                                 </select>
@@ -308,7 +317,8 @@
                                                                                 [(ngModel)]="logicEntry.ifId">
                                                                                 <option
                                                                                     *ngFor="let item of logicValuesList;let j=index;"
-                                                                                    [value]="item.id">{{item.name}}</option>
+                                                                                    [value]="item.id">{{item.name}}
+                                                                                </option>
                                                                             </select>
                                                                         </div>
                                                                         <div class="col-md-3">
@@ -323,20 +333,30 @@
                                                                             </select>
                                                                         </div>
                                                                         <div class="col-md-4 d-flex ">
-                                                                            <div class="form-check form-check-inline d-flex align-items-center">
-                                                                                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1">
-                                                                                <label class="form-check-label ps-1" for="inlineRadio1">And</label>
+                                                                            <div
+                                                                                class="form-check form-check-inline d-flex align-items-center">
+                                                                                <input class="form-check-input"
+                                                                                    type="radio"
+                                                                                    name="inlineRadioOptions"
+                                                                                    id="inlineRadio1" value="option1">
+                                                                                <label class="form-check-label ps-1"
+                                                                                    for="inlineRadio1">And</label>
                                                                             </div>
-                                                                            <div class="form-check form-check-inline d-flex align-items-center">
-                                                                                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2">
-                                                                                <label class="form-check-label ps-1" for="inlineRadio2">Or</label>
+                                                                            <div
+                                                                                class="form-check form-check-inline d-flex align-items-center">
+                                                                                <input class="form-check-input"
+                                                                                    type="radio"
+                                                                                    name="inlineRadioOptions"
+                                                                                    id="inlineRadio2" value="option2">
+                                                                                <label class="form-check-label ps-1"
+                                                                                    for="inlineRadio2">Or</label>
                                                                             </div>
                                                                         </div>
                                                                     </div>
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        
+
                                                         <div class="add-multiple-logic">
                                                             <div ngClass="if-then">
                                                                 <span>Then</span>
@@ -371,8 +391,9 @@
                                                                                 ngClass="trash-icon"></ng-icon></a>
                                                                     </div> -->
                                                                     <div class="col-md-1">
-                                                                        <button  type="button"
-                                                                            class="btn btn-outline-primary btn-sm" (click)="showBranchingElse()">Else</button>
+                                                                        <button type="button"
+                                                                            class="btn btn-outline-primary btn-sm"
+                                                                            (click)="showBranchingElse()">Else</button>
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -409,8 +430,9 @@
                                                                                 ngClass="trash-icon"></ng-icon></a>
                                                                     </div> -->
                                                                     <div class="col-md-1">
-                                                                        <button  type="button"
-                                                                            class="btn btn-outline-primary btn-sm" (click)="hideBranchingElse()">Remove</button>
+                                                                        <button type="button"
+                                                                            class="btn btn-outline-primary btn-sm"
+                                                                            (click)="hideBranchingElse()">Remove</button>
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -452,17 +474,22 @@
                                                                 <div>Perform Operation</div>
                                                             </div>
                                                             <div class="col-md-4">
-                                                                <select class="form-select"  [(ngModel)]="calulationPerformOperationOption" [ngModelOptions]="{standalone: true}">
+                                                                <select class="form-select"
+                                                                    [(ngModel)]="calulationPerformOperationOption"
+                                                                    [ngModelOptions]="{standalone: true}">
                                                                     <option value="null">Select Option
                                                                     </option>
-                                                                    <option *ngFor="let item of ageOptionLogicValuesList;let i=index;"
+                                                                    <option
+                                                                        *ngFor="let item of ageOptionLogicValuesList;let i=index;"
                                                                         value="{{item.id}}">{{item.name}}</option>
                                                                 </select>
                                                             </div>
-                                                           
+
                                                             <div class="col-md-3">
                                                                 <input class="form-control" type="number"
-                                                                    placeholder="Value"  [(ngModel)]="calulationPerformOperationValue" [ngModelOptions]="{standalone: true}">
+                                                                    placeholder="Value"
+                                                                    [(ngModel)]="calulationPerformOperationValue"
+                                                                    [ngModelOptions]="{standalone: true}">
                                                             </div>
                                                         </div>
                                                     </div>
@@ -473,7 +500,9 @@
                                                                 <div>Then</div>
                                                             </div>
                                                             <div class="col-md-3">
-                                                                <select class="form-select" [(ngModel)]="calulationThenOption" [ngModelOptions]="{standalone: true}">
+                                                                <select class="form-select"
+                                                                    [(ngModel)]="calulationThenOption"
+                                                                    [ngModelOptions]="{standalone: true}">
                                                                     <option value="null">Select Option
                                                                     </option>
                                                                     <option
@@ -482,7 +511,9 @@
                                                                 </select>
                                                             </div>
                                                             <div class="col-md-3">
-                                                                <select class="form-select" [(ngModel)]="calulationThenValue" [ngModelOptions]="{standalone: true}">
+                                                                <select class="form-select"
+                                                                    [(ngModel)]="calulationThenValue"
+                                                                    [ngModelOptions]="{standalone: true}">
                                                                     <option value="null">Select Question
                                                                     </option>
                                                                     <option
@@ -492,7 +523,8 @@
                                                             </div>
                                                             <div class="col-md-3 checking">
                                                                 <button *ngIf="!isCalulationElseShow" type="button"
-                                                                    class="btn btn-outline-primary btn-sm" (click)="showCalculationElse()">Else</button>
+                                                                    class="btn btn-outline-primary btn-sm"
+                                                                    (click)="showCalculationElse()">Else</button>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -503,7 +535,9 @@
                                                             </div>
                                                             <div class="col-md-3">
                                                                 <!-- Use unique template reference variables by appending the index -->
-                                                                <select class="form-select" [(ngModel)]="calulationElseOption" [ngModelOptions]="{standalone: true}">
+                                                                <select class="form-select"
+                                                                    [(ngModel)]="calulationElseOption"
+                                                                    [ngModelOptions]="{standalone: true}">
                                                                     <option value="null">Select Option
                                                                     </option>
                                                                     <option
@@ -513,7 +547,9 @@
                                                             </div>
                                                             <div class="col-md-3">
                                                                 <!-- Use unique template reference variables by appending the index -->
-                                                                <select class="form-select" [(ngModel)]="calulationElseValue" [ngModelOptions]="{standalone: true}">
+                                                                <select class="form-select"
+                                                                    [(ngModel)]="calulationElseValue"
+                                                                    [ngModelOptions]="{standalone: true}">
                                                                     <option value="null">Select Question
                                                                     </option>
                                                                     <option
@@ -523,14 +559,16 @@
                                                             </div>
                                                             <div class="col-md-3 checking">
                                                                 <button type="button"
-                                                                    class="btn btn-outline-primary btn-sm" (click)="hideCalculationElse()">Remove</button>
+                                                                    class="btn btn-outline-primary btn-sm"
+                                                                    (click)="hideCalculationElse()">Remove</button>
                                                             </div>
                                                         </div>
                                                     </div>
 
                                                     <div class="row">
                                                         <div class="col-12 text-end d-flex justify-content-end">
-                                                            <button type="button" class="btn btn-primary" (click)="saveCalculation(question?.id)">Save</button>
+                                                            <button type="button" class="btn btn-primary"
+                                                                (click)="saveCalculation(question?.id)">Save</button>
                                                         </div>
                                                     </div>
 
@@ -593,7 +631,7 @@
                     <a [ngClass]="{'active':(ques.id === selectedQuestionType)}" href="javascript:void(0);"
                         (click)="onQuestionTypeClick(ques.id)">
                         <figure>
-                            <img loading="lazy" src="../../../assets/{{ques.image}}" width="38" height="30" />
+                            <img loading="lazy" [src]="baseUrl + '/assets/' + ques.image" width="38" height="30" />
                         </figure>
                         <figcaption>
                             {{ ques.type }}
@@ -626,7 +664,7 @@
                 <li *ngFor="let item of names">
                     <a href="javascript:" (click)="onGenericQuestionClick(item.name);modal.close('Close click')">
                         <figure>
-                            <img src="../../../assets/{{item.image}}" width="35" height="35" />
+                            <img [src]="baseUrl + '/assets/' + item.image" width="35" height="35" />
                         </figure>
                         <figcaption>{{ item.name }}</figcaption>
                     </a>
@@ -653,7 +691,7 @@
                 <li>
                     <a href="javascript:" (click)="onGenericQuestionClick('SECLSM');modal.close('Close click')">
                         <figure>
-                            <img src="../../../assets/images/icons/nccs.png" width="35" height="35" />
+                            <img [src]="baseUrl + '/assets/images/icons/nccs.png'" width="35" height="35" />
                         </figure>
                         <figcaption>NCCS</figcaption>
                     </a>
@@ -661,7 +699,7 @@
                 <li>
                     <a href="javascript:" (click)="onGenericQuestionClick('FLSM');modal.close('Close click')">
                         <figure>
-                            <img src="../../../assets/images/icons/nccs.png" width="35" height="35" />
+                            <img [src]="baseUrl + '/assets/images/icons/nccs.png'" width="35" height="35" />
                         </figure>
                         <figcaption>FLSM</figcaption>
                     </a>
@@ -738,26 +776,25 @@
             <!-- Nav tabs -->
             <ul class="nav flex-column nav-tabs" id="myTab" role="tablist">
                 <li class="nav-item" role="presentation">
-                    <button class="nav-link active" id="addText-tab" data-bs-toggle="tab"
-                        data-bs-target="#addText" role="tab" aria-selected="false">Add Text</button>
+                    <button class="nav-link active" id="addText-tab" data-bs-toggle="tab" data-bs-target="#addText"
+                        role="tab" aria-selected="false">Add Text</button>
                 </li>
                 <li class="nav-item" role="presentation">
-                    <button class="nav-link" id="addImage-tab" data-bs-toggle="tab"
-                        data-bs-target="#addImage" role="tab" aria-selected="false">Add an Image</button>
+                    <button class="nav-link" id="addImage-tab" data-bs-toggle="tab" data-bs-target="#addImage"
+                        role="tab" aria-selected="false">Add an Image</button>
                 </li>
                 <li class="nav-item" role="presentation">
-                    <button class="nav-link" id="addVideo-tab" data-bs-toggle="tab"
-                        data-bs-target="#addVideo" role="tab" aria-selected="false">Add Video</button>
+                    <button class="nav-link" id="addVideo-tab" data-bs-toggle="tab" data-bs-target="#addVideo"
+                        role="tab" aria-selected="false">Add Video</button>
                 </li>
                 <li class="nav-item" role="presentation">
-                    <button class="nav-link" id="addiFrame-tab" data-bs-toggle="tab"
-                        data-bs-target="#addiFrame" role="tab" aria-selected="false">Add iFrame</button>
+                    <button class="nav-link" id="addiFrame-tab" data-bs-toggle="tab" data-bs-target="#addiFrame"
+                        role="tab" aria-selected="false">Add iFrame</button>
                 </li>
             </ul>
             <!-- Logic Question -->
             <div class="tab-content p-4">
-                <div class="tab-pane active" id="addText" role="tabpanel"
-                    aria-labelledby="addText-tab">
+                <div class="tab-pane active" id="addText" role="tabpanel" aria-labelledby="addText-tab">
                     <h5 ngClass="mb-4">Add text</h5>
                     <form action="">
                         <div class="mb-3">
@@ -781,43 +818,45 @@
                         </div>
                     </div>
                     <div class="mb-3">
-                        <input type="text" class="form-control" placeholder="Insert Heading for Image Screen" [(ngModel)]="screenQuestion" [ngModelOptions]="{standalone: true}"/>
+                        <input type="text" class="form-control" placeholder="Insert Heading for Image Screen"
+                            [(ngModel)]="screenQuestion" [ngModelOptions]="{standalone: true}" />
                     </div>
                     <div class="mb-3">
                         <ngx-dropzone (change)="onSelect($event)" [ngClass]="'drop-file'">
                             <ngx-dropzone-label>
-                              <img src="../../../assets/images/icons/attach-image.png" />
-                              <a href="javascript:"><u>Click to upload</u></a> <span> or drag and drop</span>
-                              <p>Max. File Size: 15MB</p>
+                                <img [src]="baseUrl + '/assets/images/icons/attach-image.png'" />
+                                <a href="javascript:"><u>Click to upload</u></a> <span> or drag and drop</span>
+                                <p>Max. File Size: 15MB</p>
                             </ngx-dropzone-label>
                             <ngx-dropzone-preview *ngFor="let f of files" [removable]="true" (removed)="onRemove(f)">
-                              <ngx-dropzone-label>{{ f.name }} ({{ f.type }})</ngx-dropzone-label>
+                                <ngx-dropzone-label>{{ f.name }} ({{ f.type }})</ngx-dropzone-label>
                             </ngx-dropzone-preview>
                         </ngx-dropzone>
                     </div>
                     <div class="mb-3 ms-3">
                         <div class="form-check checking">
-                            <input class="form-check-input" type="checkbox" value="" id="redirectuser" [(ngModel)]="screenRedirectUser" [ngModelOptions]="{standalone: true}">
+                            <input class="form-check-input" type="checkbox" value="" id="redirectuser"
+                                [(ngModel)]="screenRedirectUser" [ngModelOptions]="{standalone: true}">
                             <label class="form-check-label" for="redirectuser">
                                 Redirect User
                             </label>
                         </div>
                     </div>
                     <div class="mb-3">
-                        <input type="text" class="form-control" placeholder="Redirect URL" [(ngModel)]="screenRedirectURL" [ngModelOptions]="{standalone: true}"/>
+                        <input type="text" class="form-control" placeholder="Redirect URL"
+                            [(ngModel)]="screenRedirectURL" [ngModelOptions]="{standalone: true}" />
                     </div>
                     <div class="mb-3">
-                            <button type="button" class="btn btn-primary btn-sm"
-                                        (click)="saveScreenImage()">Save</button>
+                        <button type="button" class="btn btn-primary btn-sm" (click)="saveScreenImage()">Save</button>
                     </div>
                 </div>
                 <div class="tab-pane" id="addVideo" role="tabpanel" aria-labelledby="addVideo-tab">
                     <h5 ngClass="mb-4">Add Video</h5>
-                    
+
                 </div>
                 <div class="tab-pane" id="addiFrame" role="tabpanel" aria-labelledby="addiFrame-tab">
                     <h5 ngClass="mb-4">Add iFrame</h5>
-                    
+
                 </div>
             </div>
         </div>

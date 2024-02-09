@@ -14,7 +14,7 @@
                         <ngx-dropzone class="upload-user-pic" ngx-dropzone [accept]="'image/*'"
                             (change)="onSelect($event)">
                             <ngx-dropzone-label>
-                                <img src="../../../assets/images/icons/attach-image.png" />
+                                <img [src]="baseUrl+'/assets/images/icons/attach-image.png'" />
                             </ngx-dropzone-label>
                             <ngx-dropzone-image-preview ngProjectAs="ngx-dropzone-preview" *ngFor="let f of files"
                                 [file]="f" [removable]="true" (removed)="onRemove(f)">

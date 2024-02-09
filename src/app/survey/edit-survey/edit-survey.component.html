@@ -20,7 +20,7 @@
                             <li *ngFor="let ques of questionTypes">
                                 <a (click)="onQuestionTypeClick(ques.id)" href="javascript:void(0);"
                                     [ngClass]="{'active':(ques.id == questionTypeId)}">
-                                    <figure><img src="../../../assets/{{ques.image}}" width="38" height="30" />
+                                    <figure><img [src]="baseUrl + '/assets/' + ques.image" width="38" height="30" />
                                     </figure>
                                     <figcaption>{{ ques.type }} <br /><small>{{ ques.subType }}</small></figcaption>
                                 </a>
@@ -35,13 +35,14 @@
                                 <input type="text" [(ngModel)]="question.question" class="form-control" />
                             </div>
                             <div class="col-2">
-                                <input type="text" [(ngModel)]="question.questionTypeName"class="form-control" >
+                                <input type="text" [(ngModel)]="question.questionTypeName" class="form-control">
                             </div>
                             <div class="col-2">
-                                <select class="form-select" >
-                                    <option *ngFor="let item of pipeQuestionList;let i=index;"
-                                    value="{{item.id}}" title="{{item.item}}">{{ item.item.split(' ').slice(0, 3).join(' ') }}{{item.item.split(' ').length > 3 ? ' ...' : ''}}</option>
-                                    
+                                <select class="form-select">
+                                    <option *ngFor="let item of pipeQuestionList;let i=index;" value="{{item.id}}"
+                                        title="{{item.item}}">{{ item.item.split(' ').slice(0, 3).join(' ')
+                                        }}{{item.item.split(' ').length > 3 ? ' ...' : ''}}</option>
+
                                 </select>
                             </div>
                         </div>
@@ -68,7 +69,7 @@
 
                                 <ngx-dropzone ngx-dropzone [accept]="'image/*'" (change)="onSelectImage($event)">
                                     <ngx-dropzone-label>
-                                        <figure><img src="../../../assets/images/icons/attach-image.png" width="64"
+                                        <figure><img [src]="baseUrl+'/assets/images/icons/attach-image.png'" width="64"
                                                 height="58" /></figure>
                                         <figcaption>Attach Image</figcaption>
                                     </ngx-dropzone-label>
@@ -82,7 +83,7 @@
                             <li>
                                 <ngx-dropzone ngx-dropzone [accept]="'video/*'" (change)="onSelectVideo($event)">
                                     <ngx-dropzone-label>
-                                        <figure><img src="../../../assets/images/icons/attach-video.png" width="64"
+                                        <figure><img [src]="baseUrl+'/assets/images/icons/attach-video.png'" width="64"
                                                 height="58" /></figure>
                                         <figcaption>Attach Video</figcaption>
                                     </ngx-dropzone-label>
@@ -118,7 +119,7 @@
                                 <ngx-dropzone class="edit-survey-img" ngx-dropzone [accept]="'image/*'"
                                     (change)="onSelect($event)">
                                     <ngx-dropzone-label>
-                                        <img src="../../../assets/images/icons/attach-image.png" />
+                                        <img [src]="baseUrl+'/assets/images/icons/attach-image.png'" />
                                     </ngx-dropzone-label>
                                     <ngx-dropzone-image-preview ngProjectAs="ngx-dropzone-preview"
                                         *ngFor="let f of files" [file]="f" [removable]="true" (removed)="onRemove(f)">
@@ -153,7 +154,7 @@
                                 <ngx-dropzone class="edit-survey-img" ngx-dropzone [accept]="'image/*'"
                                     (change)="onSelect($event)">
                                     <ngx-dropzone-label>
-                                        <img src="../../../assets/images/icons/attach-image.png" />
+                                        <img [src]="baseUrl+'/assets/images/icons/attach-image.png'" />
                                     </ngx-dropzone-label>
                                     <ngx-dropzone-image-preview ngProjectAs="ngx-dropzone-preview"
                                         *ngFor="let f of files" [file]="f" [removable]="true" (removed)="onRemove(f)">
@@ -208,7 +209,8 @@
                             </div>
                             <div class="col-auto">
                                 <div ngClass="new-options">
-                                    <a herf="javascript:void(0);" (click)="openLg(content)"><ng-icon name="heroPlusCircle"></ng-icon> Add Bulk
+                                    <a herf="javascript:void(0);" (click)="openLg(content)"><ng-icon
+                                            name="heroPlusCircle"></ng-icon> Add Bulk
                                         Option</a>
                                 </div>
                             </div>
@@ -298,7 +300,7 @@
                 <div ngClass="p-4">
                     <h5 ngClass="mb-4">Logic</h5>
                     <div ngClass="mb-4">
-                        <div class="logic-tab">                            
+                        <div class="logic-tab">
                             <!-- Logic Question -->
                             <div class="tab-content p-4" *ngIf="isLogicShow">
                                 <div class="tab-pane active" id="branching" role="tabpanel"
@@ -316,7 +318,8 @@
                                     <div ngClass="logic-ques">
                                         <div class="input-group flex-nowrap">
                                             <span class="input-group-text" id="addon-wrapping">In</span>
-                                            <select class="form-select" #selectedQuestion (change)="getOptionsByQuestionId(selectedQuestion.value)">
+                                            <select class="form-select" #selectedQuestion
+                                                (change)="getOptionsByQuestionId(selectedQuestion.value)">
                                                 <option *ngFor="let item of logicQuestionList;let i=index;"
                                                     value="{{item.id}}">{{item.item}}</option>
                                             </select>
@@ -338,17 +341,23 @@
                                                 <div class="col-md-3">
                                                     <mat-form-field class="example-chip-list">
                                                         <mat-chip-grid #chipGrid aria-label="City selection">
-                                                            <mat-chip-row *ngFor="let option of selectedOptions; let i=index;">
+                                                            <mat-chip-row
+                                                                *ngFor="let option of selectedOptions; let i=index;">
                                                                 {{option.option}}
-                                                                <button matChipRemove [attr.aria-label]="'remove'" (click)="removeOption(option)">
+                                                                <button matChipRemove [attr.aria-label]="'remove'"
+                                                                    (click)="removeOption(option)">
                                                                     <mat-icon>cancel</mat-icon>
                                                                 </button>
                                                             </mat-chip-row>
-                                                            <input #citiesInput [matChipInputFor]="chipGrid" [matAutocomplete]="auto"
-                                                                [matChipInputSeparatorKeyCodes]="separatorKeysCodes" (matChipInputTokenEnd)="addOption($event)">
+                                                            <input #citiesInput [matChipInputFor]="chipGrid"
+                                                                [matAutocomplete]="auto"
+                                                                [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                                                                (matChipInputTokenEnd)="addOption($event)">
                                                         </mat-chip-grid>
-                                                        <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selectedOption($event)">
-                                                            <mat-option *ngFor="let option of optionListByQuestionId" [value]="option">
+                                                        <mat-autocomplete #auto="matAutocomplete"
+                                                            (optionSelected)="selectedOption($event)">
+                                                            <mat-option *ngFor="let option of optionListByQuestionId"
+                                                                [value]="option">
                                                                 {{option.option}}
                                                             </mat-option>
                                                         </mat-autocomplete>
@@ -395,20 +404,21 @@
 
                                     </div>
                                 </div>
-                                
+
                             </div>
 
                         </div>
                         <div class="row mt-3">
                             <div class="col-12 text-end">
-                                <button type="button" class="btn btn-primary px-5" (click)="onLogicSave()">Save Logic</button>
+                                <button type="button" class="btn btn-primary px-5" (click)="onLogicSave()">Save
+                                    Logic</button>
                             </div>
                         </div>
                     </div>
                 </div>
             </li>
         </ul>
-        
+
     </div>
 </div>
 
@@ -435,8 +445,7 @@
     </div>
     <div class="modal-footer upload">
         <button type="button" class="btn close" (click)="modal.close('Close click')">Cancel</button>
-        <button type="button" class="btn btn-primary icon"
-            (click)="modal.close('Close click')">Add
+        <button type="button" class="btn btn-primary icon" (click)="modal.close('Close click')">Add
             <ng-icon name="heroArrowLongRight" class="ms-4"></ng-icon>
         </button>
     </div>

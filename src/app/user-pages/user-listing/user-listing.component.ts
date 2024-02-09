@@ -1,5 +1,6 @@
 import { ChangeDetectorRef, Component } from '@angular/core';
 import { DataService } from 'src/app/service/data.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-user-listing',
@@ -8,7 +9,11 @@ import { DataService } from 'src/app/service/data.service';
 })
 export class UserListingComponent {
   UserData: any;
-  constructor(public themeService: DataService, private cdr: ChangeDetectorRef) { }
+  image: any;
+  baseUrl = '';
+  constructor(public themeService: DataService, private cdr: ChangeDetectorRef) {
+    this.baseUrl = environment.baseURL;
+  }
   files: File[] = [];
   role: any;
   id: number = 0;
@@ -18,7 +23,7 @@ export class UserListingComponent {
   contactNo: number;
   createdDate: any;
   roleId: number = 0;
-  image: any;
+
 
   roles: any[] = [
     { id: 1, name: 'SuperAdmin' },

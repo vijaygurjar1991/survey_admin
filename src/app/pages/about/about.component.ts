@@ -5,6 +5,7 @@ import { responseDTO } from 'src/app/types/responseDTO';
 import { ChangeDetectorRef } from '@angular/core';
 import swal from 'sweetalert2';
 import { UtilsService } from 'src/app/service/utils.service';
+import { environment } from 'src/environments/environment';
 declare var Dropzone: any;
 
 @Component({
@@ -15,13 +16,16 @@ declare var Dropzone: any;
 export class AboutComponent {
   public Editor = ClassicEditor;
   userId: any;
-  constructor(public themeService: DataService, private cdr: ChangeDetectorRef,private util: UtilsService) { }
+  constructor(public themeService: DataService, private cdr: ChangeDetectorRef, private util: UtilsService) {
+    this.baseUrl = environment.baseURL;
+  }
   files: File[] = [];
   id: number = 0;
   name: any;
   description: any;
   image: any
-  centerId:any
+  centerId: any;
+  baseUrl = '';
 
   onRemove(event: any) { // Use 'any' as the event type
     console.log(event);
@@ -35,7 +39,7 @@ export class AboutComponent {
 
   }
 
-  
+
 
   getAboutus() {
     this.userId = this.util.getUserId();
@@ -48,7 +52,7 @@ export class AboutComponent {
       this.cdr.detectChanges();
     });
 
-    
+
   }
   postData() {
     const dataToSend = {
@@ -57,7 +61,7 @@ export class AboutComponent {
       description: this.description,
       image: this.image,
       centerId: this.centerId
-      
+
     };
     console.log("dataToSend", dataToSend)
     this.themeService.CreateAboutUs(dataToSend).subscribe(
@@ -81,13 +85,13 @@ export class AboutComponent {
       this.uploadImage(file); // Trigger upload after selecting the file
     }
   }
-  
+
   uploadImage(file: File): void {
-  
-    this.themeService.uploadImageAboutUs(file,this.userId).subscribe(
-      (response:String) => {
+
+    this.themeService.uploadImageAboutUs(file, this.userId).subscribe(
+      (response: String) => {
         console.log('Upload successful:', response);
-        this.image=response
+        this.image = response
         // Handle response from the image upload
         // You may want to retrieve the URL or any other relevant information from the response
       },
@@ -97,5 +101,5 @@ export class AboutComponent {
       }
     );
   }
-  
+
 }
