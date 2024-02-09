@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AuthService } from './auth.service';
 import { User } from '../models/user';
+import { ToastrService } from 'ngx-toastr';
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +13,7 @@ export class UtilsService {
   private centerId:any;
   
 
-  constructor(private auth: AuthService) { 
+  constructor(private auth: AuthService,private toastr: ToastrService) { 
     this.auth.userData$.subscribe({
       next: (user: User) => {
         this.userId = user.userId;
@@ -32,5 +33,11 @@ export class UtilsService {
 
   getCenterId(){
     return this.centerId;
+  }
+  showSuccess(message: string) {
+    this.toastr.success(message, 'Success');
+  }
+  showError(message: string) {
+    this.toastr.error(message, 'Failed');
   }
 }
