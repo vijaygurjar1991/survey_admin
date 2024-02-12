@@ -78,6 +78,7 @@ export class CreateSurveyComponent implements OnInit, AfterViewInit {
   @ViewChild('thanIdSelect') thanIdSelect: ElementRef;
   @ViewChild('thanExpectedSelect') thanExpectedSelect: ElementRef;
   @ViewChild('SecLsmModal', { static: true }) secLsmModal!: ModalDirective;
+  @ViewChild('OccupationModal', { static: true }) occupationModal!: ModalDirective;
 
   role: string;
   userId: number;
@@ -264,9 +265,14 @@ export class CreateSurveyComponent implements OnInit, AfterViewInit {
       this.flsmModal.show();
     } else if (type === "SECLSM") {
       this.secLsmModal.show();
+    } else if (type === "Occupation") {
+      this.occupationModal.show();
     }
 
   }
+
+
+
   openFullscreen(content: any) {
     this.modalService.open(content, { fullscreen: true, windowClass: 'right-aligned-modal' });
   }
