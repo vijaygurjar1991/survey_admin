@@ -1,4 +1,4 @@
-import { HttpClient,HttpErrorResponse,HttpParams  } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { BehaviorSubject, Observable, map } from 'rxjs';
@@ -52,7 +52,7 @@ export class AuthService {
       .set('captchertoken', userDetails.captchertoken);
     return this.http.post(`${this.apiUrl}Login?${params.toString()}`, userDetails, { responseType: 'text' }).pipe(
       map((response) => {
-        //debugger;
+        // debugger;
         if (response) {
           localStorage.setItem('authToken', response);
           this.setUserDetails();
@@ -64,6 +64,7 @@ export class AuthService {
 
 
   setUserDetails() {
+    // debugger;
     this.userData.next(null);
     if (localStorage.getItem('authToken')) {
       const userDetails = new User();
@@ -105,15 +106,19 @@ export class AuthService {
     }
   }
   registerOrganization(data: any): Observable<any> {
-    const url=`${this.apiUrl}RegisterOrganization`
+    const url = `${this.apiUrl}RegisterOrganization`
     return this.http.post(url, data).pipe(
       catchError((error: HttpErrorResponse) => this.handleError(error))
     );
   }
-  verifyEmail(dataToSend:any): Observable<any> {
+  verifyEmail(dataToSend: any): Observable<any> {
     const url = `${this.apiUrl}EmailVerify`;
-    return this.http.post(url,dataToSend,{ responseType: 'text' }).pipe(
+    return this.http.post(url, dataToSend, { responseType: 'text' }).pipe(
       map((response) => {
+
+        if (response.charAt(0) === '"' && response.charAt(response.length - 1) === '"') {
+          response = response.slice(1, -1);
+        }
         //debugger;
         if (response) {
           localStorage.setItem('authToken', response);
@@ -123,5 +128,5 @@ export class AuthService {
       })
     );
   }
-  
+
 }

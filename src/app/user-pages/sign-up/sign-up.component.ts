@@ -19,17 +19,17 @@ export class SignUpComponent {
   themeService: any;
   signupForm: FormGroup;
   verificationForm: FormGroup;
-  constructor(private visibilityService: DataService,private fb: FormBuilder,private authService: AuthService,private router: Router,private route: ActivatedRoute,private utility:UtilsService) {
+  constructor(private visibilityService: DataService, private fb: FormBuilder, private authService: AuthService, private router: Router, private route: ActivatedRoute, private utility: UtilsService) {
     visibilityService.articleVisible.next(false);
   }
-  organizationId:any
+  organizationId: any
   passwordMatchValidator(formGroup: FormGroup): ValidationErrors | null {
     const password = formGroup.get('password')?.value;
     const confirmPassword = formGroup.get('confirmPassword')?.value;
-    
+
     return password === confirmPassword ? null : { passwordMismatch: true };
   }
-  
+
   hideHeader() {
     this.visibilityService.toggleHeaderVisibility(false);
   }
@@ -50,7 +50,7 @@ export class SignUpComponent {
   ShowBreadcrumb() {
     this.visibilityService.toggleBreadcrumbVisibility(true);
   }
- 
+
   ngOnInit() {
     this.hideHeader();
     this.hideSideBar();
@@ -76,92 +76,94 @@ export class SignUpComponent {
     dots: true
   };
   // Upload Image
-token: string|undefined;
-selectedImage: string | ArrayBuffer | null = null;
-defaultImage: string = './assets/images/profile/pic.png';
-onFileSelected(event: any) {
-  const file: File = event.target.files[0];
-  if (file) {
+  token: string | undefined;
+  selectedImage: string | ArrayBuffer | null = null;
+  defaultImage: string = './assets/images/profile/pic.png';
+  onFileSelected(event: any) {
+    const file: File = event.target.files[0];
+    if (file) {
       const reader = new FileReader();
       reader.readAsDataURL(file);
       reader.onload = () => {
-          this.selectedImage = reader.result;
+        this.selectedImage = reader.result;
       };
-  } else {
+    } else {
       this.selectedImage = null; // Reset selected image if no file is chosen
+    }
   }
-}
-generateOTP() {
-  Object.keys(this.signupForm.controls).forEach(field => {
-    const control = this.signupForm.get(field);
-    control?.markAsTouched({ onlySelf: true });
-  });
-  console.log('Form data:', this.signupForm.value);
-  console.log('Valid Form :', this.signupForm.valid);
-  this.formSubmitted = true;
-  if (this.signupForm.valid) {
-    const formData = this.signupForm.value;
+  generateOTP() {
+    Object.keys(this.signupForm.controls).forEach(field => {
+      const control = this.signupForm.get(field);
+      control?.markAsTouched({ onlySelf: true });
+    });
+    console.log('Form data:', this.signupForm.value);
+    console.log('Valid Form :', this.signupForm.valid);
+    this.formSubmitted = true;
+    if (this.signupForm.valid) {
+      const formData = this.signupForm.value;
 
-    // Call the registration service to make the POST request
-    this.authService.registerOrganization(formData).subscribe(
-      (response) => {
-        console.log('Registration successful:', response);
-        if(response==='AlreadyExits'){
-          this.utility.showError("This Organisation Already Registered");
-          //EmailAlreadyExits
-        }else if(response==='EmailAlreadyExits'){
-          this.utility.showError("This Email Id Already Registered");
-          //EmailAlreadyExits
-        }else{
-          this.organizationId=response
-        this.showUserDetails = true;
+      // Call the registration service to make the POST request
+      this.authService.registerOrganization(formData).subscribe(
+        (response) => {
+          console.log('Registration successful:', response);
+          if (response === 'AlreadyExits') {
+            this.utility.showError("This Organisation Already Registered");
+            //EmailAlreadyExits
+          } else if (response === 'EmailAlreadyExits') {
+            this.utility.showError("This Email Id Already Registered");
+            //EmailAlreadyExits
+          } else {
+            this.organizationId = response
+            this.showUserDetails = true;
+          }
+        },
+        (error) => {
+          console.error('Registration failed:', error);
+          this.utility.showError(error);
+          // Handle registration failure, display an error message, etc.
         }
+      );
+    }
+  }
+  // submitForm() {
+  //   // Handle submission of the final form
+  //   Object.keys(this.signupForm.controls).forEach(field => {
+  //     const control = this.signupForm.get(field);
+  //     control?.markAsTouched({ onlySelf: true });
+  //   });
+  //   if (this.signupForm.valid) {
+  //     // You can make API calls or perform other actions here
+  //     console.log('Final form data:', this.signupForm.value);
+  //   }
+  // }
+  verifyEmail() {
+    // Call the email verification service to make the GET request
+    const otp = this.verificationForm.get('email_otp')?.value;
+    const captchertoken = this.verificationForm.get('captchertoken')?.value
+    console.log("captchertoken : ", captchertoken)
+    const returnUrl = this.route.snapshot.queryParamMap.get('returnUrl') || '/dashboard';
+    const dataToSend = {
+      oId: this.organizationId,
+      otp: otp,
+      captcha: captchertoken
+    }
+    this.authService.verifyEmail(dataToSend).subscribe(
+      (response) => {
+        console.log('Email verification successful:', response);
+        //if(response.startWith=='e')
+        this.router.navigateByUrl(returnUrl).then(() => {
+          window.location.reload();
+        });
+        //
+        //Swal.fire('Error', 'Please enter correct OTP.', 'error');
+        // Handle successful email verification, display a success message, etc.
       },
       (error) => {
-        console.error('Registration failed:', error);
-        this.utility.showError(error);
-        // Handle registration failure, display an error message, etc.
+        console.error('Email verification failed:', error);
+        // Handle email verification failure, display an error message, etc.
       }
     );
   }
-}
-// submitForm() {
-//   // Handle submission of the final form
-//   Object.keys(this.signupForm.controls).forEach(field => {
-//     const control = this.signupForm.get(field);
-//     control?.markAsTouched({ onlySelf: true });
-//   });
-//   if (this.signupForm.valid) {
-//     // You can make API calls or perform other actions here
-//     console.log('Final form data:', this.signupForm.value);
-//   }
-// }
-verifyEmail() {
-  // Call the email verification service to make the GET request
-  const otp = this.verificationForm.get('email_otp')?.value;
-  const captchertoken =this.verificationForm.get('captchertoken')?.value
-  console.log("captchertoken : ",captchertoken)
-  const returnUrl = this.route.snapshot.queryParamMap.get('returnUrl') || '/dashboard';
-  const dataToSend ={
-    oId : this.organizationId,
-    otp : otp,
-    captcha : captchertoken
-  }
-  this.authService.verifyEmail(dataToSend).subscribe(
-    (response) => {
-      console.log('Email verification successful:', response);
-      //if(response.startWith=='e')
-        this.router.navigate([returnUrl]);
-      //
-      //Swal.fire('Error', 'Please enter correct OTP.', 'error');
-      // Handle successful email verification, display a success message, etc.
-    },
-    (error) => {
-      console.error('Email verification failed:', error);
-      // Handle email verification failure, display an error message, etc.
-    }
-  );
-}
 
 }
 

@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, EventEmitter, Output, ViewChild } from '@angular/core';
 import { ModalDirective } from 'ngx-bootstrap/modal';
 import { SurveyService } from 'src/app/service/survey.service';
 import { responseDTO } from 'src/app/types/responseDTO';
@@ -18,6 +18,9 @@ import { UtilsService } from 'src/app/service/utils.service';
 })
 export class GenderPopupComponent {
   @ViewChild('GenderModal', { static: true }) modal!: ModalDirective;
+
+  dataUpdated = new EventEmitter();
+
 
   question: Question = new Question();
   optionsArr1: any[] = [];
@@ -147,6 +150,7 @@ export class GenderPopupComponent {
       next: (resp: any) => {
         this.utility.showSuccess('Question Generated Successfully.');
         this.close();
+        this.dataUpdated.emit();
       },
       error: (err: any) => {
         this.utility.showError(err.error);
