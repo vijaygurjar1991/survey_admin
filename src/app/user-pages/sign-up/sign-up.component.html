@@ -11,7 +11,7 @@
                     </div>
                     <hr>
 
-                    <form [formGroup]="signupForm" (ngSubmit)="submitForm()">
+                    <form [formGroup]="signupForm" >
                         <h2 class="text-center mb-3">Sign Up</h2>
                         <h5 class="text-center mb-4">Welcome back! Please enter your details</h5>
 
@@ -19,19 +19,22 @@
 
                             <div class="mb-4">
                                 <label for="o_name" class="form-label">Organisation Name</label>
-                                <input type="text" class="form-control" id="organizationName" formControlName="organizationName"
-                                    placeholder="Enter Your Organisation Name">
-                                    <div *ngIf="signupForm.get('organizationName')?.errors?.notOnlyWhitespace && signupForm.get('organizationName')?.touched && !signupForm.get('organizationName')?.valid && formSubmitted" class="text-danger">
-                                        Please enter a valid Organisation Name.
-                                    </div>
-                                    
-                            </div>
-                            
+                                <input type="text" class="form-control" id="organizationName"
+                                    formControlName="organizationName" placeholder="Enter Your Organisation Name">
+                                <div *ngIf="signupForm.get('organizationName')?.errors?.required && signupForm.get('organizationName')?.touched"
+                                    class="text-danger">
+                                    Organisation Name is required.
+                                </div>
 
+                            </div>
                             <div class="mb-4">
                                 <label for="f_name" class="form-label">Full Name</label>
                                 <input type="text" class="form-control" id="f_name" formControlName="fullName"
                                     placeholder="Enter Full Name">
+                                <div *ngIf="signupForm.get('fullName')?.errors?.required && signupForm.get('fullName')?.touched"
+                                    class="text-danger">
+                                    Full Name is required.
+                                </div>
                             </div>
 
                             <div class="row">
@@ -39,16 +42,18 @@
                                     <label for="zip" class="form-label">Postal Code</label>
                                     <input type="text" class="form-control" id="zip" formControlName="zipCode"
                                         placeholder="Enter Your Zip Code">
-                                    <div *ngIf="signupForm.get('zipCode')?.hasError('zipCode') && signupForm.get('zipCode')?.touched"
-                                        class="text-danger">
-                                        Please enter a valid postal code.
-                                    </div>
+                                        <div *ngIf="signupForm.get('zipCode')?.errors?.required && signupForm.get('zipCode')?.touched" class="text-danger">
+                                            Postal Code is required.
+                                        </div>
                                 </div>
 
                                 <div class="col-md-6 mb-4">
                                     <label for="email" class="form-label">Email</label>
                                     <input type="email" class="form-control" id="email" formControlName="email"
                                         placeholder="Enter your email">
+                                        <div *ngIf="signupForm.get('email')?.errors?.required && signupForm.get('email')?.touched" class="text-danger">
+                                            Email is required.
+                                        </div>
                                     <div *ngIf="signupForm.get('email')?.hasError('email') && signupForm.get('email')?.touched"
                                         class="text-danger">
                                         Please enter a valid email address.
@@ -61,16 +66,24 @@
                                     <label for="password" class="form-label">Password</label>
                                     <input type="password" class="form-control" id="password" formControlName="password"
                                         placeholder="Enter your Password">
-                                    <div *ngIf="signupForm.get('password')?.hasError('minlength') && signupForm.get('password')?.touched"
-                                        class="text-danger">
-                                        Password must be at least 8 characters long.
-                                    </div>
+                                        <div *ngIf="signupForm.get('password')?.hasError('required') && signupForm.get('password')?.touched" class="text-danger">
+                                            Password is required.
+                                          </div>
+                                          <div *ngIf="signupForm.get('password')?.hasError('minlength') && signupForm.get('password')?.touched" class="text-danger">
+                                            Password must be at least 8 characters long.
+                                          </div>
+                                          <div *ngIf="signupForm.hasError('passwordMismatch')" class="text-danger">
+                                            Passwords do not match.
+                                          </div>
                                 </div>
 
                                 <div class="col-md-6 mb-4">
                                     <label for="c_password" class="form-label">Confirm Password</label>
                                     <input type="password" class="form-control" id="c_password"
                                         formControlName="confirmPassword" placeholder="Enter your Password">
+                                        <div *ngIf="signupForm.get('confirmPassword')?.errors?.required && signupForm.get('confirmPassword')?.touched" class="text-danger">
+                                            Confirm Password is required.
+                                        </div>
                                     <div *ngIf="signupForm.get('confirmPassword')?.hasError('passwordMismatch') && signupForm.get('confirmPassword')?.touched"
                                         class="text-danger">
                                         Passwords do not match.

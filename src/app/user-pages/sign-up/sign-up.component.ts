@@ -23,13 +23,10 @@ export class SignUpComponent {
     visibilityService.articleVisible.next(false);
   }
   organizationId:any
-  passwordMatchValidator(formGroup: FormGroup) {
-    const passwordControl = formGroup.get('password');
-    const confirmPasswordControl = formGroup.get('confirmPassword');
-  
-    const password = passwordControl?.value ?? ''; // Using nullish coalescing operator
-    const confirmPassword = confirmPasswordControl?.value ?? '';
-  
+  passwordMatchValidator(formGroup: FormGroup): ValidationErrors | null {
+    const password = formGroup.get('password')?.value;
+    const confirmPassword = formGroup.get('confirmPassword')?.value;
+    
     return password === confirmPassword ? null : { passwordMismatch: true };
   }
   
@@ -59,7 +56,7 @@ export class SignUpComponent {
     this.hideSideBar();
     this.hideBreadcrumb();
     this.signupForm = this.fb.group({
-      organizationName: ['', [Validators.required, notOnlyWhitespace]],
+      organizationName: ['', [Validators.required]],
       fullName: ['', Validators.required],
       zipCode: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
@@ -95,6 +92,10 @@ onFileSelected(event: any) {
   }
 }
 generateOTP() {
+  Object.keys(this.signupForm.controls).forEach(field => {
+    const control = this.signupForm.get(field);
+    control?.markAsTouched({ onlySelf: true });
+  });
   console.log('Form data:', this.signupForm.value);
   console.log('Valid Form :', this.signupForm.valid);
   this.formSubmitted = true;
@@ -124,13 +125,17 @@ generateOTP() {
     );
   }
 }
-submitForm() {
-  // Handle submission of the final form
-  if (this.signupForm.valid) {
-    // You can make API calls or perform other actions here
-    console.log('Final form data:', this.signupForm.value);
-  }
-}
+// submitForm() {
+//   // Handle submission of the final form
+//   Object.keys(this.signupForm.controls).forEach(field => {
+//     const control = this.signupForm.get(field);
+//     control?.markAsTouched({ onlySelf: true });
+//   });
+//   if (this.signupForm.valid) {
+//     // You can make API calls or perform other actions here
+//     console.log('Final form data:', this.signupForm.value);
+//   }
+// }
 verifyEmail() {
   // Call the email verification service to make the GET request
   const otp = this.verificationForm.get('email_otp')?.value;
@@ -159,10 +164,4 @@ verifyEmail() {
 }
 
 }
-export function notOnlyWhitespace(control: AbstractControl): ValidationErrors | null {
-  if (control.value && control.value.trim().length === 0) {
-    return { 'notOnlyWhitespace': true };
-  } else {
-    return null;
-  }
-}
+
