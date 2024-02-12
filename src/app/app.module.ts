@@ -60,7 +60,7 @@ import { environment } from '../environments/environment';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { SignUpComponent } from './user-pages/sign-up/sign-up.component';
 import { ErrorComponent } from './error/error.component';
-
+import { ToastrModule } from 'ngx-toastr';
 
 
 @NgModule({
@@ -114,7 +114,8 @@ import { ErrorComponent } from './error/error.component';
     BrowserAnimationsModule,
     RecaptchaModule,
     RecaptchaFormsModule,
-    NgxPaginationModule
+    NgxPaginationModule,
+    ToastrModule.forRoot(),
 
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],

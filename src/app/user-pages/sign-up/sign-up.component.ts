@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormGroup, ValidationErrors, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { OwlOptions } from 'ngx-owl-carousel-o';
 import { AuthService } from 'src/app/service/auth.service';
 import { DataService } from 'src/app/service/data.service';
+import { UtilsService } from 'src/app/service/utils.service';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -12,12 +13,13 @@ import Swal from 'sweetalert2';
   styleUrls: ['./sign-up.component.css']
 })
 export class SignUpComponent {
+  formSubmitted: boolean = false;
   showCompanyDetails: boolean = true; // Initially show company details
   showUserDetails: boolean = false;
   themeService: any;
   signupForm: FormGroup;
   verificationForm: FormGroup;
-  constructor(private visibilityService: DataService,private fb: FormBuilder,private authService: AuthService,private router: Router,private route: ActivatedRoute) {
+  constructor(private visibilityService: DataService,private fb: FormBuilder,private authService: AuthService,private router: Router,private route: ActivatedRoute,private utility:UtilsService) {
     visibilityService.articleVisible.next(false);
   }
   organizationId:any
@@ -51,13 +53,13 @@ export class SignUpComponent {
   ShowBreadcrumb() {
     this.visibilityService.toggleBreadcrumbVisibility(true);
   }
-
+ 
   ngOnInit() {
     this.hideHeader();
     this.hideSideBar();
     this.hideBreadcrumb();
     this.signupForm = this.fb.group({
-      organizationName: ['', Validators.required],
+      organizationName: ['', [Validators.required, notOnlyWhitespace]],
       fullName: ['', Validators.required],
       zipCode: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
@@ -95,6 +97,7 @@ onFileSelected(event: any) {
 generateOTP() {
   console.log('Form data:', this.signupForm.value);
   console.log('Valid Form :', this.signupForm.valid);
+  this.formSubmitted = true;
   if (this.signupForm.valid) {
     const formData = this.signupForm.value;
 
@@ -102,12 +105,20 @@ generateOTP() {
     this.authService.registerOrganization(formData).subscribe(
       (response) => {
         console.log('Registration successful:', response);
-        this.organizationId=response
+        if(response==='AlreadyExits'){
+          this.utility.showError("This Organisation Already Registered");
+          //EmailAlreadyExits
+        }else if(response==='EmailAlreadyExits'){
+          this.utility.showError("This Email Id Already Registered");
+          //EmailAlreadyExits
+        }else{
+          this.organizationId=response
         this.showUserDetails = true;
-        // Handle successful registration, navigate to another page, etc.
+        }
       },
       (error) => {
         console.error('Registration failed:', error);
+        this.utility.showError(error);
         // Handle registration failure, display an error message, etc.
       }
     );
@@ -147,4 +158,11 @@ verifyEmail() {
   );
 }
 
+}
+export function notOnlyWhitespace(control: AbstractControl): ValidationErrors | null {
+  if (control.value && control.value.trim().length === 0) {
+    return { 'notOnlyWhitespace': true };
+  } else {
+    return null;
+  }
 }

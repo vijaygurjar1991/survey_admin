@@ -1,9 +1,11 @@
-import { HttpClient,HttpParams  } from '@angular/common/http';
+import { HttpClient,HttpErrorResponse,HttpParams  } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { BehaviorSubject, Observable, map } from 'rxjs';
 import { User } from '../models/user';
 import { environment } from 'src/environments/environment';
+import { catchError } from 'rxjs/operators';
+import { throwError } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -31,7 +33,18 @@ export class AuthService {
       })
     );
   }*/
-
+  handleError(error: HttpErrorResponse): Observable<never> {
+    let errorMessage = 'An error occurred';
+    if (error.error instanceof ErrorEvent) {
+      // Client-side error
+      errorMessage = `Error: ${error.error.message}`;
+    } else {
+      // Server-side error
+      errorMessage = `Error Code: ${error.status}\nMessage: ${error.message}`;
+    }
+    console.error(errorMessage);
+    return throwError(errorMessage);
+  }
   login(userDetails: any) {
     const params = new HttpParams()
       .set('email', userDetails.email)
@@ -93,7 +106,9 @@ export class AuthService {
   }
   registerOrganization(data: any): Observable<any> {
     const url=`${this.apiUrl}RegisterOrganization`
-    return this.http.post(url, data);
+    return this.http.post(url, data).pipe(
+      catchError((error: HttpErrorResponse) => this.handleError(error))
+    );
   }
   verifyEmail(dataToSend:any): Observable<any> {
     const url = `${this.apiUrl}EmailVerify`;

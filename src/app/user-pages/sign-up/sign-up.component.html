@@ -19,9 +19,14 @@
 
                             <div class="mb-4">
                                 <label for="o_name" class="form-label">Organisation Name</label>
-                                <input type="text" class="form-control" id="o_name" formControlName="organizationName"
+                                <input type="text" class="form-control" id="organizationName" formControlName="organizationName"
                                     placeholder="Enter Your Organisation Name">
+                                    <div *ngIf="signupForm.get('organizationName')?.errors?.notOnlyWhitespace && signupForm.get('organizationName')?.touched && !signupForm.get('organizationName')?.valid && formSubmitted" class="text-danger">
+                                        Please enter a valid Organisation Name.
+                                    </div>
+                                    
                             </div>
+                            
 
                             <div class="mb-4">
                                 <label for="f_name" class="form-label">Full Name</label>
@@ -34,6 +39,10 @@
                                     <label for="zip" class="form-label">Postal Code</label>
                                     <input type="text" class="form-control" id="zip" formControlName="zipCode"
                                         placeholder="Enter Your Zip Code">
+                                    <div *ngIf="signupForm.get('zipCode')?.hasError('zipCode') && signupForm.get('zipCode')?.touched"
+                                        class="text-danger">
+                                        Please enter a valid postal code.
+                                    </div>
                                 </div>
 
                                 <div class="col-md-6 mb-4">
