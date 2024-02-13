@@ -134,16 +134,22 @@ export class CityPopupComponent {
 
   onConfirmSelection() {
 
-    if (!this.isAtLeastOneOptionSelected()) {
-      this.utility.showError("Please select at least one option");
-      return;
-    }
+    // if (!this.isAtLeastOneOptionSelected()) {
+    //   this.utility.showError("Please select at least one option");
+    //   return;
+    // }
     const selectedStates = this.getSelectedStates();
     const selectedCities = this.getSelectedCities();
     const selectedPanIndiaStates = this.getSelectedPanIndiaStates();
 
     console.log('Selected States:', selectedStates);
     console.log('Selected Cities:', selectedCities);
+
+    if ((selectedStates.length === 0 && selectedCities.length === 0) || (selectedStates.length > 0 && selectedCities.length > 0)) {
+      this.utility.showError("Please select either state or city");
+      return;
+    }
+
     if (selectedStates.length > 0 && selectedCities.length > 0) {
       Swal.fire('', 'Please Select Either State Or City', 'error');
     } else if (selectedStates.length > 0 || selectedCities.length) {
