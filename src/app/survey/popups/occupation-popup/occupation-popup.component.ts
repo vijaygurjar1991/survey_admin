@@ -1,6 +1,8 @@
 import { Component, ViewChild, EventEmitter, Output } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ModalDirective } from 'ngx-bootstrap/modal';
 import { SurveyService } from 'src/app/service/survey.service';
+import { CryptoService } from 'src/app/service/crypto.service';
 import { responseGenericQuestion } from 'src/app/types/responseGenericQuestion';
 import { Question } from 'src/app/models/question';
 import { Option } from 'src/app/models/option';
@@ -26,7 +28,16 @@ export class OccupationPopupComponent {
     this.modal.hide();
   }
 
-  constructor(private surveyservice: SurveyService, private utility: UtilsService) {
+  constructor(private surveyservice: SurveyService, private route: ActivatedRoute, private crypto: CryptoService, private router: Router, private utility: UtilsService) {
+    this.route.paramMap.subscribe(params => {
+      let _surveyId = params.get('param1');
+      console.log("param1 Inside Gender Question", params.get('param1'))
+      if (_surveyId) {
+        console.log("surveyId Inside City Question First", this.crypto.decryptQueryParam(_surveyId))
+        this.surveyId = parseInt(this.crypto.decryptQueryParam(_surveyId));
+        console.log("surveyId Inside City Question", this.surveyId)
+      }
+    });
 
   }
 
