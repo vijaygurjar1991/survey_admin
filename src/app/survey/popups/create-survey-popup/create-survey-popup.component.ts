@@ -9,6 +9,7 @@ import { CryptoService } from 'src/app/service/crypto.service';
 import { AuthService } from 'src/app/service/auth.service';
 import { User } from 'src/app/models/user';
 import { ModalDirective } from 'ngx-bootstrap/modal';
+import { UtilsService } from 'src/app/service/utils.service';
 
 @Component({
   selector: 'app-create-survey-popup',
@@ -39,7 +40,8 @@ export class CreateSurveyPopupComponent {
   constructor(private surveyservice: SurveyService,
     private router: Router,
     private crypto: CryptoService,
-    private auth: AuthService) {
+    private auth: AuthService,
+    private utility:UtilsService) {
 
 
     // this.filteredOptions = this.searchControl.valueChanges
@@ -129,6 +131,10 @@ export class CreateSurveyPopupComponent {
       this.surveyservice.createSurvey(dataToSend).subscribe(
         response => {
           console.log('Response from server:', response);
+          if(this.removeQuotes(response)=='AlreadyExits'){
+            this.utility.showError("This Survey Already Created")
+            return
+          }
           const result = this.convertStringToNumber(this.removeQuotes(response));
           console.log("result", result)
           if (result !== null) {

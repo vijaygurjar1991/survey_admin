@@ -22,13 +22,17 @@ import { ReportsComponent } from './reports/reports.component';
 import { ViewComponent } from './reports/view/view.component';
 import { ChartComponent } from './reports/view/chart/chart.component';
 import { heroMagnifyingGlass } from '@ng-icons/heroicons/outline';
+import { ConvertToUrlPipe } from '../pipes/convert-to-url.pipe';
+import { EncryptPipe } from '../pipes/encrypt.pipe';
 // Icons
 
 @NgModule({
   declarations: [
     ReportsComponent,
     ViewComponent,
-    ChartComponent
+    ChartComponent,
+    ConvertToUrlPipe,
+    EncryptPipe
   ],
   imports: [
     CommonModule,

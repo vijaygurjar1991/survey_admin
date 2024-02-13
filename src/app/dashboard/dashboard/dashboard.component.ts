@@ -9,6 +9,7 @@ import { AuthService } from 'src/app/service/auth.service';
 import { User } from 'src/app/models/user';
 import { ModalDirective } from 'ngx-bootstrap/modal/modal.directive';
 
+
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
@@ -144,7 +145,8 @@ export class DashboardComponent {
     status: string | number,
     categoryName: string,
     userName: string,
-    createdDate: any
+    createdDate: any,
+    surveyId:number
   }[] = [];
 
   getSurveyList() {
@@ -156,7 +158,8 @@ export class DashboardComponent {
           status: item.status.toString(),
           categoryName: item.categoryName,
           userName: item.userName,
-          createdDate: new Date(item.createdDate)
+          createdDate: new Date(item.createdDate),
+          surveyId:item.surveyId
         }));
       },
       error: (err) => console.log("An Error occur while fetching survey list", err)
