@@ -585,7 +585,7 @@
         </div>
         <!-- <pagination-controls *ngIf="questions != null && questions.length>0" class="d-flex justify-content-center"
             id="server" (pageChange)="onPageChange($event)"></pagination-controls> -->
-        <div class="custom-pagination d-flex justify-content-between align-items-center mt-5">
+        <div class="custom-pagination d-flex justify-content-between align-items-center mt-5" *ngIf="questions.length>pageSize">
             <pagination-controls *ngIf="questions != null && questions.length>0" class="d-flex justify-content-center"
                 id="server" (pageChange)="onPageChange($event)"></pagination-controls>
             <div class="d-flex align-items-center">
@@ -865,27 +865,27 @@
 
 <app-gender-popup #GenderModal (onSaveEvent)="refresh()"></app-gender-popup>
 <app-age-popup #AgeModal></app-age-popup>
-<app-nccs-popup #NccsModal></app-nccs-popup>
+<app-nccs-popup #NccsModal (onSaveEvent)="refresh()"></app-nccs-popup>
 <app-monthly-income-popup #MonthlyIncomeModal (onSaveEvent)="refresh()"></app-monthly-income-popup>
-<app-household #HouseholdModal></app-household>
-<app-family-member-popup #FamilyMemberModal></app-family-member-popup>
+<app-household #HouseholdModal (onSaveEvent)="refresh()"></app-household>
+<app-family-member-popup #FamilyMemberModal (onSaveEvent)="refresh()"></app-family-member-popup>
 <app-no-of-child-popup #NumberOfChildModal></app-no-of-child-popup>
-<app-working-status-popup #WorkingStatusModal></app-working-status-popup>
-<app-city-popup #CityModal></app-city-popup>
+<app-working-status-popup #WorkingStatusModal (onSaveEvent)="refresh()"></app-working-status-popup>
+<app-city-popup #CityModal (onSaveEvent)="refresh()"></app-city-popup>
 <app-age-of-children-popup #AgeOfChildrenModal></app-age-of-children-popup>
-<app-old-sec-popup #OldSecModal></app-old-sec-popup>
+<app-old-sec-popup #OldSecModal (onSaveEvent)="refresh()"></app-old-sec-popup>
 <app-industry-popup #IndustryModal></app-industry-popup>
 <app-new-f-lsm-popup #NewFLsmModal></app-new-f-lsm-popup>
 <app-m-slm-popup #MSlmModal></app-m-slm-popup>
 <app-s-lsm-popup #SLsmModal></app-s-lsm-popup>
-<app-language-popup #LanguageModal></app-language-popup>
+<app-language-popup #LanguageModal (onSaveEvent)="refresh()"></app-language-popup>
 <app-geo-location-popup #GeoLocationModal></app-geo-location-popup>
-<app-marital-status-new-popup #MartialStatusModal></app-marital-status-new-popup>
+<app-marital-status-new-popup #MartialStatusModal (onSaveEvent)="refresh()"></app-marital-status-new-popup>
 <app-industry-respondant-popup #IndustryRespondantModal></app-industry-respondant-popup>
-<app-industry-household-popup #IndustryHouseholdModal></app-industry-household-popup>
+<app-industry-household-popup #IndustryHouseholdModal (onSaveEvent)="refresh()"></app-industry-household-popup>
 <app-locality-popup #LocalityModal></app-locality-popup>
 <app-foreign-country-travelled-popup #ForeignCountryTravelledModal></app-foreign-country-travelled-popup>
-<app-store-popup #StoreModal></app-store-popup>
+<app-store-popup #StoreModal (onSaveEvent)="refresh()"></app-store-popup>
 <app-language-you-know-popup #LanguageYouKnowModel></app-language-you-know-popup>
 <app-home-area-type-popup #HomeAreaTypeModal></app-home-area-type-popup>
 <app-kids-count-popup #KidsCountModal></app-kids-count-popup>
@@ -893,7 +893,7 @@
 <app-old-f-lsm-popup #OldFLsmModal></app-old-f-lsm-popup>
 <app-sec-bn-sl-popup #SecBnSlNpl></app-sec-bn-sl-popup>
 <app-selfie-popup #SelfieModal></app-selfie-popup>
-<app-accomodation-type-popup #AccomodationTypeModal></app-accomodation-type-popup>
+<app-accomodation-type-popup #AccomodationTypeModal (onSaveEvent)="refresh()"></app-accomodation-type-popup>
 <app-home-accessories-popup #HomeAccessoriesModal></app-home-accessories-popup>
 <app-name-popup #NameModal></app-name-popup>
 <app-email-address-popup #EmailAddressModal></app-email-address-popup>
@@ -901,4 +901,4 @@
 <app-audio-gender-detection-popup #AudioGenderDetectionModal></app-audio-gender-detection-popup>
 <app-state-popup #StateModal></app-state-popup>
 <app-sec-lsm-popup #SecLsmModal></app-sec-lsm-popup>
-<app-occupation-popup #OccupationModal></app-occupation-popup>
+<app-occupation-popup #OccupationModal (onSaveEvent)="refresh()"></app-occupation-popup>

@@ -8,6 +8,7 @@ import { AuthService } from 'src/app/service/auth.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import Swal from 'sweetalert2';
 import { CaptchaComponent } from 'src/app/shared/captcha/captcha.component';
+import { UtilsService } from 'src/app/service/utils.service';
 
 @Component({
   selector: 'app-login',
@@ -30,6 +31,7 @@ export class LoginComponent {
     private route: ActivatedRoute,
     private router: Router,
     private authService: AuthService,
+    private utility:UtilsService
   ) {
     visibilityService.articleVisible.next(false);
     this.token = undefined;
@@ -124,7 +126,8 @@ export class LoginComponent {
           },
           error: (errObject) => {
             //console.log(error);
-            Swal.fire('', errObject?.error, 'error');
+            //Swal.fire('', errObject?.error, 'error');
+            this.utility.showError("Please enter correct OTP ");
           },
           complete: () => {
             this.loading = false;

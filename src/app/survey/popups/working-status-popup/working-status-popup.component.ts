@@ -1,12 +1,12 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, ViewChild, EventEmitter, Output } from '@angular/core';
 import { ModalDirective } from 'ngx-bootstrap/modal';
 import { SurveyService } from 'src/app/service/survey.service';
 import { responseGenericQuestion } from 'src/app/types/responseGenericQuestion';
 import { Question } from 'src/app/models/question';
 import { Option } from 'src/app/models/option';
-import Swal from 'sweetalert2';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CryptoService } from 'src/app/service/crypto.service';
+import { UtilsService } from 'src/app/service/utils.service';
 
 @Component({
   selector: 'app-working-status-popup',
@@ -16,11 +16,13 @@ import { CryptoService } from 'src/app/service/crypto.service';
 export class WorkingStatusPopupComponent {
   @ViewChild('WorkingStatusModal', { static: true }) modal!: ModalDirective;
 
+  @Output() onSaveEvent = new EventEmitter();
+
   questions: Question[] = [];
   questionText: string = '';
   surveyId = 0;
   questionTypeId = 8
-  constructor(private surveyservice: SurveyService, private route: ActivatedRoute, private crypto: CryptoService, private router: Router) {
+  constructor(private surveyservice: SurveyService, private route: ActivatedRoute, private crypto: CryptoService, private router: Router, private utility: UtilsService) {
     this.route.paramMap.subscribe(params => {
       let _surveyId = params.get('param1');
       console.log("param1 Inside Gender Question", params.get('param1'))
@@ -50,13 +52,13 @@ export class WorkingStatusPopupComponent {
     const question = this.questions[questionIndex];
     if (question) {
       const areAllSelected = question.options.every(option => option.selected);
-  
+
       question.options.forEach(option => {
         option.selected = !areAllSelected;
       });
     }
   }
-  
+
   trackByFn(index: number, question: Question): number {
     return question.id; // Assuming 'id' is a unique identifier for each question
   }
@@ -96,7 +98,20 @@ export class WorkingStatusPopupComponent {
     const currentDateTime = new Date().toISOString();
     return currentDateTime.substring(0, currentDateTime.length - 1) + 'Z';
   }
+
+
+  isAtLeastOneOptionSelected(): boolean {
+    return this.questions.some(question => question.options.some(option => option.selected));
+  }
+
   continueClicked() {
+
+
+    if (!this.isAtLeastOneOptionSelected()) {
+      this.utility.showError("Please select at least one option");
+      return;
+    }
+
 
     const currentDateTime = this.getCurrentDateTime();
     // Assuming 'questions' is an array containing multiple instances of the Question class
@@ -108,7 +123,7 @@ export class WorkingStatusPopupComponent {
       currentQuestion.surveyTypeId = this.surveyId
       currentQuestion.createdDate = this.getCurrentDateTime()
       currentQuestion.modifiedDate = this.getCurrentDateTime();
-      currentQuestion.genericTypeId=this.typeid
+      currentQuestion.genericTypeId = this.typeid
 
       // Filter selected options for the current question
       currentQuestion.options = currentQuestion.options.filter(option => option.selected);
@@ -126,11 +141,13 @@ export class WorkingStatusPopupComponent {
           successfulAPICalls++;
 
           if (successfulAPICalls === this.questions.length) {
-            Swal.fire('', 'Question Generated Successfully.', 'success').then((result) => {
-              if (result.isConfirmed) {
-                window.location.reload();
-              }
-            });
+            if(resp=='"QuestionAlreadyExits"'){
+              this.utility.showError("This Question Already Created ");
+            }else{
+              this.utility.showSuccess('Question Generated Successfully.');
+              this.close();
+              this.onSaveEvent.emit();
+            }
           }
         },
         error: (err: any) => {
