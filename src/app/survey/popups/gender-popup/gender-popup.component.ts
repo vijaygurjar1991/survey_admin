@@ -1,14 +1,14 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, EventEmitter, Output, ViewChild } from '@angular/core';
 import { ModalDirective } from 'ngx-bootstrap/modal';
 import { SurveyService } from 'src/app/service/survey.service';
 import { responseDTO } from 'src/app/types/responseDTO';
 import { responseGenericQuestion } from 'src/app/types/responseGenericQuestion';
 import { Question } from 'src/app/models/question';
 import { Option } from 'src/app/models/option';
-import Swal from 'sweetalert2';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CryptoService } from 'src/app/service/crypto.service';
 import { environment } from 'src/environments/environment';
+import { UtilsService } from 'src/app/service/utils.service';
 
 @Component({
   selector: 'app-gender-popup',
@@ -17,6 +17,9 @@ import { environment } from 'src/environments/environment';
 })
 export class GenderPopupComponent {
   @ViewChild('GenderModal', { static: true }) modal!: ModalDirective;
+
+  @Output() onSaveEvent = new EventEmitter();
+
 
   question: Question = new Question();
   optionsArr1: any[] = [];
@@ -27,7 +30,7 @@ export class GenderPopupComponent {
   surveyId = 0;
   questionText: string = '';
   baseUrl = '';
-  constructor(private surveyservice: SurveyService, private route: ActivatedRoute, private crypto: CryptoService, private router: Router) {
+  constructor(private surveyservice: SurveyService, private route: ActivatedRoute, private crypto: CryptoService, private router: Router, private utility: UtilsService) {
     this.baseUrl = environment.baseURL;
     this.route.paramMap.subscribe(params => {
       let _surveyId = params.get('param1');
@@ -120,8 +123,16 @@ export class GenderPopupComponent {
     const currentDateTime = new Date().toISOString();
     return currentDateTime.substring(0, currentDateTime.length - 1) + 'Z';
   }
-  onContinue() {
 
+  isAtLeastOneOptionSelected(): boolean {
+    return this.questions.some(question => question.options.some(option => option.selected));
+  }
+
+  onContinue() {
+    if (!this.isAtLeastOneOptionSelected()) {
+      this.utility.showError("Please select at least one option");
+      return;
+    }
     console.log('Value of questionText:', this.questionText);
     this.question.question = this.questionText;
     console.log('Value of this.question.question:', this.question.question);
@@ -136,18 +147,16 @@ export class GenderPopupComponent {
     this.question.genericTypeId = this.typeid
     this.surveyservice.CreateGeneralQuestion(this.question).subscribe({
       next: (resp: any) => {
-        Swal.fire('', 'Question Generated Successfully.', 'success').then((result) => {
-          if (result.isConfirmed) {
-            window.location.reload();
-          }
-        });
-
-
+        this.utility.showSuccess('Question Generated Successfully.');
+        this.close();
+        this.onSaveEvent.emit();
       },
       error: (err: any) => {
-        Swal.fire('', err.error, 'error');
+        this.utility.showError(err.error);
       }
     });
+    console.log(this.question);
+
     console.log(this.question);
   }
 

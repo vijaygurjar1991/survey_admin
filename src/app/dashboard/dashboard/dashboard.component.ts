@@ -15,14 +15,14 @@ import { User } from 'src/app/models/user';
 })
 export class DashboardComponent {
 
-  constructor(private visibilityService: DataService, private modalService: NgbModal, public themeService: DataService, 
-    public surveyservice: SurveyService,private auth:AuthService) {
+  constructor(private visibilityService: DataService, private modalService: NgbModal, public themeService: DataService,
+    public surveyservice: SurveyService, private auth: AuthService) {
     visibilityService.articleVisible.next(true);
 
-    this.auth.userData$.subscribe((user:User)=>{
+    this.auth.userData$.subscribe((user: User) => {
       this.userId = user.userId;
     });
-  }  
+  }
   userId: any;
   role: any;
   id: number = 0;
@@ -78,9 +78,11 @@ export class DashboardComponent {
   getMyAccount() {
     this.themeService.GetMyAccount(this.userId).subscribe((data: any) => {
       console.log("Info", data)
-      this.firstName = data.firstName;
-      this.lastName = data.lastName
-      this.id = data.id
+      if (data) {
+        this.firstName = data.firstName;
+        this.lastName = data.lastName
+        this.id = data.id
+      }
     });
   }
 

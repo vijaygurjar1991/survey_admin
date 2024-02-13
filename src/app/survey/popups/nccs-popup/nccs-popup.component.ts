@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, ViewChild, EventEmitter, Output } from '@angular/core';
 import { ModalDirective } from 'ngx-bootstrap/modal';
 import { SurveyService } from 'src/app/service/survey.service';
 import { responseDTO } from 'src/app/types/responseDTO';
@@ -8,6 +8,7 @@ import { Option } from 'src/app/models/option';
 import Swal from 'sweetalert2';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CryptoService } from 'src/app/service/crypto.service';
+import { UtilsService } from 'src/app/service/utils.service';
 
 @Component({
   selector: 'app-nccs-popup',
@@ -18,10 +19,12 @@ export class NccsPopupComponent {
 
   @ViewChild('NccsModal', { static: true }) modal!: ModalDirective;
 
+  @Output() onSaveEvent = new EventEmitter();
+
   questions: Question[] = [];
   questionText: string = '';
   surveyId = 0;
-  constructor(private surveyservice: SurveyService, private route: ActivatedRoute, private crypto: CryptoService, private router: Router) {
+  constructor(private surveyservice: SurveyService, private route: ActivatedRoute, private crypto: CryptoService, private router: Router, private utility: UtilsService) {
 
     this.route.paramMap.subscribe(params => {
       let _surveyId = params.get('param1');
@@ -60,7 +63,7 @@ export class NccsPopupComponent {
     const question = this.questions[questionIndex];
     if (question) {
       const areAllSelected = question.options.every(option => option.selected);
-  
+
       question.options.forEach(option => {
         option.selected = !areAllSelected;
       });
@@ -105,7 +108,16 @@ export class NccsPopupComponent {
     const currentDateTime = new Date().toISOString();
     return currentDateTime.substring(0, currentDateTime.length - 1) + 'Z';
   }
+
+  isAtLeastOneOptionSelected(): boolean {
+    return this.questions.some(question => question.options.some(option => option.selected));
+  }
   continueClicked() {
+
+    if (!this.isAtLeastOneOptionSelected()) {
+      this.utility.showError("Please select at least one option");
+      return;
+    }
 
     const currentDateTime = this.getCurrentDateTime();
     // Assuming 'questions' is an array containing multiple instances of the Question class
@@ -117,7 +129,7 @@ export class NccsPopupComponent {
       currentQuestion.surveyTypeId = this.surveyId
       currentQuestion.createdDate = this.getCurrentDateTime()
       currentQuestion.modifiedDate = this.getCurrentDateTime();
-      currentQuestion.genericTypeId=this.typeid
+      currentQuestion.genericTypeId = this.typeid
 
       // Filter selected options for the current question
       currentQuestion.options = currentQuestion.options.filter(option => option.selected);
@@ -128,20 +140,20 @@ export class NccsPopupComponent {
 
       const selectedOptions = currentQuestion.options.filter(option => option.selected);
 
-    if (selectedOptions.length === 0) {
-      // No options selected for this question, skip API call
-      successfulAPICalls++; // Increment the counter as this operation counts as a successful API call for the progress check
+      if (selectedOptions.length === 0) {
+        // No options selected for this question, skip API call
+        successfulAPICalls++; // Increment the counter as this operation counts as a successful API call for the progress check
 
-      if (successfulAPICalls === this.questions.length) {
-        Swal.fire('', 'Question Generated Successfully.', 'success').then((result) => {
-          if (result.isConfirmed) {
-            window.location.reload();
-          }
-        });
+        if (successfulAPICalls === this.questions.length) {
+          Swal.fire('', 'Question Generated Successfully.', 'success').then((result) => {
+            if (result.isConfirmed) {
+              window.location.reload();
+            }
+          });
+        }
+
+        continue; // Skip this question and move to the next one
       }
-
-      continue; // Skip this question and move to the next one
-    }
 
       // Make an API call for each question with its selected options
       this.surveyservice.CreateGeneralQuestion(currentQuestion).subscribe({
@@ -152,11 +164,9 @@ export class NccsPopupComponent {
           successfulAPICalls++;
 
           if (successfulAPICalls === this.questions.length) {
-            Swal.fire('', 'Question Generated Successfully.', 'success').then((result) => {
-              if (result.isConfirmed) {
-                window.location.reload();
-              }
-            });
+            this.utility.showSuccess('Question Generated Successfully.');
+            this.close();
+            this.onSaveEvent.emit();
           }
         },
         error: (err: any) => {

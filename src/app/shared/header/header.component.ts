@@ -53,7 +53,9 @@ export class HeaderComponent {
     this.userId = this.util.getUserId();
     if (this.userId) {
       this.surveyService.GetSurveyList().subscribe((data: any) => {
-        this.surveyData = data.surveyType;
+        if (data) {
+          this.surveyData = data.surveyType;
+        }
         console.log("surveyData In Header", this.surveyData)
       });
     }

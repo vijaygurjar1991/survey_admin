@@ -83,7 +83,8 @@ import { EncryptPipe } from '../pipes/encrypt.pipe';
 import { DecryptPipe } from '../pipes/decrypt.pipe';
 import { FlsmPopupComponent } from './popups/flsm-popup/flsm-popup.component';
 import { SecLsmPopupComponent } from './popups/sec-lsm-popup/sec-lsm-popup.component';
-import { heroShoppingBag } from '@ng-icons/heroicons/outline'; 
+import { heroShoppingBag } from '@ng-icons/heroicons/outline';
+import { OccupationPopupComponent } from './popups/occupation-popup/occupation-popup.component'; 
 // Icons
 
 @NgModule({
@@ -131,7 +132,8 @@ import { heroShoppingBag } from '@ng-icons/heroicons/outline';
     EncryptPipe,
     DecryptPipe,
     FlsmPopupComponent,
-    SecLsmPopupComponent
+    SecLsmPopupComponent,
+    OccupationPopupComponent
   ],
   imports: [
     MatChipsModule,

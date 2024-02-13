@@ -23,7 +23,7 @@ export class LoginComponent {
   submitted = false;
   loading = false;
   loginForm: FormGroup;
-  token: string|undefined;
+  token: string | undefined;
   constructor(
     private visibilityService: DataService,
     private fb: FormBuilder,
@@ -83,51 +83,54 @@ export class LoginComponent {
       ],
       password: ['', Validators.required],
       rememberMe: [false],
-      captchertoken:[false],
-      
+      captchertoken: [false],
+
     });
   }
 
   onSubmit() {
     //if (this.captchaComponent.validateCaptcha()) {
-      this.submitted = true;
-      if (this.loginForm.valid) {
-        this.loginForm.removeControl('rememberMe');
-        this.errorMessage = '';
-        this.loading = true;
-        const returnUrl =
-          this.route.snapshot.queryParamMap.get('returnUrl') || '/dashboard';
-        //this.router.navigate(['/dashboard']);
+    this.submitted = true;
+    if (this.loginForm.valid) {
+      this.loginForm.removeControl('rememberMe');
+      this.errorMessage = '';
+      this.loading = true;
+      const returnUrl =
+        this.route.snapshot.queryParamMap.get('returnUrl') || '/dashboard';
+      //this.router.navigate(['/dashboard']);
 
-        const userDetails = {
-          email: this.loginForm.get('email')?.value,
-          password: this.loginForm.get('password')?.value,
-          captchertoken: this.loginForm.get('captchertoken')?.value
-        };
+      const userDetails = {
+        email: this.loginForm.get('email')?.value,
+        password: this.loginForm.get('password')?.value,
+        captchertoken: this.loginForm.get('captchertoken')?.value
+      };
 
-        this.authService
-          .login(userDetails)
-          .pipe(first())
-          .subscribe({
-            next: (result) => {
-              if (result) {
-                this.loginForm.reset();
+      this.authService
+        .login(userDetails)
+        .pipe(first())
+        .subscribe({
+          next: (result) => {
+            // debugger;
+            if (result) {
+              this.loginForm.reset();
 
-                this.router.navigate([returnUrl]);
-              } else {
-                this.loading = false;
-                this.errorMessage = result;
-              }
-            },
-            error: (errObject) => {
-              //console.log(error);
-              Swal.fire('', errObject?.error, 'error');
-            },
-            complete: () => {
+              this.router.navigateByUrl(returnUrl).then(() => {
+                window.location.reload();
+              });
+            } else {
               this.loading = false;
-            },
-          });
-      }
+              this.errorMessage = result;
+            }
+          },
+          error: (errObject) => {
+            //console.log(error);
+            Swal.fire('', errObject?.error, 'error');
+          },
+          complete: () => {
+            this.loading = false;
+          },
+        });
+    }
     //}
   }
 }

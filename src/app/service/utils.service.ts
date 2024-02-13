@@ -8,22 +8,25 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class UtilsService {
 
-  private userId:any;
-  private role:any;
-  private centerId:any;
-  
+  private userId: any;
+  private role: any;
+  private centerId: any;
 
-  constructor(private auth: AuthService,private toastr: ToastrService) { 
+
+  constructor(private auth: AuthService, private toastr: ToastrService) {
     this.auth.userData$.subscribe({
       next: (user: User) => {
-        this.userId = user.userId;
-        this.role = user.role;
-        this.centerId = user.CenterId;
+        if (user) {
+          this.userId = user.userId;
+          this.role = user.role;
+          this.centerId = user.CenterId;
+        }
       }
     });
   }
 
   getUserId() {
+    //debugger;
     return this.userId;
   }
 
@@ -31,7 +34,7 @@ export class UtilsService {
     return this.role;
   }
 
-  getCenterId(){
+  getCenterId() {
     return this.centerId;
   }
   showSuccess(message: string) {

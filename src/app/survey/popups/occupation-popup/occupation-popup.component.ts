@@ -4,34 +4,18 @@ import { SurveyService } from 'src/app/service/survey.service';
 import { responseGenericQuestion } from 'src/app/types/responseGenericQuestion';
 import { Question } from 'src/app/models/question';
 import { Option } from 'src/app/models/option';
-import { ActivatedRoute, Router } from '@angular/router';
-import { CryptoService } from 'src/app/service/crypto.service';
 import { UtilsService } from 'src/app/service/utils.service';
 
+
 @Component({
-  selector: 'app-working-status-popup',
-  templateUrl: './working-status-popup.component.html',
-  styleUrls: ['./working-status-popup.component.css']
+  selector: 'app-occupation-popup',
+  templateUrl: './occupation-popup.component.html',
+  styleUrls: ['./occupation-popup.component.css']
 })
-export class WorkingStatusPopupComponent {
-  @ViewChild('WorkingStatusModal', { static: true }) modal!: ModalDirective;
+export class OccupationPopupComponent {
+  @ViewChild('OccupationModal', { static: true }) modal!: ModalDirective;
 
   @Output() onSaveEvent = new EventEmitter();
-
-  questions: Question[] = [];
-  questionText: string = '';
-  surveyId = 0;
-  questionTypeId = 8
-  constructor(private surveyservice: SurveyService, private route: ActivatedRoute, private crypto: CryptoService, private router: Router, private utility: UtilsService) {
-    this.route.paramMap.subscribe(params => {
-      let _surveyId = params.get('param1');
-      console.log("param1 Inside Gender Question", params.get('param1'))
-      if (_surveyId) {
-        this.surveyId = parseInt(this.crypto.decryptQueryParam(_surveyId));
-        console.log("surveyId Inside Working Status Question", this.surveyId)
-      }
-    });
-  }
 
   show() {
     this.modal.show();
@@ -42,11 +26,13 @@ export class WorkingStatusPopupComponent {
     this.modal.hide();
   }
 
-  role: string;
-  typeid = 8;
+  constructor(private surveyservice: SurveyService, private utility: UtilsService) {
 
-  workingstatus: any[] = [];
+  }
 
+  trackByFn(index: number, question: Question): number {
+    return question.id; // Assuming 'id' is a unique identifier for each question
+  }
 
   selectAllOptions(questionIndex: number) {
     const question = this.questions[questionIndex];
@@ -58,10 +44,23 @@ export class WorkingStatusPopupComponent {
       });
     }
   }
+  surveyId = 0;
+  questionTypeId = 8
 
-  trackByFn(index: number, question: Question): number {
-    return question.id; // Assuming 'id' is a unique identifier for each question
+  getCurrentDateTime(): string {
+    const currentDateTime = new Date().toISOString();
+    return currentDateTime.substring(0, currentDateTime.length - 1) + 'Z';
   }
+
+  isAtLeastOneOptionSelected(): boolean {
+    return this.questions.some(question => question.options.some(option => option.selected));
+  }
+
+
+
+  typeid = 42;
+  questions: Question[] = [];
+  questionText: string = '';
   getQuestions() {
     this.surveyservice.getGenericQuestionType1(this.typeid).subscribe({
       next: (resp: responseGenericQuestion[]) => {
@@ -94,24 +93,13 @@ export class WorkingStatusPopupComponent {
       }
     });
   }
-  getCurrentDateTime(): string {
-    const currentDateTime = new Date().toISOString();
-    return currentDateTime.substring(0, currentDateTime.length - 1) + 'Z';
-  }
-
-
-  isAtLeastOneOptionSelected(): boolean {
-    return this.questions.some(question => question.options.some(option => option.selected));
-  }
 
   continueClicked() {
-
 
     if (!this.isAtLeastOneOptionSelected()) {
       this.utility.showError("Please select at least one option");
       return;
     }
-
 
     const currentDateTime = this.getCurrentDateTime();
     // Assuming 'questions' is an array containing multiple instances of the Question class
@@ -156,6 +144,5 @@ export class WorkingStatusPopupComponent {
     //window.location.reload()
 
   }
-
 
 }
