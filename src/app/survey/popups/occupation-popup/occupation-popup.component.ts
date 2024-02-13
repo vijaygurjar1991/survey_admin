@@ -1,10 +1,11 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, ViewChild, EventEmitter, Output } from '@angular/core';
 import { ModalDirective } from 'ngx-bootstrap/modal';
 import { SurveyService } from 'src/app/service/survey.service';
 import { responseGenericQuestion } from 'src/app/types/responseGenericQuestion';
 import { Question } from 'src/app/models/question';
 import { Option } from 'src/app/models/option';
-import Swal from 'sweetalert2';
+import { UtilsService } from 'src/app/service/utils.service';
+
 
 @Component({
   selector: 'app-occupation-popup',
@@ -13,6 +14,8 @@ import Swal from 'sweetalert2';
 })
 export class OccupationPopupComponent {
   @ViewChild('OccupationModal', { static: true }) modal!: ModalDirective;
+
+  @Output() onSaveEvent = new EventEmitter();
 
   show() {
     this.modal.show();
@@ -23,7 +26,7 @@ export class OccupationPopupComponent {
     this.modal.hide();
   }
 
-  constructor(private surveyservice: SurveyService) {
+  constructor(private surveyservice: SurveyService, private utility: UtilsService) {
 
   }
 
@@ -49,53 +52,11 @@ export class OccupationPopupComponent {
     return currentDateTime.substring(0, currentDateTime.length - 1) + 'Z';
   }
 
-  continueClicked() {
-
-    const currentDateTime = this.getCurrentDateTime();
-    // Assuming 'questions' is an array containing multiple instances of the Question class
-
-    let successfulAPICalls = 0;
-    for (let i = 0; i < this.questions.length; i++) {
-      const currentQuestion = this.questions[i];
-      currentQuestion.questionTypeId = this.questionTypeId
-      currentQuestion.surveyTypeId = this.surveyId
-      currentQuestion.createdDate = this.getCurrentDateTime()
-      currentQuestion.modifiedDate = this.getCurrentDateTime();
-      currentQuestion.genericTypeId = this.typeid
-
-      // Filter selected options for the current question
-      currentQuestion.options = currentQuestion.options.filter(option => option.selected);
-      currentQuestion.options.forEach(option => {
-        option.createdDate = currentDateTime;
-        option.modifiedDate = currentDateTime;
-      });
-
-      // Make an API call for each question with its selected options
-      this.surveyservice.CreateGeneralQuestion(currentQuestion).subscribe({
-        next: (resp: any) => {
-          // Handle success response for each question
-          console.log(`API call ${i + 1} successful`);
-          // Add further logic if needed upon successful creation of each question
-          successfulAPICalls++;
-
-          if (successfulAPICalls === this.questions.length) {
-            Swal.fire('', 'Question Generated Successfully.', 'success').then((result) => {
-              if (result.isConfirmed) {
-                window.location.reload();
-              }
-            });
-          }
-        },
-        error: (err: any) => {
-          // Handle error response for each question
-          console.error(`Error in API call ${i + 1}:`, err);
-          // Perform any necessary actions upon error for each question
-        }
-      });
-    }
-    //window.location.reload()
-
+  isAtLeastOneOptionSelected(): boolean {
+    return this.questions.some(question => question.options.some(option => option.selected));
   }
+
+
 
   typeid = 42;
   questions: Question[] = [];
@@ -131,6 +92,57 @@ export class OccupationPopupComponent {
         // Handle error - show a message or perform any necessary action
       }
     });
+  }
+
+  continueClicked() {
+
+    if (!this.isAtLeastOneOptionSelected()) {
+      this.utility.showError("Please select at least one option");
+      return;
+    }
+
+    const currentDateTime = this.getCurrentDateTime();
+    // Assuming 'questions' is an array containing multiple instances of the Question class
+
+    let successfulAPICalls = 0;
+    for (let i = 0; i < this.questions.length; i++) {
+      const currentQuestion = this.questions[i];
+      currentQuestion.questionTypeId = this.questionTypeId
+      currentQuestion.surveyTypeId = this.surveyId
+      currentQuestion.createdDate = this.getCurrentDateTime()
+      currentQuestion.modifiedDate = this.getCurrentDateTime();
+      currentQuestion.genericTypeId = this.typeid
+
+      // Filter selected options for the current question
+      currentQuestion.options = currentQuestion.options.filter(option => option.selected);
+      currentQuestion.options.forEach(option => {
+        option.createdDate = currentDateTime;
+        option.modifiedDate = currentDateTime;
+      });
+
+      // Make an API call for each question with its selected options
+      this.surveyservice.CreateGeneralQuestion(currentQuestion).subscribe({
+        next: (resp: any) => {
+          // Handle success response for each question
+          console.log(`API call ${i + 1} successful`);
+          // Add further logic if needed upon successful creation of each question
+          successfulAPICalls++;
+
+          if (successfulAPICalls === this.questions.length) {
+            this.utility.showSuccess('Question Generated Successfully.');
+            this.close();
+            this.onSaveEvent.emit();
+          }
+        },
+        error: (err: any) => {
+          // Handle error response for each question
+          console.error(`Error in API call ${i + 1}:`, err);
+          // Perform any necessary actions upon error for each question
+        }
+      });
+    }
+    //window.location.reload()
+
   }
 
 }

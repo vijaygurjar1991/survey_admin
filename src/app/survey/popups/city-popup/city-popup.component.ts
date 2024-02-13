@@ -1,17 +1,18 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, ViewChild, EventEmitter, Output } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ModalDirective } from 'ngx-bootstrap/modal';
 import { Question } from 'src/app/models/question';
 import { CryptoService } from 'src/app/service/crypto.service';
 import { SurveyService } from 'src/app/service/survey.service';
 import { Option } from 'src/app/models/option';
-import Swal from 'sweetalert2';
 import { responseGenericQuestion } from 'src/app/types/responseGenericQuestion';
+import { UtilsService } from 'src/app/service/utils.service';
+import Swal from 'sweetalert2';
 
 interface State {
   stateId: string;
   name: string;
-  isPanIndia:boolean
+  isPanIndia: boolean
   selected: boolean;
 }
 export interface City {
@@ -36,6 +37,10 @@ export interface StateCity {
 })
 export class CityPopupComponent {
   @ViewChild('CityModal', { static: true }) modal!: ModalDirective;
+
+  @Output() onSaveEvent = new EventEmitter();
+
+
   locations: State[] = [];
   locationsPanIndia: State[] = [];
   state: StateCity[] = [];
@@ -46,7 +51,7 @@ export class CityPopupComponent {
   surveyId: any
   questionText: any
   countryId: any
-  constructor(private surveyservice: SurveyService, private route: ActivatedRoute, private crypto: CryptoService, private router: Router) {
+  constructor(private surveyservice: SurveyService, private route: ActivatedRoute, private crypto: CryptoService, private router: Router, private utility: UtilsService) {
     this.route.paramMap.subscribe(params => {
       let _surveyId = params.get('param1');
       console.log("param1 Inside Gender Question", params.get('param1'))
@@ -123,7 +128,16 @@ export class CityPopupComponent {
   getSelectedPanIndiaStates(): State[] {
     return this.locationsPanIndia.filter(state => state.selected);
   }
+  isAtLeastOneOptionSelected(): boolean {
+    return this.questions.some(question => question.options.some(option => option.selected));
+  }
+
   onConfirmSelection() {
+
+    if (!this.isAtLeastOneOptionSelected()) {
+      this.utility.showError("Please select at least one option");
+      return;
+    }
     const selectedStates = this.getSelectedStates();
     const selectedCities = this.getSelectedCities();
     const selectedPanIndiaStates = this.getSelectedPanIndiaStates();
@@ -189,11 +203,9 @@ export class CityPopupComponent {
       // Make an API call for each question with its selected options
       this.surveyservice.CreateGeneralQuestion(currentQuestion).subscribe({
         next: (resp: any) => {
-          Swal.fire('', 'Question Generated Successfully.', 'success').then((result) => {
-            if (result.isConfirmed) {
-              window.location.reload();
-            }
-          });
+          this.utility.showSuccess('Question Generated Successfully.');
+          this.close();
+          this.onSaveEvent.emit();
         },
         error: (err: any) => {
 
