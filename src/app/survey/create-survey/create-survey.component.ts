@@ -255,7 +255,7 @@ export class CreateSurveyComponent implements OnInit, AfterViewInit {
       this.nameModal.show();
     } else if (type === "Email Address") {
       this.emailaddressModal.show();
-    } else if (type === "Pincode") {
+    } else if (type === "Pincode / Zip Code") {
       this.pincodeModal.show();
     } else if (type === "Audio Gender Detection") {
       this.audiogenderdetectionModal.show();
