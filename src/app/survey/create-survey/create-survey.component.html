@@ -863,10 +863,10 @@
     </div>
 </ng-template>
 
-<app-gender-popup #GenderModal></app-gender-popup>
+<app-gender-popup #GenderModal (onSaveEvent)="refresh()"></app-gender-popup>
 <app-age-popup #AgeModal></app-age-popup>
 <app-nccs-popup #NccsModal></app-nccs-popup>
-<app-monthly-income-popup #MonthlyIncomeModal></app-monthly-income-popup>
+<app-monthly-income-popup #MonthlyIncomeModal (onSaveEvent)="refresh()"></app-monthly-income-popup>
 <app-household #HouseholdModal></app-household>
 <app-family-member-popup #FamilyMemberModal></app-family-member-popup>
 <app-no-of-child-popup #NumberOfChildModal></app-no-of-child-popup>

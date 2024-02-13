@@ -5,7 +5,6 @@ import { responseDTO } from 'src/app/types/responseDTO';
 import { responseGenericQuestion } from 'src/app/types/responseGenericQuestion';
 import { Question } from 'src/app/models/question';
 import { Option } from 'src/app/models/option';
-import Swal from 'sweetalert2';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CryptoService } from 'src/app/service/crypto.service';
 import { environment } from 'src/environments/environment';
@@ -19,7 +18,7 @@ import { UtilsService } from 'src/app/service/utils.service';
 export class GenderPopupComponent {
   @ViewChild('GenderModal', { static: true }) modal!: ModalDirective;
 
-  dataUpdated = new EventEmitter();
+  @Output() onSaveEvent = new EventEmitter();
 
 
   question: Question = new Question();
@@ -150,7 +149,7 @@ export class GenderPopupComponent {
       next: (resp: any) => {
         this.utility.showSuccess('Question Generated Successfully.');
         this.close();
-        this.dataUpdated.emit();
+        this.onSaveEvent.emit();
       },
       error: (err: any) => {
         this.utility.showError(err.error);

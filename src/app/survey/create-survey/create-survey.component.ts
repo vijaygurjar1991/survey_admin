@@ -1098,4 +1098,8 @@ export class CreateSurveyComponent implements OnInit, AfterViewInit {
       }
     });
   }
+
+  refresh() {
+    this.GetSurveyDetails(this.pageSize, 1);
+  }
 }
