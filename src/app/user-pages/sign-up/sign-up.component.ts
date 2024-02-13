@@ -155,14 +155,13 @@ export class SignUpComponent {
       this.authService.verifyEmail(dataToSend).subscribe(
         (response) => {
           console.log('Email verification successful:', response);
-          //if(response.startWith=='e')
-          this.router.navigate([returnUrl]);
-          //
-          //Swal.fire('Error', 'Please enter correct OTP.', 'error');
-          // Handle successful email verification, display a success message, etc.
+          this.router.navigateByUrl(returnUrl).then(() => {
+            window.location.reload();
+          });
         },
         (error) => {
           console.error('Email verification failed:', error);
+          this.utility.showError("Please enter correct OTP ");
           // Handle email verification failure, display an error message, etc.
         }
       );

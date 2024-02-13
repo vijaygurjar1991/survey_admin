@@ -102,7 +102,7 @@ export class CreateSurveyComponent implements OnInit, AfterViewInit {
   defaultSelectedValue: any = null;
   questionLogic: QuestionLogic = new QuestionLogic();
   questionCalculation: QuestionLogic = new QuestionLogic();
-  pageSize: number = 5;
+  pageSize: number = 10;
   pageNumber: number = 1
   countryId: any
   selectedCountry: string = "IN";

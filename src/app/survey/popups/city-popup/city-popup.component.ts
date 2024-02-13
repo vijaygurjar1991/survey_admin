@@ -203,9 +203,13 @@ export class CityPopupComponent {
       // Make an API call for each question with its selected options
       this.surveyservice.CreateGeneralQuestion(currentQuestion).subscribe({
         next: (resp: any) => {
-          this.utility.showSuccess('Question Generated Successfully.');
-          this.close();
-          this.onSaveEvent.emit();
+          if(resp=='"QuestionAlreadyExits"'){
+            this.utility.showError("This Question Already Created ");
+          }else{
+            this.utility.showSuccess('Question Generated Successfully.');
+            this.close();
+            this.onSaveEvent.emit();
+          }
         },
         error: (err: any) => {
 

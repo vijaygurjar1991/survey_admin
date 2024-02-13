@@ -55,7 +55,7 @@ export class GenderPopupComponent {
   typeid = 1;
 
   questions: Question[] = [];
-
+  isValidQuestion:boolean=true
   getQuestions() {
     this.surveyservice.getGenericQuestionType1(this.typeid).subscribe({
       next: (resp: responseGenericQuestion[]) => {
@@ -147,9 +147,14 @@ export class GenderPopupComponent {
     this.question.genericTypeId = this.typeid
     this.surveyservice.CreateGeneralQuestion(this.question).subscribe({
       next: (resp: any) => {
-        this.utility.showSuccess('Question Generated Successfully.');
-        this.close();
-        this.onSaveEvent.emit();
+        if(resp=='"QuestionAlreadyExits"'){
+          this.utility.showError("This Question Already Created ");
+        }else{
+          this.utility.showSuccess('Question Generated Successfully.');
+          this.close();
+          this.onSaveEvent.emit();
+        }
+        
       },
       error: (err: any) => {
         this.utility.showError(err.error);

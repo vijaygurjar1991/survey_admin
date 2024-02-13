@@ -26,7 +26,6 @@ import { heroMagnifyingGlass } from '@ng-icons/heroicons/outline';
 
 @NgModule({
   declarations: [
-    DashboardComponent,
     ReportsComponent,
     ViewComponent,
     ChartComponent

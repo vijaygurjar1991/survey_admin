@@ -19,18 +19,23 @@ export class CreateSurveyPopupComponent {
 
   @ViewChild('CreateSurveyModal', { static: true }) modal!: ModalDirective;
 
-  categoryName: any="";
+  categoryName: any = "";
   surveyName: any;
   categoryId: number;
   newsurveyId: number;
   selectedOption: any;
   searchControl = new FormControl();
   options: { id: number, name: string }[] = [];
-  country : { id: string, name: string }[] = [];
+  country: { id: string, name: string }[] = [];
   filteredOptions: Observable<{ id: number, name: string }[]> | undefined;
   selectedCategory: { id: number, name: string } | null = null;
   userId = 0;
   selectedCountry: string = "IN";
+  surveyNameCheck: boolean = true
+  countryNameCheck: boolean = true
+  categoryNameCheck: boolean = true
+  otherCategoryCheck: boolean = true
+  isValidSurvey: boolean = false
   constructor(private surveyservice: SurveyService,
     private router: Router,
     private crypto: CryptoService,
@@ -69,7 +74,7 @@ export class CreateSurveyPopupComponent {
     });
   }
 
-  getCountries(){
+  getCountries() {
     this.surveyservice.getCountries().subscribe(response => {
 
       const result = Object.keys(response).map((key) => response[key]);
@@ -80,9 +85,9 @@ export class CreateSurveyPopupComponent {
       }));
 
       this.country = countries;
-      console.log("country",this.country)
+      console.log("country", this.country)
     });
-    
+
   }
 
 
@@ -99,41 +104,52 @@ export class CreateSurveyPopupComponent {
     this.selectedOption = e.option.viewValue;
 
   }
+  validateSurvey(){
+    this.surveyNameCheck = !!this.surveyName && this.surveyName.length >= 3;
+    this.categoryNameCheck = !!this.categoryId && this.categoryId !== 0;
+    this.otherCategoryCheck = this.categoryId !== 10 || (!!this.categoryName && this.categoryName.length >= 3);
+    this.countryNameCheck = !!this.selectedCountry;
 
+    this.isValidSurvey = this.surveyNameCheck && this.categoryNameCheck && this.otherCategoryCheck && this.countryNameCheck;
+  }
 
   createSurvey() {
-    const dataToSend = {
-      name: this.surveyName,
-      categoryId: this.categoryId,
-      otherCategory: this.categoryName,
-      countryId: this.selectedCountry
-    };
+    
+    this.validateSurvey()
+    if (this.isValidSurvey) {
+      const dataToSend = {
+        name: this.surveyName,
+        categoryId: this.categoryId,
+        otherCategory: this.categoryName,
+        countryId: this.selectedCountry
+      };
 
-    console.log("dataToSend", dataToSend);
+      console.log("dataToSend", dataToSend);
 
-    this.surveyservice.createSurvey(dataToSend).subscribe(
-      response => {
-        console.log('Response from server:', response);
-        const result = this.convertStringToNumber(this.removeQuotes(response));
-        console.log("result",result)
-        if (result !== null) {
-          this.newsurveyId=result
-          console.log(this.newsurveyId)
-          const encryptedId = this.crypto.encryptParam(`${this.newsurveyId}`);
-          const url = `/survey/manage-survey/${encryptedId}`;
-          this.modal.hide();
+      this.surveyservice.createSurvey(dataToSend).subscribe(
+        response => {
+          console.log('Response from server:', response);
+          const result = this.convertStringToNumber(this.removeQuotes(response));
+          console.log("result", result)
+          if (result !== null) {
+            this.newsurveyId = result
+            console.log(this.newsurveyId)
+            const encryptedId = this.crypto.encryptParam(`${this.newsurveyId}`);
+            const url = `/survey/manage-survey/${encryptedId}`;
+            this.modal.hide();
 
-          this.router.navigateByUrl(url);
-          if (this.router.url.includes('/manage-survey')) {
-            location.reload();
+            this.router.navigateByUrl(url);
+            if (this.router.url.includes('/manage-survey')) {
+              //location.reload();
+            }
           }
+        },
+        error => {
+          console.error('Error occurred while sending POST request:', error);
+          Swal.fire('', error, 'error');
         }
-      },
-      error => {
-        console.error('Error occurred while sending POST request:', error);
-        Swal.fire('', error, 'error');
-      }
-    );
+      );
+    }
   }
   convertStringToNumber(str: string): number | null {
     const converted = +str; // Using the unary plus operator to attempt conversion
