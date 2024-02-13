@@ -1,5 +1,5 @@
 
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { Chart } from 'chart.js/auto';
 import { DataService } from 'src/app/service/data.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
@@ -7,6 +7,7 @@ import { SurveyService } from 'src/app/service/survey.service';
 import { responseDTO } from 'src/app/types/responseDTO';
 import { AuthService } from 'src/app/service/auth.service';
 import { User } from 'src/app/models/user';
+import { ModalDirective } from 'ngx-bootstrap/modal/modal.directive';
 
 @Component({
   selector: 'app-dashboard',
@@ -14,7 +15,7 @@ import { User } from 'src/app/models/user';
   styleUrls: ['./dashboard.component.css']
 })
 export class DashboardComponent {
-
+   @ViewChild('CreateSurveyModal', { static: true }) CreateSurveyModal!: ModalDirective;
   constructor(private visibilityService: DataService, private modalService: NgbModal, public themeService: DataService,
     public surveyservice: SurveyService, private auth: AuthService) {
     visibilityService.articleVisible.next(true);
@@ -161,5 +162,7 @@ export class DashboardComponent {
       error: (err) => console.log("An Error occur while fetching survey list", err)
     });
   }
-
+  onAddNewSurveyClick() {
+    this.CreateSurveyModal.show();
+  }
 }

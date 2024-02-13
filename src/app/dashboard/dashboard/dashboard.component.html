@@ -9,7 +9,7 @@
                     accumsan lacus vel facilisis. </p>
             </div>
             <div class="col-md-4 text-lg-end mt-lg-0 mt-3">
-                <a href="#" class="btn btn-primary btn-lg">Create Project <ng-icon class="ms-3"
+                <a href="javascript:void(0);" (click)="onAddNewSurveyClick()" class="btn btn-primary btn-lg">Create Project <ng-icon class="ms-3"
                         name="heroArrowLongRight"></ng-icon></a>
             </div>
         </div>
@@ -76,7 +76,6 @@
         </div>
     </div>
 </div>
-
 <ng-template #content let-modal>
     <div class="modal-header">
         <h4 class="modal-title" id="modal-basic-title">Create Your New Survey</h4>
@@ -104,3 +103,4 @@
         </button>
     </div>
 </ng-template>
+<app-create-survey-popup #CreateSurveyModal></app-create-survey-popup>

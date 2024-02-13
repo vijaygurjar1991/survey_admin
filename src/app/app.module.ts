@@ -61,6 +61,7 @@ import { NgxPaginationModule } from 'ngx-pagination';
 import { SignUpComponent } from './user-pages/sign-up/sign-up.component';
 import { ErrorComponent } from './error/error.component';
 import { ToastrModule } from 'ngx-toastr';
+import { DashboardComponent } from './dashboard/dashboard/dashboard.component';
 
 
 @NgModule({
@@ -74,7 +75,8 @@ import { ToastrModule } from 'ngx-toastr';
     CaptchaComponent,
     CreateSurveyPopupComponent,
     SignUpComponent,
-    ErrorComponent
+    ErrorComponent,
+    DashboardComponent
   ],
   imports: [
     BrowserModule,

@@ -137,9 +137,13 @@ export class StorePopupComponent {
           successfulAPICalls++;
 
           if (successfulAPICalls === this.questions.length) {
-            this.utility.showSuccess('Question Generated Successfully.');
-            this.close();
-            this.onSaveEvent.emit();
+            if(resp=='"QuestionAlreadyExits"'){
+              this.utility.showError("This Question Already Created ");
+            }else{
+              this.utility.showSuccess('Question Generated Successfully.');
+              this.close();
+              this.onSaveEvent.emit();
+            }
           }
         },
         error: (err: any) => {
