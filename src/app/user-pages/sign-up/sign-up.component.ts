@@ -137,18 +137,14 @@ export class SignUpComponent {
   //   }
   // }
   verifyEmail() {
-<<<<<<< HEAD
     Object.keys(this.verificationForm.controls).forEach(field => {
       const control = this.verificationForm.get(field);
       control?.markAsTouched({ onlySelf: true });
     });
-=======
->>>>>>> f8189a1e084d77d40fa9b33071a0a6d41e30f866
     // Call the email verification service to make the GET request
     const otp = this.verificationForm.get('email_otp')?.value;
     const captchertoken = this.verificationForm.get('captchertoken')?.value
     console.log("captchertoken : ", captchertoken)
-<<<<<<< HEAD
     if (this.verificationForm.valid) {
       const returnUrl = this.route.snapshot.queryParamMap.get('returnUrl') || '/dashboard';
       const dataToSend = {
@@ -172,31 +168,5 @@ export class SignUpComponent {
       );
     }
   }
-=======
-    const returnUrl = this.route.snapshot.queryParamMap.get('returnUrl') || '/dashboard';
-    const dataToSend = {
-      oId: this.organizationId,
-      otp: otp,
-      captcha: captchertoken
-    }
-    this.authService.verifyEmail(dataToSend).subscribe(
-      (response) => {
-        console.log('Email verification successful:', response);
-        //if(response.startWith=='e')
-        this.router.navigateByUrl(returnUrl).then(() => {
-          window.location.reload();
-        });
-        //
-        //Swal.fire('Error', 'Please enter correct OTP.', 'error');
-        // Handle successful email verification, display a success message, etc.
-      },
-      (error) => {
-        console.error('Email verification failed:', error);
-        // Handle email verification failure, display an error message, etc.
-      }
-    );
-  }
-
->>>>>>> f8189a1e084d77d40fa9b33071a0a6d41e30f866
 }
 
