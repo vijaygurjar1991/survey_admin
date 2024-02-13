@@ -114,15 +114,17 @@ export class NccsPopupComponent {
   }
   continueClicked() {
 
-    if (!this.isAtLeastOneOptionSelected()) {
-      this.utility.showError("Please select at least one option");
-      return;
-    }
-
     const currentDateTime = this.getCurrentDateTime();
     // Assuming 'questions' is an array containing multiple instances of the Question class
 
-    let successfulAPICalls = 0;
+    // Check if at least one option is selected for all questions
+    if (!this.questions.every(question => question.options.some(option => option.selected))) {
+      this.utility.showError("Please select at least one option for each question");
+      return;
+    }
+
+    let successfulAPICalls = 0; // Counter to track successful API calls
+
     for (let i = 0; i < this.questions.length; i++) {
       const currentQuestion = this.questions[i];
       currentQuestion.questionTypeId = this.questionTypeId
@@ -136,26 +138,16 @@ export class NccsPopupComponent {
       currentQuestion.options.forEach(option => {
         option.createdDate = currentDateTime;
         option.modifiedDate = currentDateTime;
+
       });
-
-      const selectedOptions = currentQuestion.options.filter(option => option.selected);
-
-      if (selectedOptions.length === 0) {
-        // No options selected for this question, skip API call
-        successfulAPICalls++; // Increment the counter as this operation counts as a successful API call for the progress check
-
-        if (successfulAPICalls === this.questions.length) {
-          Swal.fire('', 'Question Generated Successfully.', 'success').then((result) => {
-            if (result.isConfirmed) {
-              window.location.reload();
-            }
-          });
-        }
-
-        continue; // Skip this question and move to the next one
+      if (!currentQuestion.options.some(option => option.selected)) {
+        continue;
       }
 
-      // Make an API call for each question with its selected options
+      // Skip current question if no options are selected
+
+
+      // Make API call for the current question
       this.surveyservice.CreateGeneralQuestion(currentQuestion).subscribe({
         next: (resp: any) => {
           // Handle success response for each question
@@ -176,7 +168,8 @@ export class NccsPopupComponent {
         }
       });
     }
-    //window.location.reload()
 
   }
 }
+
+
