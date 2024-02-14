@@ -87,7 +87,7 @@
         <div ngClass="survey-name">
             <div>
                 <h4 ngClass="mb-3"><img [src]="baseUrl + '/assets/images/Images/flag.png'" class="me-2 rounded-circle"
-                        style="width: 30px;height: 30px;" *ngIf="countryName=='India'" /> {{countryName}} {{surveyName}}
+                        style="width: 30px;height: 30px;" *ngIf="countryName=='India'" /> {{countryName}} {{surveyName}}{{questions.length}}
                 </h4>
                 <span *ngIf="categoryName !='Others'">{{categoryName}}</span>
                 <span *ngIf="categoryName =='Others'">{{otherCategoryName}}</span>
@@ -188,7 +188,7 @@
         <div ngClass="question">
             <ul cdkDropList (cdkDropListDropped)="onItemDrop($event)">
                 <li
-                    *ngFor="let question of questions | paginate: { id: 'server', itemsPerPage: 5, currentPage: pageNumber, totalItems: totalItemsCount } ;let i=index;">
+                    *ngFor="let question of questions | paginate: { id: 'server', itemsPerPage: 10, currentPage: pageNumber, totalItems: totalItemsCount } ;let i=index;">
                     <div class="drag-item">
                         <div ngClass="ques-header">
                             <h5 ngClass="mb-0">Q-{{question?.sort}} {{question?.question}}</h5>
