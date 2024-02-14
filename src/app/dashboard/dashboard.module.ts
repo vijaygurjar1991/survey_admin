@@ -22,9 +22,6 @@ import { ReportsComponent } from './reports/reports.component';
 import { ViewComponent } from './reports/view/view.component';
 import { ChartComponent } from './reports/view/chart/chart.component';
 import { heroMagnifyingGlass } from '@ng-icons/heroicons/outline';
-import { EncryptPipe } from '../pipes/encrypt.pipe';
-import { DecryptPipe } from '../pipes/decrypt.pipe';
-import { ConvertToUrlPipe } from '../pipes/convert-to-url.pipe';
 // Icons
 
 @NgModule({
@@ -32,9 +29,6 @@ import { ConvertToUrlPipe } from '../pipes/convert-to-url.pipe';
     ReportsComponent,
     ViewComponent,
     ChartComponent,
-    EncryptPipe,
-    DecryptPipe,
-    ConvertToUrlPipe,
   ],
   imports: [
     CommonModule,
