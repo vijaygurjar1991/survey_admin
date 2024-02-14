@@ -62,6 +62,7 @@ import { SignUpComponent } from './user-pages/sign-up/sign-up.component';
 import { ErrorComponent } from './error/error.component';
 import { ToastrModule } from 'ngx-toastr';
 import { DashboardComponent } from './dashboard/dashboard/dashboard.component';
+import { EncryptPipe } from 'src/app/pipes/encrypt.pipe';
 
 
 @NgModule({
@@ -76,7 +77,8 @@ import { DashboardComponent } from './dashboard/dashboard/dashboard.component';
     CreateSurveyPopupComponent,
     SignUpComponent,
     ErrorComponent,
-    DashboardComponent
+    DashboardComponent,
+    EncryptPipe
   ],
   imports: [
     BrowserModule,

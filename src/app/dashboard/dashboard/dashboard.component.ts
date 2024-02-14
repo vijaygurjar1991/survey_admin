@@ -10,13 +10,15 @@ import { User } from 'src/app/models/user';
 import { ModalDirective } from 'ngx-bootstrap/modal/modal.directive';
 
 
+
+
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.css']
 })
 export class DashboardComponent {
-   @ViewChild('CreateSurveyModal', { static: true }) CreateSurveyModal!: ModalDirective;
+  @ViewChild('CreateSurveyModal', { static: true }) CreateSurveyModal!: ModalDirective;
   constructor(private visibilityService: DataService, private modalService: NgbModal, public themeService: DataService,
     public surveyservice: SurveyService, private auth: AuthService) {
     visibilityService.articleVisible.next(true);
@@ -25,6 +27,7 @@ export class DashboardComponent {
       this.userId = user.userId;
     });
   }
+
   userId: any;
   role: any;
   id: number = 0;
@@ -146,7 +149,7 @@ export class DashboardComponent {
     categoryName: string,
     userName: string,
     createdDate: any,
-    surveyId:number
+    surveyId: number
   }[] = [];
 
   getSurveyList() {
@@ -159,7 +162,7 @@ export class DashboardComponent {
           categoryName: item.categoryName,
           userName: item.userName,
           createdDate: new Date(item.createdDate),
-          surveyId:item.surveyId
+          surveyId: item.surveyId
         }));
       },
       error: (err) => console.log("An Error occur while fetching survey list", err)
@@ -168,4 +171,6 @@ export class DashboardComponent {
   onAddNewSurveyClick() {
     this.CreateSurveyModal.show();
   }
+
+
 }

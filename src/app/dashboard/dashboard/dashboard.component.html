@@ -9,8 +9,8 @@
                     accumsan lacus vel facilisis. </p>
             </div>
             <div class="col-md-4 text-lg-end mt-lg-0 mt-3">
-                <a href="javascript:void(0);" (click)="onAddNewSurveyClick()" class="btn btn-primary btn-lg">Add New Survey <ng-icon class="ms-3"
-                        name="heroArrowLongRight"></ng-icon></a>
+                <a href="javascript:void(0);" (click)="onAddNewSurveyClick()" class="btn btn-primary btn-lg">Add New
+                    Survey <ng-icon class="ms-3" name="heroArrowLongRight"></ng-icon></a>
             </div>
         </div>
     </div>
@@ -26,11 +26,11 @@
                         <div class="col-md-8">
                             <!-- <h4 class="mb-2">{{ list.name }}</h4> -->
                             <h4 class="mb-2">
-                                
+
                                 <a *ngIf="list.status !== 'ACT' && list.status !== 'HOL'"
-                                   [routerLink]="'/survey/manage-survey/' + (list.surveyId)"
-                                   href="javascript:" >
-                                   {{ list.name }} 
+                                    [routerLink]="'/survey/manage-survey/' + (list.surveyId | encrypt)"
+                                    href="javascript:">
+                                    {{ list.name }}
                                 </a>
                             </h4>
                             <!-- <p class="small">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
