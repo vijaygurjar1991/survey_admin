@@ -127,7 +127,7 @@ export class LoginComponent {
           error: (errObject) => {
             //console.log(error);
             //Swal.fire('', errObject?.error, 'error');
-            this.utility.showError("Please enter password ");
+            this.utility.showError("Please enter correct password ");
           },
           complete: () => {
             this.loading = false;
