@@ -23,7 +23,7 @@ export class IndustryPopupComponent {
   surveyId = 0;
   questionTypeId = 21
   role: string;
-  typeid = 2;
+  typeid = 22;
   constructor(private surveyservice: SurveyService, private route: ActivatedRoute, private crypto: CryptoService, private router: Router, private utility: UtilsService) {
     this.route.paramMap.subscribe(params => {
       let _surveyId = params.get('param1');
@@ -83,7 +83,7 @@ export class IndustryPopupComponent {
       currentQuestion.createdDate = this.getCurrentDateTime()
       currentQuestion.modifiedDate = this.getCurrentDateTime();
       currentQuestion.genericTypeId = this.typeid
-      currentQuestion.openEndedType ="text"
+      currentQuestion.openEndedType = "text"
 
       // Make an API call for each question with its selected options
       this.surveyservice.CreateGeneralQuestion(currentQuestion).subscribe({
@@ -94,9 +94,9 @@ export class IndustryPopupComponent {
           successfulAPICalls++;
 
           if (successfulAPICalls === this.questions.length) {
-            if(resp=='"QuestionAlreadyExits"'){
+            if (resp == '"QuestionAlreadyExits"') {
               this.utility.showError("This Question Already Created ");
-            }else{
+            } else {
               this.utility.showSuccess('Question Generated Successfully.');
               this.close();
               this.onSaveEvent.emit();
