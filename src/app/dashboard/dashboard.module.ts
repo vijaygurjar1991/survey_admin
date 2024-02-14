@@ -22,13 +22,14 @@ import { ReportsComponent } from './reports/reports.component';
 import { ViewComponent } from './reports/view/view.component';
 import { ChartComponent } from './reports/view/chart/chart.component';
 import { heroMagnifyingGlass } from '@ng-icons/heroicons/outline';
+import { SharedModule } from '../shared/shared.module';
 // Icons
 
 @NgModule({
   declarations: [
     ReportsComponent,
     ViewComponent,
-    ChartComponent,
+    ChartComponent
   ],
   imports: [
     CommonModule,
@@ -48,6 +49,7 @@ import { heroMagnifyingGlass } from '@ng-icons/heroicons/outline';
       heroBars3,
       heroMagnifyingGlass
     }),
+    SharedModule
   ],
   providers: [
     provideNgIconsConfig({

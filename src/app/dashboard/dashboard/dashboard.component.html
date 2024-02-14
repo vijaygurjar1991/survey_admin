@@ -28,7 +28,7 @@
                             <h4 class="mb-2">
 
                                 <a *ngIf="list.status !== 'ACT' && list.status !== 'HOL'"
-                                    [routerLink]="'/survey/manage-survey/' + (list.surveyId | encrypt)"
+                                    [routerLink]="'/survey/manage-survey/' + (list.surveyId)"
                                     href="javascript:">
                                     {{ list.name }}
                                 </a>

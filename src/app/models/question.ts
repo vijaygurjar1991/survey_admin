@@ -24,5 +24,6 @@ export class Question {
     public shouldAddOption: boolean=false
     public isScreening: boolean=false
     public screeningRedirectUrl:string=""
+    public openEndedType:string=""
     
 }
