@@ -19,6 +19,7 @@ import Swal from 'sweetalert2';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { environment } from 'src/environments/environment';
 import { MatSelect, MatSelectChange } from '@angular/material/select';
+import { UtilsService } from 'src/app/service/utils.service';
 
 @Component({
   selector: 'app-edit-survey',
@@ -53,7 +54,7 @@ export class EditSurveyComponent {
   baseUrl = '';
   constructor(public themeService: DataService, private router: Router,
     private route: ActivatedRoute, private surveyservice: SurveyService, private modalService: NgbModal,
-    private crypto: CryptoService) {
+    private crypto: CryptoService, private utility: UtilsService) {
     this.baseUrl = environment.baseURL;
     this.route.paramMap.subscribe(params => {
       let _queryData = params.get('param1');
@@ -302,7 +303,15 @@ export class EditSurveyComponent {
     // this.question.options.push(newOption);
   }
 
+  questions: any[] = [];
+
+
+
+
+
+
   onSave() {
+
 
     if (this.groups.length > 0) {
       this.question.isGrouping = true;
@@ -560,8 +569,9 @@ export class EditSurveyComponent {
   answer: boolean = true
   addquestion: string;
   questionTypeName: { questionTypeName: string } = { questionTypeName: '' };
-  options: any[] = [];
-  inputFields: { option: string, isFilled: boolean }[] = [{ option: '', isFilled: false }];
+  option = {
+    option: '' // Initialize option.option with an empty string
+  };
 
 
 
@@ -570,12 +580,10 @@ export class EditSurveyComponent {
     this.questionadded = !!this.question && !!this.question.question && this.question.question.length >= 0;
     this.qusstionaddednext = !!this.question && !!this.question.questionTypeName && this.question.questionTypeName.trim().length > 0;
 
-    // this.option.option[index].isFilled = !!this.inputFields[index].option?.trim();
-
-
-
-
-
+    if (!this.option.option.trim()) {
+      // Display error message or perform any other action
+      console.log("Option is required.");
+    }
 
     // this.categoryNameCheck = !!this.categoryId && this.categoryId !== 0;
     // this.otherCategoryCheck = this.categoryId !== 10 || (!!this.categoryName && this.categoryName.length >= 3);
