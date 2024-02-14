@@ -246,11 +246,27 @@ export class EditSurveyComponent {
     this.surveyservice.GetQuestionTypes().subscribe({
       next: (resp: any) => {
         this.questionTypes = resp;
+        console.log("this.questionTypes",this.questionTypes)
+        alert(this.questionTypeId)
+        this.questionTypeNameGet=this.getTypeById(this.questionTypeId);
+        alert(this.questionTypeNameGet)
       },
       error: (err) => console.log("An Error occurred while fetching question types", err)
     });
   }
-
+  questionTypeNameGet:any
+  getTypeById(targetId: number): string | null {
+    console.log("Searching for ID:", targetId);
+    const questionType = this.questionTypes.find(item => item.id === targetId);
+    if (questionType) {
+      console.log("Found type:", questionType.type);
+      return questionType.type;
+    } else {
+      console.log("Type not found for ID:", targetId);
+      return null;
+    }
+  }
+  
   intializeDefaultValue() {
     console.log("Inside IntializeDefaultValue")
     this.question.questionTypeId = parseInt(this.questionTypeId);
@@ -258,6 +274,7 @@ export class EditSurveyComponent {
     this.question.question = '';
     this.question.createdDate = this.getCurrentDateTime();
     this.question.modifiedDate = this.getCurrentDateTime();
+    this.question.questionTypeName= this.questionTypeNameGet
 
 
 
