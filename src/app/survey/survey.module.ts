@@ -23,8 +23,8 @@ import { MatSelectModule } from '@angular/material/select';
 import { NgxPaginationModule } from 'ngx-pagination';
 
 // Icons
-import { heroChevronLeft } from '@ng-icons/heroicons/outline'; 
-import { heroChevronRight } from '@ng-icons/heroicons/outline'; 
+import { heroChevronLeft } from '@ng-icons/heroicons/outline';
+import { heroChevronRight } from '@ng-icons/heroicons/outline';
 import { NgIconsModule, provideNgIconsConfig } from '@ng-icons/core';
 import { heroQuestionMarkCircle } from '@ng-icons/heroicons/outline';
 import { heroCalendar } from '@ng-icons/heroicons/outline';
@@ -84,7 +84,7 @@ import { DecryptPipe } from '../pipes/decrypt.pipe';
 import { FlsmPopupComponent } from './popups/flsm-popup/flsm-popup.component';
 import { SecLsmPopupComponent } from './popups/sec-lsm-popup/sec-lsm-popup.component';
 import { heroShoppingBag } from '@ng-icons/heroicons/outline';
-import { OccupationPopupComponent } from './popups/occupation-popup/occupation-popup.component'; 
+import { OccupationPopupComponent } from './popups/occupation-popup/occupation-popup.component';
 // Icons
 
 @NgModule({

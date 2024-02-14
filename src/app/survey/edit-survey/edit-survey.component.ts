@@ -18,6 +18,7 @@ import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import Swal from 'sweetalert2';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { environment } from 'src/environments/environment';
+import { MatSelect, MatSelectChange } from '@angular/material/select';
 
 @Component({
   selector: 'app-edit-survey',
@@ -165,6 +166,7 @@ export class EditSurveyComponent {
       this.hanldeAddOptionClick();
       this.hanldeAddOptionClick();
     }
+
 
   }
 
@@ -553,15 +555,73 @@ export class EditSurveyComponent {
 
   //validation
 
-  qusstionadded: boolean = true
+  questionadded: boolean = true
+  qusstionaddednext: boolean = true
+  answer: boolean = true
+  addquestion: string;
+  questionTypeName: { questionTypeName: string } = { questionTypeName: '' };
+  options: any[] = [];
+  inputFields: { option: string, isFilled: boolean }[] = [{ option: '', isFilled: false }];
 
-  validateSurvey() {
-    // this.qusstionadded = !!this.question && this.question.length >= 3;
+
+
+
+  validateSurvey(index: number) {
+    this.questionadded = !!this.question && !!this.question.question && this.question.question.length >= 0;
+    this.qusstionaddednext = !!this.question && !!this.question.questionTypeName && this.question.questionTypeName.trim().length > 0;
+
+    // this.option.option[index].isFilled = !!this.inputFields[index].option?.trim();
+
+
+
+
+
+
     // this.categoryNameCheck = !!this.categoryId && this.categoryId !== 0;
     // this.otherCategoryCheck = this.categoryId !== 10 || (!!this.categoryName && this.categoryName.length >= 3);
     // this.countryNameCheck = !!this.selectedCountry;
 
     // this.isValidSurvey = this.surveyNameCheck && this.categoryNameCheck && this.otherCategoryCheck && this.countryNameCheck;
   }
+
+  onQuestionTypeClickchoice(ques: any) {
+    // this.question.question = `${ques.type}`;
+    this.question.questionTypeName = `${ques.type}`;
+  }
+
+  onSelectChange(event: MatSelectChange, questionSortValue: any, questionId: number) {
+
+    //const target = event.target as HTMLSelectElement;
+    const selectedValue = event.value;
+    // Use selectedValue as needed
+    console.log('Selected value:', selectedValue);
+    console.log('Question Sort value:', questionSortValue);
+
+    let queryParams = null;
+    if (questionId != 0) {
+      queryParams = {
+        qid: questionId,
+        sid: this.surveyId,
+        sordId: selectedValue,
+        curntId: questionSortValue
+
+      };
+    }
+    this.surveyservice.changeQuestionPosition(queryParams).subscribe(
+      (response: String) => {
+        console.log('Update successful:', response);
+        window.location.reload();
+      },
+      (error) => {
+        console.error('Error occurred while uploading:', error);
+        // Handle error
+      }
+    );
+  }
+
+  idIsEqual(a: any, b: any): boolean {
+    return a === b;
+  }
+
 
 }
