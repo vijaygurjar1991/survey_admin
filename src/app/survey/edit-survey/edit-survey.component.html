@@ -43,13 +43,13 @@
                                 <div *ngIf="!qusstionaddednext" class="text-danger">Question is required.</div>
                             </div>
                             <div class="col-2">
-                                <!-- <select class="form-select">
+                                <select class="form-select">
                                     <option *ngFor="let item of pipeQuestionList;let i=index;" value="{{item.id}}"
                                         title="{{item.item}}">{{ item.item.split(' ').slice(0, 3).join(' ')
                                         }}{{item.item.split(' ').length > 3 ? ' ...' : ''}}</option>
 
-                                </select> -->
-                                <mat-form-field>
+                                </select>
+                                <!-- <mat-form-field>
                                     <mat-select #selectElement
                                         (selectionChange)="onSelectChange($event, question?.sort, question?.id)">
                                         <mat-option *ngFor="let item of pipeQuestionList;let i=index;" [value]="item.id"
@@ -59,7 +59,7 @@
                                             }}{{item.item.split(' ').length > 3 ? ' ...' : ''}}
                                         </mat-option>
                                     </mat-select>
-                                </mat-form-field>
+                                </mat-form-field> -->
                             </div>
                         </div>
                     </div>
@@ -313,63 +313,6 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <div ngClass="col-md-6 mt-3" *ngFor="let group of groups;let groupIndex=index;">
-                            <h6>Group {{group?.id}}</h6>
-                            <div class="tag-container new">
-                                <div ngClass="text-end mb-2">
-                                    <a href="javascript:void(0);">Select All</a>
-                                </div>
-                                <div ngClass="mb-3">
-                                    <form>
-                                        <mat-form-field class="example-chip-list">
-                                            <mat-label></mat-label>
-                                            <mat-chip-grid #chipGrid aria-label="City selection">
-                                                <mat-chip-row *ngFor="let option of group.options">
-                                                    {{option.option}}
-                                                    <button matChipRemove [attr.aria-label]="'remove'"
-                                                        (click)="Remove(option,groupIndex)">
-                                                        <mat-icon>cancel</mat-icon>
-                                                    </button>
-                                                </mat-chip-row>
-                                                <input #citiesInput [matChipInputFor]="chipGrid"
-                                                    [matAutocomplete]="auto"
-                                                    [matChipInputSeparatorKeyCodes]="separatorKeysCodes" />
-                                            </mat-chip-grid>
-                                            <mat-autocomplete #auto="matAutocomplete"
-                                                (optionSelected)="selected($event,groupIndex)">
-                                                <mat-option *ngFor="let option of filteredOptions" [value]="option">
-                                                    {{option.option}}
-                                                </mat-option>
-                                            </mat-autocomplete>
-                                        </mat-form-field>
-                                    </form>
-
-                                </div>
-                                <div ngClass="row">
-                                    <div ngClass="col-md-6">
-                                        <div class="form-check form-check-inline">
-                                            <input class="form-check-input" type="checkbox" id="Randamize"
-                                                [(ngModel)]="group.isRandomize"
-                                                (change)="onGroupValueChange('randomize', group.isRandomize, group.id)"
-                                                [value]="group?.isRandomize" [checked]="group?.isRandomize">
-                                            <label class="form-check-label" for="Randamize">Randamize </label>
-                                        </div>
-                                        <div class="form-check form-check-inline">
-                                            <input class="form-check-input" type="checkbox" id="Exclude"
-                                                [(ngModel)]="group.isExcluded"
-                                                (change)="onGroupValueChange('excluded', group.isExcluded, group.id)"
-                                                [value]="group?.isExcluded" [checked]="group?.isExcluded">
-                                            <label class="form-check-label" for="Exclude">Exclude</label>
-                                        </div>
-                                    </div>
-                                    <div ngClass="col-md-6 text-end">
-                                        <button type="button" ngClass="btn btn-primary btn-sm"
-                                            (click)="onDeleteGroup(groupIndex)">Delete</button>
-                                    </div>
-                                </div>
-                            </div>
-                            <div><ng-icon name="heroPlusCircle"></ng-icon></div>
                         </div>
                     </div>
                 </div>

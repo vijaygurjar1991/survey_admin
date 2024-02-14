@@ -566,7 +566,7 @@ export class EditSurveyComponent {
 
 
 
-  validateSurvey(index: number) {
+  validateSurvey() {
     this.questionadded = !!this.question && !!this.question.question && this.question.question.length >= 0;
     this.qusstionaddednext = !!this.question && !!this.question.questionTypeName && this.question.questionTypeName.trim().length > 0;
 
