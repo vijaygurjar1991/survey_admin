@@ -6,28 +6,24 @@
                 <button type="button" class="btn-close" (click)="close()"></button>
             </div>
             <div class="modal-body">
-                <form>
-                    <div class="mb-4">
-                        <label for="surveyname" class="form-label">Enter Your Question</label>
-                        <div class="input-group">
-                            <input type="text" class="form-control"
-                                [value]="pincode && pincode.length > 0 ? pincode[0].question : ''" />
-
+                <form *ngIf="questions && questions.length > 0">
+                    <div *ngFor="let question of questions; let i = index">
+                        <div class="mb-4">
+                            <label for="surveyname" class="form-label">Enter Your Question</label>
+                            <div class="input-group">
+                                <input type="text" class="form-control" [ngModel]="question.question"
+                                    (ngModelChange)="question.question = $event" id="{{ 'question_' + i }}"
+                                    name="{{ 'question_' + i }}" readonly/>
+                            </div>
                         </div>
-                    </div>
-                    <div ngClass="mb-4">
-                        <div ngClass="select-options">
-                            <h5>Select Options</h5>
-                            <!-- <a routerLink="javascript:">Select All</a> -->
-                        </div>
-                        <div ngClass="advancedoption">
-                            <p>Max size</p>
-                            <select class="form-select" aria-label="Default select example">
-                                <option selected>max size</option>
-                                <option value>0-5</option>
-                                <option value="1">5-10</option>
-                                <option value="2">10-20</option>
-                            </select>
+                        <div class="mb-4">
+                            <div ngClass="select-options">
+                                <h5>Select Options</h5>
+                            </div>
+                            <div ngClass="nametext mb-4">
+                                <p>Pin Code</p>
+                                <input type="text" class="form-control" />
+                            </div> 
                         </div>
                     </div>
                 </form>

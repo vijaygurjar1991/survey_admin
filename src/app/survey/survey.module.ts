@@ -78,9 +78,7 @@ import { AudioGenderDetectionPopupComponent } from './popups/audio-gender-detect
 import { StatePopupComponent } from './popups/state-popup/state-popup.component';
 import { IndustryHouseholdPopupComponent } from './popups/industry-household-popup/industry-household-popup.component';
 import { SecBnSlPopupComponent } from './popups/sec-bn-sl-popup/sec-bn-sl-popup.component';
-import { ConvertToUrlPipe } from '../pipes/convert-to-url.pipe';
-import { EncryptPipe } from '../pipes/encrypt.pipe';
-import { DecryptPipe } from '../pipes/decrypt.pipe';
+import { SharedModule } from '../shared/shared.module';
 import { FlsmPopupComponent } from './popups/flsm-popup/flsm-popup.component';
 import { SecLsmPopupComponent } from './popups/sec-lsm-popup/sec-lsm-popup.component';
 import { heroShoppingBag } from '@ng-icons/heroicons/outline';
@@ -128,9 +126,6 @@ import { OccupationPopupComponent } from './popups/occupation-popup/occupation-p
     StatePopupComponent,
     IndustryHouseholdPopupComponent,
     SecBnSlPopupComponent,
-    ConvertToUrlPipe,
-    EncryptPipe,
-    DecryptPipe,
     FlsmPopupComponent,
     SecLsmPopupComponent,
     OccupationPopupComponent
@@ -171,7 +166,8 @@ import { OccupationPopupComponent } from './popups/occupation-popup/occupation-p
       heroChevronRight,
       heroShoppingBag
     }),
-    NgxPaginationModule
+    NgxPaginationModule,
+    SharedModule
   ],
   providers: [
     provideNgIconsConfig({

@@ -9,10 +9,14 @@ import { heroMagnifyingGlass } from '@ng-icons/heroicons/outline';
 import { RouterModule } from '@angular/router';
 import { ConvertToUrlPipe } from '../pipes/convert-to-url.pipe';
 import { FormsModule } from '@angular/forms';
+import { DecryptPipe } from '../pipes/decrypt.pipe';
+import { EncryptPipe } from '../pipes/encrypt.pipe';
 
 @NgModule({
   declarations: [
-    ConvertToUrlPipe
+    ConvertToUrlPipe,
+    DecryptPipe,
+    EncryptPipe
   ],
   imports: [
     CommonModule,
@@ -23,6 +27,11 @@ import { FormsModule } from '@angular/forms';
       heroXMark,
       heroMagnifyingGlass,
     })
+  ],
+  exports: [
+    ConvertToUrlPipe,
+    DecryptPipe,
+    EncryptPipe
   ]
 
 })
