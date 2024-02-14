@@ -550,4 +550,18 @@ export class EditSurveyComponent {
 
   }
 
+
+  //validation
+
+  qusstionadded: boolean = true
+
+  validateSurvey() {
+    // this.qusstionadded = !!this.question && this.question.length >= 3;
+    // this.categoryNameCheck = !!this.categoryId && this.categoryId !== 0;
+    // this.otherCategoryCheck = this.categoryId !== 10 || (!!this.categoryName && this.categoryName.length >= 3);
+    // this.countryNameCheck = !!this.selectedCountry;
+
+    // this.isValidSurvey = this.surveyNameCheck && this.categoryNameCheck && this.otherCategoryCheck && this.countryNameCheck;
+  }
+
 }
