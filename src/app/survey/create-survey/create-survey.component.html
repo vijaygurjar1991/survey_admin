@@ -244,12 +244,19 @@
                         </div>
                         <div ngClass="ques-body p-3">
                             <div ngClass="ques-ans">
-                                <div class="">
+                                <div *ngIf="question?.openEndedType === null">
                                     <div class="ques-radio mb-3"
                                         *ngFor="let question of question?.options;let i=index;">
                                         <label> <input type="radio" [id]="'question_option_' + i"
                                                 name="question_option">
                                             <span class="checked">{{question.option}}</span></label>
+                                    </div>
+                                </div>
+                                <div *ngIf="question?.openEndedType !== null">
+                                    <div class="ques-radio mb-3">
+                                        <label> <input type="radio" 
+                                                name="question_option">
+                                            <span class="checked">&nbsp;</span></label>
                                     </div>
                                 </div>
                                 <div ngClass="pt-4" *ngIf="question.isLogicShow">
