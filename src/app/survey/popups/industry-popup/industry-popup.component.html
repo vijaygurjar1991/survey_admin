@@ -6,30 +6,31 @@
                 <button type="button" class="btn-close" (click)="close()"></button>
             </div>
             <div class="modal-body">
-                <form>
-                    <div class="mb-4">
-                        <label for="surveyname" class="form-label">Enter Your Question</label>
-                        <div class="input-group">
-                            <input type="text" class="form-control"
-                                [value]="industry && industry.length > 0 ? industry[0].question : ''" />
-
-                        </div>
-                    </div>
-                    <div ngClass="mb-4">
-                        <div ngClass="select-options">
-                            <h5>Select Options</h5>
-                            <!-- <a routerLink="javascript:">Select All</a> -->
-                        </div>
-                        <div ngClass="nametext mb-4">
-                            <p>Industry</p>
-                            <input type="text" class="form-control" />
+                <form *ngIf="questions && questions.length > 0">
+                    <div *ngFor="let question of questions; let i = index">
+                        <div class="mb-4">
+                            <label for="surveyname" class="form-label">Enter Your Question</label>
+                            <div class="input-group">
+                                <input type="text" class="form-control" [ngModel]="question.question"
+                                    (ngModelChange)="question.question = $event" id="{{ 'question_' + i }}"
+                                    name="{{ 'question_' + i }}" readonly/>
+                            </div>
                         </div>
 
+                        <div class="mb-4">
+                            <div ngClass="select-options">
+                                <h5>Select Options</h5>
+                            </div>
+                            <div ngClass="nametext mb-4">
+                                <p>Industry</p>
+                                <input type="text" class="form-control" />
+                            </div> 
+                        </div>
                     </div>
                 </form>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-primary w-100">Continue</button>
+                <button type="button" (click)="continueClicked()"  class="btn btn-primary w-100">Continue</button>
             </div>
         </div>
     </div>
