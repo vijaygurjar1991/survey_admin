@@ -18,7 +18,7 @@
                         <h5 class="mb-3">Select Question Type</h5>
                         <ul>
                             <li *ngFor="let ques of questionTypes">
-                                <a (click)="onQuestionTypeClick(ques.id)" href="javascript:void(0);"
+                                <a (click)="onQuestionTypeClickchoice(ques)" href="javascript:void(0);"
                                     [ngClass]="{'active':(ques.id == questionTypeId)}">
                                     <figure><img [src]="baseUrl + '/assets/' + ques.image" width="38" height="30" />
                                     </figure>
@@ -26,6 +26,7 @@
                                 </a>
                             </li>
                         </ul>
+
                     </div>
                     <div ngClass="mb-5">
                         <h5 class="mb-3" *ngIf="mode =='modify'">Update Your Question</h5>
@@ -33,13 +34,13 @@
                         <div class="row g-3 align-items-center">
                             <div class="col-8">
                                 <input id="question" type="text" [(ngModel)]="question.question" class="form-control"
-                                    (blur)="validateSurvey()" />
-                                <div *ngIf="!qusstionadded" class="text-danger">Question is required.</div>
+                                    name="question" (blur)="validateSurvey()" />
+                                <div *ngIf="!questionadded" class="text-danger">Question is required.</div>
                             </div>
                             <div class="col-2">
-                                <input type="text" [(ngModel)]="question.questionTypeName" class="form-control"
-                                    (blur)="validateSurvey()">
-                                <div *ngIf="!qusstionadded" class="text-danger">Question is required.</div>
+                                <input id="addquestion" type="text" [(ngModel)]="question.questionTypeName"
+                                    class="form-control" name="addquestion" (blur)="validateSurvey()">
+                                <div *ngIf="!qusstionaddednext" class="text-danger">Question is required.</div>
                             </div>
                             <div class="col-2">
                                 <select class="form-select">
@@ -48,6 +49,17 @@
                                         }}{{item.item.split(' ').length > 3 ? ' ...' : ''}}</option>
 
                                 </select>
+                                <!-- <mat-form-field>
+                                    <mat-select #selectElement
+                                        (selectionChange)="onSelectChange($event, question?.sort, question?.id)">
+                                        <mat-option *ngFor="let item of pipeQuestionList;let i=index;" [value]="item.id"
+                                            [attr.selected]="idIsEqual(question.id, item.id) ? 'true' : null"
+                                            [title]="item.item">
+                                            {{ item.item.split(' ').slice(0, 3).join(' ')
+                                            }}{{item.item.split(' ').length > 3 ? ' ...' : ''}}
+                                        </mat-option>
+                                    </mat-select>
+                                </mat-form-field> -->
                             </div>
                         </div>
                     </div>
@@ -132,9 +144,18 @@
                                 </ngx-dropzone>
                             </div>
                             <div class="flex-2">
-                                <input id="answer" type="text" id="" class="form-control" [(ngModel)]="option.option"
-                                    (blur)="validateSurvey()" />
+                                <input id="answer" type="text" id="answer" class="form-control"
+                                    [(ngModel)]="option.option" (blur)="validateSurvey()" />
+                                <div *ngIf="!answer" class="text-danger">Option is required.</div>
                             </div>
+                            <!-- <div *ngFor="let input of inputFields; let i = index" class="flex-2">
+                                <input id="answer{{ i }}" type="text" name="answer" class="form-control"
+                                    [(ngModel)]="input.option" (blur)="validateSurvey(i)" />
+                                <input type="hidden" [(ngModel)]="option.option" />
+                                <div *ngIf="!input.isFilled" class="text-danger">Option is required.</div>
+                            </div> -->
+
+
                             <!-- <div class="flex-1">
                                 <input type="text" id="" class="form-control" value="Add Keyword">
                             </div> -->
@@ -276,7 +297,7 @@
                                                 [(ngModel)]="group.isRandomize"
                                                 (change)="onGroupValueChange('randomize', group.isRandomize, group.id)"
                                                 [value]="group?.isRandomize" [checked]="group?.isRandomize">
-                                            <label class="form-check-label" for="Randamize">Randomize </label>
+                                            <label class="form-check-label" for="Randamize">Randamize </label>
                                         </div>
                                         <div class="form-check form-check-inline">
                                             <input class="form-check-input" type="checkbox" id="Exclude"

@@ -433,8 +433,8 @@ export class CreateSurveyComponent implements OnInit, AfterViewInit {
   onQuestionTypeClick(id: any) {
     this.selectedQuestionType = id;
   }
-  onCreateQuesClick() {
-    let _data = `${this.surveyId}_${this.selectedQuestionType}_add_0`;
+  onCreateQuesClick(questionId: any) {
+    let _data = `${this.surveyId}_${this.selectedQuestionType}_modify_${questionId}`;
     let encryptedText = this.crypto.encryptParam(_data);
     let url = `/survey/manage-question/${encryptedText}`;
     this.router.navigateByUrl(url);
