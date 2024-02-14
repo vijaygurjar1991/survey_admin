@@ -32,10 +32,14 @@
                         <h5 class="mb-3" *ngIf="mode !='modify'">Add Your Question</h5>
                         <div class="row g-3 align-items-center">
                             <div class="col-8">
-                                <input type="text" [(ngModel)]="question.question" class="form-control" />
+                                <input id="question" type="text" [(ngModel)]="question.question" class="form-control"
+                                    (blur)="validateSurvey()" />
+                                <div *ngIf="!qusstionadded" class="text-danger">Question is required.</div>
                             </div>
                             <div class="col-2">
-                                <input type="text" [(ngModel)]="question.questionTypeName" class="form-control">
+                                <input type="text" [(ngModel)]="question.questionTypeName" class="form-control"
+                                    (blur)="validateSurvey()">
+                                <div *ngIf="!qusstionadded" class="text-danger">Question is required.</div>
                             </div>
                             <div class="col-2">
                                 <select class="form-select">
@@ -128,7 +132,8 @@
                                 </ngx-dropzone>
                             </div>
                             <div class="flex-2">
-                                <input type="text" id="" class="form-control" [(ngModel)]="option.option" />
+                                <input id="answer" type="text" id="" class="form-control" [(ngModel)]="option.option"
+                                    (blur)="validateSurvey()" />
                             </div>
                             <!-- <div class="flex-1">
                                 <input type="text" id="" class="form-control" value="Add Keyword">
