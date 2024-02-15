@@ -252,9 +252,9 @@ export class EditSurveyComponent {
       next: (resp: any) => {
         this.questionTypes = resp;
         console.log("this.questionTypes", this.questionTypes)
-        alert(this.questionTypeId)
+        // alert(this.questionTypeId)
         this.questionTypeNameGet = this.getTypeById(this.questionTypeId);
-        alert(this.questionTypeNameGet)
+        // alert(this.questionTypeNameGet)
       },
       error: (err) => console.log("An Error occurred while fetching question types", err)
     });
@@ -334,9 +334,16 @@ export class EditSurveyComponent {
   onSave() {
     // Validate the survey
     if (!this.validateSurvey()) {
+
       // Show error message if fields are empty
       this.utility.showError('Please fill all required fields.');
-      return; // Exit the method if validation fails
+
+      // Additionally, show the validation message for the question field
+      this.qusstionaddednext = !!this.question && !!this.question.questionTypeName && this.question.questionTypeName.trim().length > 0;
+      this.questionadded = !!this.question && !!this.question.question && this.question.question.trim().length > 0;
+      this.categoryNameCheck = !!this.categoryId && this.categoryId !== 0;
+
+      return;
     }
 
     // Prepare data to send
@@ -386,6 +393,13 @@ export class EditSurveyComponent {
 
     console.log(this.question); // Log the question
   }
+
+  // validateSurvey() function
+
+
+
+
+
 
 
   onGroupValueChange(type: string, value: boolean, groupId: number) {
@@ -627,22 +641,26 @@ export class EditSurveyComponent {
 
   validateSurvey(): boolean {
     // Validate each field individually
-    const isQuestionFilled = !!this.question && !!this.question.question && this.question.question.trim().length > 0;
+    this.questionadded = !!this.question && !!this.question.question && this.question.question.trim().length > 0;
+    this.categoryNameCheck = !!this.categoryId && this.categoryId !== 0;
+    this.qusstionaddednext = !!this.question && !!this.question.questionTypeName && this.question.questionTypeName.trim().length > 0;
+
+    const questionadded = !!this.question && !!this.question.question && this.question.question.trim().length > 0;
     const categoryNameCheck = !!this.categoryId && this.categoryId !== 0;
-    const isCountrySelected = !!this.question && !!this.question.questionTypeName && this.question.questionTypeName.trim().length > 0;
+    const qusstionaddednext = !!this.question && !!this.question.questionTypeName && this.question.questionTypeName.trim().length > 0;
 
     // Update the validity state of the survey
-    this.isValidSurvey = isQuestionFilled && categoryNameCheck && isCountrySelected;
+    this.isValidSurvey = questionadded && categoryNameCheck && qusstionaddednext;
 
     return this.isValidSurvey; // Return the validation result
   }
 
   onQuestionTypeClickchoice(ques: any) {
     // this.question.question = `${ques.type}`;
-    this.question.questionTypeName = `${ques.type}`;
+    // this.question.questionTypeName = `${ques.type}`;
   }
 
-  onSelectChange(event: MatSelectChange, questionSortValue: any, questionId: number) {
+  onSelectChange(event: MatSelectChange, questionSortValue: any, questionId: any) {
 
     //const target = event.target as HTMLSelectElement;
     const selectedValue = event.value;
