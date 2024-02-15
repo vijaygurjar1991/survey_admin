@@ -8,8 +8,8 @@ import { ForgotPasswordComponent } from './user-pages/forgot-password/forgot-pas
 const routes: Routes = [
   { path: 'login', component: LoginComponent, data: { layout: 'auth' } },
   { path: 'signup', component: SignUpComponent, data: {} },
+  { path: 'forgot-password', component: ForgotPasswordComponent, data: {} },
   { path: 'error', component: ErrorComponent, data: {} },
-  { path: 'forgot-password', loadChildren: () => import('./user-pages/user-pages.module').then(m => m.UserPagesModule) },
   { path: 'user-pages', loadChildren: () => import('./user-pages/user-pages.module').then(m => m.UserPagesModule) },
   { path: 'dashboard', loadChildren: () => import('./dashboard/dashboard.module').then(m => m.DashboardModule) },
   { path: 'survey', loadChildren: () => import('./survey/survey.module').then(m => m.SurveyModule) },

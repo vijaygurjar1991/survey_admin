@@ -128,5 +128,13 @@ export class AuthService {
       })
     );
   }
+  resetPassword(email: string) {
+    const url = `${this.apiUrl}ForgetPassword?emailId=${email}`;
+    return this.http.post(url, {});
+  }
+  verifyEmailAndResetPassword(data: any) {
+    const url = `${this.apiUrl}EmailVerifyForgetPassword`;
+    return this.http.post(url, data,{ responseType: 'text' });
+  }
 
 }

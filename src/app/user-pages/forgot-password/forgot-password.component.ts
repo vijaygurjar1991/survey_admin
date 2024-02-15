@@ -1,13 +1,9 @@
-import { Component, OnInit, Input, ViewChild } from '@angular/core';
-import { OwlOptions } from 'ngx-owl-carousel-o';
-import { DataService } from 'src/app/service/data.service';
-
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, ValidationErrors, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { first } from 'rxjs';
+import { OwlOptions } from 'ngx-owl-carousel-o';
 import { AuthService } from 'src/app/service/auth.service';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import Swal from 'sweetalert2';
-import { CaptchaComponent } from 'src/app/shared/captcha/captcha.component';
+import { DataService } from 'src/app/service/data.service';
 import { UtilsService } from 'src/app/service/utils.service';
 
 @Component({
@@ -15,27 +11,26 @@ import { UtilsService } from 'src/app/service/utils.service';
   templateUrl: './forgot-password.component.html',
   styleUrls: ['./forgot-password.component.css']
 })
-export class ForgotPasswordComponent {
+export class ForgotPasswordComponent implements OnInit {
 
-  // @ViewChild(CaptchaComponent) captchaComponent: CaptchaComponent;
-
-
-  @Input('Component') isComponent = false;
-  errorMessage: string;
-  submitted = false;
-  loading = false;
+  errorMessage: string = '';
+  submitted: boolean = false;
+  loading: boolean = false;
   loginForm: FormGroup;
-  token: string | undefined;
-  constructor(
-    private visibilityService: DataService,
-    private fb: FormBuilder,
-    private route: ActivatedRoute,
-    private router: Router,
-    private authService: AuthService,
-    private utility: UtilsService
-  ) {
-    visibilityService.articleVisible.next(false);
-    this.token = undefined;
+  resetForm: FormGroup;
+  userId:any
+  showUserDetails:boolean=false
+  constructor(private router: Router,private fb: FormBuilder, private authService: AuthService,
+    private utility: UtilsService,private visibilityService: DataService,private route: ActivatedRoute) { 
+      visibilityService.articleVisible.next(false);
+    }
+    
+
+  passwordMatchValidator(formGroup: FormGroup): ValidationErrors | null {
+    const password = formGroup.get('password')?.value;
+    const confirmPassword = formGroup.get('confirmPassword')?.value;
+
+    return password === confirmPassword ? null : { passwordMismatch: true };
   }
 
   hideHeader() {
@@ -59,12 +54,80 @@ export class ForgotPasswordComponent {
     this.visibilityService.toggleBreadcrumbVisibility(true);
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.hideHeader();
     this.hideSideBar();
     this.hideBreadcrumb();
-
     this.createForm();
+    this.resetForm = this.fb.group({
+      otp: ['', [Validators.required]],
+      password: ['', [Validators.required, Validators.minLength(8)]],
+      confirmPassword: ['', Validators.required],
+    }, { validators: this.passwordMatchValidator });
+  }
+
+  createForm() {
+    this.loginForm = this.fb.group({
+      email: ['', [Validators.required, Validators.email]],
+    });
+  }
+
+  onSubmit() {
+    this.submitted = true;
+    if (this.loginForm.valid) {
+      this.errorMessage = '';
+      this.loading = true;
+      const email = this.loginForm.get('email')?.value;
+      this.authService.resetPassword(email)
+        .subscribe(
+          response => {
+            this.userId = response
+            this.showUserDetails=true
+            // Handle successful response
+            console.log('Password reset request successful:', response);
+            this.loading = false;
+          },
+          error => {
+            // Handle error
+            console.error('Error resetting password:', error);
+            this.errorMessage = 'Failed to reset password. Please try again later.';
+            this.loading = false;
+          }
+        );
+    }
+  }
+  generateOTP() {
+    Object.keys(this.resetForm.controls).forEach(field => {
+      const control = this.resetForm.get(field);
+      control?.markAsTouched({ onlySelf: true });
+    });
+    console.log('Form data:', this.resetForm.value);
+    console.log('Valid Form :', this.resetForm.valid);
+    if (this.resetForm.valid) {
+      const formData = {
+        ...this.resetForm.value,
+        oId: this.userId // Add the oId here
+    };
+    this.authService.verifyEmailAndResetPassword(formData)
+        .subscribe(
+            response => {
+                // Handle successful response
+                
+                console.log('Email verification and password reset successful:', response);
+                this.loading = false;
+                const returnUrl = this.route.snapshot.queryParamMap.get('returnUrl') || '/login';
+                this.router.navigateByUrl(returnUrl).then(() => {
+                  window.location.reload();
+                });
+            },
+            error => {
+                // Handle error
+                console.error('Error verifying email and resetting password:', error);
+                this.errorMessage = 'Failed to verify email and reset password. Please try again later.';
+                this.loading = false;
+            }
+        );
+    }
   }
   LoginSlider: OwlOptions = {
     loop: true,
@@ -72,25 +135,4 @@ export class ForgotPasswordComponent {
     nav: false,
     dots: true
   };
-
-
-  //login api
-  createForm() {
-    this.loginForm = this.fb.group({
-      email: [
-        '',
-        [
-          Validators.required,
-          Validators.pattern(/^[A-Za-z0-9]+([._-][A-Za-z0-9]+)*@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$|^[A-Za-z0-9_-]+([.-][A-Za-z0-9_-]+)*$/),
-        ],
-      ],
-      password: ['', Validators.required],
-      rememberMe: [false],
-      // captchertoken: [false],
-
-    });
-  }
-
-
-
 }
