@@ -158,7 +158,7 @@ export class NccsPopupComponent {
           if (successfulAPICalls === this.questions.length) {
             this.utility.showSuccess('Question Generated Successfully.');
             this.close();
-            this.onSaveEvent.emit();
+            //this.onSaveEvent.emit();
           }
         },
         error: (err: any) => {
