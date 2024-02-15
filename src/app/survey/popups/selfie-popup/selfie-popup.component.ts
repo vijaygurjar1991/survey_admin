@@ -21,7 +21,7 @@ export class SelfiePopupComponent {
   surveyId = 0;
   questionTypeId = 21
   role: string;
-  typeid = 39;
+  typeid = 29;
   constructor(private surveyservice: SurveyService, private route: ActivatedRoute, private crypto: CryptoService, private router: Router, private utility: UtilsService) {
     this.route.paramMap.subscribe(params => {
       let _surveyId = params.get('param1');
@@ -33,7 +33,7 @@ export class SelfiePopupComponent {
 
   show() {
     this.modal.show();
-    this.getQuestions;
+    this.getQuestions();
   }
 
   close() {
