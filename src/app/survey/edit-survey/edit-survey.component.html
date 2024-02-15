@@ -290,6 +290,7 @@
                                                 </mat-option>
                                             </mat-autocomplete>
                                         </mat-form-field>
+                                        <div *ngIf="!categoryNameCheck" class="text-danger">Option is required.</div>
                                     </form>
 
                                 </div>
@@ -469,12 +470,14 @@
         <div class="row">
             <div class="col-md-6">
                 <form>
-                    <textarea class="form-control" name="" id="" cols="30" rows="10"></textarea>
+                    <textarea class="form-control" name="inputTextarea" [(ngModel)]="inputText" id="" cols="30"
+                        rows="10"></textarea>
                 </form>
             </div>
             <div class="col-md-6">
                 <form>
-                    <textarea class="form-control" name="" id="" cols="30" rows="10"></textarea>
+                    <textarea class="form-control" name="previewTextarea" [value]="inputText" id="" cols="30"
+                        rows="10"></textarea>
                 </form>
             </div>
         </div>

@@ -11,13 +11,15 @@ import { heroHome } from '@ng-icons/heroicons/outline';
 import { heroPencil } from '@ng-icons/heroicons/outline';
 import { AddUserComponent } from './add-user/add-user.component';
 import { NgxDropzoneModule } from 'ngx-dropzone';
+import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 
 
 @NgModule({
   declarations: [
     //  LoginComponent,
     UserListingComponent,
-    AddUserComponent
+    AddUserComponent,
+    ForgotPasswordComponent
   ],
   imports: [
     CommonModule,

@@ -182,7 +182,11 @@ export class EditSurveyComponent {
     this.files.push(...event.addedFiles);
   }
 
+  categoryId: number;
+
   selected(event: MatAutocompleteSelectedEvent, groupIndex: number) {
+
+    this.categoryId = event.option.value;
     let option = event.option.value;
     let optionValue = option.option;
 
@@ -247,15 +251,15 @@ export class EditSurveyComponent {
     this.surveyservice.GetQuestionTypes().subscribe({
       next: (resp: any) => {
         this.questionTypes = resp;
-        console.log("this.questionTypes",this.questionTypes)
+        console.log("this.questionTypes", this.questionTypes)
         alert(this.questionTypeId)
-        this.questionTypeNameGet=this.getTypeById(this.questionTypeId);
+        this.questionTypeNameGet = this.getTypeById(this.questionTypeId);
         alert(this.questionTypeNameGet)
       },
       error: (err) => console.log("An Error occurred while fetching question types", err)
     });
   }
-  questionTypeNameGet:any
+  questionTypeNameGet: any
   getTypeById(targetId: number): string | null {
     console.log("Searching for ID:", targetId);
     const questionType = this.questionTypes.find(item => item.id === targetId);
@@ -267,7 +271,7 @@ export class EditSurveyComponent {
       return null;
     }
   }
-  
+
   intializeDefaultValue() {
     console.log("Inside IntializeDefaultValue")
     this.question.questionTypeId = parseInt(this.questionTypeId);
@@ -275,7 +279,7 @@ export class EditSurveyComponent {
     this.question.question = '';
     this.question.createdDate = this.getCurrentDateTime();
     this.question.modifiedDate = this.getCurrentDateTime();
-    this.question.questionTypeName= this.questionTypeNameGet
+    this.question.questionTypeName = this.questionTypeNameGet
 
 
 
@@ -328,45 +332,61 @@ export class EditSurveyComponent {
 
 
   onSave() {
+    // Validate the survey
+    if (!this.validateSurvey()) {
+      // Show error message if fields are empty
+      this.utility.showError('Please fill all required fields.');
+      return; // Exit the method if validation fails
+    }
 
+    // Prepare data to send
+    const dataToSend = {
+      name: this.question.question,
+      categoryId: this.categoryId,
+      countryId: this.question.questionTypeName
+    };
 
+    // Update the question properties if necessary
     if (this.groups.length > 0) {
       this.question.isGrouping = true;
     }
     if (this.questionId > 0) {
-      this.question.id = this.questionId
+      this.question.id = this.questionId;
     }
-    this.question.image = this.questionImage
+    this.question.image = this.questionImage;
     this.question.options = this.allOptions;
+
+    // Send the request based on whether it's an update or creation
     if (parseFloat(this.questionId) > 0) {
+      // Update existing question
       this.surveyservice.updateGeneralQuestion(this.question).subscribe({
         next: (resp: any) => {
-          Swal.fire('', 'Question Updated Sucessfully.', 'success');
-
+          this.utility.showSuccess('Question Updated Successfully.');
           let url = `/survey/manage-survey/${this.crypto.encryptParam(this.surveyId)}`;
-
           this.router.navigateByUrl(url);
         },
         error: (err: any) => {
           Swal.fire('', err.error, 'error');
+          this.utility.showError('error');
         }
       });
     } else {
+      // Create new question
       this.surveyservice.CreateGeneralQuestion(this.question).subscribe({
         next: (resp: any) => {
-          Swal.fire('', 'Question Generated Sucessfully.', 'success');
-
+          this.utility.showSuccess('Question Generated Successfully.');
           let url = `/survey/manage-survey/${this.crypto.encryptParam(this.surveyId)}`;
-
           this.router.navigateByUrl(url);
         },
         error: (err: any) => {
-          Swal.fire('', err.error, 'error');
+          this.utility.showError('error');
         }
       });
     }
-    console.log(this.question);
+
+    console.log(this.question); // Log the question
   }
+
 
   onGroupValueChange(type: string, value: boolean, groupId: number) {
 
@@ -585,28 +605,36 @@ export class EditSurveyComponent {
   qusstionaddednext: boolean = true
   answer: boolean = true
   addquestion: string;
+  categoryNameCheck: boolean = true
   questionTypeName: { questionTypeName: string } = { questionTypeName: '' };
   option = {
     option: '' // Initialize option.option with an empty string
   };
+  isValidSurvey: boolean = false
 
 
 
 
-  validateSurvey() {
-    this.questionadded = !!this.question && !!this.question.question && this.question.question.length >= 0;
-    this.qusstionaddednext = !!this.question && !!this.question.questionTypeName && this.question.questionTypeName.trim().length > 0;
+  // validateSurvey() {
+  //   this.questionadded = !!this.question && !!this.question.question && this.question.question.length >= 0;
+  //   this.qusstionaddednext = !!this.question && !!this.question.questionTypeName && this.question.questionTypeName.trim().length > 0;
 
-    if (!this.option.option.trim()) {
-      // Display error message or perform any other action
-      console.log("Option is required.");
-    }
+  //   if (!this.option.option.trim()) {
+  //     // Display error message or perform any other action
+  //     console.log("Option is required.");
+  //   }
+  // }
 
-    // this.categoryNameCheck = !!this.categoryId && this.categoryId !== 0;
-    // this.otherCategoryCheck = this.categoryId !== 10 || (!!this.categoryName && this.categoryName.length >= 3);
-    // this.countryNameCheck = !!this.selectedCountry;
+  validateSurvey(): boolean {
+    // Validate each field individually
+    const isQuestionFilled = !!this.question && !!this.question.question && this.question.question.trim().length > 0;
+    const categoryNameCheck = !!this.categoryId && this.categoryId !== 0;
+    const isCountrySelected = !!this.question && !!this.question.questionTypeName && this.question.questionTypeName.trim().length > 0;
 
-    // this.isValidSurvey = this.surveyNameCheck && this.categoryNameCheck && this.otherCategoryCheck && this.countryNameCheck;
+    // Update the validity state of the survey
+    this.isValidSurvey = isQuestionFilled && categoryNameCheck && isCountrySelected;
+
+    return this.isValidSurvey; // Return the validation result
   }
 
   onQuestionTypeClickchoice(ques: any) {
@@ -647,6 +675,11 @@ export class EditSurveyComponent {
   idIsEqual(a: any, b: any): boolean {
     return a === b;
   }
+
+
+  //preview
+
+  inputText: string = '';
 
 
 }
