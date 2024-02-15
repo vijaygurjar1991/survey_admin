@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { DataService } from 'src/app/service/data.service';
 import Swal from 'sweetalert2';
 import { environment } from 'src/environments/environment';
+import { UtilsService } from 'src/app/service/utils.service';
 
 
 @Component({
@@ -11,7 +12,7 @@ import { environment } from 'src/environments/environment';
 })
 export class AddUserComponent {
   baseUrl = '';
-  constructor(public themeService: DataService) {
+  constructor(public themeService: DataService, private utility: UtilsService) {
     this.baseUrl = environment.baseURL;
   }
   files: File[] = [];
@@ -24,6 +25,7 @@ export class AddUserComponent {
   contactNo: Number;
   email: any;
   roleId: number = 0;
+  centerId: number = this.utility.getCenterId();
   image: any;
 
   password: string = '';
@@ -64,6 +66,7 @@ export class AddUserComponent {
       contactNo: this.contactNo,
       email: this.email,
       roleId: this.roleId,
+      centerId: this.centerId,
       image: this.image
     };
     console.log("dataToSend", dataToSend)

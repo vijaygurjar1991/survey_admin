@@ -3,7 +3,8 @@
         <a routerLink="/">
             <div class="logo-icon">
                 <img class="img-fluid" src="./assets/images/logo/logo.png" width="150" height="50" priority>
-                <img class="img-fluid small-menu" src="./assets/images/logo/T-logo.png" width="55" height="80" priority>
+                <img style="margin:0 auto" class="img-fluid small-menu" src="./assets/images/logo/T-logo.png" width="43"
+                    height="80" priority>
             </div>
         </a>
         <span ngClass="mobile-cross" (click)="themeService.toggle()"><ng-icon name="heroXMark"></ng-icon></span>
@@ -84,7 +85,7 @@
                     style="height: auto; overflow: initial;">
                     <div class="AngularCollapse-content">
                         <ul class="sub-menu">
-                            <li class="block pl-4 pr-1 first:pt-4  last:pb-4" *ngIf="this.isSuperAdmin">
+                            <li class="block pl-4 pr-1 first:pt-4  last:pb-4" *ngIf="!this.isUser">
                                 <a class="" routerLink="/user-pages/add-user">
                                     <span class="d-flex align-items-center text-sm transition-all duration-150">
                                         <span class="menu-icon">

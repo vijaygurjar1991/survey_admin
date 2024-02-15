@@ -138,7 +138,8 @@ export class DataService {
 
   // User get & Post APIs
   GetAllUser(userId: any): Observable<responseDTO[]> {
-    const url = `${this.apiUrl}api/admin/${this.userId}/Profile/GetProfile`;
+    var userId = this.util.getUserId();
+    const url = `${this.apiUrl}api/admin/${userId}/Profile/GetProfile`;
     return this.http.get<responseDTO[]>(url);
   }
   AddNewUser(data: any): Observable<any> {

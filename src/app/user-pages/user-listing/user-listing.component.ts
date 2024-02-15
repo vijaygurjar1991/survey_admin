@@ -1,5 +1,6 @@
 import { ChangeDetectorRef, Component } from '@angular/core';
 import { DataService } from 'src/app/service/data.service';
+import { UtilsService } from 'src/app/service/utils.service';
 import { environment } from 'src/environments/environment';
 
 @Component({
@@ -11,7 +12,7 @@ export class UserListingComponent {
   UserData: any;
   image: any;
   baseUrl = '';
-  constructor(public themeService: DataService, private cdr: ChangeDetectorRef) {
+  constructor(public themeService: DataService, private cdr: ChangeDetectorRef, private utility: UtilsService) {
     this.baseUrl = environment.baseURL;
   }
   files: File[] = [];
@@ -32,7 +33,7 @@ export class UserListingComponent {
   ];
 
   ngOnInit(): void {
-    this.role = localStorage.getItem("role")
+    this.role = this.utility.getRole()
     this.getAllUser()
   }
 
