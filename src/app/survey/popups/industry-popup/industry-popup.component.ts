@@ -23,7 +23,7 @@ export class IndustryPopupComponent {
   surveyId = 0;
   questionTypeId = 21
   role: string;
-  typeid = 22;
+  typeid = 12;
   constructor(private surveyservice: SurveyService, private route: ActivatedRoute, private crypto: CryptoService, private router: Router, private utility: UtilsService) {
     this.route.paramMap.subscribe(params => {
       let _surveyId = params.get('param1');
