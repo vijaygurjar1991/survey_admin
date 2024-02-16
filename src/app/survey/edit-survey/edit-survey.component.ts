@@ -677,7 +677,7 @@ export class EditSurveyComponent {
 
   onQuestionTypeClickchoice(ques: any) {
     // this.question.question = `${ques.type}`;
-    // this.question.questionTypeName = `${ques.type}`;
+    this.question.questionTypeName = `${ques.type}`;
   }
 
   onSelectChange(event: MatSelectChange, questionSortValue: any, questionId: any) {
