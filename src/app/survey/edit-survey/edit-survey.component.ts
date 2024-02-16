@@ -112,7 +112,7 @@ export class EditSurveyComponent {
 
         this.optionsArr1.push(newOption); // Push the new Option object to optionsArr1
 
-        console.log(this.optionsArr1)
+        console.log("see", this.optionsArr1)
 
         if (opt.group > 0) {
           if (!this.groupedOptions[opt.group]) {
@@ -339,10 +339,12 @@ export class EditSurveyComponent {
     this.questionadded = !!this.question && !!this.question.question && this.question.question.trim().length > 0;
     this.qusstionaddednext = !!this.question && !!this.question.questionTypeName && this.question.questionTypeName.trim().length > 0;
 
+
     // Check if categoryNameCheck validation is needed (only if a group exists)
     const atLeastOneGroupExists = this.groups.length > 0;
     if (atLeastOneGroupExists) {
       this.categoryNameCheck = !!this.categoryId && this.categoryId !== 0;
+      alert(this.categoryNameCheck)
     } else {
       this.categoryNameCheck = true; // Skip validation if no groups exist
     }
@@ -379,12 +381,14 @@ export class EditSurveyComponent {
     }
     this.question.image = this.questionImage;
     this.question.options = this.allOptions;
+    console.log("chaecking", this.question.options)
 
     // Send the request based on whether it's an update or creation
     if (parseFloat(this.questionId) > 0) {
       // Update existing question
       this.surveyservice.updateGeneralQuestion(this.question).subscribe({
         next: (resp: any) => {
+          this.categoryNameCheck = false;
           this.utility.showSuccess('Question Updated Successfully.');
           let url = `/survey/manage-survey/${this.crypto.encryptParam(this.surveyId)}`;
           this.router.navigateByUrl(url);
@@ -398,6 +402,7 @@ export class EditSurveyComponent {
       // Create new question
       this.surveyservice.CreateGeneralQuestion(this.question).subscribe({
         next: (resp: any) => {
+          this.categoryNameCheck = false;
           this.utility.showSuccess('Question Generated Successfully.');
           let url = `/survey/manage-survey/${this.crypto.encryptParam(this.surveyId)}`;
           this.router.navigateByUrl(url);
@@ -481,6 +486,7 @@ export class EditSurveyComponent {
 
   onDeleteGroup(index: number) {
     this.groups.splice(index, 1);
+    this.categoryNameCheck = false;
   }
 
   onSelectImage(event: any) {
@@ -717,18 +723,67 @@ export class EditSurveyComponent {
 
   //preview
 
+  // inputText: string = '';
+
+  // dataArray: string[] = [];
+
+  // addButtonClicked() {
+  //   // Remove all whitespace from inputText and assign it to dataArray
+  //   this.dataArray = this.inputText.replace(/\s+/g, '').split('\n').filter(item => item.trim() !== '');
+  //   console.log(this.dataArray);
+
+  //   this.inputText = '';
+  // }
+
+  // lines: string[]
+  // processInputText(): void {
+  //   this.inputText = this.inputText.replace(/\n+/g, '\n');
+
+  //   console.log(this.lines); // You can use this array as needed
+  // }
+
+
+
   inputText: string = '';
-
-
   dataArray: string[] = [];
 
-  addButtonClicked() {
-    // Split textarea data into an array and assign it to dataArray
-    this.dataArray = this.inputText.split('\n').filter(item => item.trim() !== '');
-    console.log(this.dataArray);
-    this.inputText = '';
+  processInputText(): void {
+    // Split the input text by newline characters
+    let lines = this.inputText.split('\n');
+
+    // Remove empty elements and trim each line
+    lines = lines.filter(line => line.trim() !== '');
+
+
+    // Join the lines back into a single string with newline characters
+    this.inputText = lines.join('\n');
   }
 
+
+
+  addButtonClicked(): void {
+    // Split the input text by newline characters and assign it to dataArray
+    this.dataArray = this.inputText.split('\n').map(line => line.trim()).filter(line => line !== '');
+    console.log(this.dataArray);
+
+    // Clear the input field
+    this.inputText = '';
+
+    this.dataArray.forEach((line: string) => {
+      // Check if line is not empty
+      if (line) {
+        let newOption = new Option();
+        newOption.option = line.trim();
+        newOption.createdDate = this.getCurrentDateTime()
+
+        this.optionsArr1.push(newOption); // Push the new Option object to optionsArr1
+        console.log("see", this.optionsArr1);
+      }
+    });
+
+    this.allOptions.push(...this.optionsArr1, ...this.optionsArr2);
+
+  }
 
 
 }
