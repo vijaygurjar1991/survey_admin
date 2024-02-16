@@ -785,11 +785,11 @@
             <!-- Nav tabs -->
             <ul class="nav flex-column nav-tabs" id="myTab" role="tablist">
                 <li class="nav-item" role="presentation">
-                    <button class="nav-link active" id="addText-tab" data-bs-toggle="tab" data-bs-target="#addText"
-                        role="tab" aria-selected="false">Add Text</button>
+                    <button class="nav-link" id="addText-tab" data-bs-toggle="tab" data-bs-target="#addText" role="tab"
+                        aria-selected="false">Add Text</button>
                 </li>
                 <li class="nav-item" role="presentation">
-                    <button class="nav-link" id="addImage-tab" data-bs-toggle="tab" data-bs-target="#addImage"
+                    <button class="nav-link active" id="addImage-tab" data-bs-toggle="tab" data-bs-target="#addImage"
                         role="tab" aria-selected="false">Add an Image</button>
                 </li>
                 <li class="nav-item" role="presentation">
@@ -893,7 +893,8 @@
 <app-industry-respondant-popup #IndustryRespondantModal (onSaveEvent)="refresh()"></app-industry-respondant-popup>
 <app-industry-household-popup #IndustryHouseholdModal (onSaveEvent)="refresh()"></app-industry-household-popup>
 <app-locality-popup #LocalityModal (onSaveEvent)="refresh()"></app-locality-popup>
-<app-foreign-country-travelled-popup #ForeignCountryTravelledModal (onSaveEvent)="refresh()"></app-foreign-country-travelled-popup>
+<app-foreign-country-travelled-popup #ForeignCountryTravelledModal
+    (onSaveEvent)="refresh()"></app-foreign-country-travelled-popup>
 <app-store-popup #StoreModal (onSaveEvent)="refresh()"></app-store-popup>
 <app-language-you-know-popup #LanguageYouKnowModel (onSaveEvent)="refresh()"></app-language-you-know-popup>
 <app-home-area-type-popup #HomeAreaTypeModal (onSaveEvent)="refresh()"></app-home-area-type-popup>
@@ -907,7 +908,8 @@
 <app-name-popup #NameModal (onSaveEvent)="refresh()"></app-name-popup>
 <app-email-address-popup #EmailAddressModal (onSaveEvent)="refresh()"></app-email-address-popup>
 <app-pin-code-popup #PinCodeModal (onSaveEvent)="refresh()"></app-pin-code-popup>
-<app-audio-gender-detection-popup #AudioGenderDetectionModal (onSaveEvent)="refresh()"></app-audio-gender-detection-popup>
+<app-audio-gender-detection-popup #AudioGenderDetectionModal
+    (onSaveEvent)="refresh()"></app-audio-gender-detection-popup>
 <app-state-popup #StateModal (onSaveEvent)="refresh()"></app-state-popup>
 <app-sec-lsm-popup #SecLsmModal (onSaveEvent)="refresh()"></app-sec-lsm-popup>
 <app-occupation-popup #OccupationModal (onSaveEvent)="refresh()"></app-occupation-popup>

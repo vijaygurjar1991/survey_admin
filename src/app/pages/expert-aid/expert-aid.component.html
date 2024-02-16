@@ -66,17 +66,20 @@
             <div class="row">
                 <div class="col-md-6 form-group mb-3">
                     <label>Full Name</label>
-                    <input type="text" class="form-control" placeholder="Enter your full name"  [(ngModel)]="name" [ngModelOptions]="{standalone: true}">
+                    <input type="text" class="form-control" placeholder="Enter your full name" [(ngModel)]="name"
+                        [ngModelOptions]="{standalone: true}">
                 </div>
                 <div class="col-md-6 form-group mb-3">
                     <label>Project type</label>
-                    <input type="text" class="form-control" placeholder="Enter your project type"  [(ngModel)]="projectType" [ngModelOptions]="{standalone: true}">
+                    <input type="text" class="form-control" placeholder="Enter your project type"
+                        [(ngModel)]="projectType" [ngModelOptions]="{standalone: true}">
                 </div>
             </div>
             <div class="row">
                 <div class="col-md-6 form-group mb-3">
                     <label>Start date</label>
-                    <input type="date" class="form-control"  [(ngModel)]="startDate" [ngModelOptions]="{standalone: true}">
+                    <input type="date" class="form-control" [(ngModel)]="startDate"
+                        [ngModelOptions]="{standalone: true}">
                 </div>
                 <div class="col-md-6 form-group mb-3">
                     <label>Start date</label>
@@ -86,26 +89,35 @@
             <div class="row">
                 <div class="col-md-6 form-group mb-3">
                     <label>Email Id</label>
-                    <input type="email" class="form-control" placeholder="Enter your email" [(ngModel)]="email" [ngModelOptions]="{standalone: true}">
+                    <input type="email" class="form-control" placeholder="Enter your email" [(ngModel)]="email"
+                        [ngModelOptions]="{standalone: true}">
                 </div>
                 <div class="col-md-6 form-group mb-3">
                     <label>Phone Number</label>
-                    <input type="number" class="form-control" placeholder="Enter your phone number" [(ngModel)]="mobile" [ngModelOptions]="{standalone: true}">
+                    <input type="number" class="form-control" placeholder="Enter your phone number" [(ngModel)]="mobile"
+                        [ngModelOptions]="{standalone: true}">
                 </div>
             </div>
             <div class="form-group mb-3">
                 <label>Select Service</label>
+
+                <select class="form-control">
+                    <option>1</option>
+                    <option>2</option>
+                    <option>3</option>
+                </select>
                 <mat-chip-list>
-                  <mat-chip *ngFor="let service of selectedItems" [selectable]="selectable" [removable]="removable"
-                            (removed)="removeFromCart(service)" (click)="toggleService(service)">
-                    {{ service }}
-                    <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
-                  </mat-chip>
+                    <mat-chip *ngFor="let service of selectedItems" [selectable]="selectable" [removable]="removable"
+                        (removed)="removeFromCart(service)" (click)="toggleService(service)">
+                        {{ service }}
+                        <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+                    </mat-chip>
                 </mat-chip-list>
-              </div>
+            </div>
             <div class="form-group mb-3">
                 <label>Message</label>
-                <textarea name="" class="form-control" rows="5" [(ngModel)]="comments" [ngModelOptions]="{standalone: true}"></textarea>
+                <textarea name="" class="form-control" rows="5" [(ngModel)]="comments"
+                    [ngModelOptions]="{standalone: true}"></textarea>
             </div>
             <div class="text-end"><button type="submit" class="btn btn-primary">Submit</button></div>
         </form>
