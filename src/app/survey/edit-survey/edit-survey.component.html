@@ -45,7 +45,7 @@
                             <div class="col-2">
                                 <mat-form-field>
                                     <mat-select #selectElement
-                                        (selectionChange)="onSelectChange($event, question?.sort, question?.id)">
+                                        (selectionChange)="onSelectChange($event, question.sort, question.id)">
                                         <mat-option *ngFor="let item of pipeQuestionList;let i=index;" [value]="item.id"
                                             [attr.selected]="idIsEqual(question.id, item.id) ? 'true' : null"
                                             [title]="item.item">
@@ -495,7 +495,7 @@
     </div>
     <div class="modal-footer upload">
         <button type="button" class="btn close" (click)="modal.close('Close click')">Cancel</button>
-        <button type="button" class="btn btn-primary icon" (click)="modal.close('Close click')">Add
+        <button type="button" class="btn btn-primary icon" (click)="addButtonClicked(); modal.close('Close click')">Add
             <ng-icon name="heroArrowLongRight" class="ms-4"></ng-icon>
         </button>
     </div>
