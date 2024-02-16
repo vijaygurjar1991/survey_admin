@@ -638,7 +638,7 @@
             <ul>
                 <li *ngFor="let ques of question">
                     <a [ngClass]="{'active':(ques.id === selectedQuestionType)}" href="javascript:void(0);"
-                        (click)="onQuestionTypeClick(ques.id)">
+                        (click)="onQuestionTypeClick(ques.id,ques.type)">
                         <figure>
                             <img loading="lazy" [src]="baseUrl + '/assets/' + ques.image" width="38" height="30" />
                         </figure>

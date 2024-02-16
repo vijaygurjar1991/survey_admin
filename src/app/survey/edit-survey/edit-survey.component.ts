@@ -51,6 +51,7 @@ export class EditSurveyComponent {
   optionLogicValuesList: any
   optionListByQuestionId: any
   selectedOptions: any[] = [];
+  getquestionTypeName:any
   baseUrl = '';
   constructor(public themeService: DataService, private router: Router,
     private route: ActivatedRoute, private surveyservice: SurveyService, private modalService: NgbModal,
@@ -65,6 +66,7 @@ export class EditSurveyComponent {
         this.questionTypeId = _data[1];
         this.mode = _data[2];
         this.questionId = _data[3]
+        
         console.log("surveyId", this.surveyId)
         console.log("questionTypeId", this.questionTypeId)
         console.log("mode", this.mode)
@@ -76,6 +78,8 @@ export class EditSurveyComponent {
           this.getLogicQuestionList(this.questionId);
           this.getLogicValues()
           this.getOptionsLogicValues()
+        }else{
+          this.getquestionTypeName = _data[4]
         }
       }
     });
@@ -284,7 +288,7 @@ export class EditSurveyComponent {
     this.question.question = '';
     this.question.createdDate = this.getCurrentDateTime();
     this.question.modifiedDate = this.getCurrentDateTime();
-    this.question.questionTypeName = this.questionTypeNameGet
+    this.question.questionTypeName = this.getquestionTypeName
 
     this.filteredOptions.push(...this.optionsArr1, ...this.optionsArr2);
     this.allOptions.push(...this.optionsArr1, ...this.optionsArr2);
@@ -328,11 +332,6 @@ export class EditSurveyComponent {
   }
 
   questions: any[] = [];
-
-
-
-
-
 
   validateSurvey(): boolean {
     // Validate each field individually
@@ -678,6 +677,7 @@ export class EditSurveyComponent {
   onQuestionTypeClickchoice(ques: any) {
     // this.question.question = `${ques.type}`;
     this.question.questionTypeName = `${ques.type}`;
+    this.questionTypeId = ques.id;
   }
 
   onSelectChange(event: MatSelectChange, questionSortValue: any, questionId: any) {
@@ -729,6 +729,8 @@ export class EditSurveyComponent {
     this.inputText = '';
   }
 
-
+  getFilteredOptions() {
+    return this.filteredOptions.filter(option => option.option.trim() !== '');
+  }
 
 }

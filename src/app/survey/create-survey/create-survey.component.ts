@@ -92,6 +92,7 @@ export class CreateSurveyComponent implements OnInit, AfterViewInit {
   names: { name: string, image: string }[] = [];
   questions: any;
   selectedQuestionType: any;
+  selectedQuestionTypeName: any;
   categoryId: number;
   selectedOption: any;
   isLogicShow: boolean = false
@@ -430,11 +431,12 @@ export class CreateSurveyComponent implements OnInit, AfterViewInit {
     });
   }
 
-  onQuestionTypeClick(id: any) {
+  onQuestionTypeClick(id: any,name:any) {
     this.selectedQuestionType = id;
+    this.selectedQuestionTypeName = name;
   }
   onCreateQuesClick() {
-    let _data = `${this.surveyId}_${this.selectedQuestionType}_add_0`;
+    let _data = `${this.surveyId}_${this.selectedQuestionType}_add_0_${this.selectedQuestionTypeName}`;
     let encryptedText = this.crypto.encryptParam(_data);
     let url = `/survey/manage-question/${encryptedText}`;
     this.router.navigateByUrl(url);
@@ -442,7 +444,7 @@ export class CreateSurveyComponent implements OnInit, AfterViewInit {
   //onEditQuestionClick
   onEditQuestionClick(questionId: any) {
     console.log("modifyQuestionId", questionId)
-    let _data = `${this.surveyId}_${this.selectedQuestionType}_modify_${questionId}`;
+    let _data = `${this.surveyId}_${this.selectedQuestionType}_modify_${questionId}_${this.selectedQuestionTypeName}`;
     let encryptedText = this.crypto.encryptParam(_data);
     let url = `/survey/manage-question/${encryptedText}`;
     this.router.navigateByUrl(url);

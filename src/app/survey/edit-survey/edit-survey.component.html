@@ -294,10 +294,9 @@
                                                     [matAutocomplete]="auto"
                                                     [matChipInputSeparatorKeyCodes]="separatorKeysCodes" />
                                             </mat-chip-grid>
-                                            <mat-autocomplete #auto="matAutocomplete"
-                                                (optionSelected)="selected($event,groupIndex)">
-                                                <mat-option *ngFor="let option of filteredOptions" [value]="option">
-                                                    {{option.option}}
+                                            <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event, groupIndex)">
+                                                <mat-option *ngFor="let option of getFilteredOptions()" [value]="option">
+                                                    {{ option.option }}
                                                 </mat-option>
                                             </mat-autocomplete>
                                         </mat-form-field>
