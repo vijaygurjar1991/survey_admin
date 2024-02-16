@@ -33,7 +33,10 @@ export class ExpertAidComponent {
       this.selectedItems.push(item);
     }
   }
-
+  getCurrentDateTime(): string {
+    const currentDateTime = new Date().toISOString();
+    return currentDateTime.substring(0, currentDateTime.length - 1) + 'Z';
+  }
   removeFromCart(item: string) {
     const index = this.selectedItems.indexOf(item);
     if (index !== -1) {
@@ -73,6 +76,7 @@ export class ExpertAidComponent {
     this.selectedItems.forEach(item => {
       const expertAidService = new ExpertAidServices();
       expertAidService.name = item;
+      expertAidService.createdDate =this.getCurrentDateTime();
       this.expertAidService.push(expertAidService);
     });
 
