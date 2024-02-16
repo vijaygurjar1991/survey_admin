@@ -124,7 +124,7 @@ export class NccsPopupComponent {
     }
 
     let successfulAPICalls = 0; // Counter to track successful API calls
-
+    let delayCounter = 0;
     for (let i = 0; i < this.questions.length; i++) {
       const currentQuestion = this.questions[i];
       currentQuestion.questionTypeId = this.questionTypeId
@@ -147,26 +147,24 @@ export class NccsPopupComponent {
       // Skip current question if no options are selected
 
 
-      // Make API call for the current question
-      this.surveyservice.CreateGeneralQuestion(currentQuestion).subscribe({
-        next: (resp: any) => {
-          // Handle success response for each question
-          console.log(`API call ${i + 1} successful`);
-          // Add further logic if needed upon successful creation of each question
-          successfulAPICalls++;
+      setTimeout(() => {
+        this.surveyservice.CreateGeneralQuestion(currentQuestion).subscribe({
+          next: (resp: any) => {
+            console.log(`API call ${i + 1} successful`);
+            successfulAPICalls++;
 
-          if (successfulAPICalls === this.questions.length) {
-            this.utility.showSuccess('Question Generated Successfully.');
-            this.close();
-            //this.onSaveEvent.emit();
+            if (successfulAPICalls === this.questions.length) {
+              this.utility.showSuccess('Question Generated Successfully.');
+              this.close();
+              this.onSaveEvent.emit();
+            }
+          },
+          error: (err: any) => {
+            console.error(`Error in API call ${i + 1}:`, err);
           }
-        },
-        error: (err: any) => {
-          // Handle error response for each question
-          console.error(`Error in API call ${i + 1}:`, err);
-          // Perform any necessary actions upon error for each question
-        }
-      });
+        });
+      }, delayCounter * 1000); // Delay each API call by 'delayCounter' seconds
+      delayCounter++;
     }
 
   }
