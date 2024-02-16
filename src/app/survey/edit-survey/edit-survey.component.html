@@ -292,7 +292,7 @@
                                                 </mat-chip-row>
                                                 <input #citiesInput [matChipInputFor]="chipGrid"
                                                     [matAutocomplete]="auto"
-                                                    [matChipInputSeparatorKeyCodes]="separatorKeysCodes" />
+                                                    [matChipInputSeparatorKeyCodes]="separatorKeysCodes" (blur)="validateSurvey()" />
                                             </mat-chip-grid>
                                             <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event, groupIndex)">
                                                 <mat-option *ngFor="let option of getFilteredOptions()" [value]="option">
@@ -300,7 +300,7 @@
                                                 </mat-option>
                                             </mat-autocomplete>
                                         </mat-form-field>
-                                        <div *ngIf="!categoryNameCheck" class="text-danger">Option is required.</div>
+                                        <div  *ngIf="!categoryNameChecks[groupIndex]" class="text-danger">Option is required.</div>
                                     </form>
 
                                 </div>
