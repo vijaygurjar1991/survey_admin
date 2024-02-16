@@ -51,6 +51,7 @@ export class EditSurveyComponent {
   optionLogicValuesList: any
   optionListByQuestionId: any
   selectedOptions: any[] = [];
+  getquestionTypeName: any
   baseUrl = '';
   constructor(public themeService: DataService, private router: Router,
     private route: ActivatedRoute, private surveyservice: SurveyService, private modalService: NgbModal,
@@ -65,6 +66,7 @@ export class EditSurveyComponent {
         this.questionTypeId = _data[1];
         this.mode = _data[2];
         this.questionId = _data[3]
+
         console.log("surveyId", this.surveyId)
         console.log("questionTypeId", this.questionTypeId)
         console.log("mode", this.mode)
@@ -76,6 +78,8 @@ export class EditSurveyComponent {
           this.getLogicQuestionList(this.questionId);
           this.getLogicValues()
           this.getOptionsLogicValues()
+        } else {
+          this.getquestionTypeName = _data[4]
         }
       }
     });
@@ -284,7 +288,7 @@ export class EditSurveyComponent {
     this.question.question = '';
     this.question.createdDate = this.getCurrentDateTime();
     this.question.modifiedDate = this.getCurrentDateTime();
-    this.question.questionTypeName = this.questionTypeNameGet
+    this.question.questionTypeName = this.getquestionTypeName
 
     this.filteredOptions.push(...this.optionsArr1, ...this.optionsArr2);
     this.allOptions.push(...this.optionsArr1, ...this.optionsArr2);
@@ -328,13 +332,12 @@ export class EditSurveyComponent {
   }
 
   questions: any[] = [];
-
-
-
-
-
-
+  categoryNameChecks: boolean[] = [];
+  initializeCategoryNameChecks() {
+    this.categoryNameChecks = new Array(this.groups.length).fill(false);
+  }
   validateSurvey(): boolean {
+    this.initializeCategoryNameChecks();
     // Validate each field individually
     this.questionadded = !!this.question && !!this.question.question && this.question.question.trim().length > 0;
     this.qusstionaddednext = !!this.question && !!this.question.questionTypeName && this.question.questionTypeName.trim().length > 0;
@@ -343,11 +346,29 @@ export class EditSurveyComponent {
     // Check if categoryNameCheck validation is needed (only if a group exists)
     const atLeastOneGroupExists = this.groups.length > 0;
     if (atLeastOneGroupExists) {
-      this.categoryNameCheck = !!this.categoryId && this.categoryId !== 0;
-      alert(this.categoryNameCheck)
+      for (let i = 0; i < this.groups.length; i++) {
+        const group = this.groups[i];
+        if (!group.options || group.options.length === 0) {
+          this.categoryNameChecks[i] = false;
+          continue; // Skip to the next iteration if group.options is undefined or empty
+        }
+        let hasBlankOption = false;
+        for (const option of group.options) {
+          if (!option.option || option.option.trim() === '') {
+            hasBlankOption = true;
+            break; // Exit the loop once a blank or undefined value is found
+          }
+        }
+        this.categoryNameChecks[i] = !hasBlankOption; // If no blank or undefined value found, set it to true
+      }
     } else {
       this.categoryNameCheck = true; // Skip validation if no groups exist
     }
+    // if (atLeastOneGroupExists) {
+    //   this.categoryNameCheck = !!this.categoryId && this.categoryId !== 0;
+    // } else {
+    //   this.categoryNameCheck = true; // Skip validation if no groups exist
+    // }
 
     // Update the validity state of the survey
     this.isValidSurvey = this.questionadded && this.qusstionaddednext && this.categoryNameCheck;
@@ -684,6 +705,7 @@ export class EditSurveyComponent {
   onQuestionTypeClickchoice(ques: any) {
     // this.question.question = `${ques.type}`;
     this.question.questionTypeName = `${ques.type}`;
+    this.questionTypeId = ques.id;
   }
 
   onSelectChange(event: MatSelectChange, questionSortValue: any, questionId: any) {
@@ -759,7 +781,9 @@ export class EditSurveyComponent {
     this.inputText = lines.join('\n');
   }
 
-
+  getFilteredOptions() {
+    return this.filteredOptions.filter(option => option.option.trim() !== '');
+  }
 
   addButtonClicked(): void {
     // Split the input text by newline characters and assign it to dataArray

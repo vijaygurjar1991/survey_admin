@@ -296,13 +296,15 @@
                                                     (blur)="validateSurvey()" />
                                             </mat-chip-grid>
                                             <mat-autocomplete #auto="matAutocomplete"
-                                                (optionSelected)="selected($event,groupIndex)">
-                                                <mat-option *ngFor="let option of filteredOptions" [value]="option">
-                                                    {{option.option}}
+                                                (optionSelected)="selected($event, groupIndex)">
+                                                <mat-option *ngFor="let option of getFilteredOptions()"
+                                                    [value]="option">
+                                                    {{ option.option }}
                                                 </mat-option>
                                             </mat-autocomplete>
                                         </mat-form-field>
-                                        <div *ngIf="!categoryNameCheck" class="text-danger">Option is required.</div>
+                                        <div *ngIf="!categoryNameChecks[groupIndex]" class="text-danger">Option is
+                                            required.</div>
                                     </form>
 
                                 </div>
