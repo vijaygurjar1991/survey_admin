@@ -5,6 +5,7 @@ import { ChangeDetectorRef } from '@angular/core';
 import Swal from 'sweetalert2';
 import { UtilsService } from 'src/app/service/utils.service';
 import { environment } from 'src/environments/environment';
+import { FormGroup, FormBuilder, Validators, AbstractControl, ValidationErrors } from '@angular/forms';
 
 @Component({
   selector: 'app-my-account',
@@ -12,8 +13,14 @@ import { environment } from 'src/environments/environment';
   styleUrls: ['./my-account.component.css']
 })
 export class MyAccountComponent {
+  signupForm: FormGroup;
   imageName: any;
-  constructor(public themeService: DataService, private modalService: NgbModal, private cdr: ChangeDetectorRef, private util: UtilsService) {
+  constructor(public themeService: DataService, private modalService: NgbModal, private cdr: ChangeDetectorRef, private util: UtilsService, private fb: FormBuilder) {
+    this.signupForm = this.fb.group({
+      oldPassword: ['', Validators.required],
+      newPassword: ['', [Validators.required, Validators.minLength(8)]],
+      confirmPassword: ['', Validators.required]
+    }, { validator: this.passwordMatchValidator });
     this.baseUrl = environment.baseURL;
   }
   files: File[] = [];
@@ -33,6 +40,7 @@ export class MyAccountComponent {
 
   openLg(content: any) {
     this.modalService.open(content, { size: 'lg', centered: true });
+
   }
   showSweetAlert() {
     Swal.fire('update');
@@ -65,6 +73,12 @@ export class MyAccountComponent {
   }
 
   postData() {
+
+    if (!this.validateSurvey()) {
+      this.util.showError('Please fill all required fields.');
+      return;
+    }
+
     const imageName = this.image.split('\\').pop() || this.image;
     const dataToSend = {
       id: this.id,
@@ -80,7 +94,8 @@ export class MyAccountComponent {
     this.themeService.CreateMyAccount(dataToSend).subscribe(
       response => {
         console.log('Response from server:', response);
-        Swal.fire('', response, 'success');
+        this.util.showSuccess(response);
+        // Swal.fire('', response);
         // Handle response based on the server behavior
       },
       error => {
@@ -92,10 +107,12 @@ export class MyAccountComponent {
 
   updatepassword() {
     if (!this.oldPassword || !this.newPassword || !this.confirmPassword) {
-      Swal.fire('Error Occurs', 'All fields are required.', 'error');
+      this.util.showError('All fields are required.');
+      // Swal.fire('Error Occurs', 'All fields are required.', 'error');
     }
     else if (this.confirmPassword != this.newPassword) {
-      Swal.fire('Error Occurs', 'New password and confirm password should be same.', 'error');
+      // Swal.fire('Error Occurs', 'New password and confirm password should be same.', 'error');
+      this.util.showError('New password and confirm password should be same.');
     } else {
       const dataToSend2 = {
         id: this.id,
@@ -154,5 +171,42 @@ export class MyAccountComponent {
       }
     );
   }
+
+
+  // new
+
+  information: any[] = [];
+  firstname: boolean = true
+  lastname: boolean = true
+  Contact: boolean = true
+  roletype: boolean = true
+  emailaddress: boolean = true
+
+  validateSurvey(): boolean {
+    this.firstname = !!this.firstName && this.firstName.trim().length > 0;
+    this.lastname = !!this.lastName && this.lastName.trim().length > 0;
+    this.Contact = !!this.contactNo && this.contactNo.toString().trim().length > 0;
+    this.roletype = !!this.role && this.role.trim().length > 0;
+    this.emailaddress = !!this.email && this.email.trim().length > 0;
+
+    // You might want to return whether all fields are valid
+    return (
+      this.firstname &&
+      this.lastname &&
+      this.Contact &&
+      this.role &&
+      this.emailaddress
+    );
+  }
+
+  passwordMatchValidator(formGroup: FormGroup): ValidationErrors | null {
+    const password = formGroup.get('newPassword')?.value;
+    const confirmPassword = formGroup.get('confirmPassword')?.value;
+    console.log("pasword working");
+    return password === confirmPassword ? null : { passwordMismatch: true };
+
+  }
+
+
 
 }

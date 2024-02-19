@@ -24,6 +24,7 @@ export class UserListingComponent {
   contactNo: number;
   createdDate: any;
   roleId: number = 0;
+  centerId: number = this.utility.getCenterId();
 
 
   roles: any[] = [
@@ -41,6 +42,7 @@ export class UserListingComponent {
 
 
   getAllUser() {
+
     this.userId = localStorage.getItem("userId");
     this.themeService.GetAllUser(this.userId).subscribe((data: any) => {
       this.UserData = data;

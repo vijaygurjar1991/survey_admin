@@ -57,6 +57,12 @@ export class AddUserComponent {
 
 
   AddUser() {
+
+    if (!this.validateSurvey()) {
+      this.utility.showError('Please fill all required fields.');
+      return;
+    }
+
     const dataToSend = {
       id: this.id,
       firstName: this.firstName,
@@ -73,15 +79,66 @@ export class AddUserComponent {
     this.themeService.AddNewUser(dataToSend).subscribe(
       response => {
         console.log('Response from server:', response);
-        Swal.fire('', response, 'success');
+        this.utility.showSuccess(response);
+        // Swal.fire('', response, 'success');
         // Handle response based on the server behavior
       },
       error => {
+        this.utility.showError(error);
         console.error('Error occurred while sending POST request:', error);
         // Handle error, if needed
       }
     );
   }
 
+  information: any[] = [];
+  firstNamerequired: boolean = true
+  lastNamerequired: boolean = true
+  phone: boolean = true
+  roletype: boolean = true
+  emailaddress: boolean = true
+  passwordtype: boolean = true
+
+  validateSurvey(): boolean {
+    this.firstNamerequired = !!this.firstName && this.firstName.trim().length > 0;
+    this.lastNamerequired = !!this.lastName && this.lastName.trim().length > 0;
+    this.phone = !!this.contactNo && this.contactNo.toString().trim().length > 0;
+    this.roletype = !!this.roleId && this.roleId.toString().trim().length > 0;
+    this.emailaddress = !!this.email && this.email.trim().length > 0;
+    this.passwordtype = !!this.password && this.password.trim().length > 0;
+
+    // You might want to return whether all fields are valid
+    return (
+      this.firstNamerequired &&
+      this.lastNamerequired &&
+      this.phone &&
+      this.roletype &&
+      this.emailaddress &&
+      this.passwordtype
+    );
+  }
+
+
+  isSuperAdmin = false;
+  isAdmin = false;
+  isUser = false;
+
+  ngOnInit() {
+    this.role = this.utility.getRole();
+    if (this.role) {
+      this.role = this.role.toLowerCase();
+    }
+    console.log("SideBar Role", this.role)
+    if (this.role === 'superadmin') {
+      this.isSuperAdmin = true;
+      this.roleId = 1; // Set the roleId based on the role
+    } else if (this.role === 'admin') {
+      this.isAdmin = true;
+      this.roleId = 2;
+    } else if (this.role === 'user') {
+      this.isUser = true;
+      this.roleId = 3;
+    }
+  }
 
 }

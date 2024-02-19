@@ -8,6 +8,7 @@ import { UtilsService } from 'src/app/service/utils.service';
 import { environment } from 'src/environments/environment';
 declare var Dropzone: any;
 
+
 @Component({
   selector: 'app-about',
   templateUrl: './about.component.html',
@@ -55,6 +56,11 @@ export class AboutComponent {
 
   }
   postData() {
+    if (!this.validateSurvey()) {
+      this.util.showError('Please fill all required fields.');
+      return;
+    }
+
     const dataToSend = {
       id: this.id,
       name: this.name,
@@ -67,12 +73,14 @@ export class AboutComponent {
     this.themeService.CreateAboutUs(dataToSend).subscribe(
       response => {
         console.log('Response from server:', response);
-        swal.fire('', response, 'success');
+        // swal.fire('', response, 'success');
+        this.util.showSuccess(response);
         // Handle response based on the server behavior
       },
       error => {
         console.error('Error occurred while sending POST request:', error);
-        swal.fire('', error, 'error');
+        this.util.showError('error');
+        // swal.fire('', error, 'error');
         // Handle error, if needed
       }
     );
@@ -82,7 +90,8 @@ export class AboutComponent {
 
     if (file) {
       this.files.push(file); // Store the selected file
-      this.uploadImage(file); // Trigger upload after selecting the file
+      this.uploadImage(file);
+      console.log("uplaoded", this.uploadImage(file))// Trigger upload after selecting the file
     }
   }
 
@@ -99,6 +108,21 @@ export class AboutComponent {
         console.error('Error occurred while uploading:', error);
         // Handle error
       }
+    );
+  }
+
+  information: any[] = [];
+  title: boolean = true
+  descriptioninfo: boolean = true
+
+  validateSurvey(): boolean {
+    this.title = !!this.name && this.name.trim().length > 0;
+    this.descriptioninfo = !!this.description && this.description.trim().length > 0;
+
+    // You might want to return whether all fields are valid
+    return (
+      this.title &&
+      this.descriptioninfo
     );
   }
 

@@ -1,5 +1,5 @@
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
-import { Component, ElementRef, ViewChild, inject } from '@angular/core';
+import { Component, ElementRef, ViewChild, inject, EventEmitter, Output } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import { MatChipInputEvent } from '@angular/material/chips';
@@ -28,6 +28,9 @@ import { UtilsService } from 'src/app/service/utils.service';
 
 })
 export class EditSurveyComponent {
+
+  @Output() onSaveEvent = new EventEmitter();
+
   separatorKeysCodes: number[] = [ENTER, COMMA];
 
   surveyId: any;
@@ -402,7 +405,7 @@ export class EditSurveyComponent {
     }
     this.question.image = this.questionImage;
     this.question.options = this.allOptions;
-    console.log("chaecking", this.question.options)
+    console.log("checking", this.question.options)
 
     // Send the request based on whether it's an update or creation
     if (parseFloat(this.questionId) > 0) {
@@ -415,7 +418,7 @@ export class EditSurveyComponent {
           this.router.navigateByUrl(url);
         },
         error: (err: any) => {
-          Swal.fire('', err.error, 'error');
+          // Swal.fire('', err.error, 'error');
           this.utility.showError('error');
         }
       });
@@ -427,6 +430,7 @@ export class EditSurveyComponent {
           this.utility.showSuccess('Question Generated Successfully.');
           let url = `/survey/manage-survey/${this.crypto.encryptParam(this.surveyId)}`;
           this.router.navigateByUrl(url);
+          this.onSaveEvent.emit();
         },
         error: (err: any) => {
           this.utility.showError('error');
@@ -808,6 +812,30 @@ export class EditSurveyComponent {
     this.allOptions.push(...this.optionsArr1, ...this.optionsArr2);
 
   }
+
+  // addButtonClicked(): void {
+  //   // Split the input text by newline characters and assign it to dataArray
+  //   this.dataArray = this.inputText.split('\n').map(line => line.trim()).filter(line => line !== '');
+  //   console.log(this.dataArray);
+
+  //   // Clear the input field
+  //   this.inputText = '';
+
+  //   this.dataArray.forEach((line: string) => {
+  //     // Check if line is not empty
+  //     if (line) {
+  //       let newOption = new Option();
+  //       newOption.option = line.trim();
+  //       newOption.createdDate = this.getCurrentDateTime();
+
+  //       this.optionsArr1.push(newOption);
+  //       console.log("see", this.optionsArr1);
+  //     }
+  //   });
+
+  //   this.allOptions = [...this.optionsArr1, ...this.optionsArr2]; // Update allOptions array
+  // }
+
 
 
 }
