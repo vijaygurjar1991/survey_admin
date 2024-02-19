@@ -17,33 +17,39 @@
                 <tr>
                     <th scope="row">Expert Programmer/Scripter</th>
                     <td><button type="button" class="btn btn-outline-primary btn-sm"
-                            (click)="toggleCartItem('Expert Programmer/Scripter')">Add to Cart</button></td>
+                            (click)="toggleCartItem('Expert Programmer/Scripter')"
+                            [class.active]="isSelected('Expert Programmer/Scripter')">Add to Cart</button></td>
                 </tr>
                 <tr>
                     <th scope="row">Expert Analysis</th>
                     <td><button type="button" class="btn btn-outline-primary btn-sm"
-                            (click)="toggleCartItem('Expert Analysis')">Add to Cart</button></td>
+                            (click)="toggleCartItem('Expert Analysis')"
+                            [class.active]="isSelected('Expert Analysis')">Add to Cart</button></td>
                 </tr>
                 <tr>
                     <th scope="row">Report Writing</th>
                     <td><button type="button" class="btn btn-outline-primary btn-sm"
-                            (click)="toggleCartItem('Report Writing')">Add to Cart</button></td>
+                            (click)="toggleCartItem('Report Writing')" [class.active]="isSelected('Report Writing')">Add
+                            to Cart</button></td>
                 </tr>
 
                 <tr>
                     <th scope="row">Data Validation</th>
                     <td><button type="button" class="btn btn-outline-primary btn-sm"
-                            (click)="toggleCartItem('Data Validation')">Add to Cart</button></td>
+                            (click)="toggleCartItem('Data Validation')"
+                            [class.active]="isSelected('Data Validation')">Add to Cart</button></td>
                 </tr>
                 <tr>
                     <th scope="row">Purchase Responses</th>
                     <td><button type="button" class="btn btn-outline-primary btn-sm"
-                            (click)="toggleCartItem('Purchase Responses')">Add to Cart</button></td>
+                            (click)="toggleCartItem('Purchase Responses')"
+                            [class.active]="isSelected('Purchase Responses')">Add to Cart</button></td>
                 </tr>
                 <tr>
                     <th scope="row">Customizable Report</th>
                     <td><button type="button" class="btn btn-outline-primary btn-sm"
-                            (click)="toggleCartItem('Customizable Report')">Add to Cart</button></td>
+                            (click)="toggleCartItem('Customizable Report')"
+                            [class.active]="isSelected('Customizable Report')">Add to Cart</button></td>
                 </tr>
                 <tr>
                     <td><strong>Total</strong></td>
@@ -66,40 +72,57 @@
             <div class="row">
                 <div class="col-md-6 form-group mb-3">
                     <label>Full Name</label>
-                    <input type="text" class="form-control" placeholder="Enter your full name" [(ngModel)]="name"
-                        [ngModelOptions]="{standalone: true}">
+                    <input if="name" type="text" class="form-control" placeholder="Enter your full name"
+                        [(ngModel)]="name" [ngModelOptions]="{standalone: true}" (blur)="validateSurvey()">
+                    <div *ngIf="!firstname" class="text-danger">Name is required.</div>
                 </div>
                 <div class="col-md-6 form-group mb-3">
                     <label>Project type</label>
                     <input type="text" class="form-control" placeholder="Enter your project type"
-                        [(ngModel)]="projectType" [ngModelOptions]="{standalone: true}">
+                        [(ngModel)]="projectType" [ngModelOptions]="{standalone: true}" (blur)="validateSurvey()">
+                    <div *ngIf="!project" class="text-danger">Project Name is required.</div>
                 </div>
             </div>
             <div class="row">
                 <div class="col-md-6 form-group mb-3">
                     <label>Start date</label>
                     <input type="date" class="form-control" [(ngModel)]="startDate"
-                        [ngModelOptions]="{standalone: true}">
+                        [ngModelOptions]="{standalone: true}" (blur)="validateSurvey()">
+                    <div *ngIf="!date" class="text-danger">Date is required.</div>
                 </div>
                 <div class="col-md-6 form-group mb-3">
                     <label>Start date</label>
-                    <input type="date" class="form-control" [(ngModel)]="endDate" [ngModelOptions]="{standalone: true}">
+                    <input type="date" class="form-control" [(ngModel)]="endDate" [ngModelOptions]="{standalone: true}"
+                        (blur)="validateSurvey()">
+                    <div *ngIf="!enddate" class="text-danger">Date is required.</div>
                 </div>
             </div>
             <div class="row">
                 <div class="col-md-6 form-group mb-3">
                     <label>Email Id</label>
                     <input type="email" class="form-control" placeholder="Enter your email" [(ngModel)]="email"
-                        [ngModelOptions]="{standalone: true}">
+                        [ngModelOptions]="{standalone: true}" (blur)="validateSurvey()">
+                    <div *ngIf="!emailaddress" class="text-danger">Email is required.</div>
                 </div>
                 <div class="col-md-6 form-group mb-3">
                     <label>Phone Number</label>
                     <input type="number" class="form-control" placeholder="Enter your phone number" [(ngModel)]="mobile"
-                        [ngModelOptions]="{standalone: true}">
+                        [ngModelOptions]="{standalone: true}" (blur)="validateSurvey()">
+                    <div *ngIf="!phone" class="text-danger">Phone Number is required.</div>
                 </div>
             </div>
             <div class="form-group mb-3">
                 <label>Select Service</label>
+                <mat-form-field class="form-control">
+                    <mat-select #selectElement>
+                        <mat-select-trigger>
+                            {{ selectedItems.length ? selectedItems[0] : 'Select an item' }}
+                        </mat-select-trigger>
+                        <mat-option *ngFor="let service of selectedItems" [value]="service">
+                            {{ service }}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
 
                 <select class="form-control">
                     <option>1</option>
@@ -115,9 +138,10 @@
                 </mat-chip-list>
             </div>
             <div class="form-group mb-3">
-                <label>Message</label>
+                <label>Message[Max Limit: 250 words]</label>
                 <textarea name="" class="form-control" rows="5" [(ngModel)]="comments"
-                    [ngModelOptions]="{standalone: true}"></textarea>
+                    [ngModelOptions]="{standalone: true}" (blur)="validateSurvey()"></textarea>
+                <div *ngIf="!message" class="text-danger">Message should be in 250 words</div>
             </div>
             <div class="text-end"><button type="submit" class="btn btn-primary">Submit</button></div>
         </form>

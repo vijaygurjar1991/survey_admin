@@ -25,8 +25,8 @@
             <table class="table">
                 <thead>
                     <tr>
-                        <th scope="col"><input type="checkbox" ngClass="form-check-input" />
-                        </th>
+                        <!-- <th scope="col"><input type="checkbox" ngClass="form-check-input" />
+                        </th> -->
                         <!-- <th scope="col">Survey Id</th> countryName-->
                         <th scope="col">Survey Name</th>
                         <th scope="col">Country</th>
@@ -40,8 +40,8 @@
                 <tbody>
                     <tr *ngFor="let item of surveyData | paginate: { id: 'server', itemsPerPage: pageSize, currentPage: pageNumber, totalItems: totalItemsCount }"
                         [hidden]="selectedCategory !== 'All Categories' && item.categoryName !== selectedCategory">
-                        <td><input type="checkbox" ngClass="form-check-input" />
-                        </td>
+                        <!-- <td><input type="checkbox" ngClass="form-check-input" /> -->
+                        <!-- </td> -->
                         <!-- <td>{{item.id}}</td> -->
                         <td>{{item.name}}</td>
                         <td><img *ngIf="item.countryName=='India'" [src]="baseUrl+'/assets/images/Images/flag.png'"
@@ -51,7 +51,7 @@
                         <td *ngIf="item.categoryName !='Others'">{{item.categoryName}}</td>
                         <td *ngIf="item.categoryName =='Others'">{{item.otherCategory}}</td>
                         <td>
-                            <img [src]="baseUrl+'/assets/images/profile/pic.png'" class="me-2 rounded-circle"
+                            <img [src]="baseUrl + item.userImage" class="me-2 rounded-circle"
                                 style="width: 30px;height: 30px;" />
                             {{item.userName}}
                         </td>
@@ -92,7 +92,7 @@
                         </td>
                         <td ngClass="action">
                             <a *ngIf="item.status!='ACT' && item.status!='HOL'" href="javascript:"
-                                [routerLink]="'/survey/manage-survey/'+ (item.surveyId | encrypt)">
+                                [routerLink]="'/survey/manage-survey/'+ (item.surveyId |  encrypt)">
                                 <ng-icon name="heroPencil" ngClass="edit-action"></ng-icon></a>
                             <!-- <a *ngIf="item.status=='ACT'" href="javascript:">
                                 <ng-icon name="heroPencil" ngClass="edit-action"></ng-icon></a> -->

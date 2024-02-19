@@ -431,7 +431,7 @@ export class CreateSurveyComponent implements OnInit, AfterViewInit {
     });
   }
 
-  onQuestionTypeClick(id: any,name:any) {
+  onQuestionTypeClick(id: any, name: any) {
     this.selectedQuestionType = id;
     this.selectedQuestionTypeName = name;
   }
@@ -727,6 +727,12 @@ export class CreateSurveyComponent implements OnInit, AfterViewInit {
   }
 
   removeRandomizationSection(index: number) {
+
+    if (!this.validateSurvey()) {
+      this.utils.showError('Please checked');
+      return;
+    }
+
     this.randormizeEntries.splice(index, 1);
   }
   saveRandomization(): void {
@@ -1104,4 +1110,20 @@ export class CreateSurveyComponent implements OnInit, AfterViewInit {
   refresh() {
     this.GetSurveyDetails(this.pageSize, 1);
   }
+
+
+
+  //new 
+
+  information: any[] = [];
+  checkrequired: boolean = true;
+
+  validateSurvey(): boolean {
+    console.log('isRandomizationChecked:', this.isRandomizationChecked);
+    this.checkrequired = !!this.isRandomizationChecked;
+    console.log('Validation result:', this.checkrequired); // Log the validation result
+    return this.checkrequired;
+  }
+
+
 }

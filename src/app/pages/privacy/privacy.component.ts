@@ -50,6 +50,12 @@ export class PrivacyComponent {
     });
   }
   postData() {
+
+    if (!this.validateSurvey()) {
+      this.util.showError('Please fill all required fields.');
+      return;
+    }
+
     const dataToSend = {
       id: this.id,
       name: this.name,
@@ -61,10 +67,12 @@ export class PrivacyComponent {
     this.themeService.CreatePrivacyPolicy(dataToSend).subscribe(
       response => {
         console.log('Response from server:', response);
-        swal.fire('', response, 'success');
+        this.util.showSuccess(response);
+        // swal.fire('', response, 'success');
         // Handle response based on the server behavior
       },
       error => {
+        this.util.showError('error');
         console.error('Error occurred while sending POST request:', error);
         // Handle error, if needed
       }
@@ -92,6 +100,20 @@ export class PrivacyComponent {
         console.error('Error occurred while uploading:', error);
         // Handle error
       }
+    );
+  }
+
+  title: boolean = true
+  descriptioninfo: boolean = true
+
+  validateSurvey(): boolean {
+    this.title = !!this.name && this.name.trim().length > 0;
+    this.descriptioninfo = !!this.description && this.description.trim().length > 0;
+
+    // You might want to return whether all fields are valid
+    return (
+      this.title &&
+      this.descriptioninfo
     );
   }
 

@@ -17,7 +17,7 @@ import Swal from 'sweetalert2';
   styleUrls: ['./survey-listing.component.css']
 })
 export class SurveyListingComponent {
-  surveyData: any="";
+  surveyData: any = "";
   categoryList: any;
   selectedCategory: string = 'All Categories';
   constructor(private visibilityService: DataService, private util: UtilsService, private modalService: NgbModal, public themeService: SurveyService, private cdr: ChangeDetectorRef) {

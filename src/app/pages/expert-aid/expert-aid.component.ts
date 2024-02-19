@@ -14,35 +14,42 @@ import Swal from 'sweetalert2';
 export class ExpertAidComponent {
 
   expertAid: ExpertAid = new ExpertAid();
-  expertAidService:ExpertAidServices [] = [];
-  constructor(private modalService : NgbModal,private surveyservice:SurveyService,private utillService:UtilsService){}
+  expertAidService: ExpertAidServices[] = [];
+  constructor(private modalService: NgbModal, private surveyservice: SurveyService, private utillService: UtilsService) { }
 
   openLg(form: any) {
     this.modalService.open(form, { size: 'lg', centered: true });
   }
   selectedItems: string[] = [];
-  toggleCartItem(item: string) {
-    if (this.selectedItems.includes(item)) {
-      this.removeFromCart(item);
+  toggleCartItem(item: string): void {
+    if (this.isSelected(item)) {
+      this.selectedItems = this.selectedItems.filter(selectedItem => selectedItem !== item);
     } else {
-      this.addToCart(item);
+      this.selectedItems.push(item);
     }
   }
+
+  isSelected(item: string): boolean {
+    return this.selectedItems.includes(item);
+  }
+
   addToCart(item: string) {
     if (!this.selectedItems.includes(item)) {
       this.selectedItems.push(item);
     }
   }
-  getCurrentDateTime(): string {
-    const currentDateTime = new Date().toISOString();
-    return currentDateTime.substring(0, currentDateTime.length - 1) + 'Z';
-  }
+
   removeFromCart(item: string) {
     const index = this.selectedItems.indexOf(item);
     if (index !== -1) {
       this.selectedItems.splice(index, 1);
     }
+  }
 
+
+  getCurrentDateTime(): string {
+    const currentDateTime = new Date().toISOString();
+    return currentDateTime.substring(0, currentDateTime.length - 1) + 'Z';
   }
   selectable: boolean = true; // Define the selectable property
   removable: boolean = true; // Define the removable property
@@ -54,42 +61,83 @@ export class ExpertAidComponent {
       this.selectedItems.push(service); // Add item if not selected
     }
   }
-  name:string;
-  projectType:string
-  startDate:string
-  endDate:string
-  email:string
-  mobile:number
-  comments:string
+  name: string;
+  projectType: string
+  startDate: string
+  endDate: string
+  email: string
+  mobile: number
+  comments: string
 
-  onSaveExpertAid():void{
+  onSaveExpertAid(): void {
 
-    this.expertAid.name=this.name
-    this.expertAid.projectType=this.projectType
-    this.expertAid.startDate=this.startDate
-    this.expertAid.endDate=this.endDate
-    this.expertAid.email=this.email
-    this.expertAid.mobile=this.mobile
-    this.expertAid.comments=this.comments
-    this.expertAid.centerId=this.utillService.getCenterId();
+    if (!this.validateSurvey()) {
+      this.utillService.showError('Please fill all required fields.');
+      return;
+    }
+
+    this.expertAid.name = this.name
+    this.expertAid.projectType = this.projectType
+    this.expertAid.startDate = this.startDate
+    this.expertAid.endDate = this.endDate
+    this.expertAid.email = this.email
+    this.expertAid.mobile = this.mobile
+    this.expertAid.comments = this.comments
+    this.expertAid.centerId = this.utillService.getCenterId();
 
     this.selectedItems.forEach(item => {
       const expertAidService = new ExpertAidServices();
       expertAidService.name = item;
-      expertAidService.createdDate =this.getCurrentDateTime();
+      expertAidService.createdDate = this.getCurrentDateTime();
       this.expertAidService.push(expertAidService);
     });
 
-    this.expertAid.expertAidServices=this.expertAidService
+    this.expertAid.expertAidServices = this.expertAidService
 
     this.surveyservice.createExpertAid(this.expertAid).subscribe({
       next: (resp: any) => {
-        Swal.fire('', 'ExpertAid Generated Sucessfully.', 'success');
+        this.utillService.showSuccess('ExpertAid Generated Sucessfully.');
+        // Swal.fire('', 'ExpertAid Generated Sucessfully.', 'success');
       },
       error: (err: any) => {
-        Swal.fire('', err.error, 'error');
+        // Swal.fire('', err.error, 'error');
+        this.utillService.showError('error');
       }
     });
 
   }
+
+  information: any[] = [];
+  firstname: boolean = true
+  project: boolean = true
+  date: boolean = true
+  enddate: boolean = true
+  emailaddress: boolean = true
+  phone: boolean = true
+  message: boolean = true
+
+  validateSurvey(): boolean {
+    this.firstname = !!this.name && this.name.trim().length > 0;
+    this.project = !!this.projectType && this.projectType.trim().length > 0;
+    this.date = !!this.startDate && this.startDate.trim().length > 0;
+    this.enddate = !!this.endDate && this.endDate.trim().length > 0;
+    this.emailaddress = !!this.email && this.email.trim().length > 0;
+    this.phone = !!this.mobile && this.mobile.toString().trim().length > 0;
+    this.message = !!this.comments && this.comments.trim().length > 0;
+
+
+
+    // You might want to return whether all fields are valid
+    return (
+      this.firstname &&
+      this.project &&
+      this.date &&
+      this.enddate &&
+      this.emailaddress &&
+      this.phone &&
+      this.message
+    );
+  }
+
+
 }

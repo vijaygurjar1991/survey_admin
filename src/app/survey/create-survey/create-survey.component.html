@@ -149,7 +149,8 @@
 
                             <div class="mb-3 ms-4 form-check checking">
                                 <input class="form-check-input" type="checkbox" [(ngModel)]="isRandomizationChecked"
-                                    id="Randomise">
+                                    id="Randomise" (blur)="validateSurvey()">
+                                <div *ngIf="!checkrequired" class="text-danger">Check is required.</div>
                                 <label class="form-check-label" for="Randomise">
                                     Randomization these question
                                 </label>
