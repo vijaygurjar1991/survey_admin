@@ -130,14 +130,14 @@ export class AddUserComponent {
     }
     console.log("SideBar Role", this.role)
     if (this.role === 'superadmin') {
-      this.isSuperAdmin = true;
-      this.roleId = 1; // Set the roleId based on the role
-    } else if (this.role === 'admin') {
+      this.isSuperAdmin = false;
       this.isAdmin = true;
-      this.roleId = 2;
+      this.isUser = true;
+    } else if (this.role === 'admin') {
+      this.isAdmin = false;
+      this.isUser = true;
     } else if (this.role === 'user') {
       this.isUser = true;
-      this.roleId = 3;
     }
   }
 

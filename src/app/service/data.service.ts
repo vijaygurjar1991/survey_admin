@@ -174,6 +174,11 @@ export class DataService {
     const url = `${this.apiUrl}api/admin/${userId}/PrivacyPolicy/UploadPrivacyPolicyImage`;
     return this.http.post(url, formData, { responseType: 'text' });
   }
+  GetAllUserProfileById(userId: any, centerId: any): Observable<responseDTO[]> {
+    var userId = this.util.getUserId();
+    const url = `${this.apiUrl}api/admin/${userId}/Profile/GetProfileByOrgnaizationId?centerId=${centerId}`;
+    return this.http.get<responseDTO[]>(url);
+  }
 
 
   // User get & Post APIs

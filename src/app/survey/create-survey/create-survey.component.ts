@@ -114,6 +114,7 @@ export class CreateSurveyComponent implements OnInit, AfterViewInit {
   filesImage: any;
   baseUrl = '';
   isRadomizeAndOr: boolean = false
+  randormizeEntries: any[] = [];
   constructor(
     private visibilityService: DataService,
     private modalService: NgbModal,
@@ -183,6 +184,7 @@ export class CreateSurveyComponent implements OnInit, AfterViewInit {
     this.getCountries();
     //this.defaultRandomValueEnter();
     this.getAgeOptionsLogicValues();
+    this.addRandomizationSection();
     //this.getSurveyLooping();
   }
   ngAfterViewInit() {
@@ -378,7 +380,9 @@ export class CreateSurveyComponent implements OnInit, AfterViewInit {
   surveyStatus: any
   countryName: any
   totalItemsCount: number
+  surveycreateddate: any
   GetSurveyDetails(pageSize: number, pageNumber: number) {
+
     this.surveyservice.getSurveyDetailsById(pageNumber, pageSize, this.surveyId).subscribe((data: any) => {
 
 
@@ -404,6 +408,7 @@ export class CreateSurveyComponent implements OnInit, AfterViewInit {
         this.totalItemsCount = data.totalQuestionCount
         this.categoryId = data.categoryId
         this.selectedCountry = this.countryId
+        this.surveycreateddate = data.createdDate
       }
 
       this.getNames();
@@ -708,12 +713,15 @@ export class CreateSurveyComponent implements OnInit, AfterViewInit {
       );
     }
   }
-  randormizeEntries: any[] = [];
+
   isRandomizationChecked: boolean = false;
   addNewRandomization(): void {
     const newRandomEntry = { id: this.randormizeEntries.length + 1, selectedOption: 'null' };
     this.randormizeEntries.push(newRandomEntry);
   }
+
+
+
   // defaultRandomValueEnter(): void {
   //   const defaultEntry1 = { id: 1, selectedOption: 'null' };
   //   const defaultEntry2 = { id: 2, selectedOption: 'null' };
@@ -728,14 +736,16 @@ export class CreateSurveyComponent implements OnInit, AfterViewInit {
 
   removeRandomizationSection(index: number) {
 
+
+
+    this.randormizeEntries.splice(index, 1);
+  }
+  saveRandomization(): void {
     if (!this.validateSurvey()) {
       this.utils.showError('Please checked');
       return;
     }
 
-    this.randormizeEntries.splice(index, 1);
-  }
-  saveRandomization(): void {
     console.log(this.randormizeEntries);
     console.log(this.isRandomizationChecked);
 
@@ -771,12 +781,14 @@ export class CreateSurveyComponent implements OnInit, AfterViewInit {
           response => {
             // Handle the response if needed
             console.log('POST request successful', response);
-            Swal.fire('', 'Randomization Created Successfully.', 'success');
+            // Swal.fire('', 'Randomization Created Successfully.', 'success');
+            this.utils.showSuccess('Randomization Created Successfully.');
           },
           error => {
             // Handle errors
             console.error('Error in POST request', error);
-            Swal.fire('', 'Please confirm you want to randomization these question ', 'error');
+            // Swal.fire('', 'Please confirm you want to randomization these question ', 'error');
+            this.utils.showError('Please confirm you want to randomization these question');
           }
         );
       } else {
@@ -841,11 +853,14 @@ export class CreateSurveyComponent implements OnInit, AfterViewInit {
     this.surveyservice.surveyLooping(surveyId, dummySurveyId).subscribe(
       response => {
         // Handle the response here
-        Swal.fire('', 'Auto Code Created Successfully.', 'success');
+        // Swal.fire('', 'Auto Code Created Successfully.', 'success');
+        this.utils.showSuccess('Auto Code Created Successfully.');
+
         console.log('Survey Looping Response:', response);
       },
       error => {
         // Handle errors here
+        this.utils.showError(error);
         console.error('Survey Looping Error:', error);
       }
     );
@@ -1115,15 +1130,15 @@ export class CreateSurveyComponent implements OnInit, AfterViewInit {
 
   //new 
 
-  information: any[] = [];
-  checkrequired: boolean = true;
+  checkrequired: boolean = false; // Initialize the flag
 
   validateSurvey(): boolean {
-    console.log('isRandomizationChecked:', this.isRandomizationChecked);
+    // Check if the checkbox is not checked
     this.checkrequired = !!this.isRandomizationChecked;
-    console.log('Validation result:', this.checkrequired); // Log the validation result
-    return this.checkrequired;
+    return !this.checkrequired;
   }
+
+
 
 
 }

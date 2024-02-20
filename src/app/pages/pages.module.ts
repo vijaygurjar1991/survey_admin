@@ -11,6 +11,10 @@ import { NgIconsModule, provideNgIconsConfig } from '@ng-icons/core';
 import { PrivacyComponent } from './privacy/privacy.component';
 import { TermsConditionComponent } from './terms-condition/terms-condition.component';
 import { ExpertAidComponent } from './expert-aid/expert-aid.component';
+import { ReactiveFormsModule } from '@angular/forms';
+import { MatSelectModule } from '@angular/material/select';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { heroXMark } from '@ng-icons/heroicons/outline';
 
 @NgModule({
   declarations: [
@@ -24,8 +28,12 @@ import { ExpertAidComponent } from './expert-aid/expert-aid.component';
     PagesRoutingModule,
     NgxDropzoneModule,
     FormsModule,
+    ReactiveFormsModule,
+    MatSelectModule,
+    MatFormFieldModule,
     NgIconsModule.withIcons({
-      heroHome
+      heroHome,
+      heroXMark
     }),
     CKEditorModule,
   ],

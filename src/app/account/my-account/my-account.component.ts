@@ -7,6 +7,7 @@ import { UtilsService } from 'src/app/service/utils.service';
 import { environment } from 'src/environments/environment';
 import { FormGroup, FormBuilder, Validators, AbstractControl, ValidationErrors } from '@angular/forms';
 
+
 @Component({
   selector: 'app-my-account',
   templateUrl: './my-account.component.html',
@@ -16,11 +17,6 @@ export class MyAccountComponent {
   signupForm: FormGroup;
   imageName: any;
   constructor(public themeService: DataService, private modalService: NgbModal, private cdr: ChangeDetectorRef, private util: UtilsService, private fb: FormBuilder) {
-    this.signupForm = this.fb.group({
-      oldPassword: ['', Validators.required],
-      newPassword: ['', [Validators.required, Validators.minLength(8)]],
-      confirmPassword: ['', Validators.required]
-    }, { validator: this.passwordMatchValidator });
     this.baseUrl = environment.baseURL;
   }
   files: File[] = [];
@@ -49,7 +45,12 @@ export class MyAccountComponent {
   ngOnInit(): void {
     //this.role = localStorage.getItem("role")
     this.role = this.util.getRole();
-    this.getMyAccount()
+    this.getMyAccount();
+    this.signupForm = this.fb.group({
+      oldPassword: ['', [Validators.required, Validators.minLength(8)]],
+      newPassword: ['', [Validators.required, Validators.minLength(8)]],
+      confirmPassword: ['', Validators.required]
+    }, { validator: this.passwordMatchValidator });
   }
 
   userId: any;
@@ -202,11 +203,25 @@ export class MyAccountComponent {
   passwordMatchValidator(formGroup: FormGroup): ValidationErrors | null {
     const password = formGroup.get('newPassword')?.value;
     const confirmPassword = formGroup.get('confirmPassword')?.value;
-    console.log("pasword working");
-    return password === confirmPassword ? null : { passwordMismatch: true };
 
+    return password === confirmPassword ? null : { passwordMismatch: true };
   }
 
+  oldPasswordrequires: boolean = true
+  newPasswordrequires: boolean = true
+  confirmPasswordrequires: boolean = true
 
+  password(): boolean {
+    this.oldPasswordrequires = !!this.oldPassword && this.oldPassword.trim().length > 0;
+    this.newPasswordrequires = !!this.newPassword && this.newPassword.trim().length > 0;
+    this.confirmPasswordrequires = !!this.confirmPassword && this.confirmPassword.trim().length > 0;
+
+    // You might want to return whether all fields are valid
+    return (
+      this.oldPasswordrequires &&
+      this.newPasswordrequires &&
+      this.confirmPasswordrequires
+    );
+  }
 
 }

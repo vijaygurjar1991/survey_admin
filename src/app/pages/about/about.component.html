@@ -28,10 +28,9 @@
                         <p>Max. File Size: 15MB</p>
                     </ngx-dropzone-label>
                     <ngx-dropzone-preview *ngFor="let f of files" [removable]="true" (removed)="onRemove(f)">
+                        <img *ngIf="selectedImage" [src]="selectedImage" alt="Uploaded Image" />
                         <ngx-dropzone-label>{{ f.name }} ({{ f.type }})</ngx-dropzone-label>
                     </ngx-dropzone-preview>
-
-
                 </ngx-dropzone>
             </div>
             <div class="text-end upload">

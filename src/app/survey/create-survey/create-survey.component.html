@@ -67,7 +67,7 @@
                     class="btn btn-primary w-100">Preview</a>
             </div>
             <div class="last-updated text-center">
-                <p class="mt-2">Survey Created on <span>01-01-2024</span></p>
+                <p class="mt-2">Survey Created on <span>{{surveycreateddate | date: 'medium'}}</span></p>
             </div>
         </div>
         <div class="d-flex justify-content-center mt-5">
@@ -86,8 +86,11 @@
         </div>
         <div ngClass="survey-name">
             <div>
-                <h4 ngClass="mb-3"><img [src]="baseUrl + '/assets/images/Images/flag.png'" class="me-2 rounded-circle"
-                        style="width: 30px;height: 30px;" *ngIf="countryName=='India'" /> {{countryName}} {{surveyName}}
+                <h4 ngClass="mb-3">
+
+                    <img loading="lazy" [src]="baseUrl + '/assets/images/country-flag/' + countryName + '.png'"
+                        width="30" height="30" alt={{countryName}} />
+                    {{surveyName}}
                 </h4>
                 <span *ngIf="categoryName !='Others'">{{categoryName}}</span>
                 <span *ngIf="categoryName =='Others'">{{otherCategoryName}}</span>
@@ -139,6 +142,12 @@
                                             <option *ngFor="let option of logicQuestionList" [value]="option.id">{{
                                                 option.item }}</option>
                                         </select>
+                                        <mat-form-field>
+                                            <mat-select #selectElement></mat-select>
+                                            <mat-option *ngFor="let option of logicQuestionList" [value]="option.id">
+                                                {{option.item }}
+                                            </mat-option>
+                                        </mat-form-field>
 
                                         <button type="button" class="btn btn-primary btn-sm"
                                             (click)="removeRandomizationSection(i)">Remove</button>
@@ -150,10 +159,10 @@
                             <div class="mb-3 ms-4 form-check checking">
                                 <input class="form-check-input" type="checkbox" [(ngModel)]="isRandomizationChecked"
                                     id="Randomise" (blur)="validateSurvey()">
-                                <div *ngIf="!checkrequired" class="text-danger">Check is required.</div>
                                 <label class="form-check-label" for="Randomise">
                                     Randomization these question
                                 </label>
+                                <div *ngIf="!checkrequired" class="text-danger">Check is required.</div>
                             </div>
                             <div class="row">
                                 <div class="col-12 text-end d-flex justify-content-end">
@@ -170,8 +179,15 @@
                                 <div class="mb-3">
                                     <select class="form-select" aria-label="Default select example"
                                         [(ngModel)]="selectedAutoCodeOption">
-                                        <option *ngFor="let option of surveylist" [value]="option.surveyId"> {{
-                                            option.name }} ({{option.surveyId}})</option>
+                                        <!-- <option *ngFor="let option of surveylist" [value]="option.surveyId"> {{
+                                            option.name }} ({{option.surveyId}})</option> -->
+                                        <ng-container *ngFor="let option of surveylist">
+                                            <!-- Display option if its surveyId is not equal to 450 -->
+                                            <ng-container *ngIf="option.surveyId !== surveyId">
+                                                <option [value]="option.surveyId">{{ option.name }}
+                                                    ({{option.surveyId}})</option>
+                                            </ng-container>
+                                        </ng-container>
                                     </select>
                                 </div>
                                 <div class="row">

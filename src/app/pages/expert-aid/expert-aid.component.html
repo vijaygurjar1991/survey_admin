@@ -111,9 +111,9 @@
                     <div *ngIf="!phone" class="text-danger">Phone Number is required.</div>
                 </div>
             </div>
-            <div class="form-group mb-3">
-                <label>Select Service</label>
-                <mat-form-field class="form-control">
+            <div class="form-group mb-3 services">
+                <label>Selected Service</label>
+                <!-- <mat-form-field class="form-control">
                     <mat-select #selectElement>
                         <mat-select-trigger>
                             {{ selectedItems.length ? selectedItems[0] : 'Select an item' }}
@@ -122,20 +122,31 @@
                             {{ service }}
                         </mat-option>
                     </mat-select>
-                </mat-form-field>
+                </mat-form-field> -->
+                <!-- <mat-form-field>
+                    <mat-label>Color</mat-label>
+                    <mat-select [selectable]="selectable">
+                        <mat-option value="Expert Programmer/Scripte">Expert Programmer/Scripter</mat-option>
+                        <mat-option value="Expert Analysis">Expert Analysis</mat-option>
+                        <mat-option value="Report Writing">Report Writing</mat-option>
+                        <mat-option value="Data Validation">Data Validation</mat-option>
+                        <mat-option value="Purchase Responses"
+                            [class.active]="selectedItems1('Purchase Responses')">Purchase Responses</mat-option>
+                        <mat-option value="Customizable Report">Customizable Report</mat-option>
+                    </mat-select>
+                </mat-form-field> -->
 
-                <select class="form-control">
-                    <option>1</option>
-                    <option>2</option>
-                    <option>3</option>
-                </select>
-                <mat-chip-list>
-                    <mat-chip *ngFor="let service of selectedItems" [selectable]="selectable" [removable]="removable"
-                        (removed)="removeFromCart(service)" (click)="toggleService(service)">
-                        {{ service }}
-                        <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
-                    </mat-chip>
-                </mat-chip-list>
+                <div>
+                    <mat-chip-list>
+                        <mat-chip *ngFor="let service of selectedItems" [selectable]="selectable"
+                            [removable]="removable" (removed)="removeFromCart(service)"
+                            (click)="toggleService(service)">
+                            {{ service }}
+                            <mat-icon matChipRemove *ngIf="removable"><ng-icon name="heroXMark"></ng-icon></mat-icon>
+                        </mat-chip>
+                    </mat-chip-list>
+                </div>
+
             </div>
             <div class="form-group mb-3">
                 <label>Message[Max Limit: 250 words]</label>

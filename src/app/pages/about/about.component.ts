@@ -56,16 +56,17 @@ export class AboutComponent {
 
   }
   postData() {
+    this.extractFileNameFromUrl
     if (!this.validateSurvey()) {
       this.util.showError('Please fill all required fields.');
       return;
     }
-
+    const imageName = this.image.split('\\').pop() || this.image;
     const dataToSend = {
       id: this.id,
       name: this.name,
       description: this.description,
-      image: this.image,
+      image: imageName,
       centerId: this.centerId
 
     };
@@ -100,7 +101,9 @@ export class AboutComponent {
     this.themeService.uploadImageAboutUs(file, this.userId).subscribe(
       (response: String) => {
         console.log('Upload successful:', response);
-        this.image = response
+        this.image = response.replace(/"/g, '')
+        console.log(this.image)
+
         // Handle response from the image upload
         // You may want to retrieve the URL or any other relevant information from the response
       },
@@ -110,6 +113,42 @@ export class AboutComponent {
       }
     );
   }
+
+  selectedImage: string | ArrayBuffer | null = null;
+
+  // onSelect(event: any): void {
+  //   const files = event.addedFiles;
+  //   if (files && files.length > 0) {
+  //     const file = files[0]; // Assuming only one file is selected
+  //     const reader = new FileReader();
+  //     reader.onload = (e: any) => {
+  //       this.selectedImage = e.target.result;
+  //       console.log(this.selectedImage);
+  //       this.onUpload(file); // Trigger upload after selecting the file
+  //     };
+  //     reader.readAsDataURL(file);
+  //   }
+  // }
+
+
+  // onUpload(file: File): void {
+  //   if (!file) {
+  //     console.error('No file selected.');
+  //     return;
+  //   }
+  //   console.log("inside onUpload");
+  //   this.themeService.uploadImageAboutUs(file, this.userId).subscribe(
+  //     (response) => {
+  //       console.log('Upload successful:', response);
+  //       this.image = response
+  //       // Handle response from server
+  //     },
+  //     (error) => {
+  //       console.error('Error occurred while uploading:', error);
+  //       // Handle error
+  //     }
+  //   );
+  // }
 
   information: any[] = [];
   title: boolean = true
@@ -125,5 +164,16 @@ export class AboutComponent {
       this.descriptioninfo
     );
   }
+  private extractFileNameFromUrl(url: string): string {
+    if (url.includes('/')) {
+      const parts = url.split('/');
+      if (parts.length > 0) {
+        return parts.pop()!; // Get and return the last part
+      }
+    }
+    return url; // If no '/' is found or parts array is empty, return the whole URL
+  }
+
+
 
 }

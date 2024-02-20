@@ -11,6 +11,7 @@ import { heroHome } from '@ng-icons/heroicons/outline';
 import { heroPencil } from '@ng-icons/heroicons/outline';
 import { AddUserComponent } from './add-user/add-user.component';
 import { NgxDropzoneModule } from 'ngx-dropzone';
+import { ProfileByIdComponent } from './profile-by-id/profile-by-id.component';
 
 
 @NgModule({
@@ -18,6 +19,7 @@ import { NgxDropzoneModule } from 'ngx-dropzone';
     //  LoginComponent,
     UserListingComponent,
     AddUserComponent,
+    ProfileByIdComponent,
   ],
   imports: [
     CommonModule,

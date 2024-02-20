@@ -71,25 +71,30 @@
         <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
     </div>
     <div class="modal-body popup-ques">
-        <!-- <form>
+        <form>
             <div class="mb-4">
                 <label for="current-password" class="form-label">Current Password</label>
-                <input id="current" type="password" class="form-control" [(ngModel)]="oldPassword" name="oldPassword" />
+                <input id="current" type="password" class="form-control" [(ngModel)]="oldPassword" name="oldPassword"
+                    (blur)="password()" />
+                <div *ngIf="!oldPasswordrequires" class="text-danger">Field is required.</div>
             </div>
             <div class="mb-4">
                 <label for="new-password" class="form-label">New Passward</label>
-                <input id="new" type="password" class="form-control" [(ngModel)]="newPassword" name="newPassword" />
+                <input id="new" type="password" class="form-control" [(ngModel)]="newPassword" name="newPassword"
+                    (blur)="password()" />
+                <div *ngIf="!newPasswordrequires" class="text-danger">Field is required.</div>
             </div>
             <div class="mb-4">
                 <label for="confirm-password" class="form-label">Confirm Passward</label>
                 <input id="confirm" type="password" class="form-control" [(ngModel)]="confirmPassword"
-                    name="confirmPassword" />
+                    name="confirmPassword" (blur)="password()" />
+                <div *ngIf="!confirmPasswordrequires" class="text-danger">Field is required.</div>
             </div>
-        </form> -->
-        <form [formGroup]="signupForm">
+        </form>
+        <!-- <form [formGroup]="signupForm">
             <div class="mb-4">
                 <label for="current-password" class="form-label">Current Password</label>
-                <input id="current" type="password" class="form-control" />
+                <input id="current" type="password" class="form-control" [(ngModel)]="oldPassword" />
                 <div *ngIf="signupForm.get('oldPassword')?.errors?.required && signupForm.get('oldPassword')?.touched"
                     class="text-danger">
                     Current Password is required.
@@ -97,7 +102,7 @@
             </div>
             <div class="mb-4">
                 <label for="new-password" class="form-label">New Password</label>
-                <input id="new" type="password" class="form-control" />
+                <input id="new" type="password" class="form-control" [(ngModel)]="newPassword" />
                 <div *ngIf="signupForm.get('newPassword')?.errors?.required && signupForm.get('newPassword')?.touched"
                     class="text-danger">
                     New Password is required.
@@ -109,7 +114,7 @@
             </div>
             <div class="mb-4">
                 <label for="confirm-password" class="form-label">Confirm Password</label>
-                <input id="confirm" type="password" class="form-control" />
+                <input id="confirm" type="password" class="form-control" [(ngModel)]="confirmPassword" />
                 <div *ngIf="signupForm.get('confirmPassword')?.errors?.required && signupForm.get('confirmPassword')?.touched"
                     class="text-danger">
                     Confirm Password is required.
@@ -119,9 +124,7 @@
                     Passwords do not match.
                 </div>
             </div>
-        </form>
-
-
+        </form> -->
     </div>
     <div class="modal-footer upload">
         <button type="button" class="btn close" (click)="modal.close('Close click')">Cancel</button>

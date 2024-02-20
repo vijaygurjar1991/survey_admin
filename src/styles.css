@@ -1946,3 +1946,8 @@ table th {
     left: 50%;
     transform: translate(-50%, -50%);
 }
+
+
+.services ng-icon {
+    --ng-icon__size: 1.2em
+}

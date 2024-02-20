@@ -5,6 +5,7 @@ import { ExpertAidServices } from 'src/app/models/expert-aid-services';
 import { SurveyService } from 'src/app/service/survey.service';
 import { UtilsService } from 'src/app/service/utils.service';
 import Swal from 'sweetalert2';
+import { MatSelect, MatSelectChange } from '@angular/material/select';
 
 @Component({
   selector: 'app-expert-aid',
@@ -26,11 +27,17 @@ export class ExpertAidComponent {
       this.selectedItems = this.selectedItems.filter(selectedItem => selectedItem !== item);
     } else {
       this.selectedItems.push(item);
+      console.log(this.selectedItems)
     }
   }
 
   isSelected(item: string): boolean {
     return this.selectedItems.includes(item);
+  }
+  selectedItems1(item: string): boolean {
+    console.log("selected one", this.selectedItems)
+    return this.selectedItems.includes(item);
+
   }
 
   addToCart(item: string) {
@@ -58,7 +65,8 @@ export class ExpertAidComponent {
     if (index !== -1) {
       this.selectedItems.splice(index, 1); // Remove item if already selected
     } else {
-      this.selectedItems.push(service); // Add item if not selected
+      this.selectedItems.push(service);
+      console.log(this.selectedItems)
     }
   }
   name: string;
@@ -137,6 +145,15 @@ export class ExpertAidComponent {
       this.phone &&
       this.message
     );
+  }
+
+
+  onSelectChange(event: MatSelectChange) {
+    const selectedValue = event.value;
+  }
+
+  idIsEqual(a: any, b: any): boolean {
+    return a === b;
   }
 
 

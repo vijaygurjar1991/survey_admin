@@ -54,9 +54,9 @@
                         <label for="">Role</label>
                         <select class="form-select" name="roleId" [(ngModel)]="roleId" (blur)="validateSurvey()">
                             <option [value]="0" selected>Select Role</option>
-                            <option value="1" [disabled]="isSuperAdmin">SuperAdmin</option>
-                            <option value="2" [disabled]="!isAdmin">Admin</option>
-                            <option value="3" [disabled]="false">User</option>
+                            <option value="1" *ngIf="isSuperAdmin">SuperAdmin</option>
+                            <option value="2" *ngIf="isAdmin">Admin</option>
+                            <option value="3" *ngIf="isUser">User</option>
                         </select>
                         <div *ngIf="!roletype" class="text-danger">Role is required.</div>
                     </div>
@@ -65,10 +65,10 @@
                         <div class="d-flex">
                             <input type="text" id="password" class="form-control" [(ngModel)]="password" name="password"
                                 (blur)="validateSurvey()" readonly>
-                            <div *ngIf="!passwordtype" class="text-danger">Password is required.</div>
                             <button type="button" class="btn ms-2" (click)="onGeneratePassword()"><ng-icon
                                     name="heroLockClosed" class="ms-0"></ng-icon></button>
                         </div>
+                        <div *ngIf="!passwordtype" class="text-danger">Password is required.</div>
                     </div>
                 </div>
                 <div class="text-end">
