@@ -184,7 +184,7 @@ export class CreateSurveyComponent implements OnInit, AfterViewInit {
     this.getCountries();
     //this.defaultRandomValueEnter();
     this.getAgeOptionsLogicValues();
-    this.addRandomizationSection();
+
     //this.getSurveyLooping();
   }
   ngAfterViewInit() {
@@ -977,6 +977,12 @@ export class CreateSurveyComponent implements OnInit, AfterViewInit {
 
     console.log('Transformed Data:', transformedData);
     this.randormizeEntries = transformedData
+    if (this.randormizeEntries.length == 0) {
+      this.randormizeEntries.push({
+        fromQuestion: null,
+        toQuestion: null,
+      });
+    }
   }
   groupDataByGroupNumber() {
     const groupedData: { [key: string]: any[] } = {};
@@ -1137,7 +1143,6 @@ export class CreateSurveyComponent implements OnInit, AfterViewInit {
     this.checkrequired = !!this.isRandomizationChecked;
     return !this.checkrequired;
   }
-
 
 
 

@@ -122,7 +122,9 @@ export class ExpertAidComponent {
   enddate: boolean = true
   emailaddress: boolean = true
   phone: boolean = true
-  message: boolean = true
+  message: boolean = true // Initialize comments
+  messageRequired: boolean = false; // Initialize messageRequired
+  messageLimitExceeded: boolean = false;
 
   validateSurvey(): boolean {
     this.firstname = !!this.name && this.name.trim().length > 0;
@@ -133,6 +135,14 @@ export class ExpertAidComponent {
     this.phone = !!this.mobile && this.mobile.toString().trim().length > 0;
     this.message = !!this.comments && this.comments.trim().length > 0;
 
+    // if (!this.comments) {
+    //   this.messageRequired = true; // Display message if textarea is empty
+    // } else if (this.countWords(this.comments) > 250) {
+    //   this.messageLimitExceeded = true;
+    // } else {
+    //   this.messageRequired = false;
+    //   this.messageLimitExceeded = false;
+    // }
 
 
     // You might want to return whether all fields are valid
@@ -154,6 +164,11 @@ export class ExpertAidComponent {
 
   idIsEqual(a: any, b: any): boolean {
     return a === b;
+  }
+
+  countWords(text: string): number {
+    // Split the text by spaces and count the number of words
+    return text.trim().split(/\s+/).length;
   }
 
 

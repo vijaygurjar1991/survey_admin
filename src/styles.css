@@ -1948,6 +1948,14 @@ table th {
 }
 
 
-.services ng-icon {
-    --ng-icon__size: 1.2em
+.services .mark ng-icon {
+    --ng-icon__size: 1.2em !important;
+}
+
+.serviceoption {
+    border: 1px solid #dee2e6;
+    padding: 0.3rem;
+    border-radius: 0.5rem;
+    margin-right: 4px;
+
 }

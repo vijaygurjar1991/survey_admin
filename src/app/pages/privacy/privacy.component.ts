@@ -50,17 +50,18 @@ export class PrivacyComponent {
     });
   }
   postData() {
+    this.extractFileNameFromUrl
 
     if (!this.validateSurvey()) {
       this.util.showError('Please fill all required fields.');
       return;
     }
-
+    const imageName = this.image.split('\\').pop() || this.image;
     const dataToSend = {
       id: this.id,
       name: this.name,
       description: this.description,
-      image: this.image,
+      image: imageName,
       centerId: this.centerId
     };
     console.log("dataToSend", dataToSend)
@@ -92,7 +93,9 @@ export class PrivacyComponent {
     this.themeService.uploadImageAboutUs(file, this.userId).subscribe(
       (response: String) => {
         console.log('Upload successful:', response);
-        this.image = response
+        this.image = response.replace(/"/g, '')
+        console.log(this.image)
+        // this.image = response
         // Handle response from the image upload
         // You may want to retrieve the URL or any other relevant information from the response
       },
@@ -115,6 +118,16 @@ export class PrivacyComponent {
       this.title &&
       this.descriptioninfo
     );
+  }
+
+  private extractFileNameFromUrl(url: string): string {
+    if (url.includes('/')) {
+      const parts = url.split('/');
+      if (parts.length > 0) {
+        return parts.pop()!; // Get and return the last part
+      }
+    }
+    return url; // If no '/' is found or parts array is empty, return the whole URL
   }
 
 }

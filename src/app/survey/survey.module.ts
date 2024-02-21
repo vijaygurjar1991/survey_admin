@@ -22,6 +22,9 @@ import { DecimalPipe, NgFor } from '@angular/common';
 import { MatSelectModule } from '@angular/material/select';
 import { NgxPaginationModule } from 'ngx-pagination';
 
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatButtonModule } from '@angular/material/button';
+
 // Icons
 import { heroChevronLeft } from '@ng-icons/heroicons/outline';
 import { heroChevronRight } from '@ng-icons/heroicons/outline';
@@ -145,6 +148,8 @@ import { OccupationPopupComponent } from './popups/occupation-popup/occupation-p
     NgxDropzoneModule,
     ModalModule,
     MatSelectModule,
+    MatTooltipModule,
+    MatButtonModule,
     //DecimalPipe, NgFor, FormsModule, NgbTypeaheadModule, NgbPaginationModule,
     NgIconsModule.withIcons({
       heroQuestionMarkCircle,

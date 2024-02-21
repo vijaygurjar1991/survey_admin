@@ -55,11 +55,13 @@ export class TermsConditionComponent {
       return;
     }
 
+    const imageName = this.image.split('\\').pop() || this.image;
+
     const dataToSend = {
       id: this.id,
       name: this.name,
       description: this.description,
-      image: this.image,
+      image: imageName,
       centerId: this.centerId
     };
     console.log("dataToSend", dataToSend)
@@ -91,7 +93,9 @@ export class TermsConditionComponent {
     this.themeService.uploadImageAboutUs(file, this.userId).subscribe(
       (response: String) => {
         console.log('Upload successful:', response);
-        this.image = response
+        this.image = response.replace(/"/g, '')
+        console.log(this.image)
+        // this.image = response
         // Handle response from the image upload
         // You may want to retrieve the URL or any other relevant information from the response
       },

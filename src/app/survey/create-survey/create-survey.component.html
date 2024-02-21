@@ -20,6 +20,7 @@
                     <figcaption>Add New Generic Question</figcaption>
                 </a>
             </div>
+
             <!-- <ul>
                 <li *ngFor="let item of names">
                     <a href="javascript:" (click)="onGenericQuestionClick(item.name)">
@@ -87,9 +88,10 @@
         <div ngClass="survey-name">
             <div>
                 <h4 ngClass="mb-3">
-
-                    <img loading="lazy" [src]="baseUrl + '/assets/images/country-flag/' + countryName + '.png'"
-                        width="30" height="30" alt={{countryName}} />
+                    <img matTooltip={{countryName}}
+                        aria-label="Button that displays a tooltip when focused or hovered over" loading="lazy"
+                        [src]="baseUrl + '/assets/images/country-flag/' + countryName + '.png'" width="30" height="30"
+                        alt={{countryName}} />
                     {{surveyName}}
                 </h4>
                 <span *ngIf="categoryName !='Others'">{{categoryName}}</span>
@@ -142,12 +144,12 @@
                                             <option *ngFor="let option of logicQuestionList" [value]="option.id">{{
                                                 option.item }}</option>
                                         </select>
-                                        <mat-form-field>
+                                        <!-- <mat-form-field>
                                             <mat-select #selectElement></mat-select>
                                             <mat-option *ngFor="let option of logicQuestionList" [value]="option.id">
                                                 {{option.item }}
                                             </mat-option>
-                                        </mat-form-field>
+                                        </mat-form-field> -->
 
                                         <button type="button" class="btn btn-primary btn-sm"
                                             (click)="removeRandomizationSection(i)">Remove</button>
@@ -176,19 +178,30 @@
                             <h5 ngClass="mb-4">Autocode</h5>
                             <div ngClass="mb-3 row">
 
+                                <!-- <div class="mb-3">
+                                    <mat-form-field>
+                                        <mat-select [(ngModel)]="selectedAutoCodeOption" #selectElement>
+                                            <mat-option *ngFor="let option of surveylist" [value]="option.surveyId"
+                                                *ngIf="option.surveyId !== surveyId">
+                                                {{ option.name }} ({{option.surveyId}})
+                                            </mat-option>
+                                        </mat-select>
+                                    </mat-form-field>
+
+
+
+                                </div> -->
                                 <div class="mb-3">
-                                    <select class="form-select" aria-label="Default select example"
-                                        [(ngModel)]="selectedAutoCodeOption">
-                                        <!-- <option *ngFor="let option of surveylist" [value]="option.surveyId"> {{
-                                            option.name }} ({{option.surveyId}})</option> -->
-                                        <ng-container *ngFor="let option of surveylist">
-                                            <!-- Display option if its surveyId is not equal to 450 -->
-                                            <ng-container *ngIf="option.surveyId !== surveyId">
-                                                <option [value]="option.surveyId">{{ option.name }}
-                                                    ({{option.surveyId}})</option>
+                                    <mat-form-field>
+                                        <mat-select [(ngModel)]="selectedAutoCodeOption" #selectElement>
+                                            <ng-container *ngFor="let option of surveylist">
+                                                <mat-option *ngIf="option.surveyId !== surveyId"
+                                                    [value]="option.surveyId">
+                                                    {{ option.name }} ({{ option.surveyId }})
+                                                </mat-option>
                                             </ng-container>
-                                        </ng-container>
-                                    </select>
+                                        </mat-select>
+                                    </mat-form-field>
                                 </div>
                                 <div class="row">
                                     <div class="col-12 text-end d-flex justify-content-end">

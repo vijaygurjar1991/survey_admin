@@ -44,8 +44,11 @@
                         <!-- </td> -->
                         <!-- <td>{{item.id}}</td> -->
                         <td>{{item.name}}</td>
-                        <td><img *ngIf="item.countryName=='India'" [src]="baseUrl+'/assets/images/Images/flag.png'"
+                        <td>
+                            <img *ngIf="item.countryName=='India'" [src]="baseUrl+'/assets/images/Images/flag.png'"
                                 class="me-2 rounded-circle" style="width: 30px;height: 30px;" />
+                            <!-- <img loading="lazy" [src]="baseUrl + '/assets/images/country-flag/' + countryName + '.png'"
+                                width="30" height="30" alt={{countryName}} /> -->
                             {{item.countryName}}
                         </td>
                         <td *ngIf="item.categoryName !='Others'">{{item.categoryName}}</td>
