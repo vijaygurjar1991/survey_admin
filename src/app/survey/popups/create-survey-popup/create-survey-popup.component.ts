@@ -10,6 +10,7 @@ import { AuthService } from 'src/app/service/auth.service';
 import { User } from 'src/app/models/user';
 import { ModalDirective } from 'ngx-bootstrap/modal';
 import { UtilsService } from 'src/app/service/utils.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-create-survey-popup',
@@ -19,6 +20,7 @@ import { UtilsService } from 'src/app/service/utils.service';
 export class CreateSurveyPopupComponent {
 
   @ViewChild('CreateSurveyModal', { static: true }) modal!: ModalDirective;
+  baseUrl = '';
 
   categoryName: any = "";
   surveyName: any;
@@ -27,7 +29,7 @@ export class CreateSurveyPopupComponent {
   selectedOption: any;
   searchControl = new FormControl();
   options: { id: number, name: string }[] = [];
-  country: { id: string, name: string }[] = [];
+  country: { id: string, name: string, images: string }[] = [];
   filteredOptions: Observable<{ id: number, name: string }[]> | undefined;
   selectedCategory: { id: number, name: string } | null = null;
   userId = 0;
@@ -41,7 +43,8 @@ export class CreateSurveyPopupComponent {
     private router: Router,
     private crypto: CryptoService,
     private auth: AuthService,
-    private utility:UtilsService) {
+    private utility: UtilsService) {
+    this.baseUrl = environment.baseURL;
 
 
     // this.filteredOptions = this.searchControl.valueChanges
@@ -81,9 +84,11 @@ export class CreateSurveyPopupComponent {
 
       const result = Object.keys(response).map((key) => response[key]);
       console.log(result)
-      const countries: { id: string; name: string }[] = result.map((value: any) => ({
+      const countries: { id: string; name: string; images: string }[] = result.map((value: any) => ({
         id: value['countryId'],
-        name: value['name']
+        name: value['name'],
+        images: value['images']
+
       }));
 
       this.country = countries;
@@ -106,7 +111,7 @@ export class CreateSurveyPopupComponent {
     this.selectedOption = e.option.viewValue;
 
   }
-  validateSurvey(){
+  validateSurvey() {
     this.surveyNameCheck = !!this.surveyName && this.surveyName.length >= 3;
     this.categoryNameCheck = !!this.categoryId && this.categoryId !== 0;
     this.otherCategoryCheck = this.categoryId !== 10 || (!!this.categoryName && this.categoryName.length >= 3);
@@ -116,7 +121,7 @@ export class CreateSurveyPopupComponent {
   }
 
   createSurvey() {
-    
+
     this.validateSurvey()
     if (this.isValidSurvey) {
       const dataToSend = {
@@ -131,7 +136,7 @@ export class CreateSurveyPopupComponent {
       this.surveyservice.createSurvey(dataToSend).subscribe(
         response => {
           console.log('Response from server:', response);
-          if(this.removeQuotes(response)=='AlreadyExits'){
+          if (this.removeQuotes(response) == 'AlreadyExits') {
             this.utility.showError("This Survey Already Created")
             return
           }

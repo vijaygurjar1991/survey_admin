@@ -1,4 +1,4 @@
-import { Component, OnInit, Renderer2, ElementRef, ViewChild, AfterViewInit } from '@angular/core';
+import { Component, OnInit, Renderer2, ElementRef, ViewChild, AfterViewInit, EventEmitter, Output } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ActivatedRoute, Router, NavigationEnd } from '@angular/router';
 import { FormControl } from '@angular/forms';
@@ -80,6 +80,8 @@ export class CreateSurveyComponent implements OnInit, AfterViewInit {
   @ViewChild('SecLsmModal', { static: true }) secLsmModal!: ModalDirective;
   @ViewChild('OccupationModal', { static: true }) occupationModal!: ModalDirective;
 
+
+  @Output() onSaveEvent = new EventEmitter();
   role: string;
   userId: number;
   name: string;
@@ -115,6 +117,7 @@ export class CreateSurveyComponent implements OnInit, AfterViewInit {
   baseUrl = '';
   isRadomizeAndOr: boolean = false
   randormizeEntries: any[] = [];
+  questionId: any
   constructor(
     private visibilityService: DataService,
     private modalService: NgbModal,
@@ -184,6 +187,7 @@ export class CreateSurveyComponent implements OnInit, AfterViewInit {
     this.getCountries();
     //this.defaultRandomValueEnter();
     this.getAgeOptionsLogicValues();
+    this.getRandomization()
 
     //this.getSurveyLooping();
   }
@@ -704,11 +708,14 @@ export class CreateSurveyComponent implements OnInit, AfterViewInit {
       this.surveyservice.createLogic(this.questionLogic).subscribe(
         response => {
           console.log('Response from server:', response);
-          Swal.fire('', 'Logic Created Successfully.', 'success');
+          this.utils.showSuccess('Logic Created Successfully.');
+          // Swal.fire('', 'Logic Created Successfully.', 'success');
         },
         error => {
           console.error('Error occurred while sending POST request:', error);
-          Swal.fire('', error, 'error');
+          // Swal.fire('', error, 'error');
+          this.utils.showError(error);
+
         }
       );
     }
@@ -902,11 +909,13 @@ export class CreateSurveyComponent implements OnInit, AfterViewInit {
     this.surveyservice.createCalculation(this.questionCalculation).subscribe(
       response => {
         console.log('Response from server:', response);
-        Swal.fire('', 'Calculation Created Successfully.', 'success');
+        // Swal.fire('', 'Calculation Created Successfully.', 'success');
+        this.utils.showSuccess('Calculation Created Successfully.');
       },
       error => {
         console.error('Error occurred while sending POST request:', error);
-        Swal.fire('', error, 'error');
+        // Swal.fire('', error, 'error');
+        this.utils.showError(error);
       }
     );
   }
@@ -982,6 +991,9 @@ export class CreateSurveyComponent implements OnInit, AfterViewInit {
         fromQuestion: null,
         toQuestion: null,
       });
+    } else {
+      this.isDivVisible = true;
+      //alert(this.isDivVisible)
     }
   }
   groupDataByGroupNumber() {
@@ -1144,6 +1156,43 @@ export class CreateSurveyComponent implements OnInit, AfterViewInit {
     return !this.checkrequired;
   }
 
+  cloneQuestion: Question = new Question();
+  cloning(clonQuestionId: any) {
+    this.surveyservice.getQuestionDetailsById(clonQuestionId).subscribe((data: any) => {
+      //console.log("data", data)
+      this.cloneQuestion = data
+      this.cloneQuestion.id = 0
+      this.cloneQuestion.question = this.cloneQuestion.question + "-1"
+      this.cloneQuestion.createdDate = this.getCurrentDateTime()
+      console.log(this.cloneQuestion)
 
+      this.surveyservice.CreateGeneralQuestion(this.cloneQuestion).subscribe({
+        next: (resp: any) => {
+          this.utils.showSuccess('Question Generated Successfully.');
+          // let url = `/survey/manage-survey/${this.crypto.encryptParam("" + this.surveyId)}`;
+          // this.router.navigateByUrl(url);
+          window.location.reload()
+        },
+        error: (err: any) => {
+          this.utils.showError('error');
+        }
+      });
+    });
+  }
+  getCurrentDateTime(): string {
+    const currentDateTime = new Date().toISOString();
+    return currentDateTime.substring(0, currentDateTime.length - 1) + 'Z';
+  }
+
+  deleteQuestion(questionId: any) {
+    const dataToSend = {
+      sId: this.surveyId,
+      qId: questionId,
+      status: "DEL"
+    };
+    this.surveyservice.deleteQuestion(dataToSend).subscribe((data: any) => {
+      console.log(data)
+    });
+  }
 
 }

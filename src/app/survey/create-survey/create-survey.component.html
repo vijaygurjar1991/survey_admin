@@ -233,7 +233,7 @@
                                     <span>logics</span>
                                 </div>
                                 <mat-form-field>
-                                    <mat-select #selectElement
+                                    <mat-select #selectElement placeholder="Sorting"
                                         (selectionChange)="onSelectChange($event, question?.sort, question?.id)">
                                         <mat-option *ngFor="let item of logicQuestionList" [value]="item.sort"
                                             [attr.selected]="idIsEqual(question.id, item.id) ? 'true' : null"
@@ -263,10 +263,13 @@
                                                 Logic
                                             </a>
                                         </li>
-                                        <li><a class="dropdown-item" routerLink="#"><ng-icon
-                                                    name="heroDocumentDuplicate"></ng-icon>Clone</a></li>
-                                        <li><a class="dropdown-item delete-hover" routerLink="#"><ng-icon
-                                                    name="heroTrash"></ng-icon>Delete</a></li>
+                                        <li *ngIf="question.genericTypeId==0"><a class="dropdown-item" routerLink="#"
+                                                (click)="cloning(question.id)"><ng-icon
+                                                    name="heroDocumentDuplicate"></ng-icon>Clone</a>
+                                        </li>
+                                        <li><a class="dropdown-item delete-hover" (click)="deleteQuestion(question.id)"
+                                                routerLink="javascript:"><ng-icon name="heroTrash"></ng-icon>Delete</a>
+                                        </li>
                                     </ul>
                                 </div>
                             </div>
@@ -298,25 +301,27 @@
                                             <ul class="nav flex-column nav-tabs" id="myTab" role="tablist">
                                                 <li class="nav-item" role="presentation">
                                                     <button class="nav-link active" id="branching-tab"
-                                                        data-bs-toggle="tab" data-bs-target="#branching" role="tab"
+                                                        data-bs-toggle="tab"
+                                                        [attr.data-bs-target]="'#branching' + question.id" role="tab"
                                                         aria-selected="true">Branching</button>
                                                 </li>
                                                 <li class="nav-item" role="presentation">
                                                     <button class="nav-link" id="customLogic-tab" data-bs-toggle="tab"
-                                                        data-bs-target="#customLogic" role="tab"
+                                                        [attr.data-bs-target]="'#customLogic' + question.id" role="tab"
                                                         aria-selected="false">Custom
                                                         Logic</button>
                                                 </li>
                                                 <li class="nav-item" role="presentation">
                                                     <button class="nav-link" id="calculator-tab" data-bs-toggle="tab"
-                                                        data-bs-target="#calculator" role="tab" aria-selected="false"
+                                                        [attr.data-bs-target]="'#calculator' + question.id" role="tab"
+                                                        aria-selected="false"
                                                         (click)="getLogicQuestionListForCalculation(question?.id,question?.sort);getQuestionListAgeCalculation(question?.id)">Calculations</button>
                                                 </li>
                                             </ul>
                                             <!-- Logic Question -->
                                             <div class="tab-content p-4">
-                                                <div class="tab-pane active" id="branching" role="tabpanel"
-                                                    aria-labelledby="branching-tab">
+                                                <div class="tab-pane active" [id]="'branching' + question.id"
+                                                    role="tabpanel" aria-labelledby="branching-tab">
                                                     <h5 ngClass="mb-4">Branching</h5>
                                                     <div ngClass="d-flex justify-content-between mb-3">
                                                         <h6>Redirect to different questions based on user's answer.</h6>
@@ -488,7 +493,7 @@
                                                     </div>
                                                 </div>
 
-                                                <div class="tab-pane" id="customLogic" role="tabpanel"
+                                                <div class="tab-pane" [id]="'customLogic' + question.id" role="tabpanel"
                                                     aria-labelledby="customLogic-tab">
                                                     <div class="alert alert-success p-5" role="alert">
                                                         <h4 class="alert-heading">Custom Logic !</h4>
@@ -498,7 +503,7 @@
                                                             utilities to keep things nice and tidy.</p>
                                                     </div>
                                                 </div>
-                                                <div class="tab-pane" id="calculator" role="tabpanel"
+                                                <div class="tab-pane" [id]="'calculator' + question.id" role="tabpanel"
                                                     aria-labelledby="calculator-tab">
                                                     <h5 ngClass="mb-4">Calculations</h5>
                                                     <div ngClass="d-flex justify-content-between mb-3">

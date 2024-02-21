@@ -16,6 +16,7 @@ export class ExpertAidComponent {
 
   expertAid: ExpertAid = new ExpertAid();
   expertAidService: ExpertAidServices[] = [];
+  validMessageLength: boolean;
   constructor(private modalService: NgbModal, private surveyservice: SurveyService, private utillService: UtilsService) { }
 
   openLg(form: any) {
@@ -134,15 +135,10 @@ export class ExpertAidComponent {
     this.emailaddress = !!this.email && this.email.trim().length > 0;
     this.phone = !!this.mobile && this.mobile.toString().trim().length > 0;
     this.message = !!this.comments && this.comments.trim().length > 0;
+    this.validMessageLength = !!this.comments && this.comments.trim().length > 0;
 
-    // if (!this.comments) {
-    //   this.messageRequired = true; // Display message if textarea is empty
-    // } else if (this.countWords(this.comments) > 250) {
-    //   this.messageLimitExceeded = true;
-    // } else {
-    //   this.messageRequired = false;
-    //   this.messageLimitExceeded = false;
-    // }
+    const wordCount = this.comments.trim().split(/\s+/).length;
+    this.validMessageLength = wordCount <= 250;
 
 
     // You might want to return whether all fields are valid
@@ -153,7 +149,8 @@ export class ExpertAidComponent {
       this.enddate &&
       this.emailaddress &&
       this.phone &&
-      this.message
+      this.message &&
+      this.validMessageLength
     );
   }
 

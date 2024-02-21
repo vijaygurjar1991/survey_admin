@@ -256,6 +256,13 @@ export class EditSurveyComponent {
     this.files.splice(this.files.indexOf(event), 1);
   }
 
+  // onRemove(file: File, index: number): void {
+  //   console.log(file); // Log the file being removed
+  //   console.log(index); // Log the index of the file being removed
+  //   this.files.splice(index, 1); // Remove the file at the specified index from the files array
+  // }
+
+
   userId: any
   questionTypes: any[] = [];
 
@@ -835,6 +842,8 @@ export class EditSurveyComponent {
 
   //   this.allOptions = [...this.optionsArr1, ...this.optionsArr2]; // Update allOptions array
   // }
+
+
 
 
 

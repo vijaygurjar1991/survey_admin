@@ -32,6 +32,9 @@
                     </ngx-dropzone-preview>
                 </ngx-dropzone>
             </div>
+            <div>
+                <img [src]="image" width="150" height="150" />
+            </div>
             <div class="text-end upload">
                 <button type="button" class="btn btn-primary" (click)="postData()">Update <ng-icon
                         name="heroArrowLongRight" class="ms-5"></ng-icon></button>

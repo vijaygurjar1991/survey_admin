@@ -95,8 +95,8 @@
                                     </span>
                                 </a>
                             </li>
-                            <li class="block pl-4 pr-1 first:pt-4  last:pb-4">
-                                <a class="" routerLink="/user-pages/all-users">
+                            <li class="block pl-4 pr-1 first:pt-4  last:pb-4" *ngIf="this.isSuperAdmin">
+                                <a class="" routerLink=" /user-pages/all-users">
                                     <span class="d-flex align-items-center text-sm transition-all duration-150">
                                         <span class="menu-icon">
                                             <ng-icon name="heroStopCircle"></ng-icon>
@@ -111,7 +111,7 @@
                                         <span class="menu-icon">
                                             <ng-icon name="heroStopCircle"></ng-icon>
                                         </span>
-                                        <span class="flex-1">Profile Id</span>
+                                        <span class="flex-1">View All Users</span>
                                     </span>
                                 </a>
                             </li>

@@ -23,7 +23,7 @@ export class SurveyService {
       .pipe(map((result) => result as responseDTO));
   }
 
-  GetGenericQuestion(countryId:any): Observable<responseDTO[]> {
+  GetGenericQuestion(countryId: any): Observable<responseDTO[]> {
     const url = `${this.apiUrl}api/admin/${this.userId}/GenericQuestion/GetGenericType?countryId=${countryId}`;
     return this.http.get<responseDTO[]>(url);
   }
@@ -117,13 +117,13 @@ export class SurveyService {
       .pipe(map((result) => result as responseDTO));
   }
   updateSurveyStatus(data: any): Observable<any> {
-    const { surveyId,surveyStatus } = data;
+    const { surveyId, surveyStatus } = data;
     const url = `${this.apiUrl}api/admin/${this.userId}/Survey/UpdateSurvey?surveyId=${encodeURIComponent(surveyId)}&status=${encodeURIComponent(surveyStatus)}`;
     console.log("posted data", data);
     return this.http.post(url, data, { responseType: 'text' });
   }
   getLogicQuestionList(data: any) {
-    const { surveyId,questionId } = data;
+    const { surveyId, questionId } = data;
     return this.http
       .get<responseDTO>(`${this.apiUrl}api/admin/${this.userId}/GeneralQuestion/GetList?surveyID=${encodeURIComponent(surveyId)}`)
       .pipe(map((result) => result as any));
@@ -136,7 +136,7 @@ export class SurveyService {
     const url = `${this.apiUrl}api/admin/${this.userId}/GenericQuestion/GetGenericQuestions?typeId=${typeId}`;
     return this.http.get<responseGenericQuestion[]>(url);
   }
-  uploadImageQuestion(file: File,queryParams: any): Observable<any> {
+  uploadImageQuestion(file: File, queryParams: any): Observable<any> {
     const formData = new FormData();
     formData.append('file', file, file.name);
     let url = `${this.apiUrl}api/admin/${this.userId}/GeneralQuestion/UploadQuestionImage`;
@@ -144,9 +144,9 @@ export class SurveyService {
       const queryParamsString = new URLSearchParams(queryParams).toString();
       url += `?${queryParamsString}`;
     }
-    return this.http.post(url, formData,{responseType: 'text'});
+    return this.http.post(url, formData, { responseType: 'text' });
   }
-  uploadVideoQuestion(file: File,queryParams: any): Observable<any> {
+  uploadVideoQuestion(file: File, queryParams: any): Observable<any> {
     const formData = new FormData();
     formData.append('file', file, file.name);
     let url = `${this.apiUrl}api/admin/${this.userId}/GeneralQuestion/UploadQuestionVideo`;
@@ -154,16 +154,16 @@ export class SurveyService {
       const queryParamsString = new URLSearchParams(queryParams).toString();
       url += `?${queryParamsString}`;
     }
-    return this.http.post(url, formData,{responseType: 'text'});
+    return this.http.post(url, formData, { responseType: 'text' });
   }
   changeQuestionPosition(queryParams: any): Observable<any> {
-  
+
     let url = `${this.apiUrl}api/admin/${this.userId}/GeneralQuestion/ChangeQuestionPosition`;
     if (queryParams) {
       const queryParamsString = new URLSearchParams(queryParams).toString();
       url += `?${queryParamsString}`;
     }
-    return this.http.get(url,{responseType: 'text'});
+    return this.http.get(url, { responseType: 'text' });
   }
   getOptionsLogicValues() {
     return this.http
@@ -171,13 +171,13 @@ export class SurveyService {
       .pipe(map((result) => result as responseDTO));
   }
   getOptionsByQuestionId(queryParams: any): Observable<any> {
-  
+
     let url = `${this.apiUrl}api/admin/${this.userId}/GeneralQuestion/GetOptions`;
     if (queryParams) {
       const queryParamsString = new URLSearchParams(queryParams).toString();
       url += `?${queryParamsString}`;
     }
-    return this.http.get(url,{responseType: 'text'});
+    return this.http.get(url, { responseType: 'text' });
   }
   getCountries() {
     return this.http
@@ -203,7 +203,7 @@ export class SurveyService {
     return this.http.get<responseDTO[]>(url);
   }
   //getSurveyDetailsById
-  getSurveyDetailsById(pageNumber: number, pageSize: number,surveyId:number): Observable<responseDTO[]> {
+  getSurveyDetailsById(pageNumber: number, pageSize: number, surveyId: number): Observable<responseDTO[]> {
     const url = `${this.apiUrl}api/admin/${this.userId}/Survey/GetSurveyById?surveyId=${surveyId}&pageNumber=${pageNumber}&pageSize=${pageSize}`;
     return this.http.get<responseDTO[]>(url);
   }
@@ -276,6 +276,10 @@ export class SurveyService {
   }
   createExpertAid(data: any): Observable<any> {
     const url = `${this.apiUrl}api/admin/${this.userId}/ExpertAid/CreateExpertAid`;
+    return this.http.post(url, data, { responseType: 'text' });
+  }
+  deleteQuestion(data: any): Observable<any> {
+    const url = `${this.apiUrl}api/admin/${this.userId}/GeneralQuestion/ActiveInActiveQuestionById`;
     return this.http.post(url, data, { responseType: 'text' });
   }
 }
