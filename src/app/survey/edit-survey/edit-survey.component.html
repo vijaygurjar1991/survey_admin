@@ -272,7 +272,7 @@
                             <ng-icon name="heroArrowRight"></ng-icon></a>
                     </div>
                     <div ngClass="row">
-                        <div ngClass="col-md-6 mt-3" *ngFor="let group of groups;let groupIndex=index;">
+                        <div ngClass="col-md-3 mt-3" *ngFor="let group of groups;let groupIndex=index;">
                             <h6>Group {{group?.id}}</h6>
                             <div class="tag-container">
                                 <div ngClass="text-end mb-2">
@@ -334,7 +334,7 @@
 
                         </div>
 
-                        <div ngClass="col-md-6 mt-3">
+                        <div ngClass="col-md-3 mt-3">
                             <div class="tag-container new">
                                 <div class="circleicon"><ng-icon name="heroPlusCircle" ngClass=""
                                         (click)="onCreateGroup()" /></div>
