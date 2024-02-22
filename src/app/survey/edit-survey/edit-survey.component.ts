@@ -189,10 +189,11 @@ export class EditSurveyComponent {
 
   files: File[] = [];
 
-  onSelect(event: any) { // Use 'any' as the event type
+  onSelect(event: any,) { // Use 'any' as the event type
     console.log(event);
     this.files.push(...event.addedFiles);
   }
+
 
   categoryId: number;
 
