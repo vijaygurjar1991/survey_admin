@@ -81,6 +81,7 @@ export class SidebarComponent {
   isSubMenu1Visible = false;
   isSubMenu2Visible = false;
   isSubMenu3Visible = false;
+  isSubMenu4Visible = false
 
   toggleSubMenu(subMenuNumber: number) {
     switch (subMenuNumber) {
@@ -92,6 +93,9 @@ export class SidebarComponent {
         break;
       case 3:
         this.isSubMenu3Visible = !this.isSubMenu3Visible;
+        break;
+      case 4:
+        this.isSubMenu4Visible = !this.isSubMenu4Visible;
         break;
       default:
         break;

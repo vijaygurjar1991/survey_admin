@@ -47,12 +47,75 @@
                         <td>{{ item.createdDate | date:'dd-MM-yyyy | HH:mm' }}</td>
                         <td ngClass="done status"><span>Active</span></td>
                         <td ngClass="action">
-                            <a routerLink="javascript:"><ng-icon name="heroPencil" ngClass="edit-action"></ng-icon></a>
+                            <!-- <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                                data-bs-target="#exampleModal">
+                                Launch demo modal
+                            </button> -->
+                            <a routerLink="javascript:" data-bs-toggle="modal" data-bs-target="#exampleModal"
+                                (click)="getUserDetails(item.id)"><ng-icon name="heroPencil"
+                                    ngClass="edit-action"></ng-icon></a>
                             <!-- <a routerLink="javascript:"><ng-icon name="heroEllipsisVertical"></ng-icon></a> -->
                         </td>
                     </tr>
                 </tbody>
             </table>
+        </div>
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="">First Name</label>
+                            <input type="text" name="firstName" id="" class="form-control" [(ngModel)]="firstName">
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="">Last Name</label>
+                            <input type="text" name="lastName" id="" class="form-control" [(ngModel)]="lastname" />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="">Email</label>
+                            <input type="email" class="form-control" [(ngModel)]="email" name="email">
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="">Phone No.</label>
+                            <input type="number" class="form-control" [(ngModel)]="contact" name="contactNo">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="">Role</label>
+                            <input type="text" name="role" id="" class="form-control" [(ngModel)]="userroledata">
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="">Created Date</label>
+                            <input type="text" name="createddate" id="" class="form-control"
+                                [(ngModel)]="usercreateddate" />
+                        </div>
+                    </div>
+                    <div class="form-check form-switch">
+                        <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckChecked"
+                            [(ngModel)]="isChecked" (change)="onCheckboxChange($event)">
+
+                        <label class="form-check-label" for="flexSwitchCheckChecked">Status</label>
+                    </div>
+                    <div class="text-end">
+                        <button type="button" class="btn btn-primary" (click)="updateProfile(id)">Save <ng-icon
+                                name="heroArrowLongRight" class="ms-5"></ng-icon></button>
+                    </div>
+                </form>
+            </div>
+
         </div>
     </div>
 </div>

@@ -1,7 +1,11 @@
-import { Component, ChangeDetectorRef } from '@angular/core';
+import { Component, ChangeDetectorRef, ViewChild } from '@angular/core';
 import { DataService } from 'src/app/service/data.service';
 import { UtilsService } from 'src/app/service/utils.service';
 import { environment } from 'src/environments/environment';
+import { ModalDirective } from 'ngx-bootstrap/modal';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { ProfileIdPopupComponent } from 'src/app/survey/popups/profile-id-popup/profile-id-popup.component';
+import { SurveyService } from 'src/app/service/survey.service';
 
 @Component({
   selector: 'app-profile-by-id',
@@ -9,10 +13,14 @@ import { environment } from 'src/environments/environment';
   styleUrls: ['./profile-by-id.component.css']
 })
 export class ProfileByIdComponent {
-  UserData: any;
+
+  @ViewChild('ProfileId', { static: true }) ProfileId!: ProfileIdPopupComponent;
+
+  UserData: any[] = [];
   image: any;
   baseUrl = '';
-  constructor(public themeService: DataService, private cdr: ChangeDetectorRef, private utility: UtilsService) {
+
+  constructor(public themeService: DataService, private cdr: ChangeDetectorRef, private utility: UtilsService, private modalService: NgbModal, private surveyservice: SurveyService,) {
     this.baseUrl = environment.baseURL;
   }
   files: File[] = [];
@@ -44,10 +52,11 @@ export class ProfileByIdComponent {
   getAllUser() {
     this.userId = localStorage.getItem("userId");
 
-
     this.userId = localStorage.getItem("userId");
     this.themeService.GetAllUserProfileById(this.userId, this.centerId).subscribe((data: any) => {
       this.UserData = data;
+
+      console.log("qwerty", this.firstName)
       console.log("data", data)
 
       this.cdr.detectChanges();
@@ -57,5 +66,69 @@ export class ProfileByIdComponent {
     const role = this.roles.find(r => r.id === roleId);
     return role ? role.name : 'Unknown Role';
   }
+
+  onAddNewSurveyClick() {
+    this.ProfileId.show();
+  }
+
+  userName: any
+  lastname: any
+  contact: any
+  userroledata: any
+  usercreateddate: any
+
+  getUserDetails(userId: any): void {
+    console.log("userId", userId)
+    const filteredUser = this.UserData.find((user: any) => user.id === userId);
+    if (filteredUser) {
+      this.firstName = filteredUser.firstName
+      this.lastname = filteredUser.lastName
+      this.email = filteredUser.email;
+      this.contact = filteredUser.contactNo;
+      this.userroledata = filteredUser.role;
+      this.usercreateddate = filteredUser.createdDate
+
+      // You can access other properties in a similar manner
+
+      console.log("User Name:", this.userName);
+      console.log("User Name:", this.lastname);
+      console.log("User Email:", this.email);
+      // Output other details as needed
+    } else {
+      console.log("User not found with ID:", userId);
+    }
+
+    console.log("Filtered User:", filteredUser);
+  }
+
+  isChecked: boolean = false
+
+
+  onCheckboxChange(event: any) {
+    this.isChecked = event.target.checked;
+  }
+
+
+
+  updateProfile(Id: any) {
+    let status = this.isChecked ? "ACT" : "DEL";
+
+    console.log(this.firstName);
+    const dataToSend = {
+      firstName: this.firstName,
+      lastname: this.lastname,
+      contact: this.contact,
+      createdDate: this.createdDate,
+      email: this.email,
+      role: this.role,
+      status: status
+    };
+
+    this.surveyservice.updateProfile(dataToSend).subscribe((data: any) => {
+      console.log(data);
+    });
+  }
+
+
 
 }

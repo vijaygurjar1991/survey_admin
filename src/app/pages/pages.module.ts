@@ -15,13 +15,17 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { MatSelectModule } from '@angular/material/select';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { heroXMark } from '@ng-icons/heroicons/outline';
+import { ExpertAidListComponent } from './expert-aid-list/expert-aid-list.component';
+import { ExpertAidAllServicesComponent } from './expert-aid-all-services/expert-aid-all-services.component';
 
 @NgModule({
   declarations: [
     AboutComponent,
     PrivacyComponent,
     TermsConditionComponent,
-    ExpertAidComponent
+    ExpertAidComponent,
+    ExpertAidListComponent,
+    ExpertAidAllServicesComponent
   ],
   imports: [
     CommonModule,

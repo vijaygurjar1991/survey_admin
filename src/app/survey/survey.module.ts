@@ -86,6 +86,7 @@ import { FlsmPopupComponent } from './popups/flsm-popup/flsm-popup.component';
 import { SecLsmPopupComponent } from './popups/sec-lsm-popup/sec-lsm-popup.component';
 import { heroShoppingBag } from '@ng-icons/heroicons/outline';
 import { OccupationPopupComponent } from './popups/occupation-popup/occupation-popup.component';
+//import { ProfileIdPopupComponent } from './popups/profile-id-popup/profile-id-popup.component';
 // Icons
 
 @NgModule({
@@ -131,7 +132,8 @@ import { OccupationPopupComponent } from './popups/occupation-popup/occupation-p
     SecBnSlPopupComponent,
     FlsmPopupComponent,
     SecLsmPopupComponent,
-    OccupationPopupComponent
+    OccupationPopupComponent,
+    //ProfileIdPopupComponent
   ],
   imports: [
     MatChipsModule,

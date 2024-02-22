@@ -179,6 +179,17 @@ export class DataService {
     const url = `${this.apiUrl}api/admin/${userId}/Profile/GetProfileByOrgnaizationId?centerId=${centerId}`;
     return this.http.get<responseDTO[]>(url);
   }
+  getExpertAidById(userId: any, centerId: any): Observable<responseDTO[]> {
+    var userId = this.util.getUserId();
+    const url = `${this.apiUrl}api/admin/${userId}/ExpertAid/GetExpertAidByCenter?centerId=${centerId}`;
+    return this.http.get<responseDTO[]>(url);
+  }
+
+  getAllExpertAidList(userId: any): Observable<responseDTO[]> {
+    var userId = this.util.getUserId();
+    const url = `${this.apiUrl}api/admin/${userId}/ExpertAid/GetExpertAid`;
+    return this.http.get<responseDTO[]>(url);
+  }
 
 
 

@@ -282,4 +282,8 @@ export class SurveyService {
     const url = `${this.apiUrl}api/admin/${this.userId}/GeneralQuestion/ActiveInActiveQuestionById`;
     return this.http.post(url, data, { responseType: 'text' });
   }
+  updateProfile(data: any): Observable<any> {
+    const url = `${this.apiUrl}api/admin/${this.userId}/Profile/UpdateProfile`;
+    return this.http.post(url, data, { responseType: 'text' });
+  }
 }

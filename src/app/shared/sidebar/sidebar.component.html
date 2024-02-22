@@ -162,13 +162,65 @@
                 </div>
             </li>
 
-            <li class="single-sidebar-menu" routerLinkActive="menu-item-active">
+            <!-- <li class="single-sidebar-menu" routerLinkActive="menu-item-active">
                 <a class="menu-link" routerLink="/pages/expert-aid">
                     <span class="menu-icon flex-grow-0">
                         <ng-icon name="heroUser"></ng-icon>
                     </span>
                     <div class="text-box flex-grow-1">Expert Aid</div>
                 </a>
+            </li> -->
+            <li class="single-sidebar-menu item-has-children" routerLinkActive="menu-item-active">
+                <div class="menu-link collapsed" (click)="toggleSubMenu(4)" routerLinkActive="active">
+                    <div class="flex-1 d-flex align-items-center">
+                        <span class="menu-icon">
+                            <ng-icon name="heroClipboardDocumentList"></ng-icon>
+                        </span>
+                        <div class="text-box">Expert Aid</div>
+                    </div>
+                    <div class="flex-0">
+                        <div class="menu-arrow transform transition-all duration-300">
+                            <ng-icon name="heroChevronRight"></ng-icon>
+                        </div>
+                    </div>
+                </div>
+                <div class="AngularCollapse-collapse" *ngIf="isSubMenu4Visible" aria-hidden="true"
+                    style="height: auto; overflow: initial;">
+                    <div class="AngularCollapse-content">
+                        <ul class="sub-menu">
+                            <li class="block pl-4 pr-1 first:pt-4  last:pb-4">
+                                <a class="" routerLink="/pages/expert-aid">
+                                    <span class="d-flex align-items-center text-sm transition-all duration-150">
+                                        <span class="menu-icon">
+                                            <ng-icon name="heroStopCircle"></ng-icon>
+                                        </span>
+                                        <span class="flex-1">Expert Aid Services</span>
+                                    </span>
+                                </a>
+                            </li>
+                            <li class="block pl-4 pr-1 first:pt-4  last:pb-4" *ngIf="!this.isSuperAdmin">
+                                <a class="" routerLink="/pages/expert-aid-list">
+                                    <span class="d-flex align-items-center text-sm transition-all duration-150">
+                                        <span class="menu-icon">
+                                            <ng-icon name="heroStopCircle"></ng-icon>
+                                        </span>
+                                        <span class="flex-1">Expert Aid list</span>
+                                    </span>
+                                </a>
+                            </li>
+                            <li class="block pl-4 pr-1 first:pt-4  last:pb-4" *ngIf="this.isSuperAdmin">
+                                <a class="" routerLink="/pages/expert-aid-all-list">
+                                    <span class="d-flex align-items-center text-sm transition-all duration-150">
+                                        <span class="menu-icon">
+                                            <ng-icon name="heroStopCircle"></ng-icon>
+                                        </span>
+                                        <span class="flex-1">Expert Aid list</span>
+                                    </span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
             </li>
 
             <li class="single-sidebar-menu" *ngIf="!this.isUser">
