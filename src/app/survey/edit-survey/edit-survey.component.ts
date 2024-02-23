@@ -189,10 +189,35 @@ export class EditSurveyComponent {
 
   files: File[] = [];
 
-  onSelect(event: any,) { // Use 'any' as the event type
+  optionImages: File[][] = [];
+
+  onSelect(event: any) { // Use 'any' as the event type
     console.log(event);
     this.files.push(...event.addedFiles);
   }
+
+  onSelectOptionImage(event: any, index: number): void {
+    // Ensure inner array exists for the option index
+    if (!this.optionImages[index]) {
+      this.optionImages[index] = [];
+    }
+    // Clear existing images for the option
+    this.optionImages[index] = [];
+    // Push the selected image into the array for the current option index
+    this.optionImages[index].push(...event.addedFiles);
+    console.log(this.optionImages);
+  }
+
+
+
+  onRemoveSelectOptionImage(event: any, index: number): void {
+    if (this.optionImages[index]) {
+      // Remove the image at the specified index from the array
+      this.optionImages[index].splice(event, 1);
+    }
+  }
+
+
 
 
   categoryId: number;

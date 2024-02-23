@@ -1187,12 +1187,17 @@ export class CreateSurveyComponent implements OnInit, AfterViewInit {
   deleteQuestion(questionId: any) {
     const dataToSend = {
       sId: this.surveyId,
-      qId: questionId,
-      status: "DEL"
+      qId: questionId
     };
-    this.surveyservice.deleteQuestion(dataToSend).subscribe((data: any) => {
-      console.log(data)
-    });
+    this.surveyservice.deleteQuestion(dataToSend).subscribe(
+      (data: any) => {
+        this.utils.showSuccess('Question Deleted.');
+        window.location.reload();
+      },
+      (error: any) => {
+        this.utils.showError('Error deleting question.');
+      }
+    );
   }
 
 }

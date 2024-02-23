@@ -15,6 +15,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { MatSelectModule } from '@angular/material/select';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { heroXMark } from '@ng-icons/heroicons/outline';
+import { heroPencil } from '@ng-icons/heroicons/outline';
 import { ExpertAidListComponent } from './expert-aid-list/expert-aid-list.component';
 import { ExpertAidAllServicesComponent } from './expert-aid-all-services/expert-aid-all-services.component';
 
@@ -37,7 +38,8 @@ import { ExpertAidAllServicesComponent } from './expert-aid-all-services/expert-
     MatFormFieldModule,
     NgIconsModule.withIcons({
       heroHome,
-      heroXMark
+      heroXMark,
+      heroPencil
     }),
     CKEditorModule,
   ],

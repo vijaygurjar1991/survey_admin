@@ -142,7 +142,7 @@
                             <div class="flex-width">
                                 <input type="text" id="" class="form-control" value="{{i+1}}" readonly />
                             </div>
-                            <div class="flex-width">
+                            <!-- <div class="flex-width">
                                 <ngx-dropzone class="edit-survey-img" ngx-dropzone [accept]="'image/*'"
                                     (change)="onSelect($event)">
                                     <ngx-dropzone-label>
@@ -151,6 +151,18 @@
                                     <ngx-dropzone-image-preview ngProjectAs="ngx-dropzone-preview"
                                         *ngFor="let f of files" [file]="f" [removable]="true" (removed)="onRemove(f)">
 
+                                    </ngx-dropzone-image-preview>
+                                </ngx-dropzone>
+                            </div> -->
+                            <div class="flex-width">
+                                <ngx-dropzone class="edit-survey-img" ngx-dropzone [accept]="'image/*'"
+                                    (change)="onSelectOptionImage($event, i)">
+                                    <ngx-dropzone-label>
+                                        <img [src]="baseUrl + '/assets/images/icons/attach-image.png'" />
+                                    </ngx-dropzone-label>
+                                    <ngx-dropzone-image-preview ngProjectAs="ngx-dropzone-preview"
+                                        *ngFor="let f of optionImages[i]" [file]="f" [removable]="true"
+                                        (removed)="onRemoveSelectOptionImage(f,i)">
                                     </ngx-dropzone-image-preview>
                                 </ngx-dropzone>
                             </div>
@@ -190,15 +202,29 @@
                                 <input type="text" id="" class="form-control" value="{{optionsArr1.length+1}}"
                                     readonly />
                             </div>
-                            <div class="flex-width">
+                            <!-- <div class="flex-width">
                                 <ngx-dropzone class="edit-survey-img" ngx-dropzone [accept]="'image/*'"
-                                    (change)="onSelect($event)">
+                                    (change)="onSelectOptionImage($event,i)">
                                     <ngx-dropzone-label>
                                         <img [src]="baseUrl+'/assets/images/icons/attach-image.png'" />
                                     </ngx-dropzone-label>
-                                    <ngx-dropzone-image-preview ngProjectAs="ngx-dropzone-preview"
-                                        *ngFor="let f of files" [file]="f" [removable]="true" (removed)="onRemove(f)">
 
+                                    <ngx-dropzone-image-preview ngProjectAs="ngx-dropzone-preview"
+                                        *ngFor="let f of optionFiles[i]" [file]="f" [removable]="true"
+                                        (removed)="onRemove(f)">
+                                    </ngx-dropzone-image-preview>
+
+                                </ngx-dropzone>
+                            </div> -->
+                            <div class="flex-width">
+                                <ngx-dropzone class="edit-survey-img" ngx-dropzone [accept]="'image/*'"
+                                    (change)="onSelectOptionImage($event, i)">
+                                    <ngx-dropzone-label>
+                                        <img [src]="baseUrl + '/assets/images/icons/attach-image.png'" />
+                                    </ngx-dropzone-label>
+                                    <ngx-dropzone-image-preview ngProjectAs="ngx-dropzone-preview"
+                                        *ngFor="let f of optionImages[i]" [file]="f" [removable]="true"
+                                        (removed)="onRemove(f)">
                                     </ngx-dropzone-image-preview>
                                 </ngx-dropzone>
                             </div>

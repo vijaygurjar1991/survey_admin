@@ -76,6 +76,7 @@ export class ProfileByIdComponent {
   contact: any
   userroledata: any
   usercreateddate: any
+  userstatus: any
 
   getUserDetails(userId: any): void {
     console.log("userId", userId)
@@ -86,13 +87,17 @@ export class ProfileByIdComponent {
       this.email = filteredUser.email;
       this.contact = filteredUser.contactNo;
       this.userroledata = filteredUser.role;
-      this.usercreateddate = filteredUser.createdDate
+      this.usercreateddate = filteredUser.createdDate;
+      this.id = userId;
+      this.userstatus = filteredUser.status
+
 
       // You can access other properties in a similar manner
 
       console.log("User Name:", this.userName);
       console.log("User Name:", this.lastname);
       console.log("User Email:", this.email);
+      console.log("status", this, this.userstatus)
       // Output other details as needed
     } else {
       console.log("User not found with ID:", userId);
@@ -115,6 +120,7 @@ export class ProfileByIdComponent {
 
     console.log(this.firstName);
     const dataToSend = {
+      id: Id,
       firstName: this.firstName,
       lastname: this.lastname,
       contact: this.contact,
@@ -124,9 +130,16 @@ export class ProfileByIdComponent {
       status: status
     };
 
-    this.surveyservice.updateProfile(dataToSend).subscribe((data: any) => {
-      console.log(data);
+    this.surveyservice.updateProfile(dataToSend).subscribe({
+      next: (resp: any) => {
+        this.utility.showSuccess('Updated.');
+        window.location.reload();
+      },
+      error: (err: any) => {
+        this.utility.showError('error');
+      }
     });
+
   }
 
 

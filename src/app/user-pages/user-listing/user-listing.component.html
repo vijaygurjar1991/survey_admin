@@ -45,7 +45,11 @@
                         <td>{{ item.email }}</td>
                         <td>{{ item.contactNo }}</td>
                         <td>{{ item.createdDate | date:'dd-MM-yyyy | HH:mm' }}</td>
-                        <td ngClass="done status"><span>Active</span></td>
+                        <!-- <td ngClass="done status"><span>{{item.status}}</span></td> -->
+                        <td
+                            [ngClass]="{'done donestatus': item.status === 'ACT', 'paused status': item.status !== 'ACT'}">
+                            <span>{{ item.status === 'ACT' ? 'Active' : 'Deactive' }}</span>
+                        </td>
                         <td ngClass="action">
                             <a routerLink="javascript:"><ng-icon name="heroPencil" ngClass="edit-action"></ng-icon></a>
                             <!-- <a routerLink="javascript:"><ng-icon name="heroEllipsisVertical"></ng-icon></a> -->

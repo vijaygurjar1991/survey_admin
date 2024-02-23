@@ -279,11 +279,15 @@ export class SurveyService {
     return this.http.post(url, data, { responseType: 'text' });
   }
   deleteQuestion(data: any): Observable<any> {
-    const url = `${this.apiUrl}api/admin/${this.userId}/GeneralQuestion/ActiveInActiveQuestionById`;
+    const url = `${this.apiUrl}api/admin/${this.userId}/GeneralQuestion/DeleteQuestionById`;
     return this.http.post(url, data, { responseType: 'text' });
   }
   updateProfile(data: any): Observable<any> {
     const url = `${this.apiUrl}api/admin/${this.userId}/Profile/UpdateProfile`;
+    return this.http.post(url, data, { responseType: 'text' });
+  }
+  updateExpertAidProfile(data: any): Observable<any> {
+    const url = `${this.apiUrl}api/admin/${this.userId}/ExpertAid/UpdateExpertAid`;
     return this.http.post(url, data, { responseType: 'text' });
   }
 }

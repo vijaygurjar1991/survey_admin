@@ -1959,3 +1959,9 @@ table th {
     margin-right: 4px;
 
 }
+
+
+.donestatus span {
+    padding: .3rem 1.5rem;
+    border-radius: 1rem;
+}
