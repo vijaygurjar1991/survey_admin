@@ -827,8 +827,9 @@ export class EditSurveyComponent {
     this.dataArray = this.inputText.split('\n').map(line => line.trim()).filter(line => line !== '');
     console.log(this.dataArray);
 
-    // Clear the input field
     this.inputText = '';
+
+    this.optionsArr1 = [];
 
     this.dataArray.forEach((line: string) => {
       // Check if line is not empty
@@ -837,13 +838,15 @@ export class EditSurveyComponent {
         newOption.option = line.trim();
         newOption.createdDate = this.getCurrentDateTime()
 
-        this.optionsArr1.push(newOption); // Push the new Option object to optionsArr1
+        this.optionsArr1.push(newOption);
+        // Push the new Option object to optionsArr1
         console.log("see", this.optionsArr1);
       }
     });
 
-    this.allOptions.push(...this.optionsArr1, ...this.optionsArr2);
 
+    // this.allOptions.push(...this.optionsArr1, ...this.optionsArr2);
+    this.allOptions = [...this.optionsArr1, ...this.optionsArr2];
   }
 
   // addButtonClicked(): void {
