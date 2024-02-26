@@ -97,8 +97,11 @@ export class ProfileByIdComponent {
       console.log("User Name:", this.userName);
       console.log("User Name:", this.lastname);
       console.log("User Email:", this.email);
-      console.log("status", this, this.userstatus)
+      console.log("status", this.userstatus)
       // Output other details as needed
+      this.isChecked = this.userstatus === 'ACT';
+      console.log(this.isChecked)
+
     } else {
       console.log("User not found with ID:", userId);
     }

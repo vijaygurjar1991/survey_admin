@@ -1153,12 +1153,12 @@ export class CreateSurveyComponent implements OnInit, AfterViewInit {
   validateSurvey(): boolean {
     // Check if the checkbox is not checked
     this.checkrequired = !!this.isRandomizationChecked;
-    return !this.checkrequired;
+    return this.checkrequired;
   }
 
   cloneQuestion: Question = new Question();
   cloning(clonQuestionId: any) {
-    this.surveyservice.getQuestionDetailsById(clonQuestionId).subscribe((data: any) => {
+    this.surveyservice.cloneQuestion(clonQuestionId, this.surveyId).subscribe((data: any) => {
       //console.log("data", data)
       this.cloneQuestion = data
       this.cloneQuestion.id = 0
@@ -1199,5 +1199,10 @@ export class CreateSurveyComponent implements OnInit, AfterViewInit {
       }
     );
   }
+
+
+  //logics
+
+
 
 }

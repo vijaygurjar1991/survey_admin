@@ -106,6 +106,7 @@ export class SurveyService {
     const url = `${this.apiUrl}api/admin/${this.userId}/GeneralQuestion/QuestionById?qid=${questionId}`;
     return this.http.get<responseDTO[]>(url);
   }
+
   getLogicValues() {
     return this.http
       .get<responseDTO>(`${this.apiUrl}api/admin/${this.userId}/Logics/GetValues`)
@@ -289,5 +290,13 @@ export class SurveyService {
   updateExpertAidProfile(data: any): Observable<any> {
     const url = `${this.apiUrl}api/admin/${this.userId}/ExpertAid/UpdateExpertAid`;
     return this.http.post(url, data, { responseType: 'text' });
+  }
+
+
+  cloneQuestion(questionId: any, sID: any): Observable<responseDTO[]> {
+    const url = `${this.apiUrl}api/admin/${this.userId}/GeneralQuestion/CloneQuestion?qID=${questionId}&sID=${sID}`;
+    const data = {};
+
+    return this.http.post<responseDTO[]>(url, data);
   }
 }

@@ -555,6 +555,43 @@ export class EditSurveyComponent {
       this.uploadImage(file); // Trigger upload after selecting the file
     }
   }
+
+  filesImageoption: File[] = [];
+  onSelectOptionImageUpload(event: any) {
+    const fileoption = event.addedFiles && event.addedFiles.length > 0 ? event.addedFiles[0] : null;
+
+    if (fileoption) {
+      this.filesImageoption.push(fileoption); // Store the selected file
+      this.uploadImageOption(fileoption);
+      console.log("check", fileoption); // Trigger upload after selecting the file
+    }
+  }
+
+
+  uploadImageOption(fileoption: File): void {
+
+    let queryParams = null;
+    if (this.questionId != 0) {
+      queryParams = {
+        qid: this.questionId
+      };
+    }
+
+    this.surveyservice.uploadImageQuestion(fileoption, queryParams).subscribe(
+      (response: String) => {
+        console.log('Upload successful:', response);
+        this.questionImage = response
+        // Handle response from the image upload
+        // You may want to retrieve the URL or any other relevant information from the response
+      },
+      (error) => {
+        console.error('Error occurred while uploading:', error);
+        // Handle error
+      }
+    );
+  }
+
+
   onRemoveImage(event: any) { // Use 'any' as the event type
     console.log(event);
     this.filesImage.splice(this.files.indexOf(event), 1);
@@ -873,7 +910,13 @@ export class EditSurveyComponent {
   // }
 
 
+  // selectedIndex: any
 
+  // openModal(index: number) {
+  //   // Set the index of the clicked drop zone
 
+  //   this.selectedIndex = index;
+  //   console.log(this.selectedIndex)
+  // }
 
 }

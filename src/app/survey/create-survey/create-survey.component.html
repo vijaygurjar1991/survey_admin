@@ -131,19 +131,42 @@
                                 <div class="border rounded p-4 mb-2">
                                     <h5>Randomization {{ i + 1 }}</h5>
                                     <div class="d-flex gap-3">
-                                        <select class="form-select" aria-label="Default select example"
+                                        <!-- <select class="form-select" aria-label="Default select example"
                                             [(ngModel)]="randomization.fromQuestion">
                                             <option [value]="null" selected disabled>Select From Question</option>
                                             <option *ngFor="let option of logicQuestionList" [value]="option.id">{{
                                                 option.item }}</option>
-                                        </select>
 
-                                        <select class="form-select" aria-label="Default select example"
+                                        </select> -->
+                                        <mat-form-field>
+                                            <mat-select [(ngModel)]="randomization.fromQuestion" #selectElement>
+                                                <ng-container *ngFor="let option of logicQuestionList">
+                                                    <mat-option [value]="option.id" [title]="option.item">
+                                                        {{ option.item.split(' ').slice(0, 3).join(' ')
+                                                        }}{{option.item.split('
+                                                        ').length > 3 ? ' ...' : '' }}
+                                                    </mat-option>
+                                                </ng-container>
+                                            </mat-select>
+                                        </mat-form-field>
+
+                                        <!-- <select class="form-select" aria-label="Default select example"
                                             [(ngModel)]="randomization.toQuestion">
                                             <option [value]="null" selected disabled>Select To Question</option>
                                             <option *ngFor="let option of logicQuestionList" [value]="option.id">{{
                                                 option.item }}</option>
-                                        </select>
+                                        </select> -->
+                                        <mat-form-field>
+                                            <mat-select [(ngModel)]="randomization.toQuestion" #selectElement>
+                                                <ng-container *ngFor="let option of logicQuestionList">
+                                                    <mat-option [value]="option.id" [title]="option.item">
+                                                        {{ option.item.split(' ').slice(0, 3).join(' ')
+                                                        }}{{option.item.split('
+                                                        ').length > 3 ? ' ...' : '' }}
+                                                    </mat-option>
+                                                </ng-container>
+                                            </mat-select>
+                                        </mat-form-field>
                                         <!-- <mat-form-field>
                                             <mat-select #selectElement></mat-select>
                                             <mat-option *ngFor="let option of logicQuestionList" [value]="option.id">
@@ -267,8 +290,11 @@
                                                 (click)="cloning(question.id)"><ng-icon
                                                     name="heroDocumentDuplicate"></ng-icon>Clone</a>
                                         </li>
-                                        <li><a class="dropdown-item delete-hover" (click)="deleteQuestion(question.id)"
-                                                routerLink="javascript:"><ng-icon name="heroTrash"></ng-icon>Delete</a>
+                                        <li><a class="dropdown-item delete-hover" *ngIf="!(question?.logics.length > 0)"
+                                                (click)="deleteQuestion(question.id)" href="javascript:">
+                                                <ng-icon name="heroTrash"></ng-icon>Delete
+                                            </a>
+
                                         </li>
                                     </ul>
                                 </div>
