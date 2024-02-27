@@ -1,4 +1,5 @@
 <app-header *ngIf="headerVisible" [class.addMargin]="themeService.addMargin"></app-header>
+<div *ngIf="loaderservice.isLoading | async" class="loader">Loading...</div>
 <!-- Your component template -->
 <!-- your-component-template.html -->
 

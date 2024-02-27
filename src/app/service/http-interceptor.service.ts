@@ -1,29 +1,21 @@
-import { HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, catchError, throwError } from 'rxjs';
+import { HttpInterceptor, HttpRequest, HttpHandler, HttpEvent, HttpErrorResponse } from '@angular/common/http';
+import { Observable, throwError } from 'rxjs';
+import { catchError, finalize } from 'rxjs/operators';
+import { LoaderService } from './loader.service';
 import { AuthService } from './auth.service';
-import { Router, NavigationEnd } from '@angular/router';
-import { filter } from 'rxjs/operators';
+import { Router } from '@angular/router';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
 export class HttpInterceptorService implements HttpInterceptor {
-  private isLoginPage: boolean = false;
 
-  constructor(private authService: AuthService, private router: Router) {
-    this.router.events.pipe(
-      filter(event => event instanceof NavigationEnd)
-    ).subscribe(() => {
-      this.isLoginPage = this.router.url.includes('/login');
-      console.log('Is Login Page:', this.isLoginPage);
-    });
-  }
+  constructor(private loaderService: LoaderService, private authService: AuthService, private router: Router) { }
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     const token = localStorage.getItem('authToken');
-    
-    if (token && !this.isLoginPage) {
+    const isLoginPage = this.router.url.includes('/login');
+
+    if (token && !isLoginPage) {
       request = request.clone({
         setHeaders: {
           'X-XSRF-TOKEN': `${token}`,
@@ -31,15 +23,22 @@ export class HttpInterceptorService implements HttpInterceptor {
       });
     }
 
+    // Show loader before the request is made
+    this.loaderService.show();
+
     return next.handle(request).pipe(
-      catchError((err) => {
-        if (err.status === 401 && !this.isLoginPage) {
+      catchError((err: HttpErrorResponse) => {
+        if (err.status === 401 && !isLoginPage) {
           alert("Session expired.");
           this.authService.logout();
         } else if (err.status === 500) {
           console.error('Internal Server Error:', err);
         }
         return throwError(() => err);
+      }),
+      // Hide loader after the request is completed
+      finalize(() => {
+        this.loaderService.hide();
       })
     );
   }

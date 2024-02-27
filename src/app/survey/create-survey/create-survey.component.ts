@@ -84,6 +84,8 @@ export class CreateSurveyComponent implements OnInit, AfterViewInit {
 
   @Output() onSaveEvent = new EventEmitter();
   isActive: boolean = false;
+  isActivescreen: boolean = false;
+  isActivesec: boolean = false
   role: string;
   userId: number;
   name: string;
@@ -276,6 +278,7 @@ export class CreateSurveyComponent implements OnInit, AfterViewInit {
       this.flsmModal.show();
     } else if (type === "SECLSM") {
       this.secLsmModal.show();
+      this.isActivesec = !this.isActivesec;
     } else if (type === "Occupation") {
       this.occupationModal.show();
     }
@@ -356,6 +359,7 @@ export class CreateSurveyComponent implements OnInit, AfterViewInit {
   }
   openAddScreen(AddScreen: any) {
     this.modalService.open(AddScreen, { size: 'xl', centered: true });
+    this.isActivescreen = !this.isActivescreen;
   }
 
   getNames() {

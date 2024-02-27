@@ -41,6 +41,7 @@ export class ExpertAidAllServicesComponent {
 
   ngOnInit(): void {
     this.role = this.utility.getRole()
+    console.log("Center Id :", this.centerId)
     this.getAllUser()
   }
 

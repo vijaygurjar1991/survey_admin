@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DataService } from './service/data.service';
 import { AuthService } from './service/auth.service';
+import { LoaderService } from './service/loader.service';
 
 @Component({
   selector: 'app-root',
@@ -18,7 +19,7 @@ export class AppComponent {
 
 
   constructor(private router: ActivatedRoute, public visibilityService: DataService, public themeService: DataService,
-    private auth: AuthService) {
+    private auth: AuthService, public loaderservice: LoaderService) {
 
     this.visibilityService.headerVisible$.subscribe(visible => {
       this.headerVisible = visible;

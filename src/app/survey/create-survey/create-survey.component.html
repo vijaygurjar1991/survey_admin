@@ -35,7 +35,7 @@
         <div ngClass="my-3">
             <h6 class="mb-2">Add Screen</h6>
             <div class="common-ques">
-                <a routerLink="javascript:" (click)="openAddScreen(AddScreen)">
+                <a routerLink="javascript:" (click)="openAddScreen(AddScreen)" [class.active]='isActivescreen'>
                     <figure><img [src]="baseUrl + '/assets/images/icons/Add-new-screen.png'" width="30" height="30" />
                     </figure>
                     <figcaption>Add New Screen</figcaption>
@@ -866,7 +866,8 @@
 <ng-template #AddScreen let-modal>
     <div class="modal-header">
         <h4 class="modal-title">Add New Screen</h4>
-        <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+        <button type="button" class="btn-close" aria-label="Close"
+            (click)="modal.dismiss('Cross click'); isActivescreen = false;"></button>
     </div>
     <div class="modal-body popup-ques">
         <div class="logic-tab">

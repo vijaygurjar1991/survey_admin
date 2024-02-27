@@ -63,6 +63,7 @@ import { ErrorComponent } from './error/error.component';
 import { ToastrModule } from 'ngx-toastr';
 import { DashboardComponent } from './dashboard/dashboard/dashboard.component';
 import { ForgotPasswordComponent } from './user-pages/forgot-password/forgot-password.component';
+import { LoaderService } from './service/loader.service';
 
 
 @NgModule({
@@ -125,6 +126,7 @@ import { ForgotPasswordComponent } from './user-pages/forgot-password/forgot-pas
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   providers: [
     // { provide: TINYMCE_SCRIPT_SRC, useValue: 'tinymce/tinymce.min.js' },
+    LoaderService,
     provideNgIconsConfig({
       size: '1.8em',
     }),
