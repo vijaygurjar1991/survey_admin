@@ -510,11 +510,12 @@ export class CreateSurveyComponent implements OnInit, AfterViewInit {
   logicIndex: number;
   toggleLogic(index: number, questionId: any) {
 
+
     //this.logicEntriesPerQuestion = [];
     this.addNewLogicEntry(index)
     this.questions[index].isLogicShow = !this.questions[index].isLogicShow;
     this.getLogicQuestionList(questionId)
-    this.logicSection.nativeElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    // this.logicSection.nativeElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
 
   }
 
