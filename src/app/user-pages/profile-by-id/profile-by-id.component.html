@@ -37,8 +37,7 @@
                         <td><input type="checkbox" ngClass="form-check-input" />
                         </td>
                         <td>
-                            <img [src]="baseUrl + item.image" class="me-2 rounded-circle"
-                                style="width: 30px;height: 30px;" />
+                            <img [src]="item.image" class="me-2 rounded-circle" style="width: 30px;height: 30px;" />
                             <span>{{ item.firstName }} {{ item.lastName }}</span>
                         </td>
                         <td>{{ getRoleName(item.roleId) }}</td>

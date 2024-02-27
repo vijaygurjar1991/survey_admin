@@ -170,8 +170,8 @@
                             </div>
 
                             <!-- <div class="flex-width">
-                                <ngx-dropzone data-bs-toggle="modal" data-bs-target="#imageModal"
-                                    (change)="openModal(i)" class="edit-survey-img" ngx-dropzone [accept]="'image/*'">
+                                <ngx-dropzone data-bs-toggle="modal" data-bs-target="#imageModal" (click)="openModal(i)"
+                                    class="edit-survey-img" ngx-dropzone [accept]="'image/*'">
                                     <ngx-dropzone-label>
                                         <img [src]="baseUrl + '/assets/images/icons/attach-image.png'" />
                                     </ngx-dropzone-label>
@@ -557,7 +557,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body" cdkDrag>
-                <ngx-dropzone ngx-dropzone [accept]="'image/*'" (change)="onSelectOptionImageUpload($event)">
+                <ngx-dropzone ngx-dropzone [accept]="'image/*'" (change)="onSelectOptionImage($event,imageoption)">
                     <ngx-dropzone-label>
                         <figure><img [src]="baseUrl+'/assets/images/icons/attach-image.png'" width="64" height="58" />
                         </figure>

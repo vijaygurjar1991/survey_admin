@@ -8,6 +8,7 @@ import { responseDTO } from 'src/app/types/responseDTO';
 import { AuthService } from 'src/app/service/auth.service';
 import { User } from 'src/app/models/user';
 import { ModalDirective } from 'ngx-bootstrap/modal/modal.directive';
+import { UtilsService } from 'src/app/service/utils.service';
 
 
 
@@ -20,12 +21,14 @@ import { ModalDirective } from 'ngx-bootstrap/modal/modal.directive';
 export class DashboardComponent {
   @ViewChild('CreateSurveyModal', { static: true }) CreateSurveyModal!: ModalDirective;
   constructor(private visibilityService: DataService, private modalService: NgbModal, public themeService: DataService,
-    public surveyservice: SurveyService, private auth: AuthService) {
+    public surveyservice: SurveyService, private auth: AuthService, private utility: UtilsService) {
     visibilityService.articleVisible.next(true);
 
     this.auth.userData$.subscribe((user: User) => {
       this.userId = user.userId;
     });
+
+
   }
 
   userId: any;
@@ -168,6 +171,18 @@ export class DashboardComponent {
       error: (err) => console.log("An Error occur while fetching survey list", err)
     });
   }
+
+  // getSurveyReport() {
+  //   this.surveyservice.getReportSurvey(this.surveyId).subscribe({
+  //     next: (resp: any) => {
+  //       this.utility.showSuccess('Updated.');
+  //       window.location.reload();
+  //     },
+  //     error: (err: any) => {
+  //       this.utility.showError('error');
+  //     }
+  //   });
+  // }
   onAddNewSurveyClick() {
     this.CreateSurveyModal.show();
   }

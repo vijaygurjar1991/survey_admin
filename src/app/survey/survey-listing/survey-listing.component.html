@@ -55,7 +55,7 @@
                         <td *ngIf="item.categoryName !='Others'">{{item.categoryName}}</td>
                         <td *ngIf="item.categoryName =='Others'">{{item.otherCategory}}</td>
                         <td>
-                            <img [src]="baseUrl + item.userImage" class="me-2 rounded-circle"
+                            <img [src]=" item.userImage" class="me-2 rounded-circle"
                                 style="width: 30px;height: 30px;" />
                             {{item.userName}}
                         </td>

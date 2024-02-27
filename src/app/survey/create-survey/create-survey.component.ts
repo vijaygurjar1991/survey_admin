@@ -35,6 +35,7 @@ interface LogicQuestion {
   styleUrls: ['./create-survey.component.css'],
 })
 export class CreateSurveyComponent implements OnInit, AfterViewInit {
+  @ViewChild('logicSection') logicSection: ElementRef;
   @ViewChild('GenderModal', { static: true }) genderModal!: GenderPopupComponent;
   @ViewChild('AgeModal', { static: true }) ageModal!: ModalDirective;
   @ViewChild('NccsModal', { static: true }) nccsModal!: ModalDirective;
@@ -82,6 +83,7 @@ export class CreateSurveyComponent implements OnInit, AfterViewInit {
 
 
   @Output() onSaveEvent = new EventEmitter();
+  isActive: boolean = false;
   role: string;
   userId: number;
   name: string;
@@ -108,8 +110,10 @@ export class CreateSurveyComponent implements OnInit, AfterViewInit {
   pageSize: number = 10;
   pageNumber: number = 1
   countryId: any
-  selectedCountry: string = "IN";
-  country: { id: string, name: string }[] = [];
+  // selectedCountry: string = "IN";
+  selectedCountry: { id: string, name: string, images: string } | null = null;
+  selectedCountryId: string | null = null;
+  country: { id: string, name: string, images: string }[] = [];
   logicEntriesPerQuestion: any[] = [];
   currentPage: number = 1
   files: File[] = [];
@@ -177,14 +181,14 @@ export class CreateSurveyComponent implements OnInit, AfterViewInit {
 
     this.getCategoryNames();
     this.hideBreadcrumb();
-
+    this.getCountries();
     this.getQuestion();
     this.GetSurveyDetails(this.pageSize, this.pageNumber)
     this.getLogicValues();
     this.getLogicThens();
     this.getLogicQuestionList(0)
     this.defaultSelectedValue = null;
-    this.getCountries();
+
     //this.defaultRandomValueEnter();
     this.getAgeOptionsLogicValues();
     this.getRandomization()
@@ -399,7 +403,8 @@ export class CreateSurveyComponent implements OnInit, AfterViewInit {
         this.countryName = data[0]?.countryName;
         this.countryId = data[0]?.countryId
         this.totalItemsCount = data[0]?.totalQuestionCount
-        this.selectedCountry = this.countryId
+        // this.selectedCountry = this.countryId
+        this.selectedCountry = this.country.find(country => country.id === this.countryId) || null;
         this.categoryId = data[0]?.categoryId
       } else {
         this.surveyName = data.surveyName;
@@ -411,7 +416,11 @@ export class CreateSurveyComponent implements OnInit, AfterViewInit {
         this.countryId = data.countryId
         this.totalItemsCount = data.totalQuestionCount
         this.categoryId = data.categoryId
-        this.selectedCountry = this.countryId
+        // this.selectedCountry = this.countryId
+        console.log("countryId : ", this.countryId)
+        console.log("country : ", this.country)
+        this.selectedCountry = this.country.find(country => country.id === this.countryId) || null;
+        console.log("selectedCountry : ", this.selectedCountry)
         this.surveycreateddate = data.createdDate
       }
 
@@ -459,19 +468,21 @@ export class CreateSurveyComponent implements OnInit, AfterViewInit {
     this.router.navigateByUrl(url);
   }
   updateSurvey() {
+    this.selectedCountryId = this.selectedCountry ? this.selectedCountry.id : null;
     const dataToSend = {
       surveyId: this.surveyId,
       name: this.surveyName,
       categoryId: this.categoryId,
       otherCategory: this.otherCategoryName,
-      countryId: this.selectedCountry
+      countryId: this.selectedCountryId
     };
     console.log("dataToSend", dataToSend)
+    console.log("country", this.countryId);
     this.surveyservice.updateSurvey(dataToSend).subscribe(
       response => {
         console.log('Response from server:', response);
         //this.surveyId = response;
-
+        this.countryName = this.selectedCountry ? this.selectedCountry.name : null;
         if (this.surveyId) {
           const encryptedId = this.crypto.encryptParam(`${this.surveyId}`);
           const url = `/survey/manage-survey/${encryptedId}`;
@@ -491,11 +502,15 @@ export class CreateSurveyComponent implements OnInit, AfterViewInit {
 
 
   }
+
+  logicIndex: number;
   toggleLogic(index: number, questionId: any) {
+
     //this.logicEntriesPerQuestion = [];
     this.addNewLogicEntry(index)
     this.questions[index].isLogicShow = !this.questions[index].isLogicShow;
     this.getLogicQuestionList(questionId)
+    this.logicSection.nativeElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
 
   }
 
@@ -598,9 +613,10 @@ export class CreateSurveyComponent implements OnInit, AfterViewInit {
 
       const result = Object.keys(response).map((key) => response[key]);
       console.log(result)
-      const countries: { id: string; name: string }[] = result.map((value: any) => ({
+      const countries: { id: string; name: string, images: string }[] = result.map((value: any) => ({
         id: value['countryId'],
-        name: value['name']
+        name: value['name'],
+        images: value['images']
       }));
 
       this.country = countries;
@@ -611,6 +627,7 @@ export class CreateSurveyComponent implements OnInit, AfterViewInit {
   isDivVisible = false;
   toggleDivVisibility() {
     this.isDivVisible = !this.isDivVisible;
+    this.isActive = !this.isActive;
   }
 
   addNewLogicEntry(index: number): void {
@@ -639,7 +656,7 @@ export class CreateSurveyComponent implements OnInit, AfterViewInit {
   // Function to save all logic entries
   saveLogicEntries(): void {
     // Implement logic to save all entries
-    console.log(this.logicEntriesPerQuestion);
+    console.log("logics", this.logicEntriesPerQuestion);
   }
   getQuestionLogic(index: number, questionId: number): void {
 
@@ -1184,7 +1201,13 @@ export class CreateSurveyComponent implements OnInit, AfterViewInit {
     return currentDateTime.substring(0, currentDateTime.length - 1) + 'Z';
   }
 
-  deleteQuestion(questionId: any) {
+  deleteQuestion(questionId: any, isdelete: boolean) {
+    if (!isdelete) {
+      // Show error message
+      console.log("Associated logic entries found. Cannot delete question.");
+      this.utils.showError('Cannot delete question because it has associated logic entries.');
+      return; // Exit the method
+    }
     const dataToSend = {
       sId: this.surveyId,
       qId: questionId
@@ -1192,7 +1215,7 @@ export class CreateSurveyComponent implements OnInit, AfterViewInit {
     this.surveyservice.deleteQuestion(dataToSend).subscribe(
       (data: any) => {
         this.utils.showSuccess('Question Deleted.');
-        window.location.reload();
+        // window.location.reload();
       },
       (error: any) => {
         this.utils.showError('Error deleting question.');
@@ -1201,7 +1224,8 @@ export class CreateSurveyComponent implements OnInit, AfterViewInit {
   }
 
 
-  //logics
+
+
 
 
 

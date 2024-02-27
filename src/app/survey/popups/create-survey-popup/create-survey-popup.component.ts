@@ -32,8 +32,12 @@ export class CreateSurveyPopupComponent {
   country: { id: string, name: string, images: string }[] = [];
   filteredOptions: Observable<{ id: number, name: string }[]> | undefined;
   selectedCategory: { id: number, name: string } | null = null;
+  selectedCountry: { id: string, name: string, images: string } | null = null;
+  selectedCountryId: string | null = null;
+
+
   userId = 0;
-  selectedCountry: string = "IN";
+  // selectedCountry: string = "IN";
   surveyNameCheck: boolean = true
   countryNameCheck: boolean = true
   categoryNameCheck: boolean = true
@@ -115,7 +119,8 @@ export class CreateSurveyPopupComponent {
     this.surveyNameCheck = !!this.surveyName && this.surveyName.length >= 3;
     this.categoryNameCheck = !!this.categoryId && this.categoryId !== 0;
     this.otherCategoryCheck = this.categoryId !== 10 || (!!this.categoryName && this.categoryName.length >= 3);
-    this.countryNameCheck = !!this.selectedCountry;
+    this.selectedCountryId = this.selectedCountry ? this.selectedCountry.id : null;
+    this.countryNameCheck = !!this.selectedCountryId;
 
     this.isValidSurvey = this.surveyNameCheck && this.categoryNameCheck && this.otherCategoryCheck && this.countryNameCheck;
   }
@@ -128,7 +133,7 @@ export class CreateSurveyPopupComponent {
         name: this.surveyName,
         categoryId: this.categoryId,
         otherCategory: this.categoryName,
-        countryId: this.selectedCountry
+        countryId: this.selectedCountryId
       };
 
       console.log("dataToSend", dataToSend);

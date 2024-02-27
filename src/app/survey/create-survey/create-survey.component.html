@@ -45,7 +45,8 @@
         <div ngClass="my-3">
             <h6 class="mb-2">Add Logic</h6>
             <div class="common-ques">
-                <a routerLink="javascript:" (click)="toggleDivVisibility();getRandomization()">
+                <a routerLink="javascript:" (click)="toggleDivVisibility();getRandomization()"
+                    [class.active]='isActive'>
                     <figure><img [src]="baseUrl + '/assets/images/icons/Add-new-logic.png'" width="30" height="30" />
                     </figure>
                     <figcaption>Add New Logic</figcaption>
@@ -256,7 +257,7 @@
                                     <span>logics</span>
                                 </div>
                                 <mat-form-field>
-                                    <mat-select #selectElement placeholder="Sorting"
+                                    <mat-select #selectElement placeholder="Set to"
                                         (selectionChange)="onSelectChange($event, question?.sort, question?.id)">
                                         <mat-option *ngFor="let item of logicQuestionList" [value]="item.sort"
                                             [attr.selected]="idIsEqual(question.id, item.id) ? 'true' : null"
@@ -290,8 +291,12 @@
                                                 (click)="cloning(question.id)"><ng-icon
                                                     name="heroDocumentDuplicate"></ng-icon>Clone</a>
                                         </li>
-                                        <li><a class="dropdown-item delete-hover" *ngIf="!(question?.logics.length > 0)"
-                                                (click)="deleteQuestion(question.id)" href="javascript:">
+                                        <li><a *ngIf="question?.logics.length>0" class="dropdown-item delete-hover"
+                                                (click)="deleteQuestion(question.id,false)" href="javascript:">
+                                                <ng-icon name="heroTrash"></ng-icon>Delete
+                                            </a>
+                                            <a *ngIf="question?.logics.length<=0" class="dropdown-item delete-hover"
+                                                (click)="deleteQuestion(question.id,true)" href="javascript:">
                                                 <ng-icon name="heroTrash"></ng-icon>Delete
                                             </a>
 
@@ -319,7 +324,7 @@
                                         </label>
                                     </div>
                                 </div>
-                                <div ngClass="pt-4" *ngIf="question.isLogicShow">
+                                <div ngClass="pt-4" *ngIf="question.isLogicShow" #logicSection>
                                     <h5 ngClass="mb-4">Logic</h5>
                                     <div ngClass="mb-4">
                                         <div class="logic-tab">
@@ -797,13 +802,35 @@
                 <input id="surveyname" type="text" class="form-control" name="surveyName" [(ngModel)]="surveyName"
                     [ngModelOptions]="{standalone: true}" />
             </div>
+            <!-- <div class="mb-4">
+                <label class="form-label">Select Your Country</label>
+                <mat-form-field>
+                    <mat-select name="countryString" [(value)]="selectedCountry" placeholder="Country">
+                        <mat-option *ngFor="let item of country" [value]="item.id">
+                            <img [src]="baseUrl + '/assets/images/country-flag/' + item.images"
+                                class="me-2 rounded-circle" style="width: 30px;height: 30px;" />
+                            {{item.name}}</mat-option>
+                        <mat-option *ngFor="let item of country" [value]="item.id">{{item.name}}</mat-option>
+                    </mat-select>
+
+                </mat-form-field>
+            </div> -->
             <div class="mb-4">
                 <label class="form-label">Select Your Country</label>
                 <mat-form-field>
                     <mat-select name="countryString" [(value)]="selectedCountry" placeholder="Country">
-                        <mat-option *ngFor="let item of country" [value]="item.id">{{item.name}}</mat-option>
+                        <mat-select-trigger>
+                            <img *ngIf="selectedCountry"
+                                [src]="baseUrl + '/assets/images/country-flag/' + selectedCountry.images"
+                                class="me-2 rounded-circle" style="width: 30px;height: 30px;" />
+                            {{selectedCountry ? selectedCountry.name : ''}}
+                        </mat-select-trigger>
+                        <mat-option *ngFor="let item of country" [value]="item">
+                            <img [src]="baseUrl + '/assets/images/country-flag/' + item.images"
+                                class="me-2 rounded-circle" style="width: 30px;height: 30px;" />
+                            {{item.name}}
+                        </mat-option>
                     </mat-select>
-
                 </mat-form-field>
             </div>
             <div class="mb-4" class="search-categories input-icon">

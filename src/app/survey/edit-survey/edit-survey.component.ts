@@ -911,12 +911,14 @@ export class EditSurveyComponent {
 
 
   // selectedIndex: any
+  // imageoption: any;
 
   // openModal(index: number) {
-  //   // Set the index of the clicked drop zone
-
   //   this.selectedIndex = index;
   //   console.log(this.selectedIndex)
+  //   this.imageoption = this.selectedIndex;
+  //   console.log(this.imageoption)
   // }
+
 
 }

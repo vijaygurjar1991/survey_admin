@@ -508,7 +508,8 @@ article {
     filter: invert(1) brightness(0);
 }
 
-.common-ques a:hover {
+.common-ques a:hover,
+.common-ques a.active {
     background-color: #fdefe7;
     color: var(--primary);
     border-color: var(--primary);
