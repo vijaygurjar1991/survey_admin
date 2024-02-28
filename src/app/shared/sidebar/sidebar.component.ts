@@ -19,6 +19,7 @@ export class SidebarComponent {
   role: any;
   userId: any;
   categories: any;
+  roleId: any
 
   isSuperAdmin = false;
   isAdmin = false;
@@ -60,6 +61,7 @@ export class SidebarComponent {
   }
   ngOnInit() {
     this.role = this.util.getRole();
+    this.roleId = this.util.getRoleId()
     if (this.role) {
       this.role = this.role.toLowerCase();
     }

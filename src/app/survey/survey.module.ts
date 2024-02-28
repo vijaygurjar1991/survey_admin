@@ -88,6 +88,7 @@ import { heroShoppingBag } from '@ng-icons/heroicons/outline';
 import { OccupationPopupComponent } from './popups/occupation-popup/occupation-popup.component';
 //import { ProfileIdPopupComponent } from './popups/profile-id-popup/profile-id-popup.component';
 // Icons
+import { heroMinusCircle } from '@ng-icons/heroicons/outline';
 
 @NgModule({
   declarations: [
@@ -171,7 +172,8 @@ import { OccupationPopupComponent } from './popups/occupation-popup/occupation-p
       heroHome,
       heroChevronLeft,
       heroChevronRight,
-      heroShoppingBag
+      heroShoppingBag,
+      heroMinusCircle
     }),
     NgxPaginationModule,
     SharedModule

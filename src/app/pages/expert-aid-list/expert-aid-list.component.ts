@@ -48,7 +48,7 @@ export class ExpertAidListComponent {
 
   getAllUser() {
     this.userId = localStorage.getItem("userId");
-    this.themeService.getExpertAidById(this.userId, this.centerId).subscribe((data: any) => {
+    this.themeService.getExpertAidById(this.centerId).subscribe((data: any) => {
       this.UserData = data;
       console.log("Rishabh", data);
       //this.cdr.detectChanges();

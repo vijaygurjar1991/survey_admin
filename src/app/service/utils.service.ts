@@ -11,6 +11,7 @@ export class UtilsService {
   private userId: any;
   private role: any;
   private centerId: any;
+  private roleId: any
 
 
   constructor(private auth: AuthService, private toastr: ToastrService) {
@@ -20,6 +21,7 @@ export class UtilsService {
           this.userId = user.userId;
           this.role = user.role;
           this.centerId = user.CenterId;
+          this.roleId = user.RoleId
         }
       }
     });
@@ -36,6 +38,9 @@ export class UtilsService {
 
   getCenterId() {
     return this.centerId;
+  }
+  getRoleId() {
+    return this.roleId;
   }
   showSuccess(message: string) {
     this.toastr.success(message, 'Success');

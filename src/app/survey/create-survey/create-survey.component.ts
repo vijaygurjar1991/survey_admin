@@ -391,6 +391,7 @@ export class CreateSurveyComponent implements OnInit, AfterViewInit {
   otherCategoryName: any
   surveyStatus: any
   countryName: any
+  countryImage: any
   totalItemsCount: number
   surveycreateddate: any
   GetSurveyDetails(pageSize: number, pageNumber: number) {
@@ -417,6 +418,7 @@ export class CreateSurveyComponent implements OnInit, AfterViewInit {
         this.otherCategoryName = data.otherCategory;
         this.surveyStatus = data.status;
         this.countryName = data.countryName;
+        this.countryImage = data.countryImage;
         this.countryId = data.countryId
         this.totalItemsCount = data.totalQuestionCount
         this.categoryId = data.categoryId
@@ -508,15 +510,39 @@ export class CreateSurveyComponent implements OnInit, AfterViewInit {
   }
 
   logicIndex: number;
+  // toggleLogic(index: number, questionId: any) {
+
+  //   this.logicIndex = index
+  //   console.log(this.logicIndex)
+  //   //this.logicEntriesPerQuestion = [];
+  //   this.addNewLogicEntry(index)
+  //   this.questions[index].isLogicShow = !this.questions[index].isLogicShow;
+  //   this.getLogicQuestionList(questionId)
+  //   // this.logicSection.nativeElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  //   const sectionToScroll = this.el.nativeElement.querySelector(`#question-${this.logicIndex}`);
+  //   if (sectionToScroll) {
+  //     sectionToScroll.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  //   } else {
+  //     console.warn(`Section with ID "question-${this.logicIndex}" not found.`);
+  //   }
+
+  // }
   toggleLogic(index: number, questionId: any) {
+    //this.logicIndex = index;
+    console.log(questionId);
 
-
-    //this.logicEntriesPerQuestion = [];
-    this.addNewLogicEntry(index)
+    this.addNewLogicEntry(index);
     this.questions[index].isLogicShow = !this.questions[index].isLogicShow;
-    this.getLogicQuestionList(questionId)
-    // this.logicSection.nativeElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    this.getLogicQuestionList(questionId);
 
+    setTimeout(() => { // Adding a small delay to ensure the section is rendered before scrolling
+      const sectionToScroll = this.el.nativeElement.querySelector(`#question-${questionId}`);
+      if (sectionToScroll) {
+        sectionToScroll.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      } else {
+        console.warn(`Section with ID "question-${questionId}" not found.`);
+      }
+    }, 100); // Adjust the delay as needed
   }
 
   getLogicValues() {
@@ -1229,8 +1255,41 @@ export class CreateSurveyComponent implements OnInit, AfterViewInit {
   }
 
 
+  //and or
+
+  visibleaddandlogic: boolean = false;
+  showRemoveandlogic: boolean = false;
+
+  toggleVisibilityAnd() {
+    this.visibleaddandlogic = !this.visibleaddandlogic;
+    this.showRemoveandlogic = !this.showRemoveandlogic;
+  }
+  isSectionAdded: boolean = false;
+  @ViewChild('cloneSection', { static: false }) cloneSection: ElementRef;
+  andOrDivClone() {
+    //this.visibleaddandlogic = !this.visibleaddandlogic; // Toggle visibility
+
+    //if (this.visibleaddandlogic) {
+    if (this.visibleaddandlogic && !this.isSectionAdded) {
+      const clonedSection = this.cloneSection.nativeElement.cloneNode(true); // Clone the element
+      this.cloneSection.nativeElement.parentNode.insertBefore(clonedSection, this.cloneSection.nativeElement.nextSibling); // Insert the cloned element after the original
+      this.isSectionAdded = true;
+    }
+
+  }
 
 
+  showPopup: boolean = false;
+
+  onSelectChangeoption(selectedValue: any) {
+    // Check if the selected value matches the value that should trigger the popup
+    if (selectedValue === "Show Popup") {
+      this.showPopup = true;
+      console.log(this.showPopup)
+    } else {
+      this.showPopup = false;
+    }
+  }
 
 
 

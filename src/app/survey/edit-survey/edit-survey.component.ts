@@ -882,8 +882,8 @@ export class EditSurveyComponent {
     });
 
 
-    // this.allOptions.push(...this.optionsArr1, ...this.optionsArr2);
-    this.allOptions = [...this.optionsArr1, ...this.optionsArr2];
+    this.allOptions.push(...this.optionsArr1, ...this.optionsArr2);
+    // this.allOptions = [...this.optionsArr1, ...this.optionsArr2];
   }
 
   // addButtonClicked(): void {

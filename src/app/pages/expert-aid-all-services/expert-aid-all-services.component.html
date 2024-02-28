@@ -46,7 +46,11 @@
                                     </li>
                                 </ul>
                             </span></td>
-                        <td [ngClass]="'done status'"><span>{{item.status}}</span></td>
+                        <!-- <td [ngClass]="'done status'"><span>{{item.status}}</span></td> -->
+                        <td
+                            [ngClass]="{'done donestatus': item.status === 'ACT', 'paused status': item.status !== 'ACT'}">
+                            <span>{{ item.status === 'ACT' ? 'Active' : 'Deactive' }}</span>
+                        </td>
                         <td [ngClass]="'action'">
                             <div class="form-check form-switch">
                                 <input class="form-check-input" type="checkbox" role="switch"

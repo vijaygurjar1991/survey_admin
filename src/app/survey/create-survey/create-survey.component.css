@@ -1,0 +1,9 @@
+.branching-quest-clone {
+    position: relative;
+}
+
+.clone-icon {
+    position: absolute;
+    bottom: 10px;
+    right: 0;
+}

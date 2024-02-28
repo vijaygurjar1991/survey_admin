@@ -133,24 +133,29 @@ export class ExpertAidAllServicesComponent {
 
     console.log("Id : ", id)
     console.log("status : ", status)
-    if (status == 'ACT')
-      filteredUser.status = 'ACT'
-    else
-      filteredUser.status = 'DEL'
-    const dateString = filteredUser.startDate;
-    const date = new Date(dateString);
-    const formattedDate = date.toLocaleDateString('en-US', {
-      month: '2-digit', // 'MM'
-      day: '2-digit',   // 'dd'
-      year: 'numeric'   // 'YYYY'
-    });
-    filteredUser.startDate = formattedDate
+    // if (status == 'ACT')
+    //   filteredUser.status = 'ACT'
+    // else
+    //   filteredUser.status = 'DEL'
+    // const dateString = filteredUser.startDate;
+    // const date = new Date(dateString);
+    // const formattedDate = date.toLocaleDateString('en-US', {
+    //   month: '2-digit', // 'MM'
+    //   day: '2-digit',   // 'dd'
+    //   year: 'numeric'   // 'YYYY'
+    // });
+    // filteredUser.startDate = formattedDate
+    const dataToSend = {
+      id: filteredUser.id,
+      centerId: filteredUser.centerId,
+      status: status === 'ACT' ? 'ACT' : 'DEL'
+    };
     console.log(filteredUser)
 
-    this.surveyservice.updateExpertAidProfile(filteredUser).subscribe({
+    this.surveyservice.updateExpertAidProfile(dataToSend).subscribe({
       next: (resp: any) => {
         this.utility.showSuccess('Updated.');
-        // window.location.reload();
+        window.location.reload();
       },
       error: (err: any) => {
         this.utility.showError('error');

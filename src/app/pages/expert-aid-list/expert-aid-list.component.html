@@ -46,7 +46,11 @@
                                     </li>
                                 </ul>
                             </span></td>
-                        <td [ngClass]="'done status'"><span>Active</span></td>
+                        <!-- <td [ngClass]="'done status'"><span>Active</span></td> -->
+                        <td
+                            [ngClass]="{'done donestatus': item.status === 'ACT', 'paused status': item.status !== 'ACT'}">
+                            <span>{{ item.status === 'ACT' ? 'Active' : 'Deactive' }}</span>
+                        </td>
                         <!-- <td [ngClass]="'action'">
                             <a [routerLink]="'/'"><ng-icon name="heroPencil" [ngClass]="'edit-action'"></ng-icon></a>
                             <a [routerLink]="'/'"><ng-icon name="heroEllipsisVertical"></ng-icon></a>
