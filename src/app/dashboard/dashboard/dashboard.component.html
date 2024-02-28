@@ -25,13 +25,13 @@
                     <div class="d-flex justify-content-between">
                         <div class="col-md-8">
                             <!-- <h4 class="mb-2">{{ list.name }}</h4> -->
-                            <h4 class="mb-2">
+                            <h5 class="mb-2">
 
-                                <a *ngIf="list.status !== 'ACT' && list.status !== 'HOL'"
+                                <a style="color: #000;" *ngIf="list.status !== 'ACT' && list.status !== 'HOL'"
                                     [routerLink]="'/survey/manage-survey/' + (list.surveyId)" href="javascript:">
                                     {{ list.name }}
                                 </a>
-                            </h4>
+                            </h5>
                             <!-- <p class="small">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
                                 tempor incididunt ut labore.</p> -->
                         </div>
