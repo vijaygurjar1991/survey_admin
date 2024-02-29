@@ -461,6 +461,10 @@
                                                                                 [value]="item.id">{{item.name}}</option>
                                                                         </select>
                                                                     </div>
+                                                                    <div class="col-md-4"
+                                                                        *ngIf="logicEntry.thanId ==='Set'">
+                                                                        <div>Popup content</div>
+                                                                    </div>
                                                                     <div class="col-md-4">
                                                                         <!-- Use unique template reference variables by appending the index -->
                                                                         <select class="form-select"
@@ -474,10 +478,7 @@
                                                                                 [value]="item.id">{{item.item}}</option>
                                                                         </select>
                                                                     </div>
-                                                                    <div *ngIf="showPopup">
-                                                                        <!-- Your popup content goes here -->
-                                                                        <div>Popup content</div>
-                                                                    </div>
+
                                                                     <!-- <div class="col-md-1">
                                                                         <a routerLink="javascript:"><ng-icon
                                                                                 name="heroTrash"

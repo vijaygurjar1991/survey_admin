@@ -253,7 +253,7 @@
                                 <ng-icon name="heroBars3"></ng-icon>
                             </div> -->
                             <div class="flex-width text-end">
-                                <ng-icon name="heroTrash" (click)="onDeleteOption('optionArr2')"></ng-icon>
+                                <ng-icon name="heroTrash" (click)="onDeleteOption('optionArr2',i)"></ng-icon>
                             </div>
                         </div>
                     </div>
@@ -385,13 +385,18 @@
                 </div>
             </li>
             <div class="row mb-3">
-                <div class="col-12 text-end">
+                <div class="col-6">
+                    <button type="button" class="btn btn-primary px-5" (click)="VisibilityAnsLogic()">create answer
+                        logic</button>
+                </div>
+                <div class="col-6 text-end">
                     <button type="button" class="btn btn-primary px-5" (click)="onSave()">Save</button>
                 </div>
             </div>
-            <li>
+
+            <div *ngIf="visibleanslogic">
                 <div ngClass="p-4">
-                    <h5 ngClass="mb-4">Logic</h5>
+
                     <div ngClass="mb-4">
                         <div class="logic-tab">
                             <!-- Logic Question -->
@@ -509,7 +514,7 @@
                         </div>
                     </div>
                 </div>
-            </li>
+            </div>
         </ul>
 
     </div>

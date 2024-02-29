@@ -183,7 +183,8 @@ export class CityPopupComponent {
           sort: 0,
           selected: false,
           isVisible: false,
-          isSelected: false
+          isSelected: false,
+          isFixed: false
         }));
         currentQuestion.options = selectedCityOptions
       } else {
@@ -201,7 +202,8 @@ export class CityPopupComponent {
           sort: 0,
           selected: false,
           isVisible: false,
-          isSelected: false
+          isSelected: false,
+          isFixed: false
         }));
         currentQuestion.options = selectedStateOptions
       }
@@ -209,9 +211,9 @@ export class CityPopupComponent {
       // Make an API call for each question with its selected options
       this.surveyservice.CreateGeneralQuestion(currentQuestion).subscribe({
         next: (resp: any) => {
-          if(resp=='"QuestionAlreadyExits"'){
+          if (resp == '"QuestionAlreadyExits"') {
             this.utility.showError("This Question Already Created ");
-          }else{
+          } else {
             this.utility.showSuccess('Question Generated Successfully.');
             this.close();
             this.onSaveEvent.emit();

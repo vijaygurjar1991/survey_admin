@@ -13,7 +13,8 @@ export class Option {
         public sort: number = 0,
         public selected: boolean = false,
         public isVisible: boolean = false,
-        public isSelected: boolean = false
-        
+        public isSelected: boolean = false,
+        public isFixed: boolean = false
+
     ) { }
 }

@@ -116,8 +116,13 @@ export class EditSurveyComponent {
         newOption.isExcluded = opt.isExcluded;
         newOption.group = opt.group;
         newOption.sort = opt.sort;
+        if (opt.status == 'ACT') {
+          if (opt.isFixed)
+            this.optionsArr2.push(newOption); // Push the new Option object to optionsArr1
+          else
+            this.optionsArr1.push(newOption);
 
-        this.optionsArr1.push(newOption); // Push the new Option object to optionsArr1
+        }
 
         console.log("see", this.optionsArr1)
 
@@ -340,12 +345,15 @@ export class EditSurveyComponent {
 
     if (type == 'other') {
       newOption.option = "Other";
+      newOption.isFixed = true
     }
     else if (type == 'noneOfAbove') {
       newOption.option = "None of above";
+      newOption.isFixed = true
     }
     else if (type == 'dontKnow') {
       newOption.option = "Don't know /Can't say";
+      newOption.isFixed = true
     }
     else {
       newOption.option = "";
@@ -513,14 +521,23 @@ export class EditSurveyComponent {
 
   onDropOption(e: CdkDragDrop<string[]>) {
     moveItemInArray(this.optionsArr1, e.previousIndex, e.currentIndex);
+    console.log("previous", e.previousIndex)
+    console.log("current", e.currentIndex)
+    this.allOptions = [];
+    this.allOptions.push(...this.optionsArr1, ...this.optionsArr2);
   }
 
-  onDeleteOption(type: string, index = 0) {
+  onDeleteOption(type: string, index: any) {
+
     if (type == 'optionArr1') {
+
       this.optionsArr1.splice(index, 1);
+      console.log("deleted", this.optionsArr1)
     } else {
       this.optionsArr2 = [];
     }
+    this.allOptions = [];
+    this.allOptions.push(...this.optionsArr1, ...this.optionsArr2);
   }
 
 
@@ -882,8 +899,16 @@ export class EditSurveyComponent {
     });
 
 
-    this.allOptions.push(...this.optionsArr1, ...this.optionsArr2);
-    // this.allOptions = [...this.optionsArr1, ...this.optionsArr2];
+    // this.allOptions.push(...this.optionsArr1, ...this.optionsArr2);
+    this.allOptions = [...this.optionsArr1, ...this.optionsArr2];
+  }
+
+
+  // answer logic
+
+  visibleanslogic: boolean = false;
+  VisibilityAnsLogic() {
+    this.visibleanslogic = !this.visibleanslogic;
   }
 
   // addButtonClicked(): void {
