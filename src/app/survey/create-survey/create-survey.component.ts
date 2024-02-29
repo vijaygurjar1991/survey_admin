@@ -801,10 +801,10 @@ export class CreateSurveyComponent implements OnInit, AfterViewInit {
     this.randormizeEntries.splice(index, 1);
   }
   saveRandomization(): void {
-    if (!this.validateSurvey()) {
-      this.utils.showError('Please checked');
-      return;
-    }
+    // if (!this.validateSurvey()) {
+    //   this.utils.showError('Please checked');
+    //   return;
+    // }
 
     console.log(this.randormizeEntries);
     console.log(this.isRandomizationChecked);
@@ -1306,7 +1306,7 @@ export class CreateSurveyComponent implements OnInit, AfterViewInit {
   logicEntryAndOr: { ifId: number | null, thanId: number | null } = { ifId: null, thanId: null };
   optionListByQuestionId: any
   selectedOptions: any[] = [];
-  isThanShow:boolean=true
+  isThanShow: boolean = true
   getOptionsByQuestionId(selectedQuestion: any) {
     this.selectedOptions = [];
     this.optionListByQuestionId = ''
@@ -1370,22 +1370,22 @@ export class CreateSurveyComponent implements OnInit, AfterViewInit {
   onLogicEntryOrIdChange(): void {
     this.selectedOptions = []; // Clear the selectedOptions array
   }
-  onLogicEntryOrThanChange(thanIdSelect:any): void {
+  onLogicEntryOrThanChange(thanIdSelect: any): void {
     const ifIdNumber = +thanIdSelect;
-    if(ifIdNumber===3 || ifIdNumber===4)
+    if (ifIdNumber === 3 || ifIdNumber === 4)
       this.isThanShow = false
     else
-    this.isThanShow = true
-    
+      this.isThanShow = true
+
   }
-  isElseShow:boolean=true
-  onLogicEntryOrElseChange(elseIdSelect:any): void {
+  isElseShow: boolean = true
+  onLogicEntryOrElseChange(elseIdSelect: any): void {
     const ifIdNumber = +elseIdSelect;
-    if(ifIdNumber===3 || ifIdNumber===4)
+    if (ifIdNumber === 3 || ifIdNumber === 4)
       this.isElseShow = false
     else
-    this.isElseShow = true
-    
+      this.isElseShow = true
+
   }
   showPopup: boolean = false;
 
