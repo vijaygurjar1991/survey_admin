@@ -1256,6 +1256,8 @@ export class CreateSurveyComponent implements OnInit, AfterViewInit {
 
 
   //and or
+  isSectionAdded: boolean = false;
+  isAndOrLogic:boolean = false
 
   visibleaddandlogic: boolean = false;
   showRemoveandlogic: boolean = false;
@@ -1263,18 +1265,18 @@ export class CreateSurveyComponent implements OnInit, AfterViewInit {
   toggleVisibilityAnd() {
     this.visibleaddandlogic = !this.visibleaddandlogic;
     this.showRemoveandlogic = !this.showRemoveandlogic;
+    if(!this.showRemoveandlogic)
+    this.isAndOrLogic=false
   }
-  isSectionAdded: boolean = false;
-  @ViewChild('cloneSection', { static: false }) cloneSection: ElementRef;
+  
+  //@ViewChild('cloneSection', { static: false }) cloneSection: ElementRef;
   andOrDivClone() {
-    //this.visibleaddandlogic = !this.visibleaddandlogic; // Toggle visibility
-
-    //if (this.visibleaddandlogic) {
-    if (this.visibleaddandlogic && !this.isSectionAdded) {
-      const clonedSection = this.cloneSection.nativeElement.cloneNode(true); // Clone the element
-      this.cloneSection.nativeElement.parentNode.insertBefore(clonedSection, this.cloneSection.nativeElement.nextSibling); // Insert the cloned element after the original
-      this.isSectionAdded = true;
-    }
+    this.isAndOrLogic=true
+    // if (this.visibleaddandlogic && !this.isSectionAdded) {
+    //   const clonedSection = this.cloneSection.nativeElement.cloneNode(true); // Clone the element
+    //   this.cloneSection.nativeElement.parentNode.insertBefore(clonedSection, this.cloneSection.nativeElement.nextSibling); // Insert the cloned element after the original
+    //   this.isSectionAdded = true;
+    // }
 
   }
 
