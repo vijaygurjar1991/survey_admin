@@ -21,6 +21,9 @@ import { SecLsmPopupComponent } from '../popups/sec-lsm-popup/sec-lsm-popup.comp
 import { Question } from 'src/app/models/question';
 import { QuestionItem } from 'src/app/models/question-items';
 import { environment } from 'src/environments/environment';
+import { MatChipInputEvent } from '@angular/material/chips';
+import { Option } from 'src/app/models/option';
+import { COMMA, ENTER } from '@angular/cdk/keycodes';
 
 interface LogicQuestion {
   id: number;
@@ -124,6 +127,8 @@ export class CreateSurveyComponent implements OnInit, AfterViewInit {
   isRadomizeAndOr: boolean = false
   randormizeEntries: any[] = [];
   questionId: any
+  separatorKeysCodes: number[] = [ENTER, COMMA];
+  isAddRandomizationMode: boolean = true;
   constructor(
     private visibilityService: DataService,
     private modalService: NgbModal,
@@ -831,21 +836,39 @@ export class CreateSurveyComponent implements OnInit, AfterViewInit {
       }
 
       if (formattedData.length > 0) {
-        // Call the service to post the formatted data
-        this.surveyservice.postRandomizedQuestions(formattedData).subscribe(
-          response => {
-            // Handle the response if needed
-            console.log('POST request successful', response);
-            // Swal.fire('', 'Randomization Created Successfully.', 'success');
-            this.utils.showSuccess('Randomization Created Successfully.');
-          },
-          error => {
-            // Handle errors
-            console.error('Error in POST request', error);
-            // Swal.fire('', 'Please confirm you want to randomization these question ', 'error');
-            this.utils.showError('Please confirm you want to randomization these question');
-          }
-        );
+        if (this.isAddRandomizationMode) {
+
+          // Call the service to post the formatted data
+          this.surveyservice.postRandomizedQuestions(formattedData).subscribe(
+            response => {
+              // Handle the response if needed
+              console.log('POST request successful', response);
+              // Swal.fire('', 'Randomization Created Successfully.', 'success');
+              this.utils.showSuccess('Randomization Created Successfully.');
+            },
+            error => {
+              // Handle errors
+              console.error('Error in POST request', error);
+              // Swal.fire('', 'Please confirm you want to randomization these question ', 'error');
+              this.utils.showError('Please confirm you want to randomization these question');
+            }
+          );
+        } else {
+          this.surveyservice.postRandomizedQuestions(formattedData).subscribe(
+            response => {
+              // Handle the response if needed
+              console.log('POST request successful', response);
+              // Swal.fire('', 'Randomization Created Successfully.', 'success');
+              this.utils.showSuccess('Randomization Created Successfully.');
+            },
+            error => {
+              // Handle errors
+              console.error('Error in POST request', error);
+              // Swal.fire('', 'Please confirm you want to randomization these question ', 'error');
+              this.utils.showError('Please confirm you want to randomization these question');
+            }
+          );
+        }
       } else {
         console.warn('No valid range found for randomization.');
       }
@@ -1041,6 +1064,7 @@ export class CreateSurveyComponent implements OnInit, AfterViewInit {
       });
     } else {
       this.isDivVisible = true;
+      this.isAddRandomizationMode = false
       //alert(this.isDivVisible)
     }
   }
@@ -1257,7 +1281,7 @@ export class CreateSurveyComponent implements OnInit, AfterViewInit {
 
   //and or
   isSectionAdded: boolean = false;
-  isAndOrLogic:boolean = false
+  isAndOrLogic: boolean = false
 
   visibleaddandlogic: boolean = false;
   showRemoveandlogic: boolean = false;
@@ -1265,13 +1289,13 @@ export class CreateSurveyComponent implements OnInit, AfterViewInit {
   toggleVisibilityAnd() {
     this.visibleaddandlogic = !this.visibleaddandlogic;
     this.showRemoveandlogic = !this.showRemoveandlogic;
-    if(!this.showRemoveandlogic)
-    this.isAndOrLogic=false
+    if (!this.showRemoveandlogic)
+      this.isAndOrLogic = false
   }
-  
+
   //@ViewChild('cloneSection', { static: false }) cloneSection: ElementRef;
   andOrDivClone() {
-    this.isAndOrLogic=true
+    this.isAndOrLogic = true
     // if (this.visibleaddandlogic && !this.isSectionAdded) {
     //   const clonedSection = this.cloneSection.nativeElement.cloneNode(true); // Clone the element
     //   this.cloneSection.nativeElement.parentNode.insertBefore(clonedSection, this.cloneSection.nativeElement.nextSibling); // Insert the cloned element after the original
@@ -1279,8 +1303,90 @@ export class CreateSurveyComponent implements OnInit, AfterViewInit {
     // }
 
   }
+  logicEntryAndOr: { ifId: number | null, thanId: number | null } = { ifId: null, thanId: null };
+  optionListByQuestionId: any
+  selectedOptions: any[] = [];
+  isThanShow:boolean=true
+  getOptionsByQuestionId(selectedQuestion: any) {
+    this.selectedOptions = [];
+    this.optionListByQuestionId = ''
+    console.log("selectedQuestion", selectedQuestion);
+    const selectedValue = selectedQuestion;
+    let queryParams = {
+      qid: selectedValue
+    }
+    this.surveyservice.getOptionsByQuestionId(queryParams).subscribe((response: { [x: string]: any; }) => {
+      var result = Object.keys(response).map(e => response[e]);
+      console.log("response ", response)
 
+      this.optionListByQuestionId = response
+      console.log("optionListByQuestionId", this.optionListByQuestionId)
+      this.optionListByQuestionId = JSON.parse(this.optionListByQuestionId)
+    });
+  }
+  addOption(event: MatChipInputEvent): void {
+    console.log("selectedOptions Length", this.selectedOptions.length)
+    const input = event.input;
+    const value = event.value.trim();
 
+    // Check if the entered value is in the available options
+    const matchingOption = this.optionListByQuestionId.find((option: Option) => option.option === value);
+
+    if (matchingOption && !this.selectedOptions.includes(matchingOption)) {
+      this.selectedOptions.push(matchingOption);
+    }
+
+    if (input) {
+      input.value = '';
+    }
+  }
+  removeOption(option: any): void {
+    const index = this.selectedOptions.indexOf(option);
+    if (index >= 0) {
+      this.selectedOptions.splice(index, 1);
+    }
+  }
+  selectedOptionAndOrd(event: MatAutocompleteSelectedEvent, logicEntryAndOrIfId: any): void {
+    console.log("logicEntryAndOrIfId ", logicEntryAndOrIfId)
+    console.log("selectedOptions.length ", this.selectedOptions.length)
+    const ifIdNumber = +logicEntryAndOrIfId;
+    if (ifIdNumber === 1 || ifIdNumber === 2) {
+      console.log("inside if")
+      if (this.selectedOptions.length == 0) {
+        console.log("inside length")
+        const selectedOption = event.option.value;
+        if (!this.selectedOptions.includes(selectedOption)) {
+          this.selectedOptions.push(selectedOption);
+        }
+      }
+    } else {
+      console.log("inside else")
+      const selectedOption = event.option.value;
+      if (!this.selectedOptions.includes(selectedOption)) {
+        this.selectedOptions.push(selectedOption);
+      }
+    }
+  }
+  onLogicEntryOrIdChange(): void {
+    this.selectedOptions = []; // Clear the selectedOptions array
+  }
+  onLogicEntryOrThanChange(thanIdSelect:any): void {
+    const ifIdNumber = +thanIdSelect;
+    if(ifIdNumber===3 || ifIdNumber===4)
+      this.isThanShow = false
+    else
+    this.isThanShow = true
+    
+  }
+  isElseShow:boolean=true
+  onLogicEntryOrElseChange(elseIdSelect:any): void {
+    const ifIdNumber = +elseIdSelect;
+    if(ifIdNumber===3 || ifIdNumber===4)
+      this.isElseShow = false
+    else
+    this.isElseShow = true
+    
+  }
   showPopup: boolean = false;
 
   onSelectChangeoption(selectedValue: any) {
