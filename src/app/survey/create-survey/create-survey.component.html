@@ -46,7 +46,7 @@
             <h6 class="mb-2">Add Logic</h6>
             <div class="common-ques">
                 <a routerLink="javascript:" (click)="toggleDivVisibility();getRandomization()"
-                    [class.active]='isActive'>
+                    [class.active]='isActive || isDivVisible'>
                     <figure><img [src]="baseUrl + '/assets/images/icons/Add-new-logic.png'" width="30" height="30" />
                     </figure>
                     <figcaption>Add New Logic</figcaption>
@@ -178,18 +178,27 @@
                                         <button type="button" class="btn btn-primary btn-sm"
                                             (click)="removeRandomizationSection(i)">Remove</button>
                                     </div>
+                                    <div class="mt-3 ms-4 form-check checking">
+                                        <input class="form-check-input" type="checkbox"
+                                            [(ngModel)]="randomization.isRandomizationChecked" id="Randomise"
+                                            (blur)="validateSurvey()">
+                                        <label class="form-check-label" for="Randomise">
+                                            Randomization these question
+                                        </label>
+
+                                    </div>
                                 </div>
                             </div>
 
 
-                            <div class="mb-3 ms-4 form-check checking">
+                            <!-- <div class="mb-3 ms-4 form-check checking">
                                 <input class="form-check-input" type="checkbox" [(ngModel)]="isRandomizationChecked"
                                     id="Randomise" (blur)="validateSurvey()">
                                 <label class="form-check-label" for="Randomise">
                                     Randomization these question
                                 </label>
-                                <div *ngIf="!checkrequired" class="text-danger">Check is required.</div>
-                            </div>
+                                
+                            </div> -->
                             <div class="row">
                                 <div class="col-12 text-end d-flex justify-content-end">
                                     <button type="button" class="btn btn-primary btn-sm"
@@ -396,7 +405,7 @@
                                                                                     </option>
                                                                                 </select>
                                                                             </div>
-                                                                            
+
                                                                             <div class="col-md-3">
                                                                                 <mat-form-field
                                                                                     class="example-chip-list">
@@ -415,8 +424,7 @@
                                                                                             [matChipInputFor]="chipGrid"
                                                                                             [matAutocomplete]="auto"
                                                                                             [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
-                                                                                            (matChipInputTokenEnd)="addOption($event)"
-                                                                                        >
+                                                                                            (matChipInputTokenEnd)="addOption($event)">
                                                                                     </mat-chip-grid>
                                                                                     <mat-autocomplete
                                                                                         #auto="matAutocomplete"
@@ -489,7 +497,8 @@
                                                                                 <!-- Use unique template reference variables by appending the index -->
                                                                                 <select class="form-select"
                                                                                     #ifIdSelect="ngModel"
-                                                                                    [(ngModel)]="logicEntryAndOr.ifId" (change)="onLogicEntryOrIdChange()">
+                                                                                    [(ngModel)]="logicEntryAndOr.ifId"
+                                                                                    (change)="onLogicEntryOrIdChange()">
                                                                                     <option
                                                                                         *ngFor="let item of logicValuesList;let j=index;"
                                                                                         [value]="item.id">{{item.name}}
@@ -514,8 +523,7 @@
                                                                                             [matChipInputFor]="chipGrid"
                                                                                             [matAutocomplete]="auto"
                                                                                             [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
-                                                                                            (matChipInputTokenEnd)="addOption($event)"
-                                                                                        >
+                                                                                            (matChipInputTokenEnd)="addOption($event)">
                                                                                     </mat-chip-grid>
                                                                                     <mat-autocomplete
                                                                                         #auto="matAutocomplete"
@@ -545,30 +553,35 @@
                                                                         <!-- Use unique template reference variables by appending the index -->
                                                                         <select class="form-select"
                                                                             #thanIdSelect="ngModel"
-                                                                            [(ngModel)]="logicEntry.thanId" (change)="onLogicEntryOrThanChange(thanIdSelect.value)">
+                                                                            [(ngModel)]="logicEntry.thanId"
+                                                                            (change)="onLogicEntryOrThanChange(thanIdSelect.value)">
                                                                             <option
                                                                                 *ngFor="let item of logicThensList;let j=index;"
                                                                                 [value]="item.id">{{item.name}}</option>
                                                                         </select>
                                                                     </div>
-                                                                    <div class="col-md-6" *ngIf="logicEntry.thanId=='5'">
-                                                                        <div class="d-flex" >
+                                                                    <div class="col-md-6"
+                                                                        *ngIf="logicEntry.thanId=='5'">
+                                                                        <div class="d-flex">
                                                                             <label class="d-flex" style="width: 150px;">
-                                                                                <input type="radio" class="form-input"/>
+                                                                                <input type="radio"
+                                                                                    class="form-input" />
                                                                                 <span>Every Time</span>
                                                                             </label>
                                                                             <label class="d-flex mx-4">
-                                                                                <input type="text" class="form-input" style="width: 50px;"/>
+                                                                                <input type="text" class="form-input"
+                                                                                    style="width: 50px;" />
                                                                             </label>
                                                                             <label class="d-flex w-100">
                                                                                 <span>Enter Popup Text</span>
-                                                                                <input type="text" class="form-input"/>
+                                                                                <input type="text" class="form-input" />
                                                                             </label>
                                                                         </div>
                                                                     </div>
-                                                                    <div class="col-md-4" *ngIf="isThanShow && logicEntry.thanId!='5'">
+                                                                    <div class="col-md-4"
+                                                                        *ngIf="isThanShow && logicEntry.thanId!='5'">
                                                                         <!-- Use unique template reference variables by appending the index -->
-                                                                        <select  class="form-select"
+                                                                        <select class="form-select"
                                                                             #thanExpectedSelect="ngModel"
                                                                             [(ngModel)]="logicEntry.thanExpected"
                                                                             (ngModelChange)="onSelectChangeoption($event)">
@@ -601,28 +614,33 @@
                                                                         <!-- Use unique template reference variables by appending the index -->
                                                                         <select class="form-select"
                                                                             #elseIdSelect="ngModel"
-                                                                            [(ngModel)]="logicEntrythenElse.elseId" (change)="onLogicEntryOrElseChange(elseIdSelect.value)">
+                                                                            [(ngModel)]="logicEntrythenElse.elseId"
+                                                                            (change)="onLogicEntryOrElseChange(elseIdSelect.value)">
                                                                             <option
                                                                                 *ngFor="let item of logicThensList;let j=index;"
                                                                                 [value]="item.id">{{item.name}}</option>
                                                                         </select>
                                                                     </div>
-                                                                    <div class="col-md-6" *ngIf="logicEntrythenElse.elseId==5">
-                                                                        <div class="d-flex" >
+                                                                    <div class="col-md-6"
+                                                                        *ngIf="logicEntrythenElse.elseId==5">
+                                                                        <div class="d-flex">
                                                                             <label class="d-flex" style="width: 150px;">
-                                                                                <input type="radio" class="form-input"/>
+                                                                                <input type="radio"
+                                                                                    class="form-input" />
                                                                                 <span>Every Time</span>
                                                                             </label>
                                                                             <label class="d-flex mx-4">
-                                                                                <input type="text" class="form-input" style="width: 50px;"/>
+                                                                                <input type="text" class="form-input"
+                                                                                    style="width: 50px;" />
                                                                             </label>
                                                                             <label class="d-flex w-100">
                                                                                 <span>Enter Popup Text</span>
-                                                                                <input type="text" class="form-input"/>
+                                                                                <input type="text" class="form-input" />
                                                                             </label>
                                                                         </div>
                                                                     </div>
-                                                                    <div class="col-md-4" *ngIf="isElseShow && logicEntrythenElse.elseId!=5">
+                                                                    <div class="col-md-4"
+                                                                        *ngIf="isElseShow && logicEntrythenElse.elseId!=5">
                                                                         <!-- Use unique template reference variables by appending the index -->
                                                                         <select class="form-select"
                                                                             #thanExpectedSelect="ngModel"
@@ -634,7 +652,7 @@
                                                                                 [value]="item.id">{{item.item}}</option>
                                                                         </select>
                                                                     </div>
-                                                                  
+
                                                                     <div class="col-md-1">
                                                                         <button type="button"
                                                                             class="btn btn-outline-primary btn-sm"
