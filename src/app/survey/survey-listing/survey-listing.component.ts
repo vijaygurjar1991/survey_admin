@@ -20,7 +20,7 @@ export class SurveyListingComponent {
   surveyData: any = "";
   categoryList: any;
   selectedCategory: string = 'All Categories';
-  constructor(private visibilityService: DataService, private util: UtilsService, private modalService: NgbModal, public themeService: SurveyService, private cdr: ChangeDetectorRef) {
+  constructor(private visibilityService: DataService, private util: UtilsService, private modalService: NgbModal, public themeService: SurveyService, private utility: UtilsService, private cdr: ChangeDetectorRef) {
     this.baseUrl = environment.baseURL;
     visibilityService.closeSideBar();
   }
@@ -75,9 +75,13 @@ export class SurveyListingComponent {
   }
   toggleSlider(event: Event, itemId: number, item: any) {
     const isChecked = (event.target as HTMLInputElement).checked;
+    const selectedStatus = (event.target as HTMLSelectElement).value;
     const originalStatus = item.status;
+    console.log("Selected status:", selectedStatus);
+    console.log("show status", originalStatus)
     if (this.role === 'admin' || this.role === 'superadmin') {
       let surveyStatus = isChecked ? 'ACT' : 'DEL';
+
       const dataToSend = {
         surveyId: itemId,
         surveyStatus: surveyStatus
@@ -85,18 +89,21 @@ export class SurveyListingComponent {
       console.log("dataToSend", dataToSend)
       this.themeService.updateSurveyStatus(dataToSend).subscribe(
         response => {
+          this.utility.showSuccess('Updated.');
           console.log('Response from server:', response);
         },
         error => {
           console.error('Error occurred while sending POST request:', error);
-          Swal.fire('', error, 'error');
+          // Swal.fire('', error, 'error');
+          this.utility.showError('error');
           item.status = originalStatus;
         }
       );
     } else {
       // User doesn't have sufficient permissions
       console.log('Insufficient permissions to toggle');
-      Swal.fire('', 'You have no permissions', 'error');
+      // Swal.fire('', 'You have no permissions', 'error');
+      this.utility.showError('You have no permissions');
       if (item.status !== originalStatus) {
         item.status = originalStatus;
       }

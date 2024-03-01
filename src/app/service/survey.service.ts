@@ -119,7 +119,7 @@ export class SurveyService {
   }
   updateSurveyStatus(data: any): Observable<any> {
     const { surveyId, surveyStatus } = data;
-    const url = `${this.apiUrl}api/admin/${this.userId}/Survey/UpdateSurvey?surveyId=${encodeURIComponent(surveyId)}&status=${encodeURIComponent(surveyStatus)}`;
+    const url = `${this.apiUrl}api/admin/${this.userId}/Survey/UpdateSurveyStatus?surveyId=${encodeURIComponent(surveyId)}&status=${encodeURIComponent(surveyStatus)}`;
     console.log("posted data", data);
     return this.http.post(url, data, { responseType: 'text' });
   }
