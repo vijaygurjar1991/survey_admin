@@ -69,6 +69,7 @@ export class PrivacyComponent {
       response => {
         console.log('Response from server:', response);
         this.util.showSuccess(response);
+        window.location.reload();
         // swal.fire('', response, 'success');
         // Handle response based on the server behavior
       },

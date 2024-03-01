@@ -178,19 +178,15 @@
                                         <button type="button" class="btn btn-primary btn-sm"
                                             (click)="removeRandomizationSection(i)">Remove</button>
                                     </div>
-                                    <div class="mb-3 ms-4 form-check checking">
+                                    <div class="mt-3 ms-4 form-check checking">
                                         <input class="form-check-input" type="checkbox"
-                                            [(ngModel)]="isRandomizationChecked" id="Randomise"
-                                            (blur)="validateSurvey()">
-                                        <label class="form-check-label" for="Randomise">
+                                            [(ngModel)]="isRandomizationChecked" id="Randomise{{i}}">
+                                        <label class="form-check-label" for="Randomise{{i}}">
                                             Randomization these question
                                         </label>
-                                        <div *ngIf="!checkrequired" class="text-danger">Check is required.</div>
                                     </div>
                                 </div>
                             </div>
-
-
 
                             <div class="row">
                                 <div class="col-12 text-end d-flex justify-content-end">

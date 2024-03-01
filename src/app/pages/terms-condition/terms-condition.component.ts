@@ -70,6 +70,7 @@ export class TermsConditionComponent {
         console.log('Response from server:', response);
         // swal.fire('', response, 'success');
         this.util.showSuccess(response);
+        window.location.reload();
         // Handle response based on the server behavior
       },
       error => {

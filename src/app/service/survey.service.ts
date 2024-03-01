@@ -239,6 +239,10 @@ export class SurveyService {
     const url = `${this.apiUrl}api/admin/${this.userId}/GeneralQuestion/QuestionRandomize`;
     return this.http.post(url, data);
   }
+  postRandomizedQuestionsUpdate(data: any[]): Observable<any> {
+    const url = `${this.apiUrl}api/admin/${this.userId}/GeneralQuestion/UpdateQuestionRandomize`;
+    return this.http.post(url, data);
+  }
   surveyLooping(surveyId: number, dummySurveyId: number): Observable<any> {
     const url = `${this.apiUrl}api/admin/${this.userId}/GeneralQuestion/SurveyLooping?surveyId=${surveyId}&dummySurveyId=${dummySurveyId}`;
     return this.http.post(url, {});

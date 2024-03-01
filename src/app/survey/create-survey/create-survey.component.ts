@@ -791,6 +791,7 @@ export class CreateSurveyComponent implements OnInit, AfterViewInit {
     this.randormizeEntries.push({
       fromQuestion: null,
       toQuestion: null,
+      isChecked: false
     });
   }
 
@@ -836,6 +837,8 @@ export class CreateSurveyComponent implements OnInit, AfterViewInit {
       }
 
       if (formattedData.length > 0) {
+
+
         if (this.isAddRandomizationMode) {
 
           // Call the service to post the formatted data
@@ -854,7 +857,8 @@ export class CreateSurveyComponent implements OnInit, AfterViewInit {
             }
           );
         } else {
-          this.surveyservice.postRandomizedQuestions(formattedData).subscribe(
+
+          this.surveyservice.postRandomizedQuestionsUpdate(formattedData).subscribe(
             response => {
               // Handle the response if needed
               console.log('POST request successful', response);
@@ -873,7 +877,7 @@ export class CreateSurveyComponent implements OnInit, AfterViewInit {
         console.warn('No valid range found for randomization.');
       }
     } else {
-      // Handle the case when randomization is not checked
+      this.utils.showError('Checked.');
     }
   }
   surveylist: {
