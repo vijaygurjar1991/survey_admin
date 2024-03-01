@@ -398,7 +398,7 @@
                                                                                 <!-- Use unique template reference variables by appending the index -->
                                                                                 <select class="form-select"
                                                                                     #ifIdSelect="ngModel"
-                                                                                    [(ngModel)]="logicEntry.ifId">
+                                                                                    [(ngModel)]="logicEntry.ifId" (change)="onLogicEntryChange()">
                                                                                     <option
                                                                                         *ngFor="let item of logicValuesList;let j=index;"
                                                                                         [value]="item.id">{{item.name}}
@@ -416,7 +416,7 @@
                                                                                             {{option.option}}
                                                                                             <button matChipRemove
                                                                                                 [attr.aria-label]="'remove'"
-                                                                                                (click)="removeOption(option)">
+                                                                                                (click)="removeOptionLogic(option)">
                                                                                                 <mat-icon>cancel</mat-icon>
                                                                                             </button>
                                                                                         </mat-chip-row>
