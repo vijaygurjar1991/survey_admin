@@ -1505,5 +1505,13 @@ export class CreateSurveyComponent implements OnInit, AfterViewInit {
       this.optionListByQuestionIdLogic = JSON.parse(this.optionListByQuestionIdLogic)
     });
   }
-
+  removeOptionLogic(option: any): void {
+    const index = this.selectedOptionsLogic.indexOf(option);
+    if (index >= 0) {
+      this.selectedOptionsLogic.splice(index, 1);
+    }
+  }
+  onLogicEntryChange(): void {
+    this.selectedOptionsLogic = []; // Clear the selectedOptions array
+  }
 }
