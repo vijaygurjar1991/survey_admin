@@ -282,7 +282,7 @@
                                         </li>
                                         <li *ngIf="question?.logics.length==0">
                                             <a href="javascript:void(0);" class="dropdown-item"
-                                                (click)="toggleLogic(i,question?.id)">
+                                                (click)="toggleLogic(i,question?.id);getQuestionListBranching(question?.id);getOptionsByQuestionIdLogic(question?.id)">
                                                 <ng-icon name="heroCommandLine"></ng-icon>
                                                 Logic
                                             </a>
@@ -396,8 +396,7 @@
                                                                                     </option>
                                                                                 </select>
                                                                             </div>
-                                                                            <div class="col-md-3">
-                                                                                <!-- Use unique template reference variables by appending the index -->
+                                                                            <!-- <div class="col-md-3">
                                                                                 <select class="form-select"
                                                                                     #ifExpectedSelect="ngModel"
                                                                                     [(ngModel)]="logicEntry.ifExpected">
@@ -407,6 +406,38 @@
                                                                                         {{item.option}}
                                                                                     </option>
                                                                                 </select>
+                                                                            </div> -->
+                                                                            <div class="col-md-3">
+                                                                                <mat-form-field
+                                                                                    class="example-chip-list">
+                                                                                    <mat-chip-grid #chipGrid
+                                                                                        aria-label="City selection">
+                                                                                        <mat-chip-row
+                                                                                            *ngFor="let option of selectedOptionsLogic; let i=index;">
+                                                                                            {{option.option}}
+                                                                                            <button matChipRemove
+                                                                                                [attr.aria-label]="'remove'"
+                                                                                                (click)="removeOption(option)">
+                                                                                                <mat-icon>cancel</mat-icon>
+                                                                                            </button>
+                                                                                        </mat-chip-row>
+                                                                                        <input
+                                                                                            [matChipInputFor]="chipGrid"
+                                                                                            [matAutocomplete]="auto"
+                                                                                            [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                                                                                            (matChipInputTokenEnd)="addOption($event)"
+                                                                                        >
+                                                                                    </mat-chip-grid>
+                                                                                    <mat-autocomplete
+                                                                                        #auto="matAutocomplete"
+                                                                                        (optionSelected)="selectedOptionsIFLogic($event,logicEntry.ifId)">
+                                                                                        <mat-option
+                                                                                            *ngFor="let option of optionListByQuestionIdLogic"
+                                                                                            [value]="option">
+                                                                                            {{option.option}}
+                                                                                        </mat-option>
+                                                                                    </mat-autocomplete>
+                                                                                </mat-form-field>
                                                                             </div>
 
                                                                         </div>
@@ -530,11 +561,22 @@
                                                                                 [value]="item.id">{{item.name}}</option>
                                                                         </select>
                                                                     </div>
-                                                                    <div class="col-md-4"
-                                                                        *ngIf="logicEntry.thanId ==='Set'">
-                                                                        <div>Popup content</div>
+                                                                    <div class="col-md-6" *ngIf="logicEntry.thanId=='5'">
+                                                                        <div class="d-flex" >
+                                                                            <label class="d-flex" style="width: 150px;">
+                                                                                <input type="radio" class="form-input"/>
+                                                                                <span>Every Time</span>
+                                                                            </label>
+                                                                            <label class="d-flex mx-4">
+                                                                                <input type="text" class="form-input" style="width: 50px;"/>
+                                                                            </label>
+                                                                            <label class="d-flex w-100">
+                                                                                <span>Enter Popup Text</span>
+                                                                                <input type="text" class="form-input"/>
+                                                                            </label>
+                                                                        </div>
                                                                     </div>
-                                                                    <div class="col-md-4" *ngIf="isThanShow">
+                                                                    <div class="col-md-4" *ngIf="isThanShow && logicEntry.thanId!='5'">
                                                                         <!-- Use unique template reference variables by appending the index -->
                                                                         <select  class="form-select"
                                                                             #thanExpectedSelect="ngModel"
@@ -569,17 +611,32 @@
                                                                         <!-- Use unique template reference variables by appending the index -->
                                                                         <select class="form-select"
                                                                             #elseIdSelect="ngModel"
-                                                                            [(ngModel)]="logicEntry.elseId" (change)="onLogicEntryOrElseChange(elseIdSelect.value)">
+                                                                            [(ngModel)]="logicEntrythenElse.elseId" (change)="onLogicEntryOrElseChange(elseIdSelect.value)">
                                                                             <option
                                                                                 *ngFor="let item of logicThensList;let j=index;"
                                                                                 [value]="item.id">{{item.name}}</option>
                                                                         </select>
                                                                     </div>
-                                                                    <div class="col-md-4" *ngIf="isElseShow">
+                                                                    <div class="col-md-6" *ngIf="logicEntrythenElse.elseId==5">
+                                                                        <div class="d-flex" >
+                                                                            <label class="d-flex" style="width: 150px;">
+                                                                                <input type="radio" class="form-input"/>
+                                                                                <span>Every Time</span>
+                                                                            </label>
+                                                                            <label class="d-flex mx-4">
+                                                                                <input type="text" class="form-input" style="width: 50px;"/>
+                                                                            </label>
+                                                                            <label class="d-flex w-100">
+                                                                                <span>Enter Popup Text</span>
+                                                                                <input type="text" class="form-input"/>
+                                                                            </label>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-md-4" *ngIf="isElseShow && logicEntrythenElse.elseId!=5">
                                                                         <!-- Use unique template reference variables by appending the index -->
                                                                         <select class="form-select"
                                                                             #thanExpectedSelect="ngModel"
-                                                                            [(ngModel)]="logicEntry.elseExpected">
+                                                                            [(ngModel)]="logicEntrythenElse.elseExpected">
                                                                             <option value="null">Select Question
                                                                             </option>
                                                                             <option
@@ -587,11 +644,7 @@
                                                                                 [value]="item.id">{{item.item}}</option>
                                                                         </select>
                                                                     </div>
-                                                                    <!-- <div class="col-md-1">
-                                                                        <a routerLink="javascript:"><ng-icon
-                                                                                name="heroTrash"
-                                                                                ngClass="trash-icon"></ng-icon></a>
-                                                                    </div> -->
+                                                                  
                                                                     <div class="col-md-1">
                                                                         <button type="button"
                                                                             class="btn btn-outline-primary btn-sm"

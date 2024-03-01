@@ -1304,6 +1304,7 @@ export class CreateSurveyComponent implements OnInit, AfterViewInit {
 
   }
   logicEntryAndOr: { ifId: number | null, thanId: number | null } = { ifId: null, thanId: null };
+  logicEntrythenElse:{ elseId: number | null, elseExpected: number | null } = { elseId: null, elseExpected: null };
   optionListByQuestionId: any
   selectedOptions: any[] = [];
   isThanShow:boolean=true
@@ -1398,7 +1399,46 @@ export class CreateSurveyComponent implements OnInit, AfterViewInit {
       this.showPopup = false;
     }
   }
+  
+  selectedOptionsLogic: any[] = [];
+  selectedOptionsIFLogic(event: MatAutocompleteSelectedEvent, logicEntryIfId: any): void {
+    console.log("logicEntryIfId ", logicEntryIfId)
+    console.log("selectedOptionsLogic.length ", this.selectedOptionsLogic.length)
+    const ifIdNumber = +logicEntryIfId;
+    if (ifIdNumber === 1 || ifIdNumber === 2) {
+      console.log("inside if")
+      if (this.selectedOptionsLogic.length == 0) {
+        console.log("inside length")
+        const selectedOption = event.option.value;
+        if (!this.selectedOptionsLogic.includes(selectedOption)) {
+          this.selectedOptionsLogic.push(selectedOption);
+        }
+      }
+    } else {
+      console.log("inside else")
+      const selectedOption = event.option.value;
+      if (!this.selectedOptionsLogic.includes(selectedOption)) {
+        this.selectedOptionsLogic.push(selectedOption);
+      }
+    }
+  }
+  optionListByQuestionIdLogic:any
+  getOptionsByQuestionIdLogic(selectedQuestion: any) {
+    this.selectedOptionsLogic = [];
+    this.optionListByQuestionIdLogic = ''
+    console.log("selectedQuestion", selectedQuestion);
+    const selectedValue = selectedQuestion;
+    let queryParams = {
+      qid: selectedValue
+    }
+    this.surveyservice.getOptionsByQuestionId(queryParams).subscribe((response: { [x: string]: any; }) => {
+      var result = Object.keys(response).map(e => response[e]);
+      console.log("response ", response)
 
-
+      this.optionListByQuestionIdLogic = response
+      console.log("optionListByQuestionId", this.optionListByQuestionIdLogic)
+      this.optionListByQuestionIdLogic = JSON.parse(this.optionListByQuestionIdLogic)
+    });
+  }
 
 }
