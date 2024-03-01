@@ -129,6 +129,7 @@ export class CreateSurveyComponent implements OnInit, AfterViewInit {
   questionId: any
   separatorKeysCodes: number[] = [ENTER, COMMA];
   isAddRandomizationMode: boolean = true;
+  initialLength: number;
   constructor(
     private visibilityService: DataService,
     private modalService: NgbModal,
@@ -886,33 +887,37 @@ export class CreateSurveyComponent implements OnInit, AfterViewInit {
     // Check if any checkbox is checked
     const anyCheckboxChecked = this.randormizeEntries.some(entry => entry.isRandomizationChecked);
 
-    if (!anyCheckboxChecked) {
-      this.utils.showError('Please checkbox.');
+    // Check if all newly added randormizeEntries are checked
+    const anyUncheckedNewEntries = this.randormizeEntries.slice(-1 * (this.randormizeEntries.length - this.initialLength))
+      .some(entry => !entry.isRandomizationChecked);
+
+    if (!anyCheckboxChecked || anyUncheckedNewEntries) {
+      this.utils.showError('Checked Checkbox.');
       return;
     }
 
-    const formattedData = [];
+    const formattedData: { surveyId: string, questionId: string, isRandomize: boolean, groupNumber: number }[] = [];
 
     for (let i = 0; i < this.randormizeEntries.length; i++) {
       const randomization = this.randormizeEntries[i];
       const fromQuestionId = randomization.fromQuestion;
       const toQuestionId = randomization.toQuestion;
 
-      if (fromQuestionId && toQuestionId) {
+      if (fromQuestionId && toQuestionId && randomization.isRandomizationChecked) {
         const filteredQuestions = this.logicQuestionList.filter(question => question.id >= fromQuestionId && question.id <= toQuestionId);
 
         const formattedQuestions = filteredQuestions.map(question => {
           return {
-            surveyId: this.surveyId,
-            questionId: question.id,
-            isRandomize: randomization.isRandomizationChecked, // Use the checkbox state here
+            surveyId: this.surveyId.toString(), // Convert surveyId to string
+            questionId: question.id.toString(), // Convert questionId to string
+            isRandomize: true,
             groupNumber: i + 1 // Add groupNumber based on the index of randormizeEntries
           };
         });
 
         formattedData.push(...formattedQuestions);
       } else {
-        console.warn('From Question and To Question must be selected for each randomization entry.');
+        console.warn('From Question and To Question must be selected and checkbox must be checked for each randomization entry.');
       }
     }
 
@@ -926,13 +931,14 @@ export class CreateSurveyComponent implements OnInit, AfterViewInit {
         },
         error => {
           console.error('Error in POST request', error);
-          this.utils.showError('Please confirm you want to randomization these questions');
+          this.utils.showError('Please confirm you want to randomize these questions');
         }
       );
     } else {
       console.warn('No valid range found for randomization.');
     }
   }
+
 
 
   surveylist: {
