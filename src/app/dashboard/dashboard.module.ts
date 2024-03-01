@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { DashboardRoutingModule } from './dashboard-routing.module';
@@ -29,7 +29,8 @@ import { SharedModule } from '../shared/shared.module';
   declarations: [
     ReportsComponent,
     ViewComponent,
-    ChartComponent
+    ChartComponent,
+    DashboardComponent
   ],
   imports: [
     CommonModule,
@@ -56,5 +57,6 @@ import { SharedModule } from '../shared/shared.module';
       size: '1.5em',
     }),
   ],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class DashboardModule { }

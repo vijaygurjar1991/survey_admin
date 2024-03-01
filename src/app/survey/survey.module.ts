@@ -1,8 +1,8 @@
-import { NgModule } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { SurveyRoutingModule } from './survey-routing.module';
-import { CreateSurveyComponent } from './create-survey/create-survey.component';
+
 import { EditSurveyComponent } from './edit-survey/edit-survey.component';
 import { SurveyListingComponent } from './survey-listing/survey-listing.component';
 
@@ -92,7 +92,7 @@ import { heroMinusCircle } from '@ng-icons/heroicons/outline';
 
 @NgModule({
   declarations: [
-    CreateSurveyComponent,
+    //CreateSurveyComponent,
     EditSurveyComponent,
     SurveyListingComponent,
     GenderPopupComponent,
@@ -183,6 +183,7 @@ import { heroMinusCircle } from '@ng-icons/heroicons/outline';
       size: '1.5em',
     }),
   ],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class SurveyModule {
   items = ['Item 1', 'Item 2', 'Item 3', 'Item 4'];
