@@ -899,6 +899,12 @@ export class CreateSurveyComponent implements OnInit, AfterViewInit {
       return;
     }
 
+    //checking remain checked
+    // this.randormizeEntries.forEach(entry => {
+    //   if (entry.isRandomizationChecked) {
+    //     entry.isRandomizationChecked = true;
+    //   }
+    // });
 
 
 
