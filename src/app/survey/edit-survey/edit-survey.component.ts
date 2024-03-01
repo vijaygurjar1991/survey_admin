@@ -906,7 +906,7 @@ export class EditSurveyComponent {
 
   // answer logic
 
-  visibleanslogic: boolean = false;
+  visibleanslogic: boolean = false
   VisibilityAnsLogic() {
     this.visibleanslogic = !this.visibleanslogic;
   }

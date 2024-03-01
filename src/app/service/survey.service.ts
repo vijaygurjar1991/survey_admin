@@ -119,16 +119,23 @@ export class SurveyService {
   }
   updateSurveyStatus(data: any): Observable<any> {
     const { surveyId, surveyStatus } = data;
-    const url = `${this.apiUrl}api/admin/${this.userId}/Survey/UpdateSurvey?surveyId=${encodeURIComponent(surveyId)}&status=${encodeURIComponent(surveyStatus)}`;
+    const url = `${this.apiUrl}api/admin/${this.userId}/Survey/UpdateSurveyStatus?surveyId=${encodeURIComponent(surveyId)}&status=${encodeURIComponent(surveyStatus)}`;
     console.log("posted data", data);
     return this.http.post(url, data, { responseType: 'text' });
   }
+  // getLogicQuestionList(data: any) {
+  //   const { surveyId, questionId } = data;
+  //   return this.http
+  //     .get<responseDTO>(`${this.apiUrl}api/admin/${this.userId}/GeneralQuestion/GetList?surveyID=${encodeURIComponent(surveyId)}`)
+  //     .pipe(map((result) => result as any));
+  // }
   getLogicQuestionList(data: any) {
     const { surveyId, questionId } = data;
     return this.http
-      .get<responseDTO>(`${this.apiUrl}api/admin/${this.userId}/GeneralQuestion/GetList?surveyID=${encodeURIComponent(surveyId)}`)
+      .get<responseDTO>(`${this.apiUrl}api/admin/${this.userId}/GeneralQuestion/GetList?surveyID=${encodeURIComponent(surveyId)}&status=${encodeURIComponent(questionId)}`)
       .pipe(map((result) => result as any));
   }
+
   createLogic(data: any): Observable<any> {
     const url = `${this.apiUrl}api/admin/${this.userId}/GeneralQuestion/CreateLogics`;
     return this.http.post(url, data, { responseType: 'text' });
@@ -230,6 +237,10 @@ export class SurveyService {
   }
   postRandomizedQuestions(data: any[]): Observable<any> {
     const url = `${this.apiUrl}api/admin/${this.userId}/GeneralQuestion/QuestionRandomize`;
+    return this.http.post(url, data);
+  }
+  postRandomizedQuestionsUpdate(data: any[]): Observable<any> {
+    const url = `${this.apiUrl}api/admin/${this.userId}/GeneralQuestion/UpdateQuestionRandomize`;
     return this.http.post(url, data);
   }
   surveyLooping(surveyId: number, dummySurveyId: number): Observable<any> {

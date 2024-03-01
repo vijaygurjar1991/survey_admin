@@ -46,7 +46,7 @@
             <h6 class="mb-2">Add Logic</h6>
             <div class="common-ques">
                 <a routerLink="javascript:" (click)="toggleDivVisibility();getRandomization()"
-                    [class.active]='isActive'>
+                    [class.active]='isActive || isDivVisible'>
                     <figure><img [src]="baseUrl + '/assets/images/icons/Add-new-logic.png'" width="30" height="30" />
                     </figure>
                     <figcaption>Add New Logic</figcaption>
@@ -178,18 +178,16 @@
                                         <button type="button" class="btn btn-primary btn-sm"
                                             (click)="removeRandomizationSection(i)">Remove</button>
                                     </div>
+                                    <div class="mt-3 ms-4 form-check checking">
+                                        <input class="form-check-input" type="checkbox"
+                                            [(ngModel)]="randomization.isRandomizationChecked" id="Randomise{{i}}">
+                                        <label class="form-check-label" for="Randomise{{i}}">
+                                            Randomization these question
+                                        </label>
+                                    </div>
                                 </div>
                             </div>
 
-
-                            <div class="mb-3 ms-4 form-check checking">
-                                <input class="form-check-input" type="checkbox" [(ngModel)]="isRandomizationChecked"
-                                    id="Randomise" (blur)="validateSurvey()">
-                                <label class="form-check-label" for="Randomise">
-                                    Randomization these question
-                                </label>
-                                <div *ngIf="!checkrequired" class="text-danger">Check is required.</div>
-                            </div>
                             <div class="row">
                                 <div class="col-12 text-end d-flex justify-content-end">
                                     <button type="button" class="btn btn-primary btn-sm"
@@ -387,16 +385,30 @@
                                                                             </div>
                                                                             <div class="col-md-3">
                                                                                 <!-- Use unique template reference variables by appending the index -->
-                                                                                <select class="form-select"
+                                                                                <!-- <select class="form-select"
                                                                                     #ifIdSelect="ngModel"
                                                                                     [(ngModel)]="logicEntry.ifId">
                                                                                     <option
                                                                                         *ngFor="let item of logicValuesList;let j=index;"
                                                                                         [value]="item.id">{{item.name}}
                                                                                     </option>
-                                                                                </select>
+                                                                                </select> -->
+                                                                                <mat-form-field>
+                                                                                    <mat-select
+                                                                                        [(ngModel)]="logicEntry.ifId"
+                                                                                        #ifIdSelect="ngModel">
+                                                                                        <ng-container
+                                                                                            *ngFor="let item of logicValuesList;let j=index;">
+                                                                                            <mat-option
+                                                                                                [value]="item.id">
+                                                                                                {{item.name}}
+                                                                                            </mat-option>
+                                                                                        </ng-container>
+                                                                                    </mat-select>
+                                                                                </mat-form-field>
                                                                             </div>
-                                                                            <!-- <div class="col-md-3">
+                                                                            <div class="col-md-3">
+                                                                                <!-- Use unique template reference variables by appending the index -->
                                                                                 <select class="form-select"
                                                                                     #ifExpectedSelect="ngModel"
                                                                                     [(ngModel)]="logicEntry.ifExpected">
@@ -406,38 +418,6 @@
                                                                                         {{item.option}}
                                                                                     </option>
                                                                                 </select>
-                                                                            </div> -->
-                                                                            <div class="col-md-3">
-                                                                                <mat-form-field
-                                                                                    class="example-chip-list">
-                                                                                    <mat-chip-grid #chipGrid
-                                                                                        aria-label="City selection">
-                                                                                        <mat-chip-row
-                                                                                            *ngFor="let option of selectedOptionsLogic; let i=index;">
-                                                                                            {{option.option}}
-                                                                                            <button matChipRemove
-                                                                                                [attr.aria-label]="'remove'"
-                                                                                                (click)="removeOption(option)">
-                                                                                                <mat-icon>cancel</mat-icon>
-                                                                                            </button>
-                                                                                        </mat-chip-row>
-                                                                                        <input
-                                                                                            [matChipInputFor]="chipGrid"
-                                                                                            [matAutocomplete]="auto"
-                                                                                            [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
-                                                                                            (matChipInputTokenEnd)="addOption($event)"
-                                                                                        >
-                                                                                    </mat-chip-grid>
-                                                                                    <mat-autocomplete
-                                                                                        #auto="matAutocomplete"
-                                                                                        (optionSelected)="selectedOptionsIFLogic($event,logicEntry.ifId)">
-                                                                                        <mat-option
-                                                                                            *ngFor="let option of optionListByQuestionIdLogic"
-                                                                                            [value]="option">
-                                                                                            {{option.option}}
-                                                                                        </mat-option>
-                                                                                    </mat-autocomplete>
-                                                                                </mat-form-field>
                                                                             </div>
 
                                                                         </div>
@@ -497,14 +477,28 @@
                                                                             </div>
                                                                             <div class="col-md-3">
                                                                                 <!-- Use unique template reference variables by appending the index -->
-                                                                                <select class="form-select"
+                                                                                <!-- <select class="form-select"
                                                                                     #ifIdSelect="ngModel"
-                                                                                    [(ngModel)]="logicEntryAndOr.ifId" (change)="onLogicEntryOrIdChange()">
+                                                                                    [(ngModel)]="logicEntryAndOr.ifId"
+                                                                                    (change)="onLogicEntryOrIdChange()">
                                                                                     <option
                                                                                         *ngFor="let item of logicValuesList;let j=index;"
                                                                                         [value]="item.id">{{item.name}}
                                                                                     </option>
-                                                                                </select>
+                                                                                </select> -->
+                                                                                <mat-form-field>
+                                                                                    <mat-select
+                                                                                        [(ngModel)]="logicEntry.ifId"
+                                                                                        #ifIdSelect="ngModel">
+                                                                                        <ng-container
+                                                                                            *ngFor="let item of logicValuesList;let j=index;">
+                                                                                            <mat-option
+                                                                                                [value]="item.id">
+                                                                                                {{item.name}}
+                                                                                            </mat-option>
+                                                                                        </ng-container>
+                                                                                    </mat-select>
+                                                                                </mat-form-field>
                                                                             </div>
                                                                             <div class="col-md-8">
                                                                                 <mat-form-field
@@ -524,8 +518,7 @@
                                                                                             [matChipInputFor]="chipGrid"
                                                                                             [matAutocomplete]="auto"
                                                                                             [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
-                                                                                            (matChipInputTokenEnd)="addOption($event)"
-                                                                                        >
+                                                                                            (matChipInputTokenEnd)="addOption($event)">
                                                                                     </mat-chip-grid>
                                                                                     <mat-autocomplete
                                                                                         #auto="matAutocomplete"
@@ -553,32 +546,35 @@
                                                                 <div class="row g-2 align-items-center">
                                                                     <div class="col-md-4">
                                                                         <!-- Use unique template reference variables by appending the index -->
-                                                                        <select class="form-select"
+                                                                        <!-- <select class="form-select"
                                                                             #thanIdSelect="ngModel"
-                                                                            [(ngModel)]="logicEntry.thanId" (change)="onLogicEntryOrThanChange(thanIdSelect.value)">
+                                                                            [(ngModel)]="logicEntry.thanId"
+                                                                            (change)="onLogicEntryOrThanChange(thanIdSelect.value)">
                                                                             <option
                                                                                 *ngFor="let item of logicThensList;let j=index;"
                                                                                 [value]="item.id">{{item.name}}</option>
-                                                                        </select>
+                                                                        </select> -->
+                                                                        <mat-form-field>
+                                                                            <mat-select [(ngModel)]="logicEntry.thanId"
+                                                                                #thanIdSelect="ngModel"
+                                                                                (change)="onLogicEntryOrThanChange(thanIdSelect.value)">
+                                                                                <ng-container
+                                                                                    *ngFor="let item of logicThensList;let j=index;">
+                                                                                    <mat-option [value]="item.id"
+                                                                                        [title]="item.name">
+                                                                                        {{item.name}}
+                                                                                    </mat-option>
+                                                                                </ng-container>
+                                                                            </mat-select>
+                                                                        </mat-form-field>
                                                                     </div>
-                                                                    <div class="col-md-6" *ngIf="logicEntry.thanId=='5'">
-                                                                        <div class="d-flex" >
-                                                                            <label class="d-flex" style="width: 150px;">
-                                                                                <input type="radio" class="form-input"/>
-                                                                                <span>Every Time</span>
-                                                                            </label>
-                                                                            <label class="d-flex mx-4">
-                                                                                <input type="text" class="form-input" style="width: 50px;"/>
-                                                                            </label>
-                                                                            <label class="d-flex w-100">
-                                                                                <span>Enter Popup Text</span>
-                                                                                <input type="text" class="form-input"/>
-                                                                            </label>
-                                                                        </div>
+                                                                    <div class="col-md-4"
+                                                                        *ngIf="logicEntry.thanId ==='Set'">
+                                                                        <div>Popup content</div>
                                                                     </div>
-                                                                    <div class="col-md-4" *ngIf="isThanShow && logicEntry.thanId!='5'">
+                                                                    <div class="col-md-4" *ngIf="isThanShow">
                                                                         <!-- Use unique template reference variables by appending the index -->
-                                                                        <select  class="form-select"
+                                                                        <!-- <select class="form-select"
                                                                             #thanExpectedSelect="ngModel"
                                                                             [(ngModel)]="logicEntry.thanExpected"
                                                                             (ngModelChange)="onSelectChangeoption($event)">
@@ -587,7 +583,21 @@
                                                                             <option
                                                                                 *ngFor="let item of questionListBranching;let j=index;"
                                                                                 [value]="item.id">{{item.item}}</option>
-                                                                        </select>
+                                                                        </select> -->
+                                                                        <mat-form-field>
+                                                                            <mat-select
+                                                                                [(ngModel)]="logicEntry.thanExpected"
+                                                                                #thanExpectedSelect="ngModel"
+                                                                                (ngModelChange)="onSelectChangeoption($event)">
+                                                                                <ng-container
+                                                                                    *ngFor="let item of questionListBranching;let j=index;">
+                                                                                    <mat-option [value]="item.id"
+                                                                                        [title]="item.item">
+                                                                                        {{item.item}}
+                                                                                    </mat-option>
+                                                                                </ng-container>
+                                                                            </mat-select>
+                                                                        </mat-form-field>
                                                                     </div>
 
                                                                     <!-- <div class="col-md-1">
@@ -611,7 +621,7 @@
                                                                         <!-- Use unique template reference variables by appending the index -->
                                                                         <select class="form-select"
                                                                             #elseIdSelect="ngModel"
-                                                                            [(ngModel)]="logicEntrythenElse.elseId" (change)="onLogicEntryOrElseChange(elseIdSelect.value)">
+                                                                            [(ngModel)]="logicEntry.elseId" (change)="onLogicEntryOrElseChange(elseIdSelect.value)">
                                                                             <option
                                                                                 *ngFor="let item of logicThensList;let j=index;"
                                                                                 [value]="item.id">{{item.name}}</option>

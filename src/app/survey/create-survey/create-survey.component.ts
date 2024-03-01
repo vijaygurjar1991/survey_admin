@@ -129,6 +129,7 @@ export class CreateSurveyComponent implements OnInit, AfterViewInit {
   questionId: any
   separatorKeysCodes: number[] = [ENTER, COMMA];
   isAddRandomizationMode: boolean = true;
+  initialLength: number;
   constructor(
     private visibilityService: DataService,
     private modalService: NgbModal,
@@ -790,7 +791,7 @@ export class CreateSurveyComponent implements OnInit, AfterViewInit {
   addRandomizationSection() {
     this.randormizeEntries.push({
       fromQuestion: null,
-      toQuestion: null,
+      toQuestion: null, isRandomizationChecked: false
     });
   }
 
@@ -800,82 +801,146 @@ export class CreateSurveyComponent implements OnInit, AfterViewInit {
 
     this.randormizeEntries.splice(index, 1);
   }
+  // saveRandomization(): void {
+  //   // if (!this.validateSurvey()) {
+  //   //   this.utils.showError('Please checked');
+  //   //   return;
+  //   // }
+
+  //   console.log(this.randormizeEntries);
+  //   console.log(this.isRandomizationChecked);
+
+  //   if (this.isRandomizationChecked) {
+  //     const formattedData = [];
+
+  //     for (let i = 0; i < this.randormizeEntries.length; i++) {
+  //       const randomization = this.randormizeEntries[i];
+  //       const fromQuestionId = randomization.fromQuestion;
+  //       const toQuestionId = randomization.toQuestion;
+
+  //       if (fromQuestionId && toQuestionId) {
+  //         const filteredQuestions = this.logicQuestionList.filter(question => question.id >= fromQuestionId && question.id <= toQuestionId);
+
+  //         const formattedQuestions = filteredQuestions.map(question => {
+  //           return {
+  //             surveyId: this.surveyId,
+  //             questionId: (question.id),
+  //             isRandomize: true,
+  //             groupNumber: i + 1,
+  //              // Add groupNumber based on the index of randormizeEntries
+  //           };
+  //         });
+
+  //         formattedData.push(...formattedQuestions);
+  //       } else {
+  //         console.warn('From Question and To Question must be selected for each randomization entry.');
+  //       }
+  //     }
+
+  //     if (formattedData.length > 0) {
+
+
+  //       if (this.isAddRandomizationMode) {
+
+  //         // Call the service to post the formatted data
+  //         this.surveyservice.postRandomizedQuestions(formattedData).subscribe(
+  //           response => {
+  //             // Handle the response if needed
+  //             console.log('POST request successful', response);
+  //             // Swal.fire('', 'Randomization Created Successfully.', 'success');
+  //             this.utils.showSuccess('Randomization Created Successfully.');
+  //           },
+  //           error => {
+  //             // Handle errors
+  //             console.error('Error in POST request', error);
+  //             // Swal.fire('', 'Please confirm you want to randomization these question ', 'error');
+  //             this.utils.showError('Please confirm you want to randomization these question');
+  //           }
+  //         );
+  //       } else {
+
+  //         this.surveyservice.postRandomizedQuestionsUpdate(formattedData).subscribe(
+  //           response => {
+  //             // Handle the response if needed
+  //             console.log('POST request successful', response);
+  //             // Swal.fire('', 'Randomization Created Successfully.', 'success');
+  //             this.utils.showSuccess('Randomization Created Successfully.');
+  //           },
+  //           error => {
+  //             // Handle errors
+  //             console.error('Error in POST request', error);
+  //             // Swal.fire('', 'Please confirm you want to randomization these question ', 'error');
+  //             this.utils.showError('Please confirm you want to randomization these question');
+  //           }
+  //         );
+  //       }
+  //     } else {
+  //       console.warn('No valid range found for randomization.');
+  //     }
+  //   } else {
+  //     // this.utils.showError('Checked.');
+  //   }
+  // }
   saveRandomization(): void {
-    if (!this.validateSurvey()) {
-      this.utils.showError('Please checked');
+    console.log(this.randormizeEntries);
+
+    // Check if any checkbox is checked
+    const anyCheckboxChecked = this.randormizeEntries.some(entry => entry.isRandomizationChecked);
+
+    // Check if all newly added randormizeEntries are checked
+    const anyUncheckedNewEntries = this.randormizeEntries.slice(-1 * (this.randormizeEntries.length - this.initialLength))
+      .some(entry => !entry.isRandomizationChecked);
+
+    if (!anyCheckboxChecked || anyUncheckedNewEntries) {
+      this.utils.showError('Checked Checkbox.');
       return;
     }
 
-    console.log(this.randormizeEntries);
-    console.log(this.isRandomizationChecked);
+    const formattedData: { surveyId: string, questionId: string, isRandomize: boolean, groupNumber: number }[] = [];
 
-    if (this.isRandomizationChecked) {
-      const formattedData = [];
+    for (let i = 0; i < this.randormizeEntries.length; i++) {
+      const randomization = this.randormizeEntries[i];
+      const fromQuestionId = randomization.fromQuestion;
+      const toQuestionId = randomization.toQuestion;
 
-      for (let i = 0; i < this.randormizeEntries.length; i++) {
-        const randomization = this.randormizeEntries[i];
-        const fromQuestionId = randomization.fromQuestion;
-        const toQuestionId = randomization.toQuestion;
+      if (fromQuestionId && toQuestionId && randomization.isRandomizationChecked) {
+        const filteredQuestions = this.logicQuestionList.filter(question => question.id >= fromQuestionId && question.id <= toQuestionId);
 
-        if (fromQuestionId && toQuestionId) {
-          const filteredQuestions = this.logicQuestionList.filter(question => question.id >= fromQuestionId && question.id <= toQuestionId);
+        const formattedQuestions = filteredQuestions.map(question => {
+          return {
+            surveyId: this.surveyId.toString(), // Convert surveyId to string
+            questionId: question.id.toString(), // Convert questionId to string
+            isRandomize: true,
+            groupNumber: i + 1 // Add groupNumber based on the index of randormizeEntries
+          };
+        });
 
-          const formattedQuestions = filteredQuestions.map(question => {
-            return {
-              surveyId: this.surveyId,
-              questionId: (question.id),
-              isRandomize: true,
-              groupNumber: i + 1, // Add groupNumber based on the index of randormizeEntries
-            };
-          });
-
-          formattedData.push(...formattedQuestions);
-        } else {
-          console.warn('From Question and To Question must be selected for each randomization entry.');
-        }
-      }
-
-      if (formattedData.length > 0) {
-        if (this.isAddRandomizationMode) {
-
-          // Call the service to post the formatted data
-          this.surveyservice.postRandomizedQuestions(formattedData).subscribe(
-            response => {
-              // Handle the response if needed
-              console.log('POST request successful', response);
-              // Swal.fire('', 'Randomization Created Successfully.', 'success');
-              this.utils.showSuccess('Randomization Created Successfully.');
-            },
-            error => {
-              // Handle errors
-              console.error('Error in POST request', error);
-              // Swal.fire('', 'Please confirm you want to randomization these question ', 'error');
-              this.utils.showError('Please confirm you want to randomization these question');
-            }
-          );
-        } else {
-          this.surveyservice.postRandomizedQuestions(formattedData).subscribe(
-            response => {
-              // Handle the response if needed
-              console.log('POST request successful', response);
-              // Swal.fire('', 'Randomization Created Successfully.', 'success');
-              this.utils.showSuccess('Randomization Created Successfully.');
-            },
-            error => {
-              // Handle errors
-              console.error('Error in POST request', error);
-              // Swal.fire('', 'Please confirm you want to randomization these question ', 'error');
-              this.utils.showError('Please confirm you want to randomization these question');
-            }
-          );
-        }
+        formattedData.push(...formattedQuestions);
       } else {
-        console.warn('No valid range found for randomization.');
+        console.warn('From Question and To Question must be selected and checkbox must be checked for each randomization entry.');
       }
+    }
+
+    if (formattedData.length > 0) {
+      const serviceCall = this.isAddRandomizationMode ? this.surveyservice.postRandomizedQuestions(formattedData) : this.surveyservice.postRandomizedQuestionsUpdate(formattedData);
+
+      serviceCall.subscribe(
+        response => {
+          console.log('POST request successful', response);
+          this.utils.showSuccess('Randomization Created Successfully.');
+        },
+        error => {
+          console.error('Error in POST request', error);
+          this.utils.showError('Please confirm you want to randomize these questions');
+        }
+      );
     } else {
-      // Handle the case when randomization is not checked
+      console.warn('No valid range found for randomization.');
     }
   }
+
+
+
   surveylist: {
     surveyId: number | null,
     name: string,
@@ -1307,7 +1372,7 @@ export class CreateSurveyComponent implements OnInit, AfterViewInit {
   logicEntrythenElse:{ elseId: number | null, elseExpected: number | null } = { elseId: null, elseExpected: null };
   optionListByQuestionId: any
   selectedOptions: any[] = [];
-  isThanShow:boolean=true
+  isThanShow: boolean = true
   getOptionsByQuestionId(selectedQuestion: any) {
     this.selectedOptions = [];
     this.optionListByQuestionId = ''
@@ -1371,22 +1436,22 @@ export class CreateSurveyComponent implements OnInit, AfterViewInit {
   onLogicEntryOrIdChange(): void {
     this.selectedOptions = []; // Clear the selectedOptions array
   }
-  onLogicEntryOrThanChange(thanIdSelect:any): void {
+  onLogicEntryOrThanChange(thanIdSelect: any): void {
     const ifIdNumber = +thanIdSelect;
-    if(ifIdNumber===3 || ifIdNumber===4)
+    if (ifIdNumber === 3 || ifIdNumber === 4)
       this.isThanShow = false
     else
-    this.isThanShow = true
-    
+      this.isThanShow = true
+
   }
-  isElseShow:boolean=true
-  onLogicEntryOrElseChange(elseIdSelect:any): void {
+  isElseShow: boolean = true
+  onLogicEntryOrElseChange(elseIdSelect: any): void {
     const ifIdNumber = +elseIdSelect;
-    if(ifIdNumber===3 || ifIdNumber===4)
+    if (ifIdNumber === 3 || ifIdNumber === 4)
       this.isElseShow = false
     else
-    this.isElseShow = true
-    
+      this.isElseShow = true
+
   }
   showPopup: boolean = false;
 

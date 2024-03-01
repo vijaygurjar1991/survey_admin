@@ -44,7 +44,11 @@
                         <!-- </td> -->
                         <!-- <td>{{item.id}}</td> -->
                         <td>{{ i + 1 }}</td>
-                        <td>{{item.name}}</td>
+                        <!-- <td>{{item.name}}</td> -->
+                        <td matTooltip={{item.name}}>
+                            {{ item.name.split(' ').slice(0, 3).join(' ') }}{{item.name.split('
+                            ').length > 3 ? ' ...' : ''}}
+                        </td>
                         <td>
                             <img [src]="baseUrl + '/assets/images/country-flag/' + item.countryImage"
                                 class="me-2 rounded-circle" style="width: 30px;height: 30px;" />

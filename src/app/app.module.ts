@@ -78,7 +78,7 @@ import { LoaderService } from './service/loader.service';
     CreateSurveyPopupComponent,
     SignUpComponent,
     ErrorComponent,
-    DashboardComponent,
+    //DashboardComponent,
     ForgotPasswordComponent
   ],
   imports: [
