@@ -790,8 +790,7 @@ export class CreateSurveyComponent implements OnInit, AfterViewInit {
   addRandomizationSection() {
     this.randormizeEntries.push({
       fromQuestion: null,
-      toQuestion: null,
-      isChecked: false
+      toQuestion: null
     });
   }
 
