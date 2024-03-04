@@ -211,6 +211,12 @@ export class EditSurveyComponent {
     // Push the selected image into the array for the current option index
     this.optionImages[index].push(...event.addedFiles);
     console.log(this.optionImages);
+
+    // event.addedFiles.forEach((file: any) => {
+    //   this.filesImage.push(file);
+    //   console.log("file images", this.filesImage);
+    //   this.uploadImageOption(file);
+    // });
   }
 
 

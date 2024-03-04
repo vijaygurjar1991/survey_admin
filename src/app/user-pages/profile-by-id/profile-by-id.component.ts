@@ -114,6 +114,7 @@ export class ProfileByIdComponent {
 
   onCheckboxChange(event: any) {
     this.isChecked = event.target.checked;
+    console.log("on click checked", this.isChecked)
   }
 
 

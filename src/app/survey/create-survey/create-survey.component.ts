@@ -546,6 +546,7 @@ export class CreateSurveyComponent implements OnInit, AfterViewInit {
       const sectionToScroll = this.el.nativeElement.querySelector(`#question-${questionId}`);
       if (sectionToScroll) {
         sectionToScroll.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        console.log("section id")
       } else {
         console.warn(`Section with ID "question-${questionId}" not found.`);
       }
@@ -899,12 +900,19 @@ export class CreateSurveyComponent implements OnInit, AfterViewInit {
       return;
     }
 
-    //checking remain checked
-    // this.randormizeEntries.forEach(entry => {
-    //   if (entry.isRandomizationChecked) {
-    //     entry.isRandomizationChecked = true;
-    //   }
-    // });
+
+    // checking remain checked
+    this.randormizeEntries.forEach(entry => {
+      if (entry.isRandomizationChecked) {
+        entry.isRandomizationChecked = true;
+      }
+    });
+
+    for (let i = this.initialLength; i < this.randormizeEntries.length; i++) {
+      if (this.randormizeEntries[i].isRandomizationChecked === undefined) {
+        this.randormizeEntries[i].isRandomizationChecked = true; // or false depending on your logic
+      }
+    }
 
 
 

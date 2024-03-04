@@ -398,7 +398,8 @@
                                                                                 <!-- Use unique template reference variables by appending the index -->
                                                                                 <select class="form-select"
                                                                                     #ifIdSelect="ngModel"
-                                                                                    [(ngModel)]="logicEntry.ifId" (change)="onLogicEntryChange()">
+                                                                                    [(ngModel)]="logicEntry.ifId"
+                                                                                    (change)="onLogicEntryChange()">
                                                                                     <option
                                                                                         *ngFor="let item of logicValuesList;let j=index;"
                                                                                         [value]="item.id">{{item.name}}

@@ -29,7 +29,7 @@
                         <th scope="col">Phone</th>
                         <th scope="col">Date</th>
                         <th scope="col">Status</th>
-                        <th scope="col">Action</th>
+                        <!-- <th scope="col">Action</th> -->
                     </tr>
                 </thead>
                 <tbody>
@@ -50,10 +50,10 @@
                             [ngClass]="{'done donestatus': item.status === 'ACT', 'paused status': item.status !== 'ACT'}">
                             <span>{{ item.status === 'ACT' ? 'Active' : 'Deactive' }}</span>
                         </td>
-                        <td ngClass="action">
+                        <!-- <td ngClass="action">
                             <a routerLink="javascript:"><ng-icon name="heroPencil" ngClass="edit-action"></ng-icon></a>
-                            <!-- <a routerLink="javascript:"><ng-icon name="heroEllipsisVertical"></ng-icon></a> -->
-                        </td>
+                            <a routerLink="javascript:"><ng-icon name="heroEllipsisVertical"></ng-icon></a>
+                        </td> -->
                     </tr>
                 </tbody>
             </table>
