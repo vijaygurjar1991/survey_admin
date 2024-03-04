@@ -1369,7 +1369,7 @@ export class CreateSurveyComponent implements OnInit, AfterViewInit {
 
   }
   logicEntryAndOr: { ifId: number | null, thanId: number | null } = { ifId: null, thanId: null };
-  logicEntrythenElse:{ elseId: number | null, elseExpected: number | null } = { elseId: null, elseExpected: null };
+  logicEntrythenElse: { elseId: number | null, elseExpected: number | null } = { elseId: null, elseExpected: null };
   optionListByQuestionId: any
   selectedOptions: any[] = [];
   isThanShow: boolean = true
@@ -1416,22 +1416,13 @@ export class CreateSurveyComponent implements OnInit, AfterViewInit {
     console.log("logicEntryAndOrIfId ", logicEntryAndOrIfId)
     console.log("selectedOptions.length ", this.selectedOptions.length)
     const ifIdNumber = +logicEntryAndOrIfId;
-    if (ifIdNumber === 1 || ifIdNumber === 2) {
-      console.log("inside if")
-      if (this.selectedOptions.length == 0) {
-        console.log("inside length")
-        const selectedOption = event.option.value;
-        if (!this.selectedOptions.includes(selectedOption)) {
-          this.selectedOptions.push(selectedOption);
-        }
-      }
-    } else {
-      console.log("inside else")
-      const selectedOption = event.option.value;
-      if (!this.selectedOptions.includes(selectedOption)) {
-        this.selectedOptions.push(selectedOption);
-      }
+
+    console.log("inside else")
+    const selectedOption = event.option.value;
+    if (!this.selectedOptions.includes(selectedOption)) {
+      this.selectedOptions.push(selectedOption);
     }
+
   }
   onLogicEntryOrIdChange(): void {
     this.selectedOptions = []; // Clear the selectedOptions array
@@ -1464,30 +1455,21 @@ export class CreateSurveyComponent implements OnInit, AfterViewInit {
       this.showPopup = false;
     }
   }
-  
+
   selectedOptionsLogic: any[] = [];
   selectedOptionsIFLogic(event: MatAutocompleteSelectedEvent, logicEntryIfId: any): void {
     console.log("logicEntryIfId ", logicEntryIfId)
     console.log("selectedOptionsLogic.length ", this.selectedOptionsLogic.length)
     const ifIdNumber = +logicEntryIfId;
-    if (ifIdNumber === 1 || ifIdNumber === 2) {
-      console.log("inside if")
-      if (this.selectedOptionsLogic.length == 0) {
-        console.log("inside length")
-        const selectedOption = event.option.value;
-        if (!this.selectedOptionsLogic.includes(selectedOption)) {
-          this.selectedOptionsLogic.push(selectedOption);
-        }
-      }
-    } else {
-      console.log("inside else")
-      const selectedOption = event.option.value;
-      if (!this.selectedOptionsLogic.includes(selectedOption)) {
-        this.selectedOptionsLogic.push(selectedOption);
-      }
+
+    console.log("inside else")
+    const selectedOption = event.option.value;
+    if (!this.selectedOptionsLogic.includes(selectedOption)) {
+      this.selectedOptionsLogic.push(selectedOption);
     }
+
   }
-  optionListByQuestionIdLogic:any
+  optionListByQuestionIdLogic: any
   getOptionsByQuestionIdLogic(selectedQuestion: any) {
     this.selectedOptionsLogic = [];
     this.optionListByQuestionIdLogic = ''
