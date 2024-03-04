@@ -676,8 +676,7 @@ export class CreateSurveyComponent implements OnInit, AfterViewInit {
       this.logicEntriesPerQuestion[index] = [];
     }
 
-    // Add an empty logic entry for the question
-    //this.logicEntriesPerQuestion[index].push({});
+    // Create a new logic entry object
     const newLogicEntry = {
       ifId: null,
       ifExpected: null,
@@ -688,7 +687,8 @@ export class CreateSurveyComponent implements OnInit, AfterViewInit {
 
     // Add the new logic entry to the array for the specific question
     this.logicEntriesPerQuestion[index].push(newLogicEntry);
-  }
+}
+
   removeLogicEntry(index: number): void {
     this.logicEntriesPerQuestion.splice(index, 1);
   }
