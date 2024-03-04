@@ -130,6 +130,10 @@ export class CreateSurveyComponent implements OnInit, AfterViewInit {
   separatorKeysCodes: number[] = [ENTER, COMMA];
   isAddRandomizationMode: boolean = true;
   initialLength: number;
+
+  showMinusIcon: boolean[] = [];
+  showPlusIcon: boolean[] = [];
+
   constructor(
     private visibilityService: DataService,
     private modalService: NgbModal,
@@ -144,6 +148,15 @@ export class CreateSurveyComponent implements OnInit, AfterViewInit {
     private utils: UtilsService
   ) {
     this.logicAndOrVisibility = new Array<boolean[]>(this.logicEntriesPerQuestion.length);
+    this.showAndOrDivClone = new Array<boolean[]>(this.logicEntriesPerQuestion.length);
+    // Initialize each inner array with a single boolean value
+    for (let i = 0; i < this.showAndOrDivClone.length; i++) {
+      this.showAndOrDivClone[i] = [false]; // Initially, the "And"/"Or" options are hidden for all questions
+    }
+
+    //icon
+
+
     this.baseUrl = environment.baseURL;
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
@@ -1520,16 +1533,45 @@ export class CreateSurveyComponent implements OnInit, AfterViewInit {
   }
 
 
-  // Assuming logicEntriesPerQuestion is an array of arrays, where each inner array represents the logic entries for a single question
+  // AND/OR question
   logicAndOrVisibility: boolean[][] = [];
+  showAndOrDivClone: boolean[][] = [];
 
   toggleAndOrVisibility(questionIndex: number): void {
+    this.visibleaddandlogic = !this.visibleaddandlogic;
+    this.showRemoveandlogic = !this.showRemoveandlogic;
+
+    if (!this.showRemoveandlogic)
+      this.showAndOrDivClone = []
     if (!this.logicAndOrVisibility[questionIndex]) {
       this.logicAndOrVisibility[questionIndex] = [];
       this.logicAndOrVisibility[questionIndex].push(true);
     } else {
       this.logicAndOrVisibility[questionIndex][0] = !this.logicAndOrVisibility[questionIndex][0];
     }
+  }
+
+  andOrDivClone(questionIndex: number): void {
+
+    if (!this.showAndOrDivClone[questionIndex]) {
+      this.showAndOrDivClone[questionIndex] = [false]; // Initialize if not already defined
+    }
+
+    // Toggle visibility for the current question
+    this.showAndOrDivClone[questionIndex][0] = !this.showAndOrDivClone[questionIndex][0];
+
+    // Reset visibility for other questions
+    for (let i = 0; i < this.showAndOrDivClone.length; i++) {
+      if (i !== questionIndex) {
+        // Ensure showAndOrDivClone[i] is defined
+        if (!this.showAndOrDivClone[i]) {
+          this.showAndOrDivClone[i] = [false]; // Initialize if not already defined
+        }
+        // Reset visibility
+        this.showAndOrDivClone[i][0] = false;
+      }
+    }
+
   }
 
 
