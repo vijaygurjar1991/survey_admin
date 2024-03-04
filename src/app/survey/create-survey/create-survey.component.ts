@@ -183,6 +183,7 @@ export class CreateSurveyComponent implements OnInit, AfterViewInit {
   surveyId = 0;
 
   ngOnInit() {
+
     console.log('ngOnInit called');
     this.visibilityService.closeSideBar();
     this.userId = this.utils.getUserId();
@@ -885,7 +886,9 @@ export class CreateSurveyComponent implements OnInit, AfterViewInit {
     console.log(this.randormizeEntries);
 
     // Check if any checkbox is checked
-    const anyCheckboxChecked = this.randormizeEntries.some(entry => entry.isRandomizationChecked);
+    const anyCheckboxChecked = this.randormizeEntries.some(entry => entry.isRandomizationChecked
+    );
+    console.log(anyCheckboxChecked)
 
     // Check if all newly added randormizeEntries are checked
     const anyUncheckedNewEntries = this.randormizeEntries.slice(-1 * (this.randormizeEntries.length - this.initialLength))
@@ -895,6 +898,16 @@ export class CreateSurveyComponent implements OnInit, AfterViewInit {
       this.utils.showError('Checked Checkbox.');
       return;
     }
+
+    //checking remain checked
+    // this.randormizeEntries.forEach(entry => {
+    //   if (entry.isRandomizationChecked) {
+    //     entry.isRandomizationChecked = true;
+    //   }
+    // });
+
+
+
 
     const formattedData: { surveyId: string, questionId: string, isRandomize: boolean, groupNumber: number }[] = [];
 

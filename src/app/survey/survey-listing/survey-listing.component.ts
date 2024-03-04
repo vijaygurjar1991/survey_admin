@@ -84,7 +84,7 @@ export class SurveyListingComponent {
 
       const dataToSend = {
         surveyId: itemId,
-        surveyStatus: surveyStatus
+        surveyStatus: originalStatus
       };
       console.log("dataToSend", dataToSend)
       this.themeService.updateSurveyStatus(dataToSend).subscribe(
