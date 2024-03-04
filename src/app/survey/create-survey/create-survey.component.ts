@@ -143,6 +143,7 @@ export class CreateSurveyComponent implements OnInit, AfterViewInit {
     private crypto: CryptoService,
     private utils: UtilsService
   ) {
+    this.logicAndOrVisibility = new Array<boolean[]>(this.logicEntriesPerQuestion.length);
     this.baseUrl = environment.baseURL;
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
@@ -1372,23 +1373,23 @@ export class CreateSurveyComponent implements OnInit, AfterViewInit {
   visibleaddandlogic: boolean = false;
   showRemoveandlogic: boolean = false;
 
-  toggleVisibilityAnd() {
-    this.visibleaddandlogic = !this.visibleaddandlogic;
-    this.showRemoveandlogic = !this.showRemoveandlogic;
-    if (!this.showRemoveandlogic)
-      this.isAndOrLogic = false
-  }
+  // toggleVisibilityAnd() {
+  //   this.visibleaddandlogic = !this.visibleaddandlogic;
+  //   this.showRemoveandlogic = !this.showRemoveandlogic;
+  //   if (!this.showRemoveandlogic)
+  //     this.isAndOrLogic = false
+  // }
 
-  //@ViewChild('cloneSection', { static: false }) cloneSection: ElementRef;
-  andOrDivClone() {
-    this.isAndOrLogic = true
-    // if (this.visibleaddandlogic && !this.isSectionAdded) {
-    //   const clonedSection = this.cloneSection.nativeElement.cloneNode(true); // Clone the element
-    //   this.cloneSection.nativeElement.parentNode.insertBefore(clonedSection, this.cloneSection.nativeElement.nextSibling); // Insert the cloned element after the original
-    //   this.isSectionAdded = true;
-    // }
+  // //@ViewChild('cloneSection', { static: false }) cloneSection: ElementRef;
+  // andOrDivClone() {
+  //   this.isAndOrLogic = true
+  //   // if (this.visibleaddandlogic && !this.isSectionAdded) {
+  //   //   const clonedSection = this.cloneSection.nativeElement.cloneNode(true); // Clone the element
+  //   //   this.cloneSection.nativeElement.parentNode.insertBefore(clonedSection, this.cloneSection.nativeElement.nextSibling); // Insert the cloned element after the original
+  //   //   this.isSectionAdded = true;
+  //   // }
 
-  }
+  // }
   logicEntryAndOr: { ifId: number | null, thanId: number | null } = { ifId: null, thanId: null };
   logicEntrythenElse: { elseId: number | null, elseExpected: number | null } = { elseId: null, elseExpected: null };
   optionListByQuestionId: any
@@ -1517,4 +1518,20 @@ export class CreateSurveyComponent implements OnInit, AfterViewInit {
   onLogicEntryChange(): void {
     this.selectedOptionsLogic = []; // Clear the selectedOptions array
   }
+
+
+  // Assuming logicEntriesPerQuestion is an array of arrays, where each inner array represents the logic entries for a single question
+  logicAndOrVisibility: boolean[][] = [];
+
+  toggleAndOrVisibility(questionIndex: number): void {
+    if (!this.logicAndOrVisibility[questionIndex]) {
+      this.logicAndOrVisibility[questionIndex] = [];
+      this.logicAndOrVisibility[questionIndex].push(true);
+    } else {
+      this.logicAndOrVisibility[questionIndex][0] = !this.logicAndOrVisibility[questionIndex][0];
+    }
+  }
+
+
+
 }
