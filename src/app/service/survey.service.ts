@@ -315,4 +315,10 @@ export class SurveyService {
     const url = `${this.apiUrl}api/admin/${this.userId}/Report/SurveyReport?surveyId=${surveyId}`;
     return this.http.get<responseDTO[]>(url);
   }
+
+  getLogicCount(surveyId: any): Observable<any> {
+    const url = `${this.apiUrl}api/admin/${this.userId}/GeneralQuestion/GetCountLogicInSurvey?sID=${surveyId}`;
+    return this.http.get(url, { responseType: 'text' });
+  }
+
 }

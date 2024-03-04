@@ -214,7 +214,8 @@ export class CreateSurveyComponent implements OnInit, AfterViewInit {
 
     //this.defaultRandomValueEnter();
     this.getAgeOptionsLogicValues();
-    this.getRandomization()
+    this.getRandomization();
+    this.getLogicCount()
 
     //this.getSurveyLooping();
   }
@@ -299,7 +300,6 @@ export class CreateSurveyComponent implements OnInit, AfterViewInit {
       this.flsmModal.show();
     } else if (type === "SECLSM") {
       this.secLsmModal.show();
-      this.isActivesec = !this.isActivesec;
     } else if (type === "Occupation") {
       this.occupationModal.show();
     }
@@ -700,7 +700,7 @@ export class CreateSurveyComponent implements OnInit, AfterViewInit {
 
     // Add the new logic entry to the array for the specific question
     this.logicEntriesPerQuestion[index].push(newLogicEntry);
-}
+  }
 
   removeLogicEntry(index: number): void {
     this.logicEntriesPerQuestion.splice(index, 1);
@@ -1573,6 +1573,16 @@ export class CreateSurveyComponent implements OnInit, AfterViewInit {
     }
 
   }
+
+  //logic count
+  logicCount: any
+  getLogicCount() {
+    this.surveyservice.getLogicCount(this.surveyId).subscribe((response: { [x: string]: any; }) => {
+      this.logicCount = response;
+      console.log("response ", response);
+    });
+  }
+
 
 
 
