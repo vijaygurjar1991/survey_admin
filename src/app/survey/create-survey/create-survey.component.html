@@ -88,11 +88,20 @@
         </div>
         <div ngClass="survey-name">
             <div>
-                <h4 ngClass="mb-3">
+                <!-- <h4 ngClass="mb-3">
                     <img matTooltip={{countryName}}
                         aria-label="Button that displays a tooltip when focused or hovered over" loading="lazy"
                         [src]="baseUrl + '/assets/images/country-flag/' + countryImage" width="30" height="30"
                         alt={{countryName}} />
+                    {{surveyName}}
+                </h4> -->
+                <h4 ngClass="mb-3">
+                    <ng-container *ngIf="countryName !== 'Other Country'">
+                        <img matTooltip="{{countryName}}"
+                            aria-label="Button that displays a tooltip when focused or hovered over" loading="lazy"
+                            [src]="baseUrl + '/assets/images/country-flag/' + countryImage" width="30" height="30"
+                            alt="{{countryName}}" />
+                    </ng-container>
                     {{surveyName}}
                 </h4>
                 <span *ngIf="categoryName !='Others'">{{categoryName}}</span>
@@ -434,7 +443,8 @@
                                                                                                     <mat-icon>cancel</mat-icon>
                                                                                                 </button>
                                                                                             </mat-chip-row>
-                                                                                            <input [(ngModel)]="logicEntry.ifExpected"
+                                                                                            <input
+                                                                                                [(ngModel)]="logicEntry.ifExpected"
                                                                                                 [matChipInputFor]="chipGrid"
                                                                                                 [matAutocomplete]="auto"
                                                                                                 [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
@@ -461,8 +471,14 @@
                                                                     <div class="clone-icon">
                                                                         <div class="col-md-4 d-flex ">
                                                                             <div class="">
-                                                                                <ng-icon name="heroPlusCircle" [ngClass]="{'hidden': showRemoveandlogicArray[i][j]}" *ngIf="!showRemoveandlogicArray[i][j]" (click)="toggleAndOrVisibility(i, j)" />
-                                                                                <ng-icon name="heroMinusCircle" [ngClass]="{'hidden': !showRemoveandlogicArray[i][j]}" *ngIf="showRemoveandlogicArray[i][j]" (click)="toggleAndOrVisibility(i, j)" />
+                                                                                <ng-icon name="heroPlusCircle"
+                                                                                    [ngClass]="{'hidden': showRemoveandlogicArray[i][j]}"
+                                                                                    *ngIf="!showRemoveandlogicArray[i][j]"
+                                                                                    (click)="toggleAndOrVisibility(i, j)" />
+                                                                                <ng-icon name="heroMinusCircle"
+                                                                                    [ngClass]="{'hidden': !showRemoveandlogicArray[i][j]}"
+                                                                                    *ngIf="showRemoveandlogicArray[i][j]"
+                                                                                    (click)="toggleAndOrVisibility(i, j)" />
                                                                             </div>
                                                                         </div>
                                                                     </div>
@@ -472,7 +488,8 @@
                                                                             class="form-check form-check-inline d-flex align-items-center">
                                                                             <input class="form-check-input" type="radio"
                                                                                 name="inlineRadioOptions"
-                                                                                id="inlineRadio1" value="option1" [(ngModel)]="logicEntry.isAnd">
+                                                                                id="inlineRadio1" value="option1"
+                                                                                [(ngModel)]="logicEntry.isAnd">
                                                                             <label class="form-check-label ps-1"
                                                                                 for="inlineRadio1">And</label>
                                                                         </div>
@@ -480,18 +497,21 @@
                                                                             class="form-check form-check-inline d-flex align-items-center">
                                                                             <input class="form-check-input" type="radio"
                                                                                 name="inlineRadioOptions"
-                                                                                id="inlineRadio2" value="option2" [(ngModel)]="logicEntry.isOr">
+                                                                                id="inlineRadio2" value="option2"
+                                                                                [(ngModel)]="logicEntry.isOr">
                                                                             <label class="form-check-label ps-1"
                                                                                 for="inlineRadio2">Or</label>
                                                                         </div>
                                                                     </div>
-                                                                    <div class="and-or-clone" *ngIf="isAndOrLogic[i][j]">
+                                                                    <div class="and-or-clone"
+                                                                        *ngIf="isAndOrLogic[i][j]">
                                                                         <div class="input-group flex-nowrap">
                                                                             <span class="input-group-text"
                                                                                 id="addon-wrapping">In</span>
                                                                             <select class="form-select"
                                                                                 #selectedQuestion
-                                                                                (change)="getOptionsByQuestionId(selectedQuestion.value,i,j)" [(ngModel)]="logicEntry.questionIdAndOr">
+                                                                                (change)="getOptionsByQuestionId(selectedQuestion.value,i,j)"
+                                                                                [(ngModel)]="logicEntry.questionIdAndOr">
                                                                                 <option value="null">Select Option
                                                                                 </option>
                                                                                 <option
@@ -585,24 +605,32 @@
                                                                             *ngIf="logicEntry.thanId=='5'">
                                                                             <div class="d-flex gap-2">
                                                                                 <label class="">
-                                                                                    <span class="w-100">Every Time</span>
+                                                                                    <span class="w-100">Every
+                                                                                        Time</span>
                                                                                     <input type="radio"
-                                                                                        class="form-input" name="frequency" [(ngModel)]="logicEntry.isEveryTime"/>
+                                                                                        class="form-input"
+                                                                                        name="frequency"
+                                                                                        [(ngModel)]="logicEntry.isEveryTime" />
                                                                                 </label>
-                                                                                
+
                                                                                 <label class="">
                                                                                     <span class="w-100">Times</span>
                                                                                     <div class="d-flex">
-                                                                                    <input type="radio" class="form-input" name="frequency" />
-                                                                                    <input type="text"
-                                                                                        class="form-input"
-                                                                                        style="width: 50px;" [(ngModel)]="logicEntry.timesPeriod" />
+                                                                                        <input type="radio"
+                                                                                            class="form-input"
+                                                                                            name="frequency" />
+                                                                                        <input type="text"
+                                                                                            class="form-input"
+                                                                                            style="width: 50px;"
+                                                                                            [(ngModel)]="logicEntry.timesPeriod" />
                                                                                     </div>
                                                                                 </label>
                                                                                 <label class="">
-                                                                                    <span class="w-100">Enter Popup Text</span>
+                                                                                    <span class="w-100">Enter Popup
+                                                                                        Text</span>
                                                                                     <input type="text"
-                                                                                        class="form-input" [(ngModel)]="logicEntry.popupText"/>
+                                                                                        class="form-input"
+                                                                                        [(ngModel)]="logicEntry.popupText" />
                                                                                 </label>
                                                                             </div>
                                                                         </div>
@@ -617,7 +645,8 @@
                                                                                 </option>
                                                                                 <option
                                                                                     *ngFor="let item of questionListBranching;let j=index;"
-                                                                                    [value]="item.item.charAt(0)+'-'+item.id">{{item.item}}
+                                                                                    [value]="item.item.charAt(0)+'-'+item.id">
+                                                                                    {{item.item}}
                                                                                 </option>
                                                                             </select>
                                                                         </div>
@@ -645,7 +674,7 @@
                                                                                 #elseIdSelect="ngModel"
                                                                                 [(ngModel)]="logicEntry.elseId"
                                                                                 (change)="onLogicEntryOrElseChange(elseIdSelect.value)">
-                                                                                
+
                                                                                 <option
                                                                                     *ngFor="let item of logicThensList;let j=index;"
                                                                                     [value]="item.id">{{item.name}}
@@ -656,24 +685,32 @@
                                                                             *ngIf="logicEntry.elseId==5">
                                                                             <div class="d-flex gap-2">
                                                                                 <label class="">
-                                                                                    <span class="w-100">Every Time</span>
+                                                                                    <span class="w-100">Every
+                                                                                        Time</span>
                                                                                     <input type="radio"
-                                                                                        class="form-input" name="frequencyElse" [(ngModel)]="logicEntry.isEveryTimeElse"/>
+                                                                                        class="form-input"
+                                                                                        name="frequencyElse"
+                                                                                        [(ngModel)]="logicEntry.isEveryTimeElse" />
                                                                                 </label>
-                                                                                
+
                                                                                 <label class="">
                                                                                     <span class="w-100">Times</span>
                                                                                     <div class="d-flex">
-                                                                                    <input type="radio" class="form-input" name="frequencyElse" />
-                                                                                    <input type="text"
-                                                                                        class="form-input"
-                                                                                        style="width: 50px;" [(ngModel)]="logicEntry.timesPeriodElse" />
+                                                                                        <input type="radio"
+                                                                                            class="form-input"
+                                                                                            name="frequencyElse" />
+                                                                                        <input type="text"
+                                                                                            class="form-input"
+                                                                                            style="width: 50px;"
+                                                                                            [(ngModel)]="logicEntry.timesPeriodElse" />
                                                                                     </div>
                                                                                 </label>
                                                                                 <label class="">
-                                                                                    <span class="w-100">Enter Popup Text</span>
+                                                                                    <span class="w-100">Enter Popup
+                                                                                        Text</span>
                                                                                     <input type="text"
-                                                                                        class="form-input" [(ngModel)]="logicEntry.popupTextElse"/>
+                                                                                        class="form-input"
+                                                                                        [(ngModel)]="logicEntry.popupTextElse" />
                                                                                 </label>
                                                                             </div>
                                                                         </div>
@@ -687,7 +724,8 @@
                                                                                 </option>
                                                                                 <option
                                                                                     *ngFor="let item of questionListBranching;let j=index;"
-                                                                                    [value]="item.item.charAt(0)+'-'+item.id">{{item.item}}
+                                                                                    [value]="item.item.charAt(0)+'-'+item.id">
+                                                                                    {{item.item}}
                                                                                 </option>
                                                                             </select>
                                                                         </div>
@@ -719,7 +757,7 @@
                                                             <button type="button" class="btn btn-primary btn-sm"
                                                                 (click)="createLogic(question?.id, logicEntriesPerQuestion[i])">Save</button>
                                                         </div>
-                                                    </div> 
+                                                    </div>
                                                 </div>
 
                                                 <div class="tab-pane" [id]="'customLogic' + question.id" role="tabpanel"

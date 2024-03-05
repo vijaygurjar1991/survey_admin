@@ -50,8 +50,12 @@
                             ').length > 3 ? ' ...' : ''}}
                         </td>
                         <td>
-                            <img [src]="baseUrl + '/assets/images/country-flag/' + item.countryImage"
-                                class="me-2 rounded-circle" style="width: 30px;height: 30px;" />
+                            <ng-container *ngIf="item.countryName !== 'Other Country'">
+                                <img [src]="baseUrl + '/assets/images/country-flag/' + item.countryImage"
+                                    class="me-2 rounded-circle" style="width: 30px;height: 30px;" />
+                            </ng-container>
+                            <!-- <img [src]="baseUrl + '/assets/images/country-flag/' + item.countryImage"
+                                class="me-2 rounded-circle" style="width: 30px;height: 30px;" /> -->
                             <!-- <img loading="lazy" [src]="baseUrl + '/assets/images/country-flag/' + countryName + '.png'"
                                 width="30" height="30" alt={{countryName}} /> -->
                             {{item.countryName}}
