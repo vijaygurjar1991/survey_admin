@@ -321,4 +321,14 @@ export class SurveyService {
     return this.http.get(url, { responseType: 'text' });
   }
 
+  getSurveySearch(queryParams: any): Observable<any> {
+
+    let url = `${this.apiUrl}api/admin/${this.userId}/Survey/GetSurveySearch`;
+    if (queryParams) {
+      const queryParamsString = new URLSearchParams(queryParams).toString();
+      url += `?${queryParamsString}`;
+    }
+    return this.http.get(url, { responseType: 'text' });
+  }
+
 }

@@ -11,27 +11,29 @@
                 <!-- <input type="text" class="form-control form-control-small" placeholder="Search Survey">
                 <ng-icon name="heroMagnifyingGlass" class="magnifyingicon"></ng-icon> -->
                 <mat-form-field class="search-bar">
-                    <input type="text" matInput [formControl]="surveyControl" placeholder="Search Survey" [matAutocomplete]="auto">
+                    <!-- <input type="text" matInput [formControl]="surveyControl" placeholder="Search Survey" [matAutocomplete]="auto"> -->
+                    <input type="text" matInput [formControl]="surveyControlform" placeholder="Search Survey"
+                        [matAutocomplete]="auto" (keyup.enter)="search()">
                     <ng-icon name="heroMagnifyingGlass" class="magnifyingicon"></ng-icon>
                     <mat-autocomplete #auto="matAutocomplete" (optionSelected)="onSurveySelected($event)">
-                      <mat-option *ngFor="let survey of filteredSurveys" [value]="survey.name">
-                        {{ survey.name }}
-                      </mat-option>
+                        <mat-option *ngFor="let survey of filteredSurveys" [value]="survey.name">
+                            {{ survey.name }}
+                        </mat-option>
                     </mat-autocomplete>
-                  </mat-form-field>
+                </mat-form-field>
             </div>
             <div class="d-flex align-items-center">
                 <div class="position-relative d-inline-block">
                     <a routerLink="#"><ng-icon name="heroBell" class="bellicon"></ng-icon></a>
                 </div>
                 <div class="position-relative d-inline-block ms-4 dropdown">
-                    <a routerLink="#" class="nav-link" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        <img class="object-fit-cover rounded-circle" src="{{image}}" width="45"
-                            height="45" />
-                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <li><a class="dropdown-item py-2" routerLink="/account/my-account">My Account</a></li>
-                                <li><a class="dropdown-item py-2"  routerLink="login" (click)="logOut()">Logout</a></li>
-                            </ul>
+                    <a routerLink="#" class="nav-link" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
+                        aria-expanded="false">
+                        <img class="object-fit-cover rounded-circle" src="{{image}}" width="45" height="45" />
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <li><a class="dropdown-item py-2" routerLink="/account/my-account">My Account</a></li>
+                            <li><a class="dropdown-item py-2" routerLink="login" (click)="logOut()">Logout</a></li>
+                        </ul>
                     </a>
                 </div>
             </div>

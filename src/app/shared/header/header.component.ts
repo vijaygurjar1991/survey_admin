@@ -93,4 +93,15 @@ export class HeaderComponent {
     const encryptPipe = new EncryptPipe(this.crypto); // Create an instance of the EncryptPipe
     return encryptPipe.transform(id); // Use the transform method of the pipe to encrypt the ID
   }
+
+  surveyControlform = new FormControl();
+  search(): void {
+    const searchQuery = this.surveyControlform.value;
+    console.log("search", searchQuery)
+    // Call the API to get the search results
+    this.surveyService.getSurveySearch({ query: searchQuery }).subscribe((response) => {
+      // Handle the response from the API
+      console.log(response);
+    });
+  }
 }
