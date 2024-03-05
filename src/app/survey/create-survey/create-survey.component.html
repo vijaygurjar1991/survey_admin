@@ -590,6 +590,7 @@
                                                                 <div ngClass="mb-4">
                                                                     <div class="row g-2 align-items-center">
                                                                         <div class="col-md-4">
+                                                                            <span class="w-100">&nbsp;</span>
                                                                             <!-- Use unique template reference variables by appending the index -->
                                                                             <select class="form-select"
                                                                                 #thanIdSelect="ngModel"
@@ -603,25 +604,28 @@
                                                                         </div>
                                                                         <div class="col-md-7"
                                                                             *ngIf="logicEntry.thanId=='5'">
-                                                                            <div class="d-flex gap-2">
+                                                                            <div class="d-flex gap-4">
                                                                                 <label class="">
                                                                                     <span class="w-100">Every
                                                                                         Time</span>
-                                                                                    <input type="radio"
-                                                                                        class="form-input"
-                                                                                        name="frequency"
-                                                                                        [(ngModel)]="logicEntry.isEveryTime" />
+                                                                                    <div class="d-flex align-items-center"
+                                                                                        style="height:50px">
+                                                                                        <input type="radio"
+                                                                                            class="form-check-input"
+                                                                                            name="frequency"
+                                                                                            [(ngModel)]="logicEntry.isEveryTime" />
+                                                                                    </div>
                                                                                 </label>
 
                                                                                 <label class="">
                                                                                     <span class="w-100">Times</span>
-                                                                                    <div class="d-flex">
+                                                                                    <div
+                                                                                        class="d-flex align-items-center">
                                                                                         <input type="radio"
-                                                                                            class="form-input"
+                                                                                            class="form-check-input"
                                                                                             name="frequency" />
                                                                                         <input type="text"
-                                                                                            class="form-input"
-                                                                                            style="width: 50px;"
+                                                                                            class="form-control ms-2"
                                                                                             [(ngModel)]="logicEntry.timesPeriod" />
                                                                                     </div>
                                                                                 </label>
@@ -629,7 +633,7 @@
                                                                                     <span class="w-100">Enter Popup
                                                                                         Text</span>
                                                                                     <input type="text"
-                                                                                        class="form-input"
+                                                                                        class="form-control"
                                                                                         [(ngModel)]="logicEntry.popupText" />
                                                                                 </label>
                                                                             </div>
