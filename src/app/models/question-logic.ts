@@ -14,6 +14,9 @@ export class QuestionLogic {
         public elseExpected: string = '',
         public sort: number=0,
         public name: string = '',
+        public popupText:string='',
+        public isEveryTime:boolean=false,
+        public timesPeriod:number=0,
         public logicConditions: LogicConditions[] = []
     ) { }
 }
