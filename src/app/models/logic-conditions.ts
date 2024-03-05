@@ -4,6 +4,8 @@ export class LogicConditions {
       public logicId: number = 0,
       public isAnd: boolean = true,
       public isOr: boolean = true,
-      public thquestionIdanId: number = 0
+      public questionId: number = 0,
+      public ifId: number = 0,
+      public ifExpected: string = ""
   ) { }
 }
