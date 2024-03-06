@@ -95,13 +95,31 @@ export class HeaderComponent {
   }
 
   surveyControlform = new FormControl();
-  search(): void {
-    const searchQuery = this.surveyControlform.value;
-    console.log("search", searchQuery)
-    // Call the API to get the search results
-    this.surveyService.getSurveySearch({ query: searchQuery }).subscribe((response) => {
-      // Handle the response from the API
+  SurveyData: any[] = [];
+
+  search(searchQuery: string): void {
+    console.log("search", searchQuery);
+    this.themeService.setSearchQuery(searchQuery);
+    console.log("search Query", searchQuery)
+    this.surveyService.getSurveySearch({ surveyname: searchQuery }).subscribe((response) => {
       console.log(response);
+      // Assuming response contains the survey data
+      this.SurveyData = response.filter((item: { name: string; userName: string; email: string; }) => {
+        return (
+          item.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+          item.userName.toLowerCase().includes(searchQuery.toLowerCase()) ||
+          item.email.toLowerCase().includes(searchQuery.toLowerCase())
+        );
+      });
+      console.log(this.SurveyData)
     });
   }
+
+
+  // search(searchQuery: string): void {
+  //   console.log("search", searchQuery)
+  //   this.surveyService.getSurveySearch({ surveyname: searchQuery }).subscribe((response) => {
+  //     console.log(response);
+  //   });
+  // }
 }
