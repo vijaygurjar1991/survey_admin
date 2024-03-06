@@ -833,18 +833,21 @@ export class CreateSurveyComponent implements OnInit, AfterViewInit {
       this.questionLogic.popupText = popupTextValue
       this.questionLogic.isEveryTime = isEveryTimeValue
       this.questionLogic.timesPeriod = timesPeriodValue
-      if (!logicEntry.isAnd || !logicEntry.isOr) {
-        if (!this.questionLogic.logicConditions[0]) {
-          this.questionLogic.logicConditions[0] = {
-            id: 0,
-            logicId: 0,
-            isAnd: false,
-            isOr: false,
-            questionId: 0,
-            ifId: 0,
-            ifExpected: ""
-          };
-        }
+      if (!this.questionLogic.logicConditions[0]) {
+        this.questionLogic.logicConditions[0] = {
+          id: 0,
+          logicId: 0,
+          isAnd: false,
+          isOr: false,
+          questionId: 0,
+          ifId: 0,
+          ifExpected: ""
+        };
+      }
+      console.log("isAnd : ",logicEntry.isAnd)
+      console.log("isAnd : ",logicEntry.isAnd)
+      if (!(logicEntry.isAnd === false && logicEntry.isOr === false)) {
+        console.log("In Side And Or If")
         if (!logicEntry.isAnd)
           this.questionLogic.logicConditions[0].isAnd = true
         else
