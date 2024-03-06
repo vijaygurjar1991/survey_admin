@@ -670,6 +670,7 @@ export class CreateSurveyComponent implements OnInit, AfterViewInit {
       logicIndex = this.logicEntriesPerQuestion.length + 1
     // Create a new logic entry object
     const newLogicEntry = {
+      id:0,
       ifId: null,
       ifExpected: null,
       questionIdAndOr: null,
@@ -729,52 +730,102 @@ export class CreateSurveyComponent implements OnInit, AfterViewInit {
     this.surveyservice.getQuestionLogics(questionId, this.surveyId).subscribe(
       (response) => {
         if (response && response.length > 0) {
-          // Initialize an array for the question if not already done
-          if (!this.logicEntriesPerQuestion[index]) {
-            this.logicEntriesPerQuestion[index] = [];
-          }
+          console.log("response :",response)
 
-          // Clear existing logic entries for the question
-          this.logicEntriesPerQuestion[index] = [];
+           // Iterate through each logic entry in the response
+           response.forEach((logic: any, logicIndex: number) => {
 
-          // Add the new logic entries to the corresponding array
-          this.logicEntriesPerQuestion[index] = response.map((logic: any) => {
-            // Set the values of the select elements
-            if (this.ifIdSelect && this.ifIdSelect.nativeElement) {
-              this.ifIdSelect.nativeElement.value = logic.ifId.toString();
+            if (logic.thanTerm && logic.thanTerm.includes("L")) { // Check if thanTerm is not null and contains "L"
+              if (logic.thanExpected !== null) {
+                  logic.thanExpected = "L-" + logic.thanExpected; // Modify thanExpected accordingly
+              }
+            }
+            if (logic.thanTerm && logic.thanTerm.includes("Q")) { // Check if thanTerm is not null and contains "L"
+              if (logic.thanExpected !== null) {
+                  logic.thanExpected = "Q-" + logic.thanExpected; // Modify thanExpected accordingly
+              }
             }
 
-            if (this.ifExpectedSelect && this.ifExpectedSelect.nativeElement) {
-              this.ifExpectedSelect.nativeElement.value = logic.ifExpected;
+            if (logic.elseTerm && logic.elseTerm.includes("Q")) { // Check if thanTerm is not null and contains "L"
+              if (logic.elseExpected !== null) {
+                  logic.elseExpected = "Q-" + logic.elseExpected; // Modify thanExpected accordingly
+              }
             }
 
-            if (this.thanIdSelect && this.thanIdSelect.nativeElement) {
-              this.thanIdSelect.nativeElement.value = logic.thanId.toString();
+            if (logic.elseTerm && logic.elseTerm.includes("L")) { // Check if thanTerm is not null and contains "L"
+              if (logic.elseExpected !== null) {
+                  logic.elseExpected = "L-" + logic.elseExpected; // Modify thanExpected accordingly
+              }
             }
 
-            if (this.thanExpectedSelect && this.thanExpectedSelect.nativeElement) {
-              this.thanExpectedSelect.nativeElement.value = logic.thanExpected.toString();
+            const newLogicEntry = {
+                id: logic.id,
+                ifId: logic.ifId,
+                ifExpected: logic.ifExpected,
+                questionIdAndOr: logic.questionId,
+                ifIdAndOr: logic.logicConditions[0].ifId, // Assuming there's only one logic condition
+                ifExpectedAndOr: logic.logicConditions[0].ifExpected, // Assuming there's only one logic condition
+                thanId: logic.thanId,
+                thanExpected: logic.thanExpected,
+                elseId: logic.elseId,
+                elseExpected: logic.elseTerm,
+                isAnd: logic.logicConditions[0].isAnd, // Assuming there's only one logic condition
+                isOr: logic.logicConditions[0].isOr, // Assuming there's only one logic condition
+                popupText: logic.popupText,
+                isEveryTime: logic.isEveryTime,
+                timesPeriod: logic.timesPeriod,
+                popupTextElse: null,
+                isEveryTimeElse: false,
+                timesPeriodElse: 0
+            };
+
+            // Initialize an array for the question if not already done
+            if (!this.logicEntriesPerQuestion[index]) {
+                this.logicEntriesPerQuestion[index] = [];
             }
 
-            return logic;
-          });
-          if (!this.selectedOptionsLogic[index]) {
-            this.selectedOptionsLogic[index] = [];
-          } if (!this.selectedOptionsLogic[index][0]) {
-            this.selectedOptionsLogic[index][0] = [];
-          }
-          if (!this.showRemoveandlogicArray[index]) {
-            this.showRemoveandlogicArray[index] = [];
-          }
-          this.showRemoveandlogicArray[index][0] = false;
-          if (!this.visibleaddandlogic[index]) {
-            this.visibleaddandlogic[index] = [];
-          }
-          this.visibleaddandlogic[index][0] = false;
-          if (!this.isAndOrLogic[index]) {
-            this.isAndOrLogic[index] = [];
-          }
-          this.isAndOrLogic[index][0] = false;
+            // Initialize arrays for selectedOptionsLogic, showRemoveandlogicArray, visibleaddandlogic, and isAndOrLogic
+                    if (!this.selectedOptionsLogic[index]) {
+                        this.selectedOptionsLogic[index] = [];
+                    }
+                    if (!this.selectedOptionsLogic[index][logicIndex]) {
+                        this.selectedOptionsLogic[index][logicIndex] = [];
+                    }
+                    if (!this.selectedOptions[index]) {
+                      this.selectedOptions[index] = [];
+                  }
+                  if (!this.selectedOptions[index][logicIndex]) {
+                      this.selectedOptions[index][logicIndex] = [];
+                  }
+                    if (!this.showRemoveandlogicArray[index]) {
+                        this.showRemoveandlogicArray[index] = [];
+                    }
+                    
+                    if (!this.visibleaddandlogic[index]) {
+                        this.visibleaddandlogic[index] = [];
+                    }
+                    if (!this.isAndOrLogic[index]) {
+                      this.isAndOrLogic[index] = [];
+                    }
+                    if(newLogicEntry.isAnd || newLogicEntry.isOr){
+                      this.visibleaddandlogic[index][logicIndex] = true;
+                      this.showRemoveandlogicArray[index][logicIndex] = true;
+                      this.isAndOrLogic[index][logicIndex] = true;
+                    } else{
+                      this.visibleaddandlogic[index][logicIndex] = false;
+                      this.showRemoveandlogicArray[index][logicIndex] = false;
+                      this.isAndOrLogic[index][logicIndex] = false;
+                    }
+                        
+                    
+             if(newLogicEntry.isOr)
+                newLogicEntry.isOr="option2"  
+              if(newLogicEntry.isAnd)
+                newLogicEntry.isAnd="option1"        
+            // Push the new logic entry to the array
+            this.logicEntriesPerQuestion[index].push(newLogicEntry);
+        });
+          
           this.questions[index].isLogicShow = !this.questions[index].isLogicShow;
           console.log("this.logicEntriesPerQuestion", this.logicEntriesPerQuestion);
         }
@@ -833,18 +884,21 @@ export class CreateSurveyComponent implements OnInit, AfterViewInit {
       this.questionLogic.popupText = popupTextValue
       this.questionLogic.isEveryTime = isEveryTimeValue
       this.questionLogic.timesPeriod = timesPeriodValue
-      if (!logicEntry.isAnd || !logicEntry.isOr) {
-        if (!this.questionLogic.logicConditions[0]) {
-          this.questionLogic.logicConditions[0] = {
-            id: 0,
-            logicId: 0,
-            isAnd: false,
-            isOr: false,
-            questionId: 0,
-            ifId: 0,
-            ifExpected: ""
-          };
-        }
+      if (!this.questionLogic.logicConditions[0]) {
+        this.questionLogic.logicConditions[0] = {
+          id: 0,
+          logicId: 0,
+          isAnd: false,
+          isOr: false,
+          questionId: 0,
+          ifId: 0,
+          ifExpected: ""
+        };
+      }
+      console.log("isAnd : ",logicEntry.isAnd)
+      console.log("isAnd : ",logicEntry.isAnd)
+      if (!(logicEntry.isAnd === false && logicEntry.isOr === false)) {
+        console.log("In Side And Or If")
         if (!logicEntry.isAnd)
           this.questionLogic.logicConditions[0].isAnd = true
         else
