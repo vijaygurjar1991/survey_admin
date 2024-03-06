@@ -482,25 +482,16 @@
                                                                             </div>
                                                                         </div>
                                                                     </div>
-                                                                    <div class="col-md-4 d-flex"
-                                                                        *ngIf="visibleaddandlogic[i][j]">
-                                                                        <div
-                                                                            class="form-check form-check-inline d-flex align-items-center">
-                                                                            <input class="form-check-input" type="radio"
-                                                                            [name]="'inlineRadioOptions' + i + j"
-                                                                                id="inlineRadio1" value="option1"
-                                                                                [(ngModel)]="logicEntry.isAnd">
-                                                                            <label class="form-check-label ps-1"
-                                                                                for="inlineRadio1">And</label>
+                                                                    <div class="col-md-4 d-flex" *ngIf="visibleaddandlogic[i][j]">
+                                                                        <div class="form-check form-check-inline d-flex align-items-center">
+                                                                            <input class="form-check-input" type="radio" [name]="'inlineRadioOptions' + i + j"
+                                                                                id="inlineRadio1" value="option1" [(ngModel)]="logicEntry.isAnd" [checked]="logicEntry.isAnd ? true : null">
+                                                                            <label class="form-check-label ps-1" for="inlineRadio1">And</label>
                                                                         </div>
-                                                                        <div
-                                                                            class="form-check form-check-inline d-flex align-items-center">
-                                                                            <input class="form-check-input" type="radio"
-                                                                            [name]="'inlineRadioOptions' + i + j"
-                                                                                id="inlineRadio2" value="option2"
-                                                                                [(ngModel)]="logicEntry.isOr">
-                                                                            <label class="form-check-label ps-1"
-                                                                                for="inlineRadio2">Or</label>
+                                                                        <div class="form-check form-check-inline d-flex align-items-center">
+                                                                            <input class="form-check-input" type="radio" [name]="'inlineRadioOptions' + i + j"
+                                                                                id="inlineRadio2" value="option2" [(ngModel)]="logicEntry.isOr" [checked]="logicEntry.isOr ? true : null">
+                                                                            <label class="form-check-label ps-1" for="inlineRadio2">Or</label>
                                                                         </div>
                                                                     </div>
                                                                     <div class="and-or-clone"
@@ -639,7 +630,7 @@
                                                                             </div>
                                                                         </div>
                                                                         <div class="col-md-4"
-                                                                            *ngIf="isThanShow && logicEntry.thanId!='5'">
+                                                                            *ngIf="logicEntry.thanId!='3' && logicEntry.thanId!='4' && logicEntry.thanId!='5'">
                                                                             <!-- Use unique template reference variables by appending the index -->
                                                                             <select class="form-select"
                                                                                 #thanExpectedSelect="ngModel"
