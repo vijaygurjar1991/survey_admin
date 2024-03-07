@@ -55,65 +55,127 @@ export class AboutComponent {
 
 
   }
+  // postData() {
+  //   this.extractFileNameFromUrl
+  //   if (!this.validateSurvey()) {
+  //     this.util.showError('Please fill all required fields.');
+  //     return;
+  //   }
+  //   const imageName = this.image.split('\\').pop() || this.image;
+  //   const dataToSend = {
+  //     id: this.id,
+  //     name: this.name,
+  //     description: this.description,
+  //     image: imageName,
+  //     centerId: this.centerId
+
+  //   };
+  //   console.log("dataToSend", dataToSend)
+  //   this.themeService.CreateAboutUs(dataToSend).subscribe(
+  //     response => {
+  //       console.log('Response from server:', response);
+  //       this.util.showSuccess(response);
+  //     },
+  //     error => {
+  //       console.error('Error occurred while sending POST request:', error);
+  //       this.util.showError('error');
+  //     }
+  //   );
+  // }
+
+
+  // onSelect(event: any) {
+  //   const file = event.addedFiles && event.addedFiles.length > 0 ? event.addedFiles[0] : null;
+
+  //   if (file) {
+  //     this.files.push(file);
+  //     this.uploadImage(file);
+  //     console.log("uplaoded", this.uploadImage(file))
+  //   }
+  // }
+
+  // uploadImage(file: File): void {
+
+  //   this.themeService.uploadImageAboutUs(file, this.userId).subscribe(
+  //     (response: String) => {
+  //       console.log('Upload successful:', response);
+  //       this.image = response.replace(/"/g, '')
+  //       console.log(this.image)
+
+  //     },
+  //     (error) => {
+  //       console.error('Error occurred while uploading:', error);
+  //     }
+  //   );
+  // }
+
+  // Define a variable to track whether the image has been updated
+  imageUpdated: boolean = false;
+
+  onSelect(event: any) {
+    const file = event.addedFiles && event.addedFiles.length > 0 ? event.addedFiles[0] : null;
+
+    if (file) {
+      this.files.push(file);
+      this.uploadImage(file);
+      console.log("uploaded", this.uploadImage(file));
+    }
+  }
+
+  uploadImage(file: File): void {
+    this.themeService.uploadImageAboutUs(file, this.userId).subscribe(
+      (response: string) => {
+        console.log('Upload successful:', response);
+        this.image = response.replace(/"/g, '');
+        this.imageUpdated = true; // Set to true since the image has been updated
+        console.log(this.image);
+      },
+      (error) => {
+        console.error('Error occurred while uploading:', error);
+      }
+    );
+  }
+
   postData() {
-    this.extractFileNameFromUrl
+    this.extractFileNameFromUrl;
     if (!this.validateSurvey()) {
       this.util.showError('Please fill all required fields.');
       return;
     }
-    const imageName = this.image.split('\\').pop() || this.image;
+
+    let imageName = '';
+
+    // Check if image is updated or not
+    if (this.imageUpdated) {
+      imageName = this.image.split('\\').pop() || this.image;
+    }
+    else {
+      imageName = '';
+    }
+
     const dataToSend = {
       id: this.id,
       name: this.name,
       description: this.description,
       image: imageName,
       centerId: this.centerId
-
     };
-    console.log("dataToSend", dataToSend)
+
+    console.log("dataToSend", dataToSend);
+
     this.themeService.CreateAboutUs(dataToSend).subscribe(
       response => {
         console.log('Response from server:', response);
-        // swal.fire('', response, 'success');
         this.util.showSuccess(response);
         window.location.reload();
-        // Handle response based on the server behavior
       },
       error => {
         console.error('Error occurred while sending POST request:', error);
         this.util.showError('error');
-        // swal.fire('', error, 'error');
-        // Handle error, if needed
       }
     );
   }
-  onSelect(event: any) {
-    const file = event.addedFiles && event.addedFiles.length > 0 ? event.addedFiles[0] : null;
 
-    if (file) {
-      this.files.push(file); // Store the selected file
-      this.uploadImage(file);
-      console.log("uplaoded", this.uploadImage(file))// Trigger upload after selecting the file
-    }
-  }
-
-  uploadImage(file: File): void {
-
-    this.themeService.uploadImageAboutUs(file, this.userId).subscribe(
-      (response: String) => {
-        console.log('Upload successful:', response);
-        this.image = response.replace(/"/g, '')
-        console.log(this.image)
-
-        // Handle response from the image upload
-        // You may want to retrieve the URL or any other relevant information from the response
-      },
-      (error) => {
-        console.error('Error occurred while uploading:', error);
-        // Handle error
-      }
-    );
-  }
 
   selectedImage: string | ArrayBuffer | null = null;
 

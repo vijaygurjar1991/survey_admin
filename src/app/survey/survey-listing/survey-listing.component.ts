@@ -55,7 +55,33 @@ export class SurveyListingComponent {
     }
     this.getAllSurveyList(this.pageNumber, this.pageSize)
     this.getNames()
+
+    this.visibilityService.getSearchQuery().subscribe((searchQuery) => {
+      // Use the search query to filter the list
+      this.applyFilter(searchQuery);
+      console.log("applyfilter", searchQuery)
+    });
   }
+  // surveyData: any[] = []; 
+  filteredSurveyData: any[] = [];
+  searchQuery: any
+  applyFilter(searchQuery: string): void {
+    console.log('Search query:', searchQuery); // Log the search query value
+
+    if (!searchQuery) {
+      // If searchQuery is undefined or empty, display the entire list
+      this.filteredSurveyData = [];
+    } else {
+      // Filter the list based on the search query
+      this.filteredSurveyData = this.surveyData.filter((item: { name: string; userName: string; email: string; }) =>
+        (item.name && item.name.toLowerCase().includes(searchQuery.toLowerCase())) ||
+        (item.userName && item.userName.toLowerCase().includes(searchQuery.toLowerCase())) ||
+        (item.email && item.email.toLowerCase().includes(searchQuery.toLowerCase()))
+      );
+      console.log("filterdata", this.filteredSurveyData)
+    }
+  }
+
 
   getAllSurveyList(pageNumber: number, pageSize: number) {
     this.themeService.getSurveyListWithPage(pageNumber, pageSize).subscribe((data: any) => {

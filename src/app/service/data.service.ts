@@ -192,15 +192,19 @@ export class DataService {
   }
 
 
-
-
   // User get & Post APIs
-
 
   // APIs
 
+  //search filtering
+  private searchQuerySubject = new BehaviorSubject<string>('');
 
+  setSearchQuery(query: string): void {
+    this.searchQuerySubject.next(query);
+  }
 
-
+  getSearchQuery(): Observable<string> {
+    return this.searchQuerySubject.asObservable();
+  }
 
 }
