@@ -134,7 +134,8 @@ export class CreateSurveyComponent implements OnInit, AfterViewInit {
   showRemoveandlogicArray: boolean[][] = [];
   isAndOrLogic: boolean[][] = [];
   visibleaddandlogic: boolean[][] = [];
-
+  isBranchingElseShow: boolean[][] = [];
+  isElseShow: boolean[][] = [];
   constructor(
     private visibilityService: DataService,
     private modalService: NgbModal,
@@ -670,7 +671,7 @@ export class CreateSurveyComponent implements OnInit, AfterViewInit {
       logicIndex = this.logicEntriesPerQuestion.length + 1
     // Create a new logic entry object
     const newLogicEntry = {
-      id:0,
+      id: 0,
       ifId: null,
       ifExpected: null,
       questionIdAndOr: null,
@@ -687,7 +688,8 @@ export class CreateSurveyComponent implements OnInit, AfterViewInit {
       timesPeriod: 0,
       popupTextElse: null,
       isEveryTimeElse: false,
-      timesPeriodElse: 0
+      timesPeriodElse: 0,
+      andOrId:0
     };
 
     this.logicEntriesPerQuestion[index].push(newLogicEntry);
@@ -703,6 +705,15 @@ export class CreateSurveyComponent implements OnInit, AfterViewInit {
       this.isAndOrLogic[index] = [];
     }
     this.isAndOrLogic[index][logicIndex] = false;
+    if (!this.isBranchingElseShow[index]) {
+      this.isBranchingElseShow[index] = [];
+    }
+    this.isBranchingElseShow[index][logicIndex] = false;
+    //isElseShow
+    if (!this.isElseShow[index]) {
+      this.isElseShow[index] = [];
+    }
+    this.isElseShow[index][logicIndex] = true;
 
     console.log("value of visibleaddandlogic: ", this.visibleaddandlogic)
     console.log('Value of logicEntriesPerQuestion:', this.logicEntriesPerQuestion);
@@ -726,106 +737,179 @@ export class CreateSurveyComponent implements OnInit, AfterViewInit {
   }
   getQuestionLogic(index: number, questionId: number): void {
 
-
+    this.getOptionsByQuestionIdLogic(questionId);
     this.surveyservice.getQuestionLogics(questionId, this.surveyId).subscribe(
       (response) => {
         if (response && response.length > 0) {
-          console.log("response :",response)
+          console.log("response :", response)
 
-           // Iterate through each logic entry in the response
-           response.forEach((logic: any, logicIndex: number) => {
+          // Iterate through each logic entry in the response
+          response.forEach((logic: any, logicIndex: number) => {
+            if (!this.selectedOptionsLogic[index]) {
+              this.selectedOptionsLogic[index] = [];
+            }
+            if (!this.selectedOptionsLogic[index][logicIndex]) {
+              this.selectedOptionsLogic[index][logicIndex] = [];
+            }
+            if (!this.selectedOptions[index]) {
+              this.selectedOptions[index] = [];
+            }
+            if (!this.selectedOptions[index][logicIndex]) {
+              this.selectedOptions[index][logicIndex] = [];
+            }
+            
+            if (!this.showRemoveandlogicArray[index]) {
+              this.showRemoveandlogicArray[index] = [];
+            }
+
+            if (!this.visibleaddandlogic[index]) {
+              this.visibleaddandlogic[index] = [];
+            }
+            if (!this.isAndOrLogic[index]) {
+              this.isAndOrLogic[index] = [];
+            }
+            if (!this.isBranchingElseShow[index]) {
+              this.isBranchingElseShow[index] = [];
+            }
+            if (!this.isElseShow[index]) {
+              this.isElseShow[index] = [];
+            }
+            
 
             if (logic.thanTerm && logic.thanTerm.includes("L")) { // Check if thanTerm is not null and contains "L"
-              if (logic.thanExpected !== null) {
-                  logic.thanExpected = "L-" + logic.thanExpected; // Modify thanExpected accordingly
+              if (logic.thanExpected !== null && logic.thanExpected !==0) {
+                logic.thanExpected = "L-" + logic.thanExpected; // Modify thanExpected accordingly
               }
             }
             if (logic.thanTerm && logic.thanTerm.includes("Q")) { // Check if thanTerm is not null and contains "L"
               if (logic.thanExpected !== null) {
-                  logic.thanExpected = "Q-" + logic.thanExpected; // Modify thanExpected accordingly
+                logic.thanExpected = "Q-" + logic.thanExpected; // Modify thanExpected accordingly
               }
             }
 
             if (logic.elseTerm && logic.elseTerm.includes("Q")) { // Check if thanTerm is not null and contains "L"
-              if (logic.elseExpected !== null) {
-                  logic.elseExpected = "Q-" + logic.elseExpected; // Modify thanExpected accordingly
+              if (logic.elseExpected !== null && logic.elseExpected !==0) {
+                logic.elseExpected = "Q-" + logic.elseExpected; // Modify thanExpected accordingly
               }
             }
 
             if (logic.elseTerm && logic.elseTerm.includes("L")) { // Check if thanTerm is not null and contains "L"
               if (logic.elseExpected !== null) {
-                  logic.elseExpected = "L-" + logic.elseExpected; // Modify thanExpected accordingly
+                logic.elseExpected = "L-" + logic.elseExpected; // Modify thanExpected accordingly
               }
             }
 
             const newLogicEntry = {
-                id: logic.id,
-                ifId: logic.ifId,
-                ifExpected: logic.ifExpected,
-                questionIdAndOr: logic.questionId,
-                ifIdAndOr: logic.logicConditions[0].ifId, // Assuming there's only one logic condition
-                ifExpectedAndOr: logic.logicConditions[0].ifExpected, // Assuming there's only one logic condition
-                thanId: logic.thanId,
-                thanExpected: logic.thanExpected,
-                elseId: logic.elseId,
-                elseExpected: logic.elseTerm,
-                isAnd: logic.logicConditions[0].isAnd, // Assuming there's only one logic condition
-                isOr: logic.logicConditions[0].isOr, // Assuming there's only one logic condition
-                popupText: logic.popupText,
-                isEveryTime: logic.isEveryTime,
-                timesPeriod: logic.timesPeriod,
-                popupTextElse: null,
-                isEveryTimeElse: false,
-                timesPeriodElse: 0
+              id: logic.id,
+              ifId: logic.ifId,
+              ifExpected: logic.ifExpected,
+              questionIdAndOr: logic.logicConditions[0].questionId,
+              ifIdAndOr: logic.logicConditions[0].ifId, // Assuming there's only one logic condition
+              ifExpectedAndOr: logic.logicConditions[0].ifExpected, // Assuming there's only one logic condition
+              thanId: logic.thanId,
+              thanExpected: logic.thanExpected,
+              elseId: logic.elseId,
+              elseExpected: logic.elseTerm,
+              isAnd: logic.logicConditions[0].isAnd, // Assuming there's only one logic condition
+              isOr: logic.logicConditions[0].isOr, // Assuming there's only one logic condition
+              popupText: logic.popupText,
+              isEveryTime: logic.isEveryTime,
+              timesPeriod: logic.timesPeriod,
+              popupTextElse: null,
+              isEveryTimeElse: false,
+              timesPeriodElse: 0,
+              andOrId:logic.logicConditions[0].id
             };
-
+            if(newLogicEntry.elseExpected ==="null")
+              newLogicEntry.elseExpected =0
+            if(newLogicEntry.thanExpected ==="null")
+              newLogicEntry.thanExpected =0
+            
             // Initialize an array for the question if not already done
             if (!this.logicEntriesPerQuestion[index]) {
-                this.logicEntriesPerQuestion[index] = [];
+              this.logicEntriesPerQuestion[index] = [];
             }
+            console.log("ifExpected : ",logic.ifExpected)
+            if (logic.ifExpected != null) {
+              let queryParams = {
+                qid: questionId
+              };
+            
+              this.surveyservice.getOptionsByQuestionId(queryParams).subscribe((response: any) => {
+                console.log("response logic option", response);
 
-            // Initialize arrays for selectedOptionsLogic, showRemoveandlogicArray, visibleaddandlogic, and isAndOrLogic
-                    if (!this.selectedOptionsLogic[index]) {
-                        this.selectedOptionsLogic[index] = [];
-                    }
-                    if (!this.selectedOptionsLogic[index][logicIndex]) {
-                        this.selectedOptionsLogic[index][logicIndex] = [];
-                    }
-                    if (!this.selectedOptions[index]) {
-                      this.selectedOptions[index] = [];
-                  }
-                  if (!this.selectedOptions[index][logicIndex]) {
-                      this.selectedOptions[index][logicIndex] = [];
-                  }
-                    if (!this.showRemoveandlogicArray[index]) {
-                        this.showRemoveandlogicArray[index] = [];
-                    }
-                    
-                    if (!this.visibleaddandlogic[index]) {
-                        this.visibleaddandlogic[index] = [];
-                    }
-                    if (!this.isAndOrLogic[index]) {
-                      this.isAndOrLogic[index] = [];
-                    }
-                    if(newLogicEntry.isAnd || newLogicEntry.isOr){
-                      this.visibleaddandlogic[index][logicIndex] = true;
-                      this.showRemoveandlogicArray[index][logicIndex] = true;
-                      this.isAndOrLogic[index][logicIndex] = true;
-                    } else{
-                      this.visibleaddandlogic[index][logicIndex] = false;
-                      this.showRemoveandlogicArray[index][logicIndex] = false;
-                      this.isAndOrLogic[index][logicIndex] = false;
-                    }
-                        
-                    
-             if(newLogicEntry.isOr)
-                newLogicEntry.isOr="option2"  
-              if(newLogicEntry.isAnd)
-                newLogicEntry.isAnd="option1"        
+                const optionsArray = JSON.parse(response);
+                if (Array.isArray(optionsArray) && optionsArray.length > 0) {
+                  this.selectedOptionsLogic[index][logicIndex]=[]
+                  const filteredOptions = optionsArray.filter((item: { id: number }) => logic.ifExpected.includes(item.id));
+                  console.log("filteredOptions : ", filteredOptions);
+                  
+                  this.selectedOptionsLogic[index][logicIndex].push(...filteredOptions);
+                  console.log("selectedOptionsLogic : ", this.selectedOptionsLogic[index][logicIndex]);
+                  
+                } else {
+                  
+                  console.error("Response is either not an array or it's empty. Unable to filter options.");
+                }
+                
+              });
+            }
+            // And/Or 
+            if (newLogicEntry.ifExpectedAndOr != null) {
+              let queryParams = {
+                qid: newLogicEntry.questionIdAndOr
+              };
+            
+              this.surveyservice.getOptionsByQuestionId(queryParams).subscribe((response: any) => {
+                console.log("response logic option", response);
+
+                const optionsArray = JSON.parse(response);
+                if (Array.isArray(optionsArray) && optionsArray.length > 0) {
+                  // Assuming the response is an array of objects
+                  const filteredOptions = optionsArray.filter((item: { id: number }) => newLogicEntry.ifExpectedAndOr.includes(item.id));
+                  console.log("filteredOptions : ", filteredOptions);
+                  this.selectedOptions[index][logicIndex]=[]
+                  this.selectedOptions[index][logicIndex].push(...filteredOptions);
+                  console.log("selectedOptions : ", this.selectedOptions[index][logicIndex]);
+                  
+                } else {
+                  
+                  console.error("Response is either not an array or it's empty. Unable to filter options.");
+                }
+                
+              });
+            }
+           
+            if (newLogicEntry.isAnd || newLogicEntry.isOr) {
+              this.visibleaddandlogic[index][logicIndex] = true;
+              this.showRemoveandlogicArray[index][logicIndex] = true;
+              this.isAndOrLogic[index][logicIndex] = true;
+            } else {
+              this.visibleaddandlogic[index][logicIndex] = false;
+              this.showRemoveandlogicArray[index][logicIndex] = false;
+              this.isAndOrLogic[index][logicIndex] = false;
+            }
+            if (newLogicEntry.elseId && newLogicEntry.elseId>0)            
+              this.isBranchingElseShow[index][logicIndex] = true;
+            else
+            this.isBranchingElseShow[index][logicIndex] = false;
+
+            const ifIdNumber = +newLogicEntry.elseId;
+            if (ifIdNumber === 3 || ifIdNumber === 4)
+              this.isElseShow[index][logicIndex] = false
+            else
+              this.isElseShow[index][logicIndex] = true
+
+            //this.isElseShow[index][logicIndex] = true;
+
+            if (newLogicEntry.isOr)
+              newLogicEntry.isOr = "option2"
+            if (newLogicEntry.isAnd)
+              newLogicEntry.isAnd = "option1"
             // Push the new logic entry to the array
             this.logicEntriesPerQuestion[index].push(newLogicEntry);
-        });
-          
+          });
+
           this.questions[index].isLogicShow = !this.questions[index].isLogicShow;
           console.log("this.logicEntriesPerQuestion", this.logicEntriesPerQuestion);
         }
@@ -842,21 +926,30 @@ export class CreateSurveyComponent implements OnInit, AfterViewInit {
     for (const logicEntry of logicEntries) {
       this.createLogicCount++;
       console.log(logicEntry)
-      if (logicEntry.elseExpected !== null) {
+      const thanTermValue = logicEntry.thanExpected;
+      const elseTermValue = logicEntry.elseExpected;
+      if (logicEntry.elseExpected !== null && logicEntry.elseExpected !==0) {
         logicEntry.elseExpected = logicEntry.elseExpected.replace('Q-', '').replace('L-', '');
+      }else{
+        logicEntry.elseExpected =0
+        console.log("elseExpected : ",logicEntry.elseExpected)
       }
-      if (logicEntry.thanExpected !== null) {
+        
+      if (logicEntry.thanExpected !== null && logicEntry.thanExpected !==0) {
         logicEntry.thanExpected = logicEntry.thanExpected.replace(/Q-/g, '').replace(/L-/g, '');
+      }else{
+        logicEntry.thanExpected =0
+        console.log("thanExpected :",logicEntry.thanExpected)
       }
+    
+
       const id = logicEntry.id
       const ifIdValue = logicEntry.ifId;
       const ifExpectedValue = logicEntry.ifExpected;
       const thanIdValue = logicEntry.thanId;
       const thanExpectedValue = logicEntry.thanExpected;
-      const thanTermValue = logicEntry.thanExpected;
       const elseIdValue = logicEntry.elseId;
       const elseExpectedValue = logicEntry.elseExpected;
-      const elseTermValue = logicEntry.elseExpected;
       const nameValue = "Logic " + this.createLogicCount;
       var popupTextValue: string = "", isEveryTimeValue: boolean = false, timesPeriodValue: number = 0;
       if (thanIdValue == 5) {
@@ -895,34 +988,44 @@ export class CreateSurveyComponent implements OnInit, AfterViewInit {
           ifExpected: ""
         };
       }
-      console.log("isAnd : ",logicEntry.isAnd)
-      console.log("isAnd : ",logicEntry.isAnd)
+      console.log("isAnd : ", logicEntry.isAnd)
+      console.log("isAnd : ", logicEntry.isAnd)
       if (!(logicEntry.isAnd === false && logicEntry.isOr === false)) {
         console.log("In Side And Or If")
         if (!logicEntry.isAnd)
           this.questionLogic.logicConditions[0].isAnd = true
         else
           this.questionLogic.logicConditions[0].isOr = true
+        
         this.questionLogic.logicConditions[0].questionId = logicEntry.questionIdAndOr
         this.questionLogic.logicConditions[0].ifId = logicEntry.ifIdAndOr
         this.questionLogic.logicConditions[0].ifExpected = logicEntry.ifExpectedAndOr
       }
 
       console.log("dataToSend", this.questionLogic);
-
-      this.surveyservice.createLogic(this.questionLogic).subscribe(
-        response => {
-          console.log('Response from server:', response);
-          this.utils.showSuccess('Logic Created Successfully.');
-          // Swal.fire('', 'Logic Created Successfully.', 'success');
-        },
-        error => {
-          console.error('Error occurred while sending POST request:', error);
-          // Swal.fire('', error, 'error');
-          this.utils.showError(error);
-
-        }
-      );
+      if(this.questionLogic.id>0){
+        this.surveyservice.updateLogic(this.questionLogic).subscribe(
+          response => {
+            console.log('Response from server:', response);
+            this.utils.showSuccess('Logic Created Successfully.');
+          },
+          error => {
+            console.error('Error occurred while sending POST request:', error);
+            this.utils.showError(error);
+          }
+        );
+      }else{
+        this.surveyservice.createLogic(this.questionLogic).subscribe(
+          response => {
+            console.log('Response from server:', response);
+            this.utils.showSuccess('Logic Created Successfully.');
+          },
+          error => {
+            console.error('Error occurred while sending POST request:', error);
+            this.utils.showError(error);
+          }
+        );
+      }
     }
   }
 
@@ -932,13 +1035,6 @@ export class CreateSurveyComponent implements OnInit, AfterViewInit {
     this.randormizeEntries.push(newRandomEntry);
   }
 
-
-
-  // defaultRandomValueEnter(): void {
-  //   const defaultEntry1 = { id: 1, selectedOption: 'null' };
-  //   const defaultEntry2 = { id: 2, selectedOption: 'null' };
-  //   this.randormizeEntries.push(defaultEntry1, defaultEntry2);
-  // }
   addRandomizationSection() {
     this.randormizeEntries.push({
       fromQuestion: null,
@@ -947,100 +1043,14 @@ export class CreateSurveyComponent implements OnInit, AfterViewInit {
   }
 
   removeRandomizationSection(index: number) {
-
-
-
     this.randormizeEntries.splice(index, 1);
   }
-  // saveRandomization(): void {
-  //   // if (!this.validateSurvey()) {
-  //   //   this.utils.showError('Please checked');
-  //   //   return;
-  //   // }
-
-  //   console.log(this.randormizeEntries);
-  //   console.log(this.isRandomizationChecked);
-
-  //   if (this.isRandomizationChecked) {
-  //     const formattedData = [];
-
-  //     for (let i = 0; i < this.randormizeEntries.length; i++) {
-  //       const randomization = this.randormizeEntries[i];
-  //       const fromQuestionId = randomization.fromQuestion;
-  //       const toQuestionId = randomization.toQuestion;
-
-  //       if (fromQuestionId && toQuestionId) {
-  //         const filteredQuestions = this.logicQuestionList.filter(question => question.id >= fromQuestionId && question.id <= toQuestionId);
-
-  //         const formattedQuestions = filteredQuestions.map(question => {
-  //           return {
-  //             surveyId: this.surveyId,
-  //             questionId: (question.id),
-  //             isRandomize: true,
-  //             groupNumber: i + 1,
-  //              // Add groupNumber based on the index of randormizeEntries
-  //           };
-  //         });
-
-  //         formattedData.push(...formattedQuestions);
-  //       } else {
-  //         console.warn('From Question and To Question must be selected for each randomization entry.');
-  //       }
-  //     }
-
-  //     if (formattedData.length > 0) {
-
-
-  //       if (this.isAddRandomizationMode) {
-
-  //         // Call the service to post the formatted data
-  //         this.surveyservice.postRandomizedQuestions(formattedData).subscribe(
-  //           response => {
-  //             // Handle the response if needed
-  //             console.log('POST request successful', response);
-  //             // Swal.fire('', 'Randomization Created Successfully.', 'success');
-  //             this.utils.showSuccess('Randomization Created Successfully.');
-  //           },
-  //           error => {
-  //             // Handle errors
-  //             console.error('Error in POST request', error);
-  //             // Swal.fire('', 'Please confirm you want to randomization these question ', 'error');
-  //             this.utils.showError('Please confirm you want to randomization these question');
-  //           }
-  //         );
-  //       } else {
-
-  //         this.surveyservice.postRandomizedQuestionsUpdate(formattedData).subscribe(
-  //           response => {
-  //             // Handle the response if needed
-  //             console.log('POST request successful', response);
-  //             // Swal.fire('', 'Randomization Created Successfully.', 'success');
-  //             this.utils.showSuccess('Randomization Created Successfully.');
-  //           },
-  //           error => {
-  //             // Handle errors
-  //             console.error('Error in POST request', error);
-  //             // Swal.fire('', 'Please confirm you want to randomization these question ', 'error');
-  //             this.utils.showError('Please confirm you want to randomization these question');
-  //           }
-  //         );
-  //       }
-  //     } else {
-  //       console.warn('No valid range found for randomization.');
-  //     }
-  //   } else {
-  //     // this.utils.showError('Checked.');
-  //   }
-  // }
+  
   saveRandomization(): void {
     console.log(this.randormizeEntries);
-
-    // Check if any checkbox is checked
-    const anyCheckboxChecked = this.randormizeEntries.some(entry => entry.isRandomizationChecked
-    );
+    const anyCheckboxChecked = this.randormizeEntries.some(entry => entry.isRandomizationChecked);
     console.log(anyCheckboxChecked)
 
-    // Check if all newly added randormizeEntries are checked
     const anyUncheckedNewEntries = this.randormizeEntries.slice(-1 * (this.randormizeEntries.length - this.initialLength))
       .some(entry => !entry.isRandomizationChecked);
 
@@ -1256,12 +1266,11 @@ export class CreateSurveyComponent implements OnInit, AfterViewInit {
       }
     );
   }
-  isBranchingElseShow: boolean = false
-  showBranchingElse() {
-    this.isBranchingElseShow = true
+  showBranchingElse(questionIndex:number,logicIndex:number) {
+    this.isBranchingElseShow[questionIndex][logicIndex] = true
   }
-  hideBranchingElse() {
-    this.isBranchingElseShow = false
+  hideBranchingElse(questionIndex:number,logicIndex:number) {
+    this.isBranchingElseShow[questionIndex][logicIndex] = false
   }
   //getQuestionListRandomization
   apiResponseRandomization: any[] = [];
@@ -1592,7 +1601,7 @@ export class CreateSurveyComponent implements OnInit, AfterViewInit {
       this.selectedOptions[questionIndex][logicIndex].push(selectedOption);
     }
     const selectedOptionsArray = this.selectedOptions[questionIndex][logicIndex];
-    const selectedOptionsString = selectedOptionsArray.map((option: { option: any; }) => option.option).join(', ');
+    const selectedOptionsString = selectedOptionsArray.map((option: { id: any; }) => option.id).join(', ');
     console.log("selectedOptionsString:", selectedOptionsString);
     this.logicEntriesPerQuestion[questionIndex][logicIndex].ifExpectedAndOr = selectedOptionsString;
 
@@ -1608,13 +1617,12 @@ export class CreateSurveyComponent implements OnInit, AfterViewInit {
       this.isThanShow = true
 
   }
-  isElseShow: boolean = true
-  onLogicEntryOrElseChange(elseIdSelect: any): void {
+  onLogicEntryOrElseChange(elseIdSelect: any,questionIndex:number,logicIndex:number): void {
     const ifIdNumber = +elseIdSelect;
     if (ifIdNumber === 3 || ifIdNumber === 4)
-      this.isElseShow = false
+      this.isElseShow[questionIndex][logicIndex] = false
     else
-      this.isElseShow = true
+      this.isElseShow[questionIndex][logicIndex] = true
 
   }
   showPopup: boolean = false;
@@ -1637,7 +1645,7 @@ export class CreateSurveyComponent implements OnInit, AfterViewInit {
       this.selectedOptionsLogic[questionIndex][logicIndex].push(selectedOption);
 
       const selectedOptionsArray = this.selectedOptionsLogic[questionIndex][logicIndex];
-      const selectedOptionsString = selectedOptionsArray.map((option: { option: any; }) => option.option).join(', ');
+      const selectedOptionsString = selectedOptionsArray.map((option: { id: any; }) => option.id).join(', ');
       console.log("selectedOptionsString:", selectedOptionsString);
       this.logicEntriesPerQuestion[questionIndex][logicIndex].ifExpected = selectedOptionsString;
 
@@ -1666,7 +1674,7 @@ export class CreateSurveyComponent implements OnInit, AfterViewInit {
       this.selectedOptionsLogic[questionIndex][logicIndex].splice(index, 1);
 
       const selectedOptionsArray = this.selectedOptionsLogic[questionIndex][logicIndex];
-      const selectedOptionsString = selectedOptionsArray.map((option: { option: any; }) => option.option).join(', ');
+      const selectedOptionsString = selectedOptionsArray.map((option: { id: any; }) => option.id).join(', ');
       console.log("selectedOptionsString:", selectedOptionsString);
       this.logicEntriesPerQuestion[questionIndex][logicIndex].ifExpected = selectedOptionsString;
 
@@ -1700,7 +1708,7 @@ export class CreateSurveyComponent implements OnInit, AfterViewInit {
       this.selectedOptions[questionIndex][logicIndex].splice(index, 1);
 
       const selectedOptionsArray = this.selectedOptions[questionIndex][logicIndex];
-      const selectedOptionsString = selectedOptionsArray.map((option: { option: any; }) => option.option).join(', ');
+      const selectedOptionsString = selectedOptionsArray.map((option: { id: any; }) => option.id).join(', ');
       console.log("selectedOptionsString:", selectedOptionsString);
       this.logicEntriesPerQuestion[questionIndex][logicIndex].ifExpectedAndOr = selectedOptionsString;
     }

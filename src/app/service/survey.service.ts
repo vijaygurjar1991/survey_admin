@@ -140,6 +140,10 @@ export class SurveyService {
     const url = `${this.apiUrl}api/admin/${this.userId}/GeneralQuestion/CreateLogics`;
     return this.http.post(url, data, { responseType: 'text' });
   }
+  updateLogic(data: any): Observable<any> {
+    const url = `${this.apiUrl}api/admin/${this.userId}/GeneralQuestion/UpdateLogics`;
+    return this.http.post(url, data, { responseType: 'text' });
+  }
   getGenericQuestionType1(typeId: any): Observable<responseGenericQuestion[]> {
     const url = `${this.apiUrl}api/admin/${this.userId}/GenericQuestion/GetGenericQuestions?typeId=${typeId}`;
     return this.http.get<responseGenericQuestion[]>(url);
