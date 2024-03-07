@@ -60,6 +60,14 @@ export class ExpertAidListComponent {
     return role ? role.name : 'Unknown Role';
   }
 
+  selectAll: boolean = false;
+
+  selectAllCheckboxes() {
+    for (let item of this.UserData) {
+      item.selected = this.selectAll;
+    }
+  }
+
 
 
 }

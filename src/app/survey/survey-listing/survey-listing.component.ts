@@ -66,7 +66,7 @@ export class SurveyListingComponent {
   filteredSurveyData: any[] = [];
   searchQuery: any
   applyFilter(searchQuery: string): void {
-    console.log('Search query:', searchQuery); // Log the search query value
+    console.log('Search query:', searchQuery);
 
     if (!searchQuery) {
       // If searchQuery is undefined or empty, display the entire list

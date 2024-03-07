@@ -531,12 +531,14 @@
         <div class="row">
             <div class="col-md-6">
                 <form>
+                    <label>Input</label>
                     <textarea class="form-control" name="inputTextarea" [(ngModel)]="inputText" id="" cols="30"
                         rows="10" (input)="processInputText()"></textarea>
                 </form>
             </div>
             <div class="col-md-6">
                 <form>
+                    <label>Output</label>
                     <textarea class="form-control" name="previewTextarea" [value]="inputText" id="" cols="30"
                         rows="10"></textarea>
                 </form>

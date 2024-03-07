@@ -163,4 +163,15 @@ export class ExpertAidAllServicesComponent {
     });
   }
 
+  // checkbox
+  selectAll: boolean = false;
+
+  selectAllCheckboxes() {
+    for (let item of this.UserData) {
+      item.selected = this.selectAll;
+    }
+  }
+
+  selectedCategory: string = 'All Roles';
+
 }

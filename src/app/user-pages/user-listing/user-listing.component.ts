@@ -83,4 +83,18 @@ export class UserListingComponent {
   }
 
 
+  // filtering
+
+  selectedCategory: string = 'All Roles';
+
+
+  selectAll: boolean = false;
+
+  selectAllCheckboxes() {
+    for (let item of this.UserData) {
+      item.selected = this.selectAll;
+    }
+  }
+
+
 }

@@ -146,6 +146,18 @@ export class ProfileByIdComponent {
 
   }
 
+  // checkbox
+  selectAll: boolean = false;
+
+  selectAllCheckboxes() {
+    for (let item of this.UserData) {
+      item.selected = this.selectAll;
+    }
+  }
+
+  // filtering
+
+  selectedCategory: string = 'All Roles';
 
 
 }

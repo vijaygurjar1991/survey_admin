@@ -34,7 +34,7 @@
                 </ngx-dropzone>
             </div>
             <div>
-                <img [src]="image" width="50%" />
+                <img [(ngModel)]="image" [src]="image" width="50%" />
             </div>
             <div class="text-end upload">
                 <button type="button" class="btn btn-primary" (click)="postData()">Update <ng-icon

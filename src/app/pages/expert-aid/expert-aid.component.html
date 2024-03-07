@@ -91,7 +91,7 @@
                     <div *ngIf="!date" class="text-danger">Date is required.</div>
                 </div>
                 <div class="col-md-6 form-group mb-3">
-                    <label>Start date</label>
+                    <label>End date</label>
                     <input type="date" class="form-control" [(ngModel)]="endDate" [ngModelOptions]="{standalone: true}"
                         (blur)="validateSurvey()">
                     <div *ngIf="!enddate" class="text-danger">Date is required.</div>
