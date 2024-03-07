@@ -134,7 +134,7 @@ export class CreateSurveyComponent implements OnInit, AfterViewInit {
   showRemoveandlogicArray: boolean[][] = [];
   isAndOrLogic: boolean[][] = [];
   visibleaddandlogic: boolean[][] = [];
-
+  isBranchingElseShow: boolean[][] = [];
   constructor(
     private visibilityService: DataService,
     private modalService: NgbModal,
@@ -703,6 +703,11 @@ export class CreateSurveyComponent implements OnInit, AfterViewInit {
       this.isAndOrLogic[index] = [];
     }
     this.isAndOrLogic[index][logicIndex] = false;
+    if (!this.isBranchingElseShow[index]) {
+      this.isBranchingElseShow[index] = [];
+    }
+    this.isBranchingElseShow[index][logicIndex] = false;
+    
 
     console.log("value of visibleaddandlogic: ", this.visibleaddandlogic)
     console.log('Value of logicEntriesPerQuestion:', this.logicEntriesPerQuestion);
@@ -726,7 +731,7 @@ export class CreateSurveyComponent implements OnInit, AfterViewInit {
   }
   getQuestionLogic(index: number, questionId: number): void {
 
-
+    this.getOptionsByQuestionIdLogic(questionId);
     this.surveyservice.getQuestionLogics(questionId, this.surveyId).subscribe(
       (response) => {
         if (response && response.length > 0) {
@@ -757,7 +762,9 @@ export class CreateSurveyComponent implements OnInit, AfterViewInit {
             if (!this.isAndOrLogic[index]) {
               this.isAndOrLogic[index] = [];
             }
-
+            if (!this.isBranchingElseShow[index]) {
+              this.isBranchingElseShow[index] = [];
+            }
 
             if (logic.thanTerm && logic.thanTerm.includes("L")) { // Check if thanTerm is not null and contains "L"
               if (logic.thanExpected !== null) {
@@ -867,7 +874,10 @@ export class CreateSurveyComponent implements OnInit, AfterViewInit {
               this.showRemoveandlogicArray[index][logicIndex] = false;
               this.isAndOrLogic[index][logicIndex] = false;
             }
-
+            if (newLogicEntry.elseId && newLogicEntry.elseId>0)            
+              this.isBranchingElseShow[index][logicIndex] = true;
+            else
+            this.isBranchingElseShow[index][logicIndex] = false;
 
             if (newLogicEntry.isOr)
               newLogicEntry.isOr = "option2"
@@ -960,20 +970,29 @@ export class CreateSurveyComponent implements OnInit, AfterViewInit {
       }
 
       console.log("dataToSend", this.questionLogic);
-
-      this.surveyservice.createLogic(this.questionLogic).subscribe(
-        response => {
-          console.log('Response from server:', response);
-          this.utils.showSuccess('Logic Created Successfully.');
-          // Swal.fire('', 'Logic Created Successfully.', 'success');
-        },
-        error => {
-          console.error('Error occurred while sending POST request:', error);
-          // Swal.fire('', error, 'error');
-          this.utils.showError(error);
-
-        }
-      );
+      if(this.questionLogic.id>0){
+        this.surveyservice.updateLogic(this.questionLogic).subscribe(
+          response => {
+            console.log('Response from server:', response);
+            this.utils.showSuccess('Logic Created Successfully.');
+          },
+          error => {
+            console.error('Error occurred while sending POST request:', error);
+            this.utils.showError(error);
+          }
+        );
+      }else{
+        this.surveyservice.createLogic(this.questionLogic).subscribe(
+          response => {
+            console.log('Response from server:', response);
+            this.utils.showSuccess('Logic Created Successfully.');
+          },
+          error => {
+            console.error('Error occurred while sending POST request:', error);
+            this.utils.showError(error);
+          }
+        );
+      }
     }
   }
 
@@ -991,21 +1010,14 @@ export class CreateSurveyComponent implements OnInit, AfterViewInit {
   }
 
   removeRandomizationSection(index: number) {
-
-
-
     this.randormizeEntries.splice(index, 1);
   }
   
   saveRandomization(): void {
     console.log(this.randormizeEntries);
-
-    // Check if any checkbox is checked
-    const anyCheckboxChecked = this.randormizeEntries.some(entry => entry.isRandomizationChecked
-    );
+    const anyCheckboxChecked = this.randormizeEntries.some(entry => entry.isRandomizationChecked);
     console.log(anyCheckboxChecked)
 
-    // Check if all newly added randormizeEntries are checked
     const anyUncheckedNewEntries = this.randormizeEntries.slice(-1 * (this.randormizeEntries.length - this.initialLength))
       .some(entry => !entry.isRandomizationChecked);
 
@@ -1221,12 +1233,11 @@ export class CreateSurveyComponent implements OnInit, AfterViewInit {
       }
     );
   }
-  isBranchingElseShow: boolean = false
-  showBranchingElse() {
-    this.isBranchingElseShow = true
+  showBranchingElse(questionIndex:number,logicIndex:number) {
+    this.isBranchingElseShow[questionIndex][logicIndex] = true
   }
-  hideBranchingElse() {
-    this.isBranchingElseShow = false
+  hideBranchingElse(questionIndex:number,logicIndex:number) {
+    this.isBranchingElseShow[questionIndex][logicIndex] = false
   }
   //getQuestionListRandomization
   apiResponseRandomization: any[] = [];

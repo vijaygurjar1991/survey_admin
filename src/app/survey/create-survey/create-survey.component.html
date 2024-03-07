@@ -654,14 +654,14 @@
                                                                         <div class="col-md-1">
                                                                             <button type="button"
                                                                                 class="btn btn-outline-primary btn-sm"
-                                                                                (click)="showBranchingElse()">Else</button>
+                                                                                (click)="showBranchingElse(i,j)">Else</button>
                                                                         </div>
                                                                     </div>
                                                                 </div>
-                                                                <div ngClass="if-then" *ngIf="isBranchingElseShow">
+                                                                <div ngClass="if-then" *ngIf="isBranchingElseShow[i][j] || logicEntry.elseId != null">
                                                                     <span>Else</span>
                                                                 </div>
-                                                                <div ngClass="mb-4" *ngIf="isBranchingElseShow">
+                                                                <div ngClass="mb-4" *ngIf="isBranchingElseShow[i][j] || logicEntry.elseId != null">
                                                                     <div class="row g-2 align-items-center">
                                                                         <div class="col-md-4">
                                                                             <!-- Use unique template reference variables by appending the index -->
@@ -728,7 +728,7 @@
                                                                         <div class="col-md-1">
                                                                             <button type="button"
                                                                                 class="btn btn-outline-primary btn-sm"
-                                                                                (click)="hideBranchingElse()">Remove</button>
+                                                                                (click)="hideBranchingElse(i,j)">Remove</button>
                                                                         </div>
                                                                     </div>
                                                                 </div>
