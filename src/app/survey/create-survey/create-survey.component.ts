@@ -135,6 +135,7 @@ export class CreateSurveyComponent implements OnInit, AfterViewInit {
   isAndOrLogic: boolean[][] = [];
   visibleaddandlogic: boolean[][] = [];
   isBranchingElseShow: boolean[][] = [];
+  isElseShow: boolean[][] = [];
   constructor(
     private visibilityService: DataService,
     private modalService: NgbModal,
@@ -687,7 +688,8 @@ export class CreateSurveyComponent implements OnInit, AfterViewInit {
       timesPeriod: 0,
       popupTextElse: null,
       isEveryTimeElse: false,
-      timesPeriodElse: 0
+      timesPeriodElse: 0,
+      andOrId:0
     };
 
     this.logicEntriesPerQuestion[index].push(newLogicEntry);
@@ -707,7 +709,11 @@ export class CreateSurveyComponent implements OnInit, AfterViewInit {
       this.isBranchingElseShow[index] = [];
     }
     this.isBranchingElseShow[index][logicIndex] = false;
-    
+    //isElseShow
+    if (!this.isElseShow[index]) {
+      this.isElseShow[index] = [];
+    }
+    this.isElseShow[index][logicIndex] = true;
 
     console.log("value of visibleaddandlogic: ", this.visibleaddandlogic)
     console.log('Value of logicEntriesPerQuestion:', this.logicEntriesPerQuestion);
@@ -765,9 +771,13 @@ export class CreateSurveyComponent implements OnInit, AfterViewInit {
             if (!this.isBranchingElseShow[index]) {
               this.isBranchingElseShow[index] = [];
             }
+            if (!this.isElseShow[index]) {
+              this.isElseShow[index] = [];
+            }
+            
 
             if (logic.thanTerm && logic.thanTerm.includes("L")) { // Check if thanTerm is not null and contains "L"
-              if (logic.thanExpected !== null) {
+              if (logic.thanExpected !== null && logic.thanExpected !==0) {
                 logic.thanExpected = "L-" + logic.thanExpected; // Modify thanExpected accordingly
               }
             }
@@ -778,7 +788,7 @@ export class CreateSurveyComponent implements OnInit, AfterViewInit {
             }
 
             if (logic.elseTerm && logic.elseTerm.includes("Q")) { // Check if thanTerm is not null and contains "L"
-              if (logic.elseExpected !== null) {
+              if (logic.elseExpected !== null && logic.elseExpected !==0) {
                 logic.elseExpected = "Q-" + logic.elseExpected; // Modify thanExpected accordingly
               }
             }
@@ -807,9 +817,14 @@ export class CreateSurveyComponent implements OnInit, AfterViewInit {
               timesPeriod: logic.timesPeriod,
               popupTextElse: null,
               isEveryTimeElse: false,
-              timesPeriodElse: 0
+              timesPeriodElse: 0,
+              andOrId:logic.logicConditions[0].id
             };
-
+            if(newLogicEntry.elseExpected ==="null")
+              newLogicEntry.elseExpected =0
+            if(newLogicEntry.thanExpected ==="null")
+              newLogicEntry.thanExpected =0
+            
             // Initialize an array for the question if not already done
             if (!this.logicEntriesPerQuestion[index]) {
               this.logicEntriesPerQuestion[index] = [];
@@ -879,6 +894,14 @@ export class CreateSurveyComponent implements OnInit, AfterViewInit {
             else
             this.isBranchingElseShow[index][logicIndex] = false;
 
+            const ifIdNumber = +newLogicEntry.elseId;
+            if (ifIdNumber === 3 || ifIdNumber === 4)
+              this.isElseShow[index][logicIndex] = false
+            else
+              this.isElseShow[index][logicIndex] = true
+
+            //this.isElseShow[index][logicIndex] = true;
+
             if (newLogicEntry.isOr)
               newLogicEntry.isOr = "option2"
             if (newLogicEntry.isAnd)
@@ -903,21 +926,30 @@ export class CreateSurveyComponent implements OnInit, AfterViewInit {
     for (const logicEntry of logicEntries) {
       this.createLogicCount++;
       console.log(logicEntry)
-      if (logicEntry.elseExpected !== null) {
+      const thanTermValue = logicEntry.thanExpected;
+      const elseTermValue = logicEntry.elseExpected;
+      if (logicEntry.elseExpected !== null && logicEntry.elseExpected !==0) {
         logicEntry.elseExpected = logicEntry.elseExpected.replace('Q-', '').replace('L-', '');
+      }else{
+        logicEntry.elseExpected =0
+        console.log("elseExpected : ",logicEntry.elseExpected)
       }
-      if (logicEntry.thanExpected !== null) {
+        
+      if (logicEntry.thanExpected !== null && logicEntry.thanExpected !==0) {
         logicEntry.thanExpected = logicEntry.thanExpected.replace(/Q-/g, '').replace(/L-/g, '');
+      }else{
+        logicEntry.thanExpected =0
+        console.log("thanExpected :",logicEntry.thanExpected)
       }
+    
+
       const id = logicEntry.id
       const ifIdValue = logicEntry.ifId;
       const ifExpectedValue = logicEntry.ifExpected;
       const thanIdValue = logicEntry.thanId;
       const thanExpectedValue = logicEntry.thanExpected;
-      const thanTermValue = logicEntry.thanExpected;
       const elseIdValue = logicEntry.elseId;
       const elseExpectedValue = logicEntry.elseExpected;
-      const elseTermValue = logicEntry.elseExpected;
       const nameValue = "Logic " + this.createLogicCount;
       var popupTextValue: string = "", isEveryTimeValue: boolean = false, timesPeriodValue: number = 0;
       if (thanIdValue == 5) {
@@ -964,6 +996,7 @@ export class CreateSurveyComponent implements OnInit, AfterViewInit {
           this.questionLogic.logicConditions[0].isAnd = true
         else
           this.questionLogic.logicConditions[0].isOr = true
+        
         this.questionLogic.logicConditions[0].questionId = logicEntry.questionIdAndOr
         this.questionLogic.logicConditions[0].ifId = logicEntry.ifIdAndOr
         this.questionLogic.logicConditions[0].ifExpected = logicEntry.ifExpectedAndOr
@@ -1584,13 +1617,12 @@ export class CreateSurveyComponent implements OnInit, AfterViewInit {
       this.isThanShow = true
 
   }
-  isElseShow: boolean = true
-  onLogicEntryOrElseChange(elseIdSelect: any): void {
+  onLogicEntryOrElseChange(elseIdSelect: any,questionIndex:number,logicIndex:number): void {
     const ifIdNumber = +elseIdSelect;
     if (ifIdNumber === 3 || ifIdNumber === 4)
-      this.isElseShow = false
+      this.isElseShow[questionIndex][logicIndex] = false
     else
-      this.isElseShow = true
+      this.isElseShow[questionIndex][logicIndex] = true
 
   }
   showPopup: boolean = false;

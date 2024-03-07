@@ -576,7 +576,7 @@
 
                                                             <div class="add-multiple-logic">
                                                                 <div ngClass="if-then">
-                                                                    <span>Then</span>
+                                                                    <span>Then {{logicEntry.thanExpected}}</span>
                                                                 </div>
                                                                 <div ngClass="mb-4">
                                                                     <div class="row g-2 align-items-center">
@@ -659,7 +659,7 @@
                                                                     </div>
                                                                 </div>
                                                                 <div ngClass="if-then" *ngIf="isBranchingElseShow[i][j] || logicEntry.elseId != null">
-                                                                    <span>Else</span>
+                                                                    <span>Else {{logicEntry.elseExpected}}</span>
                                                                 </div>
                                                                 <div ngClass="mb-4" *ngIf="isBranchingElseShow[i][j] || logicEntry.elseId != null">
                                                                     <div class="row g-2 align-items-center">
@@ -668,7 +668,7 @@
                                                                             <select class="form-select"
                                                                                 #elseIdSelect="ngModel"
                                                                                 [(ngModel)]="logicEntry.elseId"
-                                                                                (change)="onLogicEntryOrElseChange(elseIdSelect.value)">
+                                                                                (change)="onLogicEntryOrElseChange(elseIdSelect.value,i,j)">
 
                                                                                 <option
                                                                                     *ngFor="let item of logicThensList;let j=index;"
@@ -710,7 +710,7 @@
                                                                             </div>
                                                                         </div>
                                                                         <div class="col-md-4"
-                                                                            *ngIf="isElseShow && logicEntry.elseId!=5">
+                                                                            *ngIf="isElseShow[i][j] && logicEntry.elseId!=5">
                                                                             <!-- Use unique template reference variables by appending the index -->
                                                                             <select class="form-select"
                                                                                 #thanExpectedSelect="ngModel"
