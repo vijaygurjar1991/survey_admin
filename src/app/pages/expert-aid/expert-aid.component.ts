@@ -6,6 +6,7 @@ import { SurveyService } from 'src/app/service/survey.service';
 import { UtilsService } from 'src/app/service/utils.service';
 import Swal from 'sweetalert2';
 import { MatSelect, MatSelectChange } from '@angular/material/select';
+import { FormControl, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-expert-aid',
@@ -128,6 +129,7 @@ export class ExpertAidComponent {
   messageRequired: boolean = false; // Initialize messageRequired
   messageLimitExceeded: boolean = false;
 
+
   validateSurvey(): boolean {
     this.firstname = !!this.name && this.name.trim().length > 0;
     this.project = !!this.projectType && this.projectType.trim().length > 0;
@@ -137,6 +139,7 @@ export class ExpertAidComponent {
     this.phone = !!this.mobile && this.mobile.toString().trim().length > 0;
     this.message = !!this.comments && this.comments.trim().length > 0;
     this.validMessageLength = !!this.comments && this.comments.trim().length > 0;
+    const numberControl = new FormControl('', [Validators.required, Validators.pattern('^[0-9]*$')]);
 
     const wordCount = this.comments.trim().split(/\s+/).length;
     this.validMessageLength = wordCount <= 250;
@@ -168,6 +171,8 @@ export class ExpertAidComponent {
     // Split the text by spaces and count the number of words
     return text.trim().split(/\s+/).length;
   }
+
+
 
 
 }
