@@ -912,7 +912,7 @@ export class EditSurveyComponent {
 
   // answer logic
 
-  visibleanslogic: boolean = false
+  visibleanslogic = false
   VisibilityAnsLogic() {
     this.visibleanslogic = !this.visibleanslogic;
   }

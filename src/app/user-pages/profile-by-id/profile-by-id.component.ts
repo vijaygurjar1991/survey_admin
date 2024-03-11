@@ -41,18 +41,37 @@ export class ProfileByIdComponent {
     { id: 3, name: 'User' }
   ];
 
+  isSuperAdmin = false;
+  isAdmin = false;
+  isUser = false;
+  isClient = false;
+
   ngOnInit(): void {
     this.role = this.utility.getRole()
     this.getAllUser()
+
+    this.roleId = this.utility.getRoleId()
+    if (this.role) {
+      this.role = this.role.toLowerCase();
+    }
+    console.log("profile id Role", this.role)
+    if (this.role == 'client')
+      this.isClient = true;
+    else if (this.role == 'superadmin')
+      this.isSuperAdmin = true
+    else if (this.role == 'admin')
+      this.isAdmin = true
+    else if (this.role == 'user')
+      this.isUser = true
+
   }
 
   userId: any;
 
 
   getAllUser() {
-    this.userId = localStorage.getItem("userId");
+    this.userId = this.utility.getUserId()
 
-    this.userId = localStorage.getItem("userId");
     this.themeService.GetAllUserProfileById(this.userId, this.centerId).subscribe((data: any) => {
       this.UserData = data;
 
@@ -62,6 +81,7 @@ export class ProfileByIdComponent {
       this.cdr.detectChanges();
     });
   }
+
   getRoleName(roleId: number): string {
     const role = this.roles.find(r => r.id === roleId);
     return role ? role.name : 'Unknown Role';

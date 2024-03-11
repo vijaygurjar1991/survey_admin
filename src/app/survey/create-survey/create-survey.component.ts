@@ -689,7 +689,7 @@ export class CreateSurveyComponent implements OnInit, AfterViewInit {
       popupTextElse: null,
       isEveryTimeElse: false,
       timesPeriodElse: 0,
-      andOrId:0
+      andOrId: 0
     };
 
     this.logicEntriesPerQuestion[index].push(newLogicEntry);
@@ -757,7 +757,7 @@ export class CreateSurveyComponent implements OnInit, AfterViewInit {
             if (!this.selectedOptions[index][logicIndex]) {
               this.selectedOptions[index][logicIndex] = [];
             }
-            
+
             if (!this.showRemoveandlogicArray[index]) {
               this.showRemoveandlogicArray[index] = [];
             }
@@ -774,10 +774,10 @@ export class CreateSurveyComponent implements OnInit, AfterViewInit {
             if (!this.isElseShow[index]) {
               this.isElseShow[index] = [];
             }
-            
+
 
             if (logic.thanTerm && logic.thanTerm.includes("L")) { // Check if thanTerm is not null and contains "L"
-              if (logic.thanExpected !== null && logic.thanExpected !==0) {
+              if (logic.thanExpected !== null && logic.thanExpected !== 0) {
                 logic.thanExpected = "L-" + logic.thanExpected; // Modify thanExpected accordingly
               }
             }
@@ -788,7 +788,7 @@ export class CreateSurveyComponent implements OnInit, AfterViewInit {
             }
 
             if (logic.elseTerm && logic.elseTerm.includes("Q")) { // Check if thanTerm is not null and contains "L"
-              if (logic.elseExpected !== null && logic.elseExpected !==0) {
+              if (logic.elseExpected !== null && logic.elseExpected !== 0) {
                 logic.elseExpected = "Q-" + logic.elseExpected; // Modify thanExpected accordingly
               }
             }
@@ -818,40 +818,40 @@ export class CreateSurveyComponent implements OnInit, AfterViewInit {
               popupTextElse: null,
               isEveryTimeElse: false,
               timesPeriodElse: 0,
-              andOrId:logic.logicConditions[0].id
+              andOrId: logic.logicConditions[0].id
             };
-            if(newLogicEntry.elseExpected ==="null")
-              newLogicEntry.elseExpected =0
-            if(newLogicEntry.thanExpected ==="null")
-              newLogicEntry.thanExpected =0
-            
+            if (newLogicEntry.elseExpected === "null")
+              newLogicEntry.elseExpected = 0
+            if (newLogicEntry.thanExpected === "null")
+              newLogicEntry.thanExpected = 0
+
             // Initialize an array for the question if not already done
             if (!this.logicEntriesPerQuestion[index]) {
               this.logicEntriesPerQuestion[index] = [];
             }
-            console.log("ifExpected : ",logic.ifExpected)
+            console.log("ifExpected : ", logic.ifExpected)
             if (logic.ifExpected != null) {
               let queryParams = {
                 qid: questionId
               };
-            
+
               this.surveyservice.getOptionsByQuestionId(queryParams).subscribe((response: any) => {
                 console.log("response logic option", response);
 
                 const optionsArray = JSON.parse(response);
                 if (Array.isArray(optionsArray) && optionsArray.length > 0) {
-                  this.selectedOptionsLogic[index][logicIndex]=[]
+                  this.selectedOptionsLogic[index][logicIndex] = []
                   const filteredOptions = optionsArray.filter((item: { id: number }) => logic.ifExpected.includes(item.id));
                   console.log("filteredOptions : ", filteredOptions);
-                  
+
                   this.selectedOptionsLogic[index][logicIndex].push(...filteredOptions);
                   console.log("selectedOptionsLogic : ", this.selectedOptionsLogic[index][logicIndex]);
-                  
+
                 } else {
-                  
+
                   console.error("Response is either not an array or it's empty. Unable to filter options.");
                 }
-                
+
               });
             }
             // And/Or 
@@ -859,7 +859,7 @@ export class CreateSurveyComponent implements OnInit, AfterViewInit {
               let queryParams = {
                 qid: newLogicEntry.questionIdAndOr
               };
-            
+
               this.surveyservice.getOptionsByQuestionId(queryParams).subscribe((response: any) => {
                 console.log("response logic option", response);
 
@@ -868,18 +868,18 @@ export class CreateSurveyComponent implements OnInit, AfterViewInit {
                   // Assuming the response is an array of objects
                   const filteredOptions = optionsArray.filter((item: { id: number }) => newLogicEntry.ifExpectedAndOr.includes(item.id));
                   console.log("filteredOptions : ", filteredOptions);
-                  this.selectedOptions[index][logicIndex]=[]
+                  this.selectedOptions[index][logicIndex] = []
                   this.selectedOptions[index][logicIndex].push(...filteredOptions);
                   console.log("selectedOptions : ", this.selectedOptions[index][logicIndex]);
-                  
+
                 } else {
-                  
+
                   console.error("Response is either not an array or it's empty. Unable to filter options.");
                 }
-                
+
               });
             }
-           
+
             if (newLogicEntry.isAnd || newLogicEntry.isOr) {
               this.visibleaddandlogic[index][logicIndex] = true;
               this.showRemoveandlogicArray[index][logicIndex] = true;
@@ -889,10 +889,10 @@ export class CreateSurveyComponent implements OnInit, AfterViewInit {
               this.showRemoveandlogicArray[index][logicIndex] = false;
               this.isAndOrLogic[index][logicIndex] = false;
             }
-            if (newLogicEntry.elseId && newLogicEntry.elseId>0)            
+            if (newLogicEntry.elseId && newLogicEntry.elseId > 0)
               this.isBranchingElseShow[index][logicIndex] = true;
             else
-            this.isBranchingElseShow[index][logicIndex] = false;
+              this.isBranchingElseShow[index][logicIndex] = false;
 
             const ifIdNumber = +newLogicEntry.elseId;
             if (ifIdNumber === 3 || ifIdNumber === 4)
@@ -928,20 +928,20 @@ export class CreateSurveyComponent implements OnInit, AfterViewInit {
       console.log(logicEntry)
       const thanTermValue = logicEntry.thanExpected;
       const elseTermValue = logicEntry.elseExpected;
-      if (logicEntry.elseExpected !== null && logicEntry.elseExpected !==0) {
+      if (logicEntry.elseExpected !== null && logicEntry.elseExpected !== 0) {
         logicEntry.elseExpected = logicEntry.elseExpected.replace('Q-', '').replace('L-', '');
-      }else{
-        logicEntry.elseExpected =0
-        console.log("elseExpected : ",logicEntry.elseExpected)
+      } else {
+        logicEntry.elseExpected = 0
+        console.log("elseExpected : ", logicEntry.elseExpected)
       }
-        
-      if (logicEntry.thanExpected !== null && logicEntry.thanExpected !==0) {
+
+      if (logicEntry.thanExpected !== null && logicEntry.thanExpected !== 0) {
         logicEntry.thanExpected = logicEntry.thanExpected.replace(/Q-/g, '').replace(/L-/g, '');
-      }else{
-        logicEntry.thanExpected =0
-        console.log("thanExpected :",logicEntry.thanExpected)
+      } else {
+        logicEntry.thanExpected = 0
+        console.log("thanExpected :", logicEntry.thanExpected)
       }
-    
+
 
       const id = logicEntry.id
       const ifIdValue = logicEntry.ifId;
@@ -996,14 +996,14 @@ export class CreateSurveyComponent implements OnInit, AfterViewInit {
           this.questionLogic.logicConditions[0].isAnd = true
         else
           this.questionLogic.logicConditions[0].isOr = true
-        
+
         this.questionLogic.logicConditions[0].questionId = logicEntry.questionIdAndOr
         this.questionLogic.logicConditions[0].ifId = logicEntry.ifIdAndOr
         this.questionLogic.logicConditions[0].ifExpected = logicEntry.ifExpectedAndOr
       }
 
       console.log("dataToSend", this.questionLogic);
-      if(this.questionLogic.id>0){
+      if (this.questionLogic.id > 0) {
         this.surveyservice.updateLogic(this.questionLogic).subscribe(
           response => {
             console.log('Response from server:', response);
@@ -1014,7 +1014,7 @@ export class CreateSurveyComponent implements OnInit, AfterViewInit {
             this.utils.showError(error);
           }
         );
-      }else{
+      } else {
         this.surveyservice.createLogic(this.questionLogic).subscribe(
           response => {
             console.log('Response from server:', response);
@@ -1045,7 +1045,7 @@ export class CreateSurveyComponent implements OnInit, AfterViewInit {
   removeRandomizationSection(index: number) {
     this.randormizeEntries.splice(index, 1);
   }
-  
+
   saveRandomization(): void {
     console.log(this.randormizeEntries);
     const anyCheckboxChecked = this.randormizeEntries.some(entry => entry.isRandomizationChecked);
@@ -1266,10 +1266,10 @@ export class CreateSurveyComponent implements OnInit, AfterViewInit {
       }
     );
   }
-  showBranchingElse(questionIndex:number,logicIndex:number) {
+  showBranchingElse(questionIndex: number, logicIndex: number) {
     this.isBranchingElseShow[questionIndex][logicIndex] = true
   }
-  hideBranchingElse(questionIndex:number,logicIndex:number) {
+  hideBranchingElse(questionIndex: number, logicIndex: number) {
     this.isBranchingElseShow[questionIndex][logicIndex] = false
   }
   //getQuestionListRandomization
@@ -1476,23 +1476,21 @@ export class CreateSurveyComponent implements OnInit, AfterViewInit {
   cloning(clonQuestionId: any) {
     this.surveyservice.cloneQuestion(clonQuestionId, this.surveyId).subscribe((data: any) => {
       //console.log("data", data)
-      this.cloneQuestion = data
-      this.cloneQuestion.id = 0
-      this.cloneQuestion.question = this.cloneQuestion.question + "-1"
-      this.cloneQuestion.createdDate = this.getCurrentDateTime()
-      console.log(this.cloneQuestion)
+      this.utils.showSuccess('Question Clone Successfully.');
+      this.ngOnInit()
+      console.log(data)
 
-      this.surveyservice.CreateGeneralQuestion(this.cloneQuestion).subscribe({
-        next: (resp: any) => {
-          this.utils.showSuccess('Question Generated Successfully.');
-          // let url = `/survey/manage-survey/${this.crypto.encryptParam("" + this.surveyId)}`;
-          // this.router.navigateByUrl(url);
-          window.location.reload()
-        },
-        error: (err: any) => {
-          this.utils.showError('error');
-        }
-      });
+      // this.surveyservice.CreateGeneralQuestion(this.cloneQuestion).subscribe({
+      //   next: (resp: any) => {
+      //     this.utils.showSuccess('Question Generated Successfully.');
+      //     //let url = `/survey/manage-survey/${this.crypto.encryptParam("" + this.surveyId)}`;
+      //     //this.router.navigateByUrl(url);
+      //     this.ngOnInit()
+      //   },
+      //   error: (err: any) => {
+      //     this.utils.showError('error');
+      //   }
+      // });
     });
   }
   getCurrentDateTime(): string {
@@ -1617,7 +1615,7 @@ export class CreateSurveyComponent implements OnInit, AfterViewInit {
       this.isThanShow = true
 
   }
-  onLogicEntryOrElseChange(elseIdSelect: any,questionIndex:number,logicIndex:number): void {
+  onLogicEntryOrElseChange(elseIdSelect: any, questionIndex: number, logicIndex: number): void {
     const ifIdNumber = +elseIdSelect;
     if (ifIdNumber === 3 || ifIdNumber === 4)
       this.isElseShow[questionIndex][logicIndex] = false

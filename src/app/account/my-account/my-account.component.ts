@@ -96,6 +96,7 @@ export class MyAccountComponent {
       response => {
         console.log('Response from server:', response);
         this.util.showSuccess(response);
+        window.location.reload();
         // Swal.fire('', response);
         // Handle response based on the server behavior
       },

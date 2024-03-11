@@ -34,6 +34,7 @@ export class ReportsComponent {
     },
   ];
   selectAllChecked = false;
+  UserData: any;
   toggleSelectAll(): void {
     this.selectAllChecked = !this.selectAllChecked;
     this.suveryListingTable.forEach((item) => {
@@ -44,4 +45,6 @@ export class ReportsComponent {
   constructor(private visibilityService: DataService, private modalService: NgbModal, public themeService: DataService) {
     this.baseUrl = environment.baseURL;
   }
+
+
 }

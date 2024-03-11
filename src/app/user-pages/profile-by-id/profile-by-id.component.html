@@ -31,7 +31,7 @@
                         <th scope="col">Phone</th>
                         <th scope="col">Date</th>
                         <th scope="col">Status</th>
-                        <th scope="col">Action</th>
+                        <th scope="col" *ngIf="!this.isUser">Action</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -57,13 +57,13 @@
                             <span>{{ item.status === 'ACT' ? 'Active' : 'Deactive' }}</span>
                         </td> -->
 
-                        <td ngClass="action">
+                        <td ngClass="action" *ngIf="!this.isUser">
                             <!-- <button type="button" class="btn btn-primary" data-bs-toggle="modal"
                                 data-bs-target="#exampleModal">
                                 Launch demo modal
                             </button> -->
                             <a routerLink="javascript:" data-bs-toggle="modal" data-bs-target="#exampleModal"
-                                (click)="getUserDetails(item.id)"><ng-icon name="heroPencil"
+                                (click)="getUserDetails(item.id)" *ngIf="userId !== item.id"><ng-icon name="heroPencil"
                                     ngClass="edit-action"></ng-icon></a>
                             <!-- <a routerLink="javascript:"><ng-icon name="heroEllipsisVertical"></ng-icon></a> -->
                         </td>

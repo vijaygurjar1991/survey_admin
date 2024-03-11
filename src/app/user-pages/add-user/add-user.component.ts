@@ -79,7 +79,13 @@ export class AddUserComponent {
     this.themeService.AddNewUser(dataToSend).subscribe(
       response => {
         console.log('Response from server:', response);
-        this.utility.showSuccess(response);
+        if (response == '"UserAlreadyExits"') {
+          this.utility.showError("User Already Exits");
+        } else {
+          this.utility.showSuccess('New User Created Successfully');
+
+        }
+        // this.utility.showSuccess(response);
         // Swal.fire('', response, 'success');
         // Handle response based on the server behavior
       },
