@@ -125,12 +125,14 @@ export class MyAccountComponent {
       this.themeService.ChangePassword(dataToSend2).subscribe({
         next: (response) => {
           console.log('Response from server:', response);
-          Swal.fire('', response, 'success');
+          this.util.showSuccess(response);
+          window.location.reload();
+          // Swal.fire('', response, 'success');
           // Handle response based on the server behavior
         },
         error: (err) => {
           console.error('Error occurred while sending POST request:', err);
-          Swal.fire('Error Occurs', err, 'error');
+          this.util.showError(err);
 
           // Handle error, if needed
         }

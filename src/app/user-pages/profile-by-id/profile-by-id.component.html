@@ -87,27 +87,37 @@
                     <div class="row">
                         <div class="col-md-6 mb-3">
                             <label for="">First Name</label>
-                            <input type="text" name="firstName" id="" class="form-control" [(ngModel)]="firstName">
+                            <input type="text" name="firstName" id="" class="form-control" [(ngModel)]="firstName"
+                                (blur)="validateSurvey()">
+                            <div *ngIf="!firstNamerequired" class="text-danger">First Name is required.</div>
                         </div>
                         <div class="col-md-6 mb-3">
                             <label for="">Last Name</label>
-                            <input type="text" name="lastName" id="" class="form-control" [(ngModel)]="lastname" />
+                            <input type="text" name="lastName" id="" class="form-control" [(ngModel)]="lastname"
+                                (blur)="validateSurvey()" />
+                            <div *ngIf="!lastNamerequired" class="text-danger">Last Name is required.</div>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-md-6 mb-3">
                             <label for="">Email</label>
-                            <input type="email" class="form-control" [(ngModel)]="email" name="email">
+                            <input type="email" class="form-control" [(ngModel)]="email" name="email"
+                                (blur)="validateSurvey()">
+                            <div *ngIf="!emailaddress" class="text-danger">Email is required.</div>
                         </div>
                         <div class="col-md-6 mb-3">
                             <label for="">Phone No.</label>
-                            <input type="number" class="form-control" [(ngModel)]="contact" name="contactNo">
+                            <input type="number" class="form-control" [(ngModel)]="contactNo" name="contactNo"
+                                (blur)="validateSurvey()">
+                            <div *ngIf="!phone" class="text-danger">Contact is required.</div>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-md-6 mb-3">
                             <label for="">Role</label>
-                            <input type="text" name="role" id="" class="form-control" [(ngModel)]="userroledata">
+                            <input type="text" name="role" id="" class="form-control" [(ngModel)]="userroledata"
+                                (blur)="validateSurvey()">
+                            <div *ngIf="!roletype" class="text-danger">Role is required.</div>
                         </div>
                         <div class="col-md-6 mb-3">
                             <label for="">Created Date</label>

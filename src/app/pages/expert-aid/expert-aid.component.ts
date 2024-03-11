@@ -107,6 +107,7 @@ export class ExpertAidComponent {
       next: (resp: any) => {
         this.utillService.showSuccess('ExpertAid Generated Sucessfully.');
         // Swal.fire('', 'ExpertAid Generated Sucessfully.', 'success');
+        window.location.reload();
       },
       error: (err: any) => {
         // Swal.fire('', err.error, 'error');
@@ -141,7 +142,6 @@ export class ExpertAidComponent {
     this.validMessageLength = wordCount <= 250;
 
 
-    // You might want to return whether all fields are valid
     return (
       this.firstname &&
       this.project &&
@@ -150,7 +150,8 @@ export class ExpertAidComponent {
       this.emailaddress &&
       this.phone &&
       this.message &&
-      this.validMessageLength
+      this.validMessageLength &&
+      this.selectedItems.length > 0
     );
   }
 

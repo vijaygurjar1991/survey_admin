@@ -73,7 +73,7 @@ export class ProfileByIdComponent {
 
   userName: any
   lastname: any
-  contact: any
+  // contactNo: any
   userroledata: any
   usercreateddate: any
   userstatus: any
@@ -85,7 +85,7 @@ export class ProfileByIdComponent {
       this.firstName = filteredUser.firstName
       this.lastname = filteredUser.lastName
       this.email = filteredUser.email;
-      this.contact = filteredUser.contactNo;
+      this.contactNo = filteredUser.contactNo;
       this.userroledata = filteredUser.role;
       this.usercreateddate = filteredUser.createdDate;
       this.id = userId;
@@ -97,6 +97,7 @@ export class ProfileByIdComponent {
       console.log("User Name:", this.userName);
       console.log("User Name:", this.lastname);
       console.log("User Email:", this.email);
+      console.log("user contact", this.contactNo)
       console.log("status", this.userstatus)
       // Output other details as needed
       this.isChecked = this.userstatus === 'ACT';
@@ -120,6 +121,12 @@ export class ProfileByIdComponent {
 
 
   updateProfile(Id: any) {
+
+    if (!this.validateSurvey()) {
+      this.utility.showError('Please fill all required fields.');
+      return;
+    }
+
     let status = this.isChecked ? "ACT" : "DEL";
 
     console.log(this.firstName);
@@ -127,7 +134,7 @@ export class ProfileByIdComponent {
       id: Id,
       firstName: this.firstName,
       lastname: this.lastname,
-      contact: this.contact,
+      contactNo: this.contactNo,
       createdDate: this.createdDate,
       email: this.email,
       role: this.role,
@@ -158,6 +165,31 @@ export class ProfileByIdComponent {
   // filtering
 
   selectedCategory: string = 'All Roles';
+
+  //validate
+
+  firstNamerequired: boolean = true
+  lastNamerequired: boolean = true
+  phone: boolean = true
+  roletype: boolean = true
+  emailaddress: boolean = true
+
+  validateSurvey(): boolean {
+    this.firstNamerequired = !!this.firstName && this.firstName.trim().length > 0;
+    this.lastNamerequired = !!this.lastname && this.lastname.trim().length > 0;
+    this.phone = !!this.contactNo && this.contactNo.toString().trim().length > 0;
+    this.emailaddress = !!this.email && this.email.trim().length > 0;
+    this.roletype = !!this.userroledata && this.userroledata.toString().trim().length > 0;
+
+
+    return (
+      this.firstNamerequired &&
+      this.lastNamerequired &&
+      this.phone &&
+      this.emailaddress &&
+      this.roletype
+    );
+  }
 
 
 }
