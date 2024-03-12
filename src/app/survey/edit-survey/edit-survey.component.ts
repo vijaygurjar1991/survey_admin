@@ -195,6 +195,7 @@ export class EditSurveyComponent {
   files: File[] = [];
 
   optionImages: File[][] = [];
+  newoptionImages: File[][] = [];
 
   onSelect(event: any) { // Use 'any' as the event type
     console.log(event);
@@ -211,7 +212,25 @@ export class EditSurveyComponent {
     // Push the selected image into the array for the current option index
     this.optionImages[index].push(...event.addedFiles);
     console.log(this.optionImages);
+    this.optionsArr1[index].images = [...event.addedFiles];
+    // event.addedFiles.forEach((file: any) => {
+    //   this.filesImage.push(file);
+    //   console.log("file images", this.filesImage);
+    //   this.uploadImageOption(file);
+    // });
+  }
 
+  onSelectNewOptionImage(event: any, index: number): void {
+    // Ensure inner array exists for the option index
+    if (!this.newoptionImages[index]) {
+      this.newoptionImages[index] = [];
+    }
+    // Clear existing images for the option
+    this.newoptionImages[index] = [];
+    // Push the selected image into the array for the current option index
+    this.newoptionImages[index].push(...event.addedFiles);
+    console.log(this.newoptionImages);
+    this.optionsArr1[index].images = [...event.addedFiles];
     // event.addedFiles.forEach((file: any) => {
     //   this.filesImage.push(file);
     //   console.log("file images", this.filesImage);
@@ -225,6 +244,12 @@ export class EditSurveyComponent {
     if (this.optionImages[index]) {
       // Remove the image at the specified index from the array
       this.optionImages[index].splice(event, 1);
+    }
+  }
+  onRemoveSelectNewOptionImage(event: any, index: number): void {
+    if (this.newoptionImages[index]) {
+      // Remove the image at the specified index from the array
+      this.newoptionImages[index].splice(event, 1);
     }
   }
 
@@ -374,6 +399,8 @@ export class EditSurveyComponent {
 
     this.filteredOptions = [];
     this.filteredOptions.push(...this.optionsArr1, ...this.optionsArr2);
+
+
 
 
     this.allOptions = [];
@@ -527,6 +554,7 @@ export class EditSurveyComponent {
 
   onDropOption(e: CdkDragDrop<string[]>) {
     moveItemInArray(this.optionsArr1, e.previousIndex, e.currentIndex);
+    moveItemInArray(this.optionImages, e.previousIndex, e.currentIndex);
     console.log("previous", e.previousIndex)
     console.log("current", e.currentIndex)
     this.allOptions = [];
@@ -604,7 +632,7 @@ export class EditSurveyComponent {
       (response: String) => {
         console.log('Upload successful:', response);
         this.questionImage = response
-        // Handle response from the image upload
+        //  response from the image upload
         // You may want to retrieve the URL or any other relevant information from the response
       },
       (error) => {

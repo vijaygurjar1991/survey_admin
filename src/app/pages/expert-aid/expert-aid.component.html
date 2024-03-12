@@ -70,11 +70,20 @@
     <div class="modal-body popup-ques">
         <form (submit)="onSaveExpertAid()">
             <div class="row">
-                <div class="col-md-6 form-group mb-3">
+                <!-- <div class="col-md-6 form-group mb-3">
                     <label>Full Name</label>
                     <input if="name" type="text" class="form-control" placeholder="Enter your full name"
                         [(ngModel)]="name" [ngModelOptions]="{standalone: true}" (blur)="validateSurvey()">
                     <div *ngIf="!firstname" class="text-danger">Name is required.</div>
+                </div> -->
+                <div class="col-md-6 form-group mb-3">
+                    <label>Full Name</label>
+                    <input type="text" class="form-control" placeholder="Enter your full name" [(ngModel)]="name"
+                        [ngModelOptions]="{standalone: true}" (blur)="validateSurvey()">
+                    <div *ngIf="!name || !isValidName" class="text-danger">
+                        <ng-container *ngIf="!name && touched">Name is required.</ng-container>
+                        <ng-container *ngIf="name && !isValidName">Only alphabets are allowed.</ng-container>
+                    </div>
                 </div>
                 <div class="col-md-6 form-group mb-3">
                     <label>Project type</label>

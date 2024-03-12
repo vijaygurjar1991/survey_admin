@@ -81,6 +81,11 @@ export class ExpertAidComponent {
 
   onSaveExpertAid(): void {
 
+    // if (/\d/.test(this.name)) {
+    //   this.utillService.showError('First name require alphabets');
+    //   return;
+    // }
+
     if (!this.validateSurvey()) {
       this.utillService.showError('Please fill all required fields.');
       return;
@@ -128,6 +133,8 @@ export class ExpertAidComponent {
   message: boolean = true // Initialize comments
   messageRequired: boolean = false; // Initialize messageRequired
   messageLimitExceeded: boolean = false;
+  isValidName: boolean = true;
+  touched: boolean = false;
 
 
   validateSurvey(): boolean {
@@ -140,6 +147,8 @@ export class ExpertAidComponent {
     this.message = !!this.comments && this.comments.trim().length > 0;
     this.validMessageLength = !!this.comments && this.comments.trim().length > 0;
     const numberControl = new FormControl('', [Validators.required, Validators.pattern('^[0-9]*$')]);
+    this.isValidName = /^[a-zA-Z\s]*$/.test(this.name);
+    this.touched = true;
 
     const wordCount = this.comments.trim().split(/\s+/).length;
     this.validMessageLength = wordCount <= 250;
@@ -154,6 +163,7 @@ export class ExpertAidComponent {
       this.phone &&
       this.message &&
       this.validMessageLength &&
+      this.isValidName &&
       this.selectedItems.length > 0
     );
   }

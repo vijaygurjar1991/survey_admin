@@ -6,6 +6,7 @@ import Swal from 'sweetalert2';
 import { UtilsService } from 'src/app/service/utils.service';
 import { environment } from 'src/environments/environment';
 import { FormGroup, FormBuilder, Validators, AbstractControl, ValidationErrors } from '@angular/forms';
+import { AuthService } from 'src/app/service/auth.service';
 
 
 @Component({
@@ -16,7 +17,7 @@ import { FormGroup, FormBuilder, Validators, AbstractControl, ValidationErrors }
 export class MyAccountComponent {
   signupForm: FormGroup;
   imageName: any;
-  constructor(public themeService: DataService, private modalService: NgbModal, private cdr: ChangeDetectorRef, private util: UtilsService, private fb: FormBuilder) {
+  constructor(public themeService: DataService, private modalService: NgbModal, private authService: AuthService, private cdr: ChangeDetectorRef, private util: UtilsService, private fb: FormBuilder) {
     this.baseUrl = environment.baseURL;
   }
   files: File[] = [];
@@ -127,6 +128,7 @@ export class MyAccountComponent {
         next: (response) => {
           console.log('Response from server:', response);
           this.util.showSuccess(response);
+          this.authService.logout();
           window.location.reload();
           // Swal.fire('', response, 'success');
           // Handle response based on the server behavior

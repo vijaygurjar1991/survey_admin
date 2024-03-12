@@ -928,7 +928,7 @@
         <div ngClass="drag-ques" *ngIf="questions == null || questions.length==0">
             <div>
                 <ng-icon name="heroArrowUpTray"></ng-icon>
-                <p>Create your New Question with Drag and Drop Option</p>
+                <p>Create your New Question for Survey</p>
                 <span>It is a long established fact that a reader will be distracted by the readable content of a
                     page
                     when looking at its layout.</span>
@@ -1046,7 +1046,8 @@
             <div class="mb-4">
                 <label for="surveyname" class="form-label">Enter Your Survey Name</label>
                 <input id="surveyname" type="text" class="form-control" name="surveyName" [(ngModel)]="surveyName"
-                    [ngModelOptions]="{standalone: true}" />
+                    [ngModelOptions]="{standalone: true}" (blur)="validateSurvey()" />
+                <div *ngIf="!surveyNameCheck" class="text-danger">Survey Name is required.</div>
             </div>
             <!-- <div class="mb-4">
                 <label class="form-label">Select Your Country</label>
@@ -1063,7 +1064,7 @@
             </div> -->
             <div class="mb-4">
                 <label class="form-label">Select Your Country</label>
-                <mat-form-field>
+                <!-- <mat-form-field>
                     <mat-select name="countryString" [(value)]="selectedCountry" placeholder="Country">
                         <mat-select-trigger>
                             <img *ngIf="selectedCountry"
@@ -1077,20 +1078,38 @@
                             {{item.name}}
                         </mat-option>
                     </mat-select>
+                </mat-form-field> -->
+                <mat-form-field>
+                    <mat-select name="countryString" [(value)]="selectedCountry" placeholder="Country">
+                        <mat-select-trigger>
+                            <img *ngIf="selectedCountry && selectedCountry.images"
+                                [src]="baseUrl + '/assets/images/country-flag/' + selectedCountry.images"
+                                class="me-2 rounded-circle" style="width: 30px;height: 30px;" />
+                            {{selectedCountry ? selectedCountry.name : ''}}
+                        </mat-select-trigger>
+                        <mat-option *ngFor="let item of country" [value]="item">
+                            <!-- Only display image if the item has images property -->
+                            <img *ngIf="item.images" [src]="baseUrl + '/assets/images/country-flag/' + item.images"
+                                class="me-2 rounded-circle" style="width: 30px;height: 30px;" />
+                            {{item.name}}
+                        </mat-option>
+                    </mat-select>
                 </mat-form-field>
+                <div *ngIf="!countryNameCheck" class="text-danger">Country is required.</div>
             </div>
             <div class="mb-4" class="search-categories input-icon">
                 <label class="form-label">Select Survey Categories</label>
                 <mat-form-field>
                     <ng-icon name="heroMagnifyingGlass" class=""></ng-icon>
                     <input type="text" placeholder="Search..." matInput [formControl]="searchControl"
-                        [matAutocomplete]="auto" [(ngModel)]="categoryName" />
+                        [matAutocomplete]="auto" [(ngModel)]="categoryName" (blur)="validateSurvey()" />
                     <mat-autocomplete #auto="matAutocomplete" (optionSelected)="filterOptions($event)">
                         <mat-option *ngFor="let option of options" [value]="option.id">
                             {{ option.name }}
                         </mat-option>
                     </mat-autocomplete>
                 </mat-form-field>
+                <div *ngIf="!categoryNameCheck" class="text-danger">Category is required.</div>
             </div>
             <div class="mb-4" *ngIf="selectedOption === 'Others'">
                 <label for="otherCategoryName" class="form-label">Enter Category Name</label>
@@ -1102,8 +1121,7 @@
     </div>
     <div class="modal-footer upload">
         <button type="button" class="btn close" (click)="modal.close('Close click')">Cancel</button>
-        <a href="javascript:void(0);" type="button" class="btn btn-primary icon"
-            (click)="updateSurvey();modal.close('Close click')">Update
+        <a href="javascript:void(0);" type="button" class="btn btn-primary icon" (click)="updateSurvey()">Update
             <ng-icon name="heroArrowLongRight" class="ms-4"></ng-icon></a>
     </div>
 </ng-template>

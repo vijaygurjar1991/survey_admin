@@ -136,6 +136,7 @@ export class CreateSurveyComponent implements OnInit, AfterViewInit {
   visibleaddandlogic: boolean[][] = [];
   isBranchingElseShow: boolean[][] = [];
   isElseShow: boolean[][] = [];
+  modal: any;
   constructor(
     private visibilityService: DataService,
     private modalService: NgbModal,
@@ -487,37 +488,41 @@ export class CreateSurveyComponent implements OnInit, AfterViewInit {
     this.router.navigateByUrl(url);
   }
   updateSurvey() {
+    this.validateSurvey()
     this.selectedCountryId = this.selectedCountry ? this.selectedCountry.id : null;
-    const dataToSend = {
-      surveyId: this.surveyId,
-      name: this.surveyName,
-      categoryId: this.categoryId,
-      otherCategory: this.otherCategoryName,
-      countryId: this.selectedCountryId
-    };
-    console.log("dataToSend", dataToSend)
-    console.log("country", this.countryId);
-    this.surveyservice.updateSurvey(dataToSend).subscribe(
-      response => {
-        console.log('Response from server:', response);
-        //this.surveyId = response;
-        this.countryName = this.selectedCountry ? this.selectedCountry.name : null;
-        if (this.surveyId) {
-          const encryptedId = this.crypto.encryptParam(`${this.surveyId}`);
-          const url = `/survey/manage-survey/${encryptedId}`;
-          //this.modal.hide();
+    if (this.isValidSurvey) {
+      const dataToSend = {
+        surveyId: this.surveyId,
+        name: this.surveyName,
+        categoryId: this.categoryId,
+        otherCategory: this.otherCategoryName,
+        countryId: this.selectedCountryId
+      };
+      console.log("dataToSend", dataToSend)
+      console.log("country", this.countryId);
+      this.surveyservice.updateSurvey(dataToSend).subscribe(
+        response => {
+          console.log('Response from server:', response);
+          //this.surveyId = response;
+          this.countryName = this.selectedCountry ? this.selectedCountry.name : null;
+          if (this.surveyId) {
+            const encryptedId = this.crypto.encryptParam(`${this.surveyId}`);
+            const url = `/survey/manage-survey/${encryptedId}`;
 
-          this.router.navigateByUrl(url);
-          /*if(this.router.url.includes('/manage-survey')){
-            location.reload();
-          }*/
+
+            this.router.navigateByUrl(url);
+
+            if (this.router.url.includes('/manage-survey')) {
+              location.reload();
+            }
+          }
+        },
+        error => {
+          console.error('Error occurred while sending POST request:', error);
+          Swal.fire('', error, 'error');
         }
-      },
-      error => {
-        console.error('Error occurred while sending POST request:', error);
-        Swal.fire('', error, 'error');
-      }
-    );
+      );
+    }
 
 
   }
@@ -1465,11 +1470,20 @@ export class CreateSurveyComponent implements OnInit, AfterViewInit {
   //new 
 
   checkrequired: boolean = false; // Initialize the flag
+  surveyNameCheck: boolean = true
+  countryNameCheck: boolean = true
+  categoryNameCheck: boolean = true
+  otherCategoryCheck: boolean = true
+  isValidSurvey: boolean = false
 
-  validateSurvey(): boolean {
-    // Check if the checkbox is not checked
-    this.checkrequired = !!this.isRandomizationChecked;
-    return this.checkrequired;
+  validateSurvey() {
+    this.surveyNameCheck = !!this.surveyName && this.surveyName.length >= 3;
+    this.categoryNameCheck = !!this.categoryId && this.categoryId !== 0;
+    this.otherCategoryCheck = this.categoryId !== 10 || (!!this.categoryName && this.categoryName.length >= 3);
+    this.selectedCountryId = this.selectedCountry ? this.selectedCountry.id : null;
+    this.countryNameCheck = !!this.selectedCountryId;
+
+    this.isValidSurvey = this.surveyNameCheck && this.categoryNameCheck && this.otherCategoryCheck && this.countryNameCheck;
   }
 
   cloneQuestion: Question = new Question();
