@@ -208,7 +208,7 @@ export class CreateSurveyComponent implements OnInit, AfterViewInit {
     //this.defaultRandomValueEnter();
     this.getAgeOptionsLogicValues();
     this.getRandomization();
-    //this.getLogicCount()
+    this.getLogicCount()
 
     //this.getSurveyLooping();
   }
@@ -1749,6 +1749,26 @@ export class CreateSurveyComponent implements OnInit, AfterViewInit {
       }
       event.input.value = ''; // Reset the input value
     }
+  }
+
+
+  //logic count
+
+  logiccount: any
+  getLogicCount() {
+    this.userId = this.utils.getUserId();
+
+    this.surveyservice.getLogicCount(this.surveyId).subscribe({
+      next: (resp: any) => {
+        console.log("logic count", resp)
+        this.logiccount = resp
+        console.log("check count", this.logiccount)
+      },
+      error: (err: any) => {
+      }
+
+    });
+
   }
 
 }

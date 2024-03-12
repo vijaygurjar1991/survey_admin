@@ -7,6 +7,7 @@ import { UtilsService } from 'src/app/service/utils.service';
 import Swal from 'sweetalert2';
 import { MatSelect, MatSelectChange } from '@angular/material/select';
 import { FormControl, Validators } from '@angular/forms';
+import { ActivatedRoute, Router, NavigationEnd } from '@angular/router';
 
 @Component({
   selector: 'app-expert-aid',
@@ -18,7 +19,7 @@ export class ExpertAidComponent {
   expertAid: ExpertAid = new ExpertAid();
   expertAidService: ExpertAidServices[] = [];
   validMessageLength: boolean;
-  constructor(private modalService: NgbModal, private surveyservice: SurveyService, private utillService: UtilsService) { }
+  constructor(private modalService: NgbModal, private surveyservice: SurveyService, private utillService: UtilsService, private router: Router,) { }
 
   openLg(form: any) {
     this.modalService.open(form, { size: 'lg', centered: true });
@@ -81,11 +82,6 @@ export class ExpertAidComponent {
 
   onSaveExpertAid(): void {
 
-    // if (/\d/.test(this.name)) {
-    //   this.utillService.showError('First name require alphabets');
-    //   return;
-    // }
-
     if (!this.validateSurvey()) {
       this.utillService.showError('Please fill all required fields.');
       return;
@@ -112,6 +108,7 @@ export class ExpertAidComponent {
     this.surveyservice.createExpertAid(this.expertAid).subscribe({
       next: (resp: any) => {
         this.utillService.showSuccess('ExpertAid Generated Sucessfully.');
+        // this.router.navigateByUrl('expert-aid-list');
         // Swal.fire('', 'ExpertAid Generated Sucessfully.', 'success');
         window.location.reload();
       },

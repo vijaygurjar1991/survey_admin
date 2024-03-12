@@ -1983,4 +1983,19 @@ table th {
     z-index: 9999;
 }
 
-.add-multiple-logic .mat-mdc-form-field-infix{ padding-top: 0px !important; padding-bottom: 0px !important; min-height: 38px !important; }
+.add-multiple-logic .mat-mdc-form-field-infix {
+    padding-top: 0px !important;
+    padding-bottom: 0px !important;
+    min-height: 38px !important;
+}
+
+
+.defaultprofile {
+    background-color: black;
+    height: 30px;
+    width: 30px;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

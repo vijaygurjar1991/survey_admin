@@ -62,11 +62,30 @@
                         </td>
                         <td *ngIf="item.categoryName !='Others'">{{item.categoryName}}</td>
                         <td *ngIf="item.categoryName =='Others'">{{item.otherCategory}}</td>
-                        <td>
-                            <img [src]=" item.userImage" class="me-2 rounded-circle"
-                                style="width: 30px;height: 30px;" />
-                            {{item.userName}}
+                        <td class="profileimage">
+                            <div class="d-flex align-items-center">
+                                <ng-container
+                                    *ngIf="item.userImage !== 'https://beta.angular.opinionest.com/Files/Images/'">
+                                    <img [src]="item.userImage" class="me-2 rounded-circle"
+                                        style="width: 30px; height: 30px;" />
+                                </ng-container>
+                                <ng-container
+                                    *ngIf="item.userImage === 'https://beta.angular.opinionest.com/Files/Images/'">
+                                    <div class="me-2 rounded-circle defaultprofile">
+                                        {{ item.userName ? (item.userName.charAt(0) + (item.userName.split(' ')[1] ?
+                                        item.userName.split(' ')[1].charAt(0) : '')) : '' }}
+
+                                    </div>
+                                </ng-container>
+                                {{ item.userName }}
+                            </div>
                         </td>
+
+                        <!-- <td *ngIf="item.userImage =='https://beta.angular.opinionest.com/Files/Images/'">
+                            <div class="me-2 rounded-circle defaultprofile">{{ item.userName ? (item.userName.charAt(0)
+                                +
+                                item.userName.split(' ')[1]?.charAt(0)) : '' }}</div>
+                        </td> -->
                         <td>
                             {{
                             (item.modifiedDate ? (item.modifiedDate | date:'medium':'IST') : (item.createdDate |

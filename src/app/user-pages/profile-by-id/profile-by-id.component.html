@@ -39,9 +39,26 @@
                         [hidden]="selectedCategory !== 'All Roles' && getRoleName(item.roleId) !== selectedCategory">
                         <td><input type="checkbox" ngClass="form-check-input" [(ngModel)]="item.selected" />
                         </td>
-                        <td>
+                        <!-- <td>
                             <img [src]="item.image" class="me-2 rounded-circle" style="width: 30px;height: 30px;" />
                             <span>{{ item.firstName }} {{ item.lastName }}</span>
+                        </td> -->
+                        <td class="profileimage">
+                            <div class="d-flex align-items-center">
+                                <ng-container
+                                    *ngIf="item.image !== 'https://beta.angular.opinionest.com/Files/Images/'">
+                                    <img [src]="item.image" class="me-2 rounded-circle"
+                                        style="width: 30px; height: 30px;" />
+                                </ng-container>
+                                <ng-container
+                                    *ngIf="item.image === 'https://beta.angular.opinionest.com/Files/Images/'">
+                                    <div class="me-2 rounded-circle defaultprofile">
+                                        {{ (item.firstName ? item.firstName.charAt(0) : '') + (item.lastName ?
+                                        item.lastName.charAt(0) : '') }}
+                                    </div>
+                                </ng-container>
+                                <span>{{ item.firstName }} {{ item.lastName }}</span>
+                            </div>
                         </td>
                         <td>{{ getRoleName(item.roleId) }}</td>
                         <td>{{ item.email }}</td>
