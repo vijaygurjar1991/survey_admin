@@ -80,7 +80,7 @@ export class AddUserComponent {
       response => {
         console.log('Response from server:', response);
         if (response == '"UserAlreadyExits"') {
-          this.utility.showError("User Already Exits");
+          this.utility.showError("User Already Exist");
         } else {
           this.utility.showSuccess('New User Created Successfully');
 

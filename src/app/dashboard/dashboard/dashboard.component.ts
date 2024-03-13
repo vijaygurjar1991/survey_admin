@@ -166,6 +166,7 @@ export class DashboardComponent {
           userName: item.userName,
           createdDate: new Date(item.createdDate),
           surveyId: item.surveyId
+
         }));
       },
       error: (err) => console.log("An Error occur while fetching survey list", err)

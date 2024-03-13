@@ -137,6 +137,8 @@ export class CreateSurveyComponent implements OnInit, AfterViewInit {
   isBranchingElseShow: boolean[][] = [];
   isElseShow: boolean[][] = [];
   modal: any;
+  genericType: any
+  checkgenerictype: any
   constructor(
     private visibilityService: DataService,
     private modalService: NgbModal,
@@ -442,6 +444,20 @@ export class CreateSurveyComponent implements OnInit, AfterViewInit {
         this.selectedCountry = this.country.find(country => country.id === this.countryId) || null;
         console.log("selectedCountry : ", this.selectedCountry)
         this.surveycreateddate = data.createdDate
+
+        // Iterate over questions to get genericType
+        this.questions.forEach((question: any) => {
+          console.log("genericType:", question.genericType);
+
+        });
+
+        //check
+
+        const hasAgeQuestion = this.questions.some((question: any) => question.genericType === "Age");
+        console.log("Has age question:", hasAgeQuestion);
+        this.checkgenerictype = hasAgeQuestion
+        console.log("checkage", this.checkgenerictype)
+
       }
 
       this.getNames();

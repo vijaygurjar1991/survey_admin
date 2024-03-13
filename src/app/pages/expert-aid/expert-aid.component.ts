@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { ExpertAid } from 'src/app/models/expert-aid';
 import { ExpertAidServices } from 'src/app/models/expert-aid-services';
 import { SurveyService } from 'src/app/service/survey.service';
@@ -21,8 +21,18 @@ export class ExpertAidComponent {
   validMessageLength: boolean;
   constructor(private modalService: NgbModal, private surveyservice: SurveyService, private utillService: UtilsService, private router: Router,) { }
 
+  modalRef: NgbModalRef;
+
   openLg(form: any) {
-    this.modalService.open(form, { size: 'lg', centered: true });
+    this.modalRef = this.modalService.open(form, { size: 'lg', centered: true });
+  }
+
+  closeModal() {
+    // Check if the modal reference exists
+    if (this.modalRef) {
+      // Close the modal using the reference
+      this.modalRef.close();
+    }
   }
   selectedItems: string[] = [];
   toggleCartItem(item: string): void {
@@ -109,8 +119,12 @@ export class ExpertAidComponent {
       next: (resp: any) => {
         this.utillService.showSuccess('ExpertAid Generated Sucessfully.');
         // this.router.navigateByUrl('expert-aid-list');
+        this.closeModal()
+        let url = '/pages/expert-aid-list';
+        this.router.navigateByUrl(url);
         // Swal.fire('', 'ExpertAid Generated Sucessfully.', 'success');
-        window.location.reload();
+        // window.location.reload();
+
       },
       error: (err: any) => {
         // Swal.fire('', err.error, 'error');

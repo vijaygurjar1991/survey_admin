@@ -782,11 +782,24 @@
                                                     </div>
                                                 </div>
                                                 <div class="tab-pane" [id]="'calculator' + question.id" role="tabpanel"
-                                                    aria-labelledby="calculator-tab">
+                                                    aria-labelledby="calculator-tab" *ngIf="checkgenerictype === true">
                                                     <h5 ngClass="mb-4">Calculations</h5>
                                                     <div ngClass="d-flex justify-content-between mb-3">
                                                         <h6>Find current age of respondent given his/her year of birth
                                                             or DOB. </h6>
+                                                    </div>
+
+                                                    <div ngClass="mb-4" *ngFor="let question of questions">
+                                                        <div class="row g-2 align-items-center"
+                                                            *ngIf="question.genericType === 'Age'">
+                                                            <div class="col-md-3">
+                                                                <div>Question</div>
+                                                            </div>
+                                                            <div class="col-md-9">
+                                                                <input class="form-control"
+                                                                    [ngModel]="question.question">
+                                                            </div>
+                                                        </div>
                                                     </div>
 
                                                     <div ngClass="mb-4">
@@ -893,6 +906,9 @@
                                                         </div>
                                                     </div>
 
+                                                </div>
+                                                <div *ngIf="checkgenerictype !== true">
+                                                    <p>Calculation is avaliable for this Survey</p>
                                                 </div>
                                             </div>
                                         </div>
