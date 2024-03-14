@@ -27,7 +27,7 @@
                 <div class="position-relative d-inline-block">
                     <a routerLink="#"><ng-icon name="heroBell" class="bellicon"></ng-icon></a>
                 </div>
-                <div class="position-relative d-inline-block ms-4 dropdown">
+                <!-- <div class="position-relative d-inline-block ms-4 dropdown">
                     <a class="nav-link" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
                         aria-expanded="false">
                         <img class="object-fit-cover rounded-circle" src="{{image}}" width="45" height="45" />
@@ -36,7 +36,34 @@
                             <li><a class="dropdown-item py-2" routerLink="login" (click)="logOut()">Logout</a></li>
                         </ul>
                     </a>
+                </div> -->
+                <div class="position-relative d-inline-block ms-4 dropdown">
+                    <ng-container *ngIf="image === null; else profileImage">
+                        <a class="nav-link" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                            <div class="me-2 rounded-circle defaultprofile">
+                                {{ (firstName ? firstName.charAt(0) : '') + (lastName ? lastName.charAt(0) : '')
+                                }}
+                            </div>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <li><a class="dropdown-item py-2" routerLink="/account/my-account">My Account</a></li>
+                                <li><a class="dropdown-item py-2" routerLink="login" (click)="logOut()">Logout</a></li>
+                            </ul>
+                        </a>
+                    </ng-container>
+                    <ng-template #profileImage>
+                        <a class="nav-link" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
+                            aria-expanded="false">
+
+                            <img class="object-fit-cover rounded-circle" [src]="image" width="45" height="45" />
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <li><a class="dropdown-item py-2" routerLink="/account/my-account">My Account</a></li>
+                                <li><a class="dropdown-item py-2" routerLink="login" (click)="logOut()">Logout</a></li>
+                            </ul>
+                        </a>
+                    </ng-template>
                 </div>
+
             </div>
         </div>
     </div>

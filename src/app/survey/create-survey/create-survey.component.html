@@ -1174,12 +1174,32 @@
             <!-- Logic Question -->
             <div class="tab-content p-4">
                 <div class="tab-pane" id="addText" role="tabpanel" aria-labelledby="addText-tab">
-                    <h5 ngClass="mb-4">Add text</h5>
-                    <form action="">
-                        <div class="mb-3">
-                            <input type="text" class="form-control" placeholder="add your text here" />
+                    <h5 ngClass="mb-4">Add Text</h5>
+                    <div class="mb-3">
+                        <div ngClass="d-flex align-items-center justify-content-between">
+                            <h6>Please add text you want display before the next queston.</h6>
                         </div>
-                    </form>
+                    </div>
+                    <div class="mb-3">
+                        <textarea type="text" class="form-control" rows="10" col="20" placeholder="Insert Text"
+                            [(ngModel)]="screenQuestion" [ngModelOptions]="{standalone: true}"></textarea>
+                    </div>
+                    <div class="mb-3 ms-3">
+                        <div class="form-check checking">
+                            <input class="form-check-input" type="checkbox" value="" id="redirectuser"
+                                [(ngModel)]="screenRedirectUser" [ngModelOptions]="{standalone: true}">
+                            <label class="form-check-label" for="redirectuser">
+                                Redirect User
+                            </label>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <input type="text" class="form-control" placeholder="Redirect URL"
+                            [(ngModel)]="screenRedirectURL" [ngModelOptions]="{standalone: true}" />
+                    </div>
+                    <div class="mb-3">
+                        <button type="button" class="btn btn-primary btn-sm" (click)="saveScreenImage()">Save</button>
+                    </div>
                 </div>
 
                 <div class="tab-pane active" id="addImage" role="tabpanel" aria-labelledby="addImage-tab">
@@ -1187,13 +1207,6 @@
                     <div class="mb-3">
                         <div ngClass="d-flex align-items-center justify-content-between">
                             <h6>Please add image you want display before the next queston.</h6>
-                            <div>
-                                <select class="form-select">
-                                    <option selected>Select Pipeing</option>
-                                    <option value="1">Pipeing 1</option>
-                                    <option value="2">Pipeing 2</option>
-                                </select>
-                            </div>
                         </div>
                     </div>
                     <div class="mb-3">
@@ -1231,10 +1244,78 @@
                 </div>
                 <div class="tab-pane" id="addVideo" role="tabpanel" aria-labelledby="addVideo-tab">
                     <h5 ngClass="mb-4">Add Video</h5>
-
+                    <div class="mb-3">
+                        <div ngClass="d-flex align-items-center justify-content-between">
+                            <h6>Please add video you want display before the next queston.</h6>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <input type="text" class="form-control" placeholder="Insert Heading for video Screen"
+                            [(ngModel)]="screenQuestion" [ngModelOptions]="{standalone: true}" />
+                    </div>
+                    <div class="mb-3">
+                        <ngx-dropzone (change)="onSelect($event)" [ngClass]="'drop-file'">
+                            <ngx-dropzone-label>
+                                <img [src]="baseUrl + '/assets/images/icons/attach-image.png'" />
+                                <a href="javascript:"><u>Click to upload</u></a> <span> or drag and drop</span>
+                                <p>Max. File Size: 15MB</p>
+                            </ngx-dropzone-label>
+                            <ngx-dropzone-preview *ngFor="let f of files" [removable]="true" (removed)="onRemove(f)">
+                                <ngx-dropzone-label>{{ f.name }} ({{ f.type }})</ngx-dropzone-label>
+                            </ngx-dropzone-preview>
+                        </ngx-dropzone>
+                    </div>
+                    <div class="mb-3 ms-3">
+                        <div class="form-check checking">
+                            <input class="form-check-input" type="checkbox" value="" id="redirectuser"
+                                [(ngModel)]="screenRedirectUser" [ngModelOptions]="{standalone: true}">
+                            <label class="form-check-label" for="redirectuser">
+                                Redirect User
+                            </label>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <input type="text" class="form-control" placeholder="Redirect URL"
+                            [(ngModel)]="screenRedirectURL" [ngModelOptions]="{standalone: true}" />
+                    </div>
+                    <div class="mb-3">
+                        <button type="button" class="btn btn-primary btn-sm" (click)="saveScreenImage()">Save</button>
+                    </div>
                 </div>
                 <div class="tab-pane" id="addiFrame" role="tabpanel" aria-labelledby="addiFrame-tab">
                     <h5 ngClass="mb-4">Add iFrame</h5>
+                    <div class="mb-3">
+                        <div ngClass="d-flex align-items-center justify-content-between">
+                            <h6>Please add iFrame you want display before the next queston.</h6>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <input type="text" class="form-control" placeholder="Insert Heading for iFrame"
+                            [(ngModel)]="screenQuestion" [ngModelOptions]="{standalone: true}" />
+                    </div>
+                    <div class="mb-3">
+                        <textarea type="text" class="form-control" rows="6" col="20" placeholder="Insert iFrame"
+                            [(ngModel)]="screenQuestion" [ngModelOptions]="{standalone: true}"></textarea>
+                    </div>
+                    <div class="mb-3">
+
+                    </div>
+                    <div class="mb-3 ms-3">
+                        <div class="form-check checking">
+                            <input class="form-check-input" type="checkbox" value="" id="redirectuser"
+                                [(ngModel)]="screenRedirectUser" [ngModelOptions]="{standalone: true}">
+                            <label class="form-check-label" for="redirectuser">
+                                Redirect User
+                            </label>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <input type="text" class="form-control" placeholder="Redirect URL"
+                            [(ngModel)]="screenRedirectURL" [ngModelOptions]="{standalone: true}" />
+                    </div>
+                    <div class="mb-3">
+                        <button type="button" class="btn btn-primary btn-sm" (click)="saveScreenImage()">Save</button>
+                    </div>
 
                 </div>
             </div>

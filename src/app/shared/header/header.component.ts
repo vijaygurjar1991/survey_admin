@@ -39,6 +39,9 @@ export class HeaderComponent {
   }
   userId: any;
   image: any;
+  firstName: any;
+  lastName: any;
+
   getMyAccount() {
 
     this.userId = this.util.getUserId();
@@ -46,6 +49,9 @@ export class HeaderComponent {
       this.themeService.GetMyAccount(this.userId).subscribe((data: any) => {
         console.log("inside header data", data)
         this.image = data.image
+        this.firstName = data.firstName
+        this.lastName = data.lastName
+        console.log("userimage", this.image)
       })
     }
   }
