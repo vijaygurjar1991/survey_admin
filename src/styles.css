@@ -1999,3 +1999,20 @@ table th {
     justify-content: center;
     align-items: center;
 }
+
+
+.generic-ques .youtubeurl {
+    display: flex;
+    align-items: center;
+    height: 180px;
+    background: #fff;
+    color: #717386;
+    border: 2px dashed #717386;
+    border-radius: 5px;
+    font-size: 16px;
+    margin: 0;
+}
+
+.generic-ques .videourl {
+    margin: auto;
+}

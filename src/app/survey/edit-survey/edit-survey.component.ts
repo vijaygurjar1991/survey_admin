@@ -101,6 +101,7 @@ export class EditSurveyComponent {
       this.question.modifiedDate = this.getCurrentDateTime();
       this.question.sort = data.sort
       this.question.questionTypeName = data.questionTypeName
+      this.youtubeUrl = data.youtubeUrl
 
       data.options.forEach((opt: any) => {
 
@@ -203,16 +204,18 @@ export class EditSurveyComponent {
   }
 
   onSelectOptionImage(event: any, index: number): void {
-    // Ensure inner array exists for the option index
+
     if (!this.optionImages[index]) {
       this.optionImages[index] = [];
     }
-    // Clear existing images for the option
+
     this.optionImages[index] = [];
-    // Push the selected image into the array for the current option index
+
     this.optionImages[index].push(...event.addedFiles);
     console.log(this.optionImages);
     this.optionsArr1[index].images = [...event.addedFiles];
+
+
     // event.addedFiles.forEach((file: any) => {
     //   this.filesImage.push(file);
     //   console.log("file images", this.filesImage);
@@ -225,9 +228,8 @@ export class EditSurveyComponent {
     if (!this.newoptionImages[index]) {
       this.newoptionImages[index] = [];
     }
-    // Clear existing images for the option
     this.newoptionImages[index] = [];
-    // Push the selected image into the array for the current option index
+
     this.newoptionImages[index].push(...event.addedFiles);
     console.log(this.newoptionImages);
     this.optionsArr1[index].images = [...event.addedFiles];
@@ -377,6 +379,7 @@ export class EditSurveyComponent {
     if (type == 'other') {
       newOption.option = "Other";
       newOption.isFixed = true
+
     }
     else if (type == 'noneOfAbove') {
       newOption.option = "None of above";
@@ -388,6 +391,7 @@ export class EditSurveyComponent {
     }
     else {
       newOption.option = "";
+      newOption.status = 'ACT'
     }
 
     if (type != null) {
@@ -397,14 +401,17 @@ export class EditSurveyComponent {
       this.optionsArr1.push(newOption);
     }
 
+    this.newoptionImages = [];
+
     this.filteredOptions = [];
     this.filteredOptions.push(...this.optionsArr1, ...this.optionsArr2);
 
-
-
+    console.log("filteroption", this.filteredOptions)
 
     this.allOptions = [];
     this.allOptions.push(...this.optionsArr1, ...this.optionsArr2);
+
+    console.log("add option", this.allOptions)
     // this.question.options.push(newOption);
   }
 
@@ -478,6 +485,8 @@ export class EditSurveyComponent {
       this.question.id = this.questionId;
     }
     this.question.image = this.questionImage;
+    this.question.youtubeUrl = this.youtubeUrl;
+    console.log("url", this.question.youtubeUrl)
     this.question.options = this.allOptions;
     console.log("checking", this.question.options)
 
@@ -534,6 +543,7 @@ export class EditSurveyComponent {
       if (matchingOptions.length > 0) {
         matchingOptions.forEach(option => {
           option.isRandomize = value;
+          console.log("randomize", option.isRandomize)
         });
       }
     }
@@ -565,10 +575,17 @@ export class EditSurveyComponent {
 
     if (type == 'optionArr1') {
 
+      console.log(this.optionImages)
+
+      this.optionImages.splice(index, 1)
+
       this.optionsArr1.splice(index, 1);
       console.log("deleted", this.optionsArr1)
     } else {
+      this.newoptionImages.splice(index, 1)
+      console.log("newoptionarr", this.newoptionImages)
       this.optionsArr2 = [];
+
     }
     this.allOptions = [];
     this.allOptions.push(...this.optionsArr1, ...this.optionsArr2);
@@ -780,6 +797,10 @@ export class EditSurveyComponent {
   openLg(content: any) {
     this.modalService.open(content, { size: 'lg', centered: true });
   }
+
+  openLgUrl(youtubeUrl: any) {
+    this.modalService.open(youtubeUrl, { size: 'lg', centered: true });
+  }
   onLogicSave(): void {
 
   }
@@ -978,6 +999,13 @@ export class EditSurveyComponent {
   //   this.imageoption = this.selectedIndex;
   //   console.log(this.imageoption)
   // }
+
+  youtubeUrl: any
+  addyoutubevideourl() {
+    const youtubeUrl = this.youtubeUrl;
+    console.log('youtube url:', youtubeUrl);
+  }
+
 
 
 }

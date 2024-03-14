@@ -15,15 +15,16 @@ export class Question {
     public status: string = '';
     public createdDate: string = '';
     public modifiedDate: string = '';
-    public genericTypeId:number=0
+    public genericTypeId: number = 0
     public isGrouping: boolean = false;
     public sort: number = 1;
     public isLogic: boolean = false;
     public options: Option[] = [];
     public logics: Logic[] = []
-    public shouldAddOption: boolean=false
-    public isScreening: boolean=false
-    public screeningRedirectUrl:string=""
-    public openEndedType:string=""
-    
+    public shouldAddOption: boolean = false
+    public isScreening: boolean = false
+    public screeningRedirectUrl: string = ""
+    public openEndedType: string = ""
+    public youtubeUrl: string = ''
+
 }

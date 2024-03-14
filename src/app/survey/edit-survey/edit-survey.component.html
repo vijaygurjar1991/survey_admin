@@ -121,6 +121,16 @@
                                     </ngx-dropzone-image-preview>
                                 </ngx-dropzone>
                             </li>
+                            <li (click)="openLgUrl(videourl)">
+                                <div class="youtubeurl">
+                                    <div class="videourl">
+                                        <figure><img [src]="baseUrl+'/assets/images/icons/videourl.png'" width="64"
+                                                height="58" /></figure>
+                                        <figcaption>Attach Video URL</figcaption>
+                                    </div>
+                                </div>
+
+                            </li>
                         </ul>
                     </div>
                 </div>
@@ -349,14 +359,14 @@
                                     </form>
 
                                 </div>
-                                <div ngClass="row">
+                                <!-- <div ngClass="row">
                                     <div ngClass="col-md-6">
                                         <div class="form-check form-check-inline">
                                             <input class="form-check-input" type="checkbox" id="Randamize"
                                                 [(ngModel)]="group.isRandomize"
                                                 (change)="onGroupValueChange('randomize', group.isRandomize, group.id)"
                                                 [value]="group?.isRandomize" [checked]="group?.isRandomize">
-                                            <label class="form-check-label" for="Randamize">Randomize </label>
+                                            <label class="form-check-label" for="Randamize">Randomize</label>
                                         </div>
                                         <div class="form-check form-check-inline">
                                             <input class="form-check-input" type="checkbox" id="Exclude"
@@ -370,7 +380,28 @@
                                         <button type="button" ngClass="btn btn-primary btn-sm"
                                             (click)="onDeleteGroup(groupIndex)">Delete</button>
                                     </div>
+                                </div> -->
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="radio" id="Randomize"
+                                                [(ngModel)]="group.isRandomize" value="true"
+                                                (change)="onGroupValueChange('randomize', group.isRandomize, group.id)">
+                                            <label class="form-check-label" for="Randomize">Randomize</label>
+                                        </div>
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="radio" id="Exclude"
+                                                [(ngModel)]="group.isRandomize" value="false"
+                                                (change)="onGroupValueChange('randomize', group.isRandomize, group.id)">
+                                            <label class="form-check-label" for="Exclude">Exclude</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 text-end">
+                                        <button type="button" class="btn btn-primary btn-sm"
+                                            (click)="onDeleteGroup(groupIndex)">Delete</button>
+                                    </div>
                                 </div>
+
                             </div>
 
                         </div>
@@ -554,7 +585,30 @@
 </ng-template>
 
 
-<!-- model -->
+<!-- videourl model -->
+
+<ng-template #videourl let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title">Add Youtube Video URL</h4>
+        <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+    </div>
+    <div class="modal-body popup-ques">
+        <div class="row">
+            <div class="col-md-12">
+                <form>
+                    <label>Video URL</label>
+                    <input class="form-control" name="youtubeUrl" [(ngModel)]="youtubeUrl" id="" />
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer upload">
+        <button type="button" class="btn btn-primary icon"
+            (click)="addyoutubevideourl(); modal.close('Close click')">Add
+            <ng-icon name="heroArrowLongRight" class="ms-4"></ng-icon>
+        </button>
+    </div>
+</ng-template>
 
 <!-- <div class="modal fade" id="imageModal" tabindex="-1" aria-labelledby="imageModal" aria-hidden="true">
     <div class="modal-dialog modal-lg modal-dialog-centered">
