@@ -5,7 +5,6 @@ import { responseDTO } from 'src/app/types/responseDTO';
 import { responseGenericQuestion } from 'src/app/types/responseGenericQuestion';
 import { Question } from 'src/app/models/question';
 import { Option } from 'src/app/models/option';
-import Swal from 'sweetalert2';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CryptoService } from 'src/app/service/crypto.service';
 import { UtilsService } from 'src/app/service/utils.service';

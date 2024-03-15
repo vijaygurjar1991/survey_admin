@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { DataService } from 'src/app/service/data.service';
-import Swal from 'sweetalert2';
 import { environment } from 'src/environments/environment';
 import { UtilsService } from 'src/app/service/utils.service';
 

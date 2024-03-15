@@ -4,7 +4,6 @@ import { ExpertAid } from 'src/app/models/expert-aid';
 import { ExpertAidServices } from 'src/app/models/expert-aid-services';
 import { SurveyService } from 'src/app/service/survey.service';
 import { UtilsService } from 'src/app/service/utils.service';
-import Swal from 'sweetalert2';
 import { MatSelect, MatSelectChange } from '@angular/material/select';
 import { FormControl, Validators } from '@angular/forms';
 import { ActivatedRoute, Router, NavigationEnd } from '@angular/router';
@@ -146,6 +145,7 @@ export class ExpertAidComponent {
   messageLimitExceeded: boolean = false;
   isValidName: boolean = true;
   touched: boolean = false;
+  phoneLengthError: boolean = true;
 
 
   validateSurvey(): boolean {
@@ -155,6 +155,7 @@ export class ExpertAidComponent {
     this.enddate = !!this.endDate && this.endDate.trim().length > 0;
     this.emailaddress = !!this.email && this.email.trim().length > 0;
     this.phone = !!this.mobile && this.mobile.toString().trim().length > 0;
+    this.phoneLengthError = !!this.mobile && this.mobile.toString().trim().length < 15;
     this.message = !!this.comments && this.comments.trim().length > 0;
     this.validMessageLength = !!this.comments && this.comments.trim().length > 0;
     const numberControl = new FormControl('', [Validators.required, Validators.pattern('^[0-9]*$')]);
@@ -172,6 +173,7 @@ export class ExpertAidComponent {
       this.enddate &&
       this.emailaddress &&
       this.phone &&
+      this.phoneLengthError &&
       this.message &&
       this.validMessageLength &&
       this.isValidName &&

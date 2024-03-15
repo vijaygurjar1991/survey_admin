@@ -9,7 +9,6 @@ import { FormControl } from '@angular/forms';
 import { UtilsService } from 'src/app/service/utils.service';
 import { environment } from 'src/environments/environment';
 
-import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-survey-listing',

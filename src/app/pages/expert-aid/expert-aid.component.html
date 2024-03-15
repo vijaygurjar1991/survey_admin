@@ -113,11 +113,23 @@
                         [ngModelOptions]="{standalone: true}" (blur)="validateSurvey()">
                     <div *ngIf="!emailaddress" class="text-danger">Email is required.</div>
                 </div>
-                <div class="col-md-6 form-group mb-3">
+                <!-- <div class="col-md-6 form-group mb-3">
                     <label>Phone Number</label>
                     <input type="number" class="form-control" placeholder="Enter your phone number" [(ngModel)]="mobile"
                         [ngModelOptions]="{standalone: true}" (blur)="validateSurvey()">
                     <div *ngIf="!phone" class="text-danger">Phone Number is required.</div>
+                </div> -->
+                <div class="col-md-6 form-group mb-3">
+                    <label>Phone Number</label>
+                    <input type="number" class="form-control" placeholder="Enter your phone number" [(ngModel)]="mobile"
+                        [ngModelOptions]="{standalone: true}" (blur)="validateSurvey()">
+                    <div *ngIf="!mobile || !phoneLengthError" class="text-danger">
+                        <ng-container *ngIf="!mobile && touched">Phone Number is required.</ng-container>
+                        <ng-container *ngIf="mobile && !phoneLengthError">Phone Number cannot exceed 15
+                            digits.</ng-container>
+                    </div>
+                    <!-- <div *ngIf="!phone" class="text-danger">Phone Number is required.</div>
+                    <div *ngIf="phoneLengthError" class="text-danger">Phone Number cannot exceed 15 digits.</div> -->
                 </div>
             </div>
             <div class="form-group mb-3 services">

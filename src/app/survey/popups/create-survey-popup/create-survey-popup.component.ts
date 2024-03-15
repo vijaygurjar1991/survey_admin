@@ -1,7 +1,6 @@
 import { Component, ViewChild } from '@angular/core';
 import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import { SurveyService } from 'src/app/service/survey.service';
-import Swal from 'sweetalert2';
 import { FormControl } from '@angular/forms';
 import { Observable, map, startWith } from 'rxjs';
 import { Router } from '@angular/router';
@@ -163,7 +162,7 @@ export class CreateSurveyPopupComponent {
         },
         error => {
           console.error('Error occurred while sending POST request:', error);
-          Swal.fire('', error, 'error');
+          this.utility.showError(error);
         }
       );
     }

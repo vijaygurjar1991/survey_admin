@@ -14,7 +14,6 @@ import { UtilsService } from 'src/app/service/utils.service';
 import { isArray } from 'chart.js/dist/helpers/helpers.core';
 import { GenderPopupComponent } from '../popups/gender-popup/gender-popup.component';
 import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
-import Swal from 'sweetalert2';
 import { QuestionLogic } from 'src/app/models/question-logic';
 import { MatSelect, MatSelectChange } from '@angular/material/select';
 import { SecLsmPopupComponent } from '../popups/sec-lsm-popup/sec-lsm-popup.component';
@@ -524,7 +523,7 @@ export class CreateSurveyComponent implements OnInit, AfterViewInit {
           if (this.surveyId) {
             const encryptedId = this.crypto.encryptParam(`${this.surveyId}`);
             const url = `/survey/manage-survey/${encryptedId}`;
-
+            this.utils.showSuccess('Updated');
 
             this.router.navigateByUrl(url);
 
@@ -535,7 +534,8 @@ export class CreateSurveyComponent implements OnInit, AfterViewInit {
         },
         error => {
           console.error('Error occurred while sending POST request:', error);
-          Swal.fire('', error, 'error');
+          // Swal.fire('', error, 'error');
+          this.utils.showError(error);
         }
       );
     }
@@ -1465,14 +1465,18 @@ export class CreateSurveyComponent implements OnInit, AfterViewInit {
 
     this.surveyservice.CreateGeneralQuestion(this.screenQuestionObj).subscribe({
       next: (resp: any) => {
-        Swal.fire('', 'Question Generated Sucessfully.', 'success');
+        // Swal.fire('', 'Question Generated Sucessfully.', 'success');
+        this.utils.showSuccess('Question Generated Sucessfully');
 
         let url = `/survey/manage-survey/${this.crypto.encryptParam("" + this.surveyId)}`;
 
         //this.router.navigateByUrl(url);
       },
       error: (err: any) => {
-        Swal.fire('', err.error, 'error');
+        // Swal.fire('', err.error, 'error');
+        // this.utils.showError(err);
+        this.utils.showError('Error');
+
       }
     });
   }
@@ -1542,7 +1546,7 @@ export class CreateSurveyComponent implements OnInit, AfterViewInit {
     this.surveyservice.deleteQuestion(dataToSend).subscribe(
       (data: any) => {
         this.utils.showSuccess('Question Deleted.');
-        // window.location.reload();
+        window.location.reload();
       },
       (error: any) => {
         this.utils.showError('Error deleting question.');

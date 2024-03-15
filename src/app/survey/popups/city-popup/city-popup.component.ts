@@ -7,7 +7,6 @@ import { SurveyService } from 'src/app/service/survey.service';
 import { Option } from 'src/app/models/option';
 import { responseGenericQuestion } from 'src/app/types/responseGenericQuestion';
 import { UtilsService } from 'src/app/service/utils.service';
-import Swal from 'sweetalert2';
 
 interface State {
   stateId: string;
@@ -151,7 +150,9 @@ export class CityPopupComponent {
     }
 
     if (selectedStates.length > 0 && selectedCities.length > 0) {
-      Swal.fire('', 'Please Select Either State Or City', 'error');
+      // Swal.fire('', 'Please Select Either State Or City', 'error');
+
+      this.utility.showError('Please Select Either State Or City');
     } else if (selectedStates.length > 0 || selectedCities.length) {
       const currentDateTime = this.getCurrentDateTime();
       const currentQuestion = this.questions.length > 0 ? this.questions[0] : new Question();
@@ -224,7 +225,8 @@ export class CityPopupComponent {
         }
       });
     } else {
-      Swal.fire('', 'Please Select State Or City', 'error');
+      // Swal.fire('', 'Please Select State Or City', 'error');
+      this.utility.showError('Please Select State Or City');
     }
 
     // You can perform further actions with the selected states and cities

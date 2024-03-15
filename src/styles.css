@@ -1991,9 +1991,9 @@ table th {
 
 
 .defaultprofile {
-    background-color: black;
-    height: 30px;
-    width: 30px;
+    background-color: var(--primary);
+    height: 40px;
+    width: 40px;
     color: white;
     display: flex;
     justify-content: center;

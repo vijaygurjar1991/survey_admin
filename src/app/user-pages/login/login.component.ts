@@ -6,7 +6,6 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { first } from 'rxjs';
 import { AuthService } from 'src/app/service/auth.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import Swal from 'sweetalert2';
 import { CaptchaComponent } from 'src/app/shared/captcha/captcha.component';
 import { UtilsService } from 'src/app/service/utils.service';
 
@@ -31,7 +30,7 @@ export class LoginComponent {
     private route: ActivatedRoute,
     private router: Router,
     private authService: AuthService,
-    private utility:UtilsService
+    private utility: UtilsService
   ) {
     visibilityService.articleVisible.next(false);
     this.token = undefined;

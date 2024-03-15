@@ -5,7 +5,6 @@ import { OwlOptions } from 'ngx-owl-carousel-o';
 import { AuthService } from 'src/app/service/auth.service';
 import { DataService } from 'src/app/service/data.service';
 import { UtilsService } from 'src/app/service/utils.service';
-import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-sign-up',

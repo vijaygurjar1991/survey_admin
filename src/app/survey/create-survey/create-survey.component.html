@@ -907,8 +907,9 @@
                                                     </div>
 
                                                 </div>
-                                                <div *ngIf="checkgenerictype !== true">
-                                                    <p>Calculation is avaliable for this Survey</p>
+                                                <div class="tab-pane" [id]="'calculator' + question.id" role="tabpanel"
+                                                    aria-labelledby="calculator-tab" *ngIf="checkgenerictype !== true">
+                                                    <p>Calculation is not avaliable for this Survey</p>
                                                 </div>
                                             </div>
                                         </div>

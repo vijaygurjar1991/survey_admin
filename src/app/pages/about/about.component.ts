@@ -3,7 +3,6 @@ import { DataService } from 'src/app/service/data.service';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import { responseDTO } from 'src/app/types/responseDTO';
 import { ChangeDetectorRef } from '@angular/core';
-import swal from 'sweetalert2';
 import { UtilsService } from 'src/app/service/utils.service';
 import { environment } from 'src/environments/environment';
 declare var Dropzone: any;

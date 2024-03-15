@@ -15,7 +15,6 @@ import { CryptoService } from 'src/app/service/crypto.service';
 import { Question } from 'src/app/models/question';
 import { Option } from 'src/app/models/option';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
-import Swal from 'sweetalert2';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { environment } from 'src/environments/environment';
 import { MatSelect, MatSelectChange } from '@angular/material/select';
@@ -83,6 +82,7 @@ export class EditSurveyComponent {
           this.getOptionsLogicValues()
         } else {
           this.getquestionTypeName = _data[4]
+          this.getLogicQuestionList(this.questionId);
         }
       }
     });
@@ -184,6 +184,7 @@ export class EditSurveyComponent {
       this.hanldeAddOptionClick();
       this.hanldeAddOptionClick();
       this.hanldeAddOptionClick();
+
     }
 
 
@@ -963,6 +964,7 @@ export class EditSurveyComponent {
 
   visibleanslogic = false
   VisibilityAnsLogic() {
+    this.isLogicShow = true
     this.visibleanslogic = !this.visibleanslogic;
   }
 
