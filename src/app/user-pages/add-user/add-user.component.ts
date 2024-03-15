@@ -103,20 +103,25 @@ export class AddUserComponent {
   roletype: boolean = true
   emailaddress: boolean = true
   passwordtype: boolean = true
+  phoneLengthError: boolean = true;
+  touched: boolean = false;
 
   validateSurvey(): boolean {
     this.firstNamerequired = !!this.firstName && this.firstName.trim().length > 0;
     this.lastNamerequired = !!this.lastName && this.lastName.trim().length > 0;
     this.phone = !!this.contactNo && this.contactNo.toString().trim().length > 0;
+    this.phoneLengthError = !!this.contactNo && this.contactNo.toString().trim().length < 15;
     this.roletype = !!this.roleId && this.roleId.toString().trim().length > 0;
     this.emailaddress = !!this.email && this.email.trim().length > 0;
     this.passwordtype = !!this.password && this.password.trim().length > 0;
+    this.touched = true;
 
     // You might want to return whether all fields are valid
     return (
       this.firstNamerequired &&
       this.lastNamerequired &&
       this.phone &&
+      this.phoneLengthError &&
       this.roletype &&
       this.emailaddress &&
       this.passwordtype

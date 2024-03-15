@@ -9,6 +9,7 @@ import Swal from 'sweetalert2';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CryptoService } from 'src/app/service/crypto.service';
 import jsonData from '../../../../assets/seclsmQuestion.json';
+import { UtilsService } from 'src/app/service/utils.service';
 
 
 @Component({
@@ -24,7 +25,7 @@ export class SecLsmPopupComponent {
   questionText: string = '';
   surveyId = 0;
   newOptionValue: string = '';
-  constructor(private surveyservice: SurveyService, private route: ActivatedRoute, private crypto: CryptoService, private router: Router) {
+  constructor(private surveyservice: SurveyService, private route: ActivatedRoute, private crypto: CryptoService, private router: Router, private utility: UtilsService) {
 
     this.route.paramMap.subscribe(params => {
       let _surveyId = params.get('param1');
@@ -126,6 +127,7 @@ export class SecLsmPopupComponent {
         successfulAPICalls++; // Increment the counter as this operation counts as a successful API call for the progress check
 
         if (successfulAPICalls === this.questions.length) {
+
           Swal.fire('', 'Question Generated Successfully.', 'success').then((result) => {
             if (result.isConfirmed) {
               window.location.reload();
@@ -166,7 +168,7 @@ export class SecLsmPopupComponent {
     console.log(this.questions)
     if (this.questions.length > 0) {
       const previousQuestion = this.questions[this.questions.length - 1];
-      console.log("previousQuestion",previousQuestion)
+      console.log("previousQuestion", previousQuestion)
       // Check if the previous question has the shouldAddOption flag set
       if (previousQuestion.shouldAddOption && this.newOptionValue.trim() !== '') {
         const newOption = new Option();
