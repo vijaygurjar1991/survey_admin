@@ -67,7 +67,7 @@ import { HomeAccessoriesPopupComponent } from '../survey/popups/home-accessories
 import { AccomodationTypePopupComponent } from '../survey/popups/accomodation-type-popup/accomodation-type-popup.component';
 import { LanguageYouKnowPopupComponent } from '../survey/popups/language-you-know-popup/language-you-know-popup.component';
 import { ForeignCountryTravelledPopupComponent } from '../survey/popups/foreign-country-travelled-popup/foreign-country-travelled-popup.component';
-
+import { CreateSurveyPopupComponent } from '../survey/popups/create-survey-popup/create-survey-popup.component';
 @NgModule({
   declarations: [
     ConvertToUrlPipe,
@@ -114,7 +114,7 @@ import { ForeignCountryTravelledPopupComponent } from '../survey/popups/foreign-
     SecBnSlPopupComponent,
     FlsmPopupComponent,
     SecLsmPopupComponent,
-    OccupationPopupComponent,
+    OccupationPopupComponent
   ],
   imports: [
     MatChipsModule,

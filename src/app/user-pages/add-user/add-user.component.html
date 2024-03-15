@@ -48,7 +48,7 @@
                             (blur)="validateSurvey()">
                         <div *ngIf="!contactNo || !phoneLengthError" class="text-danger">
                             <ng-container *ngIf="!contactNo && touched">Phone Number is required.</ng-container>
-                            <ng-container *ngIf="contactNo && !phoneLengthError">Phone Number cannot exceed 15
+                            <ng-container *ngIf="contactNo && !phoneLengthError">Phone Number cannot exceed 10
                                 digits.</ng-container>
                         </div>
                         <!-- <div *ngIf="!phone" class="text-danger">Contact is required.</div> -->

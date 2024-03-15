@@ -876,7 +876,7 @@ export class EditSurveyComponent {
     this.surveyservice.changeQuestionPosition(queryParams).subscribe(
       (response: String) => {
         console.log('Update successful:', response);
-        window.location.reload();
+        // window.location.reload();
       },
       (error) => {
         console.error('Error occurred while uploading:', error);
