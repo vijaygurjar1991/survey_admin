@@ -426,6 +426,7 @@ export class EditSurveyComponent {
     // Validate each field individually
     this.questionadded = !!this.question && !!this.question.question && this.question.question.trim().length > 0;
     this.qusstionaddednext = !!this.question && !!this.question.questionTypeName && this.question.questionTypeName.trim().length > 0;
+    const optionFieldIsValid = !!this.option && !!this.option.option && this.option.option.trim().length > 0;
 
 
     // Check if categoryNameCheck validation is needed (only if a group exists)
@@ -456,7 +457,7 @@ export class EditSurveyComponent {
     // }
 
     // Update the validity state of the survey
-    this.isValidSurvey = this.questionadded && this.qusstionaddednext && this.categoryNameCheck;
+    this.isValidSurvey = this.questionadded && this.qusstionaddednext && this.categoryNameCheck && optionFieldIsValid;;
 
     return this.isValidSurvey; // Return the validation result
   }
@@ -875,6 +876,7 @@ export class EditSurveyComponent {
       curntId: questionSortValue
 
     };
+
     // }
 
     this.surveyservice.changeQuestionPosition(queryParams).subscribe(

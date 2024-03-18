@@ -329,14 +329,14 @@ export class DashboardComponent {
             console.log(this.newsurveyId)
             const encryptedId = this.crypto.encryptParam(`${this.newsurveyId}`);
             const url = `/survey/manage-survey/${encryptedId}`;
-            this.modal.hide();
+            // this.modal.close();
             this.router.navigateByUrl(url);
-            if (this.router.url.includes('/manage-survey')) {
-              location.reload();
-              // setTimeout(() => {
-              //   window.location.reload();
-              // }, 100); // Adjust the delay as needed
-            }
+            // if (this.router.url.includes('/manage-survey')) {
+            // window.location.reload();
+            setTimeout(() => {
+              window.location.reload();
+            }, 100); // Adjust the delay as needed
+            // }
           }
         },
         error => {
