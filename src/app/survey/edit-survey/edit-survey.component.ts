@@ -56,6 +56,7 @@ export class EditSurveyComponent {
   getquestionTypeName: any
   questionsort: any
   baseUrl = '';
+
   constructor(public themeService: DataService, private router: Router,
     private route: ActivatedRoute, private surveyservice: SurveyService, private modalService: NgbModal,
     private crypto: CryptoService, private utility: UtilsService) {
@@ -422,12 +423,14 @@ export class EditSurveyComponent {
   initializeCategoryNameChecks() {
     this.categoryNameChecks = new Array(this.groups.length).fill(false);
   }
+
+  optionFieldIsValid: boolean = true
+  surveySubmitted: boolean = false;
   validateSurvey(): boolean {
     this.initializeCategoryNameChecks();
     // Validate each field individually
     this.questionadded = !!this.question && !!this.question.question && this.question.question.trim().length > 0;
     this.qusstionaddednext = !!this.question && !!this.question.questionTypeName && this.question.questionTypeName.trim().length > 0;
-    const optionFieldIsValid = !!this.option && !!this.option.option && this.option.option.trim().length > 0;
 
 
     // Check if categoryNameCheck validation is needed (only if a group exists)
@@ -451,6 +454,12 @@ export class EditSurveyComponent {
     } else {
       this.categoryNameCheck = true; // Skip validation if no groups exist
     }
+
+    // Check if the answer input field is empty
+
+    const isAnyOptionEmpty = this.allOptions.some(option => !option.option || option.option.trim() === '');
+
+
     // if (atLeastOneGroupExists) {
     //   this.categoryNameCheck = !!this.categoryId && this.categoryId !== 0;
     // } else {
@@ -458,7 +467,7 @@ export class EditSurveyComponent {
     // }
 
     // Update the validity state of the survey
-    this.isValidSurvey = this.questionadded && this.qusstionaddednext && this.categoryNameCheck && optionFieldIsValid;;
+    this.isValidSurvey = this.questionadded && this.qusstionaddednext && this.categoryNameCheck && !isAnyOptionEmpty;
 
     return this.isValidSurvey; // Return the validation result
   }
@@ -1027,6 +1036,22 @@ export class EditSurveyComponent {
 
   createansweraddthen() {
     this.thenSection = true
+  }
+
+  selectAllOptions(groupIndex: number) {
+    const group = this.groups[groupIndex];
+    if (group) {
+      for (let option of group.options) {
+        this.selectOption(option);
+        console.log("working option")
+        console.log(this.selectOption)
+      }
+      console.log("working option if")
+    }
+  }
+
+  selectOption(option: any) {
+    // Logic to select the option
   }
 
 

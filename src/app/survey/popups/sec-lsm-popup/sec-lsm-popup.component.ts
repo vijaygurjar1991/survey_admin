@@ -48,8 +48,8 @@ export class SecLsmPopupComponent {
   }
 
   role: string;
-  typeid = 3;
-  questionTypeId = 0;
+  typeid = 2;
+  questionTypeId = 8;
 
 
   nccs: {
