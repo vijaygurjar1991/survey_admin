@@ -110,7 +110,7 @@ export class AddUserComponent {
     this.firstNamerequired = !!this.firstName && this.firstName.trim().length > 0;
     this.lastNamerequired = !!this.lastName && this.lastName.trim().length > 0;
     this.phone = !!this.contactNo && this.contactNo.toString().trim().length > 0;
-    this.phoneLengthError = !!this.contactNo && this.contactNo.toString().trim().length < 10;
+    this.phoneLengthError = !!this.contactNo && this.contactNo.toString().trim().length < 11;
     this.roletype = !!this.roleId && this.roleId.toString().trim().length > 0;
     this.emailaddress = !!this.email && this.email.trim().length > 0;
     this.passwordtype = !!this.password && this.password.trim().length > 0;

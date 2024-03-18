@@ -193,13 +193,17 @@ export class ProfileByIdComponent {
   phone: boolean = true
   roletype: boolean = true
   emailaddress: boolean = true
+  phoneLengthError: boolean = true
+  touched: boolean = false;
 
   validateSurvey(): boolean {
     this.firstNamerequired = !!this.firstName && this.firstName.trim().length > 0;
     this.lastNamerequired = !!this.lastname && this.lastname.trim().length > 0;
     this.phone = !!this.contactNo && this.contactNo.toString().trim().length > 0;
+    this.phoneLengthError = !!this.contactNo && this.contactNo.toString().trim().length < 11;
     this.emailaddress = !!this.email && this.email.trim().length > 0;
     this.roletype = !!this.userroledata && this.userroledata.toString().trim().length > 0;
+    this.touched = true;
 
 
     return (
@@ -207,7 +211,8 @@ export class ProfileByIdComponent {
       this.lastNamerequired &&
       this.phone &&
       this.emailaddress &&
-      this.roletype
+      this.roletype &&
+      this.phoneLengthError
     );
   }
 

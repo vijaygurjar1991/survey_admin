@@ -54,6 +54,7 @@ export class EditSurveyComponent {
   optionListByQuestionId: any
   selectedOptions: any[] = [];
   getquestionTypeName: any
+  questionsort: any
   baseUrl = '';
   constructor(public themeService: DataService, private router: Router,
     private route: ActivatedRoute, private surveyservice: SurveyService, private modalService: NgbModal,
@@ -729,6 +730,8 @@ export class EditSurveyComponent {
     this.surveyservice.getLogicQuestionList(dataToSend).subscribe((response: responseDTO) => {
       console.log("logicQuestionList", response);
       console.log("Question Sort Value", this.question.sort);
+      this.questionsort = this.question.sort
+      console.log("questionsort", this.questionsort)
       this.pipeQuestionList = response
       this.logicQuestionList = response.filter((item: Question) => item.sort < this.question.sort);
       if (this.logicQuestionList.length > 0) {
