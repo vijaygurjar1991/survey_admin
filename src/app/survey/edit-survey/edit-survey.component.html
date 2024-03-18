@@ -492,10 +492,10 @@
                                                         </mat-autocomplete>
                                                     </mat-form-field>
                                                 </div>
-                                                <div class="col-md-1">
+                                                <!-- <div class="col-md-1">
                                                     <a routerLink="javascript:"><ng-icon name="heroPlusCircle"
                                                             ngClass="plus-circle"></ng-icon></a>
-                                                </div>
+                                                </div> -->
                                                 <!-- <div class="col-md-4 checking">
                                                     <div class="form-check d-flex justify-content-end">
                                                         <input class="form-check-input me-2" type="checkbox" value=""
@@ -507,29 +507,69 @@
                                                 </div> -->
                                             </div>
                                         </div>
-                                        <div ngClass="if-then">
-                                            <span>Then</span>
-                                        </div>
-                                        <div ngClass="mb-4">
-                                            <div class="row g-2 align-items-center">
-                                                <div class="col-md-4">
-                                                    <select class="form-select" #thanIdSelect>
-                                                        <option *ngFor="let item of optionLogicValuesList;let i=index;"
-                                                            value="{{item.id}}">{{item.name}}</option>
-                                                    </select>
-                                                </div>
-                                                <div class="col-md-4">
-                                                    <select class="form-select" #thanExpectedSelect>
-                                                        <option *ngFor="let item of optionsArr1;let i=index;"
-                                                            value="{{item.id}}">{{item.option}}</option>
-                                                    </select>
-                                                </div>
-                                                <div class="col-md-1">
-                                                    <a routerLink="javascript:"><ng-icon name="heroTrash"
-                                                            ngClass="trash-icon"></ng-icon></a>
+                                        <div>
+                                            <div ngClass="if-then">
+                                                <span>Then</span>
+                                            </div>
+                                            <div ngClass="mb-4">
+                                                <div class="row g-2 align-items-center">
+                                                    <div class="col-md-4">
+                                                        <select class="form-select" #thanIdSelect>
+                                                            <option
+                                                                *ngFor="let item of optionLogicValuesList;let i=index;"
+                                                                value="{{item.id}}">{{item.name}}</option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <select class="form-select" #thanExpectedSelect>
+                                                            <option *ngFor="let item of optionsArr1;let i=index;"
+                                                                value="{{item.id}}">{{item.option}}</option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="col-md-1">
+                                                        <button type="button" class="btn btn-outline-primary btn-sm"
+                                                            (click)="createansweraddthen()">Else</button>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
+                                        <div *ngIf="thenSection">
+                                            <div ngClass="if-then">
+                                                <span>Else</span>
+                                            </div>
+                                            <div ngClass="mb-4">
+                                                <div class="row g-2 align-items-center">
+                                                    <div class="col-md-4">
+                                                        <select class="form-select" #thanIdSelect>
+                                                            <option
+                                                                *ngFor="let item of optionLogicValuesList;let i=index;"
+                                                                value="{{item.id}}">{{item.name}}</option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="col-md-8">
+                                                        <a routerLink="javascript:"><ng-icon name="heroTrash"
+                                                                ngClass="trash-icon"
+                                                                (click)="createanswershidethen()"></ng-icon></a>
+                                                    </div>
+                                                </div>
+                                                <!-- <div class="col-md-12">
+                                                    <a routerLink="javascript:" (click)="createanswershidethen()"><ng-icon name="heroTrash"
+                                                            ngClass="trash-icon"></ng-icon></a>
+                                                </div> -->
+                                            </div>
+                                        </div>
+                                        <!-- <div class="col-md-1">
+                                            <a routerLink="javascript:"><ng-icon name="heroPlusCircle"
+                                                    ngClass="plus-circle"></ng-icon></a>
+                                        </div> -->
+
+
+                                        <!-- <div ngClass="mb-4" (click)="createansweraddthen()" *ngIf="!thenSection">
+                                            <div class="col-md-12">
+                                                <a routerLink="javascript:"><ng-icon name="heroPlusCircle"
+                                                        ngClass="trash-icon"></ng-icon></a>
+                                            </div>
+                                        </div> -->
 
                                     </div>
                                 </div>

@@ -13,8 +13,7 @@
                     Survey <ng-icon class="ms-3" name="heroArrowLongRight"></ng-icon></a>
             </div> -->
             <div class="col-md-4 text-lg-end mt-lg-0 mt-3">
-                <a href="javascript:void(0);" data-bs-toggle="modal" data-bs-target="#add_new_survey"
-                    class="btn btn-primary btn-lg">Add New
+                <a href="javascript:void(0);" (click)="openLg(sidecontent)" class="btn btn-primary btn-lg">Add New
                     Survey <ng-icon class="ms-3" name="heroArrowLongRight"></ng-icon></a>
             </div>
         </div>
@@ -127,73 +126,67 @@
                 class="ms-5" name="heroArrowLongRight"></ng-icon>
         </button>
     </div> -->
-<div class="modal center-aligned-modal fade" id="add_new_survey" tabindex="-1" role="dialog">
-    <div class="modal-dialog modal-lg modal-dialog-centered">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h4 class="modal-title">Create Your New Survey</h4>
-                <button type="button" class="btn-close" aria-label="Close" (click)="close()"></button>
-            </div>
-            <div class="modal-body popup-ques">
-                <form>
-                    <div class="mb-4">
-                        <label for="surveyname" class="form-label">Enter Your Survey Name</label>
-                        <input id="surveyname" type="text" class="form-control" [(ngModel)]="surveyName"
-                            name="surveyName" (blur)="validateSurvey()" />
-                        <div *ngIf="!surveyNameCheck" class="text-danger">Survey Name is required.</div>
-                    </div>
-                    <div class="mb-4">
-                        <label class="form-label">Select Your Country</label>
-                        <mat-form-field>
-                            <mat-select name="countryString" [(value)]="selectedCountry" placeholder="Country">
-                                <mat-select-trigger>
-                                    <img *ngIf="selectedCountry && selectedCountry.images"
-                                        [src]="baseUrl + '/assets/images/country-flag/' + selectedCountry.images"
-                                        class="me-2 rounded-circle" style="width: 30px;height: 30px;" />
-                                    {{selectedCountry ? selectedCountry.name : ''}}
-                                </mat-select-trigger>
-                                <mat-option *ngFor="let item of country" [value]="item">
-                                    <img *ngIf="item.images"
-                                        [src]="baseUrl + '/assets/images/country-flag/' + item.images"
-                                        class="me-2 rounded-circle" style="width: 30px;height: 30px;" />
-                                    {{item.name}}
-                                </mat-option>
-                            </mat-select>
-                        </mat-form-field>
-
-                        <div *ngIf="!countryNameCheck" class="text-danger">Country is required.</div>
-                    </div>
-                    <div class="mb-4 search-categories input-icon">
-                        <label class="form-label">Select Survey Categories</label>
-                        <mat-form-field>
-                            <ng-icon name="heroMagnifyingGlass" class=""></ng-icon>
-                            <input type="text" placeholder="Search..." matInput [formControl]="searchControl"
-                                [matAutocomplete]="auto" [(ngModel)]="selectedOption" (blur)="validateSurvey()" />
-                            <mat-autocomplete #auto="matAutocomplete" (optionSelected)="filterOptions($event)">
-                                <mat-option *ngFor="let option of options" [value]="option.id">
-                                    {{ option.name }}
-                                </mat-option>
-                            </mat-autocomplete>
-                        </mat-form-field>
-                        <div *ngIf="!categoryNameCheck" class="text-danger">Category is required.</div>
-                    </div>
-                    <div class="mb-4" *ngIf="selectedOption === 'Others'">
-                        <label for="categoryName" class="form-label">Enter Category Name</label>
-                        <input id="categoryName" type="text" class="form-control" [(ngModel)]="categoryName"
-                            name="categoryName" (blur)="validateSurvey()" />
-                        <div *ngIf="!otherCategoryCheck" class="text-danger">Category Name is required.</div>
-                    </div>
-                </form>
-            </div>
-            <div class="modal-footer upload">
-                <button type="button" class="btn close" (click)="close()">Cancel</button>
-                <a href="javascript:void(0);" type="button" class="btn btn-primary icon"
-                    (click)="createSurvey();">Create
-                    <ng-icon name="heroArrowLongRight" class="ms-4"></ng-icon>
-                </a>
-            </div>
-        </div>
+<ng-template #sidecontent let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title">Create Your New Survey</h4>
+        <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
     </div>
-</div>
+    <div class="modal-body popup-ques">
+        <form>
+            <div class="mb-4">
+                <label for="surveyname" class="form-label">Enter Your Survey Name</label>
+                <input id="surveyname" type="text" class="form-control" [(ngModel)]="surveyName" name="surveyName"
+                    (blur)="validateSurvey()" />
+                <div *ngIf="!surveyNameCheck" class="text-danger">Survey Name is required.</div>
+            </div>
+            <div class="mb-4">
+                <label class="form-label">Select Your Country</label>
+                <mat-form-field>
+                    <mat-select name="countryString" [(value)]="selectedCountry" placeholder="Country">
+                        <mat-select-trigger>
+                            <img *ngIf="selectedCountry && selectedCountry.images"
+                                [src]="baseUrl + '/assets/images/country-flag/' + selectedCountry.images"
+                                class="me-2 rounded-circle" style="width: 30px;height: 30px;" />
+                            {{selectedCountry ? selectedCountry.name : ''}}
+                        </mat-select-trigger>
+                        <mat-option *ngFor="let item of country" [value]="item">
+                            <img *ngIf="item.images" [src]="baseUrl + '/assets/images/country-flag/' + item.images"
+                                class="me-2 rounded-circle" style="width: 30px;height: 30px;" />
+                            {{item.name}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+
+                <div *ngIf="!countryNameCheck" class="text-danger">Country is required.</div>
+            </div>
+            <div class="mb-4 search-categories input-icon">
+                <label class="form-label">Select Survey Categories</label>
+                <mat-form-field>
+                    <ng-icon name="heroMagnifyingGlass" class=""></ng-icon>
+                    <input type="text" placeholder="Search..." matInput [formControl]="searchControl"
+                        [matAutocomplete]="auto" [(ngModel)]="selectedOption" (blur)="validateSurvey()" />
+                    <mat-autocomplete #auto="matAutocomplete" (optionSelected)="filterOptions($event)">
+                        <mat-option *ngFor="let option of options" [value]="option.id">
+                            {{ option.name }}
+                        </mat-option>
+                    </mat-autocomplete>
+                </mat-form-field>
+                <div *ngIf="!categoryNameCheck" class="text-danger">Category is required.</div>
+            </div>
+            <div class="mb-4" *ngIf="selectedOption === 'Others'">
+                <label for="categoryName" class="form-label">Enter Category Name</label>
+                <input id="categoryName" type="text" class="form-control" [(ngModel)]="categoryName" name="categoryName"
+                    (blur)="validateSurvey()" />
+                <div *ngIf="!otherCategoryCheck" class="text-danger">Category Name is required.</div>
+            </div>
+        </form>
+    </div>
+    <div class="modal-footer upload">
+        <button type="button" class="btn close" (click)="close()">Cancel</button>
+        <a href="javascript:void(0);" type="button" class="btn btn-primary icon" (click)="createSurvey();">Create
+            <ng-icon name="heroArrowLongRight" class="ms-4"></ng-icon>
+        </a>
+    </div>
+</ng-template>
 
 <app-create-survey-popup #CreateSurveyModal></app-create-survey-popup>

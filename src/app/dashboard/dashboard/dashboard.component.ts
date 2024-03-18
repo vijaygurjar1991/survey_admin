@@ -156,6 +156,15 @@ export class DashboardComponent {
   openVerticallyCentered(content: any) {
     this.modalService.open(content, { centered: true, size: 'lg' });
   }
+
+  openLg(content: any) {
+    this.modalService.open(content, { size: 'lg', centered: true });
+  }
+
+  opensidecontent() {
+    const modalRef = this.modalService.open(this.opensidecontent, { /* modal options */ });
+  }
+
   onAddNewSurvey(content: any) {
     this.modalService.open(content, { size: 'lg', centered: true });
   }

@@ -499,7 +499,7 @@ export class EditSurveyComponent {
           this.categoryNameCheck = false;
           this.utility.showSuccess('Question Updated Successfully.');
           let url = `/survey/manage-survey/${this.crypto.encryptParam(this.surveyId)}`;
-          this.router.navigateByUrl(url);
+          // this.router.navigateByUrl(url);
         },
         error: (err: any) => {
           // Swal.fire('', err.error, 'error');
@@ -862,17 +862,21 @@ export class EditSurveyComponent {
     // Use selectedValue as needed
     console.log('Selected value:', selectedValue);
     console.log('Question Sort value:', questionSortValue);
+    console.log('sid', this.surveyId)
+    console.log("question", this.questionId)
 
     let queryParams = null;
-    if (questionId != 0) {
-      queryParams = {
-        qid: questionId,
-        sid: this.surveyId,
-        sordId: selectedValue,
-        curntId: questionSortValue
+    // if (questionId != 0) {
+    queryParams = {
+      // qid: questionId,
+      qid: this.questionId,
+      sid: this.surveyId,
+      sordId: selectedValue,
+      curntId: questionSortValue
 
-      };
-    }
+    };
+    // }
+
     this.surveyservice.changeQuestionPosition(queryParams).subscribe(
       (response: String) => {
         console.log('Update successful:', response);
@@ -1006,6 +1010,18 @@ export class EditSurveyComponent {
   addyoutubevideourl() {
     const youtubeUrl = this.youtubeUrl;
     console.log('youtube url:', youtubeUrl);
+  }
+
+  //createanswerthen
+
+  thenSection = false
+
+  createanswershidethen() {
+    this.thenSection = !this.thenSection;
+  }
+
+  createansweraddthen() {
+    this.thenSection = true
   }
 
 
