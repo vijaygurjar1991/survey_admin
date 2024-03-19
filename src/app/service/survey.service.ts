@@ -341,4 +341,10 @@ export class SurveyService {
     return this.http.delete(url, { responseType: 'text' });
   }
 
+
+  GetQuestionListBySurveyId(surveyId: any): Observable<responseDTO[]> {
+    const url = `${this.apiUrl}api/admin/${this.userId}/Survey/GetQuestionListBySurveyId?surveyId=${surveyId}`;
+    return this.http.get<responseDTO[]>(url);
+  }
+
 }

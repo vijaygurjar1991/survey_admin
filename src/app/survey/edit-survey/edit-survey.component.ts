@@ -180,6 +180,7 @@ export class EditSurveyComponent {
   ngOnInit() {
 
     this.themeService.closeSideBar();
+    this.getQuestionListBySurveyId();
     this.getQuestionTypes();
     if (this.mode != 'modify') {
       this.intializeDefaultValue();
@@ -500,6 +501,7 @@ export class EditSurveyComponent {
     this.question.youtubeUrl = this.youtubeUrl;
     console.log("url", this.question.youtubeUrl)
     this.question.options = this.allOptions;
+    this.question.piping = this.questionsortvalue
     console.log("checking", this.question.options)
 
     // Send the request based on whether it's an update or creation
@@ -510,7 +512,7 @@ export class EditSurveyComponent {
           this.categoryNameCheck = false;
           this.utility.showSuccess('Question Updated Successfully.');
           let url = `/survey/manage-survey/${this.crypto.encryptParam(this.surveyId)}`;
-          // this.router.navigateByUrl(url);
+          this.router.navigateByUrl(url);
         },
         error: (err: any) => {
           // Swal.fire('', err.error, 'error');
@@ -524,8 +526,8 @@ export class EditSurveyComponent {
           this.categoryNameCheck = false;
           this.utility.showSuccess('Question Generated Successfully.');
           let url = `/survey/manage-survey/${this.crypto.encryptParam(this.surveyId)}`;
-          // this.router.navigateByUrl(url);
-          // this.onSaveEvent.emit();
+          this.router.navigateByUrl(url);
+          this.onSaveEvent.emit();
         },
         error: (err: any) => {
           this.utility.showError('error');
@@ -1062,24 +1064,32 @@ export class EditSurveyComponent {
   }
 
 
+  //list in dropdown
 
-  // selectAllOptions(groupIndex: number) {
-  //   const group = this.groups[groupIndex];
-  //   if (group) {
-  //     for (let option of group.options) {
-  //       this.selectOption(option);
-  //       console.log("working option")
-  //       console.log(this.selectOption)
-  //     }
-  //     console.log("working option if")
-  //   }
-  // }
+  logicQuestionListById: any
+  pipeQuestionListById: any
+  questionsortvalue: any
 
-  // selectOption(option: any) {
-  // }
-
+  onSelectChangeByID(event: MatSelectChange): void {
+    const selectedQuestionId = event.value;
+    const selectedQuestion = this.logicQuestionListById.find((item: { id: any; }) => item.id === selectedQuestionId);
+    if (selectedQuestion) {
+      console.log('Selected Question Sort Value:', selectedQuestion.sort);
+    }
+    this.questionsortvalue = selectedQuestion.sort
+    console.log("questionsortvalue", this.questionsortvalue)
+  }
 
 
+
+
+  getQuestionListBySurveyId() {
+    this.logicQuestionListById = []; // Assuming logicQuestionListById is of type responseDTO[]
+    this.surveyservice.GetQuestionListBySurveyId(this.surveyId).subscribe((response: responseDTO[]) => {
+      this.logicQuestionListById = response;
+      console.log("qwertyu", this.logicQuestionListById);
+    });
+  }
 
 
 }

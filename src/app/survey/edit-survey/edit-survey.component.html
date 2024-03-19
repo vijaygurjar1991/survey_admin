@@ -43,10 +43,21 @@
                                 <div *ngIf="!qusstionaddednext" class="text-danger">Question is required.</div>
                             </div>
                             <div class="col-2">
-                                <mat-form-field>
+                                <!-- <mat-form-field>
                                     <mat-select #selectElement
                                         (selectionChange)="onSelectChange($event, question.sort, question.id)">
                                         <mat-option *ngFor="let item of pipeQuestionList;let i=index;" [value]="item.id"
+                                            [attr.selected]="idIsEqual(question.id, item.id) ? 'true' : null"
+                                            [title]="item.item">
+                                            {{ item.item.split(' ').slice(0, 3).join(' ')
+                                            }}{{item.item.split(' ').length > 3 ? ' ...' : ''}}
+                                        </mat-option>
+                                    </mat-select>
+                                </mat-form-field> -->
+                                <mat-form-field>
+                                    <mat-select #selectElement (selectionChange)="onSelectChangeByID($event)">
+                                        <mat-option *ngFor="let item of logicQuestionListById;let i=index;"
+                                            [value]="item.id"
                                             [attr.selected]="idIsEqual(question.id, item.id) ? 'true' : null"
                                             [title]="item.item">
                                             {{ item.item.split(' ').slice(0, 3).join(' ')
