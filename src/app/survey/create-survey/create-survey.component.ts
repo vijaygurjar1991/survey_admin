@@ -138,6 +138,7 @@ export class CreateSurveyComponent implements OnInit, AfterViewInit {
   modal: any;
   genericType: any
   checkgenerictype: any
+  logicscount: any
   constructor(
     private visibilityService: DataService,
     private modalService: NgbModal,
@@ -456,6 +457,13 @@ export class CreateSurveyComponent implements OnInit, AfterViewInit {
         console.log("Has age question:", hasAgeQuestion);
         this.checkgenerictype = hasAgeQuestion
         console.log("checkage", this.checkgenerictype)
+
+        //logics count
+        this.questions.forEach((question: any) => {
+          console.log("Question:", question.question);
+          console.log("Number of Logics:", question.logics.length);
+          question.logicscount = question.logics.length
+        });
 
       }
 

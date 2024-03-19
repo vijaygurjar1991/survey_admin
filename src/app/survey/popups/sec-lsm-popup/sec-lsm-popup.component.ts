@@ -164,11 +164,45 @@ export class SecLsmPopupComponent {
     //window.location.reload()
 
   }
+  // addQuestion() {
+  //   console.log(this.questions)
+  //   if (this.questions.length > 0) {
+  //     const previousQuestion = this.questions[this.questions.length - 1];
+  //     console.log("previousQuestion", previousQuestion)
+  //     // Check if the previous question has the shouldAddOption flag set
+  //     if (previousQuestion.shouldAddOption && this.newOptionValue.trim() !== '') {
+  //       const newOption = new Option();
+  //       newOption.id = previousQuestion.options.length + 1;
+  //       newOption.option = this.newOptionValue;
+  //       newOption.selected = false;
+
+  //       previousQuestion.options.push(newOption);
+
+  //       // Clear the global newOptionValue after adding an option
+  //       this.newOptionValue = '';
+  //     }
+  //   }
+
+  //   const newQuestion = new Question();
+  //   newQuestion.id = this.questions.length + 1;
+  //   newQuestion.question = '';
+  //   //newQuestion.options = [];
+  //   newQuestion.shouldAddOption = true;  // Set to true for the newly added question
+
+  //   const defaultOption = new Option();
+  //   defaultOption.id = 1;
+  //   defaultOption.option = ''; // Set a default option text if needed
+  //   defaultOption.selected = false;
+
+  //   newQuestion.options = [defaultOption];
+
+  //   this.questions.push(newQuestion);
+  //   console.log(this.questions)
+  // }
   addQuestion() {
-    console.log(this.questions)
     if (this.questions.length > 0) {
       const previousQuestion = this.questions[this.questions.length - 1];
-      console.log("previousQuestion", previousQuestion)
+
       // Check if the previous question has the shouldAddOption flag set
       if (previousQuestion.shouldAddOption && this.newOptionValue.trim() !== '') {
         const newOption = new Option();
@@ -186,8 +220,7 @@ export class SecLsmPopupComponent {
     const newQuestion = new Question();
     newQuestion.id = this.questions.length + 1;
     newQuestion.question = '';
-    //newQuestion.options = [];
-    newQuestion.shouldAddOption = true;  // Set to true for the newly added question
+    newQuestion.shouldAddOption = true; // Set to true for the newly added question
 
     const defaultOption = new Option();
     defaultOption.id = 1;
@@ -197,8 +230,8 @@ export class SecLsmPopupComponent {
     newQuestion.options = [defaultOption];
 
     this.questions.push(newQuestion);
-    console.log(this.questions)
   }
+
   addOption(questionIndex: number) {
     const question = this.questions[questionIndex];
     console.log(question)

@@ -524,8 +524,8 @@ export class EditSurveyComponent {
           this.categoryNameCheck = false;
           this.utility.showSuccess('Question Generated Successfully.');
           let url = `/survey/manage-survey/${this.crypto.encryptParam(this.surveyId)}`;
-          this.router.navigateByUrl(url);
-          this.onSaveEvent.emit();
+          // this.router.navigateByUrl(url);
+          // this.onSaveEvent.emit();
         },
         error: (err: any) => {
           this.utility.showError('error');
@@ -742,6 +742,7 @@ export class EditSurveyComponent {
       this.questionsort = this.question.sort
       console.log("questionsort", this.questionsort)
       this.pipeQuestionList = response
+      console.log("pipe", this.pipeQuestionList)
       this.logicQuestionList = response.filter((item: Question) => item.sort < this.question.sort);
       if (this.logicQuestionList.length > 0) {
         this.getOptionsByQuestionId(this.logicQuestionList[0].id);
@@ -884,9 +885,9 @@ export class EditSurveyComponent {
       // qid: questionId,
       qid: this.questionId,
       sid: this.surveyId,
+      // sordId: selectedValue,
       sordId: selectedValue,
       curntId: questionSortValue
-
     };
 
     // }
@@ -1038,21 +1039,44 @@ export class EditSurveyComponent {
     this.thenSection = true
   }
 
+  //select all
+
   selectAllOptions(groupIndex: number) {
-    const group = this.groups[groupIndex];
-    if (group) {
-      for (let option of group.options) {
-        this.selectOption(option);
-        console.log("working option")
-        console.log(this.selectOption)
+    // Iterate over filteredOptions and push each option to the group's options array
+    for (const option of this.filteredOptions) {
+      this.groups[groupIndex].options.push(option);
+    }
+
+    // Clear the filteredOptions array since all options are selected now
+    this.filteredOptions = [];
+
+    // Update allOptions to reflect the selected group for each option
+    for (const option of this.groups[groupIndex].options) {
+      const indexToModify = this.allOptions.findIndex((opt: any) => opt.option === option.option);
+      if (indexToModify !== -1) {
+        this.allOptions[indexToModify].group = this.groups[groupIndex].id;
+        this.allOptions[indexToModify].isRandomize = this.groups[groupIndex].isRandomize;
+        this.allOptions[indexToModify].isExcluded = this.groups[groupIndex].isExcluded;
       }
-      console.log("working option if")
     }
   }
 
-  selectOption(option: any) {
-    // Logic to select the option
-  }
+
+
+  // selectAllOptions(groupIndex: number) {
+  //   const group = this.groups[groupIndex];
+  //   if (group) {
+  //     for (let option of group.options) {
+  //       this.selectOption(option);
+  //       console.log("working option")
+  //       console.log(this.selectOption)
+  //     }
+  //     console.log("working option if")
+  //   }
+  // }
+
+  // selectOption(option: any) {
+  // }
 
 
 

@@ -153,5 +153,42 @@ export class SurveyListingComponent {
     this.onPageChange(this.pageNumber)
   }
 
+  //delete
+  // openLg(content: any) {
+  //   this.modalService.open(content, { size: 'lg', centered: true });
+  // }
+
+
+  itemId: 5;
+
+  opensidecontent() {
+    const modalRef = this.modalService.open(this.opensidecontent, { /* modal options */ });
+  }
+
+  // Function to open modal and set itemId
+  openLg(sidecontent: any, itemId: any) {
+    this.itemId = itemId;
+    console.log("itemid", this.itemId)
+    this.modalService.open(sidecontent);
+  }
+
+  // Function to delete survey
+  deleteSurvey(itemId: any) {
+    this.userId = this.utility.getUserId();
+
+    this.themeService.deleteSurvey(itemId).subscribe({
+      next: (resp: any) => {
+        console.log("response", resp);
+        this.utility.showSuccess('Question Deleted Sucessfully');
+        window.location.reload()
+        // Handle success response, maybe close the modal or refresh the survey list
+      },
+      error: (err: any) => {
+        // Handle error response
+      }
+    });
+  }
+
+
 
 }

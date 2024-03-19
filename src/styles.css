@@ -2016,3 +2016,19 @@ table th {
 .generic-ques .videourl {
     margin: auto;
 }
+
+.delete h4 {
+    text-align: center;
+}
+
+.deleteoption {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+    margin-top: 20px;
+}
+
+.deleteoption button.btn.btn-primary.icon {
+    padding: 10px 20px;
+}
