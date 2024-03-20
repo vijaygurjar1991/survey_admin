@@ -55,7 +55,8 @@
                                     </mat-select>
                                 </mat-form-field> -->
                                 <mat-form-field>
-                                    <mat-select #selectElement (selectionChange)="onSelectChangeByID($event)">
+                                    <mat-select (selectionChange)="onSelectChangeByID($event)"
+                                        [(ngModel)]="logicquestionid">
                                         <mat-option *ngFor="let item of logicQuestionListById;let i=index;"
                                             [value]="item.id"
                                             [attr.selected]="idIsEqual(question.id, item.id) ? 'true' : null"

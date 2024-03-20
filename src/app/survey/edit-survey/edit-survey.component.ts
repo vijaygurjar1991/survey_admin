@@ -104,6 +104,9 @@ export class EditSurveyComponent {
       this.question.sort = data.sort
       this.question.questionTypeName = data.questionTypeName
       this.youtubeUrl = data.youtubeUrl
+      this.question.piping = data.piping
+
+      console.log("piping", this.question.piping)
 
       data.options.forEach((opt: any) => {
 
@@ -141,18 +144,29 @@ export class EditSurveyComponent {
         }
 
       });
+      this.logicquestionid = 190
+
+      // const selectedQuestionsort = this.logicQuestionListById.find((item: { sort: any; }) => item.sort === this.question.piping);
+      // if (selectedQuestionsort) {
+      //   console.log("Selected Question ID:", selectedQuestionsort.id);
+      //   console.log("Selected Question Name:", selectedQuestionsort.item);
+      //   this.logicquestionid = selectedQuestionsort.id
+      // }
+
+      // Find the question ID based on piping value
+
 
       //console.log('Grouped Options:', this.groupedOptions);
       //console.log('length:', Object.keys(this.groupedOptions).length);
       this.filteredOptions.push(...this.optionsArr1, ...this.optionsArr2);
       this.allOptions.push(...this.optionsArr1, ...this.optionsArr2);
       this.getGroupValue();
+
+
     });
 
-
-
-
   }
+
   getGroupValue() {
     if (this.groupedOptions && Object.keys(this.groupedOptions).length > 0) {
       for (const groupKey in this.groupedOptions) {
@@ -302,6 +316,7 @@ export class EditSurveyComponent {
 
     if (indexToRemove !== -1) {
       this.groups[groupIndex].options.splice(indexToRemove, 1);
+
     } else {
       console.log(`Item with option '${optionValue}' not found.`);
     }
@@ -459,6 +474,10 @@ export class EditSurveyComponent {
     // Check if the answer input field is empty
 
     const isAnyOptionEmpty = this.allOptions.some(option => !option.option || option.option.trim() === '');
+    // const isAnyOptionNonUnique = (new Set(this.allOptions.map(option => option.option.trim()))).size !== this.allOptions.length;
+    // if (isAnyOptionNonUnique) {
+    //   this.utility.showError('Duplicate option value.');
+    // }
 
 
     // if (atLeastOneGroupExists) {
@@ -474,7 +493,14 @@ export class EditSurveyComponent {
   }
 
   onSave() {
+
     // Validate the survey
+
+    const isAnyOptionNonUnique = (new Set(this.allOptions.map(option => option.option.trim()))).size !== this.allOptions.length;
+    if (isAnyOptionNonUnique) {
+      this.utility.showError('Duplicate option value.');
+      return;
+    }
     const isSurveyValid = this.validateSurvey();
 
     if (!isSurveyValid) {
@@ -950,6 +976,8 @@ export class EditSurveyComponent {
   }
 
   getFilteredOptions() {
+    this.filteredOptions = [];
+    this.filteredOptions.push(...this.optionsArr1, ...this.optionsArr2);
     return this.filteredOptions.filter(option => option.option.trim() !== '');
   }
 
@@ -1043,16 +1071,33 @@ export class EditSurveyComponent {
 
   //select all
 
+  // selectAllOptions(groupIndex: number) {
+  //   for (const option of this.filteredOptions) {
+  //     this.groups[groupIndex].options.push(option);
+  //   }
+
+  //   this.filteredOptions = [];
+
+  //   for (const option of this.groups[groupIndex].options) {
+  //     const indexToModify = this.allOptions.findIndex((opt: any) => opt.option === option.option);
+  //     if (indexToModify !== -1) {
+  //       this.allOptions[indexToModify].group = this.groups[groupIndex].id;
+  //       this.allOptions[indexToModify].isRandomize = this.groups[groupIndex].isRandomize;
+  //       this.allOptions[indexToModify].isExcluded = this.groups[groupIndex].isExcluded;
+  //     }
+  //   }
+  //   this.validateSurvey();
+  // }
   selectAllOptions(groupIndex: number) {
-    // Iterate over filteredOptions and push each option to the group's options array
     for (const option of this.filteredOptions) {
-      this.groups[groupIndex].options.push(option);
+      // Check if the option is already in the group
+      if (!this.groups[groupIndex].options.some((opt: any) => opt.option === option.option)) {
+        this.groups[groupIndex].options.push(option);
+      }
     }
 
-    // Clear the filteredOptions array since all options are selected now
     this.filteredOptions = [];
 
-    // Update allOptions to reflect the selected group for each option
     for (const option of this.groups[groupIndex].options) {
       const indexToModify = this.allOptions.findIndex((opt: any) => opt.option === option.option);
       if (indexToModify !== -1) {
@@ -1061,7 +1106,9 @@ export class EditSurveyComponent {
         this.allOptions[indexToModify].isExcluded = this.groups[groupIndex].isExcluded;
       }
     }
+    this.validateSurvey();
   }
+
 
 
   //list in dropdown
@@ -1069,15 +1116,29 @@ export class EditSurveyComponent {
   logicQuestionListById: any
   pipeQuestionListById: any
   questionsortvalue: any
+  logicquestionname: any
+  logicquestionid: any
 
   onSelectChangeByID(event: MatSelectChange): void {
     const selectedQuestionId = event.value;
     const selectedQuestion = this.logicQuestionListById.find((item: { id: any; }) => item.id === selectedQuestionId);
     if (selectedQuestion) {
-      console.log('Selected Question Sort Value:', selectedQuestion.sort);
+      console.log("selected question", selectedQuestion.item)
+      console.log('question Sort Value:', selectedQuestion.sort);
     }
     this.questionsortvalue = selectedQuestion.sort
+    this.logicquestionname = selectedQuestion.item
     console.log("questionsortvalue", this.questionsortvalue)
+    console.log("logicquestionname", this.logicquestionname)
+
+    const selectedQuestionsort = this.logicQuestionListById.find((item: { sort: any; }) => item.sort === selectedQuestion.sort);
+    if (selectedQuestionsort) {
+      console.log("Selected Question ID:", selectedQuestionsort.id);
+      console.log("Selected Question Name:", selectedQuestionsort.item);
+    }
+    this.logicquestionid = selectedQuestionsort.id
+
+
   }
 
 
@@ -1090,6 +1151,8 @@ export class EditSurveyComponent {
       console.log("qwertyu", this.logicQuestionListById);
     });
   }
+
+
 
 
 }

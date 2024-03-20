@@ -35,7 +35,6 @@
                         <th scope="col">Last Modification</th>
                         <th scope="col">Status</th>
                         <th scope="col">Action</th>
-                        <th scope="col">Delete</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -122,17 +121,15 @@
                                 </select>
                             </ng-container>
                         </td>
-                        <td ngClass="action">
+                        <td ngClass="action d-flex gap-2">
                             <a *ngIf="item.status!='ACT' && item.status!='HOL'" href="javascript:"
                                 [routerLink]="'/survey/manage-survey/'+ (item.surveyId |  encrypt)">
                                 <ng-icon name="heroPencil" ngClass="edit-action"></ng-icon></a>
+                            <a href="javascript:" (click)="openLg(sidecontent,item.surveyId,item.name)"> <ng-icon
+                                    name="heroTrash" ngClass="edit-action"></ng-icon></a>
                             <!-- <a *ngIf="item.status=='ACT'" href="javascript:">
                                 <ng-icon name="heroPencil" ngClass="edit-action"></ng-icon></a> -->
                         </td>
-                        <td ngClass="action" (click)="openLg(sidecontent,item.surveyId)">
-                            <a> <ng-icon name="heroTrash" ngClass="edit-action"></ng-icon></a>
-                        </td>
-
                     </tr>
                 </tbody>
 
@@ -179,7 +176,7 @@
     </div>
     <div class="modal-body popup-ques delete">
         <div class="mb-4">
-            <h4>Are you sure you want to delete Survey</h4>
+            <h4>Are you sure you want to delete Survey ({{deletesurveyname}})</h4>
             <div class="deleteoption">
                 <button type="button" class="btn btn-primary icon" (click)="modal.dismiss('Cross click')">No</button>
                 <button type="button" class="btn btn-primary icon" (click)="deleteSurvey(itemId);">Yes</button>

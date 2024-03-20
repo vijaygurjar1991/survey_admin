@@ -1464,15 +1464,19 @@ export class CreateSurveyComponent implements OnInit, AfterViewInit {
   screenRedirectUser: boolean
   screenRedirectURL: any
   screenQuestionObj: Question = new Question();
+
   saveScreenImage(): void {
+    this.screenQuestionObj.createdDate = this.surveycreateddate
     this.screenQuestionObj.question = this.screenQuestion
-    this.screenQuestionObj.image = this.screenImage
+    this.screenQuestionObj.image = this.screenImage.replace(/"/g, "");
+    console.log("screen image", this.screenQuestionObj.image)
     this.screenQuestionObj.isScreening = this.screenRedirectUser
     this.screenQuestionObj.screeningRedirectUrl = this.screenRedirectURL
     this.screenQuestionObj.surveyTypeId = this.surveyId
 
     this.surveyservice.CreateGeneralQuestion(this.screenQuestionObj).subscribe({
       next: (resp: any) => {
+
         // Swal.fire('', 'Question Generated Sucessfully.', 'success');
         this.utils.showSuccess('Question Generated Sucessfully');
 

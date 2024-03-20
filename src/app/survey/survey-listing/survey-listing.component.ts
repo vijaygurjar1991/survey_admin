@@ -166,10 +166,15 @@ export class SurveyListingComponent {
   }
 
   // Function to open modal and set itemId
-  openLg(sidecontent: any, itemId: any) {
+  deletesurveyname: any
+  openLg(sidecontent: any, itemId: any, name: any) {
     this.itemId = itemId;
     console.log("itemid", this.itemId)
-    this.modalService.open(sidecontent);
+    console.log("survey name", name);
+    this.deletesurveyname = name
+    console.log("qwertyu", this.deletesurveyname)
+
+    this.modalService.open(sidecontent, { centered: true });
   }
 
   // Function to delete survey
@@ -181,10 +186,8 @@ export class SurveyListingComponent {
         console.log("response", resp);
         this.utility.showSuccess('Question Deleted Sucessfully');
         window.location.reload()
-        // Handle success response, maybe close the modal or refresh the survey list
       },
       error: (err: any) => {
-        // Handle error response
       }
     });
   }
