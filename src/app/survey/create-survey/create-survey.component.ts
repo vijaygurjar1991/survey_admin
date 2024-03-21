@@ -587,21 +587,27 @@ export class CreateSurveyComponent implements OnInit, AfterViewInit {
       this.logicThensList = response
     });
   }
+  logicQuestionListById: any
   getLogicQuestionList(questionId: any) {
-    this.logicQuestionList = [];
-    const dataToSend = {
-      surveyId: this.surveyId,
-      surveyStatus: questionId
-    };
-    this.surveyservice.getLogicQuestionList(dataToSend).subscribe(
-      (response: LogicQuestion[]) => {
-        console.log("logicQuestionList", response);
-        this.logicQuestionList = response;
-      },
-      error => {
-        console.error('Error fetching logic questions', error);
-      }
-    );
+    // this.logicQuestionList = [];
+    // const dataToSend = {
+    //   surveyId: this.surveyId,
+    //   surveyStatus: questionId
+    // };
+    // this.surveyservice.getLogicQuestionList(dataToSend).subscribe(
+    //   (response: LogicQuestion[]) => {
+    //     console.log("logicQuestionList", response);
+    //     this.logicQuestionList = response;
+    //   },
+    //   error => {
+    //     console.error('Error fetching logic questions', error);
+    //   }
+    // );
+    this.logicQuestionListById = []; // Assuming logicQuestionListById is of type responseDTO[]
+    this.surveyservice.GetQuestionListBySurveyId(this.surveyId).subscribe((response: responseDTO[]) => {
+      this.logicQuestionListById = response;
+      console.log("qwertyu", this.logicQuestionListById);
+    });
 
   }
 

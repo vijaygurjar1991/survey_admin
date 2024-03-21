@@ -56,6 +56,7 @@ export class EditSurveyComponent {
   getquestionTypeName: any
   questionsort: any
   baseUrl = '';
+  optionImage: String;
 
   constructor(public themeService: DataService, private router: Router,
     private route: ActivatedRoute, private surveyservice: SurveyService, private modalService: NgbModal,
@@ -131,6 +132,7 @@ export class EditSurveyComponent {
         }
 
         console.log("see", this.optionsArr1)
+        console.log("option id", newOption.id)
 
         if (opt.group > 0) {
           if (!this.groupedOptions[opt.group]) {
@@ -221,41 +223,85 @@ export class EditSurveyComponent {
     this.files.push(...event.addedFiles);
   }
 
-  onSelectOptionImage(event: any, index: number): void {
+  onSelectOptionImage(event: any, index: number, qid: number, oid: number): void {
 
     if (!this.optionImages[index]) {
       this.optionImages[index] = [];
     }
 
-    this.optionImages[index] = [];
-
     this.optionImages[index].push(...event.addedFiles);
-    console.log(this.optionImages);
+    console.log("newoptionImages:", this.optionImages);
+
     this.optionsArr1[index].images = [...event.addedFiles];
 
+    const filesForIndex = this.optionImages[index];
 
-    // event.addedFiles.forEach((file: any) => {
-    //   this.filesImage.push(file);
-    //   console.log("file images", this.filesImage);
-    //   this.uploadImageOption(file);
-    // });
+    if (filesForIndex && filesForIndex.length > 0) {
+      const file = filesForIndex[filesForIndex.length - 1];
+      console.log("file:", file);
+      console.log("qid:", qid);
+
+      if (file) {
+        this.filesImage.push(file);
+        this.uploadOptionImage(file, this.questionId, oid);
+      } else {
+        console.error("File is null or undefined.");
+        console.log("newoptionImages:", this.optionImages);
+      }
+    } else {
+      console.error("No files found for the specified index.");
+    }
   }
 
-  onSelectNewOptionImage(event: any, index: number): void {
+  onSelectNewOptionImage(event: any, index: number, qid: number, oid: number): void {
     // Ensure inner array exists for the option index
     if (!this.newoptionImages[index]) {
       this.newoptionImages[index] = [];
     }
-    this.newoptionImages[index] = [];
 
-    this.newoptionImages[index].push(...event.addedFiles);
-    console.log(this.newoptionImages);
-    this.optionsArr1[index].images = [...event.addedFiles];
-    // event.addedFiles.forEach((file: any) => {
-    //   this.filesImage.push(file);
-    //   console.log("file images", this.filesImage);
-    //   this.uploadImageOption(file);
-    // });
+    this.newoptionImages[index].push(...event.addedFiles); // Add the newly added files to the array
+    console.log("newoptionImages:", this.newoptionImages);
+
+    this.optionsArr1[index].images = [...event.addedFiles]; // Update the images array for the corresponding option
+
+    // Access the file from this.newoptionImages
+    const filesForIndex = this.newoptionImages[index];
+
+    // Check if there are files for the specified index
+    if (filesForIndex && filesForIndex.length > 0) {
+      const file = filesForIndex[filesForIndex.length - 1]; // Assuming you want the last added file
+      console.log("file:", file);
+      console.log("qid:", qid);
+
+      if (file) {
+        this.filesImage.push(file); // Store the selected file
+        this.uploadOptionImage(file, this.questionId, oid); // Trigger upload after selecting the file
+      } else {
+        console.error("File is null or undefined.");
+        console.log("newoptionImages:", this.newoptionImages);
+      }
+    } else {
+      console.error("No files found for the specified index.");
+    }
+  }
+
+
+
+  uploadOptionImage(fileoption: File, qid: number, oid: number): void {
+
+    this.surveyservice.uploadOptionImage(fileoption, qid, oid).subscribe(
+      (response: String) => {
+        console.log('Upload successful:', response);
+        this.optionImage = response
+        console.log("questionimage", this.optionImage)
+
+
+      },
+      (error) => {
+        console.error('Error occurred while uploading:', error);
+
+      }
+    );
   }
 
 

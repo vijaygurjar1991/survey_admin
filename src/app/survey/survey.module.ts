@@ -47,6 +47,7 @@ import { heroHome } from '@ng-icons/heroicons/outline';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { SharedModule } from '../shared/shared.module';
 import { heroShoppingBag } from '@ng-icons/heroicons/outline';
+import { heroInformationCircle } from '@ng-icons/heroicons/outline';
 //import { ProfileIdPopupComponent } from './popups/profile-id-popup/profile-id-popup.component';
 // Icons
 import { heroMinusCircle } from '@ng-icons/heroicons/outline';
@@ -91,7 +92,8 @@ import { heroMinusCircle } from '@ng-icons/heroicons/outline';
       heroChevronLeft,
       heroChevronRight,
       heroShoppingBag,
-      heroMinusCircle
+      heroMinusCircle,
+      heroInformationCircle
     }),
     NgxPaginationModule,
     SharedModule

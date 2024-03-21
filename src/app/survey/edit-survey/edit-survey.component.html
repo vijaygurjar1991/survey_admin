@@ -180,7 +180,7 @@
                             <!-- this -->
                             <div class="flex-width">
                                 <ngx-dropzone class="edit-survey-img" ngx-dropzone [accept]="'image/*'"
-                                    (change)="onSelectOptionImage($event, i)">
+                                    (change)="onSelectOptionImage($event, i,question.id,option.id)">
                                     <ngx-dropzone-label>
                                         <img [src]="baseUrl + '/assets/images/icons/attach-image.png'" />
                                     </ngx-dropzone-label>
@@ -255,7 +255,7 @@
                             </div> -->
                             <div class="flex-width">
                                 <ngx-dropzone class="edit-survey-img" ngx-dropzone [accept]="'image/*'"
-                                    (change)="onSelectNewOptionImage($event, i)">
+                                    (change)="onSelectNewOptionImage($event, i,question.id,option.id)">
                                     <ngx-dropzone-label>
                                         <img [src]="baseUrl + '/assets/images/icons/attach-image.png'" />
                                     </ngx-dropzone-label>
@@ -330,7 +330,11 @@
             <li>
                 <div ngClass="p-4">
                     <div ngClass="ans-group mb-4">
-                        <h5>Create Answer Group{{groups}}</h5>
+                        <h5>Create Answer Group{{groups}}
+                            <ng-icon name="heroInformationCircle" ngClass="edit-action info-circle"
+                                matTooltip="Create Answer Group" matTooltipPosition="above"
+                                title="Action Information"></ng-icon>
+                        </h5>
                         <a href="javascript:void(0);" class="btn btn-primary" (click)="onCreateGroup()">Create New Group
                             <ng-icon name="heroArrowRight"></ng-icon></a>
                     </div>
@@ -429,8 +433,12 @@
             </li>
             <div class="row mb-3">
                 <div class="col-6">
-                    <button type="button" class="btn btn-primary px-5" (click)="VisibilityAnsLogic()">Create Answer
-                        Logic</button>
+                    <button type="button" class="btn btn-primary px-5" (click)="VisibilityAnsLogic()"
+                        matTooltip="Create Answer Logic" matTooltipPosition="above" title="Action Information">Create
+                        Answer
+                        Logic
+                    </button>
+
                 </div>
                 <div class="col-6 text-end">
                     <button type="button" class="btn btn-primary px-5" (click)="onSave()">Save</button>

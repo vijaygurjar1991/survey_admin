@@ -33,7 +33,13 @@
                         <th scope="col">Category</th>
                         <th scope="col">Creator Name</th>
                         <th scope="col">Last Modification</th>
-                        <th scope="col">Status</th>
+                        <th scope="col">
+                            <div class="infocircle">
+                                Status
+                                <ng-icon name="heroInformationCircle" ngClass="edit-action info-circle"
+                                    matTooltip="Status" matTooltipPosition="above" title="Action Information"></ng-icon>
+                            </div>
+                        </th>
                         <th scope="col">Action</th>
                     </tr>
                 </thead>
@@ -121,14 +127,16 @@
                                 </select>
                             </ng-container>
                         </td>
-                        <td ngClass="action d-flex gap-2">
-                            <a *ngIf="item.status!='ACT' && item.status!='HOL'" href="javascript:"
-                                [routerLink]="'/survey/manage-survey/'+ (item.surveyId |  encrypt)">
-                                <ng-icon name="heroPencil" ngClass="edit-action"></ng-icon></a>
-                            <a href="javascript:" (click)="openLg(sidecontent,item.surveyId,item.name)"> <ng-icon
-                                    name="heroTrash" ngClass="edit-action"></ng-icon></a>
-                            <!-- <a *ngIf="item.status=='ACT'" href="javascript:">
+                        <td ngClass="action">
+                            <div class="d-flex gap-2">
+                                <a *ngIf="item.status!='ACT' && item.status!='HOL'" href="javascript:"
+                                    [routerLink]="'/survey/manage-survey/'+ (item.surveyId |  encrypt)">
+                                    <ng-icon name="heroPencil" ngClass="edit-action"></ng-icon></a>
+                                <a href="javascript:" (click)="openLg(sidecontent,item.surveyId,item.name)"><ng-icon
+                                        name="heroTrash" ngClass="edit-action delete-trash"></ng-icon></a>
+                                <!-- <a *ngIf="item.status=='ACT'" href="javascript:">
                                 <ng-icon name="heroPencil" ngClass="edit-action"></ng-icon></a> -->
+                            </div>
                         </td>
                     </tr>
                 </tbody>

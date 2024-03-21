@@ -2032,3 +2032,18 @@ table th {
 .deleteoption button.btn.btn-primary.icon {
     padding: 10px 20px;
 }
+
+.action .edit-action.delete-trash {
+    background-color: var(--hover-red);
+}
+
+.infocircle {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.edit-action.info-circle {
+    --ng-icon__size: 1.3em;
+    color: grey;
+}

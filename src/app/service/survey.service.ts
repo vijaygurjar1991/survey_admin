@@ -347,4 +347,12 @@ export class SurveyService {
     return this.http.get<responseDTO[]>(url);
   }
 
+
+  uploadOptionImage(file: File, qid: any, oid: any): Observable<any> {
+    const formData = new FormData();
+    formData.append('file', file, file.name);
+    const url = `${this.apiUrl}api/admin/${this.userId}/GeneralQuestion/UploadOptionImage?qid=${qid}&oid=${oid}`;
+    return this.http.post(url, formData, { responseType: 'text' });
+  }
+
 }

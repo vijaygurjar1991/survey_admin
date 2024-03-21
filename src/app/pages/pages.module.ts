@@ -18,6 +18,8 @@ import { heroXMark } from '@ng-icons/heroicons/outline';
 import { heroPencil } from '@ng-icons/heroicons/outline';
 import { ExpertAidListComponent } from './expert-aid-list/expert-aid-list.component';
 import { ExpertAidAllServicesComponent } from './expert-aid-all-services/expert-aid-all-services.component';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { heroInformationCircle } from '@ng-icons/heroicons/outline';
 
 @NgModule({
   declarations: [
@@ -36,10 +38,12 @@ import { ExpertAidAllServicesComponent } from './expert-aid-all-services/expert-
     ReactiveFormsModule,
     MatSelectModule,
     MatFormFieldModule,
+    MatTooltipModule,
     NgIconsModule.withIcons({
       heroHome,
       heroXMark,
-      heroPencil
+      heroPencil,
+      heroInformationCircle
     }),
     CKEditorModule,
   ],

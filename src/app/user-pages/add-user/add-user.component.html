@@ -56,7 +56,10 @@
                 </div>
                 <div class="row">
                     <div class="col-md-6 mb-3">
-                        <label for="">Role</label>
+                        <label for="">Role
+                            <ng-icon name="heroInformationCircle" ngClass="edit-action info-circle" matTooltip="Role"
+                                matTooltipPosition="above" title="Action Information"></ng-icon>
+                        </label>
                         <select class="form-select" name="roleId" [(ngModel)]="roleId" (blur)="validateSurvey()">
                             <option [value]="0" selected>Select Role</option>
                             <option value="1" *ngIf="isSuperAdmin">SuperAdmin</option>

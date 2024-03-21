@@ -13,6 +13,8 @@ import { AddUserComponent } from './add-user/add-user.component';
 import { NgxDropzoneModule } from 'ngx-dropzone';
 import { ProfileByIdComponent } from './profile-by-id/profile-by-id.component';
 import { ProfileIdPopupComponent } from '../survey/popups/profile-id-popup/profile-id-popup.component';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { heroInformationCircle } from '@ng-icons/heroicons/outline';
 
 
 
@@ -26,6 +28,7 @@ import { ProfileIdPopupComponent } from '../survey/popups/profile-id-popup/profi
   ],
   imports: [
     CommonModule,
+    MatTooltipModule,
     UserPagesRoutingModule,
     CarouselModule,
     FormsModule,
@@ -34,7 +37,8 @@ import { ProfileIdPopupComponent } from '../survey/popups/profile-id-popup/profi
     NgIconsModule.withIcons({
       heroEllipsisVertical,
       heroHome,
-      heroPencil
+      heroPencil,
+      heroInformationCircle
 
     }),
   ]
