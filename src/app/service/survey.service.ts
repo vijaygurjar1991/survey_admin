@@ -296,7 +296,7 @@ export class SurveyService {
   }
   deleteQuestion(data: any): Observable<any> {
     const url = `${this.apiUrl}api/admin/${this.userId}/GeneralQuestion/DeleteQuestionById`;
-    return this.http.post(url, data, { responseType: 'text' });
+    return this.http.delete(url, { body: data, responseType: 'text' });
   }
   updateProfile(data: any): Observable<any> {
     const url = `${this.apiUrl}api/admin/${this.userId}/Profile/UpdateProfile`;
@@ -352,6 +352,14 @@ export class SurveyService {
     const formData = new FormData();
     formData.append('file', file, file.name);
     const url = `${this.apiUrl}api/admin/${this.userId}/GeneralQuestion/UploadOptionImage?qid=${qid}&oid=${oid}`;
+    return this.http.post(url, formData, { responseType: 'text' });
+  }
+
+
+  uploadImageAddScreen(file: File, userId: number): Observable<any> {
+    const formData = new FormData();
+    formData.append('file', file, file.name);
+    const url = `${this.apiUrl}api/admin/${userId}/GeneralQuestion/UploadQuestionImage`;
     return this.http.post(url, formData, { responseType: 'text' });
   }
 

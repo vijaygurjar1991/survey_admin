@@ -26,5 +26,6 @@ export class Question {
     public screeningRedirectUrl: string = ""
     public openEndedType: string = ""
     public youtubeUrl: string = ''
+    public description: string = ''
 
 }

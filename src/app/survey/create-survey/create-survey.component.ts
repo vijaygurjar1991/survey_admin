@@ -1430,7 +1430,7 @@ export class CreateSurveyComponent implements OnInit, AfterViewInit {
   screenImage: any
   uploadImage(file: File): void {
 
-    this.themeService.uploadImageAboutUs(file, this.userId).subscribe(
+    this.surveyservice.uploadImageAddScreen(file, this.userId).subscribe(
       (response: String) => {
         console.log('Upload successful:', response);
         this.screenImage = response
@@ -1470,12 +1470,22 @@ export class CreateSurveyComponent implements OnInit, AfterViewInit {
   screenRedirectUser: boolean
   screenRedirectURL: any
   screenQuestionObj: Question = new Question();
-
+  description: any
+  youtubeUrl: any
   saveScreenImage(): void {
     this.screenQuestionObj.createdDate = this.surveycreateddate
     this.screenQuestionObj.question = this.screenQuestion
-    this.screenQuestionObj.image = this.screenImage.replace(/"/g, "");
-    console.log("screen image", this.screenQuestionObj.image)
+    this.screenQuestionObj.description = this.description
+    this.screenQuestionObj.youtubeUrl = this.youtubeUrl
+    // this.screenQuestionObj.image = this.screenImage.replace(/"/g, "");
+    // this.screenQuestionObj.image = this.screenImage;
+    if (typeof this.screenImage === 'string') {
+      this.screenQuestionObj.image = this.screenImage.replace(/"/g, "");
+    } else {
+      // If not defined or not a string, set image to an empty string
+      this.screenQuestionObj.image = '';
+    }
+    console.log("screen image", this.screenQuestionObj.image);
     this.screenQuestionObj.isScreening = this.screenRedirectUser
     this.screenQuestionObj.screeningRedirectUrl = this.screenRedirectURL
     this.screenQuestionObj.surveyTypeId = this.surveyId
@@ -1486,9 +1496,12 @@ export class CreateSurveyComponent implements OnInit, AfterViewInit {
         // Swal.fire('', 'Question Generated Sucessfully.', 'success');
         this.utils.showSuccess('Question Generated Sucessfully');
 
+
         let url = `/survey/manage-survey/${this.crypto.encryptParam("" + this.surveyId)}`;
 
-        //this.router.navigateByUrl(url);
+        // this.router.navigateByUrl(url);
+
+        // window.location.reload();
       },
       error: (err: any) => {
         // Swal.fire('', err.error, 'error');

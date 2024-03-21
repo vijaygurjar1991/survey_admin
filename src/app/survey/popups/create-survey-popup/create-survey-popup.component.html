@@ -2,7 +2,7 @@
     <div class="modal-dialog modal-lg modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title">Create Your New Survey</h4>
+                <h4 class="modal-title">Create A New Survey with Scrip8</h4>
                 <button type="button" class="btn-close" aria-label="Close" (click)="close()"></button>
             </div>
             <div class="modal-body popup-ques">
@@ -63,7 +63,7 @@
                         <div *ngIf="!countryNameCheck" class="text-danger">Country is required.</div>
                     </div>
                     <div class="mb-4 search-categories input-icon">
-                        <label class="form-label">Select Survey Categories</label>
+                        <label class="form-label">Select The Survey Category</label>
                         <mat-form-field>
                             <ng-icon name="heroMagnifyingGlass" class=""></ng-icon>
                             <input type="text" placeholder="Search..." matInput [formControl]="searchControl"

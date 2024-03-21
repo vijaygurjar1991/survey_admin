@@ -400,16 +400,17 @@
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-check form-check-inline">
-                                            <input class="form-check-input" type="radio" id="Randomize"
+                                            <input class="form-check-input" type="radio" id="Randomize{{group.id}}"
                                                 [(ngModel)]="group.isRandomize" value="true"
                                                 (change)="onGroupValueChange('randomize', group.isRandomize, group.id)">
-                                            <label class="form-check-label" for="Randomize">Randomize</label>
+                                            <label class="form-check-label"
+                                                for="Randomize{{group.id}}">Randomize</label>
                                         </div>
                                         <div class="form-check form-check-inline">
-                                            <input class="form-check-input" type="radio" id="Exclude"
+                                            <input class="form-check-input" type="radio" id="Exclude{{group.id}}"
                                                 [(ngModel)]="group.isRandomize" value="false"
-                                                (change)="onGroupValueChange('randomize', group.isRandomize, group.id)">
-                                            <label class="form-check-label" for="Exclude">Exclude</label>
+                                                (change)="onGroupValueChange('excluded', group.isExcluded, group.id)">
+                                            <label class="form-check-label" for="Exclude{{group.id}}">Exclude</label>
                                         </div>
                                     </div>
                                     <div class="col-md-6 text-end">

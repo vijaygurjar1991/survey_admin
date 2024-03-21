@@ -620,26 +620,22 @@ export class EditSurveyComponent {
 
 
 
-
   onGroupValueChange(type: string, value: boolean, groupId: number) {
-
-    const matchingOptions = this.allOptions.filter(option => option.group === groupId);
-
-    if (type == 'randomize') {
-      if (matchingOptions.length > 0) {
-        matchingOptions.forEach(option => {
-          option.isRandomize = value;
-          console.log("randomize", option.isRandomize)
-        });
-      }
+    // Update the specified group directly
+    const groupToUpdate = this.groups.find(group => group.id === groupId);
+    if (!groupToUpdate) {
+      console.error('Group not found with ID:', groupId);
+      return;
     }
+    console.log(groupToUpdate);
 
-    if (type == 'excluded') {
-      if (matchingOptions.length > 0) {
-        matchingOptions.forEach(option => {
-          option.isExcluded = value;
-        });
-      }
+    // Update the group's properties based on the type
+    if (type === 'randomize') {
+      groupToUpdate.isRandomize = value;
+      groupToUpdate.isExcluded = !value;
+    } else if (type === 'excluded') {
+      groupToUpdate.isExcluded = value;
+      groupToUpdate.isRandomize = !value;
     }
   }
 
