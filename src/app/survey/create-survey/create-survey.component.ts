@@ -761,8 +761,42 @@ export class CreateSurveyComponent implements OnInit, AfterViewInit {
 
   }
 
-  removeLogicEntry(index: number): void {
-    this.logicEntriesPerQuestion.splice(index, 1);
+  removeLogicEntry(questionIndex: number, logicIndex: number): void {
+    // Check if the nested array exists for the specified questionIndex
+    if (this.logicEntriesPerQuestion[questionIndex]) {
+      // Check if the logicIndex is within the bounds of the nested array
+      if (logicIndex >= 0 && logicIndex < this.logicEntriesPerQuestion[questionIndex].length) {
+        const entryIdToDelete = this.logicEntriesPerQuestion[questionIndex][logicIndex]?.id;
+
+        // Check if entryIdToDelete is defined before proceeding
+        if (entryIdToDelete !== undefined) {
+          console.log("entryIdToDelete", entryIdToDelete)
+          if (entryIdToDelete == 0)
+            this.logicEntriesPerQuestion[questionIndex].splice(logicIndex, 1);
+          else {
+
+            this.surveyservice.deleteQuestionLogicById(entryIdToDelete).subscribe(
+              () => {
+                console.log('Logic deleted successfully.');
+                this.logicEntriesPerQuestion[questionIndex].splice(logicIndex, 1);
+              },
+              (error) => {
+                console.error('Error deleting logic:', error);
+                // Handle error response here
+              }
+            );
+
+          }
+
+        } else {
+          console.error('Entry ID is undefined or null.');
+        }
+      } else {
+        console.error('Invalid logicIndex:', logicIndex);
+      }
+    } else {
+      console.error('No logic entries found for question index:', questionIndex);
+    }
   }
 
   // Function to save all logic entries
@@ -1499,9 +1533,9 @@ export class CreateSurveyComponent implements OnInit, AfterViewInit {
 
         let url = `/survey/manage-survey/${this.crypto.encryptParam("" + this.surveyId)}`;
 
-        // this.router.navigateByUrl(url);
+        this.router.navigateByUrl(url);
 
-        // window.location.reload();
+        window.location.reload();
       },
       error: (err: any) => {
         // Swal.fire('', err.error, 'error');

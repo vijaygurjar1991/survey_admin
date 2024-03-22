@@ -56,7 +56,7 @@
                                 </mat-form-field> -->
                                 <mat-form-field>
                                     <mat-select (selectionChange)="onSelectChangeByID($event)"
-                                        [(ngModel)]="logicquestionid">
+                                        [(ngModel)]="logicquestionid" placeholder="Select Piping">
                                         <mat-option *ngFor="let item of logicQuestionListById;let i=index;"
                                             [value]="item.id"
                                             [attr.selected]="idIsEqual(question.id, item.id) ? 'true' : null"
@@ -402,6 +402,7 @@
                                         <div class="form-check form-check-inline">
                                             <input class="form-check-input" type="radio" id="Randomize{{group.id}}"
                                                 [(ngModel)]="group.isRandomize" value="true"
+                                                name="randomizeGroup{{group.id}}"
                                                 (change)="onGroupValueChange('randomize', group.isRandomize, group.id)">
                                             <label class="form-check-label"
                                                 for="Randomize{{group.id}}">Randomize</label>
@@ -409,6 +410,7 @@
                                         <div class="form-check form-check-inline">
                                             <input class="form-check-input" type="radio" id="Exclude{{group.id}}"
                                                 [(ngModel)]="group.isRandomize" value="false"
+                                                name="excludeGroup{{group.id}}"
                                                 (change)="onGroupValueChange('excluded', group.isExcluded, group.id)">
                                             <label class="form-check-label" for="Exclude{{group.id}}">Exclude</label>
                                         </div>

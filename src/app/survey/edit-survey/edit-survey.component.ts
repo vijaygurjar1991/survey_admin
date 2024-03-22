@@ -288,14 +288,15 @@ export class EditSurveyComponent {
 
 
   uploadOptionImage(fileoption: File, qid: number, oid: number): void {
+    console.log("oid", oid)
 
     this.surveyservice.uploadOptionImage(fileoption, qid, oid).subscribe(
       (response: String) => {
         console.log('Upload successful:', response);
         this.optionImage = response
         console.log("questionimage", this.optionImage)
-
-
+        this.optionsArr1[qid].images = this.optionImage
+        console.log("optionarr", this.optionsArr1)
       },
       (error) => {
         console.error('Error occurred while uploading:', error);
@@ -303,6 +304,7 @@ export class EditSurveyComponent {
       }
     );
   }
+
 
 
 
@@ -622,6 +624,7 @@ export class EditSurveyComponent {
 
   onGroupValueChange(type: string, value: boolean, groupId: number) {
     // Update the specified group directly
+    console.log("groupId", groupId)
     const groupToUpdate = this.groups.find(group => group.id === groupId);
     if (!groupToUpdate) {
       console.error('Group not found with ID:', groupId);
@@ -632,12 +635,13 @@ export class EditSurveyComponent {
     // Update the group's properties based on the type
     if (type === 'randomize') {
       groupToUpdate.isRandomize = value;
-      groupToUpdate.isExcluded = !value;
     } else if (type === 'excluded') {
       groupToUpdate.isExcluded = value;
-      groupToUpdate.isRandomize = !value;
     }
+
   }
+
+
 
   getCurrentDateTime(): string {
     const currentDateTime = new Date().toISOString();
@@ -804,7 +808,7 @@ export class EditSurveyComponent {
     this.logicQuestionList = '';
     const dataToSend = {
       surveyId: this.surveyId,
-      surveyStatus: questionId
+      questionId: questionId
     };
     this.surveyservice.getLogicQuestionList(dataToSend).subscribe((response: responseDTO) => {
       console.log("logicQuestionList", response);
@@ -813,7 +817,8 @@ export class EditSurveyComponent {
       console.log("questionsort", this.questionsort)
       this.pipeQuestionList = response
       console.log("pipe", this.pipeQuestionList)
-      this.logicQuestionList = response.filter((item: Question) => item.sort < this.question.sort);
+      //this.logicQuestionList = response.filter((item: Question) => item.sort < this.question.sort);
+      this.logicQuestionList = this.pipeQuestionList
       if (this.logicQuestionList.length > 0) {
         this.getOptionsByQuestionId(this.logicQuestionList[0].id);
       }
@@ -1057,6 +1062,7 @@ export class EditSurveyComponent {
   VisibilityAnsLogic() {
     this.isLogicShow = true
     this.visibleanslogic = !this.visibleanslogic;
+    this.getLogicQuestionList(this.questionId)
   }
 
   // addButtonClicked(): void {
