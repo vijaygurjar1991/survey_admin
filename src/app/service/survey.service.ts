@@ -337,7 +337,7 @@ export class SurveyService {
 
 
   deleteSurvey(surveyId: any): Observable<any> {
-    const url = `${this.apiUrl}api/admin/${this.userId}/Survey/DeleteSurveyStatus?surveyId=${surveyId}`;
+    const url = `${this.apiUrl}api/admin/${this.userId}/Survey/DeleteSurveyById?surveyId=${surveyId}`;
     return this.http.delete(url, { responseType: 'text' });
   }
 
