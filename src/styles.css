@@ -445,6 +445,7 @@ article {
     position: sticky;
     top: 0;
     height: 100vh;
+    z-index: 1;
 }
 
 .add-ques-sidebar.toggle-sidebar {
@@ -2048,3 +2049,9 @@ table th {
     --ng-icon__size: 1.3em;
     color: grey;
 }
+
+/* Tooltip */
+.custom-tooltip ng-icon{ cursor: pointer; }
+.custom-tooltip ng-icon:hover{ color: var(--primary);}
+.custom-tooltip .toast.show{ position: absolute; z-index: 999; background-color: #f5f5f5; }
+/* Tooltip */

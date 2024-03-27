@@ -38,6 +38,16 @@ interface LogicQuestion {
   styleUrls: ['./create-survey.component.css'],
 })
 export class CreateSurveyComponent implements OnInit, AfterViewInit {
+  showTooltip: boolean = false;
+
+  toggleTooltip() {
+    this.showTooltip = !this.showTooltip;
+  }
+
+  hideTooltip() {
+    this.showTooltip = false;
+  }
+
   @ViewChild('logicSection') logicSection: ElementRef;
   @ViewChild('GenderModal', { static: true }) genderModal!: GenderPopupComponent;
   @ViewChild('AgeModal', { static: true }) ageModal!: ModalDirective;

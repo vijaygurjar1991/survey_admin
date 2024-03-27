@@ -7,3 +7,19 @@
     bottom: 10px;
     right: 0;
 } */
+
+/* create-survey.component.css */
+.tooltip-container {
+    position: absolute;
+    bottom: 50px; /* Adjust as needed */
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1000;
+  }
+  
+  .tooltip {
+    background-color: #333;
+    color: #fff;
+    padding: 10px;
+    border-radius: 5px;
+  }

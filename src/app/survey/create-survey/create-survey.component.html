@@ -2,10 +2,31 @@
     <div [ngClass]="{'add-ques-sidebar': true, 'toggle-sidebar': toggleClass}">
 
         <div>
-            <div class="infocircle">
-                <h6 class="mb-2">Add Question</h6>
-                <ng-icon name="heroInformationCircle" ngClass="edit-action info-circle" matTooltip="Add Question"
-                    matTooltipPosition="above" title="Action Information"></ng-icon>
+            <div class="infocircle mb-2">
+                <h6 class="mb-0">Add Question</h6>
+
+                <!-- create-survey.component.html -->
+                <div class="custom-tooltip">
+                    <ng-icon name="heroInformationCircle" ngClass="edit-action info-circle"
+                        (click)="toggleTooltip()"></ng-icon>
+                    <!-- The tooltip container -->
+                    <div class="toast show" *ngIf="showTooltip">
+                        <div class="toast-header">
+                            <img [src]="baseUrl + '/assets/images/icons/Add-new-question.png'" class="rounded me-2"
+                                width="30" height="30" />
+                            <h6 class="mb-0 me-auto">Add Question</h6>
+                            <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"
+                                (click)="hideTooltip()"></button>
+                        </div>
+                        <div class="toast-body">
+                            By indicating the type of question that you would like to include in this survey, you are
+                            taking the first step towards gaining valuable insights into your audience's thoughts and
+                            opinions. Please take a moment to specify the type of question and unlock the full potential
+                            of your survey.
+                        </div>
+                    </div>
+                </div>
+
             </div>
 
             <div class="common-ques">
