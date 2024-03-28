@@ -37,21 +37,29 @@
                             <div class="infocircle">
                                 Status
                                 <div class="custom-tooltip">
-                                    <ng-icon name="heroInformationCircle" ngClass="edit-action info-circle" (click)="toggleTooltip('1')"></ng-icon>
+                                    <ng-icon name="heroInformationCircle" ngClass="edit-action info-circle"
+                                        (click)="toggleTooltip('1')"></ng-icon>
                                     <div class="toast show" *ngIf="showTooltip['1']">
                                         <div class="toast-header">
-                                            <img [src]="baseUrl + '/assets/images/icons/Add-new-question.png'" class="rounded me-2" width="30" height="30" />
+                                            <img [src]="baseUrl + '/assets/images/icons/Add-new-question.png'"
+                                                class="rounded me-2" width="30" height="30" />
                                             <h6 class="mb-0 me-auto">Status: active, inactive, Hold</h6>
-                                            <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close" (click)="hideTooltip('1')"></button>
+                                            <button type="button" class="btn-close" data-bs-dismiss="toast"
+                                                aria-label="Close" (click)="hideTooltip('1')"></button>
                                         </div>
                                         <div class="toast-body">
-                                            Ensure the success of your project by defining its status through a comprehensive survey. The survey will help you determine whether your project is active, inactive, or paused. With this knowledge, you can take necessary action to ensure that your project stays on track and achieves its goals. Don't leave your project's success to chance - take control today by marking your project status.
+                                            Ensure the success of your project by defining its status through a
+                                            comprehensive survey. The survey will help you determine whether your
+                                            project is active, inactive, or paused. With this knowledge, you can take
+                                            necessary action to ensure that your project stays on track and achieves its
+                                            goals. Don't leave your project's success to chance - take control today by
+                                            marking your project status.
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </th>
-                        <th scope="col" *ngIf="role !== 'user'">Action</th>
+                        <th scope="col">Action</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -143,8 +151,10 @@
                                 <a *ngIf="item.status!='ACT' && item.status!='HOL'" href="javascript:"
                                     [routerLink]="'/survey/manage-survey/'+ (item.surveyId |  encrypt)">
                                     <ng-icon name="heroPencil" ngClass="edit-action"></ng-icon></a>
-                                <a href="javascript:" (click)="openLg(sidecontent,item.surveyId,item.name)"><ng-icon
-                                        name="heroTrash" ngClass="edit-action delete-trash"></ng-icon></a>
+                                <ng-container *ngIf="role !== 'user'">
+                                    <a href="javascript:" (click)="openLg(sidecontent,item.surveyId,item.name)"><ng-icon
+                                            name="heroTrash" ngClass="edit-action delete-trash"></ng-icon></a>
+                                </ng-container>
                                 <!-- <a *ngIf="item.status=='ACT'" href="javascript:">
                                 <ng-icon name="heroPencil" ngClass="edit-action"></ng-icon></a> -->
                             </div>
