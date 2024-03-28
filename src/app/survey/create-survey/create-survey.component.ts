@@ -43,7 +43,7 @@ export class CreateSurveyComponent implements OnInit, AfterViewInit {
     this.showTooltip[identifier] = !this.showTooltip[identifier];
   }
   hideTooltip(identifier: string) {
-      this.showTooltip[identifier] = false;
+    this.showTooltip[identifier] = false;
   }
 
   @ViewChild('logicSection') logicSection: ElementRef;
@@ -147,6 +147,7 @@ export class CreateSurveyComponent implements OnInit, AfterViewInit {
   genericType: any
   checkgenerictype: any
   logicscount: any
+  openendedtype: any
   constructor(
     private visibilityService: DataService,
     private modalService: NgbModal,
@@ -454,10 +455,27 @@ export class CreateSurveyComponent implements OnInit, AfterViewInit {
         this.surveycreateddate = data.createdDate
 
         // Iterate over questions to get genericType
+
+        let questionDescriptions: string[] = [];
+        let screeningRedirectUrls: string[] = [];
+        let screenImages: string[] = [];
+        let screenyoutubeurl: string[] = [];
+
+        // Iterate over questions
         this.questions.forEach((question: any) => {
           console.log("genericType:", question.genericType);
+          console.log("Description:", question.description);
 
+          // Check if the question is for screening
+          if (question.isScreening) {
+            // Store the description, screeningRedirectUrl, and image for this question
+            questionDescriptions.push(question.description);
+            screeningRedirectUrls.push(question.screeningRedirectUrl);
+            screenImages.push(question.image);
+            screenyoutubeurl.push(question.youtubeUrl);
+          }
         });
+
 
         //check
 
@@ -466,12 +484,31 @@ export class CreateSurveyComponent implements OnInit, AfterViewInit {
         this.checkgenerictype = hasAgeQuestion
         console.log("checkage", this.checkgenerictype)
 
+        //openended
+
+        const hasOpenEndedQuestion = this.questions.some((question: any) => question.genericType === "openended");
+        console.log("Has age question:", hasOpenEndedQuestion);
+        this.openendedtype = hasOpenEndedQuestion
+        console.log("checkage", this.openendedtype)
+
         //logics count
         this.questions.forEach((question: any) => {
           console.log("Question:", question.question);
           console.log("Number of Logics:", question.logics.length);
           question.logicscount = question.logics.length
         });
+
+        //screening
+        if (Array.isArray(data)) {
+          // Handle array data
+        } else {
+          this.questions = data.questions;
+          this.questions.forEach((question: any) => {
+            const isScreening = question.isScreening;
+            console.log("isScreening value for question:", isScreening);
+            // Now you can use the isScreening value as needed
+          });
+        }
 
       }
 

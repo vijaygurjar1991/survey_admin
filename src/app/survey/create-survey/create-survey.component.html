@@ -180,10 +180,14 @@
             <div class="preview">
                 <!-- <a [href]="'http://localhost:4201/survey/preview/' + surveyId" target="_blank" rel="noopener noreferrer"
                     class="btn btn-primary w-100">Preview</a> -->
-                <!-- <a [href]="'https://mobile.angular.opinionest.com/survey/preview/ + surveyId" target="_blank"
-                    rel="noopener noreferrer" class="btn btn-primary w-100">Preview</a> -->
                 <a [href]="'https://mobile.angular.opinionest.com/survey/preview/' + surveyId" target="_blank"
                     rel="noopener noreferrer" class="btn btn-primary w-100">Preview</a>
+                <!-- <a [href]="'https://mobile.angular.opinionest.com/survey/preview/' + surveyId" target="_blank"
+                    rel="noopener noreferrer" class="btn btn-primary w-100">Preview</a> -->
+                <!-- <a [href]="'https://mobile.angular.opinionest.com/survey/' + surveyId +'/preview/' + userId"
+                    target="_blank" rel="noopener noreferrer" class="btn btn-primary w-100">Preview</a> -->
+                <!-- <a [href]="'http://localhost:4201/survey/' + surveyId +'/preview/' + userId" target="_blank"
+                    rel="noopener noreferrer" class="btn btn-primary w-100">Preview</a> -->
             </div>
             <div class="last-updated text-center">
                 <p class="mt-2">Survey Created on <span>{{surveycreateddate | date: 'medium'}}</span></p>
@@ -398,6 +402,12 @@
                                     <ng-icon class="me-1" name="heroQuestionMarkCircle"></ng-icon>
                                     <span>{{question?.genericType}}</span>
                                 </div>
+                                <div class="badge text-bg-primary fw-normal me-2" *ngIf="question.isScreening">
+                                    <ng-icon class="me-1" name="heroQuestionMarkCircle"></ng-icon>
+                                    <span>openEnded</span>
+                                </div>
+
+
                                 <div class="badge text-bg-primary fw-normal me-2 position-relative"
                                     *ngIf="question?.logics.length>0"
                                     (click)="getQuestionLogic(i,question?.id);getQuestionListBranching(question?.id);toggleLogic(i,question?.id)">
@@ -489,6 +499,13 @@
                                         </label>
                                     </div>
                                 </div>
+                                <div *ngIf="question.isScreening">
+                                    <p>{{question.description}}</p>
+                                    <img *ngIf="question.image !== 'https://beta.angular.opinionest.com/Files/Images/'"
+                                        [src]="question.image" />
+                                    <p>{{question.youtubeUrl}}</p>
+
+                                </div>
                                 <div ngClass="pt-4" *ngIf="question.isLogicShow" id="question-{{question.id}}">
                                     <div class="infocircle">
                                         <div class="d-flex">
@@ -525,24 +542,19 @@
                                                     <button class="nav-link active d-flex" id="branching-tab"
                                                         data-bs-toggle="tab"
                                                         [attr.data-bs-target]="'#branching' + question.id" role="tab"
-                                                        aria-selected="true" matTooltip="branching"
-                                                        matTooltipPosition="above"
-                                                        title="Action Information">Branching</button>
+                                                        aria-selected="true">Branching</button>
                                                 </li>
                                                 <li class="nav-item" role="presentation">
                                                     <button class="nav-link" id="customLogic-tab" data-bs-toggle="tab"
                                                         [attr.data-bs-target]="'#customLogic' + question.id" role="tab"
-                                                        aria-selected="false" matTooltip="Custom Logic"
-                                                        matTooltipPosition="above" title="Action Information">Custom
+                                                        aria-selected="false">Custom
                                                         Logic</button>
                                                 </li>
                                                 <li class="nav-item" role="presentation">
                                                     <button class="nav-link" id="calculator-tab" data-bs-toggle="tab"
                                                         [attr.data-bs-target]="'#calculator' + question.id" role="tab"
                                                         aria-selected="false"
-                                                        (click)="getLogicQuestionListForCalculation(question?.id,question?.sort);getQuestionListAgeCalculation(question?.id)"
-                                                        matTooltip="Calculations" matTooltipPosition="above"
-                                                        title="Action Information">Calculations</button>
+                                                        (click)="getLogicQuestionListForCalculation(question?.id,question?.sort);getQuestionListAgeCalculation(question?.id)">Calculations</button>
                                                 </li>
                                             </ul>
                                             <!-- Logic Question -->
