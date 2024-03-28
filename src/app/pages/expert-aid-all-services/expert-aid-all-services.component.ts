@@ -10,7 +10,13 @@ import { SurveyService } from 'src/app/service/survey.service';
   styleUrls: ['./expert-aid-all-services.component.css']
 })
 export class ExpertAidAllServicesComponent {
-
+  showTooltip: { [key: string]: boolean } = {};
+  toggleTooltip(identifier: string) {
+    this.showTooltip[identifier] = !this.showTooltip[identifier];
+  }
+  hideTooltip(identifier: string) {
+      this.showTooltip[identifier] = false;
+  }
 
   UserData: any;
   baseUrl = '';

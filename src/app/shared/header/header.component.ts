@@ -14,7 +14,12 @@ import { Router } from '@angular/router';
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent {
-
+// toggle notification
+  showNotification: boolean = false;
+  toggleNotification() {
+      this.showNotification = !this.showNotification;
+  }
+  
   surveyData: any = [];
   filteredSurveys: any = [];
   surveyControl = new FormControl();
