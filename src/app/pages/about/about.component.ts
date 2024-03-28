@@ -14,6 +14,15 @@ declare var Dropzone: any;
   styleUrls: ['./about.component.css']
 })
 export class AboutComponent {
+  // Tooltip
+  showTooltip: { [key: string]: boolean } = {};
+  toggleTooltip(identifier: string) {
+    this.showTooltip[identifier] = !this.showTooltip[identifier];
+  }
+  hideTooltip(identifier: string) {
+      this.showTooltip[identifier] = false;
+  }
+// Tooltip
   public Editor = ClassicEditor;
   userId: any;
   constructor(public themeService: DataService, private cdr: ChangeDetectorRef, private util: UtilsService) {

@@ -7,6 +7,7 @@ import { UtilsService } from 'src/app/service/utils.service';
 import { MatSelect, MatSelectChange } from '@angular/material/select';
 import { FormControl, Validators } from '@angular/forms';
 import { ActivatedRoute, Router, NavigationEnd } from '@angular/router';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-expert-aid',
@@ -14,11 +15,21 @@ import { ActivatedRoute, Router, NavigationEnd } from '@angular/router';
   styleUrls: ['./expert-aid.component.css']
 })
 export class ExpertAidComponent {
+  baseUrl = '';
+  showTooltip: { [key: string]: boolean } = {};
+  toggleTooltip(identifier: string) {
+    this.showTooltip[identifier] = !this.showTooltip[identifier];
+  }
+  hideTooltip(identifier: string) {
+      this.showTooltip[identifier] = false;
+  }
 
   expertAid: ExpertAid = new ExpertAid();
   expertAidService: ExpertAidServices[] = [];
   validMessageLength: boolean;
-  constructor(private modalService: NgbModal, private surveyservice: SurveyService, private utillService: UtilsService, private router: Router,) { }
+  constructor(private modalService: NgbModal, private surveyservice: SurveyService, private utillService: UtilsService, private router: Router,) { 
+    this.baseUrl = environment.baseURL;
+  }
 
   modalRef: NgbModalRef;
 

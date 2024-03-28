@@ -38,14 +38,12 @@ interface LogicQuestion {
   styleUrls: ['./create-survey.component.css'],
 })
 export class CreateSurveyComponent implements OnInit, AfterViewInit {
-  showTooltip: boolean = false;
-
-  toggleTooltip() {
-    this.showTooltip = !this.showTooltip;
+  showTooltip: { [key: string]: boolean } = {};
+  toggleTooltip(identifier: string) {
+    this.showTooltip[identifier] = !this.showTooltip[identifier];
   }
-
-  hideTooltip() {
-    this.showTooltip = false;
+  hideTooltip(identifier: string) {
+      this.showTooltip[identifier] = false;
   }
 
   @ViewChild('logicSection') logicSection: ElementRef;

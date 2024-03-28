@@ -12,6 +12,15 @@ import { environment } from 'src/environments/environment';
   styleUrls: ['./terms-condition.component.css']
 })
 export class TermsConditionComponent {
+  // Tooltip
+  showTooltip: { [key: string]: boolean } = {};
+  toggleTooltip(identifier: string) {
+    this.showTooltip[identifier] = !this.showTooltip[identifier];
+  }
+  hideTooltip(identifier: string) {
+      this.showTooltip[identifier] = false;
+  }
+// Tooltip
   public Editor = ClassicEditor;
   constructor(public themeService: DataService, private cdr: ChangeDetectorRef, private util: UtilsService) {
     this.baseUrl = environment.baseURL;

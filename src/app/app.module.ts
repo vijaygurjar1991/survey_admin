@@ -38,6 +38,7 @@ import { heroMagnifyingGlass } from '@ng-icons/heroicons/outline';
 import { heroTrash } from '@ng-icons/heroicons/outline';
 import { heroCommandLine } from '@ng-icons/heroicons/outline';
 import { heroShoppingBag } from '@ng-icons/heroicons/outline';
+import { heroInformationCircle } from '@ng-icons/heroicons/outline';
 // Icons
 
 import { HeaderComponent } from './shared/header/header.component';
@@ -114,7 +115,8 @@ import { LoaderService } from './service/loader.service';
       heroXMark,
       heroMagnifyingGlass,
       heroTrash,
-      heroShoppingBag
+      heroShoppingBag,
+      heroInformationCircle
     }),
     BrowserAnimationsModule,
     RecaptchaModule,

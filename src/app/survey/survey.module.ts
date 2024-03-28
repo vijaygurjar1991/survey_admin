@@ -51,6 +51,7 @@ import { heroInformationCircle } from '@ng-icons/heroicons/outline';
 //import { ProfileIdPopupComponent } from './popups/profile-id-popup/profile-id-popup.component';
 // Icons
 import { heroMinusCircle } from '@ng-icons/heroicons/outline';
+import { heroXMark } from '@ng-icons/heroicons/outline';
 
 @NgModule({
   declarations: [
@@ -93,7 +94,8 @@ import { heroMinusCircle } from '@ng-icons/heroicons/outline';
       heroChevronRight,
       heroShoppingBag,
       heroMinusCircle,
-      heroInformationCircle
+      heroInformationCircle,
+      heroXMark
     }),
     NgxPaginationModule,
     SharedModule

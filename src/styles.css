@@ -2051,7 +2051,10 @@ table th {
 }
 
 /* Tooltip */
+.infocircle h4{margin-bottom: 0;}
 .custom-tooltip ng-icon{ cursor: pointer; }
 .custom-tooltip ng-icon:hover{ color: var(--primary);}
 .custom-tooltip .toast.show{ position: absolute; z-index: 999; background-color: #f5f5f5; }
+.all-survey .table .custom-tooltip .toast.show { right: 20px;}
+.toast-body{white-space: normal;}
 /* Tooltip */

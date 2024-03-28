@@ -9,7 +9,13 @@ import { environment } from 'src/environments/environment';
   styleUrls: ['./expert-aid-list.component.css']
 })
 export class ExpertAidListComponent {
-
+  showTooltip: { [key: string]: boolean } = {};
+  toggleTooltip(identifier: string) {
+    this.showTooltip[identifier] = !this.showTooltip[identifier];
+  }
+  hideTooltip(identifier: string) {
+      this.showTooltip[identifier] = false;
+  }
 
   UserData: any;
   baseUrl = '';

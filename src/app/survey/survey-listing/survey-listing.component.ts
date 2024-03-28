@@ -16,6 +16,15 @@ import { environment } from 'src/environments/environment';
   styleUrls: ['./survey-listing.component.css']
 })
 export class SurveyListingComponent {
+  // Tooltip
+  showTooltip: { [key: string]: boolean } = {};
+  toggleTooltip(identifier: string) {
+    this.showTooltip[identifier] = !this.showTooltip[identifier];
+  }
+  hideTooltip(identifier: string) {
+      this.showTooltip[identifier] = false;
+  }
+  //ToolTip
   surveyData: any = "";
   categoryList: any;
   selectedCategory: string = 'All Categories';

@@ -10,6 +10,15 @@ import { UtilsService } from 'src/app/service/utils.service';
   styleUrls: ['./add-user.component.css']
 })
 export class AddUserComponent {
+  // Tooltip
+  showTooltip: { [key: string]: boolean } = {};
+  toggleTooltip(identifier: string) {
+    this.showTooltip[identifier] = !this.showTooltip[identifier];
+  }
+  hideTooltip(identifier: string) {
+      this.showTooltip[identifier] = false;
+  }
+// Tooltip
   baseUrl = '';
   constructor(public themeService: DataService, private utility: UtilsService) {
     this.baseUrl = environment.baseURL;
