@@ -27,7 +27,15 @@ import { UtilsService } from 'src/app/service/utils.service';
 
 })
 export class EditSurveyComponent {
-
+// Tooltip
+  showTooltip: { [key: string]: boolean } = {};
+  toggleTooltip(identifier: string) {
+    this.showTooltip[identifier] = !this.showTooltip[identifier];
+  }
+  hideTooltip(identifier: string) {
+      this.showTooltip[identifier] = false;
+  }
+// Tooltip
   @Output() onSaveEvent = new EventEmitter();
 
   separatorKeysCodes: number[] = [ENTER, COMMA];

@@ -1,7 +1,22 @@
 <div class="common-bg">
     <div ngClass="common-heading">
         <div class="col-md-12">
-            <h4>Refine Your Surveys with Scrip8’s Expert Services</h4>
+            <div class="infocircle justify-content-start">
+                <h4>Refine Your Surveys with Scrip8’s Expert Services </h4>
+                <div class="custom-tooltip ms-2">
+                    <ng-icon name="heroInformationCircle" ngClass="edit-action info-circle" (click)="toggleTooltip('1')"></ng-icon>
+                    <div class="toast show" *ngIf="showTooltip['1']">
+                        <div class="toast-header">
+                            <img [src]="baseUrl + '/assets/images/icons/Add-new-question.png'" class="rounded me-2" width="30" height="30" />
+                            <h6 class="mb-0 me-auto">Expert Aid</h6>
+                            <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close" (click)="hideTooltip('1')"></button>
+                        </div>
+                        <div class="toast-body">
+                            The service allows you to add a few of our tool features to your cart, and our support team will contact you.
+                        </div>
+                    </div>
+                </div>
+            </div>            
             <p>Manage your Survey with "Experts".</p>
         </div>
     </div>

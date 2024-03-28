@@ -36,8 +36,19 @@
                         <th scope="col">
                             <div class="infocircle">
                                 Status
-                                <ng-icon name="heroInformationCircle" ngClass="edit-action info-circle"
-                                    matTooltip="Status" matTooltipPosition="above" title="Action Information"></ng-icon>
+                                <div class="custom-tooltip">
+                                    <ng-icon name="heroInformationCircle" ngClass="edit-action info-circle" (click)="toggleTooltip('1')"></ng-icon>
+                                    <div class="toast show" *ngIf="showTooltip['1']">
+                                        <div class="toast-header">
+                                            <img [src]="baseUrl + '/assets/images/icons/Add-new-question.png'" class="rounded me-2" width="30" height="30" />
+                                            <h6 class="mb-0 me-auto">Status: active, inactive, Hold</h6>
+                                            <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close" (click)="hideTooltip('1')"></button>
+                                        </div>
+                                        <div class="toast-body">
+                                            Ensure the success of your project by defining its status through a comprehensive survey. The survey will help you determine whether your project is active, inactive, or paused. With this knowledge, you can take necessary action to ensure that your project stays on track and achieves its goals. Don't leave your project's success to chance - take control today by marking your project status.
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </th>
                         <th scope="col">Action</th>

@@ -5,6 +5,7 @@ import { OwlOptions } from 'ngx-owl-carousel-o';
 import { AuthService } from 'src/app/service/auth.service';
 import { DataService } from 'src/app/service/data.service';
 import { UtilsService } from 'src/app/service/utils.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-sign-up',
@@ -12,6 +13,17 @@ import { UtilsService } from 'src/app/service/utils.service';
   styleUrls: ['./sign-up.component.css']
 })
 export class SignUpComponent {
+  baseUrl = '';
+  // Tooltip
+  showTooltip: { [key: string]: boolean } = {};
+  toggleTooltip(identifier: string) {
+    this.showTooltip[identifier] = !this.showTooltip[identifier];
+  }
+  hideTooltip(identifier: string) {
+      this.showTooltip[identifier] = false;
+  }
+// Tooltip
+
   formSubmitted: boolean = false;
   showCompanyDetails: boolean = true; // Initially show company details
   showUserDetails: boolean = false;
@@ -20,6 +32,7 @@ export class SignUpComponent {
   verificationForm: FormGroup;
   constructor(private visibilityService: DataService, private fb: FormBuilder, private authService: AuthService, private router: Router, private route: ActivatedRoute, private utility: UtilsService) {
     visibilityService.articleVisible.next(false);
+    this.baseUrl = environment.baseURL;
   }
   organizationId: any
   passwordMatchValidator(formGroup: FormGroup): ValidationErrors | null {

@@ -18,7 +18,22 @@
                         <div class="company-detail-signup" [hidden]="showUserDetails">
 
                             <div class="mb-4">
-                                <label for="o_name" class="form-label">Organisation Name</label>
+                                <div class="infocircle justify-content-start">
+                                    <label for="o_name" class="form-label">Organisation Name</label>
+                                    <div class="custom-tooltip ms-2">
+                                        <ng-icon name="heroInformationCircle" ngClass="edit-action info-circle" (click)="toggleTooltip('1')"></ng-icon>
+                                        <div class="toast show" *ngIf="showTooltip['1']">
+                                            <div class="toast-header">
+                                                <img [src]="baseUrl + '/assets/images/icons/Add-new-question.png'" class="rounded me-2" width="30" height="30" />
+                                                <h6 class="mb-0 me-auto">Sign up (Organisation Name)</h6>
+                                                <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close" (click)="hideTooltip('1')"></button>
+                                            </div>
+                                            <div class="toast-body">
+                                                By adding the name of your organization in Scrip8, you can keep track of all the important details in a hassle-free way. Don't miss out on this opportunity to streamline your organization's record-keeping and make your life easier. Add your organization's name to Scrip8 today!
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                                 <input type="text" class="form-control" id="organizationName"
                                     formControlName="organizationName" placeholder="Enter Your Organisation Name">
                                 <div *ngIf="signupForm.get('organizationName')?.errors?.required && signupForm.get('organizationName')?.touched"

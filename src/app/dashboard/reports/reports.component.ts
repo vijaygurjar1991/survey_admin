@@ -11,6 +11,15 @@ import { environment } from 'src/environments/environment';
   styleUrls: ['./reports.component.css']
 })
 export class ReportsComponent {
+  // Tooltip
+  showTooltip: { [key: string]: boolean } = {};
+  toggleTooltip(identifier: string) {
+    this.showTooltip[identifier] = !this.showTooltip[identifier];
+  }
+  hideTooltip(identifier: string) {
+      this.showTooltip[identifier] = false;
+  }
+// Tooltip
   suveryListingTable = [
     {
       id: 1, surveyName: 'ED-Tech Brand Ranking', surveyCategory: 'Cosmetics, Personal care, Toiletries',
