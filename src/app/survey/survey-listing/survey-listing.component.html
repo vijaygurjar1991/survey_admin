@@ -40,7 +40,7 @@
                                     matTooltip="Status" matTooltipPosition="above" title="Action Information"></ng-icon>
                             </div>
                         </th>
-                        <th scope="col">Action</th>
+                        <th scope="col" *ngIf="role !== 'user'">Action</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -127,7 +127,7 @@
                                 </select>
                             </ng-container>
                         </td>
-                        <td ngClass="action">
+                        <td ngClass="action" *ngIf="role !== 'user'">
                             <div class="d-flex gap-2">
                                 <a *ngIf="item.status!='ACT' && item.status!='HOL'" href="javascript:"
                                     [routerLink]="'/survey/manage-survey/'+ (item.surveyId |  encrypt)">

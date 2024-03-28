@@ -332,7 +332,7 @@
                                 </div>
                                 <div class="badge text-bg-primary fw-normal me-2 position-relative"
                                     *ngIf="question?.logics.length>0"
-                                    (click)="getQuestionLogic(i,question?.id);getQuestionListBranching(question?.id);">
+                                    (click)="getQuestionLogic(i,question?.id);getQuestionListBranching(question?.id);toggleLogic(i,question?.id)">
                                     <ng-icon class="me-1" name="heroCommandLine"></ng-icon>
                                     <span>logics</span>
                                     <span
@@ -561,6 +561,18 @@
                                                                             <label class="form-check-label ps-1"
                                                                                 for="inlineRadio1">And</label>
                                                                         </div>
+                                                                        <!-- <div
+                                                                            class="form-check form-check-inline d-flex align-items-center">
+                                                                            <label class="form-check-label ps-1"
+                                                                                for="inlineRadio1"
+                                                                                [name]="'inlineRadioOptions' + i + j"
+                                                                                id="inlineRadio1" value="option1"
+                                                                                [(ngModel)]="logicEntry.isAnd">
+                                                                                <input class="form-check-input"
+                                                                                    [checked]="logicEntry.isAnd ? true : null"
+                                                                                    type="radio">And
+                                                                            </label>
+                                                                        </div> -->
                                                                         <div
                                                                             class="form-check form-check-inline d-flex align-items-center">
                                                                             <input class="form-check-input" type="radio"
@@ -571,6 +583,18 @@
                                                                             <label class="form-check-label ps-1"
                                                                                 for="inlineRadio2">Or</label>
                                                                         </div>
+                                                                        <!-- <div
+                                                                            class="form-check form-check-inline d-flex align-items-center">
+                                                                            <label class="form-check-label ps-1"
+                                                                                for="inlineRadio2"
+                                                                                [name]="'inlineRadioOptions' + i + j"
+                                                                                id="inlineRadio2" value="option2"
+                                                                                [(ngModel)]="logicEntry.isOr">
+                                                                                <input class="form-check-input"
+                                                                                    type="radio"
+                                                                                    [checked]="logicEntry.isOr ? true : null">Or
+                                                                            </label>
+                                                                        </div> -->
                                                                     </div>
                                                                     <div class="and-or-clone"
                                                                         *ngIf="isAndOrLogic[i][j]">

@@ -109,11 +109,11 @@ export class SecLsmPopupComponent {
     let successfulAPICalls = 0;
     for (let i = 0; i < this.questions.length; i++) {
       const currentQuestion = this.questions[i];
-      currentQuestion.questionTypeId = this.questionTypeId
-      currentQuestion.surveyTypeId = this.surveyId
-      currentQuestion.createdDate = this.getCurrentDateTime()
+      currentQuestion.questionTypeId = this.questionTypeId;
+      currentQuestion.surveyTypeId = this.surveyId;
+      currentQuestion.createdDate = this.getCurrentDateTime();
       currentQuestion.modifiedDate = this.getCurrentDateTime();
-      currentQuestion.genericTypeId = this.typeid
+      currentQuestion.genericTypeId = this.typeid;
 
       // Filter selected options for the current question
       currentQuestion.options = currentQuestion.options.filter(option => option.selected);
@@ -131,11 +131,6 @@ export class SecLsmPopupComponent {
         if (successfulAPICalls === this.questions.length) {
           this.utility.showSuccess('Question Generated Successfully');
           window.location.reload()
-          // Swal.fire('', 'Question Generated Successfully.', 'success').then((result) => {
-          //   if (result.isConfirmed) {
-          //     window.location.reload();
-          //   }
-          // });
         }
 
         continue; // Skip this question and move to the next one
@@ -162,8 +157,9 @@ export class SecLsmPopupComponent {
             // Perform any necessary actions upon error for each question
           }
         });
-      }, 1000);
+      }, 1000 * i); // Introducing 1-second delay multiplied by the index to space out API calls
     }
+
     //window.location.reload()
 
   }

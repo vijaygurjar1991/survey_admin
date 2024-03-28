@@ -133,6 +133,7 @@ export class EditSurveyComponent {
 
         console.log("see", this.optionsArr1)
         console.log("option id", newOption.id)
+        console.log("image", newOption.image)
 
         if (opt.group > 0) {
           if (!this.groupedOptions[opt.group]) {
@@ -287,23 +288,45 @@ export class EditSurveyComponent {
 
 
 
+  // uploadOptionImage(fileoption: File, qid: number, oid: number): void {
+  //   console.log("oid", oid)
+
+  //   this.surveyservice.uploadOptionImage(fileoption, qid, oid).subscribe(
+  //     (response: String) => {
+  //       console.log('Upload successful:', response);
+  //       this.optionImage = response
+  //       console.log("questionimage", this.optionImage)
+  //       this.optionsArr1[qid].images = this.optionImage
+  //       console.log("optionarr", this.optionsArr1)
+  //     },
+  //     (error) => {
+  //       console.error('Error occurred while uploading:', error);
+
+  //     }
+  //   );
+  // }
+
   uploadOptionImage(fileoption: File, qid: number, oid: number): void {
-    console.log("oid", oid)
+    console.log("oid", oid);
 
     this.surveyservice.uploadOptionImage(fileoption, qid, oid).subscribe(
-      (response: String) => {
+      (response: string) => {
         console.log('Upload successful:', response);
-        this.optionImage = response
-        console.log("questionimage", this.optionImage)
-        this.optionsArr1[qid].images = this.optionImage
-        console.log("optionarr", this.optionsArr1)
+        const optionIndex = this.optionsArr1.findIndex(option => option.id === oid);
+        if (optionIndex !== -1) {
+          // Assuming your option object has an 'image' property to store the image URL
+          this.optionsArr1[optionIndex].image = response.replace(/"/g, "");
+          console.log("optionarr", this.optionsArr1);
+        } else {
+          console.error('Option not found for ID:', oid);
+        }
       },
       (error) => {
         console.error('Error occurred while uploading:', error);
-
       }
     );
   }
+
 
 
 
@@ -653,6 +676,12 @@ export class EditSurveyComponent {
     moveItemInArray(this.optionImages, e.previousIndex, e.currentIndex);
     console.log("previous", e.previousIndex)
     console.log("current", e.currentIndex)
+
+    this.optionsArr1.forEach((option, index) => {
+      option.sort = index;
+    });
+
+
     this.allOptions = [];
     this.allOptions.push(...this.optionsArr1, ...this.optionsArr2);
   }
