@@ -50,7 +50,7 @@ export class SecLsmPopupComponent {
   }
 
   role: string;
-  typeid = 2;
+  typeid = 0;
   questionTypeId = 8;
 
 

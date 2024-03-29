@@ -143,11 +143,13 @@ export class CreateSurveyComponent implements OnInit, AfterViewInit {
   visibleaddandlogic: boolean[][] = [];
   isBranchingElseShow: boolean[][] = [];
   isElseShow: boolean[][] = [];
+
   modal: any;
   genericType: any
   checkgenerictype: any
   logicscount: any
   openendedtype: any
+
   constructor(
     private visibilityService: DataService,
     private modalService: NgbModal,
@@ -789,11 +791,16 @@ export class CreateSurveyComponent implements OnInit, AfterViewInit {
       this.isBranchingElseShow[index] = [];
     }
     this.isBranchingElseShow[index][logicIndex] = false;
+
+
     //isElseShow
     if (!this.isElseShow[index]) {
       this.isElseShow[index] = [];
     }
     this.isElseShow[index][logicIndex] = true;
+
+    //isElseShowCalculations
+
 
     console.log("value of visibleaddandlogic: ", this.visibleaddandlogic)
     console.log('Value of logicEntriesPerQuestion:', this.logicEntriesPerQuestion);
@@ -888,6 +895,8 @@ export class CreateSurveyComponent implements OnInit, AfterViewInit {
             if (!this.isElseShow[index]) {
               this.isElseShow[index] = [];
             }
+
+
 
 
             if (logic.thanTerm && logic.thanTerm.includes("L")) { // Check if thanTerm is not null and contains "L"
@@ -1007,6 +1016,8 @@ export class CreateSurveyComponent implements OnInit, AfterViewInit {
               this.isBranchingElseShow[index][logicIndex] = true;
             else
               this.isBranchingElseShow[index][logicIndex] = false;
+            //calculation
+
 
             const ifIdNumber = +newLogicEntry.elseId;
             if (ifIdNumber === 3 || ifIdNumber === 4)
@@ -1014,7 +1025,7 @@ export class CreateSurveyComponent implements OnInit, AfterViewInit {
             else
               this.isElseShow[index][logicIndex] = true
 
-            //this.isElseShow[index][logicIndex] = true;
+
 
             if (newLogicEntry.isOr)
               newLogicEntry.isOr = "option2"
@@ -1310,7 +1321,9 @@ export class CreateSurveyComponent implements OnInit, AfterViewInit {
       this.ageOptionLogicValuesList = response
     });
   }
+
   isCalulationElseShow: boolean = false
+
   showCalculationElse() {
     this.isCalulationElseShow = true
   }
@@ -1900,5 +1913,17 @@ export class CreateSurveyComponent implements OnInit, AfterViewInit {
     });
 
   }
+
+
+  //calculation
+
+
+
+
+
+
+
+
+
 
 }
