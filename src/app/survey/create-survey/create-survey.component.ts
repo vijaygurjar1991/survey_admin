@@ -144,6 +144,8 @@ export class CreateSurveyComponent implements OnInit, AfterViewInit {
   isBranchingElseShow: boolean[][] = [];
   isElseShow: boolean[][] = [];
 
+  centerId: number = this.utils.getCenterId();
+
   modal: any;
   genericType: any
   checkgenerictype: any

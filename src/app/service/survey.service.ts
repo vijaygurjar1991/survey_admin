@@ -367,4 +367,11 @@ export class SurveyService {
     return this.http.delete(url);
   }
 
+
+
+  getNotification(): Observable<responseDTO[]> {
+    const url = `${this.apiUrl}api/admin/${this.userId}/Notification/GetNotifications`;
+    return this.http.get<responseDTO[]>(url);
+  }
+
 }

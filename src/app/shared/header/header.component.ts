@@ -14,12 +14,12 @@ import { Router } from '@angular/router';
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent {
-// toggle notification
+  // toggle notification
   showNotification: boolean = false;
   toggleNotification() {
-      this.showNotification = !this.showNotification;
+    this.showNotification = !this.showNotification;
   }
-  
+
   surveyData: any = [];
   filteredSurveys: any = [];
   surveyControl = new FormControl();
@@ -28,6 +28,7 @@ export class HeaderComponent {
 
   }
   ngOnInit(): void {
+    this.getNotification()
     this.getMyAccount()
     this.getAllSurveyList()
     this.surveyControl.valueChanges
@@ -133,4 +134,28 @@ export class HeaderComponent {
   //     console.log(response);
   //   });
   // }
+  notificationdata: any;
+  notificationcount: number
+  getNotification() {
+
+    this.surveyService.getNotification().subscribe({
+      next: (resp: any) => {
+        console.log('getNotification Response:', resp);
+        this.notificationdata = resp
+        console.log("notification data", this.notificationdata)
+
+        let count = 0;
+        this.notificationdata.forEach((entry: { status: string; }) => {
+          if (entry.status === 'ACT') {
+            count++;
+          }
+        });
+        this.notificationcount = count
+        console.log("notification count", this.notificationcount)
+      },
+      error: (err) => console.log("An Error occurred while fetching question types", err)
+    });
+  }
+
+
 }

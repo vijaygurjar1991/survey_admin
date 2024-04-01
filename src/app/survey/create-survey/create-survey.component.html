@@ -186,8 +186,11 @@
                     rel="noopener noreferrer" class="btn btn-primary w-100">Preview</a> -->
                 <!-- <a [href]="'https://mobile.angular.opinionest.com/survey/' + surveyId +'/preview/' + userId"
                     target="_blank" rel="noopener noreferrer" class="btn btn-primary w-100">Preview</a> -->
-                <a [href]="'http://localhost:4201/survey/' + surveyId +'/preview/' + userId" target="_blank"
-                    rel="noopener noreferrer" class="btn btn-primary w-100">Preview</a>
+                <a [href]="'http://localhost:4201/survey/' + surveyId +'/preview/' + userId + '/' + centerId"
+                    target="_blank" rel="noopener noreferrer" class="btn btn-primary w-100">Preview</a>
+                <!-- <a [href]="'http://localhost:4201/survey/live/' + surveyId + '?CenterID=' + centerId + '&UID='"
+                    target="_blank" rel="noopener noreferrer" class="btn btn-primary w-100">Preview</a> -->
+
             </div>
             <div class="last-updated text-center">
                 <p class="mt-2">Survey Created on <span>{{surveycreateddate | date: 'medium'}}</span></p>
@@ -1090,7 +1093,7 @@
                                                             <div class="col-md-3 checking">
                                                                 <button *ngIf="!isCalulationElseShow" type="button"
                                                                     class="btn btn-outline-primary btn-sm"
-                                                                    (click)="showCalculationElse">Else</button>
+                                                                    (click)="showCalculationElse()">Else</button>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -1153,7 +1156,7 @@
                                                             <div class="col-md-3 checking">
                                                                 <button type="button"
                                                                     class="btn btn-outline-primary btn-sm"
-                                                                    (click)="hideCalculationElse">Remove</button>
+                                                                    (click)="hideCalculationElse()">Remove</button>
                                                             </div>
                                                         </div>
                                                     </div>
