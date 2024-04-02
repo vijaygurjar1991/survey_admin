@@ -84,6 +84,7 @@ export class AuthService {
         userDetails.CenterId = _userDetail?.CenterId;
 
         this.userData.next(userDetails);
+        console.log("userqwer", userDetails.userId)
       } else {
         this.logout();
       }
@@ -134,7 +135,7 @@ export class AuthService {
   }
   verifyEmailAndResetPassword(data: any) {
     const url = `${this.apiUrl}EmailVerifyForgetPassword`;
-    return this.http.post(url, data,{ responseType: 'text' });
+    return this.http.post(url, data, { responseType: 'text' });
   }
 
 }

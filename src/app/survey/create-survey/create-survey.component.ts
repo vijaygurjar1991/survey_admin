@@ -146,6 +146,8 @@ export class CreateSurveyComponent implements OnInit, AfterViewInit {
 
   centerId: number = this.utils.getCenterId();
 
+  token = localStorage.getItem('authToken');
+
   modal: any;
   genericType: any
   checkgenerictype: any
