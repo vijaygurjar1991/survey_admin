@@ -79,7 +79,7 @@ export class SelfiePopupComponent {
       currentQuestion.createdDate = this.getCurrentDateTime()
       currentQuestion.modifiedDate = this.getCurrentDateTime();
       currentQuestion.genericTypeId = this.typeid
-      currentQuestion.openEndedType = "text"
+      currentQuestion.openEndedType = "file"
 
       // Make an API call for each question with its selected options
       this.surveyservice.CreateGeneralQuestion(currentQuestion).subscribe({
@@ -109,6 +109,6 @@ export class SelfiePopupComponent {
     //window.location.reload()
 
   }
-  
+
 
 }

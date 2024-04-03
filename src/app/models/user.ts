@@ -5,4 +5,5 @@ export class User {
   RoleId: string;
   role: string;
   CenterId: string;
+  CenterName: string;
 }

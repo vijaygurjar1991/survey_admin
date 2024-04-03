@@ -148,6 +148,9 @@ export class CreateSurveyComponent implements OnInit, AfterViewInit {
 
   token = localStorage.getItem('authToken');
 
+  centername: string = this.utils.getCenterName();
+
+
   modal: any;
   genericType: any
   checkgenerictype: any
@@ -1915,6 +1918,7 @@ export class CreateSurveyComponent implements OnInit, AfterViewInit {
       }
 
     });
+
 
   }
 

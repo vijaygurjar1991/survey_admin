@@ -82,9 +82,11 @@ export class AuthService {
         userDetails.userEmail = _userDetail?.Email;
         userDetails.RoleId = _userDetail?.RoleId;
         userDetails.CenterId = _userDetail?.CenterId;
+        userDetails.CenterName = _userDetail?.CenterName;
 
         this.userData.next(userDetails);
-        console.log("userqwer", userDetails.userId)
+        console.log("userid", userDetails.userId)
+        console.log("CenterName", userDetails.CenterName)
       } else {
         this.logout();
       }
