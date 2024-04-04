@@ -211,7 +211,7 @@ export class EditSurveyComponent {
     this.getQuestionTypes();
     if (this.mode != 'modify') {
       this.intializeDefaultValue();
-      if (this.question.questionTypeName !== 'Star Rating' && this.question.questionTypeName !== 'Boolean') {
+      if (this.question.questionTypeName !== 'Star Rating' && this.question.questionTypeName !== 'Boolean' && this.question.questionTypeName !== 'Image Selection') {
         this.hanldeAddOptionClick();
         this.hanldeAddOptionClick();
         this.hanldeAddOptionClick();
@@ -493,6 +493,8 @@ export class EditSurveyComponent {
     if (type == 'other') {
       newOption.option = "Other";
       newOption.isFixed = true
+      console.log("others")
+
 
     }
     else if (type == 'noneOfAbove') {
@@ -509,11 +511,11 @@ export class EditSurveyComponent {
     }
 
     if (type != null) {
-      this.optionsArr2 = [];
-      this.optionsArr2.push(newOption);
+      this.optionsArr1.push(newOption);
     } else {
       this.optionsArr1.push(newOption);
     }
+
 
     this.newoptionImages = [];
 
@@ -632,8 +634,8 @@ export class EditSurveyComponent {
         next: (resp: any) => {
           this.categoryNameCheck = false;
           this.utility.showSuccess('Question Updated Successfully.');
-          let url = `/survey/manage-survey/${this.crypto.encryptParam(this.surveyId)}`;
-          this.router.navigateByUrl(url);
+          // let url = `/survey/manage-survey/${this.crypto.encryptParam(this.surveyId)}`;
+          // this.router.navigateByUrl(url);
         },
         error: (err: any) => {
           // Swal.fire('', err.error, 'error');
@@ -646,8 +648,8 @@ export class EditSurveyComponent {
         next: (resp: any) => {
           this.categoryNameCheck = false;
           this.utility.showSuccess('Question Generated Successfully.');
-          let url = `/survey/manage-survey/${this.crypto.encryptParam(this.surveyId)}`;
-          this.router.navigateByUrl(url);
+          // let url = `/survey/manage-survey/${this.crypto.encryptParam(this.surveyId)}`;
+          // this.router.navigateByUrl(url);
           this.onSaveEvent.emit();
         },
         error: (err: any) => {
