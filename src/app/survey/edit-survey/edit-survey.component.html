@@ -211,6 +211,7 @@
 
 
 
+
                             <!-- <div *ngFor="let input of inputFields; let i = index" class="flex-2">
                                 <input id="answer{{ i }}" type="text" name="answer" class="form-control"
                                     [(ngModel)]="input.option" (blur)="validateSurvey(i)" />
@@ -333,20 +334,26 @@
                         <div class="infocircle">
                             <h5>Create Answer Group{{groups}}</h5>
                             <div class="custom-tooltip ms-2">
-                                <ng-icon name="heroInformationCircle" ngClass="edit-action info-circle" (click)="toggleTooltip('1')"></ng-icon>
+                                <ng-icon name="heroInformationCircle" ngClass="edit-action info-circle"
+                                    (click)="toggleTooltip('1')"></ng-icon>
                                 <div class="toast show" *ngIf="showTooltip['1']">
                                     <div class="toast-header">
-                                        <img [src]="baseUrl + '/assets/images/icons/Add-new-question.png'" class="rounded me-2" width="30" height="30" />
+                                        <img [src]="baseUrl + '/assets/images/icons/Add-new-question.png'"
+                                            class="rounded me-2" width="30" height="30" />
                                         <h6 class="mb-0 me-auto">Create Question (Create Answer Group)</h6>
-                                        <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close" (click)="hideTooltip('1')"></button>
+                                        <button type="button" class="btn-close" data-bs-dismiss="toast"
+                                            aria-label="Close" (click)="hideTooltip('1')"></button>
                                     </div>
                                     <div class="toast-body">
-                                        With this feature, you can create groups tailored to your needs and more effectively target smaller centers. This targeted approach can help you achieve greater success in your efforts. Don't miss out on the benefits - start using this feature today!
+                                        With this feature, you can create groups tailored to your needs and more
+                                        effectively target smaller centers. This targeted approach can help you achieve
+                                        greater success in your efforts. Don't miss out on the benefits - start using
+                                        this feature today!
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        
+
                         <a href="javascript:void(0);" class="btn btn-primary" (click)="onCreateGroup()">Create New Group
                             <ng-icon name="heroArrowRight"></ng-icon></a>
                     </div>
@@ -472,15 +479,22 @@
                                     <div class="infocircle justify-content-start mb-4">
                                         <h5>Create Answer Logic</h5>
                                         <div class="custom-tooltip ms-2">
-                                            <ng-icon name="heroInformationCircle" ngClass="edit-action info-circle" (click)="toggleTooltip('2')"></ng-icon>
+                                            <ng-icon name="heroInformationCircle" ngClass="edit-action info-circle"
+                                                (click)="toggleTooltip('2')"></ng-icon>
                                             <div class="toast show" *ngIf="showTooltip['2']">
                                                 <div class="toast-header">
-                                                    <img [src]="baseUrl + '/assets/images/icons/Add-new-question.png'" class="rounded me-2" width="30" height="30" />
+                                                    <img [src]="baseUrl + '/assets/images/icons/Add-new-question.png'"
+                                                        class="rounded me-2" width="30" height="30" />
                                                     <h6 class="mb-0 me-auto">Create Question (Create Answer Logic)</h6>
-                                                    <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close" (click)="hideTooltip('2')"></button>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="toast"
+                                                        aria-label="Close" (click)="hideTooltip('2')"></button>
                                                 </div>
                                                 <div class="toast-body">
-                                                    By implementing answer logic, you can dynamically show or hide answer options based on the respondents' answers. This feature not only streamlines the survey-taking process but also ensures that respondents are presented with relevant questions, leading to more accurate and insightful data.
+                                                    By implementing answer logic, you can dynamically show or hide
+                                                    answer options based on the respondents' answers. This feature not
+                                                    only streamlines the survey-taking process but also ensures that
+                                                    respondents are presented with relevant questions, leading to more
+                                                    accurate and insightful data.
                                                 </div>
                                             </div>
                                         </div>
@@ -648,15 +662,21 @@
         <div class="infocircle">
             <h4 class="modal-title">Add Bulk Options</h4>
             <div class="custom-tooltip ms-2">
-                <ng-icon name="heroInformationCircle" ngClass="edit-action info-circle" (click)="toggleTooltip('3')"></ng-icon>
+                <ng-icon name="heroInformationCircle" ngClass="edit-action info-circle"
+                    (click)="toggleTooltip('3')"></ng-icon>
                 <div class="toast show" *ngIf="showTooltip['3']">
                     <div class="toast-header">
-                        <img [src]="baseUrl + '/assets/images/icons/Add-new-question.png'" class="rounded me-2" width="30" height="30" />
+                        <img [src]="baseUrl + '/assets/images/icons/Add-new-question.png'" class="rounded me-2"
+                            width="30" height="30" />
                         <h6 class="mb-0 me-auto">Create Question (Bulk Option)</h6>
-                        <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close" (click)="hideTooltip('3')"></button>
+                        <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"
+                            (click)="hideTooltip('3')"></button>
                     </div>
                     <div class="toast-body">
-                        Streamline your question creation process with the Bulk option that allows you to upload answer options in bulk. This quick and easy feature will save you valuable time and effort, giving you more opportunities to focus on other important tasks. Try it out now and experience the convenience and efficiency that Bulk option brings to your workflow
+                        Streamline your question creation process with the Bulk option that allows you to upload answer
+                        options in bulk. This quick and easy feature will save you valuable time and effort, giving you
+                        more opportunities to focus on other important tasks. Try it out now and experience the
+                        convenience and efficiency that Bulk option brings to your workflow
                     </div>
                 </div>
             </div>

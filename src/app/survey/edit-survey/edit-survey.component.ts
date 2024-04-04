@@ -27,15 +27,15 @@ import { UtilsService } from 'src/app/service/utils.service';
 
 })
 export class EditSurveyComponent {
-// Tooltip
+  // Tooltip
   showTooltip: { [key: string]: boolean } = {};
   toggleTooltip(identifier: string) {
     this.showTooltip[identifier] = !this.showTooltip[identifier];
   }
   hideTooltip(identifier: string) {
-      this.showTooltip[identifier] = false;
+    this.showTooltip[identifier] = false;
   }
-// Tooltip
+  // Tooltip
   @Output() onSaveEvent = new EventEmitter();
 
   separatorKeysCodes: number[] = [ENTER, COMMA];
@@ -103,6 +103,7 @@ export class EditSurveyComponent {
     this.surveyservice.getQuestionDetailsById(this.questionId).subscribe((data: any) => {
       console.log("data", data)
       console.log("questionTypeId", data.questionTypeId)
+      console.log("questionTypeName", data.questionTypeName)
       this.questionTypeId = data.questionTypeId
       this.surveyId = data.surveyTypeId
       this.question.questionTypeId = parseInt(data.questionTypeId);
@@ -142,6 +143,7 @@ export class EditSurveyComponent {
         console.log("see", this.optionsArr1)
         console.log("option id", newOption.id)
         console.log("image", newOption.image)
+
 
         if (opt.group > 0) {
           if (!this.groupedOptions[opt.group]) {
@@ -209,11 +211,20 @@ export class EditSurveyComponent {
     this.getQuestionTypes();
     if (this.mode != 'modify') {
       this.intializeDefaultValue();
-      this.hanldeAddOptionClick();
-      this.hanldeAddOptionClick();
-      this.hanldeAddOptionClick();
+      if (this.question.questionTypeName !== 'Star Rating' && this.question.questionTypeName !== 'Boolean') {
+        this.hanldeAddOptionClick();
+        this.hanldeAddOptionClick();
+        this.hanldeAddOptionClick();
+      }
+      if (this.question.questionTypeName === 'Star Rating') {
+        this.addStarRating();
+      }
+      if (this.question.questionTypeName === 'Boolean') {
+        this.addBoolean();
+      }
 
     }
+
 
 
   }
@@ -427,11 +438,13 @@ export class EditSurveyComponent {
 
   userId: any
   questionTypes: any[] = [];
+  createquestionType: any[] = [];
 
   getQuestionTypes() {
     this.surveyservice.GetQuestionTypes().subscribe({
       next: (resp: any) => {
         this.questionTypes = resp;
+        this.createquestionType = resp.type
         console.log("this.questionTypes", this.questionTypes)
         // alert(this.questionTypeId)
         this.questionTypeNameGet = this.getTypeById(this.questionTypeId);
@@ -464,6 +477,9 @@ export class EditSurveyComponent {
 
     this.filteredOptions.push(...this.optionsArr1, ...this.optionsArr2);
     this.allOptions.push(...this.optionsArr1, ...this.optionsArr2);
+    console.log("createquesttype", this.question.questionTypeName)
+
+
 
   }
 
@@ -979,6 +995,7 @@ export class EditSurveyComponent {
     // this.question.question = `${ques.type}`;
     this.question.questionTypeName = `${ques.type}`;
     this.questionTypeId = ques.id;
+    console.log("questionTypeNameqwerty", this.question.questionTypeName)
   }
 
   onSelectChange(event: MatSelectChange, questionSortValue: any, questionId: any) {
@@ -1236,6 +1253,40 @@ export class EditSurveyComponent {
       console.log("qwertyu", this.logicQuestionListById);
     });
   }
+  starRating: any[] = [];
+  addStarRating() {
+    for (let i = 1; i <= 10; i++) {
+      let startOption = new Option();
+      startOption.option = i.toString();
+      startOption.id = i;
+      startOption.createdDate = this.getCurrentDateTime()
+      this.optionsArr1.push(startOption);
+      console.log("star rating", this.optionsArr1)
+    }
+
+    this.allOptions = [...this.optionsArr1, ...this.optionsArr2];
+  }
+
+  addBoolean() {
+    const booleanValues = ['True', 'False'];
+
+    for (let i = 0; i < booleanValues.length; i++) {
+      let booleanOption = new Option();
+      booleanOption.option = booleanValues[i];
+      booleanOption.id = i + 1;
+      booleanOption.createdDate = this.getCurrentDateTime();
+      this.optionsArr1.push(booleanOption);
+      console.log("boolean options", this.optionsArr1);
+    }
+
+    this.allOptions = [...this.optionsArr1, ...this.optionsArr2];
+  }
+
+
+
+
+
+
 
 
 
