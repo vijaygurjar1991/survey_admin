@@ -229,8 +229,8 @@
                     </ng-container>
                     {{surveyName}}
                 </h4>
-                <span *ngIf="categoryName !='Others'">{{categoryName}}</span>
-                <span *ngIf="categoryName =='Others'">{{otherCategoryName}}</span>
+                <span *ngIf="categoryName !='Others'">{{categoryName}}/ {{surveyId}}</span>
+                <span *ngIf="categoryName =='Others'">{{otherCategoryName}}/ {{surveyId}}</span>
             </div>
             <a (click)="openLg(sidecontent)"><ng-icon name="heroPencilSquare"></ng-icon></a>
         </div>

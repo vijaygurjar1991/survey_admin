@@ -27,7 +27,8 @@
                     <tr>
                         <!-- <th scope="col"><input type="checkbox" ngClass="form-check-input" />
                         </th> -->
-                        <th scope="col">Survey Count</th>
+                        <th scope="col">S.Count</th>
+                        <th scope="col">S.ID</th>
                         <th scope="col">Survey Name</th>
                         <th scope="col">Country</th>
                         <th scope="col">Category</th>
@@ -69,6 +70,7 @@
                         <!-- </td> -->
                         <!-- <td>{{item.id}}</td> -->
                         <td>{{ i + 1 }}</td>
+                        <td>{{ item.surveyId}}</td>
                         <!-- <td>{{item.name}}</td> -->
                         <td matTooltip={{item.name}}>
                             {{ item.name.split(' ').slice(0, 3).join(' ') }}{{item.name.split('

@@ -446,6 +446,7 @@ export class CreateSurveyComponent implements OnInit, AfterViewInit {
         this.selectedCountry = this.country.find(country => country.id === this.countryId) || null;
         this.categoryId = data[0]?.categoryId
       } else {
+        this.surveyId = data.surveyId
         this.surveyName = data.surveyName;
         this.categoryName = data.categoryName;
         this.questions = data.questions;
@@ -459,6 +460,7 @@ export class CreateSurveyComponent implements OnInit, AfterViewInit {
         // this.selectedCountry = this.countryId
         console.log("countryId : ", this.countryId)
         console.log("country : ", this.country)
+        console.log("surveyId create", this.surveyId)
         this.selectedCountry = this.country.find(country => country.id === this.countryId) || null;
         console.log("selectedCountry : ", this.selectedCountry)
         this.surveycreateddate = data.createdDate
