@@ -207,4 +207,6 @@ export class DataService {
     return this.searchQuerySubject.asObservable();
   }
 
+  
+
 }

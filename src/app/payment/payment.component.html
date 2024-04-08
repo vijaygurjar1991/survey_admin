@@ -1,0 +1,20 @@
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+           <form (ngSubmit)="submitForm()">
+                <div class="mb-3">
+                  <label for="amount">Amount</label>
+                  <input type="text" class="form-control" id="amount" [(ngModel)]="amount" name="amount">
+                </div>
+                <div class="mb-3">
+                  <label for="centerId">CenterId</label>
+                  <input type="text" class="form-control" id="centerId" [(ngModel)]="centerId" name="centerId">
+                </div>
+                <div class="mb-3">
+                  <button type="submit" class="btn btn-primary">Submit</button>
+                </div>
+              </form>            
+              <!-- <button (click)="payNow()">Pay amount</button> -->
+        </div>
+    </div>
+</div>

@@ -55,6 +55,7 @@ import { heroXMark } from '@ng-icons/heroicons/outline';
 
 @NgModule({
   declarations: [
+  
   ],
   imports: [
     MatChipsModule,

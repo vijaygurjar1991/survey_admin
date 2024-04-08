@@ -2063,7 +2063,10 @@ table th {
     --ng-icon__size: 1.3em;
     color: grey;
 }
-
+/* Login Popup */
+.popup-login .sliderPopup { display: none;}
+.popup-login .col-lg-6.col-md-12 {flex: 0 100%; width: 100%;}
+.popup-login .login-form { padding: 0rem;}
 /* Tooltip */
 .infocircle h4{margin-bottom: 0;}
 .custom-tooltip ng-icon{ cursor: pointer; }

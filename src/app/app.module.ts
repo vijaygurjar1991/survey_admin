@@ -65,6 +65,7 @@ import { ToastrModule } from 'ngx-toastr';
 import { DashboardComponent } from './dashboard/dashboard/dashboard.component';
 import { ForgotPasswordComponent } from './user-pages/forgot-password/forgot-password.component';
 import { LoaderService } from './service/loader.service';
+import { PaymentComponent } from './payment/payment.component';
 
 
 @NgModule({
@@ -80,7 +81,8 @@ import { LoaderService } from './service/loader.service';
     SignUpComponent,
     ErrorComponent,
     //DashboardComponent,
-    ForgotPasswordComponent
+    ForgotPasswordComponent,
+    PaymentComponent
   ],
   imports: [
     BrowserModule,
