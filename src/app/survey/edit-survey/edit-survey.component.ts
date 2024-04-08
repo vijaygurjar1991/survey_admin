@@ -505,6 +505,11 @@ export class EditSurveyComponent {
       newOption.option = "Don't know /Can't say";
       newOption.isFixed = true
     }
+    else if (type == 'Optional') {
+      newOption.option = "Optional";
+      newOption.isFixed = true
+      this.question.openEndedType = "text"
+    }
     else {
       newOption.option = "";
       newOption.status = 'ACT'
