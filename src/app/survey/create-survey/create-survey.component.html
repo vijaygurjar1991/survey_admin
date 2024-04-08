@@ -205,10 +205,11 @@
     <div ngClass="survey-question">
         <div>
             <div *ngIf="surveyStatus=='ACT'" class="alert alert-danger py-2 px-3" role="alert">
-                A simple danger alert—check it out!
+                You cannot edit this survey as it is currently active.
             </div>
             <div *ngIf="surveyStatus=='HOL'" class="alert alert-warning py-2 px-3" role="alert">
-                A simple warning alert—check it out!
+                <!-- A simple warning alert—check it out! -->
+                You cannot edit this survey as it is currently hold.
             </div>
         </div>
         <div ngClass="survey-name">
