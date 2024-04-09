@@ -66,7 +66,8 @@ import { DashboardComponent } from './dashboard/dashboard/dashboard.component';
 import { ForgotPasswordComponent } from './user-pages/forgot-password/forgot-password.component';
 import { LoaderService } from './service/loader.service';
 import { PaymentComponent } from './payment/payment.component';
-
+import { LoginFormComponent } from './user-pages/loginForm/loginForm.component';
+import { PaymentThankyouComponent } from './payment-thankyou/payment-thankyou.component';
 
 @NgModule({
   declarations: [
@@ -82,7 +83,9 @@ import { PaymentComponent } from './payment/payment.component';
     ErrorComponent,
     //DashboardComponent,
     ForgotPasswordComponent,
-    PaymentComponent
+    PaymentComponent,
+    LoginFormComponent,
+    PaymentThankyouComponent
   ],
   imports: [
     BrowserModule,

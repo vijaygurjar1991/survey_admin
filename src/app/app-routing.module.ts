@@ -5,12 +5,14 @@ import { SignUpComponent } from './user-pages/sign-up/sign-up.component';
 import { ErrorComponent } from './error/error.component';
 import { ForgotPasswordComponent } from './user-pages/forgot-password/forgot-password.component';
 import { PaymentComponent } from './payment/payment.component';
+import { PaymentThankyouComponent } from './payment-thankyou/payment-thankyou.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent, data: { layout: 'auth' } },
   { path: 'signup', component: SignUpComponent, data: {} },
   { path: 'forgot-password', component: ForgotPasswordComponent, data: {} },
   { path: 'payment', component: PaymentComponent, data: {} },
+  { path: 'thankyou', component: PaymentThankyouComponent, data: {} },
   { path: 'error', component: ErrorComponent, data: {} },
   { path: 'user-pages', loadChildren: () => import('./user-pages/user-pages.module').then(m => m.UserPagesModule) },
   { path: 'dashboard', loadChildren: () => import('./dashboard/dashboard.module').then(m => m.DashboardModule) },

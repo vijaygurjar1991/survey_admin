@@ -51,7 +51,7 @@ export class AppComponent
   }
 
   // @ViewChild('content') modalContent: any;
-  // modalOpened = false;
+  //modalOpened = false;
 
   // Open modal on window load
   // ngAfterViewInit() {
