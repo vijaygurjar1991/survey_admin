@@ -1247,13 +1247,24 @@ span.mobile-cross {
 
 /* Responsive */
 @media (min-width:1200px) and (max-width:1366px) {
-    .add-ques-sidebar{flex: 0 300px;max-width: 300px;}
-    .hoveraddwidth .sidebar-wrapper {width: 16rem;}
-    :root{
+    .add-ques-sidebar {
+        flex: 0 300px;
+        max-width: 300px;
+    }
+
+    .hoveraddwidth .sidebar-wrapper {
+        width: 16rem;
+    }
+
+    :root {
         --menu-gap: 16rem;
     }
-    .common-ques a{font-size: 14px;}
+
+    .common-ques a {
+        font-size: 14px;
+    }
 }
+
 @media (max-width:1199px) {
     .login-form {
         padding: 2rem;
@@ -1366,9 +1377,11 @@ span.mobile-cross {
         height: auto;
         margin-bottom: 8px;
     }
+
     .common-ques a figcaption {
         text-align: center;
     }
+
     .single-sidebar-menu>.menu-link {
         justify-content: space-between;
     }
@@ -1451,10 +1464,24 @@ span.mobile-cross {
         font-size: .75rem;
         padding: .5rem 1rem;
     }
-    .ques-header{flex-wrap: wrap;gap:12px}
-    .custom-tooltip .toast.show{min-width: 200px;}
-    .infocircle h6{font-size: 12px;line-height: 1;}
-    .common-ques a figcaption{font-size: 12px;}
+
+    .ques-header {
+        flex-wrap: wrap;
+        gap: 12px
+    }
+
+    .custom-tooltip .toast.show {
+        min-width: 200px;
+    }
+
+    .infocircle h6 {
+        font-size: 12px;
+        line-height: 1;
+    }
+
+    .common-ques a figcaption {
+        font-size: 12px;
+    }
 }
 
 @media (max-width:575px) {
@@ -2063,30 +2090,78 @@ table th {
     --ng-icon__size: 1.3em;
     color: grey;
 }
+
 /* Login Popup */
-.popup-login .sliderPopup { display: none;}
-.popup-login .col-lg-6.col-md-12 {flex: 0 100%; width: 100%;}
-.popup-login .login-form { padding: 0rem;}
+.popup-login .sliderPopup {
+    display: none;
+}
+
+.popup-login .col-lg-6.col-md-12 {
+    flex: 0 100%;
+    width: 100%;
+}
+
+.popup-login .login-form {
+    padding: 0rem;
+}
+
 /* Tooltip */
-.infocircle h4{margin-bottom: 0;}
-.custom-tooltip ng-icon{ cursor: pointer; }
-.custom-tooltip ng-icon:hover{ color: var(--primary);}
-.custom-tooltip .toast.show{ position: absolute; z-index: 999; background-color: #f5f5f5; }
-.all-survey .table .custom-tooltip .toast.show { right: 20px;}
-.toast-body{white-space: normal;}
+.infocircle h4 {
+    margin-bottom: 0;
+}
+
+.custom-tooltip ng-icon {
+    cursor: pointer;
+}
+
+.custom-tooltip ng-icon:hover {
+    color: var(--primary);
+}
+
+.custom-tooltip .toast.show {
+    position: absolute;
+    z-index: 999;
+    background-color: #f5f5f5;
+}
+
+.all-survey .table .custom-tooltip .toast.show {
+    right: 20px;
+}
+
+.toast-body {
+    white-space: normal;
+}
+
 /* Tooltip */
 
 /* Notication */
-.notification-container { position: relative;}
-.notification-icon { font-size: 24px; cursor: pointer;}
-.notification-box { position: absolute;
-    top: 40px; 
+.notification-container {
+    position: relative;
+}
+
+.notification-icon {
+    font-size: 24px;
+    cursor: pointer;
+}
+
+.notification-box {
+    position: absolute;
+    top: 40px;
     right: 0;
     background-color: var(--white);
     z-index: 1000;
-    border-radius: 0.5rem;min-width: 450px;height: 540px;
+    border-radius: 0.5rem;
+    min-width: 450px;
+    height: 540px;
 }
-.close-button {  background-color: #eee; border: none; padding: 5px 10px; cursor: pointer;}
+
+.close-button {
+    background-color: #eee;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+}
+
 .notification-overlay {
     position: fixed;
     top: 0;
@@ -2094,30 +2169,125 @@ table th {
     width: 100%;
     height: 100%;
     background-color: rgba(0, 0, 0, 0.5);
-    z-index: 999; 
+    z-index: 999;
 }
-.notification-list .tab-pane{overflow-y: scroll;height: 365px;}
-.notification-list ul{list-style: none;padding: 0;margin-top: .5rem;margin-bottom: 0;}
-.notification-list ul li{display: flex;align-items: flex-start;gap:20px;border-bottom: 1px solid var(--border-color);
-padding: 1rem;position: relative;}
-.notification-list ul li:last-child{border-bottom: none;}
-.notification-list ul li figure{flex: 0 50px;max-width: 50px;height: 50px;border: 1px solid var(--border-color);
-    border-radius: 50%;position: relative;}
-.notification-list ul li figure span.admin-verified img{position: absolute;width: 20px;height: 20px;right: -6px;
-   bottom: 0px;}
-.notification-list ul li figure img {width: 50px;height: 50px;object-fit: cover;border-radius: 50%;}
-.notification-list ul li figcaption{flex: 1;}
+
+.notification-list .tab-pane {
+    overflow-y: scroll;
+    height: 365px;
+}
+
+.notification-list ul {
+    list-style: none;
+    padding: 0;
+    margin-top: .5rem;
+    margin-bottom: 0;
+}
+
+.notification-list ul li {
+    display: flex;
+    align-items: flex-start;
+    gap: 20px;
+    border-bottom: 1px solid var(--border-color);
+    padding: 1rem;
+    position: relative;
+}
+
+.notification-list ul li:last-child {
+    border-bottom: none;
+}
+
+.notification-list ul li figure {
+    flex: 0 50px;
+    max-width: 50px;
+    height: 50px;
+    border: 1px solid var(--border-color);
+    border-radius: 50%;
+    position: relative;
+}
+
+.notification-list ul li figure span.admin-verified img {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    right: -6px;
+    bottom: 0px;
+}
+
+.notification-list ul li figure img {
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+    border-radius: 50%;
+}
+
+.notification-list ul li figcaption {
+    flex: 1;
+}
+
 /* .notification-list ul li figcaption  { margin-right: 1rem;} */
-.notification-list ul li figcaption p{font-size: 14px;margin-bottom: 0;}
-.date-time{text-align: right;}
-.notification-list ul li figcaption .date-time span{font-size: 12px;font-weight: 300;}
-.notification-box .nav-item button {border: none;color: #a9a4a4;}
-.notification-box .nav-item button.active {border-bottom: 1px solid var(--primary);}
-.notification-box .nav-tabs{border: none;}
-span.unread {width: 8px; height: 8px;display: block; background-color: blue;border-radius: 50%; float: right;
-    position: absolute;top: 12px;right: 12px;}
-.notification-list #global-tab-pane ul li figure img {object-fit: contain;}
-.notification-list ul li:hover {background-color:var(--light-gray);}
-.notification-empty {display: flex;align-items: center;justify-content: center;height: 100%; font-size: 20px;
-    opacity: .5;}
+.notification-list ul li figcaption p {
+    font-size: 14px;
+    margin-bottom: 0;
+}
+
+.date-time {
+    text-align: right;
+}
+
+.notification-list ul li figcaption .date-time span {
+    font-size: 12px;
+    font-weight: 300;
+}
+
+.notification-box .nav-item button {
+    border: none;
+    color: #a9a4a4;
+}
+
+.notification-box .nav-item button.active {
+    border-bottom: 1px solid var(--primary);
+}
+
+.notification-box .nav-tabs {
+    border: none;
+}
+
+span.unread {
+    width: 8px;
+    height: 8px;
+    display: block;
+    background-color: blue;
+    border-radius: 50%;
+    float: right;
+    position: absolute;
+    top: 12px;
+    right: 12px;
+}
+
+.notification-list #global-tab-pane ul li figure img {
+    object-fit: contain;
+}
+
+.notification-list ul li:hover {
+    background-color: var(--light-gray);
+}
+
+.notification-empty {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    font-size: 20px;
+    opacity: .5;
+}
+
 /* Notification */
+
+.editaction>* {
+    flex: 1;
+}
+
+span.badge.ng-star-inserted.activestatus.text-bg-danger {
+    font-weight: 500;
+}

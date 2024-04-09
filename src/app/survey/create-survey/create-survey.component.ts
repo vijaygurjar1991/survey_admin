@@ -143,6 +143,7 @@ export class CreateSurveyComponent implements OnInit, AfterViewInit {
   visibleaddandlogic: boolean[][] = [];
   isBranchingElseShow: boolean[][] = [];
   isElseShow: boolean[][] = [];
+  status: any
 
   centerId: number = this.utils.getCenterId();
 
@@ -447,6 +448,7 @@ export class CreateSurveyComponent implements OnInit, AfterViewInit {
         this.categoryId = data[0]?.categoryId
       } else {
         this.surveyId = data.surveyId
+        this.status = data.status
         this.surveyName = data.surveyName;
         this.categoryName = data.categoryName;
         this.questions = data.questions;
@@ -461,6 +463,7 @@ export class CreateSurveyComponent implements OnInit, AfterViewInit {
         console.log("countryId : ", this.countryId)
         console.log("country : ", this.country)
         console.log("surveyId create", this.surveyId)
+        console.log("survey status", this.status)
         this.selectedCountry = this.country.find(country => country.id === this.countryId) || null;
         console.log("selectedCountry : ", this.selectedCountry)
         this.surveycreateddate = data.createdDate

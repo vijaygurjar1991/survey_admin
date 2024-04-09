@@ -494,8 +494,6 @@ export class EditSurveyComponent {
       newOption.option = "Other";
       newOption.isFixed = true
       console.log("others")
-
-
     }
     else if (type == 'noneOfAbove') {
       newOption.option = "None of above";
@@ -515,11 +513,12 @@ export class EditSurveyComponent {
       newOption.status = 'ACT'
     }
 
-    if (type != null) {
-      this.optionsArr1.push(newOption);
-    } else {
-      this.optionsArr1.push(newOption);
-    }
+    // if (type != null) {
+    //   this.optionsArr1.push(newOption);
+    // } else {
+    //   this.optionsArr1.push(newOption);
+    // }
+    this.optionsArr1.push(newOption);
 
 
     this.newoptionImages = [];
@@ -713,6 +712,7 @@ export class EditSurveyComponent {
     });
 
 
+
     this.allOptions = [];
     this.allOptions.push(...this.optionsArr1, ...this.optionsArr2);
   }
@@ -729,8 +729,9 @@ export class EditSurveyComponent {
       console.log("deleted", this.optionsArr1)
     } else {
       this.newoptionImages.splice(index, 1)
+      this.optionsArr2.splice(index, 1);
       console.log("newoptionarr", this.newoptionImages)
-      this.optionsArr2 = [];
+      // this.optionsArr2 = [];
 
     }
     this.allOptions = [];
