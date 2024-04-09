@@ -27,6 +27,7 @@ import { environment } from 'src/environments/environment';
 export class DashboardComponent {
   baseUrl = '';
   @ViewChild('CreateSurveyModal', { static: true }) CreateSurveyModal!: ModalDirective;
+  
   constructor(private visibilityService: DataService, private modalService: NgbModal, public themeService: DataService,
     public surveyservice: SurveyService, private auth: AuthService, private utility: UtilsService, private crypto: CryptoService, private router: Router) {
     this.baseUrl = environment.baseURL;
@@ -45,6 +46,8 @@ export class DashboardComponent {
   firstName: any;
   lastName: any;
   modal: any;
+  orgCreatedDate: any;
+ 
 
   hideHeader() {
     console.log("hideHeader function called");
@@ -99,7 +102,12 @@ export class DashboardComponent {
         this.firstName = data.firstName;
         this.lastName = data.lastName
         this.id = data.id
+        this.orgCreatedDate = data.orgCreatedDate;
       }
+      const orgCreatedDate: Date = new Date(data.orgCreatedDate);
+      const differenceInMilliseconds: number = new Date().getTime() - orgCreatedDate.getTime();
+      const differenceInDays: number = Math.floor(differenceInMilliseconds / (1000 * 60 * 60 * 24));
+      console.log('Days since organization was created:', differenceInDays);
     });
   }
 
