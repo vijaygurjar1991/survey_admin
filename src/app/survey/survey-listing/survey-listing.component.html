@@ -149,14 +149,17 @@
                             </ng-container>
                         </td>
                         <td ngClass="action" *ngIf="role !== 'user'">
-                            <div class="d-flex gap-2">
-                                <a *ngIf="item.status!='ACT' && item.status!='HOL'" href="javascript:"
-                                    [routerLink]="'/survey/manage-survey/'+ (item.surveyId |  encrypt)">
-                                    <ng-icon name="heroPencil" ngClass="edit-action"></ng-icon></a>
+                            <div class="d-flex gap-2 editaction">
+                                <div>
+                                    <a *ngIf="item.status!='ACT' && item.status!='HOL'" href="javascript:"
+                                        [routerLink]="'/survey/manage-survey/'+ (item.surveyId |  encrypt)">
+                                        <ng-icon name="heroPencil" ngClass="edit-action"></ng-icon></a>
+                                </div>
                                 <ng-container *ngIf="role !== 'user'">
                                     <a href="javascript:" (click)="openLg(sidecontent,item.surveyId,item.name)"><ng-icon
                                             name="heroTrash" ngClass="edit-action delete-trash"></ng-icon></a>
                                 </ng-container>
+
                                 <!-- <a *ngIf="item.status=='ACT'" href="javascript:">
                                 <ng-icon name="heroPencil" ngClass="edit-action"></ng-icon></a> -->
                             </div>

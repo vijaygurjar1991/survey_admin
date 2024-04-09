@@ -187,7 +187,7 @@
                 <!-- <a [href]="'https://mobile.angular.opinionest.com/survey/' + surveyId +'/preview/' + userId"
                     target="_blank" rel="noopener noreferrer" class="btn btn-primary w-100">Preview</a> -->
 
-                <a [href]="'http://localhost:4201/survey/preview/'  + centername +  '/' + surveyId + '?UID='+ userId +'&id='+ token"
+                <a [href]="'http://localhost:4201/survey/preview/'  + centername +  '/' + centerId + '/' + surveyId + '?UID='+ userId +'&id='+ token"
                     target="_blank" rel="noopener noreferrer" class="btn btn-primary w-100">Preview</a>
                 <!-- <a [href]="'https://mobile.angular.opinionest.com/survey/preview/'  + centerId +  '/' + surveyId + '?UID='+ userId +'&authToken='+ token"
                     target="_blank" rel="noopener noreferrer" class="btn btn-primary w-100">Preview</a> -->
@@ -221,17 +221,29 @@
                         alt={{countryName}} />
                     {{surveyName}}
                 </h4> -->
-                <h4 ngClass="mb-3">
-                    <ng-container *ngIf="countryName !== 'Other Country'">
-                        <img matTooltip="{{countryName}}"
-                            aria-label="Button that displays a tooltip when focused or hovered over" loading="lazy"
-                            [src]="baseUrl + '/assets/images/country-flag/' + countryImage" width="30" height="30"
-                            alt="{{countryName}}" />
-                    </ng-container>
-                    {{surveyName}}
-                </h4>
-                <span *ngIf="categoryName !='Others'">{{categoryName}}/ {{surveyId}}</span>
-                <span *ngIf="categoryName =='Others'">{{otherCategoryName}}/ {{surveyId}}</span>
+                <div class="d-flex">
+                    <h4 ngClass="mb-3">
+                        <ng-container *ngIf="countryName !== 'Other Country'">
+                            <img matTooltip="{{countryName}}"
+                                aria-label="Button that displays a tooltip when focused or hovered over" loading="lazy"
+                                [src]="baseUrl + '/assets/images/country-flag/' + countryImage" width="30" height="30"
+                                alt="{{countryName}}" />
+                        </ng-container>
+                        {{surveyName}}
+                    </h4>
+                    <div class="ms-2">
+                        <span *ngIf="status == 'ACT'" class="badge text-bg-success activestatus">Active</span>
+                        <span *ngIf="status == 'DEL'" class="badge text-bg-danger activestatus">Inactive</span>
+                        <span *ngIf="status == 'HOL'" class="badge text-bg-warning activestatus">Hold</span>
+                    </div>
+                </div>
+                <div class="d-flex">
+                    <span *ngIf="categoryName !='Others'">{{categoryName}}</span>
+                    <span *ngIf="categoryName =='Others'">{{otherCategoryName}}</span>
+                    <span *ngIf="categoryName !='Others'" class="ms-3">Survey ID- {{surveyId}}</span>
+                    <span *ngIf="categoryName =='Others'" class="ms-3">Survey ID- {{surveyId}}</span>
+                </div>
+
             </div>
             <a (click)="openLg(sidecontent)"><ng-icon name="heroPencilSquare"></ng-icon></a>
         </div>
@@ -497,10 +509,16 @@
                                     </div>
                                 </div>
                                 <div *ngIf="question?.openEndedType !== null && question?.openEndedType !== ''">
-                                    <div class="ques-radio mb-3">
+                                    <!-- <div class="ques-radio mb-3">
                                         <label>
                                             <input type="radio" name="question_option">
                                             <span class="checked">&nbsp;</span>
+                                        </label>
+                                    </div> -->
+                                    <div class="ques-radio mb-3" *ngFor="let option of question?.options; let i=index;">
+                                        <label>
+                                            <input type="radio" [id]="'question_option_' + i" name="question_option">
+                                            <span class="checked">{{ option.option }}</span>
                                         </label>
                                     </div>
                                 </div>
