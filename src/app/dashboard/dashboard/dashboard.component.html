@@ -198,3 +198,12 @@
 </ng-template>
 
 <app-create-survey-popup #CreateSurveyModal></app-create-survey-popup>
+
+
+<ng-template #popupTemplate let-modal>
+    <div class="modal-body text-center p-5">
+      <h3>Your trial period has ended</h3>
+      <p>Your trial period has expired. Please upgrade your plan first to continue for using our services.</p>
+      <button class="btn btn-primary mt-3"  (click)="logOut(modal)">Back to Login</button>
+    </div>
+</ng-template>
