@@ -15,6 +15,7 @@ import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import { CryptoService } from 'src/app/service/crypto.service';
 import { Router } from '@angular/router';
 import { environment } from 'src/environments/environment';
+import { DatePipe } from '@angular/common';
 
 
 
@@ -22,14 +23,17 @@ import { environment } from 'src/environments/environment';
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
-  styleUrls: ['./dashboard.component.css']
+  styleUrls: ['./dashboard.component.css'],
+  providers: [DatePipe]
 })
 export class DashboardComponent {
   baseUrl = '';
   @ViewChild('CreateSurveyModal', { static: true }) CreateSurveyModal!: ModalDirective;
+ 
   
   constructor(private visibilityService: DataService, private modalService: NgbModal, public themeService: DataService,
-    public surveyservice: SurveyService, private auth: AuthService, private utility: UtilsService, private crypto: CryptoService, private router: Router) {
+    public surveyservice: SurveyService, private auth: AuthService, private utility: UtilsService, private crypto: CryptoService, private router: Router,
+    private datePipe: DatePipe) {
     this.baseUrl = environment.baseURL;
     visibilityService.articleVisible.next(true);
 
@@ -47,7 +51,7 @@ export class DashboardComponent {
   lastName: any;
   modal: any;
   orgCreatedDate: any;
- 
+  remainingTrialDays: number;
 
   hideHeader() {
     console.log("hideHeader function called");
@@ -93,8 +97,7 @@ export class DashboardComponent {
   //       break;
   //   }
   // }
-
-
+ 
   getMyAccount() {
     this.themeService.GetMyAccount(this.userId).subscribe((data: any) => {
       console.log("Info", data)
@@ -102,13 +105,26 @@ export class DashboardComponent {
         this.firstName = data.firstName;
         this.lastName = data.lastName
         this.id = data.id
-        this.orgCreatedDate = data.orgCreatedDate;
+        this.orgCreatedDate = new Date(data.orgCreatedDate);
+        // Calculate difference in days
+        if (isNaN(this.orgCreatedDate.getTime())) {
+          console.error("Invalid orgCreatedDate:", data.orgCreatedDate);
+          return;
+        }  
+        // Calculate difference in days
+        const trialPeriodDays = 7; // Total trial period days
+        const currentDate = new Date();
+        const trialEndDate = new Date(this.orgCreatedDate.getTime() + trialPeriodDays * 24 * 60 * 60 * 1000);
+        this.remainingTrialDays = Math.ceil((trialEndDate.getTime() - currentDate.getTime()) / (24 * 60 * 60 * 1000));
+        if (this.remainingTrialDays < 0) {
+          this.remainingTrialDays = 0; // Set to 0 if trial has expired
+        }
+        console.log("Remaining Trial Days:", this.remainingTrialDays);
       }
-      const orgCreatedDate: Date = new Date(data.orgCreatedDate);
-      const differenceInMilliseconds: number = new Date().getTime() - orgCreatedDate.getTime();
-      const differenceInDays: number = Math.floor(differenceInMilliseconds / (1000 * 60 * 60 * 24));
-      console.log('Days since organization was created:', differenceInDays);
+      
+      
     });
+    
   }
 
   chart: any = [];
