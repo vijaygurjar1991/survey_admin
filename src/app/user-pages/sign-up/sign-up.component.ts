@@ -20,9 +20,9 @@ export class SignUpComponent {
     this.showTooltip[identifier] = !this.showTooltip[identifier];
   }
   hideTooltip(identifier: string) {
-      this.showTooltip[identifier] = false;
+    this.showTooltip[identifier] = false;
   }
-// Tooltip
+  // Tooltip
 
   formSubmitted: boolean = false;
   showCompanyDetails: boolean = true; // Initially show company details
@@ -30,6 +30,8 @@ export class SignUpComponent {
   themeService: any;
   signupForm: FormGroup;
   verificationForm: FormGroup;
+  purchaseprice: any;
+  verifyemail: any;
   constructor(private visibilityService: DataService, private fb: FormBuilder, private authService: AuthService, private router: Router, private route: ActivatedRoute, private utility: UtilsService) {
     visibilityService.articleVisible.next(false);
     this.baseUrl = environment.baseURL;
@@ -79,6 +81,12 @@ export class SignUpComponent {
       email_otp: ['', Validators.required],
       captchertoken: ['', Validators.required],
     });
+
+    //url
+    this.route.queryParams.subscribe((data) => {
+      this.purchaseprice = data['price'];
+    });
+    console.log("purchaseprice", this.purchaseprice)
   }
 
   LoginSlider: OwlOptions = {
@@ -148,6 +156,38 @@ export class SignUpComponent {
   //     console.log('Final form data:', this.signupForm.value);
   //   }
   // }
+  // verifyEmail() {
+  //   Object.keys(this.verificationForm.controls).forEach(field => {
+  //     const control = this.verificationForm.get(field);
+  //     control?.markAsTouched({ onlySelf: true });
+  //   });
+  //   // Call the email verification service to make the GET request
+  //   const otp = this.verificationForm.get('email_otp')?.value;
+  //   const captchertoken = this.verificationForm.get('captchertoken')?.value
+  //   console.log("captchertoken : ", captchertoken)
+  //   if (this.verificationForm.valid) {
+  //     const returnUrl = this.route.snapshot.queryParamMap.get('returnUrl') || '/dashboard';
+  //     const dataToSend = {
+  //       oId: this.organizationId,
+  //       otp: otp,
+  //       captcha: captchertoken
+  //     }
+  //     this.authService.verifyEmail(dataToSend).subscribe(
+  //       (response) => {
+  //         this.verifyemail = true
+  //         console.log('Email verification successful:', response);
+  //         this.router.navigateByUrl(returnUrl).then(() => {
+  //           window.location.reload();
+  //         });
+  //       },
+  //       (error) => {
+  //         console.error('Email verification failed:', error);
+  //         this.utility.showError("Please enter correct OTP ");
+  //         // Handle email verification failure, display an error message, etc.
+  //       }
+  //     );
+  //   }
+  // }
   verifyEmail() {
     Object.keys(this.verificationForm.controls).forEach(field => {
       const control = this.verificationForm.get(field);
@@ -158,7 +198,7 @@ export class SignUpComponent {
     const captchertoken = this.verificationForm.get('captchertoken')?.value
     console.log("captchertoken : ", captchertoken)
     if (this.verificationForm.valid) {
-      const returnUrl = this.route.snapshot.queryParamMap.get('returnUrl') || '/dashboard';
+      // const returnUrl = this.route.snapshot.queryParamMap.get('returnUrl') || '/dashboard';
       const dataToSend = {
         oId: this.organizationId,
         otp: otp,
@@ -166,10 +206,11 @@ export class SignUpComponent {
       }
       this.authService.verifyEmail(dataToSend).subscribe(
         (response) => {
+          this.verifyemail = true
           console.log('Email verification successful:', response);
-          this.router.navigateByUrl(returnUrl).then(() => {
-            window.location.reload();
-          });
+          // this.router.navigateByUrl(returnUrl).then(() => {
+          //   window.location.reload();
+          // });
         },
         (error) => {
           console.error('Email verification failed:', error);
@@ -179,5 +220,18 @@ export class SignUpComponent {
       );
     }
   }
+
+  //read url
+  suurveypurchaseprice: boolean = false
+  emailopt: boolean = false
+
+  purchasepriceplan() {
+    this.verifyEmail();
+    if (this.verifyemail) {
+      this.suurveypurchaseprice = true;
+    }
+
+  }
+
 }
 

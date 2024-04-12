@@ -115,6 +115,7 @@ export class EditSurveyComponent {
       this.question.questionTypeName = data.questionTypeName
       this.youtubeUrl = data.youtubeUrl
       this.question.piping = data.piping
+      this.question.isGrouping = data.isGrouping
 
       console.log("piping", this.question.piping)
 
@@ -677,6 +678,7 @@ export class EditSurveyComponent {
 
   onGroupValueChange(type: string, value: boolean, groupId: number) {
     // Update the specified group directly
+    let groupoption = new Option();
     console.log("groupId", groupId)
     const groupToUpdate = this.groups.find(group => group.id === groupId);
     if (!groupToUpdate) {
@@ -685,15 +687,29 @@ export class EditSurveyComponent {
     }
     console.log(groupToUpdate);
 
-    // Update the group's properties based on the type
     if (type === 'randomize') {
       groupToUpdate.isRandomize = value;
+      console.log("isRandomize", groupToUpdate)
+      this.allOptions.forEach(option => {
+        if (option.group === groupId) {
+          option.isRandomize = true;
+          console.log("isRandomize option", option)
+        }
+      });
     } else if (type === 'excluded') {
-      groupToUpdate.isExcluded = value;
+      groupToUpdate.isExcluded = true;
+      console.log("isExcluded", groupToUpdate.isExcluded)
+      this.allOptions.forEach(option => {
+        if (option.group === groupId) {
+          option.isExcluded = true;
+          console.log("isExcluded option", option)
+        }
+      });
     }
 
-  }
+    this.allOptions = [...this.optionsArr1, ...this.optionsArr2];
 
+  }
 
 
   getCurrentDateTime(): string {
@@ -1204,6 +1220,7 @@ export class EditSurveyComponent {
       if (!this.groups[groupIndex].options.some((opt: any) => opt.option === option.option)) {
         this.groups[groupIndex].options.push(option);
       }
+      console.log("group push option", this.groups)
     }
 
     this.filteredOptions = [];

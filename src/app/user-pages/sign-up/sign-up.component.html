@@ -11,7 +11,7 @@
                     </div>
                     <hr>
 
-                    <form [formGroup]="signupForm" >
+                    <form [formGroup]="signupForm">
                         <h2 class="text-center mb-3">Sign Up</h2>
                         <h5 class="text-center mb-4">Welcome back! Please enter your details</h5>
 
@@ -21,15 +21,21 @@
                                 <div class="infocircle justify-content-start">
                                     <label for="o_name" class="form-label">Organisation Name</label>
                                     <div class="custom-tooltip ms-2">
-                                        <ng-icon name="heroInformationCircle" ngClass="edit-action info-circle" (click)="toggleTooltip('1')"></ng-icon>
+                                        <ng-icon name="heroInformationCircle" ngClass="edit-action info-circle"
+                                            (click)="toggleTooltip('1')"></ng-icon>
                                         <div class="toast show" *ngIf="showTooltip['1']">
                                             <div class="toast-header">
-                                                <img [src]="baseUrl + '/assets/images/icons/Add-new-question.png'" class="rounded me-2" width="30" height="30" />
+                                                <img [src]="baseUrl + '/assets/images/icons/Add-new-question.png'"
+                                                    class="rounded me-2" width="30" height="30" />
                                                 <h6 class="mb-0 me-auto">Sign up (Organisation Name)</h6>
-                                                <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close" (click)="hideTooltip('1')"></button>
+                                                <button type="button" class="btn-close" data-bs-dismiss="toast"
+                                                    aria-label="Close" (click)="hideTooltip('1')"></button>
                                             </div>
                                             <div class="toast-body">
-                                                By adding the name of your organization in Scrip8, you can keep track of all the important details in a hassle-free way. Don't miss out on this opportunity to streamline your organization's record-keeping and make your life easier. Add your organization's name to Scrip8 today!
+                                                By adding the name of your organization in Scrip8, you can keep track of
+                                                all the important details in a hassle-free way. Don't miss out on this
+                                                opportunity to streamline your organization's record-keeping and make
+                                                your life easier. Add your organization's name to Scrip8 today!
                                             </div>
                                         </div>
                                     </div>
@@ -57,18 +63,20 @@
                                     <label for="zip" class="form-label">Postal Code</label>
                                     <input type="text" class="form-control" id="zip" formControlName="zipCode"
                                         placeholder="Enter Your Zip Code">
-                                        <div *ngIf="signupForm.get('zipCode')?.errors?.required && signupForm.get('zipCode')?.touched" class="text-danger">
-                                            Postal Code is required.
-                                        </div>
+                                    <div *ngIf="signupForm.get('zipCode')?.errors?.required && signupForm.get('zipCode')?.touched"
+                                        class="text-danger">
+                                        Postal Code is required.
+                                    </div>
                                 </div>
 
                                 <div class="col-md-6 mb-4">
                                     <label for="email" class="form-label">Email</label>
                                     <input type="email" class="form-control" id="email" formControlName="email"
                                         placeholder="Enter your email">
-                                        <div *ngIf="signupForm.get('email')?.errors?.required && signupForm.get('email')?.touched" class="text-danger">
-                                            Email is required.
-                                        </div>
+                                    <div *ngIf="signupForm.get('email')?.errors?.required && signupForm.get('email')?.touched"
+                                        class="text-danger">
+                                        Email is required.
+                                    </div>
                                     <div *ngIf="signupForm.get('email')?.hasError('email') && signupForm.get('email')?.touched"
                                         class="text-danger">
                                         Please enter a valid email address.
@@ -81,24 +89,27 @@
                                     <label for="password" class="form-label">Password</label>
                                     <input type="password" class="form-control" id="password" formControlName="password"
                                         placeholder="Enter your Password">
-                                        <div *ngIf="signupForm.get('password')?.hasError('required') && signupForm.get('password')?.touched" class="text-danger">
-                                            Password is required.
-                                          </div>
-                                          <div *ngIf="signupForm.get('password')?.hasError('minlength') && signupForm.get('password')?.touched" class="text-danger">
-                                            Password must be at least 8 characters long.
-                                          </div>
-                                          <div *ngIf="signupForm.hasError('passwordMismatch')" class="text-danger">
-                                            Passwords do not match.
-                                          </div>
+                                    <div *ngIf="signupForm.get('password')?.hasError('required') && signupForm.get('password')?.touched"
+                                        class="text-danger">
+                                        Password is required.
+                                    </div>
+                                    <div *ngIf="signupForm.get('password')?.hasError('minlength') && signupForm.get('password')?.touched"
+                                        class="text-danger">
+                                        Password must be at least 8 characters long.
+                                    </div>
+                                    <div *ngIf="signupForm.hasError('passwordMismatch')" class="text-danger">
+                                        Passwords do not match.
+                                    </div>
                                 </div>
 
                                 <div class="col-md-6 mb-4">
                                     <label for="c_password" class="form-label">Confirm Password</label>
                                     <input type="password" class="form-control" id="c_password"
                                         formControlName="confirmPassword" placeholder="Enter your Password">
-                                        <div *ngIf="signupForm.get('confirmPassword')?.errors?.required && signupForm.get('confirmPassword')?.touched" class="text-danger">
-                                            Confirm Password is required.
-                                        </div>
+                                    <div *ngIf="signupForm.get('confirmPassword')?.errors?.required && signupForm.get('confirmPassword')?.touched"
+                                        class="text-danger">
+                                        Confirm Password is required.
+                                    </div>
                                     <div *ngIf="signupForm.get('confirmPassword')?.hasError('passwordMismatch') && signupForm.get('confirmPassword')?.touched"
                                         class="text-danger">
                                         Passwords do not match.
@@ -126,9 +137,10 @@
                                     <label for="email_otp" class="form-label">Email OTP</label>
                                     <input type="password" class="form-control" id="email_otp"
                                         formControlName="email_otp" placeholder="Enter your OTP">
-                                        <div *ngIf="verificationForm.get('email_otp')?.errors?.required && verificationForm.get('email_otp')?.touched" class="text-danger">
-                                            Email OTP is required.
-                                        </div>
+                                    <div *ngIf="verificationForm.get('email_otp')?.errors?.required && verificationForm.get('email_otp')?.touched"
+                                        class="text-danger">
+                                        Email OTP is required.
+                                    </div>
                                 </div>
                             </div>
                             <div class="col-sm-12 mb-2">
@@ -147,11 +159,45 @@
                                 <div class="d-flex gap-2 justify-content-between">
                                     <button type="button" class="btn"
                                         (click)="showUserDetails = false">Previous</button>
-                                    <button type="button" class="btn btn-primary px-3"
-                                        (click)="verifyEmail()">Submit</button>
+                                    <!-- <button type="button" class="btn btn-primary px-3"
+                                        (click)="verifyEmail()">Submit</button> -->
+                                    <button *ngIf="purchaseprice" type="button" class="btn btn-primary px-3"
+                                        (click)="purchasepriceplan()">Next</button>
                                 </div>
                             </div>
                         </form>
+                    </div>
+
+                    <!-- Purchase Package -->
+                    <div class=" user-detail-signup" *ngIf="suurveypurchaseprice">
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="flexRadioDefault" id="500"
+                                [checked]="purchaseprice === '500'">
+                            <label class="form-check-label" for="flexRadioDefault1">
+                                ₹500/month
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="flexRadioDefault" id="1200"
+                                [checked]="purchaseprice === '1200'">
+                            <label class="form-check-label" for="flexRadioDefault2">
+                                ₹1200/month
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="flexRadioDefault" id="2500"
+                                [checked]="purchaseprice === '2500'">
+                            <label class="form-check-label" for="flexRadioDefault2">
+                                ₹2500/month
+                            </label>
+                        </div>
+                        <div class="row mt-3">
+                            <div class="d-flex gap-2 justify-content-between">
+                                <button type="button" class="btn">Skip</button>
+                                <button *ngIf="purchaseprice" type="button"
+                                    class="btn btn-primary px-3">Purchase</button>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
