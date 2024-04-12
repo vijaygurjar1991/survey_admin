@@ -211,12 +211,12 @@ export class EditSurveyComponent {
     this.getQuestionTypes();
     if (this.mode != 'modify') {
       this.intializeDefaultValue();
-      if (this.question.questionTypeName !== 'Star Rating' && this.question.questionTypeName !== 'Boolean' && this.question.questionTypeName !== 'Image Selection') {
+      if (this.question.questionTypeName !== 'Rating Scale' && this.question.questionTypeName !== 'Boolean' && this.question.questionTypeName !== 'Image Selection') {
         this.hanldeAddOptionClick();
         this.hanldeAddOptionClick();
         this.hanldeAddOptionClick();
       }
-      if (this.question.questionTypeName === 'Star Rating') {
+      if (this.question.questionTypeName === 'Rating Scale') {
         this.addStarRating();
       }
       if (this.question.questionTypeName === 'Boolean') {
@@ -638,8 +638,8 @@ export class EditSurveyComponent {
         next: (resp: any) => {
           this.categoryNameCheck = false;
           this.utility.showSuccess('Question Updated Successfully.');
-          // let url = `/survey/manage-survey/${this.crypto.encryptParam(this.surveyId)}`;
-          // this.router.navigateByUrl(url);
+          let url = `/survey/manage-survey/${this.crypto.encryptParam(this.surveyId)}`;
+          this.router.navigateByUrl(url);
         },
         error: (err: any) => {
           // Swal.fire('', err.error, 'error');
@@ -652,8 +652,8 @@ export class EditSurveyComponent {
         next: (resp: any) => {
           this.categoryNameCheck = false;
           this.utility.showSuccess('Question Generated Successfully.');
-          // let url = `/survey/manage-survey/${this.crypto.encryptParam(this.surveyId)}`;
-          // this.router.navigateByUrl(url);
+          let url = `/survey/manage-survey/${this.crypto.encryptParam(this.surveyId)}`;
+          this.router.navigateByUrl(url);
           this.onSaveEvent.emit();
         },
         error: (err: any) => {
