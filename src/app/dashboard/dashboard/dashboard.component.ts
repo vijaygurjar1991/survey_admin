@@ -1,8 +1,8 @@
 
-import { Component, ViewChild } from '@angular/core';
+import { Component, TemplateRef, ViewChild } from '@angular/core';
 import { Chart } from 'chart.js/auto';
 import { DataService } from 'src/app/service/data.service';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { SurveyService } from 'src/app/service/survey.service';
 import { responseDTO } from 'src/app/types/responseDTO';
 import { AuthService } from 'src/app/service/auth.service';
@@ -29,7 +29,8 @@ import { DatePipe } from '@angular/common';
 export class DashboardComponent {
   baseUrl = '';
   @ViewChild('CreateSurveyModal', { static: true }) CreateSurveyModal!: ModalDirective;
- 
+  @ViewChild('popupTemplate') popupTemplate: TemplateRef<any>;
+  modalRef: NgbModalRef;
   
   constructor(private visibilityService: DataService, private modalService: NgbModal, public themeService: DataService,
     public surveyservice: SurveyService, private auth: AuthService, private utility: UtilsService, private crypto: CryptoService, private router: Router,
@@ -120,11 +121,19 @@ export class DashboardComponent {
           this.remainingTrialDays = 0; // Set to 0 if trial has expired
         }
         console.log("Remaining Trial Days:", this.remainingTrialDays);
+        if (this.remainingTrialDays === 0) {
+          this.openPopup();
+        }
       }
-      
-      
-    });
-    
+    });    
+  }
+  
+  openPopup() {
+    this.modalService.open(this.popupTemplate, { centered: true, backdrop: 'static' });
+  }
+  logOut(modal: NgbModalRef) {
+    this.auth.logout(); 
+    modal.dismiss();
   }
 
   chart: any = [];
@@ -138,7 +147,9 @@ export class DashboardComponent {
     this.getSurveyList();
     this.getCountries();
     this.getNames();
+    
   }
+ 
   createChart() {
     this.chart = new Chart("canvas", {
       type: 'line',
