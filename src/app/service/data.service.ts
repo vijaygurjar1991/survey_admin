@@ -20,6 +20,7 @@ export class DataService {
   public addMargin: boolean = false;
   public addwidth: boolean = false;
   public dashboardMargin: boolean = false;
+  makeRequest: any;
   public toggle(): void {
     this.addMargin = !this.addMargin;
     this.addwidth = !this.addwidth;
