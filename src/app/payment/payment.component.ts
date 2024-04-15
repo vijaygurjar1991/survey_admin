@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { environment } from 'src/environments/environment';
+import { DataService } from '../service/data.service';
+import { UtilsService } from '../service/utils.service';
 
 declare var Razorpay: any;
 
@@ -11,21 +13,65 @@ declare var Razorpay: any;
   styleUrls: ['./payment.component.css']
 })
 export class PaymentComponent {
+  constructor(private util: UtilsService, private httpClient: HttpClient, private router: Router, private visibilityService: DataService) {
+    visibilityService.articleVisible.next(false);
+    
+  }
+  hideHeader() {
+    this.visibilityService.toggleHeaderVisibility(false);
+  }
+  showHeader() {
+    this.visibilityService.toggleHeaderVisibility(true);
+  }
+  hideSideBar() {
+    this.visibilityService.toggleNavbarVisibility(false);
+  }
+  showSideBar() {
+    this.visibilityService.toggleNavbarVisibility(true);
+  }
+
+  hideBreadcrumb() {
+    this.visibilityService.toggleBreadcrumbVisibility(false);
+  }
+
+  ShowBreadcrumb() {
+    this.visibilityService.toggleBreadcrumbVisibility(false);
+  }
+
+  userId: any;
   
+  ngOnInit() {
+    this.hideHeader();
+    this.hideSideBar();
+    this.hideBreadcrumb();
+    this.userId = this.util.getUserId();
+  }
+ 
+  subscriptionPlans: any[] = [
+    { id: 'basic', name: 'Basic', price: 500 },
+    { id: 'standard', name: 'Standard', price: 1200 },
+    { id: 'premium', name: 'Premium', price: 2500 }
+  ];
+  subscriptionPlan: any = ''; 
+
   razorpayOptions: any = {};
-  amount: any = ''; // Define amount variable
-  centerId: any = ''; // Define centerId variable
+  amount: any = this.subscriptionPlans.find(plan => plan.id === 'basic')?.price;
+  centerId: any = ''; 
   apiUrl = environment.apiUrl;
 
-  constructor(private httpClient: HttpClient, private router: Router) {}
+  // updateAmount() {
+  //   const selectedPlan = this.subscriptionPlans.find(plan => plan.id === this.subscriptionPlan);
+  //   if (selectedPlan) {
+  //     this.amount = selectedPlan.price;
+  //   }
+  // }
 
   submitForm(): void {
     const formData = {
       Amount: this.amount,
       CenterId: this.centerId
     };
-    this.postAmount(formData)
-      .subscribe((response: any) => { // Type assertion to any
+    this.postAmount(formData).subscribe((response: any) => { // Type assertion to any
         console.log('Response from server:', response);
         this.payNow(response, response.orderId); // Call the payNow function with order data to initiate Razorpay payment
       }, error => {
@@ -34,7 +80,7 @@ export class PaymentComponent {
   }
 
   postAmount(formData: { Amount: string; CenterId: string; }) {
-    return this.httpClient.post(`${this.apiUrl}ProcessRequestOrder?Amount=${this.amount}&CenterId=${this.centerId}`, formData);
+    return this.httpClient.post(`${this.apiUrl}api/admin/${this.userId}/Payment/ProcessRequestOrder`, formData);
   }
 
   payNow(orderData: any, orderId: string): void {
@@ -42,16 +88,16 @@ export class PaymentComponent {
       description: 'Sample Razorpay demo',
       currency: 'INR',
       amount: orderData.amount * 100, // Convert amount to paisa (Razorpay expects amount in paisa)
-      name: 'Script8',
+      name: 'Scrip8',
       key: 'rzp_test_Ncll0VDPCO6Ffq', // Replace with your Razorpay key
-      image: 'https://mobile.angular.opinionest.com/manage/assets/images/logo/T-logo.png',
+      //image: 'https://mobile.angular.opinionest.com/manage/assets/images/logo/T-logo.png',
       prefill: {
         name: 'saryu sirohi',
         email: 'saryu@gmail.com',
         phone: '9898989898'
       },
       theme: {
-        color: '#6466e3'
+        color: '#f05e16'
       },
       modal: {
         ondismiss: () => {

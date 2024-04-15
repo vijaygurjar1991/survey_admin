@@ -1,0 +1,52 @@
+section{padding-top: 3rem;padding-bottom: 3rem;}
+.select-plan {
+    background-color: var(--white);
+    padding: 2rem;
+    border-radius: .5rem;
+}
+.select-plan ul {list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    margin: 1.5rem 0;padding: 0;margin-top: 2rem
+}
+.select-plan ul li {
+    flex: 1;
+}
+.select-plan ul li input[type=radio][id^=P] {
+    display: none;
+}
+.select-plan ul li :checked+label {
+    border: 1px solid var(--primary);
+}
+.select-plan ul li :checked+label:before {
+    content: "\2713";
+    background-color: var(--primary);
+    color: var(--white);
+    transform: scale(1);
+}
+.select-plan ul li label {
+    padding: 1rem;
+    display: block;
+    position: relative;
+    border: 1px solid var(--border-color);
+    cursor: pointer;
+    border-radius: .5rem;
+}
+.select-plan ul li label:before {
+    content: " ";
+    display: block;
+    border-radius: 50%;
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    width: 20px;
+    height: 20px;
+    text-align: center;
+    line-height: 20px;
+    transition-duration: .5s;
+    transform: scale(0);
+}
+.select-plan ul li label h5{margin-bottom: 2rem;}
+.select-plan ul li label p{margin-bottom: 0;font-size: 26px;}
+.select-plan ul li label p span{font-size: 16px;color: #c8c5c5;}

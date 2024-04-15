@@ -204,6 +204,7 @@
     <div class="modal-body text-center p-5">
       <h3>Your trial period has ended</h3>
       <p>Your trial period has expired. Please upgrade your plan first to continue for using our services.</p>
+      <a class="btn btn-primary mt-3 me-2" routerLink="/payment" (click)="modal.dismiss('Cross click')">Payment</a>
       <button class="btn btn-primary mt-3"  (click)="logOut(modal)">Back to Login</button>
     </div>
 </ng-template>
