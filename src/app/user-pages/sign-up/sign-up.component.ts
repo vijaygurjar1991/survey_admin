@@ -229,7 +229,16 @@ export class SignUpComponent {
     this.verifyEmail();
     if (this.verifyemail) {
       this.suurveypurchaseprice = true;
+      // this.showUserDetails = false;
     }
+
+  }
+
+  redirectDashboard() {
+    const returnUrl = this.route.snapshot.queryParamMap.get('returnUrl') || '/dashboard';
+    this.router.navigateByUrl(returnUrl).then(() => {
+      window.location.reload();
+    })
 
   }
 

@@ -118,6 +118,7 @@ export class AgeOfChildrenPopupComponent {
       currentQuestion.createdDate = this.getCurrentDateTime()
       currentQuestion.modifiedDate = this.getCurrentDateTime();
       currentQuestion.genericTypeId = this.typeid
+      currentQuestion.questionTypeName = 'Single-Select'
 
       // Filter selected options for the current question
       currentQuestion.options = currentQuestion.options.filter(option => option.selected);
@@ -135,9 +136,9 @@ export class AgeOfChildrenPopupComponent {
           successfulAPICalls++;
 
           if (successfulAPICalls === this.questions.length) {
-            if(resp=='"QuestionAlreadyExits"'){
+            if (resp == '"QuestionAlreadyExits"') {
               this.utility.showError("This Question Already Created ");
-            }else{
+            } else {
               this.utility.showSuccess('Question Generated Successfully.');
               this.close();
               this.onSaveEvent.emit();

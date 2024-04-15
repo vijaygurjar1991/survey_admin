@@ -130,7 +130,7 @@
                     </form>
 
                     <!-- emailOTP outside the main form -->
-                    <div class=" user-detail-signup" *ngIf="showUserDetails">
+                    <div class=" user-detail-signup" *ngIf="showUserDetails" [hidden]="suurveypurchaseprice">
                         <form [formGroup]="verificationForm">
                             <div class="row">
                                 <div class="col-md-12 mb-4">
@@ -157,11 +157,11 @@
                             </div>
                             <div class="row mt-3">
                                 <div class="d-flex gap-2 justify-content-between">
-                                    <button type="button" class="btn"
-                                        (click)="showUserDetails = false">Previous</button>
+                                    <!-- <button type="button" class="btn"
+                                        (click)="showUserDetails = false">Previous</button> -->
                                     <!-- <button type="button" class="btn btn-primary px-3"
                                         (click)="verifyEmail()">Submit</button> -->
-                                    <button *ngIf="purchaseprice" type="button" class="btn btn-primary px-3"
+                                    <button type="button" class="btn btn-primary px-3"
                                         (click)="purchasepriceplan()">Next</button>
                                 </div>
                             </div>
@@ -193,7 +193,7 @@
                         </div>
                         <div class="row mt-3">
                             <div class="d-flex gap-2 justify-content-between">
-                                <button type="button" class="btn">Skip</button>
+                                <button type="button" class="btn" (click)="redirectDashboard()">Skip</button>
                                 <button *ngIf="purchaseprice" type="button"
                                     class="btn btn-primary px-3">Purchase</button>
                             </div>
