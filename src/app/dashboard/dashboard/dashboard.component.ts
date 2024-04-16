@@ -31,7 +31,7 @@ export class DashboardComponent {
   @ViewChild('CreateSurveyModal', { static: true }) CreateSurveyModal!: ModalDirective;
   @ViewChild('popupTemplate') popupTemplate: TemplateRef<any>;
   modalRef: NgbModalRef;
-  
+    
   constructor(private visibilityService: DataService, private modalService: NgbModal, public themeService: DataService,
     public surveyservice: SurveyService, private auth: AuthService, private utility: UtilsService, private crypto: CryptoService, private router: Router,
     private datePipe: DatePipe) {
@@ -53,6 +53,7 @@ export class DashboardComponent {
   modal: any;
   orgCreatedDate: any;
   remainingTrialDays: number;
+  isPaid: any;
 
   hideHeader() {
     console.log("hideHeader function called");
@@ -104,8 +105,9 @@ export class DashboardComponent {
       console.log("Info", data)
       if (data) {
         this.firstName = data.firstName;
-        this.lastName = data.lastName
-        this.id = data.id
+        this.lastName = data.lastName;
+        this.id = data.id;
+        this.isPaid = data.isPaid;
         this.orgCreatedDate = new Date(data.orgCreatedDate);
         // Calculate difference in days
         if (isNaN(this.orgCreatedDate.getTime())) {
@@ -120,8 +122,8 @@ export class DashboardComponent {
         if (this.remainingTrialDays < 0) {
           this.remainingTrialDays = 0; // Set to 0 if trial has expired
         }
-        console.log("Remaining Trial Days:", this.remainingTrialDays);
-        if (this.remainingTrialDays === 0) {
+        //console.log("Remaining Trial Days:", this.remainingTrialDays);
+        if (this.remainingTrialDays === 0 && this.isPaid === "false") {
           this.openPopup();
         }
       }
