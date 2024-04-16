@@ -14,6 +14,7 @@ export class SurveyService {
 
   apiUrl = environment.apiUrl;
   userId = 0;
+  getStatesByCountryId: any;
   constructor(private http: HttpClient, private util: UtilsService) {
     this.userId = util.getUserId();
   }

@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { environment } from 'src/environments/environment';
 import { DataService } from '../service/data.service';
 import { UtilsService } from '../service/utils.service';
+import { SurveyService } from '../service/survey.service';
 
 declare var Razorpay: any;
 
@@ -13,15 +14,23 @@ declare var Razorpay: any;
   styleUrls: ['./payment.component.css']
 })
 export class PaymentComponent {
-  firstName: any;
-  lastName: any;
-  id: any;
-  email: any;
-  contactNo: any;
-  roleId: any;
-  role: any;
-  centerId: any;
-  constructor(public themeService: DataService, private util: UtilsService, private httpClient: HttpClient, private router: Router, private visibilityService: DataService) {
+  baseUrl = '';
+  firstName: string = '';
+  id: string = '';
+  email: string = '';
+  contactNo: string = '';
+  centerId: string = '';
+  address: string = '';
+  city: string = '';
+  state: string = '';
+  country: string;
+  // selectedCountry: { id: string, name: string, images: string } | null = null;
+  // selectedCountryId: string | null = null;
+  zip: string = '';
+  gstNumber: string = '';
+  planId: string = '';
+  
+  constructor(private surveyservice: SurveyService, public themeService: DataService, private util: UtilsService, private httpClient: HttpClient, private router: Router, private visibilityService: DataService) {
      
   }
  
@@ -31,74 +40,94 @@ export class PaymentComponent {
   }
 
   userId: any;
-  
-  ngOnInit() {    
-    this.hideBreadcrumb();
-    this.userId = this.util.getUserId();
-    this.getMyAccount();
-  }
   getMyAccount() {    
     this.userId = this.util.getUserId();
     this.themeService.GetMyAccount(this.userId).subscribe((data: any) => {
       console.log("data", data)
       this.firstName = data.firstName;
-      this.lastName = data.lastName
       this.id = data.id
       this.email = data.email
       this.contactNo = data.contactNo
-      this.roleId = data.roleId
       this.centerId = data.centerId
     });
   }
-  subscriptionPlans: any[] = [
+ 
+  // getCountries() {
+  //   this.surveyservice.getCountries().subscribe(response => {
+  //     const result = Object.keys(response).map((key) => response[key]);
+  //     console.log(result)
+  //     const countries: { id: string; name: string; images: string }[] = result.map((value: any) => ({
+  //       id: value['countryId'],
+  //       name: value['name'],
+  //       images: value['images']
+  //     }));
+  //     this.country = countries;
+  //     console.log("country", this.country)
+  //   });
+  // }
+  selectedPlan: string = ''; 
+  selectedPlanName: string = ''; 
+
+  subscriptionPlans: any[] = [ 
     { id: 'basic', name: 'Basic', price: 500 },
     { id: 'standard', name: 'Standard', price: 1200 },
     { id: 'premium', name: 'Premium', price: 2500 }
-  ];
-  subscriptionPlan: any = ''; 
-
-  razorpayOptions: any = {};
-  amount: any = this.subscriptionPlans.find(plan => plan.id === 'basic')?.price;
-
-  apiUrl = environment.apiUrl;
-
-  // updateAmount() {
-  //   const selectedPlan = this.subscriptionPlans.find(plan => plan.id === this.subscriptionPlan);
+  ]; 
+  // updateAmount(): void {
+  //   const selectedPlan = this.subscriptionPlans.find(plan => plan.id === this.selectedPlan);
   //   if (selectedPlan) {
   //     this.amount = selectedPlan.price;
+  //     this.selectedPlanName = selectedPlan.name;
   //   }
   // }
+  ngOnInit() {    
+    this.hideBreadcrumb();
+    this.userId = this.util.getUserId();
+    this.getMyAccount();
+    //this.getCountries();
+  }
+  
   information: any[] = [];
   firstname: boolean = true
   lastname: boolean = true
   Contact: boolean = true
-  roletype: boolean = true
   emailaddress: boolean = true
 
   validateSurvey(): boolean {
     this.firstname = !!this.firstName && this.firstName.trim().length > 0;
-    this.lastname = !!this.lastName && this.lastName.trim().length > 0;
     this.Contact = !!this.contactNo && this.contactNo.toString().trim().length > 0;
-    this.roletype = !!this.role && this.role.trim().length > 0;
     this.emailaddress = !!this.email && this.email.trim().length > 0;
 
     // You might want to return whether all fields are valid
     return (
       this.firstname &&
-      this.lastname &&
       this.Contact &&
-      this.role &&
       this.emailaddress
     );
   }
+//Pyament Gateway
+  razorpayOptions: any = {};
+  amount: any ;
+  apiUrl = environment.apiUrl;
+  
   submitForm(): void {
     if (!this.validateSurvey()) {
       this.util.showError('Please fill all required fields.');
       return;
     }
     const formData = {
-      Amount: this.amount,
-      CenterId: this.centerId
+      fullName: this.firstName,
+      address: this.address,
+      city: this.city,
+      state: this.state,
+      country: this.country,
+      zip: this.zip,
+      phone: this.contactNo,
+      gstNumber: this.gstNumber,
+      email: this.email,
+      amount: this.amount,
+      organizationId: this.centerId,
+      planId: this.amount
     };
     this.postAmount(formData).subscribe((response: any) => { // Type assertion to any
         console.log('Response from server:', response);
@@ -108,9 +137,9 @@ export class PaymentComponent {
       });
   }
 
-  postAmount(formData: { Amount: string; CenterId: string; }) {
+  postAmount(formData: any) {
     
-    return this.httpClient.post(`${this.apiUrl}api/admin/${this.userId}/Payment/ProcessRequestOrder`, formData);
+    return this.httpClient.post(`${this.apiUrl}ProcessRequestOrder?Id=${this.userId}`, formData);
   }
 
   payNow(orderData: any, orderId: string): void {
@@ -147,9 +176,10 @@ export class PaymentComponent {
   sendPaymentDetails(paymentId: string, orderId: string): void {  
     const requestData = {
       rzp_paymentid: paymentId,
-      rzp_orderid: orderId
+      rzp_orderid: orderId,
+      organizationId: this.centerId
     };
-    const apiUrl = `${environment.apiUrl}CompleteOrderProcess?rzp_paymentid=${paymentId}&rzp_orderid=${orderId}`;
+    const apiUrl = `${environment.apiUrl}CompleteOrderProcess?Id=${this.userId}`;
     this.httpClient.post(apiUrl, requestData, { responseType: 'text' }).subscribe(
       (response: any) => {
         console.log('Response:', response); // Log the response        

@@ -16,6 +16,7 @@ import { CryptoService } from 'src/app/service/crypto.service';
 import { Router } from '@angular/router';
 import { environment } from 'src/environments/environment';
 import { DatePipe } from '@angular/common';
+import { HttpErrorResponse } from '@angular/common/http';
 
 
 
@@ -104,6 +105,7 @@ export class DashboardComponent {
     this.themeService.GetMyAccount(this.userId).subscribe((data: any) => {
       console.log("Info", data)
       if (data) {
+        
         this.firstName = data.firstName;
         this.lastName = data.lastName;
         this.id = data.id;
@@ -126,8 +128,17 @@ export class DashboardComponent {
         if (this.remainingTrialDays === 0 && this.isPaid === "false") {
           this.openPopup();
         }
+        
       }
-    });    
+    },
+    (error: HttpErrorResponse) => {
+      if (error.status === 402) {
+        this.openPopup();
+      } else {
+        console.error("Error fetching user account:", error);
+      }
+    }
+  );    
   }
   
   openPopup() {
