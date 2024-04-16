@@ -10,7 +10,7 @@
               <input type="radio" [attr.id]="'P' + i" name="amount" [(ngModel)]="amount" [value]="plan.price" [checked]="i === 0">
               <label [attr.for]="'P' + i">
                 <h5>{{ plan.name }}</h5>
-                <p>$ {{ plan.price }}<span> /month</span></p>
+                <p>₹ {{ plan.price }}<span> /month</span></p>
                 <div class="text-end">
                   <button type="button" class="btn btn-primary btn-sm mt-3 w-100">Upgrade</button>
                 </div>
