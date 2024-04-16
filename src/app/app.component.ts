@@ -64,4 +64,6 @@ export class AppComponent
   //   this.modalService.open(this.modalContent, { size: 'lg' });
   // }
   // Open modal on window load
+
+  
 }

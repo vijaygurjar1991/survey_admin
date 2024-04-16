@@ -13,40 +13,43 @@ declare var Razorpay: any;
   styleUrls: ['./payment.component.css']
 })
 export class PaymentComponent {
-  constructor(private util: UtilsService, private httpClient: HttpClient, private router: Router, private visibilityService: DataService) {
-    visibilityService.articleVisible.next(false);
-    
+  firstName: any;
+  lastName: any;
+  id: any;
+  email: any;
+  contactNo: any;
+  roleId: any;
+  role: any;
+  centerId: any;
+  constructor(public themeService: DataService, private util: UtilsService, private httpClient: HttpClient, private router: Router, private visibilityService: DataService) {
+     
   }
-  hideHeader() {
-    this.visibilityService.toggleHeaderVisibility(false);
-  }
-  showHeader() {
-    this.visibilityService.toggleHeaderVisibility(true);
-  }
-  hideSideBar() {
-    this.visibilityService.toggleNavbarVisibility(false);
-  }
-  showSideBar() {
-    this.visibilityService.toggleNavbarVisibility(true);
-  }
+ 
 
   hideBreadcrumb() {
     this.visibilityService.toggleBreadcrumbVisibility(false);
   }
 
-  ShowBreadcrumb() {
-    this.visibilityService.toggleBreadcrumbVisibility(false);
-  }
-
   userId: any;
   
-  ngOnInit() {
-    this.hideHeader();
-    this.hideSideBar();
+  ngOnInit() {    
     this.hideBreadcrumb();
     this.userId = this.util.getUserId();
+    this.getMyAccount();
   }
- 
+  getMyAccount() {    
+    this.userId = this.util.getUserId();
+    this.themeService.GetMyAccount(this.userId).subscribe((data: any) => {
+      console.log("data", data)
+      this.firstName = data.firstName;
+      this.lastName = data.lastName
+      this.id = data.id
+      this.email = data.email
+      this.contactNo = data.contactNo
+      this.roleId = data.roleId
+      this.centerId = data.centerId
+    });
+  }
   subscriptionPlans: any[] = [
     { id: 'basic', name: 'Basic', price: 500 },
     { id: 'standard', name: 'Standard', price: 1200 },
@@ -56,7 +59,7 @@ export class PaymentComponent {
 
   razorpayOptions: any = {};
   amount: any = this.subscriptionPlans.find(plan => plan.id === 'basic')?.price;
-  centerId: any = ''; 
+
   apiUrl = environment.apiUrl;
 
   // updateAmount() {
@@ -65,8 +68,34 @@ export class PaymentComponent {
   //     this.amount = selectedPlan.price;
   //   }
   // }
+  information: any[] = [];
+  firstname: boolean = true
+  lastname: boolean = true
+  Contact: boolean = true
+  roletype: boolean = true
+  emailaddress: boolean = true
 
+  validateSurvey(): boolean {
+    this.firstname = !!this.firstName && this.firstName.trim().length > 0;
+    this.lastname = !!this.lastName && this.lastName.trim().length > 0;
+    this.Contact = !!this.contactNo && this.contactNo.toString().trim().length > 0;
+    this.roletype = !!this.role && this.role.trim().length > 0;
+    this.emailaddress = !!this.email && this.email.trim().length > 0;
+
+    // You might want to return whether all fields are valid
+    return (
+      this.firstname &&
+      this.lastname &&
+      this.Contact &&
+      this.role &&
+      this.emailaddress
+    );
+  }
   submitForm(): void {
+    if (!this.validateSurvey()) {
+      this.util.showError('Please fill all required fields.');
+      return;
+    }
     const formData = {
       Amount: this.amount,
       CenterId: this.centerId
@@ -80,6 +109,7 @@ export class PaymentComponent {
   }
 
   postAmount(formData: { Amount: string; CenterId: string; }) {
+    
     return this.httpClient.post(`${this.apiUrl}api/admin/${this.userId}/Payment/ProcessRequestOrder`, formData);
   }
 

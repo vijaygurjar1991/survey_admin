@@ -1,9 +1,8 @@
 <section>
-  <div class="container">
     <div class="row justify-content-center">
-      <div class="col-md-8">
+      <div class="col-md-12">
         <div class="select-plan">
-          <h4 class="mb-4">Select plan</h4>
+          <h4>Puchase plan</h4>
           <p>Best for medium business owners, startups who need landing pages for their business.</p>
           <ul>
             <li *ngFor="let plan of subscriptionPlans; let i = index">
@@ -16,19 +15,54 @@
                 </div>
               </label>              
             </li>
-          </ul>
-          <div class="mb-3">
-            <label for="centerId">CenterId</label>
-            <input type="text" class="form-control" id="centerId" [(ngModel)]="centerId" name="centerId">
+          </ul>                    
+          <div class="row">
+              <div class="col-md-6 mb-4">
+                  <label for="name" class="form-label">First Name</label>
+                  <input type="text" class="form-control" [(ngModel)]="firstName" name="firstName"
+                      aria-label="First name" (blur)="validateSurvey()">
+                  <div *ngIf="!firstname" class="text-danger">First Name is required.</div>
+              </div>
+              <div class="col-md-6 mb-4">
+                  <label for="last" class="form-label">Last Name</label>
+                  <input type="text" class="form-control" [(ngModel)]="lastName" name="lastName"
+                      aria-label="Last name" (blur)="validateSurvey()">
+                  <div *ngIf="!lastname" class="text-danger">Last Name is required.</div>
+              </div>
           </div>
-          <div class="alert alert-primary d-flex align-items-start p-2 my-4" role="alert">
+          <div class="row">
+            <div class="col-md-6 mb-4">
+              <label for="contactNo" class="form-label">Contact No</label>
+              <input type="text" class="form-control" [(ngModel)]="contactNo" name="contactNo"
+                  (blur)="validateSurvey()">
+              <div *ngIf="!Contact" class="text-danger">Contact is required.</div>
+            </div>
+            <div class="col-md-6 mb-4">
+              <label for="centerId" class="form-label">Organisation ID</label>
+              <input type="text" class="form-control" id="centerId" [(ngModel)]="centerId" name="centerId" disabled>
+            </div>
+          </div>
+          <div class="mb-4">
+              <label for="email" class="form-label">Email Address</label>
+              <input type="email" class="form-control" [(ngModel)]="email" name="email" disabled
+                  (blur)="validateSurvey()">
+              <div *ngIf="!emailaddress" class="text-danger">Email is required.</div>
+          </div>
+          <div class="mb-4">
+              <label for="email" class="form-label">Role</label>
+              <select class="form-select" disabled>
+                  <option selected>{{role}}</option>
+              </select>
+              <div *ngIf="!roletype" class="text-danger">Role is required.</div>
+          </div>
+        
+          <!-- <div class="alert alert-primary d-flex align-items-start p-2 my-4" role="alert">
             <ng-icon name="heroInformationCircle" class="me-2"></ng-icon>
             <div>
               Are you sure you want to upgrade you plan? This will shifting  your account to the basic, standard or premium plan.
             </div>
-          </div>
+          </div> -->
           <div class="d-flex gap-3 justify-content-end">
-            <a routerLink="/" class="btn btn-outline-primary">Cancel</a>
             <button type="button" class="btn btn-primary" (click)="submitForm()">Upgrade</button>
           </div>
         </div>
@@ -47,6 +81,4 @@
           </form>             -->
       </div>
     </div>
-    
-  </div>
 </section>
