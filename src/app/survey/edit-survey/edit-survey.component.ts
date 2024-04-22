@@ -212,12 +212,15 @@ export class EditSurveyComponent {
     this.getQuestionTypes();
     if (this.mode != 'modify') {
       this.intializeDefaultValue();
-      if (this.question.questionTypeName !== 'Rating Scale' && this.question.questionTypeName !== 'Boolean' && this.question.questionTypeName !== 'Image Selection') {
+      if (this.question.questionTypeName !== 'Rating Scale' && this.question.questionTypeName !== 'Boolean' && this.question.questionTypeName !== 'Image Selection' && this.question.questionTypeName !== 'NPS') {
         this.hanldeAddOptionClick();
         this.hanldeAddOptionClick();
         this.hanldeAddOptionClick();
       }
       if (this.question.questionTypeName === 'Rating Scale') {
+        this.addStarRating();
+      }
+      if (this.question.questionTypeName === 'NPS') {
         this.addStarRating();
       }
       if (this.question.questionTypeName === 'Boolean') {
