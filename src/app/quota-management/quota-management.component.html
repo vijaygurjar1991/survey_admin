@@ -1,1 +1,117 @@
-<p>quota-management works!</p>
+<div class="common-bg">
+    <div class="common-heading">
+        <div class="row">
+            <div class="col-md-6">
+                <h4>Add Quota Management</h4>
+                <p class="mb-0">Quota Operation</p>
+            </div>        
+            <div class="col-md-6 text-end">            
+                <button type="button" class="btn btn-primary">Refresh Quota</button>
+            </div> 
+        </div>      
+    </div>
+    <div class="mb-4 quota-operation">
+        
+        <label class="form-label">Total Count</label>
+        <div class="row g-3 mb-4">            
+            <div class="col-11">
+                <input type="number" class="form-control"  name="count" >
+             </div>   
+            <div class="col-1 text-end">
+                <button type="button" class="btn btn-primary w-100">Reset</button>
+            </div>
+        </div>
+    </div>    
+    <div class="mt-4">
+        <button type="button" class="btn btn-primary" (click)="showQuotas()">Add Quota</button>
+    </div>
+</div>
+<div class="common-bg" [style.display]="isQuotasVisible ? 'block' : 'none'">
+    <div class="quota-management">
+        <h4>Quotas</h4>
+        <p>Quotas help you split the completes into group of specific age, gender, regions and/or profiling. To interlock quotas click new interlocked quota below.</p>
+        <div *ngFor="let quota of quotas; let i = index" class="add-quota">
+            <label class="form-label">Select Question</label>
+            <select class="form-select"  [(ngModel)]="quota.selectedQuestion" (change)="showQuestionQuotas(i)">
+                <option selected>Select Question</option>
+                <option value="1">Question 1</option>
+            </select>
+            <div class="quotas"  *ngIf="quota.showQuotasDiv">
+                <h5>Add Distribution</h5>
+                <div class="add-distribution">
+                    <div class="question-type">
+                        <h6><span>Gender</span></h6>
+                        <div class="implement-quota">
+                            <span [class.active]="!censusActive && !customActive" (click)="toggleNone()">None</span>
+                            <span [class.active]="censusActive" (click)="toggleCensus()">Census</span>
+                            <span [class.active]="customActive" (click)="toggleCustom()">Custom</span>
+                        </div>
+                    </div>  
+                    <h4>Q. Select your gender.</h4>  
+                    <div class="display:none;" *ngIf="showCensusDiv || showCustomDiv">
+                        <ul class="question-options">
+                            <li><span>Male</span><input type="text" class="form-control" value="50"></li>
+                            <li><span>Female</span><input type="text" class="form-control" value="50"></li>
+                        </ul> 
+                        <div class="total-count">
+                            <button type="button" class="btn btn-outline-primary" (click)="open(contentInterlock)"><ng-icon name="heroLink"></ng-icon></button>
+                            <p class="mb-0"><strong>Total : </strong> <span> 100</span></p>
+                        </div>  
+                    </div>             
+                </div>
+            </div>
+        </div>
+        <div class="mt-4">
+            <button type="button" class="btn btn-primary" (click)="addQuota()">Add Quota</button>
+        </div>
+    </div>
+</div>
+<div class="common-bg">
+    <h4>Interlocked Quotas</h4>
+    <div class="interlocked-quotas">
+        <ul>
+            <li>
+                <span>Gender</span>
+                <p class="mb-0">Male - Female</p>
+            </li>
+            <li>
+                <span>Age</span>
+                <p class="mb-0">18-24 - 25-34 - 35-44</p>
+            </li>
+            <li>
+                <span>Region</span>
+                <p class="mb-0">Central India - East India - North India</p>
+            </li>
+        </ul>
+        <table class="table table-bordered mt-5">
+            <tbody>
+                <tr>
+                    <td>Male, 18-24, Central India</td>
+                    <td><input type="number" class="form-control" value="30"></td>
+                </tr>
+                <tr>
+                    <td>Female, 18-24, Central India</td>
+                    <td><input type="number" class="form-control" value="30"></td>
+                </tr>
+                <tr>
+                    <td>Male, 18-24, Central India</td>
+                    <td><input type="number" class="form-control" value="30"></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+<ng-template #contentInterlock let-modal>
+	<div class="modal-header">
+		<h4 class="modal-title" id="modal-basic-title">Interlock Quota</h4>
+		<button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+	</div>
+	<div class="modal-body">
+		<ul class="interlock-quota">
+            <li *ngFor="let item of items; let i = index" [class.active]="activeIndex === i" (click)="toggleActive(i)">{{ item }}</li>
+        </ul>
+	</div>
+	<div class="modal-footer">
+		<button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Update</button>
+	</div>
+</ng-template>
