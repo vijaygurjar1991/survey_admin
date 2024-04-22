@@ -22,7 +22,7 @@ export class AgeOfChildrenPopupComponent {
   questions: Question[] = [];
   questionText: string = '';
   surveyId = 0;
-  questionTypeId = 8
+  questionTypeId = 7
   role: string;
   typeid = 10;
   constructor(private surveyservice: SurveyService, private route: ActivatedRoute, private crypto: CryptoService, private router: Router, private utility: UtilsService) {

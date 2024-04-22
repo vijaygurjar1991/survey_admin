@@ -56,7 +56,7 @@ export class OccupationPopupComponent {
     }
   }
   surveyId = 0;
-  questionTypeId = 8
+  questionTypeId = 7
 
   getCurrentDateTime(): string {
     const currentDateTime = new Date().toISOString();
@@ -140,9 +140,9 @@ export class OccupationPopupComponent {
           successfulAPICalls++;
 
           if (successfulAPICalls === this.questions.length) {
-            if(resp=='"QuestionAlreadyExits"'){
+            if (resp == '"QuestionAlreadyExits"') {
               this.utility.showError("This Question Already Created ");
-            }else{
+            } else {
               this.utility.showSuccess('Question Generated Successfully.');
               this.close();
               this.onSaveEvent.emit();

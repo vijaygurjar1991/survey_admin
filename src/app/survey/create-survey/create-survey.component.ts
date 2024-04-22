@@ -1593,6 +1593,7 @@ export class CreateSurveyComponent implements OnInit, AfterViewInit {
     this.screenQuestionObj.isScreening = this.screenRedirectUser
     this.screenQuestionObj.screeningRedirectUrl = this.screenRedirectURL
     this.screenQuestionObj.surveyTypeId = this.surveyId
+    this.screenQuestionObj.genericTypeId = 21
 
     this.surveyservice.CreateGeneralQuestion(this.screenQuestionObj).subscribe({
       next: (resp: any) => {

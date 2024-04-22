@@ -23,7 +23,7 @@ export class MonthlyIncomePopupComponent {
   questions: Question[] = [];
   questionText: string = '';
   surveyId = 0;
-  questionTypeId = 8
+  questionTypeId = 7
   constructor(private surveyservice: SurveyService, private route: ActivatedRoute, private crypto: CryptoService, private router: Router, private utility: UtilsService) {
     this.route.paramMap.subscribe(params => {
       let _surveyId = params.get('param1');
@@ -140,9 +140,9 @@ export class MonthlyIncomePopupComponent {
           successfulAPICalls++;
 
           if (successfulAPICalls === this.questions.length) {
-            if(resp=='"QuestionAlreadyExits"'){
+            if (resp == '"QuestionAlreadyExits"') {
               this.utility.showError("This Question Already Created ");
-            }else{
+            } else {
               this.utility.showSuccess('Question Generated Successfully.');
               this.close();
               this.onSaveEvent.emit();
