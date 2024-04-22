@@ -1,9 +1,10 @@
-import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, OnInit, TemplateRef, ViewChild, ViewContainerRef } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DataService } from './service/data.service';
 import { AuthService } from './service/auth.service';
 import { LoaderService } from './service/loader.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { ModalService } from './service/modal.service';
 
 @Component({
   selector: 'app-root',
@@ -11,7 +12,6 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent 
-//implements OnInit, AfterViewInit 
 {
   title = 'survey-admin';
   layout: string = '';
@@ -19,10 +19,11 @@ export class AppComponent
   navbarVisible: boolean = true;
   breadcrumbVisible: boolean = true;
   articleVisible: boolean = true;
+  showModal: boolean = false;
 
 
   constructor(private router: ActivatedRoute, public visibilityService: DataService, public themeService: DataService,
-    private auth: AuthService, public loaderservice: LoaderService, private modalService: NgbModal) {
+    private auth: AuthService, public loaderservice: LoaderService,private modalService:NgbModal, private _modalService: ModalService) {
 
     this.visibilityService.headerVisible$.subscribe(visible => {
       this.headerVisible = visible;
@@ -40,6 +41,15 @@ export class AppComponent
     this.auth.initializeUserDetails();
 
     this.visibilityService.isSidebarVisibleSubject.next(true);
+
+    this._modalService.openModal$.subscribe(open => {
+      
+      this.modalOpened = open;
+      if(this.modalOpened){
+        this.openModalOnLoad();
+      }
+    });
+
   }
 
   onMouseEnter() {
@@ -50,19 +60,19 @@ export class AppComponent
     this.themeService.setHoverAddWidth(false);
   }
 
-  // @ViewChild('content') modalContent: any;
-  //modalOpened = false;
+  @ViewChild('content') modalContent: any;
+  modalOpened = false;
 
-  // Open modal on window load
+  //Open modal on window load
   // ngAfterViewInit() {
   //   if (!this.modalOpened) { 
   //     this.openModalOnLoad();
   //     this.modalOpened = true; 
   //   }
   // }
-  // openModalOnLoad() {    
-  //   this.modalService.open(this.modalContent, { size: 'lg' });
-  // }
+  openModalOnLoad() {    
+    this.modalService.open(this.modalContent, { size: 'lg', backdrop: 'static' });
+  }
   // Open modal on window load
 
   
