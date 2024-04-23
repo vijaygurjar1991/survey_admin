@@ -52,19 +52,6 @@ export class PaymentComponent {
     });
   }
  
-  // getCountries() {
-  //   this.surveyservice.getCountries().subscribe(response => {
-  //     const result = Object.keys(response).map((key) => response[key]);
-  //     console.log(result)
-  //     const countries: { id: string; name: string; images: string }[] = result.map((value: any) => ({
-  //       id: value['countryId'],
-  //       name: value['name'],
-  //       images: value['images']
-  //     }));
-  //     this.country = countries;
-  //     console.log("country", this.country)
-  //   });
-  // }
   selectedPlan: string = ''; 
   selectedPlanName: string = ''; 
 
@@ -139,7 +126,7 @@ export class PaymentComponent {
 
   postAmount(formData: any) {
     
-    return this.httpClient.post(`${this.apiUrl}ProcessRequestOrder?Id=${this.userId}`, formData);
+    return this.httpClient.post(`${this.apiUrl}api/admin/${this.userId}/Payment/ProcessRequestOrder`, formData);
   }
 
   payNow(orderData: any, orderId: string): void {
@@ -179,9 +166,10 @@ export class PaymentComponent {
       rzp_orderid: orderId,
       organizationId: this.centerId
     };
-    const apiUrl = `${environment.apiUrl}CompleteOrderProcess?Id=${this.userId}`;
+    const apiUrl = `${environment.apiUrl}api/admin/${this.userId}/Payment/CompleteOrderProcess`;
     this.httpClient.post(apiUrl, requestData, { responseType: 'text' }).subscribe(
       (response: any) => {
+        alert('qwerty');
         console.log('Response:', response); // Log the response        
         if (response === 'Success') {
           console.log('Success:', response);

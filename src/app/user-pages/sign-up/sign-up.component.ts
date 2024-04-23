@@ -6,7 +6,8 @@ import { AuthService } from 'src/app/service/auth.service';
 import { DataService } from 'src/app/service/data.service';
 import { UtilsService } from 'src/app/service/utils.service';
 import { environment } from 'src/environments/environment';
-
+import { HttpClient } from '@angular/common/http';
+declare var Razorpay: any;
 @Component({
   selector: 'app-sign-up',
   templateUrl: './sign-up.component.html',
@@ -16,6 +17,8 @@ export class SignUpComponent {
   baseUrl = '';
   // Tooltip
   showTooltip: { [key: string]: boolean } = {};
+  userId: any;
+
   toggleTooltip(identifier: string) {
     this.showTooltip[identifier] = !this.showTooltip[identifier];
   }
@@ -32,11 +35,12 @@ export class SignUpComponent {
   verificationForm: FormGroup;
   purchaseprice: any;
   verifyemail: any;
-  constructor(private visibilityService: DataService, private fb: FormBuilder, private authService: AuthService, private router: Router, private route: ActivatedRoute, private utility: UtilsService) {
+  constructor(private util: UtilsService, private httpClient: HttpClient, private visibilityService: DataService, private fb: FormBuilder, private authService: AuthService, private router: Router, private route: ActivatedRoute, private utility: UtilsService) {
     visibilityService.articleVisible.next(false);
     this.baseUrl = environment.baseURL;
   }
   organizationId: any
+  
   passwordMatchValidator(formGroup: FormGroup): ValidationErrors | null {
     const password = formGroup.get('password')?.value;
     const confirmPassword = formGroup.get('confirmPassword')?.value;
@@ -85,10 +89,13 @@ export class SignUpComponent {
     //url
     this.route.queryParams.subscribe((data) => {
       this.purchaseprice = data['price'];
+      this.amount = this.purchaseprice;
     });
     console.log("purchaseprice", this.purchaseprice)
+    this.userId = this.util.getUserId();
+    
   }
-
+ 
   LoginSlider: OwlOptions = {
     loop: true,
     items: 1,
@@ -125,7 +132,8 @@ export class SignUpComponent {
       // Call the registration service to make the POST request
       this.authService.registerOrganization(formData).subscribe(
         (response) => {
-          console.log('Registration successful:', response);
+          console.log('Registration successful centerId:', response.centerId);
+          console.log('Registration successful userId:', response.userId);
           if (response === 'AlreadyExits') {
             this.utility.showError("This Organisation Already Registered");
             //EmailAlreadyExits
@@ -133,7 +141,8 @@ export class SignUpComponent {
             this.utility.showError("This Email Id Already Registered");
             //EmailAlreadyExits
           } else {
-            this.organizationId = response
+            this.organizationId = response.centerId
+            this.userId = response.userId
             this.showUserDetails = true;
           }
         },
@@ -241,6 +250,96 @@ export class SignUpComponent {
     })
 
   }
+
+//Pyament Gateway
+subscriptionPlans = [
+  { id: 'basic', name: 'Basic', price: '500' },
+  { id: 'standard', name: 'Standard', price: '1200' },
+  { id: 'premium', name: 'Premium', price: '2500' }
+];
+
+razorpayOptions: any = {};
+amount: any ;
+apiUrl = environment.apiUrl;
+
+submitForm(): void {
+  
+  const formData = {    
+    amount: this.amount,
+    organizationId: this.organizationId,
+    planId: this.amount
+  };
+  this.postAmount(formData).subscribe((response: any) => { // Type assertion to any
+      console.log('Response from server:', response);
+      this.payNow(response, response.orderId); // Call the payNow function with order data to initiate Razorpay payment
+    }, error => {
+      console.error('Error occurred:', error);
+    });
+}
+
+postAmount(formData: any) {
+  
+  return this.httpClient.post(`${this.apiUrl}api/admin/${this.userId}/Payment/ProcessRequestOrder`, formData);
+}
+
+payNow(orderData: any, orderId: string): void {
+  const razorpayOptions = {
+    description: 'Sample Razorpay demo',
+    currency: 'INR',
+    amount: orderData.amount * 100, // Convert amount to paisa (Razorpay expects amount in paisa)
+    name: 'Scrip8',
+    key: 'rzp_test_Ncll0VDPCO6Ffq', // Replace with your Razorpay key
+    //image: 'https://mobile.angular.opinionest.com/manage/assets/images/logo/T-logo.png',
+    prefill: {
+      name: 'saryu sirohi',
+      email: 'saryu@gmail.com',
+      phone: '9898989898'
+    },
+    theme: {
+      color: '#f05e16'
+    },
+    modal: {
+      ondismiss: () => {
+        console.log('Payment dismissed');
+      }
+    },
+    handler: (response: any) => {
+      console.log(response);
+      // Handle payment success
+      this.sendPaymentDetails(response.razorpay_payment_id, orderId);
+    }
+  };
+
+  const razorpayInstance = new Razorpay(razorpayOptions);
+  razorpayInstance.open();
+}
+sendPaymentDetails(paymentId: string, orderId: string): void {  
+  const requestData = {
+    rzp_paymentid: paymentId,
+    rzp_orderid: orderId,
+    organizationId: this.organizationId
+  };
+  const apiUrl = `${environment.apiUrl}api/admin/${this.userId}/Payment/CompleteOrderProcess`;
+  this.httpClient.post(apiUrl, requestData, { responseType: 'text' }).subscribe(
+    (response: any) => {
+      console.log('Response:', response); // Log the response        
+      if (response === 'Success') {
+        console.log('Success:', response);
+        this.router.navigate(['/thankyou']);  // Redirect to the thank you page
+      } else {
+        console.error('Error in response:', response); // Handle the error condition appropriately
+      }
+    },
+    (error: any) => {
+      console.error('HTTP Error:', error); // Log the HTTP error        
+      // Handle the error response as plain text
+      console.error('Server Error:', error); // Log the server error
+      // Handle the server error condition appropriately
+    }
+  );
+}
+  
+  
 
 }
 

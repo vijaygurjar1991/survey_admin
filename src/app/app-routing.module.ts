@@ -14,7 +14,7 @@ const routes: Routes = [
   { path: 'forgot-password', component: ForgotPasswordComponent, data: {} },
   { path: 'payment', component: PaymentComponent, data: {} },
   { path: 'thankyou', component: PaymentThankyouComponent, data: {} },
-  { path: 'add-quota-management', component: QuotaManagementComponent, data: {} },
+  { path: 'survey/quota-management/manage-survey/:param1', component: QuotaManagementComponent, data: {} },
   { path: 'error', component: ErrorComponent, data: {} },
   { path: 'user-pages', loadChildren: () => import('./user-pages/user-pages.module').then(m => m.UserPagesModule) },
   { path: 'dashboard', loadChildren: () => import('./dashboard/dashboard.module').then(m => m.DashboardModule) },

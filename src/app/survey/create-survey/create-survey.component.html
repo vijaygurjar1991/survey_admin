@@ -181,7 +181,7 @@
                 <h6 class="mb-0">Add Quota Management</h6>
             </div>
             <div class="common-ques">
-                <a routerLink="/add-quota-management">
+                <a href="javascript;" [routerLink]="'/survey/quota-management/manage-survey/'+ (surveyId |  encrypt)">
                     <figure><img [src]="baseUrl + '/assets/images/icons/Add-new-logic.png'" width="30" height="30" />
                     </figure>
                     <figcaption>Add New Quota Management</figcaption>
