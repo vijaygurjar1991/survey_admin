@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { DataService } from '../service/data.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { SurveyService } from '../service/survey.service';
+import { responseDTO } from '../types/responseDTO';
 
 @Component({
   selector: 'app-quota-management',
@@ -11,14 +13,44 @@ export class QuotaManagementComponent {
   selectedQuestion: string;
   isQuotasVisible: boolean = false;
   showQuotasDiv: boolean = false;
-  constructor( private visibilityService: DataService, private modalService : NgbModal) {
+  surveyId: number;
+  surveyData: responseDTO;
+  surveyService: any;
+  route: any;
+
+  constructor( private visibilityService: DataService, private modalService : NgbModal, private surveyservice: SurveyService,) {
   }
   hideBreadcrumb() {
     this.visibilityService.toggleBreadcrumbVisibility(false);
   }
+  surveyDetails: responseDTO[]; 
+
+
   ngOnInit() {    
     this.hideBreadcrumb();
+    this.route.params.subscribe((params: { [x: string]: string | number; }) => {
+      if (params && params['surveyId']) {
+        this.surveyId = +params['surveyId'];
+        this.getSurveyDetails();
+      } else {
+        console.error('Survey ID not found in route parameters.');
+      }
+    });
   } 
+
+  getSurveyDetails(): void {
+    this.surveyService.getSurveyDetailsById(1, 10, this.surveyId).subscribe(
+      (data: responseDTO) => {
+        this.surveyData = data;
+        console.log('Survey details:', this.surveyData);
+      },
+      (error: any) => {
+        console.error('Error fetching survey details:', error);
+        // Handle error as needed
+      }
+    );
+  }
+
   showQuotas() {
     this.isQuotasVisible = true;
   }  
@@ -67,5 +99,8 @@ export class QuotaManagementComponent {
   toggleActive(index: number) {
     this.activeIndex = index;
   }
+
+  
+
   
 }
