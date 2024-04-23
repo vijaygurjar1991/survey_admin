@@ -125,12 +125,18 @@ export class NccsPopupComponent {
     let successfulAPICalls = 0; // Counter to track successful API calls
     let delayCounter = 0;
     for (let i = 0; i < this.questions.length; i++) {
+
       const currentQuestion = this.questions[i];
+      console.log("currentQuestion", this.questions[i])
       currentQuestion.questionTypeId = this.questionTypeId
+
+      console.log(currentQuestion)
       currentQuestion.surveyTypeId = this.surveyId
       currentQuestion.createdDate = this.getCurrentDateTime()
       currentQuestion.modifiedDate = this.getCurrentDateTime();
       currentQuestion.genericTypeId = this.typeid
+
+
 
       // Filter selected options for the current question
       currentQuestion.options = currentQuestion.options.filter(option => option.selected);

@@ -11,8 +11,7 @@ import { ModalService } from './service/modal.service';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent 
-{
+export class AppComponent {
   title = 'survey-admin';
   layout: string = '';
   headerVisible: boolean = true;
@@ -23,7 +22,7 @@ export class AppComponent
 
 
   constructor(private router: ActivatedRoute, public visibilityService: DataService, public themeService: DataService,
-    private auth: AuthService, public loaderservice: LoaderService,private modalService:NgbModal, private _modalService: ModalService) {
+    private auth: AuthService, public loaderservice: LoaderService, private modalService: NgbModal, private _modalService: ModalService) {
 
     this.visibilityService.headerVisible$.subscribe(visible => {
       this.headerVisible = visible;
@@ -42,13 +41,13 @@ export class AppComponent
 
     this.visibilityService.isSidebarVisibleSubject.next(true);
 
-    this._modalService.openModal$.subscribe(open => {
-      
-      this.modalOpened = open;
-      if(this.modalOpened){
-        this.openModalOnLoad();
-      }
-    });
+    // this._modalService.openModal$.subscribe(open => {
+
+    //   this.modalOpened = open;
+    //   if(this.modalOpened){
+    //     this.openModalOnLoad();
+    //   }
+    // });
 
   }
 
@@ -70,10 +69,10 @@ export class AppComponent
   //     this.modalOpened = true; 
   //   }
   // }
-  openModalOnLoad() {    
-    this.modalService.open(this.modalContent, { size: 'lg', backdrop: 'static' });
-  }
+  // openModalOnLoad() {    
+  //   this.modalService.open(this.modalContent, { size: 'lg', backdrop: 'static' });
+  // }
   // Open modal on window load
 
-  
+
 }

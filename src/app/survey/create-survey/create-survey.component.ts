@@ -1593,7 +1593,7 @@ export class CreateSurveyComponent implements OnInit, AfterViewInit {
     this.screenQuestionObj.isScreening = this.screenRedirectUser
     this.screenQuestionObj.screeningRedirectUrl = this.screenRedirectURL
     this.screenQuestionObj.surveyTypeId = this.surveyId
-    this.screenQuestionObj.genericTypeId = 21
+    this.screenQuestionObj.questionTypeId = 21
 
     this.surveyservice.CreateGeneralQuestion(this.screenQuestionObj).subscribe({
       next: (resp: any) => {
@@ -1602,11 +1602,11 @@ export class CreateSurveyComponent implements OnInit, AfterViewInit {
         this.utils.showSuccess('Question Generated Sucessfully');
 
 
-        let url = `/survey/manage-survey/${this.crypto.encryptParam("" + this.surveyId)}`;
+        // let url = `/survey/manage-survey/${this.crypto.encryptParam("" + this.surveyId)}`;
 
-        this.router.navigateByUrl(url);
+        // this.router.navigateByUrl(url);
 
-        window.location.reload();
+        // window.location.reload();
       },
       error: (err: any) => {
         // Swal.fire('', err.error, 'error');

@@ -280,6 +280,27 @@
                             </div>
                         </div>
                     </div>
+                    <div *ngIf="question.questionTypeName === 'Open Ended'">
+                        <div class="mb-3">
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="type" value="numreic"
+                                    [(ngModel)]="numeric" (change)="openEndedValue('numeric')">
+                                <label class="form-check-label" for="numreic">Numeric</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="type" value="alphabet"
+                                    [(ngModel)]="alphabet" (change)="openEndedValue('alphabet')">
+                                <label class="form-check-label" for="alphabet">Alphabet</label>
+                            </div>
+                        </div>
+
+                        <div class="flex-2">
+                            <input id="answer" type="text" name="answer" class="form-control" [(ngModel)]="textlimit"
+                                (blur)="validateSurvey()" />
+
+                        </div>
+
+                    </div>
                     <div ngClass="mb-4">
                         <div class="row g-2 align-items-center">
                             <div class="col-auto">
@@ -291,8 +312,8 @@
                             <div class="col-auto">
                                 <div ngClass="new-options">
                                     <a herf="javascript:void(0);" (click)="hanldeAddOptionClick('other')"><ng-icon
-                                            name="heroPlusCircle"></ng-icon> Add "Other"
-                                        Option</a>
+                                            name="heroPlusCircle"></ng-icon> Other (Please specify)
+                                    </a>
                                 </div>
                             </div>
                             <div class="col-auto">

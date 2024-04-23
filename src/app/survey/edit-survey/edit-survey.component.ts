@@ -212,7 +212,7 @@ export class EditSurveyComponent {
     this.getQuestionTypes();
     if (this.mode != 'modify') {
       this.intializeDefaultValue();
-      if (this.question.questionTypeName !== 'Rating Scale' && this.question.questionTypeName !== 'Boolean' && this.question.questionTypeName !== 'Image Selection' && this.question.questionTypeName !== 'NPS') {
+      if (this.question.questionTypeName !== 'Rating Scale' && this.question.questionTypeName !== 'Boolean' && this.question.questionTypeName !== 'Image Selection' && this.question.questionTypeName !== 'NPS' && this.question.questionTypeName !== 'Open Ended' && this.question.questionTypeName !== 'Slider Scale') {
         this.hanldeAddOptionClick();
         this.hanldeAddOptionClick();
         this.hanldeAddOptionClick();
@@ -225,6 +225,9 @@ export class EditSurveyComponent {
       }
       if (this.question.questionTypeName === 'Boolean') {
         this.addBoolean();
+      }
+      if (this.question.questionTypeName === 'Slider Scale') {
+        this.addsliderscale();
       }
 
     }
@@ -597,6 +600,10 @@ export class EditSurveyComponent {
     return this.isValidSurvey; // Return the validation result
   }
 
+  textlimit: any
+  numeric: boolean
+  alphabet: boolean
+
   onSave() {
 
     // Validate the survey
@@ -627,6 +634,11 @@ export class EditSurveyComponent {
     }
     if (this.questionId > 0) {
       this.question.id = this.questionId;
+    }
+    if (this.question.questionTypeName === 'Open Ended') {
+      this.question.openEndedType = "textarea"
+      this.question.textLimit = this.textlimit
+
     }
     this.question.image = this.questionImage;
     this.question.youtubeUrl = this.youtubeUrl;
@@ -1023,6 +1035,27 @@ export class EditSurveyComponent {
     this.question.questionTypeName = `${ques.type}`;
     this.questionTypeId = ques.id;
     console.log("questionTypeNameqwerty", this.question.questionTypeName)
+    this.optionsArr1 = [];
+
+    if (this.question.questionTypeName !== 'Rating Scale' && this.question.questionTypeName !== 'Boolean' && this.question.questionTypeName !== 'Image Selection' && this.question.questionTypeName !== 'NPS' && this.question.questionTypeName !== 'Open Ended' && this.question.questionTypeName !== 'Slider Scale') {
+      this.hanldeAddOptionClick();
+      this.hanldeAddOptionClick();
+      this.hanldeAddOptionClick();
+    }
+    if (this.question.questionTypeName === 'Rating Scale') {
+      this.addStarRating();
+    }
+    if (this.question.questionTypeName === 'NPS') {
+      this.addStarRating();
+    }
+    if (this.question.questionTypeName === 'Boolean') {
+      this.addBoolean();
+    }
+    if (this.question.questionTypeName === 'Slider Scale') {
+      this.addsliderscale();
+    }
+
+
   }
 
   onSelectChange(event: MatSelectChange, questionSortValue: any, questionId: any) {
@@ -1310,13 +1343,32 @@ export class EditSurveyComponent {
     this.allOptions = [...this.optionsArr1, ...this.optionsArr2];
   }
 
+  sliderscale: any[] = [];
+  addsliderscale() {
+    for (let i = -10; i <= 10; i++) {
+      let startOption = new Option();
+      startOption.option = i.toString();
+      startOption.id = i;
+      startOption.createdDate = this.getCurrentDateTime()
+      this.optionsArr1.push(startOption);
+      console.log("star rating", this.optionsArr1)
+    }
+
+    this.allOptions = [...this.optionsArr1, ...this.optionsArr2];
+  }
 
 
+  openEndedValue(type: string) {
 
+    if (type === 'numeric') {
+      this.question.isAlphabet = false;
+      this.question.isNumeric = true;
 
-
-
-
+    } else if (type === 'alphabet') {
+      this.question.isAlphabet = true;
+      this.question.isNumeric = false;
+    }
+  }
 
 
 }

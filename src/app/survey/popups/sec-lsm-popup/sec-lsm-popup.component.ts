@@ -109,7 +109,13 @@ export class SecLsmPopupComponent {
     let successfulAPICalls = 0;
     for (let i = 0; i < this.questions.length; i++) {
       const currentQuestion = this.questions[i];
-      currentQuestion.questionTypeId = this.questionTypeId;
+      if (i === 2) {
+        currentQuestion.questionTypeId = 7; // Set questionTypeId to 7 for the third question
+
+      } else {
+        currentQuestion.questionTypeId = this.questionTypeId
+      }
+      // currentQuestion.questionTypeId = this.questionTypeId;
       currentQuestion.surveyTypeId = this.surveyId;
       currentQuestion.createdDate = this.getCurrentDateTime();
       currentQuestion.modifiedDate = this.getCurrentDateTime();
