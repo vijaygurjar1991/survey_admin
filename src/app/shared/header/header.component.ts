@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, TemplateRef, ViewChild } from '@angular/core';
 import { AuthService } from 'src/app/service/auth.service';
 import { DataService } from 'src/app/service/data.service';
 import { SurveyService } from 'src/app/service/survey.service';
@@ -7,7 +7,10 @@ import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 import { FormControl } from '@angular/forms';
 import { EncryptPipe } from 'src/app/pipes/encrypt.pipe';
 import { CryptoService } from 'src/app/service/crypto.service';
-import { Router } from '@angular/router';
+import { Router,NavigationStart  } from '@angular/router';
+import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
+import { HttpErrorResponse } from '@angular/common/http';
+
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
@@ -23,9 +26,12 @@ export class HeaderComponent {
   surveyData: any = [];
   filteredSurveys: any = [];
   surveyControl = new FormControl();
-
-  public constructor(public themeService: DataService, private auth: AuthService, private util: UtilsService, public surveyService: SurveyService, private crypto: CryptoService, private router: Router) {
-
+  @ViewChild('popupTemplate') popupTemplate: TemplateRef<any>;
+  modalRef: NgbModalRef;
+  excludedRoutes: string[] = ['/payment', '/login', '/signup', '/thankyou'];
+  public constructor(private modalService: NgbModal, public themeService: DataService, private auth: AuthService, private util: UtilsService, public surveyService: SurveyService, private crypto: CryptoService, private router: Router) {
+    
+   
   }
   ngOnInit(): void {
     this.getNotification()
@@ -39,9 +45,23 @@ export class HeaderComponent {
       .subscribe((value: string) => {
         this.filterSurveys(value);
       });
+    // this.router.events.subscribe(event => {
+    //   if (event instanceof NavigationStart) {
+    //     //this.openPopup();
+    //     const route = event.url;
+    //     if (!this.excludedRoutes.includes(route)) { // Adjust the route as per your requirement
+    //       this.openPopup();
+    //     }
+    //   }
+    // });  
   }
+  // openPopup() {
+  //   this.modalService.open(this.popupTemplate, { centered: true, backdrop: 'static' });
+  // }
   logOut() {
     this.auth.logout();
+    this.modalService.dismissAll();
+    this.router.navigate(['/login']);
   }
   userId: any;
   image: any;
@@ -136,26 +156,60 @@ export class HeaderComponent {
   // }
   notificationdata: any;
   notificationcount: number
-  getNotification() {
+  // getNotification() {
+  //   this.surveyService.getNotification().subscribe({
+  //     next: (resp: any) => {
+  //       console.log('getNotification Response:', resp);
+  //       this.notificationdata = resp
+  //       console.log("notification data", this.notificationdata)
 
+  //       let count = 0;
+  //       this.notificationdata.forEach((entry: { status: string; }) => {
+  //         if (entry.status === 'ACT') {
+  //           count++;
+  //         }
+  //       });
+  //       this.notificationcount = count
+  //       console.log("notification count", this.notificationcount)
+  //     },
+  //     error: (err) => console.log("An Error occurred while fetching question types", err)
+  //   },
+  //   (error: HttpErrorResponse) => {
+  //     if (error.status === 402) {
+  //       this.openPopup();
+  //     } else {
+  //       console.error("Error fetching user account:", error);
+  //     }
+  //   }
+  //   );
+  // }
+  
+  getNotification() {
     this.surveyService.getNotification().subscribe({
       next: (resp: any) => {
         console.log('getNotification Response:', resp);
-        this.notificationdata = resp
-        console.log("notification data", this.notificationdata)
-
+        this.notificationdata = resp;
+        console.log("notification data", this.notificationdata);
+  
         let count = 0;
         this.notificationdata.forEach((entry: { status: string; }) => {
           if (entry.status === 'ACT') {
             count++;
           }
         });
-        this.notificationcount = count
-        console.log("notification count", this.notificationcount)
+        this.notificationcount = count;
+        console.log("notification count", this.notificationcount);
       },
-      error: (err) => console.log("An Error occurred while fetching question types", err)
+      // error: (error) => {
+      //   console.error("An error occurred while fetching notifications:", error);
+      //   if (error.status === 402) {
+      //     this.openPopup();
+      //   } else {
+      //     console.error("Error fetching user account:", error);
+      //   }
+      // }
     });
   }
-
+  
 
 }

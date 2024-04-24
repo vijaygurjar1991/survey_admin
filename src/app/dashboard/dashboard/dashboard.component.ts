@@ -125,25 +125,25 @@ export class DashboardComponent {
           this.remainingTrialDays = 0; // Set to 0 if trial has expired
         }
         //console.log("Remaining Trial Days:", this.remainingTrialDays);
-        if (this.remainingTrialDays === 0 && this.isPaid === "false") {
-          this.openPopup();
-        }
+        // if (this.remainingTrialDays === 0 && this.isPaid === "false") {
+        //   this.openPopup();
+        // }
         
       }
     },
-    (error: HttpErrorResponse) => {
-      if (error.status === 402) {
-        this.openPopup();
-      } else {
-        console.error("Error fetching user account:", error);
-      }
-    }
+    // (error: HttpErrorResponse) => {
+    //   if (error.status === 402) {
+    //     this.openPopup();
+    //   } else {
+    //     console.error("Error fetching user account:", error);
+    //   }
+    // }
   );    
   }
   
-  openPopup() {
-    this.modalService.open(this.popupTemplate, { centered: true, backdrop: 'static' });
-  }
+  // openPopup() {
+  //   this.modalService.open(this.popupTemplate, { centered: true, backdrop: 'static' });
+  // }
   logOut(modal: NgbModalRef) {
     this.auth.logout(); 
     modal.dismiss();
@@ -242,6 +242,7 @@ export class DashboardComponent {
       },
       error: (err) => console.log("An Error occur while fetching survey list", err)
     });
+    
   }
 
   // getSurveyReport() {
@@ -322,7 +323,8 @@ export class DashboardComponent {
 
       this.country = countries;
       console.log("country", this.country)
-    });
+    }
+    );
 
   }
 

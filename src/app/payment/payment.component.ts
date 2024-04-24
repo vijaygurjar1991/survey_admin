@@ -76,25 +76,32 @@ export class PaymentComponent {
   
   information: any[] = [];
   firstname: boolean = true
+  amount: string
   lastname: boolean = true
   Contact: boolean = true
   emailaddress: boolean = true
+  amountSelected: boolean = false;
+  amountError: boolean = false;
 
   validateSurvey(): boolean {
     this.firstname = !!this.firstName && this.firstName.trim().length > 0;
+    //this.amount = !!this.amount;
+    this.amountSelected = !!this.amount;
+    this.amountError = !this.amountSelected;
     this.Contact = !!this.contactNo && this.contactNo.toString().trim().length > 0;
     this.emailaddress = !!this.email && this.email.trim().length > 0;
 
     // You might want to return whether all fields are valid
     return (
       this.firstname &&
+      this.amountSelected &&
       this.Contact &&
       this.emailaddress
     );
   }
 //Pyament Gateway
   razorpayOptions: any = {};
-  amount: any ;
+  //amount: any ;
   apiUrl = environment.apiUrl;
   
   submitForm(): void {
@@ -171,7 +178,10 @@ export class PaymentComponent {
     this.httpClient.post(apiUrl, requestData).subscribe(
       (response: any) => {
         console.log('Response:', response); // Log the response        
-        if (response === "Success") {
+        if (response.message === "Success") {
+          const token = response.token;
+          localStorage.setItem('authToken', token);
+
           console.log('Success:', response);
           console.log('Navigating to thank you page...');
           this.router.navigate(['/thankyou']);  // Redirect to the thank you page
