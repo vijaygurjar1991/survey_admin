@@ -25,7 +25,7 @@
               </div>
               <div class="col-md-6 mb-4">
                 <label for="contactNo" class="form-label">Contact No</label>
-                <input type="text" class="form-control" [(ngModel)]="contactNo" name="contactNo"
+                <input type="number" class="form-control" [(ngModel)]="contactNo" name="contactNo"
                     (blur)="validateSurvey()">
                 <div *ngIf="!Contact" class="text-danger">Contact is required.</div>
               </div>
