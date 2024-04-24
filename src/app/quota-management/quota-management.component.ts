@@ -3,6 +3,8 @@ import { DataService } from '../service/data.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { SurveyService } from '../service/survey.service';
 import { responseDTO } from '../types/responseDTO';
+import { ActivatedRoute } from '@angular/router';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-quota-management',
@@ -13,44 +15,46 @@ export class QuotaManagementComponent {
   selectedQuestion: string;
   isQuotasVisible: boolean = false;
   showQuotasDiv: boolean = false;
-  surveyId: number;
-  surveyData: responseDTO;
-  surveyService: any;
-  route: any;
+  
+  surveyData: any;
+  baseUrl = '';
+  surveyId: any;
+  surveyName: any;
+  countryName: any;
+  countryImage: any;
+  categoryName: any;
 
-  constructor( private visibilityService: DataService, private modalService : NgbModal, private surveyservice: SurveyService,) {
+  constructor(private route: ActivatedRoute, private visibilityService: DataService, private modalService : NgbModal, private surveyservice: SurveyService,) {
+    this.baseUrl = environment.baseURL;
   }
   hideBreadcrumb() {
     this.visibilityService.toggleBreadcrumbVisibility(false);
   }
-  surveyDetails: responseDTO[]; 
-
-
+ 
+  status: string;
   ngOnInit() {    
     this.hideBreadcrumb();
-    this.route.params.subscribe((params: { [x: string]: string | number; }) => {
-      if (params && params['surveyId']) {
-        this.surveyId = +params['surveyId'];
-        this.getSurveyDetails();
+    // get surveydata
+    this.route.paramMap.subscribe(_params => {
+      this.surveyData = history.state.surveyData;
+      if (this.surveyData) {
+        //const { surveyName, countryName, countryImage, categoryName, otherCategoryName, surveyId } = this.surveyData;
+        this.surveyId = this.surveyData.surveyId;
+        this.surveyName = this.surveyData.surveyName;
+        this.countryName = this.surveyData.countryName;
+        this.countryImage = this.surveyData.countryImage;
+        this.categoryName = this.surveyData.categoryName;
+        this.categoryName = this.surveyData.otherCategoryName;
+        this.countryImage = this.surveyData.countryImage;
+        this.status = this.surveyData.status;
+        console.log('Survey Data:', this.surveyData);
       } else {
-        console.error('Survey ID not found in route parameters.');
-      }
+        console.log('Survey data is undefined or null.');
+      } 
     });
+    
   } 
-
-  getSurveyDetails(): void {
-    this.surveyService.getSurveyDetailsById(1, 10, this.surveyId).subscribe(
-      (data: responseDTO) => {
-        this.surveyData = data;
-        console.log('Survey details:', this.surveyData);
-      },
-      (error: any) => {
-        console.error('Error fetching survey details:', error);
-        // Handle error as needed
-      }
-    );
-  }
-
+  
   showQuotas() {
     this.isQuotasVisible = true;
   }  

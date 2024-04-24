@@ -1,3 +1,30 @@
+<div ngClass="survey-name">
+    <div>     
+        <div class="d-flex">
+            <h4 ngClass="mb-3">
+                <ng-container *ngIf="surveyData.countryName !== 'Other Country'">
+                    <img 
+                        aria-label="Button that displays a tooltip when focused or hovered over" loading="lazy"
+                        [src]="baseUrl + '/assets/images/country-flag/' + surveyData.countryImage" width="30" height="30"
+                        alt="{{surveyData.countryName}}" />
+                </ng-container>
+                {{surveyData.surveyName}}
+            </h4>            
+            <div class="ms-2">
+                <span *ngIf="surveyData && surveyData.status === 'ACT'" class="badge text-bg-success activestatus">Active</span>
+                <span *ngIf="surveyData && surveyData.status === 'DEL'" class="badge text-bg-danger activestatus">Inactive</span>
+                <span *ngIf="surveyData && surveyData.status === 'HOL'" class="badge text-bg-warning activestatus">Hold</span>
+            </div>            
+        </div>
+        <div class="d-flex">
+            <span *ngIf="surveyData && surveyData.categoryName !='Others'">{{surveyData.categoryName}}</span>
+            <span *ngIf="surveyData && surveyData.categoryName =='Others'">{{surveyData.otherCategoryName}}</span>
+            <span *ngIf="surveyData && surveyData.categoryName !='Others'" class="ms-3">Survey ID- {{surveyData.surveyId}}</span>
+            <span *ngIf="surveyData && surveyData.categoryName =='Others'" class="ms-3">Survey ID- {{surveyData.surveyId}}</span>
+        </div>
+    </div>
+    
+</div>
 <div class="common-bg">
     <div class="common-heading">
         <div class="row">
