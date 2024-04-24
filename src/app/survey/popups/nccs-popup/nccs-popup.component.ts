@@ -128,7 +128,13 @@ export class NccsPopupComponent {
 
       const currentQuestion = this.questions[i];
       console.log("currentQuestion", this.questions[i])
-      currentQuestion.questionTypeId = this.questionTypeId
+      // currentQuestion.questionTypeId = this.questionTypeId
+      if (i === 1) {
+        currentQuestion.questionTypeId = 7; // Set questionTypeId to 7 for the third question
+
+      } else {
+        currentQuestion.questionTypeId = this.questionTypeId
+      }
 
       console.log(currentQuestion)
       currentQuestion.surveyTypeId = this.surveyId
