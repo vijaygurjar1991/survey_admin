@@ -207,7 +207,7 @@ export class SignUpComponent {
     const captchertoken = this.verificationForm.get('captchertoken')?.value
     console.log("captchertoken : ", captchertoken)
     if (this.verificationForm.valid) {
-      // const returnUrl = this.route.snapshot.queryParamMap.get('returnUrl') || '/dashboard';
+       const returnUrl = this.route.snapshot.queryParamMap.get('returnUrl') || '/dashboard';
       const dataToSend = {
         oId: this.organizationId,
         otp: otp,
@@ -217,9 +217,9 @@ export class SignUpComponent {
         (response) => {
           this.verifyemail = true
           console.log('Email verification successful:', response);
-          // this.router.navigateByUrl(returnUrl).then(() => {
-          //   window.location.reload();
-          // });
+          this.router.navigateByUrl(returnUrl).then(() => {
+            window.location.reload();
+          });
         },
         (error) => {
           console.error('Email verification failed:', error);

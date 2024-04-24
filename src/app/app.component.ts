@@ -41,13 +41,13 @@ export class AppComponent {
 
     this.visibilityService.isSidebarVisibleSubject.next(true);
 
-    // this._modalService.openModal$.subscribe(open => {
+    this._modalService.openModal$.subscribe(open => {
 
-    //   this.modalOpened = open;
-    //   if(this.modalOpened){
-    //     this.openModalOnLoad();
-    //   }
-    // });
+      this.modalOpened = open;
+      if(this.modalOpened){
+        this.openModalOnLoad();
+      }
+    });
 
   }
 
@@ -69,9 +69,9 @@ export class AppComponent {
   //     this.modalOpened = true; 
   //   }
   // }
-  // openModalOnLoad() {    
-  //   this.modalService.open(this.modalContent, { size: 'lg', backdrop: 'static' });
-  // }
+  openModalOnLoad() {    
+    this.modalService.open(this.modalContent, { size: 'lg', backdrop: 'static' });
+  }
   // Open modal on window load
 
 

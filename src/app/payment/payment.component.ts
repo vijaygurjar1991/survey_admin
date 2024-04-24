@@ -138,8 +138,8 @@ export class PaymentComponent {
       key: 'rzp_test_Ncll0VDPCO6Ffq', // Replace with your Razorpay key
       //image: 'https://mobile.angular.opinionest.com/manage/assets/images/logo/T-logo.png',
       prefill: {
-        name: 'saryu sirohi',
-        email: 'saryu@gmail.com',
+        name: 'testing',
+        email: 'test@gmail.com',
         phone: '9898989898'
       },
       theme: {
@@ -162,17 +162,18 @@ export class PaymentComponent {
   }
   sendPaymentDetails(paymentId: string, orderId: string): void {  
     const requestData = {
-      rzp_paymentid: paymentId,
-      rzp_orderid: orderId,
-      organizationId: this.centerId
+      organizationId: this.centerId,
+      paymentId: paymentId,
+      orderid: orderId,
+      
     };
     const apiUrl = `${environment.apiUrl}api/admin/${this.userId}/Payment/CompleteOrderProcess`;
-    this.httpClient.post(apiUrl, requestData, { responseType: 'text' }).subscribe(
+    this.httpClient.post(apiUrl, requestData).subscribe(
       (response: any) => {
-        alert('qwerty');
         console.log('Response:', response); // Log the response        
-        if (response === 'Success') {
+        if (response === "Success") {
           console.log('Success:', response);
+          console.log('Navigating to thank you page...');
           this.router.navigate(['/thankyou']);  // Redirect to the thank you page
         } else {
           console.error('Error in response:', response); // Handle the error condition appropriately
