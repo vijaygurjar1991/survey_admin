@@ -32,17 +32,17 @@
                         <h5 class="mb-3" *ngIf="mode =='modify'">Update Your Question</h5>
                         <h5 class="mb-3" *ngIf="mode !='modify'">Add Your Question</h5>
                         <div class="row g-3 align-items-center">
-                            <div class="col-8">
+                            <div class="col-md-8">
                                 <input id="question" type="text" [(ngModel)]="question.question" class="form-control"
                                     name="question" (blur)="validateSurvey()" />
                                 <div *ngIf="!questionadded" class="text-danger">Question is required.</div>
                             </div>
-                            <div class="col-2">
+                            <div class="col-md-2">
                                 <input id="addquestion" type="text" [(ngModel)]="question.questionTypeName"
                                     class="form-control" name="addquestion" (blur)="validateSurvey()">
                                 <div *ngIf="!qusstionaddednext" class="text-danger">Question is required.</div>
                             </div>
-                            <div class="col-2">
+                            <div class="col-md-2">
                                 <!-- <mat-form-field>
                                     <mat-select #selectElement
                                         (selectionChange)="onSelectChange($event, question.sort, question.id)">

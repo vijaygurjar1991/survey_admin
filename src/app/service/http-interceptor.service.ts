@@ -33,7 +33,7 @@ export class HttpInterceptorService implements HttpInterceptor {
           alert("Session expired.");
           this.authService.logout();
 
-        } else if (err.status === 500) {
+        } else if (err.status === 408) {
           console.error('Internal Server Error:', err);
           if (!this.modalService.isModalOpen()) {
             this.modalService.triggerModal(true);

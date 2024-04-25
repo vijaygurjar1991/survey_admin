@@ -17,9 +17,20 @@ import { AuthService } from 'src/app/service/auth.service';
 export class MyAccountComponent {
   signupForm: FormGroup;
   imageName: any;
-  constructor(public themeService: DataService, private modalService: NgbModal, private authService: AuthService, private cdr: ChangeDetectorRef, private util: UtilsService, private fb: FormBuilder) {
+  gstNumber: any;
+  address: any;
+  city: any;
+  state: any;
+  country: any;
+  zip: any;
+  centerId: any;
+  centerName : string;
+  constructor(private utils: UtilsService, public themeService: DataService, private modalService: NgbModal, private authService: AuthService, private cdr: ChangeDetectorRef, private util: UtilsService, private fb: FormBuilder) {
     this.baseUrl = environment.baseURL;
+    this.centerName = this.utils.getCenterName();
   }
+  
+
   files: File[] = [];
   role: any;
   id: number = 0;
@@ -56,12 +67,13 @@ export class MyAccountComponent {
 
   userId: any;
 
-
+  
   getMyAccount() {
     //this.userId = localStorage.getItem("userId");
     this.userId = this.util.getUserId();
     this.themeService.GetMyAccount(this.userId).subscribe((data: any) => {
       console.log("data", data)
+      console.log("organizationName", this.centerName)
       this.firstName = data.firstName;
       this.lastName = data.lastName
       this.id = data.id
@@ -70,6 +82,13 @@ export class MyAccountComponent {
       this.roleId = data.roleId
       this.image = data.image
       this.selectedImage = data.image
+      this.gstNumber = data.center.gstNumber
+      this.centerName = this.centerName
+      this.address = data.address
+      this.city = data.city
+      this.state = data.state
+      this.country = data.country
+      this.zip = data.zip
       this.cdr.detectChanges();
     });
   }
@@ -89,6 +108,18 @@ export class MyAccountComponent {
       email: this.email,
       contactNo: this.contactNo,
       roleId: this.roleId,
+      // address: this.address,
+      // city: this.city,
+      // state: this.state,
+      // country: this.country,
+      // zip: this.zip,
+      center: {
+        address: this.address,
+        city: this.city,
+        state: this.state,
+        country: this.country,
+        zip: this.zip
+      },
       imageName: imageName,
       status: 'ACT'
     };
@@ -194,6 +225,7 @@ export class MyAccountComponent {
     this.Contact = !!this.contactNo && this.contactNo.toString().trim().length > 0;
     this.roletype = !!this.role && this.role.trim().length > 0;
     this.emailaddress = !!this.email && this.email.trim().length > 0;
+    //this.address = !!this.address && this.address.trim().length > 0;
 
     // You might want to return whether all fields are valid
     return (
@@ -202,6 +234,7 @@ export class MyAccountComponent {
       this.Contact &&
       this.role &&
       this.emailaddress
+      //this.address
     );
   }
 

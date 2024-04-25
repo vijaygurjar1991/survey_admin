@@ -54,7 +54,7 @@
                                             <img [src]="item.image" class="img-fluid" alt="logo" width="100"
                                                 height="100">
                                             <span class="admin-verified"><img *ngIf="item.status === 'ACT'"
-                                                    src="../.././../assets/images/icons/verify.png" class="img-fluid"
+                                                [src]="baseUrl + '/assets/images/icons/verify.png'" class="img-fluid"
                                                     alt="admin" width="20" height="20"></span>
                                         </figure>
                                         <figcaption>
@@ -111,7 +111,8 @@
                                             <img [src]="item.image" class="img-fluid" alt="logo" width="100"
                                                 height="100">
                                             <span class="admin-verified"><img *ngIf="item.status === 'ACT'"
-                                                    src="../.././../assets/images/icons/verify.png" class="img-fluid"
+                                                [src]="baseUrl + '/assets/images/icons/verify.png'"    
+                                                class="img-fluid"
                                                     alt="admin" width="20" height="20"></span>
                                         </figure>
                                         <figcaption>
@@ -176,11 +177,11 @@
     </div>
 </header>
 
-<!-- <ng-template #popupTemplate let-modal>
+<ng-template #popupTemplate let-modal>
     <div class="modal-body text-center p-5">
       <h3>Your trial period has ended</h3>
       <p>Your trial period has expired. Please upgrade your plan first to continue for using our services.</p>
       <a class="btn btn-primary mt-3 me-2" routerLink="/payment" (click)="modal.dismiss('Cross click')">Upgrade</a>
       <button class="btn btn-primary mt-3"  (click)="logOut()">Back to Login</button>
     </div>
-</ng-template> -->
+</ng-template>

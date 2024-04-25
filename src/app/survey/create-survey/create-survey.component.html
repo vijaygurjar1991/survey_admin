@@ -179,6 +179,22 @@
         <div ngClass="my-3">
             <div class="infocircle mb-2">
                 <h6 class="mb-0">Add Quota Management</h6>
+                <div class="custom-tooltip">
+                    <ng-icon name="heroInformationCircle" ngClass="edit-action info-circle"
+                        (click)="toggleTooltip('6')"></ng-icon>
+                    <div class="toast show" *ngIf="showTooltip['6']">
+                        <div class="toast-header">
+                            <img [src]="baseUrl + '/assets/images/icons/Add-new-question.png'" class="rounded me-2"
+                                width="30" height="30" />
+                            <h6 class="mb-0 me-auto">Add Quota Management</h6>
+                            <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"
+                                (click)="hideTooltip('6')"></button>
+                        </div>
+                        <div class="toast-body">
+                            Dummy Text
+                        </div>
+                    </div>
+                </div>
             </div>
             <div class="common-ques">
                 <a [routerLink]="['/survey/quota-management/manage-survey/', (surveyId | encrypt)]"

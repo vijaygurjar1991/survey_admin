@@ -39,9 +39,21 @@
                         <td><input type="checkbox" ngClass="form-check-input" [(ngModel)]="item.selected" />
                         </td>
                         <td>
-                            <img [src]="item.image" class="me-2 rounded-circle" style="width: 30px;height: 30px;" />
-                            <span>{{ item.firstName }} {{ item.lastName }}</span>
+                            <!-- <img [src]="item.image" class="me-2 rounded-circle" style="width: 30px;height: 30px;" /> -->
+                            <div class="d-flex gap-2">
+                                <ng-container *ngIf="item.image === 'https://beta.angular.opinionest.com/Files/Images/'; else elseBlock">
+                                    <div class="me-2 rounded-circle defaultprofile">
+                                        {{ (item.firstName ? item.firstName.charAt(0) : '') + (item.lastName ? item.lastName.charAt(0) : '') }}
+                                    </div>
+                                </ng-container>
+                                <ng-template #elseBlock>
+                                    <img [src]="item.image" class="me-2 rounded-circle" style="width: 30px; height: 30px;" />
+                                </ng-template>
+                                
+                                <span>{{ item.firstName }} {{ item.lastName }}</span>
+                            </div>
                         </td>
+                        
                         <td>{{ getRoleName(item.roleId) }}</td>
                         <td>{{ item.email }}</td>
                         <td>{{ item.contactNo }}</td>

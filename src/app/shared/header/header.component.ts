@@ -10,6 +10,7 @@ import { CryptoService } from 'src/app/service/crypto.service';
 import { Router,NavigationStart  } from '@angular/router';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { HttpErrorResponse } from '@angular/common/http';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-header',
@@ -19,6 +20,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 export class HeaderComponent {
   // toggle notification
   showNotification: boolean = false;
+  baseUrl: any;
   toggleNotification() {
     this.showNotification = !this.showNotification;
   }
@@ -28,9 +30,9 @@ export class HeaderComponent {
   surveyControl = new FormControl();
   @ViewChild('popupTemplate') popupTemplate: TemplateRef<any>;
   modalRef: NgbModalRef;
-  excludedRoutes: string[] = ['/payment', '/login', '/signup', '/thankyou'];
+  //excludedRoutes: string[] = ['/payment', '/login', '/signup', '/thankyou'];
   public constructor(private modalService: NgbModal, public themeService: DataService, private auth: AuthService, private util: UtilsService, public surveyService: SurveyService, private crypto: CryptoService, private router: Router) {
-    
+    this.baseUrl = environment.baseURL;
    
   }
   ngOnInit(): void {
@@ -45,19 +47,11 @@ export class HeaderComponent {
       .subscribe((value: string) => {
         this.filterSurveys(value);
       });
-    // this.router.events.subscribe(event => {
-    //   if (event instanceof NavigationStart) {
-    //     //this.openPopup();
-    //     const route = event.url;
-    //     if (!this.excludedRoutes.includes(route)) { // Adjust the route as per your requirement
-    //       this.openPopup();
-    //     }
-    //   }
-    // });  
+     
   }
-  // openPopup() {
-  //   this.modalService.open(this.popupTemplate, { centered: true, backdrop: 'static' });
-  // }
+  openPopup() {
+    this.modalService.open(this.popupTemplate, { centered: true, backdrop: 'static' });
+  }
   logOut() {
     this.auth.logout();
     this.modalService.dismissAll();
@@ -200,14 +194,14 @@ export class HeaderComponent {
         this.notificationcount = count;
         console.log("notification count", this.notificationcount);
       },
-      // error: (error) => {
-      //   console.error("An error occurred while fetching notifications:", error);
-      //   if (error.status === 402) {
-      //     this.openPopup();
-      //   } else {
-      //     console.error("Error fetching user account:", error);
-      //   }
-      // }
+      error: (error) => {
+        console.error("An error occurred while fetching notifications:", error);
+        if (error.status === 402 && error.error?.message === 'payment-required') {
+          this.openPopup();
+        } else {
+          console.error("Error fetching user account:", error);
+        }
+      }
     });
   }
   

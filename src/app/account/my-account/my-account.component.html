@@ -15,6 +15,7 @@
                         <img *ngIf="selectedImage" [src]="selectedImage" class="object-fit-cover rounded-circle"
                             width="80" height="80" />
                     </a>
+                    <ng-icon name="heroPencil"></ng-icon>
                 </figure>
                 <figcaption>
                     <h5>Profile Pictures</h5>
@@ -34,26 +35,70 @@
                         aria-label="Last name" (blur)="validateSurvey()">
                     <div *ngIf="!lastname" class="text-danger">Last Name is required.</div>
                 </div>
-            </div>
-            <div class="mb-4">
-                <label for="contactNo" class="form-label">Contact No</label>
-                <input type="text" class="form-control" [(ngModel)]="contactNo" name="contactNo"
+                <div class="col-md-6 mb-4">
+                    <label for="contactNo" class="form-label">Contact No</label>
+                    <input type="text" class="form-control" [(ngModel)]="contactNo" name="contactNo"
+                        (blur)="validateSurvey()">
+                    <div *ngIf="!Contact" class="text-danger">Contact is required.</div>
+                </div>
+                <div class="col-md-6 mb-4">
+                    <label for="email" class="form-label">Email Address</label>
+                    <input type="email" class="form-control" [(ngModel)]="email" name="email" disabled
+                        (blur)="validateSurvey()">
+                    <div *ngIf="!emailaddress" class="text-danger">Email is required.</div>
+                </div>                
+                <div class="col-md-6 mb-4">
+                    <label for="email" class="form-label">Role</label>
+                    <select class="form-select" disabled>
+                        <option selected>{{role}}</option>
+                    </select>
+                    <div *ngIf="!roletype" class="text-danger">Role is required.</div>
+                </div>
+                <div class="col-md-6 mb-4">
+                    <label for="centerName" class="form-label">Organization Name</label>
+                    <input type="text" class="form-control" [(ngModel)]="centerName" name="centerName" disabled
                     (blur)="validateSurvey()">
-                <div *ngIf="!Contact" class="text-danger">Contact is required.</div>
-            </div>
-            <div class="mb-4">
-                <label for="email" class="form-label">Email Address</label>
-                <input type="email" class="form-control" [(ngModel)]="email" name="email" disabled
+                    <div *ngIf="!centerName" class="text-danger">Organization Name is required.</div>
+                </div>
+                <div class="col-md-6 mb-4">
+                    <label for="gstNumber" class="form-label">GST Number</label>
+                    <input type="text" class="form-control" [(ngModel)]="gstNumber" name="gstNumber"
+                    >
+                    <div *ngIf="!gstNumber" class="text-danger">GST Number is required.</div>
+                </div>
+                <div class="col-md-6 mb-4">
+                    <label for="address" class="form-label">Address</label>
+                    <input type="text" class="form-control" [(ngModel)]="address" name="address" (blur)="validateSurvey()">
+                    <div *ngIf="!address" class="text-danger">Address is required.</div>
+                </div>
+                <div class="col-md-6 mb-4">
+                    <label for="city" class="form-label">City</label>
+                    <input type="text" class="form-control" [(ngModel)]="city" name="city"                         
                     (blur)="validateSurvey()">
-                <div *ngIf="!emailaddress" class="text-danger">Email is required.</div>
+                    <div *ngIf="!city" class="text-danger">City is required.</div>
+                </div>
+                <div class="col-md-6 mb-4">
+                    <label for="state" class="form-label">State</label>
+                    <input type="text" class="form-control" [(ngModel)]="state" name="state"                         
+                    (blur)="validateSurvey()">
+                    <div *ngIf="!state" class="text-danger">State is required.</div>
+                </div>
+                <div class="col-md-6 mb-4">
+                    <label for="country" class="form-label">Country</label>
+                    <input type="text" class="form-control" [(ngModel)]="country" name="country"                         
+                    (blur)="validateSurvey()">
+                    <div *ngIf="!country" class="text-danger">Country is required.</div>
+                </div>
+                <div class="col-md-6 mb-4">
+                    <label for="zip" class="form-label">Zip Code</label>
+                    <input type="text" class="form-control" [(ngModel)]="zip" name="zip"                         
+                    (blur)="validateSurvey()">
+                    <div *ngIf="!zip" class="text-danger">Zip Code is required.</div>
+                </div>
             </div>
-            <div class="mb-4">
-                <label for="email" class="form-label">Role</label>
-                <select class="form-select" disabled>
-                    <option selected>{{role}}</option>
-                </select>
-                <div *ngIf="!roletype" class="text-danger">Role is required.</div>
-            </div>
+            
+            
+            
             <div class="change-password upload">
                 <a routerLink="javascript:" (click)="openLg(content)">Change Password</a>
                 <button type="button" class="btn btn-primary" (click)="postData()">Update<ng-icon

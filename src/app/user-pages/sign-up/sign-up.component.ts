@@ -242,6 +242,7 @@ export class SignUpComponent {
     }
 
   }
+ 
 
   redirectDashboard() {
     const returnUrl = this.route.snapshot.queryParamMap.get('returnUrl') || '/dashboard';
