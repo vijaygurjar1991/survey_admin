@@ -46,7 +46,9 @@
         <label class="form-label">Total Count</label>
         <div class="row g-3 mb-4">
             <div class="col-11">
-                <input type="number" class="form-control" name="count" [(ngModel)]="surveycount">
+                <input type="number" class="form-control" name="surveycount" [(ngModel)]="surveycount"
+                    (blur)="showQuotas()">
+                <div *ngIf="showCountError" class="text-danger">Please enter a valid survey count.</div>
             </div>
             <div class="col-1 text-end">
                 <button type="button" class="btn btn-primary w-100">Reset</button>
@@ -65,7 +67,7 @@
         <div *ngFor="let quota of quotas; let i = index" class="add-quota">
             <label class="form-label">Select Question</label>
             <select class="form-select" [(ngModel)]="quota.selectedQuestion"
-                (change)="showQuestionQuotas(i);selectedOptionDetails(quota.selectedQuestion)">
+                (change)="showQuestionQuotas(i);selectedOptionDetails(quota.selectedQuestion,i)">
                 <!-- <option selected>Select Question</option>
                 <option value="1">Question 1</option> -->
                 <option selected>Select Question</option>
@@ -76,30 +78,35 @@
                 <h5>Add Distribution</h5>
                 <div class="add-distribution">
                     <div class="question-type">
-                        <h6><span>{{selectedgenericType}}</span></h6>
+                        <h6><span>{{selectedgenericType[i]}}</span></h6>
                         <div class="implement-quota">
-                            <span [class.active]="!censusActive && !customActive" (click)="toggleNone()">None</span>
-                            <span [class.active]="censusActive" (click)="toggleCensus()">Census</span>
-                            <span [class.active]="customActive" (click)="toggleCustom()">Custom</span>
+                            <span [class.active]="!censusActive[i] && !customActive[i]"
+                                (click)="toggleNone(i)">None</span>
+                            <span [class.active]="censusActive[i]" (click)="toggleCensus(i)">Census</span>
+                            <span [class.active]="customActive[i]" (click)="toggleCustom(i)">Custom</span>
                         </div>
                     </div>
                     <!-- <h4>Q. Select your gender.</h4> -->
-                    <h4>{{selectedquestion}}</h4>
-                    <div class="display:none;" *ngIf="showCensusDiv || showCustomDiv">
+                    <h4>{{selectedquestion[i]}}</h4>
+                    <div class="display:none;" *ngIf="showCensusDiv[i] || showCustomDiv[i]">
                         <ul class="question-options">
-                            <li *ngFor="let options of selectedoptions"><span>{{options.option}}</span><input
-                                    type="text" class="form-control" [value]="equallyDividedValue()"
-                                    [disabled]="!customActive"></li>
+                            <li *ngFor="let options of selectedoptions[i]"><span>{{options.option}}</span><input
+                                    type="text" class="form-control" [value]="equallyDividedValue(i)"
+                                    [(ngModel)]="dividedValue" [disabled]="!customActive[i]"></li>
                             <!-- <li><span>Female</span><input type="text" class="form-control" value="50"></li> -->
                         </ul>
                         <div class="total-count">
                             <button type="button" class="btn btn-outline-primary"
                                 (click)="open(contentInterlock)"><ng-icon name="heroLink"></ng-icon></button>
-                            <p class="mb-0"><strong>Total : </strong> <span> {{totalsum}}</span></p>
+                            <p class="mb-0"><strong>Total : </strong> <span> {{totalsum[i]}}</span></p>
+                        </div>
+                        <div class="mt-4 ">
+                            <button type="button" class="btn btn-primary" (click)="saveQuota(i)">Save</button>
                         </div>
                     </div>
                 </div>
             </div>
+
         </div>
         <div class="mt-4">
             <button type="button" class="btn btn-primary" (click)="addQuota()">Add Quota</button>
@@ -110,18 +117,18 @@
     <h4>Interlocked Quotas</h4>
     <div class="interlocked-quotas">
         <ul>
-            <li>
-                <span>Gender</span>
+            <li *ngFor="let generictype of genericlist">
+                <span>{{generictype}}</span>
                 <p class="mb-0">Male - Female</p>
             </li>
-            <li>
+            <!-- <li>
                 <span>Age</span>
                 <p class="mb-0">18-24 - 25-34 - 35-44</p>
             </li>
             <li>
                 <span>Region</span>
                 <p class="mb-0">Central India - East India - North India</p>
-            </li>
+            </li> -->
         </ul>
         <table class="table table-bordered mt-5">
             <tbody>

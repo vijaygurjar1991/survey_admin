@@ -368,11 +368,14 @@ export class SurveyService {
     return this.http.delete(url);
   }
 
-
-
   getNotification(): Observable<responseDTO[]> {
     const url = `${this.apiUrl}api/admin/${this.userId}/Notification/GetNotifications`;
     return this.http.get<responseDTO[]>(url);
+  }
+
+  createQuota(data: any): Observable<any> {
+    const url = `${this.apiUrl}api/admin/${this.userId}/Quota/CreateQuota`;
+    return this.http.post(url, data, { responseType: 'text' });
   }
 
 }

@@ -5,6 +5,7 @@ import { SurveyService } from '../service/survey.service';
 import { responseDTO } from '../types/responseDTO';
 import { ActivatedRoute } from '@angular/router';
 import { environment } from 'src/environments/environment';
+import { UtilsService } from '../service/utils.service';
 
 @Component({
   selector: 'app-quota-management',
@@ -24,9 +25,12 @@ export class QuotaManagementComponent {
   countryName: any;
   countryImage: any;
   categoryName: any;
+  centerId: any
 
-  constructor(private route: ActivatedRoute, private visibilityService: DataService, private modalService: NgbModal, private surveyservice: SurveyService,) {
+
+  constructor(private route: ActivatedRoute, private visibilityService: DataService, private modalService: NgbModal, private surveyservice: SurveyService, private utils: UtilsService) {
     this.baseUrl = environment.baseURL;
+
   }
   hideBreadcrumb() {
     this.visibilityService.toggleBreadcrumbVisibility(false);
@@ -34,7 +38,7 @@ export class QuotaManagementComponent {
 
   status: string;
   ngOnInit() {
-
+    this.centerId = this.utils.getCenterId();
     this.hideBreadcrumb();
     // get surveydata
     this.route.paramMap.subscribe(_params => {
@@ -58,8 +62,15 @@ export class QuotaManagementComponent {
     this.GetSurveyDetails();
 
   }
+  showCountError: boolean = false;
 
   showQuotas() {
+    if (this.surveycount <= 0 || isNaN(this.surveycount)) {
+      this.showCountError = true;
+      return;
+    }
+
+    this.showCountError = false;
     this.isQuotasVisible = true;
   }
   open(contentInterlock: any) {
@@ -71,6 +82,11 @@ export class QuotaManagementComponent {
     this.quotas.push({ selectedQuestion: '', showQuotasDiv: false });
   }
 
+  // addQuota(index: number) {
+  //   this.quotas.splice(index + 1, 0, { selectedQuestion: '', showQuotasDiv: false });
+  // }
+
+
   showQuestionQuotas(index: number) {
     if (this.quotas[index].selectedQuestion !== 'Select Question') {
       this.quotas[index].showQuotasDiv = true;
@@ -79,27 +95,60 @@ export class QuotaManagementComponent {
     }
   }
   // Show and hide Census/Custom dive
-  showCensusDiv: boolean = false;
-  showCustomDiv: boolean = false;
-  censusActive: boolean = false;
-  customActive: boolean = false;
-  toggleCensus() {
-    this.showCensusDiv = true;
-    this.showCustomDiv = false;
-    this.censusActive = true;
-    this.customActive = false;
+  // showCensusDiv: boolean = false;
+  // showCustomDiv: boolean = false;
+  // censusActive: boolean = false;
+  // customActive: boolean = false;
+  // toggleCensus(index:number) {
+  //   this.showCensusDiv = true;
+  //   this.showCustomDiv = false;
+  //   this.censusActive = true;
+  //   this.customActive = false;
+  // }
+  // toggleCustom(index:number) {
+  //   this.showCensusDiv = false;
+  //   this.showCustomDiv = true;
+  //   this.censusActive = false;
+  //   this.customActive = true;
+  // }
+  // toggleNone(index:number) {
+  //   this.showCensusDiv = false;
+  //   this.showCustomDiv = false;
+  //   this.censusActive = false;
+  //   this.customActive = false;
+  // }
+
+  showCensusDiv: boolean[] = [];
+  showCustomDiv: boolean[] = [];
+  censusActive: boolean[] = [];
+  customActive: boolean[] = [];
+  activeValue: string = '';
+
+  toggleCensus(index: number) {
+    this.showCensusDiv[index] = true;
+    this.showCustomDiv[index] = false;
+    this.censusActive[index] = true;
+    this.customActive[index] = false;
+    this.activeValue = 'census';
+    console.log("activewer", this.activeValue)
   }
-  toggleCustom() {
-    this.showCensusDiv = false;
-    this.showCustomDiv = true;
-    this.censusActive = false;
-    this.customActive = true;
+
+  toggleCustom(index: number) {
+    this.showCensusDiv[index] = false;
+    this.showCustomDiv[index] = true;
+    this.censusActive[index] = false;
+    this.customActive[index] = true;
+    this.activeValue = 'custom';
+    console.log("activewer", this.activeValue)
   }
-  toggleNone() {
-    this.showCensusDiv = false;
-    this.showCustomDiv = false;
-    this.censusActive = false;
-    this.customActive = false;
+
+  toggleNone(index: number) {
+    this.showCensusDiv[index] = false;
+    this.showCustomDiv[index] = false;
+    this.censusActive[index] = false;
+    this.customActive[index] = false;
+    this.activeValue = 'none';
+    console.log("activewer", this.activeValue)
   }
   // Show and hide Census/Custom dive
   activeIndex: number = 0; // Initially set to 0 for the first item
@@ -112,66 +161,190 @@ export class QuotaManagementComponent {
 
   // question api
 
+  questionList: any;
+  genericlist: any[] = [];
+  optionlist: any[] = [];
+  questions: any[] = []
+  pageSize: number = 10;
+  pageNumber: number = 1
+  surveycount: number;
+  totalsum: number[] = [];
+
   GetSurveyDetails() {
     this.questionList = '';
     this.surveyservice.getSurveyDetailsById(this.pageNumber, this.pageSize, this.surveyId).subscribe((data: any) => {
       this.questionList = data;
       console.log("questionList", this.questionList);
 
+      this.questionList.questions.forEach((question: any) => {
+        if (question.genericType) {
+          this.genericlist.push(question.genericType);
+        }
+        console.log("qwerty", this.genericlist)
+      });
+
+      if (this.questionList && Array.isArray(this.questionList.questions)) {
+        this.questionList.questions.forEach((question: any) => {
+          if (question.options && Array.isArray(question.options)) {
+            question.options.forEach((option: any) => {
+              this.optionlist.push(option.option);
+            });
+          }
+        });
+        console.log("optioneee", this.optionlist);
+      }
+
     });
   }
 
-  questionList: any;
-  selectedquestion: any
-  questions: any[] = []
-  pageSize: number = 10;
-  pageNumber: number = 1
+
+  // selectedoptions: any[] = [];
+  // selectedOptionsCount: any
+  // selectedgenericType: any
+  // selectedquestion: any
+
+  // Initialize arrays to store selected question details
+  selectedquestionid: any[] = []
+  selectedquestion: any[] = [];
+  selectedgenericType: string[] = [];
   selectedoptions: any[] = [];
-  selectedOptionsCount: any
-  selectedgenericType: any
+  selectedOptionsCount: number[] = [];
+  selectedoptionid: any[] = []
 
-  selectedOptionDetails(selectedQuestionId: any) {
 
-    //console.log('question list =', this.questionList.questions)
+  // selectedOptionDetails(selectedQuestionId: any,index:number) {
+
+  //   //console.log('question list =', this.questionList.questions)
+
+  //   const selectedQuestion = this.questionList.questions.find((item: { id: any; }) => {
+  //     return item.id == selectedQuestionId;
+  //   });
+
+  //   console.log("selectedQuestion", selectedQuestion)
+  //   console.log("Selected question:", selectedQuestion.question);
+  //   console.log("genericType", selectedQuestion.genericType)
+  //   this.selectedquestion = selectedQuestion.question
+  //   this.selectedgenericType = selectedQuestion.genericType
+  //   if (selectedQuestion && Array.isArray(selectedQuestion.options)) {
+  //     const selectedOptions = selectedQuestion.options;
+
+  //     console.log("Selected question options:", selectedOptions);
+  //     this.selectedoptions = selectedOptions;
+  //     this.selectedOptionsCount = this.selectedoptions.length;
+  //     console.log("Number of selected options:", this.selectedOptionsCount);
+  //     return selectedOptions;
+  //   }
+  // }
+
+  selectedOptionDetails(selectedQuestionId: any, index: number) {
 
     const selectedQuestion = this.questionList.questions.find((item: { id: any; }) => {
       return item.id == selectedQuestionId;
     });
 
-    console.log("selectedQuestion", selectedQuestion)
-    console.log("Selected question:", selectedQuestion.question);
-    console.log("genericType", selectedQuestion.genericType)
-    this.selectedquestion = selectedQuestion.question
-    this.selectedgenericType = selectedQuestion.genericType
+    console.log("Selected question at index " + index + ":", selectedQuestion.question);
+    console.log("Selected id at index " + index + ":", selectedQuestion.id);
+    this.selectedquestionid = selectedQuestion.id
+    console.log("GenericType at index " + index + ":", selectedQuestion.genericType);
+
+    // Initialize the arrays if they are not defined
+    if (!this.selectedquestion[index]) this.selectedquestion[index] = "";
+    if (!this.selectedgenericType[index]) this.selectedgenericType[index] = "";
+    if (!this.selectedoptions[index]) this.selectedoptions[index] = [];
+    if (!this.selectedOptionsCount[index]) this.selectedOptionsCount[index] = 0;
+
+    // Store selected question details at the corresponding index
+
+    this.selectedquestion[index] = selectedQuestion.question;
+    this.selectedgenericType[index] = selectedQuestion.genericType;
+
     if (selectedQuestion && Array.isArray(selectedQuestion.options)) {
       const selectedOptions = selectedQuestion.options;
 
-      console.log("Selected question options:", selectedOptions);
-      this.selectedoptions = selectedOptions;
-      this.selectedOptionsCount = this.selectedoptions.length;
-      console.log("Number of selected options:", this.selectedOptionsCount);
+      console.log("Selected question options at index " + index + ":", selectedOptions);
+
+      this.selectedoptions[index] = selectedOptions;
+
+      this.selectedoptionid[index] = this.selectedoptions[index].map((option: any) => option.id);
+
+      console.log("qwertyuio", typeof (this.selectedoptionid))
+      console.log("qwertyuio", this.selectedoptionid)
+      this.selectedOptionsCount[index] = this.selectedoptions[index].length;
+      console.log("Number of selected options at index " + index + ":", this.selectedOptionsCount[index]);
+
       return selectedOptions;
     }
-  }
-
-
-
-  surveycount: number;
-  totalsum: number;
-
-
-  equallyDividedValue() {
-
-    const dividedValue = Math.floor(this.surveycount / this.selectedOptionsCount);
-    console.log("dividedValue", dividedValue)
-
-    const totalsum = dividedValue * this.selectedOptionsCount
-    this.totalsum = totalsum
-
-    return dividedValue;
 
   }
 
+
+
+  dividedValue: any
+  equallyDividedValue(index: number) {
+
+    this.dividedValue = Math.floor(this.surveycount / this.selectedOptionsCount[index]);
+    console.log("dividedValue", this.dividedValue)
+
+    this.totalsum[index] = this.dividedValue * this.selectedOptionsCount[index]
+    // this.totalsum[index] = totalsum
+
+    return this.dividedValue;
+
+  }
+
+  createsurveyId: any
+
+  getCurrentDateTime(): string {
+    const currentDateTime = new Date().toISOString();
+    return currentDateTime.substring(0, currentDateTime.length - 1) + 'Z';
+  }
+
+  saveQuota(index: number) {
+    const selectedoptionid: number[] = this.selectedoptionid;
+    console.log("saving quota", [index])
+    const dataToSend = {
+      quotaId: 0,
+      surveyId: this.surveyId,
+      totalUsers: this.surveycount,
+      centerId: this.centerId,
+      status: "ACT",
+      createdDate: this.getCurrentDateTime(),
+      questionDto: {
+        quotaQuestionsId: 0,
+        quotaId: 0,
+        questionId: this.selectedquestionid,
+        type: this.activeValue,
+        interlock: 0,
+        isOpenEnded: false,
+        optionsDto: [] as { quotaOptionsId: number; quotaQuestionId: number; optionId: any; userCount: number }[]
+      }
+    };
+
+
+
+    this.selectedoptionid.forEach((options: any) => {
+      options.forEach((optionId: any) => {
+        const optionsDto = {
+          quotaOptionsId: 0,
+          quotaQuestionId: 0,
+          optionId: optionId,
+          userCount: this.dividedValue
+        }
+        dataToSend.questionDto.optionsDto.push(optionsDto);
+      });
+    });
+
+    this.surveyservice.createQuota(dataToSend).subscribe(
+      resp => {
+        console.log("create quota", resp)
+      },
+      error => {
+        console.log("err create", error)
+      }
+    )
+
+
+  }
 
 
 }
