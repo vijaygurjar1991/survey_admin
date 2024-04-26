@@ -268,7 +268,8 @@ export class QuotaManagementComponent {
       this.selectedoptionid[index] = this.selectedoptions[index].map((option: any) => option.id);
 
       console.log("qwertyuio", typeof (this.selectedoptionid))
-      console.log("qwertyuio", this.selectedoptionid)
+      console.log("qwertyuio", this.selectedoptionid[index])
+      console.log("qwerty selectedoptions", this.selectedoptions[index])
       this.selectedOptionsCount[index] = this.selectedoptions[index].length;
       console.log("Number of selected options at index " + index + ":", this.selectedOptionsCount[index]);
 
@@ -300,7 +301,6 @@ export class QuotaManagementComponent {
   }
 
   saveQuota(index: number) {
-    const selectedoptionid: number[] = this.selectedoptionid;
     console.log("saving quota", [index])
     const dataToSend = {
       quotaId: 0,
@@ -333,6 +333,9 @@ export class QuotaManagementComponent {
         dataToSend.questionDto.optionsDto.push(optionsDto);
       });
     });
+
+
+
 
     this.surveyservice.createQuota(dataToSend).subscribe(
       resp => {

@@ -210,6 +210,7 @@ export class EditSurveyComponent {
     this.themeService.closeSideBar();
     this.getQuestionListBySurveyId();
     this.getQuestionTypes();
+    this.getAllSurveyList();
     if (this.mode != 'modify') {
       this.intializeDefaultValue();
       if (this.question.questionTypeName !== 'Rating Scale' && this.question.questionTypeName !== 'Boolean' && this.question.questionTypeName !== 'Image Selection' && this.question.questionTypeName !== 'NPS' && this.question.questionTypeName !== 'Open Ended' && this.question.questionTypeName !== 'Slider Scale') {
@@ -1369,6 +1370,29 @@ export class EditSurveyComponent {
       this.question.isNumeric = false;
     }
   }
+
+  surveyData: any[] = []
+  surveyname: any[] = []
+  filteredSurveyNames: any
+
+  getAllSurveyList() {
+    this.surveyservice.GetSurveyList().subscribe((data: any) => {
+      this.surveyData = data.surveyType;
+      // Assuming you have a specific surveyId to filter
+      const specificSurveyId = this.surveyId
+
+      // Filter surveyData based on matching surveyId
+      const filteredSurveys = this.surveyData.filter(survey => survey.surveyId === specificSurveyId);
+
+      // Get only the names from filtered surveys
+      this.filteredSurveyNames = filteredSurveys.map(survey => survey.name);
+
+      // Log filtered survey names
+      console.log("Filtered Survey Names:", this.filteredSurveyNames);
+    });
+  }
+
+
 
 
 }
