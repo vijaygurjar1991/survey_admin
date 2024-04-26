@@ -1835,45 +1835,45 @@ label {
 }
 
 /* hoveraddwidth */
+@media (min-width:1200px) {
+    .hoveraddwidth .sidebar-wrapper {
+        width: 20rem;
+    }
 
-.hoveraddwidth .sidebar-wrapper {
-    width: 20rem;
+    .hoveraddwidth.addwidth .menu-icon {
+        margin-right: 0.75rem;
+    }
+
+    .hoveraddwidth.hoveraddwidth.addwidth .text-box {
+        display: block;
+    }
+
+    .hoveraddwidth.addwidth .flex-1 {
+        display: none;
+        flex: auto;
+    }
+
+    .hoveraddwidth.addwidth .flex-0 {
+        display: block;
+    }
+
+    .addwidth.hoveraddwidth .logo-icon img {
+        display: block;
+    }
+
+    .addwidth.hoveraddwidth img.img-fluid.small-menu {
+        display: none;
+    }
+
+    .addwidth.hoveraddwidth .AngularCollapse-collapse {
+        display: block;
+    }
+
+    .hoveraddwidth.addwidth .flex-1 {
+        display: block;
+        flex: auto;
+    }
 }
-
-.hoveraddwidth.addwidth .menu-icon {
-    margin-right: 0.75rem;
-}
-
-.hoveraddwidth.hoveraddwidth.addwidth .text-box {
-    display: block;
-}
-
-.hoveraddwidth.addwidth .flex-1 {
-    display: none;
-    flex: auto;
-}
-
-.hoveraddwidth.addwidth .flex-0 {
-    display: block;
-}
-
-.addwidth.hoveraddwidth .logo-icon img {
-    display: block;
-}
-
-.addwidth.hoveraddwidth img.img-fluid.small-menu {
-    display: none;
-}
-
-.addwidth.hoveraddwidth .AngularCollapse-collapse {
-    display: block;
-}
-
-.hoveraddwidth.addwidth .flex-1 {
-    display: block;
-    flex: auto;
-}
-
 
 /* 
 .addwidth.hoveraddwidth .flex-1 {
@@ -2343,6 +2343,30 @@ span.badge.ng-star-inserted.activestatus.text-bg-danger {
 }
 
 @media (max-width:575px) {
+
+    /* Header */
+    .search-bar {
+        margin-right: 1rem;
+        flex: 3;
+    }
+
+    .mat-mdc-text-field-wrapper,
+    .mat-mdc-form-field-infix {
+        height: 40px;
+        min-height: 40px;
+        width: 100% !important;
+    }
+
+    .mat-mdc-text-field-wrapper:not(.mdc-text-field--outlined) .mat-mdc-form-field-infix {
+        padding-top: 8px !important;
+        padding-bottom: 8px !important;
+    }
+
+    .magnifyingicon {
+        right: 0;
+    }
+
+    /* header */
     .notification-box {
         width: 100%;
         height: 100%;
@@ -2354,8 +2378,4 @@ span.badge.ng-star-inserted.activestatus.text-bg-danger {
     .custom-pagination {
         justify-content: center;
     }
-}
-
-.activesurvey {
-    font-weight: 500;
 }
