@@ -18,6 +18,7 @@ export class SignUpComponent {
   // Tooltip
   showTooltip: { [key: string]: boolean } = {};
   userId: any;
+  location: any;
 
   toggleTooltip(identifier: string) {
     this.showTooltip[identifier] = !this.showTooltip[identifier];
@@ -197,7 +198,7 @@ export class SignUpComponent {
   //     );
   //   }
   // }
-  verifyEmail() {
+  verifyEmail(skipClicked: boolean = false) {
     Object.keys(this.verificationForm.controls).forEach(field => {
       const control = this.verificationForm.get(field);
       control?.markAsTouched({ onlySelf: true });
@@ -215,11 +216,22 @@ export class SignUpComponent {
       }
       this.authService.verifyEmail(dataToSend).subscribe(
         (response) => {
-          this.verifyemail = true
-          console.log('Email verification successful:', response);
-          this.router.navigateByUrl(returnUrl).then(() => {
-            window.location.reload();
-          });
+          // this.verifyemail = true;
+          // this.suurveypurchaseprice = true;
+          // console.log('Email verification successful:', response);
+          // this.router.navigateByUrl(returnUrl).then(() => {
+          //   window.location.reload();
+          // });
+          if (skipClicked) {
+            const returnUrl = this.route.snapshot.queryParamMap.get('returnUrl') || '/dashboard';
+            this.router.navigateByUrl(returnUrl).then(() => {
+              // After navigation, set suurveypurchaseprice to false
+              this.suurveypurchaseprice = false;
+            });
+          } else {
+            // Otherwise, set suurveypurchaseprice to true to show the purchase section
+            this.suurveypurchaseprice = true;
+          }
         },
         (error) => {
           console.error('Email verification failed:', error);
@@ -292,8 +304,8 @@ payNow(orderData: any, orderId: string): void {
     key: 'rzp_test_Ncll0VDPCO6Ffq', // Replace with your Razorpay key
     //image: 'https://mobile.angular.opinionest.com/manage/assets/images/logo/T-logo.png',
     prefill: {
-      name: 'saryu sirohi',
-      email: 'saryu@gmail.com',
+      name: 'Testing',
+      email: 'test@gmail.com',
       phone: '9898989898'
     },
     theme: {
@@ -316,17 +328,24 @@ payNow(orderData: any, orderId: string): void {
 }
 sendPaymentDetails(paymentId: string, orderId: string): void {  
   const requestData = {
-    rzp_paymentid: paymentId,
-    rzp_orderid: orderId,
-    organizationId: this.organizationId
+    organizationId: this.organizationId,
+    paymentId: paymentId,
+    orderid: orderId    
   };
   const apiUrl = `${environment.apiUrl}api/admin/${this.userId}/Payment/CompleteOrderProcess`;
-  this.httpClient.post(apiUrl, requestData, { responseType: 'text' }).subscribe(
+  this.httpClient.post(apiUrl, requestData).subscribe(
     (response: any) => {
       console.log('Response:', response); // Log the response        
-      if (response === 'Success') {
+      if (response.message === "Success") {
         console.log('Success:', response);
-        this.router.navigate(['/thankyou']);  // Redirect to the thank you page
+
+        const token = response.token;
+        localStorage.setItem('authToken', token);
+        this.router.navigate(["/"]).then(() => {
+          window.location.reload();
+        })
+        //this.router.navigate(['/']);  // Redirect to the thank you page
+       
       } else {
         console.error('Error in response:', response); // Handle the error condition appropriately
       }
