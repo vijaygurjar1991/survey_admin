@@ -286,12 +286,28 @@ export class QuotaManagementComponent {
 
 
   dividedValue: any
-  equallyDividedValue(index: number) {
+  equallyDividedValue(var_options: any, index: number, opindx: number) {
 
-    this.dividedValue = Math.floor(this.surveycount / this.selectedOptionsCount[index]);
+    const last_index = var_options.length - 1;
+
+
+    if (last_index == opindx) {
+      this.dividedValue = this.surveycount - (last_index * Math.floor(this.surveycount / this.selectedOptionsCount[index]));
+
+    }
+    else {
+      this.dividedValue = Math.floor(this.surveycount / this.selectedOptionsCount[index]);
+
+    }
+
     console.log("dividedValue", this.dividedValue)
+    console.log(opindx);
+    console.log(last_index);
+
+
 
     this.totalsum[index] = this.dividedValue * this.selectedOptionsCount[index]
+
 
 
     return this.dividedValue;
