@@ -1,12 +1,12 @@
 <div class="common-bg">
     <div class="">
-        <div ngClass="row common-heading">
-            <div class="col">
+        <div ngClass="row common-heading g-3">
+            <div class="col-md-6">
                 <h4>ED- Tech Brand Ranking</h4>
                 <span class="view-tags">Cosmetics, Personal Care, Toiletries</span>
             </div>
-            <div class="col">
-                <div class="d-flex justify-content-end">
+            <div class="col-md-6">
+                <div class="d-flex justify-content-end g-2">
                     <div class="col input-group flex-nowrap">
                         <select class="form-select">
                             <option selected>Select Graph Type</option>
@@ -17,7 +17,7 @@
                             <option value="5">Loop</option>
                         </select>
                     </div>
-                    <a href="#" class="btn btn-primary">Download CSV <ng-icon class="ms-3"
+                    <a href="#" class="btn btn-primary ms-2">Download CSV <ng-icon class="ms-3"
                             name="heroArrowLongRight"></ng-icon></a>
                 </div>
             </div>
@@ -51,13 +51,13 @@
                 </li>
                 <li>
                     <figcaption>
-                        <div class="">
-                            <h4>Q2. Please select your gender</h4>
+                        <h4>Q2. Please select your gender</h4>
+                        <div class="">                            
                             <!-- my-charts.component.html -->
                             <div *ngFor="let canvasId of ['canvas', 'canvas1'];let i=index;">
                                 <div>
                                     <label for="{{canvasId}}-chartType">Select Chart Type:</label>
-                                    <select id="{{canvasId}}-chartType" (change)="onChartTypeChange($event, canvasId)">
+                                    <select class="form-select w-100" id="{{canvasId}}-chartType" (change)="onChartTypeChange($event, canvasId)">
                                         <option selected>Select Graph Type</option>
                                         <option value="line">Line Chart</option>
                                         <option value="bar">Bar Chart</option>

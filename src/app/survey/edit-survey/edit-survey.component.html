@@ -7,8 +7,8 @@
         <a routerLink="#"><ng-icon name="heroPencilSquare"></ng-icon></a>
     </div> -->
     <div ngClass="question">
-        <!-- <span class="badge text-bg-danger activestatus">{{surveyId}}</span> -->
-        <span class="badge text-bg-danger activesurvey p-2">{{filteredSurveyNames}}</span>
+        <h4 class="mb-3">{{filteredSurveyNames}}</h4>
+
         <ul>
             <li>
                 <div ngClass="ques-header">
@@ -162,7 +162,7 @@
                     </div>
                     <div ngClass="mb-4" cdkDropList (cdkDropListDropped)="onDropOption($event)">
                         <div class="row g-2 align-items-center mb-3" *ngFor="let option of optionsArr1;let i=index;"
-                            cdkDrag>
+                            >
                             <div class="flex-width">
                                 <input type="text" id="" class="form-control" value="{{i+1}}" readonly />
                             </div>
@@ -225,7 +225,7 @@
                             <!-- <div class="flex-1">
                                 <input type="text" id="" class="form-control" value="Add Keyword">
                             </div> -->
-                            <div class="flex-width text-end">
+                            <div class="flex-width text-end" cdkDrag>
                                 <ng-icon name="heroBars3"></ng-icon>
                             </div>
                             <div class="flex-width text-end">
@@ -299,7 +299,7 @@
                         <div class="flex-2">
                             <input id="answer" [type]="openendedtype" name="answer" class="form-control"
                                 [(ngModel)]="textlimit" (blur)="validateSurvey()"
-                                [pattern]="alphabet ? '^[A-Za-z]+$' : ''" />
+                                pattern="[ a-zA-Z]*" />
                             <div *ngIf="!textlimitation" class="text-danger">Field is required.</div>
                         </div>
 

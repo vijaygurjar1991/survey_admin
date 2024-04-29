@@ -599,7 +599,7 @@ export class EditSurveyComponent {
     // }
 
     // Update the validity state of the survey
-    this.isValidSurvey = this.questionadded && this.qusstionaddednext && this.categoryNameCheck && !isAnyOptionEmpty && this.textlimitation;
+    this.isValidSurvey = this.questionadded && this.qusstionaddednext && this.categoryNameCheck && !isAnyOptionEmpty;
 
     return this.isValidSurvey; // Return the validation result
   }
@@ -1374,7 +1374,7 @@ export class EditSurveyComponent {
       this.question.isAlphabet = true;
       this.question.isNumeric = false;
       this.openendedtype = 'text'
-      this.pattern = /^[A-Za-z]+$/;
+      //this.pattern = '^[A-Za-z]*$';
     }
   }
 

@@ -165,6 +165,7 @@ export class DashboardComponent {
   }
  
   createChart() {
+    
     this.chart = new Chart("canvas", {
       type: 'line',
       data: {
@@ -231,6 +232,7 @@ export class DashboardComponent {
     this.surveyservice.GetRecentSurveyList().subscribe({
       next: (resp: responseDTO[]) => {
         console.log('surveylist:', resp);
+        
         this.surveylist = resp.map(item => ({
           name: item.name,
           status: item.status.toString(),
@@ -238,7 +240,7 @@ export class DashboardComponent {
           userName: item.userName,
           createdDate: new Date(item.createdDate),
           surveyId: item.surveyId
-
+          
         }));
       },
       error: (err) => console.log("An Error occur while fetching survey list", err)

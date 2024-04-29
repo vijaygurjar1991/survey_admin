@@ -1598,8 +1598,9 @@ span.mobile-cross {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    flex-wrap: wrap;gap: 30px;
 }
-
+.Report-question-list figcaption>div>div{flex: 1;}
 .Report-question-list figure {
     margin-top: 1rem;
     margin-bottom: 0px;
