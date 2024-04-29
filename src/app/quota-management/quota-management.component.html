@@ -90,10 +90,16 @@
                     <h4>{{selectedquestion[i]}}</h4>
                     <div class="display:none;" *ngIf="showCensusDiv[i] || showCustomDiv[i]">
                         <ul class="question-options">
-                            <li *ngFor="let options of selectedoptions[i]"><span>{{options.option}}</span><input
+                            <!-- <li *ngFor="let options of selectedoptions[i]"><span>{{options.option}}</span><input
                                     type="text" class="form-control" [value]="equallyDividedValue(i)"
                                     (input)="updateTotalSum(i)" [(ngModel)]="dividedValue"
-                                    [disabled]="!customActive[i]"></li>
+                                    [disabled]="!customActive[i]"></li> -->
+                            <li *ngFor="let options of selectedoptions[i]; let j = index">
+                                <span>{{ options.option }}</span>
+                                <input type="text" class="form-control" [value]="equallyDividedValue(options, i, j)"
+                                    (input)="updateTotalSum(i)" [(ngModel)]="dividedValue"
+                                    [disabled]="!customActive[i]">
+                            </li>
                         </ul>
                         <div class="total-count">
                             <button type="button" class="btn btn-outline-primary"

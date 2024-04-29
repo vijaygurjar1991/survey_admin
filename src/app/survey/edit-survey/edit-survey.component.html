@@ -193,6 +193,10 @@
                                 </ngx-dropzone>
                             </div>
 
+                            <div class="flex-width" *ngIf="optionimagennew">
+                                <img [src]="optionimagennew" class="img-fluid">
+                            </div>
+
                             <!-- <div class="flex-width">
                                 <ngx-dropzone data-bs-toggle="modal" data-bs-target="#imageModal" (click)="openModal(i)"
                                     class="edit-survey-img" ngx-dropzone [accept]="'image/*'">
@@ -282,15 +286,20 @@
                             </div>
                         </div>
                     </div>
+                    <div *ngIf="screeningRedirectUrl" class="mb-3">
+                        <label class="mb-2">Redirect URL</label>
+                        <textarea [(ngModel)]="screeningRedirectUrl" class="form-control">
+                        </textarea>
+                    </div>
                     <div *ngIf="question.questionTypeName === 'Open Ended'">
                         <div class="mb-3">
                             <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" name="type" value="numreic"
+                                <input class="form-check-input" type="checkbox" name="numeric" value="numreic"
                                     [(ngModel)]="numeric" (change)="openEndedValue('numeric')">
                                 <label class="form-check-label" for="numreic">Numeric</label>
                             </div>
                             <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" name="type" value="alphabet"
+                                <input class="form-check-input" type="checkbox" name="alphabet" value="alphabet"
                                     [(ngModel)]="alphabet" (change)="openEndedValue('alphabet')">
                                 <label class="form-check-label" for="alphabet">Alphabet</label>
                             </div>

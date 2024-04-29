@@ -63,6 +63,8 @@ export class EditSurveyComponent {
   selectedOptions: any[] = [];
   getquestionTypeName: any
   questionsort: any
+  screeningRedirectUrl: any
+  optionimagennew: any
   baseUrl = '';
   optionImage: String;
 
@@ -116,6 +118,10 @@ export class EditSurveyComponent {
       this.youtubeUrl = data.youtubeUrl
       this.question.piping = data.piping
       this.question.isGrouping = data.isGrouping
+      this.textlimit = data.textLimit
+      this.numeric = data.isNumeric
+      this.alphabet = data.isAlphabet
+      this.screeningRedirectUrl = data.screeningRedirectUrl
 
       console.log("piping", this.question.piping)
 
@@ -140,6 +146,9 @@ export class EditSurveyComponent {
             this.optionsArr1.push(newOption);
 
         }
+
+        this.optionimagennew = newOption.image
+        console.log("qwertyuertyui", this.optionimagennew)
 
         console.log("see", this.optionsArr1)
         console.log("option id", newOption.id)
@@ -599,7 +608,7 @@ export class EditSurveyComponent {
     // }
 
     // Update the validity state of the survey
-    this.isValidSurvey = this.questionadded && this.qusstionaddednext && this.categoryNameCheck && !isAnyOptionEmpty && this.textlimitation;
+    this.isValidSurvey = this.questionadded && this.qusstionaddednext && this.categoryNameCheck && !isAnyOptionEmpty;
 
     return this.isValidSurvey; // Return the validation result
   }
@@ -1366,13 +1375,13 @@ export class EditSurveyComponent {
   openEndedValue(type: string) {
 
     if (type === 'numeric') {
-      this.question.isAlphabet = false;
+      // this.question.isAlphabet = false;
       this.question.isNumeric = true;
       this.openendedtype = 'number'
 
     } else if (type === 'alphabet') {
       this.question.isAlphabet = true;
-      this.question.isNumeric = false;
+      // this.question.isNumeric = false;
       this.openendedtype = 'text'
       this.pattern = /^[A-Za-z]+$/;
     }
