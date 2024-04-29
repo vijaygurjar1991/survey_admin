@@ -551,11 +551,14 @@ export class EditSurveyComponent {
 
   optionFieldIsValid: boolean = true
   surveySubmitted: boolean = false;
+  textlimitation: boolean = false
   validateSurvey(): boolean {
     this.initializeCategoryNameChecks();
     // Validate each field individually
     this.questionadded = !!this.question && !!this.question.question && this.question.question.trim().length > 0;
     this.qusstionaddednext = !!this.question && !!this.question.questionTypeName && this.question.questionTypeName.trim().length > 0;
+    this.questionadded = !!this.question && !!this.question.question && this.question.question.trim().length > 0;
+    this.textlimitation = !!this.textlimit && !!this.textlimit && this.textlimit.trim().length > 0;
 
 
     // Check if categoryNameCheck validation is needed (only if a group exists)
@@ -596,7 +599,7 @@ export class EditSurveyComponent {
     // }
 
     // Update the validity state of the survey
-    this.isValidSurvey = this.questionadded && this.qusstionaddednext && this.categoryNameCheck && !isAnyOptionEmpty;
+    this.isValidSurvey = this.questionadded && this.qusstionaddednext && this.categoryNameCheck && !isAnyOptionEmpty && this.textlimitation;
 
     return this.isValidSurvey; // Return the validation result
   }
@@ -1358,18 +1361,27 @@ export class EditSurveyComponent {
     this.allOptions = [...this.optionsArr1, ...this.optionsArr2];
   }
 
-
+  openendedtype: any
+  pattern: any
   openEndedValue(type: string) {
 
     if (type === 'numeric') {
       this.question.isAlphabet = false;
       this.question.isNumeric = true;
+      this.openendedtype = 'number'
 
     } else if (type === 'alphabet') {
       this.question.isAlphabet = true;
       this.question.isNumeric = false;
+      this.openendedtype = 'text'
+      this.pattern = /^[A-Za-z]+$/;
     }
   }
+
+  getInputPattern(): string {
+    return this.numeric ? '[0-9]*' : (this.alphabet ? '[a-zA-Z]*' : '');
+  }
+
 
   surveyData: any[] = []
   surveyname: any[] = []

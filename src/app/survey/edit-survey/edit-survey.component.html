@@ -297,9 +297,10 @@
                         </div>
 
                         <div class="flex-2">
-                            <input id="answer" type="text" name="answer" class="form-control" [(ngModel)]="textlimit"
-                                (blur)="validateSurvey()" />
-
+                            <input id="answer" [type]="openendedtype" name="answer" class="form-control"
+                                [(ngModel)]="textlimit" (blur)="validateSurvey()"
+                                [pattern]="alphabet ? '^[A-Za-z]+$' : ''" />
+                            <div *ngIf="!textlimitation" class="text-danger">Field is required.</div>
                         </div>
 
                     </div>

@@ -273,6 +273,11 @@ export class QuotaManagementComponent {
       this.selectedOptionsCount[index] = this.selectedoptions[index].length;
       console.log("Number of selected options at index " + index + ":", this.selectedOptionsCount[index]);
 
+      // return selectedOptions;
+      this.questionList.questions = this.questionList.questions.filter((question: any) => question.id !== this.selectedquestionid);
+
+      console.log("asdfghj", this.questionList.questions)
+
       return selectedOptions;
     }
 
@@ -287,7 +292,7 @@ export class QuotaManagementComponent {
     console.log("dividedValue", this.dividedValue)
 
     this.totalsum[index] = this.dividedValue * this.selectedOptionsCount[index]
-    // this.totalsum[index] = totalsum
+
 
     return this.dividedValue;
 
@@ -321,18 +326,18 @@ export class QuotaManagementComponent {
     };
 
 
+    const options = this.selectedoptionid[index];
 
-    this.selectedoptionid.forEach((options: any) => {
-      options.forEach((optionId: any) => {
-        const optionsDto = {
-          quotaOptionsId: 0,
-          quotaQuestionId: 0,
-          optionId: optionId,
-          userCount: this.dividedValue
-        }
-        dataToSend.questionDto.optionsDto.push(optionsDto);
-      });
+    options.forEach((optionId: any) => {
+      const optionsDto = {
+        quotaOptionsId: 0,
+        quotaQuestionId: 0,
+        optionId: optionId,
+        userCount: this.dividedValue
+      }
+      dataToSend.questionDto.optionsDto.push(optionsDto);
     });
+
 
 
 
@@ -348,6 +353,12 @@ export class QuotaManagementComponent {
 
 
   }
+  customValue: number[] = [];
+  updateTotalSum(index: number) {
+    this.totalsum[index] = this.customValue[index] * this.selectedOptionsCount[index];
+    console.log("updated", this.totalsum[index])
+  }
+
 
 
 }
