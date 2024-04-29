@@ -112,6 +112,7 @@ export class DashboardComponent {
         this.isPaid = data.isPaid;
         this.orgCreatedDate = new Date(data.orgCreatedDate);
         // Calculate difference in days
+        console.log("isPaid",this.isPaid)
         if (isNaN(this.orgCreatedDate.getTime())) {
           console.error("Invalid orgCreatedDate:", data.orgCreatedDate);
           return;

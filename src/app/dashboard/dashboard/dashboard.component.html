@@ -1,8 +1,11 @@
 <div>
-    <div *ngIf="isPaid !== 'true' && remainingTrialDays !== 0" class="alert alert-success alert-dismissible fade show" role="alert">
-        <strong>Dear {{firstName}}</strong> You have created your free 7 days trial survey on <span>{{ orgCreatedDate  }}</span> and it will expired in <span>{{ remainingTrialDays  }} days.</span>
-         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-    </div>
+    <ng-container *ngIf="isPaid === false">
+        <div class="alert alert-success alert-dismissible fade show" role="alert" >
+            <strong >Dear {{firstName}}</strong> You have created your free 7 days trial survey on <span>{{ orgCreatedDate  }}</span> and it will expired in <span>{{ remainingTrialDays  }} days.</span>
+             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    </ng-container>
+    
     <div class="card card-color p-lg-5 p-4 mb-5">
         <div class="row align-items-center justify-content-between">
             <div class="col-md-8">
