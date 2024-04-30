@@ -199,7 +199,8 @@
             <div class="common-ques">
                 <a [routerLink]="['/survey/quota-management/manage-survey/', (surveyId | encrypt)]"
                     [state]="{ surveyData: { surveyName: surveyName, countryName: countryName, countryImage: countryImage, status: status, categoryName: categoryName, otherCategoryName: otherCategoryName, surveyId: surveyId } }">
-                    <figure><img [src]="baseUrl + '/assets/images/icons/Add-new-logic.png'" width="30" height="30" /></figure>
+                    <figure><img [src]="baseUrl + '/assets/images/icons/Add-new-logic.png'" width="30" height="30" />
+                    </figure>
                     <figcaption>Add New Quota Management</figcaption>
                 </a>
             </div>
@@ -312,7 +313,7 @@
                                         </select> -->
                                         <mat-form-field>
                                             <mat-select [(ngModel)]="randomization.fromQuestion" #selectElement>
-                                                <ng-container *ngFor="let option of logicQuestionList">
+                                                <ng-container *ngFor="let option of logicQuestionListById">
                                                     <mat-option [value]="option.id" [title]="option.item">
                                                         {{ option.item.split(' ').slice(0, 3).join(' ')
                                                         }}{{option.item.split('
@@ -330,7 +331,7 @@
                                         </select> -->
                                         <mat-form-field>
                                             <mat-select [(ngModel)]="randomization.toQuestion" #selectElement>
-                                                <ng-container *ngFor="let option of logicQuestionList">
+                                                <ng-container *ngFor="let option of logicQuestionListById">
                                                     <mat-option [value]="option.id" [title]="option.item">
                                                         {{ option.item.split(' ').slice(0, 3).join(' ')
                                                         }}{{option.item.split('

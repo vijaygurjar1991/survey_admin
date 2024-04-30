@@ -288,7 +288,13 @@ export class QuotaManagementComponent {
   dividedValue: any
   equallyDividedValue(var_options: any, index: number, opindx: number) {
 
+    console.log("var_options", var_options)
+    console.log("var_options", typeof (var_options))
+
     const last_index = var_options.length - 1;
+    // const valuesArray = Object.values(var_options);
+    // console.log("valuesArray", valuesArray)
+    // const last_index = valuesArray.length - 1;
 
 
     if (last_index == opindx) {

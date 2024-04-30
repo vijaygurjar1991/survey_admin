@@ -22,7 +22,7 @@ export class SurveyListingComponent {
     this.showTooltip[identifier] = !this.showTooltip[identifier];
   }
   hideTooltip(identifier: string) {
-      this.showTooltip[identifier] = false;
+    this.showTooltip[identifier] = false;
   }
   //ToolTip
   surveyData: any = "";
@@ -95,6 +95,7 @@ export class SurveyListingComponent {
     this.themeService.getSurveyListWithPage(pageNumber, pageSize).subscribe((data: any) => {
       this.surveyData = data.surveyType;
       this.totalItemsCount = data.totalCount;
+      console.log("totalCount", this.totalItemsCount)
       // alert(this.totalItemsCount);
       this.cdr.detectChanges();
     });

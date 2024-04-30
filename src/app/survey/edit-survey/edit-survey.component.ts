@@ -521,7 +521,7 @@ export class EditSurveyComponent {
       newOption.isFixed = true
     }
     else if (type == 'Optional') {
-      newOption.option = "Optional";
+      newOption.option = "Optional(Please specify)";
       newOption.isFixed = true
       this.question.openEndedType = "text"
     }
