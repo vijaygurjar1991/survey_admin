@@ -7,7 +7,32 @@
         <a routerLink="#"><ng-icon name="heroPencilSquare"></ng-icon></a>
     </div> -->
     <div ngClass="question">
-        <h4 class="mb-3">{{filteredSurveyNames}}</h4>
+        <div>
+            <div class="d-flex">
+                <h4 ngClass="mb-3">
+                    <ng-container *ngIf="filteredCountryNames !== 'Other Country'">
+                        <img matTooltip="{{filteredCountryNames}}"
+                            aria-label="Button that displays a tooltip when focused or hovered over" loading="lazy"
+                            [src]="baseUrl + '/assets/images/country-flag/' + filteredCountryNames" width="30"
+                            height="30" alt="{{filteredCountryNames}}" />
+                    </ng-container>
+                    {{filteredSurveyNames}}
+                </h4>
+                <div class="ms-2">
+                    <span class="badge text-bg-success activestatus">{{surveystatus}}</span>
+                </div>
+
+            </div>
+            <div class="d-flex">
+                <span class="badge text-bg-danger activestatus me-2"
+                    *ngIf="filteredcategoryName !='Others'">{{filteredcategoryName}}</span>
+                <span class="badge text-bg-danger activestatus "
+                    *ngIf="filteredcategoryName =='Others'">{{filteredcategoryName}}</span>
+                <span class="badge text-bg-danger activestatus me-2">Survey ID-{{surveyId}}</span>
+            </div>
+        </div>
+
+        <!-- <span class="badge text-bg-danger activestatus">{{surveystatus}}</span> -->
 
         <ul>
             <li>
@@ -151,18 +176,17 @@
                 <div ngClass="border-top p-4">
                     <div ngClass="select-ans-choice mb-5">
                         <h5>Answer Choice</h5>
-                        <div ngClass="d-flex align-items-center">
+                        <!-- <div ngClass="d-flex align-items-center">
                             <span>Tag/Code(Optional)</span>
                             <select class="form-select">
                                 <option selected>Select Option Pipeing</option>
                                 <option value="1">Select Pipeing 1</option>
                                 <option value="2">Select Pipeing 2</option>
                             </select>
-                        </div>
+                        </div> -->
                     </div>
                     <div ngClass="mb-4" cdkDropList (cdkDropListDropped)="onDropOption($event)">
-                        <div class="row g-2 align-items-center mb-3" *ngFor="let option of optionsArr1;let i=index;"
-                            >
+                        <div class="row g-2 align-items-center mb-3" *ngFor="let option of optionsArr1;let i=index;">
                             <div class="flex-width">
                                 <input type="text" id="" class="form-control" value="{{i+1}}" readonly />
                             </div>
@@ -193,9 +217,14 @@
                                 </ngx-dropzone>
                             </div>
 
-                            <div class="flex-width" *ngIf="optionimagennew">
-                                <img [src]="optionimagennew" class="img-fluid">
+                            <div class="flex-width" *ngIf="optionimagennew.length > 0">
+
+                                <ng-container>
+                                    <img [src]="optionimagennew[i]" class="img-fluid">
+                                </ng-container>
                             </div>
+
+
 
                             <!-- <div class="flex-width">
                                 <ngx-dropzone data-bs-toggle="modal" data-bs-target="#imageModal" (click)="openModal(i)"
@@ -293,23 +322,23 @@
                     </div>
                     <div *ngIf="question.questionTypeName === 'Open Ended'">
                         <div class="mb-3">
+
                             <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="checkbox" name="numeric" value="numreic"
-                                    [(ngModel)]="numeric" (change)="openEndedValue('numeric')">
-                                <label class="form-check-label" for="numreic">Numeric</label>
+                                <input class="form-check-input" type="checkbox" name="numeric" value="numeric"
+                                    id="numeric" [(ngModel)]="numeric" (change)="openEndedValue()">
+                                <label class="form-check-label" for="numeric">Numeric</label>
                             </div>
                             <div class="form-check form-check-inline">
                                 <input class="form-check-input" type="checkbox" name="alphabet" value="alphabet"
-                                    [(ngModel)]="alphabet" (change)="openEndedValue('alphabet')">
+                                    id="alphabet" [(ngModel)]="alphabet" (change)="openEndedValue()">
                                 <label class="form-check-label" for="alphabet">Alphabet</label>
                             </div>
                         </div>
 
-                        <div class="flex-2">
+                        <div class="flex-2 mb-3">
                             <input id="answer" [type]="openendedtype" name="answer" class="form-control"
-                                [(ngModel)]="textlimit" (blur)="validateSurvey()"
-                                pattern="[ a-zA-Z]*" />
-                            <div *ngIf="!textlimitation" class="text-danger">Field is required.</div>
+                                [(ngModel)]="textlimit" (blur)="validateSurvey()" pattern="[ a-zA-Z]*" />
+                            <!-- <div *ngIf="!textlimitation" class="text-danger">Field is required.</div> -->
                         </div>
 
                     </div>
@@ -324,14 +353,14 @@
                             <div class="col-auto">
                                 <div ngClass="new-options">
                                     <a herf="javascript:void(0);" (click)="hanldeAddOptionClick('other')"><ng-icon
-                                            name="heroPlusCircle"></ng-icon> Other (Please specify)
+                                            name="heroPlusCircle"></ng-icon> Other
                                     </a>
                                 </div>
                             </div>
                             <div class="col-auto">
                                 <div ngClass="new-options">
                                     <a herf="javascript:void(0);" (click)="hanldeAddOptionClick('Optional')"><ng-icon
-                                            name="heroPlusCircle"></ng-icon> Add "Optional"
+                                            name="heroPlusCircle"></ng-icon> Add "Other (Please specify)"
                                         Option</a>
                                 </div>
                             </div>

@@ -665,7 +665,7 @@ export class CreateSurveyComponent implements OnInit, AfterViewInit {
     this.logicQuestionListById = []; // Assuming logicQuestionListById is of type responseDTO[]
     this.surveyservice.GetQuestionListBySurveyId(this.surveyId).subscribe((response: responseDTO[]) => {
       this.logicQuestionListById = response;
-      console.log("qwertyu", this.logicQuestionListById);
+      console.log("logicQuestionListById", this.logicQuestionListById);
     });
 
   }
@@ -1420,6 +1420,7 @@ export class CreateSurveyComponent implements OnInit, AfterViewInit {
     this.surveyservice.getRandomizedQuestions(this.surveyId).subscribe(
       (response: any[]) => {
         // Store the API response
+        console.log("randomize", response)
         this.apiResponseRandomization = response;
 
         // Handle the response from the API

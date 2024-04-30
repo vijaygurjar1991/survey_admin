@@ -97,21 +97,22 @@
                                         class="text-danger">
                                         Password must be at least 8 characters long.
                                     </div>
-                                    <div *ngIf="signupForm.hasError('passwordMismatch')" class="text-danger">
-                                        Passwords do not match.
-                                    </div>
+
                                 </div>
 
                                 <div class="col-md-6 mb-4">
                                     <label for="c_password" class="form-label">Confirm Password</label>
                                     <input type="password" class="form-control" id="c_password"
-                                        formControlName="confirmPassword" placeholder="Enter your Password">
+                                        formControlName="confirmPassword" placeholder="Confirm your Password">
                                     <div *ngIf="signupForm.get('confirmPassword')?.errors?.required && signupForm.get('confirmPassword')?.touched"
                                         class="text-danger">
                                         Confirm Password is required.
                                     </div>
                                     <div *ngIf="signupForm.get('confirmPassword')?.hasError('passwordMismatch') && signupForm.get('confirmPassword')?.touched"
                                         class="text-danger">
+                                        Passwords do not match.
+                                    </div>
+                                    <div *ngIf="signupForm.hasError('passwordMismatch')" class="text-danger">
                                         Passwords do not match.
                                     </div>
                                 </div>
@@ -161,12 +162,12 @@
                                         (click)="showUserDetails = false">Previous</button> -->
                                     <!-- <button type="button" class="btn btn-primary px-3"
                                         (click)="verifyEmail()">Submit</button> -->
-                                    <button type="button" class="btn btn-primary px-3"
-                                    (click)="verifyEmail(true)">Skip</button>
-                                    <button type="button" class="btn btn-primary px-3"
-                                        (click)="verifyEmail()">Next</button>
-                                        
-                                    
+                                    <button type="button" class="btn btn-outline-primary px-3"
+                                        (click)="verifyEmail(true)">Go to Dashboard</button>
+                                    <button type="button" class="btn btn-primary px-3" (click)="verifyEmail()">Purchase
+                                        Plan</button>
+
+
                                 </div>
                             </div>
                         </form>
@@ -176,44 +177,23 @@
                     <div class="user-detail-signup select-plan " *ngIf="suurveypurchaseprice">
                         <ul>
                             <li *ngFor="let plan of subscriptionPlans">
-                                <input class="form-check-input" type="radio" [(ngModel)]="amount" name="amount" [id]="plan.id"
-                                    [value]="plan.price">
+                                <input class="form-check-input" type="radio" [(ngModel)]="amount" name="amount"
+                                    [id]="plan.id" [value]="plan.price">
                                 <label [for]="plan.id">
                                     <h5>{{ plan.name }}</h5>
                                     <p>₹ {{ plan.price }}<span> /month</span></p>
                                     <div class="text-end">
-                                        <button type="button" class="btn btn-primary btn-sm mt-3 w-100">Upgrade</button>
+                                        <div type="button" class="btn btn-primary btn-sm mt-3 w-100">Upgrade</div>
                                     </div>
                                 </label>
                             </li>
                         </ul>
-                          <!-- <div>{{ organizationId }}</div> -->
-                        <!-- <div class="form-check">
-                            <input class="form-check-input" type="radio" name="flexRadioDefault" id="500"
-                                [checked]="purchaseprice === '500'">
-                            <label class="form-check-label" for="flexRadioDefault1">
-                                ₹500/month
-                            </label>
-                        </div>
-                        <div class="form-check">
-                            <input class="form-check-input" type="radio" name="flexRadioDefault" id="1200"
-                                [checked]="purchaseprice === '1200'">
-                            <label class="form-check-label" for="flexRadioDefault2">
-                                ₹1200/month
-                            </label>
-                        </div>
-                        <div class="form-check">
-                            <input class="form-check-input" type="radio" name="flexRadioDefault" id="2500"
-                                [checked]="purchaseprice === '2500'">
-                            <label class="form-check-label" for="flexRadioDefault2">
-                                ₹2500/month
-                            </label>
-                        </div> -->
+
                         <div class="row mt-3">
                             <div class="d-flex gap-2 justify-content-between">
                                 <button type="button" class="btn" (click)="redirectDashboard()">Skip</button>
-                                <button type="button"
-                                    class="btn btn-primary px-3" (click)="submitForm()">Purchase</button>
+                                <button type="button" class="btn btn-primary px-3"
+                                    (click)="submitForm()">Purchase</button>
                             </div>
                         </div>
                     </div>
