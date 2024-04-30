@@ -25,10 +25,12 @@ export class QuotaManagementComponent {
   countryName: any;
   countryImage: any;
   categoryName: any;
-  centerId: any
+  centerId: any;
+
+  surveyQuotaJson: any;
 
 
-  constructor(private route: ActivatedRoute, private visibilityService: DataService, 
+  constructor(private route: ActivatedRoute, private visibilityService: DataService,
     private modalService: NgbModal, private surveyservice: SurveyService, private utils: UtilsService, private utility: UtilsService) {
     this.baseUrl = environment.baseURL;
 
@@ -61,7 +63,7 @@ export class QuotaManagementComponent {
       }
     });
     this.GetSurveyDetails();
-    //this.getQuotaBySurveyId();
+    this.getQuotaBySurveyId();
   }
   showCountError: boolean = false;
 
@@ -134,14 +136,45 @@ export class QuotaManagementComponent {
     console.log("activewer", this.activeValue)
   }
 
-  toggleCustom(index: number) {
-    this.showCensusDiv[index] = false;
-    this.showCustomDiv[index] = true;
-    this.censusActive[index] = false;
-    this.customActive[index] = true;
-    this.activeValue = 'custom';
-    console.log("activewer", this.activeValue)
+  toggleCustom(index: number, type: string) {
+    // this.showCensusDiv[index] = false;
+    // this.showCustomDiv[index] = true;
+    // this.censusActive[index] = false;
+    // this.customActive[index] = true;
+    // this.activeValue = 'custom';
+    // console.log("activewer", this.activeValue)
+
+    this.quotaResponse.questionDto[index].type = type;
   }
+  getQuestionDetail(quesId: any, questionList: any) {
+    return questionList?.filter((ques: any) => ques.id == quesId)[0];
+  }
+
+  getOptionDetail(optionId: any, quesId: any, questionList: any) {
+    const question = questionList?.filter((ques: any) => ques.id == quesId)[0];
+
+    if (question) {
+      const option = question.options.filter((opt: any) => opt.id == optionId)[0];
+      if (option) {
+        return option;
+      }
+    }
+  }
+
+  getTotalSum(optionList: any) {
+    debugger;
+    let total = 0;
+    optionList?.forEach((item: any) => {
+      if (!isNaN(item.userCount)) {
+        total += parseInt(item.userCount);
+      } else {
+        total += 0;
+      }
+    });
+
+    return total;
+  }
+
 
   toggleNone(index: number) {
     this.showCensusDiv[index] = false;
@@ -197,7 +230,7 @@ export class QuotaManagementComponent {
 
     });
   }
-  
+
 
   // selectedoptions: any[] = [];
   // selectedOptionsCount: any
@@ -370,15 +403,15 @@ export class QuotaManagementComponent {
         console.log("err create", error)
         this.utility.showError('error');
       }
-    )  
+    )
 
   }
   // updateQuota(index: number) {
   //   console.log("updating quota", index);
-  
+
   //   // Retrieve the quota to be updated
   //   const quotaToUpdate = this.quotas[index];
-  
+
   //   // Construct the data to send for updating the quota
   //   const dataToSend = {
   //     quotaId: quotaToUpdate.quotaId,
@@ -397,7 +430,7 @@ export class QuotaManagementComponent {
   //       optionsDto: [] as { quotaOptionsId: number; quotaQuestionId: number; optionId: any; userCount: any }[] // Define the type explicitly
   //     }
   //   };
-  
+
   //   // Add options for the quota
   //   const options = this.selectedoptionid[index];
   //   options.forEach((optionId: any) => {
@@ -409,7 +442,7 @@ export class QuotaManagementComponent {
   //     };
   //     dataToSend.questionDto.optionsDto.push(optionsDto);
   //   });
-  
+
   //   // Call the service to update the quota
   //   this.surveyservice.updateQuota(dataToSend).subscribe(
   //     resp => {
@@ -422,55 +455,59 @@ export class QuotaManagementComponent {
   //     }
   //   );
   // }
-  
+
 
   customValue: number[] = [];
   updateTotalSum(index: number) {
     this.totalsum[index] = this.customValue[index] * this.selectedOptionsCount[index];
     console.log("updated", this.totalsum[index])
   }
-  
-  //  totalUsers:any;
-  //  questionDto:any;
-  //  getQuotaBySurveyId() {
-  //   this.surveyservice.getQuotaBySurveyId(this.surveyId).subscribe({
-  //     next: (data: any) => {
-  //       this.quotas = data;
-  //       this.surveycount = data.totalUsers;
-  
-  //       if (data && data.questionDto && Array.isArray(data.questionDto) && data.questionDto.length > 0) {
-  //         this.isQuotasVisible = true;  
-  //         this.questionDto = data.questionDto; // Assigning questionDto data
-  
-  //         this.questionDto.forEach((question: any) => {
-  //           this.selectedQuestion = question.questionId;
-  //           console.log(this.selectedQuestion);
-  //           console.log("quotaQuestionsId:", question.quotaQuestionsId);
-  //           console.log("quotaId:", question.quotaId);
-  //           console.log("questionId:", question.questionId);
-  //           console.log("type:", question.type);
-  //           console.log("isInterlock:", question.isInterlock);
-  //           console.log("isOpenEnded:", question.isOpenEnded);
-            
-  //           // Iterate over optionsDto if it exists
-  //           if (question.optionsDto && question.optionsDto.length > 0) {
-  //             question.optionsDto.forEach((option: any) => {
-  //               console.log("quotaOptionsId:", option.quotaOptionsId);
-  //               console.log("quotaQuestionId:", option.quotaQuestionId);
-  //               console.log("optionId:", option.optionId);
-  //               console.log("userCount:", option.userCount);
-  //             });
-  //           }
-  //         });
-  //       }
-  //       console.log("Quotas:", this.quotas);
-  //     },
-  //     error: (err: any) => {
-  //       console.log("Error fetching quotas", err);
-  //     }
-  //   });
-  // }
-  
+
+  totalUsers: any;
+  questionDto: any;
+  quotaResponse: any;
+  getQuotaBySurveyId() {
+    this.surveyservice.getQuotaBySurveyId(this.surveyId).subscribe({
+      next: (data: any) => {
+        this.isQuotasVisible = true;
+
+        this.quotaResponse = data;
+        // this.quotas = [...data?.questionDto];
+        this.surveycount = data.totalUsers;
+
+        // if (data && data.questionDto && Array.isArray(data.questionDto) && data.questionDto.length > 0) {
+        //   this.isQuotasVisible = true;  
+        //   this.questionDto = data.questionDto; // Assigning questionDto data
+
+        //   this.questionDto.forEach((question: any) => {
+        //     this.selectedQuestion = question.questionId;
+        //     console.log(this.selectedQuestion);
+        //     console.log("quotaQuestionsId:", question.quotaQuestionsId);
+        //     console.log("quotaId:", question.quotaId);
+        //     console.log("questionId:", question.questionId);
+        //     console.log("type:", question.type);
+        //     console.log("isInterlock:", question.isInterlock);
+        //     console.log("isOpenEnded:", question.isOpenEnded);
+
+        //     // Iterate over optionsDto if it exists
+        //     if (question.optionsDto && question.optionsDto.length > 0) {
+        //       question.optionsDto.forEach((option: any) => {
+        //         console.log("quotaOptionsId:", option.quotaOptionsId);
+        //         console.log("quotaQuestionId:", option.quotaQuestionId);
+        //         console.log("optionId:", option.optionId);
+        //         console.log("userCount:", option.userCount);
+        //       });
+        //     }
+        //   });
+        // }
+        console.log("Quotas:", this.quotas);
+      },
+      error: (err: any) => {
+        console.log("Error fetching quotas", err);
+      }
+    });
+  }
+
 
 
   showInterlockedQuotas: boolean = false;
