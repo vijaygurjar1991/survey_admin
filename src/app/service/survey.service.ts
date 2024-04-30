@@ -373,9 +373,19 @@ export class SurveyService {
     return this.http.get<responseDTO[]>(url);
   }
 
+  // Quota Apii
   createQuota(data: any): Observable<any> {
     const url = `${this.apiUrl}api/admin/${this.userId}/Quota/CreateQuota`;
     return this.http.post(url, data, { responseType: 'text' });
   }
 
+  updateQuota(data: any): Observable<any> {
+    const url = `${this.apiUrl}api/admin/${this.userId}/Quota/UpdateQuota`;
+    return this.http.post(url, data, { responseType: 'text' });
+  }
+
+  getQuotaBySurveyId(surveyId: any): Observable<responseDTO[]> {
+    const url = `${this.apiUrl}api/admin/${this.userId}/Quota/GetQuotaBySurveyId?surveyId=${surveyId}`;
+    return this.http.get<responseDTO[]>(url);
+  }
 }

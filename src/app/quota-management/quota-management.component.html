@@ -64,77 +64,81 @@
         <h4>Quotas</h4>
         <p>Quotas help you split the completes into group of specific age, gender, regions and/or profiling. To
             interlock quotas click new interlocked quota below.</p>
-        <div *ngFor="let quota of quotas; let i = index" class="add-quota">
-            <label class="form-label">Select Question</label>
-            <select class="form-select" [(ngModel)]="quota.selectedQuestion"
-                (change)="showQuestionQuotas(i);selectedOptionDetails(quota.selectedQuestion,i)">
-                <!-- <option selected>Select Question</option>
-                <option value="1">Question 1</option> -->
-                <option selected>Select Question</option>
-                <option *ngFor="let ques of questionList.questions" [value]="ques.id">{{ ques.question }}</option>
-
-            </select>
-            <div class="quotas" *ngIf="quota.showQuotasDiv">
-                <h5>Add Distribution</h5>
-                <div class="add-distribution">
-                    <div class="question-type">
-                        <h6><span>{{selectedgenericType[i]}}</span></h6>
-                        <div class="implement-quota">
-                            <span [class.active]="!censusActive[i] && !customActive[i]"
-                                (click)="toggleNone(i)">None</span>
-                            <span [class.active]="censusActive[i]" (click)="toggleCensus(i)">Census</span>
-                            <span [class.active]="customActive[i]" (click)="toggleCustom(i)">Custom</span>
+        
+        <div>
+            <div *ngFor="let quota of quotas; let i = index" class="add-quota">
+                <label class="form-label">Select Question</label>
+                <!-- <select class="form-select" [(ngModel)]="quota.selectedQuestion"
+                    (change)="showQuestionQuotas(i);selectedOptionDetails(quota.selectedQuestion,i)" >
+                    <option value="" disabled>Select Question</option>
+                    <option *ngFor="let ques of questionList.questions" [value]="ques.id">{{ ques.question }}</option>
+                </select> -->
+                <mat-form-field>
+                    <mat-select [(ngModel)]="quota.selectedQuestion" (ngModelChange)="showQuestionQuotas(i); selectedOptionDetails(quota.selectedQuestion, i)" #selectElement>
+                        <mat-option *ngFor="let ques of questionList.questions" [value]="ques.id">
+                          {{ ques.question }}
+                        </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                  
+                <div class="quotas" *ngIf="quota.showQuotasDiv">
+                    <h5>Add Distribution</h5>
+                    <div class="add-distribution">
+                        <div class="question-type">
+                            <h6><span>{{selectedgenericType[i]}}</span></h6>
+                            <div class="implement-quota">
+                                <span [class.active]="!censusActive[i] && !customActive[i]"
+                                    (click)="toggleNone(i)">None</span>
+                                <span [class.active]="censusActive[i]" (click)="toggleCensus(i)">Census</span>
+                                <span [class.active]="customActive[i]" (click)="toggleCustom(i)">Custom</span>
+                            </div>
                         </div>
-                    </div>
-                    <!-- <h4>Q. Select your gender.</h4> -->
-                    <h4>{{selectedquestion[i]}}</h4>
-                    <div class="display:none;" *ngIf="showCensusDiv[i] || showCustomDiv[i]">
-                        <ul class="question-options">
-                            <!-- <li *ngFor="let options of selectedoptions[i]"><span>{{options.option}}</span><input
-                                    type="text" class="form-control" [value]="equallyDividedValue(i)"
-                                    (input)="updateTotalSum(i)" [(ngModel)]="dividedValue"
-                                    [disabled]="!customActive[i]"></li> -->
-                            <li *ngFor="let options of selectedoptions[i]; let j = index">
-                                <span>{{ options.option }}</span>
-                                <input type="text" class="form-control" [value]="equallyDividedValue(options, i, j)"
-                                    (input)="updateTotalSum(i)" [(ngModel)]="dividedValue"
-                                    [disabled]="!customActive[i]">
-                            </li>
-                        </ul>
-                        <div class="total-count">
-                            <button type="button" class="btn btn-outline-primary"
-                                (click)="open(contentInterlock)"><ng-icon name="heroLink"></ng-icon></button>
-                            <p class="mb-0"><strong>Total : </strong> <span> {{totalsum[i]}}</span></p>
-                        </div>
-                        <div class="mt-4 ">
-                            <button type="button" class="btn btn-primary" (click)="saveQuota(i)">Save</button>
+                        <!-- <h4>Q. Select your gender.</h4> -->
+                        <h4>{{selectedquestion[i]}}</h4>
+                        <div class="display:none;" *ngIf="showCensusDiv[i] || showCustomDiv[i]">
+                            <ul class="question-options">
+                                <!-- <li *ngFor="let options of selectedoptions[i]"><span>{{options.option}}</span><input
+                                        type="text" class="form-control" [value]="equallyDividedValue(i)"
+                                        (input)="updateTotalSum(i)" [(ngModel)]="dividedValue"
+                                        [disabled]="!customActive[i]"></li> -->
+                                <li *ngFor="let options of selectedoptions[i]; let j = index">
+                                    <span>{{ options.option }}</span>
+                                    <input type="text" class="form-control" [value]="equallyDividedValue(options, i, j)"
+                                        (input)="updateTotalSum(i)" [(ngModel)]="dividedValue"
+                                        [disabled]="!customActive[i]">
+                                </li>
+                            </ul>
+                            <div class="total-count">
+                                <button type="button" class="btn btn-outline-primary "
+                                    (click)="open(contentInterlock)"><ng-icon name="heroLink"></ng-icon></button>
+                                    <div class="mt-4 d-flex gap-3 align-items-center">
+                                        <p class="mb-0"><strong>Total : </strong> <span> {{totalsum[i]}}</span></p>
+                                        <button type="button" class="btn btn-primary " (click)="saveQuota(i)">Save</button>
+                                        <!-- <button type="button" class="btn btn-success" (click)="updateQuota(i)">Update</button> -->
+                                    </div>                                
+                            </div>                            
                         </div>
                     </div>
                 </div>
+    
             </div>
-
         </div>
+        
+          
         <div class="mt-4">
             <button type="button" class="btn btn-primary" (click)="addQuota()">Add Quota</button>
         </div>
     </div>
 </div>
+
 <div class="common-bg">
     <h4>Interlocked Quotas</h4>
-    <div class="interlocked-quotas">
+    <div class="interlocked-quotas" [style.display]="showInterlockedQuotas ? 'block' : 'none'">
         <ul>
             <li *ngFor="let generictype of genericlist; let i= index ">
                 <span>{{generictype}}</span>
                 <p class="mb-0" *ngFor="let options of selectedoptions">{{options.option}}</p>
-            </li>
-            <!-- <li>
-                <span>Age</span>
-                <p class="mb-0">18-24 - 25-34 - 35-44</p>
-            </li>
-            <li>
-                <span>Region</span>
-                <p class="mb-0">Central India - East India - North India</p>
-            </li> -->
+            </li>            
         </ul>
         <table class="table table-bordered mt-5">
             <tbody>
@@ -152,6 +156,9 @@
                 </tr>
             </tbody>
         </table>
+    </div>
+    <div class="blanked-interlocked">
+        <ng-icon name="heroPlus" style="font-size: .875rem;"></ng-icon><span>Interlock Quotas</span>
     </div>
 </div>
 <ng-template #contentInterlock let-modal>

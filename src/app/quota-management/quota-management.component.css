@@ -44,3 +44,14 @@ margin-top: 1rem;}
 .interlocked-quotas ul li span{border: 1px solid var(--white);padding: .25rem .5rem;border-radius: .25rem;margin-bottom: .5rem;display: inline-block;}
 .interlocked-quotas table tr td input{width: 80px;height: 40px;}
 .interlocked-quotas table tr td:nth-child(2){border-left: 0;}
+.blanked-interlocked {
+    border: 1px dashed var(--border-color);
+    display: flex;
+    align-items: center;
+    height: 100px;
+    justify-content: center;
+    margin-top: 1.5rem;
+    border-radius: .5rem;
+    opacity: .6;
+}
+.blanked-interlocked span{font-size: 22px;}

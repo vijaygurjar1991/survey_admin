@@ -40,6 +40,7 @@ import { heroCommandLine } from '@ng-icons/heroicons/outline';
 import { heroShoppingBag } from '@ng-icons/heroicons/outline';
 import { heroInformationCircle } from '@ng-icons/heroicons/outline';
 import { heroLink } from '@ng-icons/heroicons/outline';
+import { heroPlus } from '@ng-icons/heroicons/outline';
 // Icons
 
 import { HeaderComponent } from './shared/header/header.component';
@@ -125,7 +126,8 @@ import { QuotaManagementComponent } from './quota-management/quota-management.co
       heroTrash,
       heroShoppingBag,
       heroInformationCircle,
-      heroLink
+      heroLink,
+      heroPlus
     }),
     BrowserAnimationsModule,
     RecaptchaModule,
