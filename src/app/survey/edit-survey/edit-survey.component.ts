@@ -64,7 +64,8 @@ export class EditSurveyComponent {
   getquestionTypeName: any
   questionsort: any
   screeningRedirectUrl: any
-  optionimagennew: any
+  optionimagennew: any[] = []
+  surveystatus: any
   baseUrl = '';
   optionImage: String;
 
@@ -108,6 +109,7 @@ export class EditSurveyComponent {
       console.log("questionTypeName", data.questionTypeName)
       this.questionTypeId = data.questionTypeId
       this.surveyId = data.surveyTypeId
+      this.surveystatus = data.status
       this.question.questionTypeId = parseInt(data.questionTypeId);
       this.question.surveyTypeId = parseInt(data.surveyTypeId);
       this.question.question = data.question;
@@ -139,6 +141,10 @@ export class EditSurveyComponent {
         newOption.isExcluded = opt.isExcluded;
         newOption.group = opt.group;
         newOption.sort = opt.sort;
+
+        this.optionimagennew.push(opt.image)
+        console.log("qwertyuertyui", this.optionimagennew);
+
         if (opt.status == 'ACT') {
           if (opt.isFixed)
             this.optionsArr2.push(newOption); // Push the new Option object to optionsArr1
@@ -146,9 +152,6 @@ export class EditSurveyComponent {
             this.optionsArr1.push(newOption);
 
         }
-
-        this.optionimagennew = newOption.image
-        console.log("qwertyuertyui", this.optionimagennew)
 
         console.log("see", this.optionsArr1)
         console.log("option id", newOption.id)
@@ -352,6 +355,7 @@ export class EditSurveyComponent {
         if (optionIndex !== -1) {
           // Assuming your option object has an 'image' property to store the image URL
           this.optionsArr1[optionIndex].image = response.replace(/"/g, "");
+
           console.log("optionarr", this.optionsArr1);
         } else {
           console.error('Option not found for ID:', oid);
@@ -521,7 +525,7 @@ export class EditSurveyComponent {
       newOption.isFixed = true
     }
     else if (type == 'Optional') {
-      newOption.option = "Optional(Please specify)";
+      newOption.option = "Other (Please specify)";
       newOption.isFixed = true
       this.question.openEndedType = "text"
     }
@@ -567,7 +571,7 @@ export class EditSurveyComponent {
     this.questionadded = !!this.question && !!this.question.question && this.question.question.trim().length > 0;
     this.qusstionaddednext = !!this.question && !!this.question.questionTypeName && this.question.questionTypeName.trim().length > 0;
     this.questionadded = !!this.question && !!this.question.question && this.question.question.trim().length > 0;
-    this.textlimitation = !!this.textlimit && !!this.textlimit && this.textlimit.trim().length > 0;
+
 
 
     // Check if categoryNameCheck validation is needed (only if a group exists)
@@ -1372,20 +1376,23 @@ export class EditSurveyComponent {
 
   openendedtype: any
   pattern: any
-  openEndedValue(type: string) {
+  openEndedValue() {
 
-    if (type === 'numeric') {
-      // this.question.isAlphabet = false;
-      this.question.isNumeric = true;
-      this.openendedtype = 'number'
-
-    } else if (type === 'alphabet') {
-      this.question.isAlphabet = true;
-      // this.question.isNumeric = false;
-      this.openendedtype = 'text'
-      //this.pattern = '^[A-Za-z]*$';
+    if (this.numeric && this.alphabet) {
+      this.openendedtype = 'text';
     }
+    else if (this.numeric) {
+      this.openendedtype = 'number';
+    }
+    else {
+      this.openendedtype = 'text';
+    }
+    this.question.isNumeric = this.numeric;
+    this.question.isAlphabet = this.alphabet;
+    console.log("nc", this.question.isAlphabet);
+    console.log("nca", this.question.isNumeric);
   }
+
 
   getInputPattern(): string {
     return this.numeric ? '[0-9]*' : (this.alphabet ? '[a-zA-Z]*' : '');
@@ -1395,6 +1402,8 @@ export class EditSurveyComponent {
   surveyData: any[] = []
   surveyname: any[] = []
   filteredSurveyNames: any
+  filteredCountryNames: any
+  filteredcategoryName: any
 
   getAllSurveyList() {
     this.surveyservice.GetSurveyList().subscribe((data: any) => {
@@ -1408,8 +1417,14 @@ export class EditSurveyComponent {
       // Get only the names from filtered surveys
       this.filteredSurveyNames = filteredSurveys.map(survey => survey.name);
 
+      this.filteredCountryNames = filteredSurveys.map(survey => survey.countryImage);
+
+      this.filteredcategoryName = filteredSurveys.map(survey => survey.categoryName);
+
       // Log filtered survey names
       console.log("Filtered Survey Names:", this.filteredSurveyNames);
+      console.log("Filtered Survey Names:", this.filteredCountryNames);
+      console.log("Filtered Survey Names:", this.filteredcategoryName);
     });
   }
 
