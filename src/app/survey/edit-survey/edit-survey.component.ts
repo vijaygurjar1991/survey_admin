@@ -109,7 +109,6 @@ export class EditSurveyComponent {
       console.log("questionTypeName", data.questionTypeName)
       this.questionTypeId = data.questionTypeId
       this.surveyId = data.surveyTypeId
-      this.surveystatus = data.status
       this.question.questionTypeId = parseInt(data.questionTypeId);
       this.question.surveyTypeId = parseInt(data.surveyTypeId);
       this.question.question = data.question;
@@ -222,7 +221,7 @@ export class EditSurveyComponent {
     this.themeService.closeSideBar();
     this.getQuestionListBySurveyId();
     this.getQuestionTypes();
-    this.getAllSurveyList();
+
     if (this.mode != 'modify') {
       this.intializeDefaultValue();
       if (this.question.questionTypeName !== 'Rating Scale' && this.question.questionTypeName !== 'Boolean' && this.question.questionTypeName !== 'Image Selection' && this.question.questionTypeName !== 'NPS' && this.question.questionTypeName !== 'Open Ended' && this.question.questionTypeName !== 'Slider Scale') {
@@ -244,6 +243,7 @@ export class EditSurveyComponent {
       }
 
     }
+    this.getAllSurveyList();
 
 
 
@@ -657,6 +657,7 @@ export class EditSurveyComponent {
       this.question.textLimit = this.textlimit
 
     }
+
     this.question.image = this.questionImage;
     this.question.youtubeUrl = this.youtubeUrl;
     console.log("url", this.question.youtubeUrl)
@@ -1408,23 +1409,24 @@ export class EditSurveyComponent {
   getAllSurveyList() {
     this.surveyservice.GetSurveyList().subscribe((data: any) => {
       this.surveyData = data.surveyType;
-      // Assuming you have a specific surveyId to filter
+
       const specificSurveyId = this.surveyId
 
-      // Filter surveyData based on matching surveyId
+
       const filteredSurveys = this.surveyData.filter(survey => survey.surveyId === specificSurveyId);
 
-      // Get only the names from filtered surveys
       this.filteredSurveyNames = filteredSurveys.map(survey => survey.name);
 
       this.filteredCountryNames = filteredSurveys.map(survey => survey.countryImage);
 
       this.filteredcategoryName = filteredSurveys.map(survey => survey.categoryName);
 
+      this.surveystatus = filteredSurveys.map(survey => survey.status)
       // Log filtered survey names
       console.log("Filtered Survey Names:", this.filteredSurveyNames);
       console.log("Filtered Survey Names:", this.filteredCountryNames);
       console.log("Filtered Survey Names:", this.filteredcategoryName);
+      console.log("Filtered surveystatus :", this.surveystatus);
     });
   }
 

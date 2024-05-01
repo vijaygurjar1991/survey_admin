@@ -141,6 +141,7 @@ export class NccsPopupComponent {
       currentQuestion.createdDate = this.getCurrentDateTime()
       currentQuestion.modifiedDate = this.getCurrentDateTime();
       currentQuestion.genericTypeId = this.typeid
+      currentQuestion.genericKey = i + 1
 
 
 

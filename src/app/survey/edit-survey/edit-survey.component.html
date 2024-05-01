@@ -9,26 +9,31 @@
     <div ngClass="question">
         <div>
             <div class="d-flex">
-                <h4 ngClass="mb-3">
-                    <ng-container *ngIf="filteredCountryNames !== 'Other Country'">
-                        <img matTooltip="{{filteredCountryNames}}"
-                            aria-label="Button that displays a tooltip when focused or hovered over" loading="lazy"
-                            [src]="baseUrl + '/assets/images/country-flag/' + filteredCountryNames" width="30"
-                            height="30" alt="{{filteredCountryNames}}" />
-                    </ng-container>
-                    {{filteredSurveyNames}}
-                </h4>
-                <div class="ms-2">
-                    <span class="badge text-bg-success activestatus">{{surveystatus}}</span>
-                </div>
+                <div>
+                    <h4 ngClass="mb-3">
+                        <ng-container *ngIf="filteredCountryNames !== 'Other Country'">
+                            <img matTooltip="{{filteredCountryNames}}"
+                                aria-label="Button that displays a tooltip when focused or hovered over" loading="lazy"
+                                [src]="baseUrl + '/assets/images/country-flag/' + filteredCountryNames" width="30"
+                                height="30" alt="{{filteredCountryNames}}" />
+                        </ng-container>
+                        {{filteredSurveyNames}}
+                    </h4>
 
+                </div>
+                <div class="ms-2">
+                    <span *ngIf="surveystatus.includes('DEL')" class="badge text-bg-danger activestatus">Inactive</span>
+                    <span *ngIf="surveystatus.includes('ACT')" class="badge text-bg-success activestatus">Active</span>
+                    <span *ngIf="surveystatus.includes('HOL')" class="badge text-bg-warning activestatus">Hold</span>
+                </div>
             </div>
+
             <div class="d-flex">
                 <span class="badge text-bg-danger activestatus me-2"
                     *ngIf="filteredcategoryName !='Others'">{{filteredcategoryName}}</span>
                 <span class="badge text-bg-danger activestatus "
                     *ngIf="filteredcategoryName =='Others'">{{filteredcategoryName}}</span>
-                <span class="badge text-bg-danger activestatus me-2">Survey ID-{{surveyId}}</span>
+                <span class="badge text-bg-danger activesurvey me-2">Survey ID-{{surveyId}}</span>
             </div>
         </div>
 

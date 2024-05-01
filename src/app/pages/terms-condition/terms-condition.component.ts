@@ -18,9 +18,9 @@ export class TermsConditionComponent {
     this.showTooltip[identifier] = !this.showTooltip[identifier];
   }
   hideTooltip(identifier: string) {
-      this.showTooltip[identifier] = false;
+    this.showTooltip[identifier] = false;
   }
-// Tooltip
+  // Tooltip
   public Editor = ClassicEditor;
   constructor(public themeService: DataService, private cdr: ChangeDetectorRef, private util: UtilsService) {
     this.baseUrl = environment.baseURL;
@@ -56,57 +56,7 @@ export class TermsConditionComponent {
       this.cdr.detectChanges();
     });
   }
-  // postData() {
 
-  //   if (!this.validateSurvey()) {
-  //     this.util.showError('Please fill all required fields.');
-  //     return;
-  //   }
-
-  //   const imageName = this.image.split('\\').pop() || this.image;
-
-  //   const dataToSend = {
-  //     id: this.id,
-  //     name: this.name,
-  //     description: this.description,
-  //     image: imageName,
-  //     centerId: this.centerId
-  //   };
-  //   console.log("dataToSend", dataToSend)
-  //   this.themeService.CreateTermsConditions(dataToSend).subscribe(
-  //     response => {
-  //       console.log('Response from server:', response);
-  //       this.util.showSuccess(response);
-  //       window.location.reload();
-  //     },
-  //     error => {
-  //       this.util.showError('error');
-  //       console.error('Error occurred while sending POST request:', error);
-  //     }
-  //   );
-  // }
-  // onSelect(event: any) {
-  //   const file = event.addedFiles && event.addedFiles.length > 0 ? event.addedFiles[0] : null;
-
-  //   if (file) {
-  //     this.files.push(file);
-  //     this.uploadImage(file); 
-  //   }
-  // }
-
-  // uploadImage(file: File): void {
-
-  //   this.themeService.uploadImageAboutUs(file, this.userId).subscribe(
-  //     (response: String) => {
-  //       console.log('Upload successful:', response);
-  //       this.image = response.replace(/"/g, '')
-  //       console.log(this.image)
-  //     },
-  //     (error) => {
-  //       console.error('Error occurred while uploading:', error);
-  //     }
-  //   );
-  // }
 
   imageUpdated: boolean = false;
 
@@ -193,10 +143,10 @@ export class TermsConditionComponent {
     if (url.includes('/')) {
       const parts = url.split('/');
       if (parts.length > 0) {
-        return parts.pop()!; // Get and return the last part
+        return parts.pop()!;
       }
     }
-    return url; // If no '/' is found or parts array is empty, return the whole URL
+    return url;
   }
 
 }

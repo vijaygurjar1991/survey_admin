@@ -27,6 +27,7 @@ export class Question {
     public openEndedType: string = ""
     public youtubeUrl: string = ''
     public description: string = ''
+    public genericKey: number = 0
     public isNumeric: boolean = false
     public isAlphabet: boolean = false
     public textLimit: number = 0

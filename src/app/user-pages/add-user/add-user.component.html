@@ -59,24 +59,29 @@
                         <div class="infocircle justify-content-start">
                             <label for="">Role</label>
                             <div class="custom-tooltip ms-2">
-                                <ng-icon name="heroInformationCircle" ngClass="edit-action info-circle" (click)="toggleTooltip('1')"></ng-icon>
+                                <ng-icon name="heroInformationCircle" ngClass="edit-action info-circle"
+                                    (click)="toggleTooltip('1')"></ng-icon>
                                 <div class="toast show" *ngIf="showTooltip['1']">
                                     <div class="toast-header">
-                                        <img [src]="baseUrl + '/assets/images/icons/Add-new-question.png'" class="rounded me-2" width="30" height="30" />
+                                        <img [src]="baseUrl + '/assets/images/icons/Add-new-question.png'"
+                                            class="rounded me-2" width="30" height="30" />
                                         <h6 class="mb-0 me-auto">Add New User (Role)</h6>
-                                        <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close" (click)="hideTooltip('1')"></button>
+                                        <button type="button" class="btn-close" data-bs-dismiss="toast"
+                                            aria-label="Close" (click)="hideTooltip('1')"></button>
                                     </div>
                                     <div class="toast-body">
-                                        This feature serves as a reminder that a new user has been registered with Scrip8 and assigned a specific role.
+                                        This feature serves as a reminder that a new user has been registered with
+                                        Scrip8 and assigned a specific role.
                                     </div>
                                 </div>
                             </div>
-                        </div>                        
+                        </div>
                         <select class="form-select" name="roleId" [(ngModel)]="roleId" (blur)="validateSurvey()">
                             <option [value]="0" selected>Select Role</option>
                             <option value="1" *ngIf="isSuperAdmin">SuperAdmin</option>
                             <option value="2" *ngIf="isAdmin">Admin</option>
                             <option value="3" *ngIf="isUser">User</option>
+
                         </select>
                         <div *ngIf="!roletype" class="text-danger">Role is required.</div>
                     </div>
