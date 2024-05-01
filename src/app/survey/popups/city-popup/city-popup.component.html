@@ -55,7 +55,7 @@
                             </ul>
                         </div>
                     </div> -->
-                    <ul class="nav nav-tabs" id="myTab" role="tablist">
+                    <ul class="nav nav-tabs city-state" id="myTab" role="tablist">
                         <li class="nav-item" role="presentation">
                             <button class="nav-link active" id="home-tab" data-bs-toggle="tab"
                                 data-bs-target="#home-tab-pane" type="button" role="tab" aria-controls="home-tab-pane"
@@ -82,11 +82,11 @@
                                 </div>
                                 <div class="nccs-option">
                                     <ul>
-                                        <li *ngFor="let state of locations" class="mb-2">
+                                        <li *ngFor="let state of locations; let i = index" class="mb-2">
                                             <input class="form-check-input me-2" type="checkbox"
-                                                id="{{ 'checkbox_' + state.stateId }}" [(ngModel)]="state.selected"
+                                            [id]="'checkbox_' + state.name + '_' + i" [(ngModel)]="state.selected"
                                                 [ngModelOptions]="{ standalone: true }" aria-label="..." />
-                                            <label class="form-check-label" for="{{ 'checkbox_' + state.stateId }}">{{
+                                            <label class="form-check-label" [for]="'checkbox_' + state.name + '_' + i">{{
                                                 state.name }}</label>
                                         </li>
                                     </ul>
@@ -98,13 +98,11 @@
                             <div class="tab-pane fade show active" id="home-tab-pane" role="tabpanel"
                                 aria-labelledby="home-tab" tabindex="0">
                                 <div class="mb-4">
-                                    <div class="select-options">
-                                        <!-- <h5>Select City</h5> -->
-                                    </div>
+                                    
                                     <div class="nccs-option">
                                         <ul>
                                             <li *ngFor="let state of state" class="nccs-option-w-100">
-                                                <div class="d-flex justify-content-between">
+                                                <div class="d-flex justify-content-between mb-3">
                                                     <div><strong>{{ state.name }}</strong> ({{ state.abbreviation }})
                                                     </div>
                                                     <a href="javascript:" (click)="selectAllCityOptions(state)">Select
@@ -112,13 +110,13 @@
 
                                                 </div>
                                                 <ul>
-                                                    <li *ngFor="let city of state.cities" class="mb-2">
+                                                    <li *ngFor="let city of state.cities; let i = index" class="mb-2">
                                                         <input class="form-check-input me-2" type="checkbox"
-                                                            id="{{ 'checkbox_' + city.stateId }}"
+                                                        [id]="'checkbox_' + state.stateId + '_' + i"
                                                             [(ngModel)]="city.selected"
                                                             [ngModelOptions]="{ standalone: true }" aria-label="..." />
                                                         <label class="form-check-label"
-                                                            for="{{ 'checkbox_' + city.stateId }}">{{ city.name
+                                                        [for]="'checkbox_' + state.stateId + '_' + i">{{ city.name
                                                             }}</label>
                                                     </li>
                                                 </ul>
@@ -137,11 +135,11 @@
                                 </div>
                                 <div class="nccs-option">
                                     <ul>
-                                        <li *ngFor="let state of locationsPanIndia" class="mb-2">
+                                        <li *ngFor="let state of locationsPanIndia; let i = index" class="mb-2">
                                             <input class="form-check-input me-2" type="checkbox"
-                                                id="{{ 'checkbox_' + state.stateId }}" [(ngModel)]="state.selected"
+                                                id="{{ 'checkbox_' + state.name + '_' + i }}" [(ngModel)]="state.selected"
                                                 [ngModelOptions]="{ standalone: true }" aria-label="..." />
-                                            <label class="form-check-label" for="{{ 'checkbox_' + state.stateId }}">{{
+                                            <label class="form-check-label" for="{{ 'checkbox_' + state.name + '_' + i }}">{{
                                                 state.name }}</label>
                                         </li>
                                     </ul>

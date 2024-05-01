@@ -1,0 +1,10 @@
+.nav-tabs.city-state{border-bottom: none;}
+.nav-tabs.city-state li .nav-link{
+    color: var(--black);border-color: var(--primary);margin-right: .5rem;border-radius: .5rem;
+}
+.nav-tabs.city-state li .nav-link.active {
+    border-color: var(--primary);
+    background-color: var(--primary);
+    color: var(--white);
+}
+.nccs-option ul li{display: block;}

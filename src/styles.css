@@ -883,7 +883,11 @@ article {
 .flex-width {
     width: 80px;
 }
-
+.view-img{text-align: center;}
+.view-img img {
+    height: 50px;
+    object-fit: contain;
+}
 .new-options a {
     border: 1px solid var(--border-color);
     border-radius: .25rem;
