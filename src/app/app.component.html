@@ -21,6 +21,9 @@
 
 
 <ng-template #content let-modal>
+    <div class="modal-header">
+        <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+    </div>
     <div class="modal-body popup-login">
         <app-loginForm></app-loginForm>
     </div>

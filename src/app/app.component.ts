@@ -70,7 +70,7 @@ export class AppComponent {
   //   }
   // }
   openModalOnLoad() {    
-    this.modalService.open(this.modalContent, { size: 'lg', backdrop: 'static' });
+    this.modalService.open(this.modalContent, { size: 'lg' });
   }
   // Open modal on window load
 
