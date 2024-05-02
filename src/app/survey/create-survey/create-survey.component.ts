@@ -229,7 +229,7 @@ export class CreateSurveyComponent implements OnInit, AfterViewInit {
     //this.defaultRandomValueEnter();
     this.getAgeOptionsLogicValues();
     this.getRandomization();
-    this.getLogicCount()
+    this.getLogicCount();
 
     //this.getSurveyLooping();
   }
@@ -1577,7 +1577,11 @@ export class CreateSurveyComponent implements OnInit, AfterViewInit {
   screenQuestionObj: Question = new Question();
   description: any
   youtubeUrl: any
-  saveScreenImage(): void {
+  saveScreenImage(tab: string): void {
+    if (!this.validateAddScreen(tab)) {
+      this.utils.showError('Please fill all required fields.');
+      return;
+    }
     this.screenQuestionObj.createdDate = this.surveycreateddate
     this.screenQuestionObj.question = this.screenQuestion
     this.screenQuestionObj.description = this.description
@@ -1600,6 +1604,8 @@ export class CreateSurveyComponent implements OnInit, AfterViewInit {
       next: (resp: any) => {
 
         // Swal.fire('', 'Question Generated Sucessfully.', 'success');
+        console.log("addscreen resp", resp)
+
         this.utils.showSuccess('Question Generated Sucessfully');
 
 
@@ -1608,6 +1614,7 @@ export class CreateSurveyComponent implements OnInit, AfterViewInit {
         this.router.navigateByUrl(url);
 
         window.location.reload();
+
       },
       error: (err: any) => {
         // Swal.fire('', err.error, 'error');
@@ -1930,7 +1937,62 @@ export class CreateSurveyComponent implements OnInit, AfterViewInit {
   }
 
 
-  //calculation
+  //add screen validation
+  headingrequired: boolean = true
+  descriptionrequired: boolean = true
+  checkedrequired: boolean = true
+  urlrequired: boolean = true
+  iframerequired: boolean = true
+  touched: boolean = false;
+
+
+  validateAddScreen(tab: string): boolean {
+    let isValid = false;
+    this.touched = true;
+
+    switch (tab) {
+      case 'text':
+        this.headingrequired = !!this.screenQuestion && this.screenQuestion.trim().length > 0;
+        this.descriptionrequired = !!this.description && this.description.trim().length > 0;
+        this.checkedrequired = !!this.screenRedirectUser;
+        this.urlrequired = !!this.screenRedirectURL && this.screenRedirectURL.trim().length > 0;
+
+        isValid = this.headingrequired && this.descriptionrequired && this.checkedrequired && this.urlrequired;
+        break;
+
+      case 'image':
+        this.headingrequired = !!this.screenQuestion && this.screenQuestion.trim().length > 0;
+        this.checkedrequired = !!this.screenRedirectUser;
+        this.urlrequired = !!this.screenRedirectURL && this.screenRedirectURL.trim().length > 0;
+
+        isValid = this.headingrequired && this.checkedrequired && this.urlrequired;
+        break;
+
+      case 'video':
+        this.headingrequired = !!this.screenQuestion && this.screenQuestion.trim().length > 0;
+        this.checkedrequired = !!this.screenRedirectUser;
+        this.urlrequired = !!this.screenRedirectURL && this.screenRedirectURL.trim().length > 0;
+
+        isValid = this.headingrequired && this.checkedrequired && this.urlrequired;
+        break;
+
+      case 'iframe':
+        this.headingrequired = !!this.screenQuestion && this.screenQuestion.trim().length > 0;
+        this.checkedrequired = !!this.screenRedirectUser;
+        this.iframerequired = !!this.youtubeUrl && this.youtubeUrl.trim().length > 0;
+        this.urlrequired = !!this.youtubeUrl && this.youtubeUrl.trim().length > 0;
+
+        isValid = this.headingrequired && this.checkedrequired && this.urlrequired;
+        break;
+
+      default:
+
+        break;
+    }
+
+    return isValid;
+  }
+
 
 
 

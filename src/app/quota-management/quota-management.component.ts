@@ -63,7 +63,7 @@ export class QuotaManagementComponent {
       }
     });
     this.GetSurveyDetails();
-    this.getQuotaBySurveyId();
+    // this.getQuotaBySurveyId();
   }
   showCountError: boolean = false;
 
@@ -393,17 +393,29 @@ export class QuotaManagementComponent {
       }
       dataToSend.questionDto.optionsDto.push(optionsDto);
     });
-
-    this.surveyservice.createQuota(dataToSend).subscribe(
-      resp => {
-        console.log("create quota", resp)
-        this.utility.showSuccess('Quota Created Successfully.');
-      },
-      error => {
-        console.log("err create", error)
-        this.utility.showError('error');
-      }
-    )
+    if (this.quotaid > 0) {
+      this.surveyservice.updateQuota(dataToSend).subscribe(
+        resp => {
+          console.log("updateQuota ", resp)
+          this.utility.showSuccess('Quota updated Successfully.');
+        },
+        error => {
+          console.log("err create", error)
+          this.utility.showError('error');
+        }
+      )
+    } else {
+      this.surveyservice.createQuota(dataToSend).subscribe(
+        resp => {
+          console.log("create quota", resp)
+          this.utility.showSuccess('Quota Created Successfully.');
+        },
+        error => {
+          console.log("err create", error)
+          this.utility.showError('error');
+        }
+      )
+    }
 
   }
   // updateQuota(index: number) {
@@ -466,12 +478,14 @@ export class QuotaManagementComponent {
   totalUsers: any;
   questionDto: any;
   quotaResponse: any;
+  quotaid: any
   getQuotaBySurveyId() {
     this.surveyservice.getQuotaBySurveyId(this.surveyId).subscribe({
       next: (data: any) => {
         this.isQuotasVisible = true;
 
         this.quotaResponse = data;
+        this.quotaid = data.quotaId
         // this.quotas = [...data?.questionDto];
         this.surveycount = data.totalUsers;
 

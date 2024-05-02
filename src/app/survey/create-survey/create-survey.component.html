@@ -1491,10 +1491,12 @@
                     <div class="mb-3">
                         <input type="text" class="form-control" placeholder="Insert Heading for Image Screen"
                             [(ngModel)]="screenQuestion" [ngModelOptions]="{standalone: true}" />
+                        <div *ngIf="!headingrequired" class="text-danger">Heading is required.</div>
                     </div>
                     <div class="mb-3">
                         <textarea type="text" class="form-control" rows="10" col="20" placeholder="Insert Text"
                             [(ngModel)]="description" [ngModelOptions]="{standalone: true}"></textarea>
+                        <div *ngIf="!descriptionrequired" class="text-danger">Description is required.</div>
                     </div>
                     <div class="mb-3 ms-3">
                         <div class="form-check checking">
@@ -1504,13 +1506,16 @@
                                 Redirect User
                             </label>
                         </div>
+                        <div *ngIf="!checkedrequired" class="text-danger">checked is required.</div>
                     </div>
                     <div class="mb-3">
                         <input type="text" class="form-control" placeholder="Redirect URL"
                             [(ngModel)]="screenRedirectURL" [ngModelOptions]="{standalone: true}" />
+                        <div *ngIf="!urlrequired" class="text-danger">URL is required.</div>
                     </div>
                     <div class="mb-3">
-                        <button type="button" class="btn btn-primary btn-sm" (click)="saveScreenImage()">Save</button>
+                        <button type="button" class="btn btn-primary btn-sm"
+                            (click)="saveScreenImage('text')">Save</button>
                     </div>
                 </div>
 
@@ -1524,6 +1529,7 @@
                     <div class="mb-3">
                         <input type="text" class="form-control" placeholder="Insert Heading for Image Screen"
                             [(ngModel)]="screenQuestion" [ngModelOptions]="{standalone: true}" />
+                        <div *ngIf="!headingrequired" class="text-danger">Heading is required.</div>
                     </div>
                     <div class="mb-3">
                         <ngx-dropzone (change)="onSelect($event)" [ngClass]="'drop-file'">
@@ -1537,6 +1543,7 @@
                             </ngx-dropzone-preview>
                         </ngx-dropzone>
                     </div>
+                    <div *ngIf="!descriptionrequired" class="text-danger">Image is required.</div>
                     <div class="mb-3 ms-3">
                         <div class="form-check checking">
                             <input class="form-check-input" type="checkbox" value="" id="redirectuser"
@@ -1546,13 +1553,16 @@
                             </label>
                         </div>
                     </div>
+                    <div *ngIf="!checkedrequired" class="text-danger">checked is required.</div>
                     <div class="mb-3">
                         <input type="text" class="form-control" placeholder="Redirect URL"
                             [(ngModel)]="screenRedirectURL" [ngModelOptions]="{standalone: true}" />
                     </div>
                     <div class="mb-3">
-                        <button type="button" class="btn btn-primary btn-sm" (click)="saveScreenImage()">Save</button>
+                        <button type="button" class="btn btn-primary btn-sm"
+                            (click)="saveScreenImage('image')">Save</button>
                     </div>
+                    <div *ngIf="!urlrequired" class="text-danger">URL is required.</div>
                 </div>
                 <div class="tab-pane" id="addVideo" role="tabpanel" aria-labelledby="addVideo-tab">
                     <h5 ngClass="mb-4">Add Video</h5>
@@ -1564,6 +1574,7 @@
                     <div class="mb-3">
                         <input type="text" class="form-control" placeholder="Insert Heading for video Screen"
                             [(ngModel)]="screenQuestion" [ngModelOptions]="{standalone: true}" />
+                        <div *ngIf="!headingrequired" class="text-danger">Heading is required.</div>
                     </div>
                     <div class="mb-3">
                         <ngx-dropzone (change)="onSelect($event)" [ngClass]="'drop-file'">
@@ -1577,6 +1588,7 @@
                             </ngx-dropzone-preview>
                         </ngx-dropzone>
                     </div>
+                    <div *ngIf="!descriptionrequired" class="text-danger">Description is required.</div>
                     <div class="mb-3 ms-3">
                         <div class="form-check checking">
                             <input class="form-check-input" type="checkbox" value="" id="redirectuser"
@@ -1586,13 +1598,16 @@
                             </label>
                         </div>
                     </div>
+                    <div *ngIf="!checkedrequired" class="text-danger">checked is required.</div>
                     <div class="mb-3">
                         <input type="text" class="form-control" placeholder="Redirect URL"
                             [(ngModel)]="screenRedirectURL" [ngModelOptions]="{standalone: true}" />
                     </div>
                     <div class="mb-3">
-                        <button type="button" class="btn btn-primary btn-sm" (click)="saveScreenImage()">Save</button>
+                        <button type="button" class="btn btn-primary btn-sm"
+                            (click)="saveScreenImage('video')">Save</button>
                     </div>
+                    <div *ngIf="!urlrequired" class="text-danger">URL is required.</div>
                 </div>
                 <div class="tab-pane" id="addiFrame" role="tabpanel" aria-labelledby="addiFrame-tab">
                     <h5 ngClass="mb-4">Add iFrame</h5>
@@ -1605,10 +1620,12 @@
                         <input type="text" class="form-control" placeholder="Insert Heading for iFrame"
                             [(ngModel)]="screenQuestion" [ngModelOptions]="{standalone: true}" />
                     </div>
+                    <div *ngIf="!headingrequired" class="text-danger">Heading is required.</div>
                     <div class="mb-3">
                         <textarea type="text" class="form-control" rows="6" col="20" placeholder="Insert iFrame"
                             [(ngModel)]="youtubeUrl" [ngModelOptions]="{standalone: true}"></textarea>
                     </div>
+                    <div *ngIf="!iframerequired" class="text-danger">Iframe is required.</div>
                     <div class="mb-3">
 
                     </div>
@@ -1621,12 +1638,15 @@
                             </label>
                         </div>
                     </div>
+                    <div *ngIf="!checkedrequired" class="text-danger">checked is required.</div>
                     <div class="mb-3">
                         <input type="text" class="form-control" placeholder="Redirect URL"
                             [(ngModel)]="screenRedirectURL" [ngModelOptions]="{standalone: true}" />
                     </div>
+                    <div *ngIf="!urlrequired" class="text-danger">URL is required.</div>
                     <div class="mb-3">
-                        <button type="button" class="btn btn-primary btn-sm" (click)="saveScreenImage()">Save</button>
+                        <button type="button" class="btn btn-primary btn-sm"
+                            (click)="saveScreenImage('iframe')">Save</button>
                     </div>
 
                 </div>
