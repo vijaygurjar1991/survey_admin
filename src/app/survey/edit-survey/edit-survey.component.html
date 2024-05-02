@@ -195,18 +195,7 @@
                             <div class="flex-width">
                                 <input type="text" id="" class="form-control" value="{{i+1}}" readonly />
                             </div>
-                            <!-- <div class="flex-width">
-                                <ngx-dropzone class="edit-survey-img" ngx-dropzone [accept]="'image/*'"
-                                    (change)="onSelect($event)">
-                                    <ngx-dropzone-label>
-                                        <img [src]="baseUrl+'/assets/images/icons/attach-image.png'" />
-                                    </ngx-dropzone-label>
-                                    <ngx-dropzone-image-preview ngProjectAs="ngx-dropzone-preview"
-                                        *ngFor="let f of files" [file]="f" [removable]="true" (removed)="onRemove(f)">
 
-                                    </ngx-dropzone-image-preview>
-                                </ngx-dropzone>
-                            </div> -->
 
                             <!-- this -->
                             <div class="flex-width">
@@ -529,7 +518,7 @@
             </li>
             <div class="row mb-3">
                 <div class="col-6">
-                   
+
                 </div>
                 <div class="col-6 text-end">
                     <button type="button" class="btn btn-primary px-5" (click)="onSave()">Save</button>
@@ -539,16 +528,17 @@
                 <div class="p-4">
                     <div ngClass="ans-group">
                         <div class="infocircle">
-                            <h5>Create Answer Logic</h5>                           
+                            <h5>Create Answer Logic</h5>
                         </div>
                         <button type="button" class="btn btn-primary px-5" (click)="VisibilityAnsLogic()"
-                        matTooltip="Create Answer Logic" matTooltipPosition="above" title="Action Information">Create
-                        Answer Logic
-                    </button>
+                            matTooltip="Create Answer Logic" matTooltipPosition="above"
+                            title="Action Information">Create
+                            Answer Logic
+                        </button>
                     </div>
                 </div>
                 <div>
-                    <div ngClass="p-4" *ngIf="visibleanslogic">    
+                    <div ngClass="p-4" *ngIf="visibleanslogic">
                         <div ngClass="mb-4">
                             <div class="logic-tab">
                                 <!-- Logic Question -->
@@ -564,15 +554,18 @@
                                                     <div class="toast-header">
                                                         <img [src]="baseUrl + '/assets/images/icons/Add-new-question.png'"
                                                             class="rounded me-2" width="30" height="30" />
-                                                        <h6 class="mb-0 me-auto">Create Question (Create Answer Logic)</h6>
+                                                        <h6 class="mb-0 me-auto">Create Question (Create Answer Logic)
+                                                        </h6>
                                                         <button type="button" class="btn-close" data-bs-dismiss="toast"
                                                             aria-label="Close" (click)="hideTooltip('2')"></button>
                                                     </div>
                                                     <div class="toast-body">
                                                         By implementing answer logic, you can dynamically show or hide
-                                                        answer options based on the respondents' answers. This feature not
+                                                        answer options based on the respondents' answers. This feature
+                                                        not
                                                         only streamlines the survey-taking process but also ensures that
-                                                        respondents are presented with relevant questions, leading to more
+                                                        respondents are presented with relevant questions, leading to
+                                                        more
                                                         accurate and insightful data.
                                                     </div>
                                                 </div>
@@ -628,7 +621,8 @@
                                                             </mat-chip-grid>
                                                             <mat-autocomplete #auto="matAutocomplete"
                                                                 (optionSelected)="selectedOption($event)">
-                                                                <mat-option *ngFor="let option of optionListByQuestionId"
+                                                                <mat-option
+                                                                    *ngFor="let option of optionListByQuestionId"
                                                                     [value]="option">
                                                                     {{option.option}}
                                                                 </mat-option>
@@ -705,20 +699,20 @@
                                                 <a routerLink="javascript:"><ng-icon name="heroPlusCircle"
                                                         ngClass="plus-circle"></ng-icon></a>
                                             </div> -->
-    
-    
+
+
                                             <!-- <div ngClass="mb-4" (click)="createansweraddthen()" *ngIf="!thenSection">
                                                 <div class="col-md-12">
                                                     <a routerLink="javascript:"><ng-icon name="heroPlusCircle"
                                                             ngClass="trash-icon"></ng-icon></a>
                                                 </div>
                                             </div> -->
-    
+
                                         </div>
                                     </div>
-    
+
                                 </div>
-    
+
                             </div>
                             <div class="row mt-3">
                                 <div class="col-12 text-end">
@@ -730,9 +724,9 @@
                     </div>
                 </div>
             </li>
-            
 
-            
+
+
         </ul>
 
     </div>

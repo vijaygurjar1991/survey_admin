@@ -41,7 +41,7 @@ export class SignUpComponent {
     this.baseUrl = environment.baseURL;
   }
   organizationId: any
-  
+
   passwordMatchValidator(formGroup: FormGroup): ValidationErrors | null {
     const password = formGroup.get('password')?.value;
     const confirmPassword = formGroup.get('confirmPassword')?.value;
@@ -94,9 +94,9 @@ export class SignUpComponent {
     });
     console.log("purchaseprice", this.purchaseprice)
     this.userId = this.util.getUserId();
-    
+
   }
- 
+
   LoginSlider: OwlOptions = {
     loop: true,
     items: 1,
@@ -135,10 +135,11 @@ export class SignUpComponent {
         (response) => {
           console.log('Registration successful centerId:', response.centerId);
           console.log('Registration successful userId:', response.userId);
-          if (response === 'AlreadyExits') {
+          console.log('Registration successful userId:', response.message);
+          if (response.message === 'AlreadyExists') {
             this.utility.showError("This Organisation Already Registered");
             //EmailAlreadyExits
-          } else if (response === 'EmailAlreadyExits') {
+          } else if (response.message === 'EmailAlreadyExits') {
             this.utility.showError("This Email Id Already Registered");
             //EmailAlreadyExits
           } else {
@@ -208,7 +209,7 @@ export class SignUpComponent {
     const captchertoken = this.verificationForm.get('captchertoken')?.value
     console.log("captchertoken : ", captchertoken)
     if (this.verificationForm.valid) {
-       const returnUrl = this.route.snapshot.queryParamMap.get('returnUrl') || '/dashboard';
+      const returnUrl = this.route.snapshot.queryParamMap.get('returnUrl') || '/dashboard';
       const dataToSend = {
         oId: this.organizationId,
         otp: otp,
@@ -254,7 +255,7 @@ export class SignUpComponent {
     }
 
   }
- 
+
 
   redirectDashboard() {
     const returnUrl = this.route.snapshot.queryParamMap.get('returnUrl') || '/dashboard';
@@ -264,102 +265,102 @@ export class SignUpComponent {
 
   }
 
-//Pyament Gateway
-subscriptionPlans = [
-  { id: 'basic', name: 'Basic', price: '500' },
-  { id: 'standard', name: 'Standard', price: '1200' },
-  { id: 'premium', name: 'Premium', price: '2500' }
-];
+  //Pyament Gateway
+  subscriptionPlans = [
+    { id: 'basic', name: 'Basic', price: '500' },
+    { id: 'standard', name: 'Standard', price: '1200' },
+    { id: 'premium', name: 'Premium', price: '2500' }
+  ];
 
-razorpayOptions: any = {};
-amount: any ;
-apiUrl = environment.apiUrl;
+  razorpayOptions: any = {};
+  amount: any;
+  apiUrl = environment.apiUrl;
 
-submitForm(): void {
-  
-  const formData = {    
-    amount: this.amount,
-    organizationId: this.organizationId,
-    planId: this.amount
-  };
-  this.postAmount(formData).subscribe((response: any) => { // Type assertion to any
+  submitForm(): void {
+
+    const formData = {
+      amount: this.amount,
+      organizationId: this.organizationId,
+      planId: this.amount
+    };
+    this.postAmount(formData).subscribe((response: any) => { // Type assertion to any
       console.log('Response from server:', response);
       this.payNow(response, response.orderId); // Call the payNow function with order data to initiate Razorpay payment
     }, error => {
       console.error('Error occurred:', error);
     });
-}
+  }
 
-postAmount(formData: any) {
-  
-  return this.httpClient.post(`${this.apiUrl}api/admin/${this.userId}/Payment/ProcessRequestOrder`, formData);
-}
+  postAmount(formData: any) {
 
-payNow(orderData: any, orderId: string): void {
-  const razorpayOptions = {
-    description: 'Sample Razorpay demo',
-    currency: 'INR',
-    amount: orderData.amount * 100, // Convert amount to paisa (Razorpay expects amount in paisa)
-    name: 'Scrip8',
-    key: 'rzp_test_Ncll0VDPCO6Ffq', // Replace with your Razorpay key
-    //image: 'https://mobile.angular.opinionest.com/manage/assets/images/logo/T-logo.png',
-    prefill: {
-      name: 'Testing',
-      email: 'test@gmail.com',
-      phone: '9898989898'
-    },
-    theme: {
-      color: '#f05e16'
-    },
-    modal: {
-      ondismiss: () => {
-        console.log('Payment dismissed');
+    return this.httpClient.post(`${this.apiUrl}api/admin/${this.userId}/Payment/ProcessRequestOrder`, formData);
+  }
+
+  payNow(orderData: any, orderId: string): void {
+    const razorpayOptions = {
+      description: 'Sample Razorpay demo',
+      currency: 'INR',
+      amount: orderData.amount * 100, // Convert amount to paisa (Razorpay expects amount in paisa)
+      name: 'Scrip8',
+      key: 'rzp_test_Ncll0VDPCO6Ffq', // Replace with your Razorpay key
+      //image: 'https://mobile.angular.opinionest.com/manage/assets/images/logo/T-logo.png',
+      prefill: {
+        name: 'Testing',
+        email: 'test@gmail.com',
+        phone: '9898989898'
+      },
+      theme: {
+        color: '#f05e16'
+      },
+      modal: {
+        ondismiss: () => {
+          console.log('Payment dismissed');
+        }
+      },
+      handler: (response: any) => {
+        console.log(response);
+        // Handle payment success
+        this.sendPaymentDetails(response.razorpay_payment_id, orderId);
       }
-    },
-    handler: (response: any) => {
-      console.log(response);
-      // Handle payment success
-      this.sendPaymentDetails(response.razorpay_payment_id, orderId);
-    }
-  };
+    };
 
-  const razorpayInstance = new Razorpay(razorpayOptions);
-  razorpayInstance.open();
-}
-sendPaymentDetails(paymentId: string, orderId: string): void {  
-  const requestData = {
-    organizationId: this.organizationId,
-    paymentId: paymentId,
-    orderid: orderId    
-  };
-  const apiUrl = `${environment.apiUrl}api/admin/${this.userId}/Payment/CompleteOrderProcess`;
-  this.httpClient.post(apiUrl, requestData).subscribe(
-    (response: any) => {
-      console.log('Response:', response); // Log the response        
-      if (response.message === "Success") {
-        console.log('Success:', response);
+    const razorpayInstance = new Razorpay(razorpayOptions);
+    razorpayInstance.open();
+  }
+  sendPaymentDetails(paymentId: string, orderId: string): void {
+    const requestData = {
+      organizationId: this.organizationId,
+      paymentId: paymentId,
+      orderid: orderId
+    };
+    const apiUrl = `${environment.apiUrl}api/admin/${this.userId}/Payment/CompleteOrderProcess`;
+    this.httpClient.post(apiUrl, requestData).subscribe(
+      (response: any) => {
+        console.log('Response:', response); // Log the response        
+        if (response.message === "Success") {
+          console.log('Success:', response);
 
-        const token = response.token;
-        localStorage.setItem('authToken', token);
-        this.router.navigate(["/"]).then(() => {
-          window.location.reload();
-        })
-        //this.router.navigate(['/']);  // Redirect to the thank you page
-       
-      } else {
-        console.error('Error in response:', response); // Handle the error condition appropriately
+          const token = response.token;
+          localStorage.setItem('authToken', token);
+          this.router.navigate(["/"]).then(() => {
+            window.location.reload();
+          })
+          //this.router.navigate(['/']);  // Redirect to the thank you page
+
+        } else {
+          console.error('Error in response:', response); // Handle the error condition appropriately
+        }
+      },
+      (error: any) => {
+        console.error('HTTP Error:', error); // Log the HTTP error        
+        // Handle the error response as plain text
+        console.error('Server Error:', error); // Log the server error
+        // Handle the server error condition appropriately
       }
-    },
-    (error: any) => {
-      console.error('HTTP Error:', error); // Log the HTTP error        
-      // Handle the error response as plain text
-      console.error('Server Error:', error); // Log the server error
-      // Handle the server error condition appropriately
-    }
-  );
-}
-  
-  
+    );
+  }
+
+
 
 }
 
