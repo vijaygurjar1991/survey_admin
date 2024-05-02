@@ -549,7 +549,7 @@
                                 </div>
                                 <div *ngIf="question.isScreening">
                                     <p>{{question.description}}</p>
-                                    <img *ngIf="question.image !== 'https://beta.angular.opinionest.com/Files/Images/'"
+                                    <img class="img-fluid" *ngIf="question.image !== 'https://beta.angular.opinionest.com/Files/Images/'"
                                         [src]="question.image" />
                                     <p>{{question.youtubeUrl}}</p>
 
