@@ -56,7 +56,7 @@
         </div>
     </div>
     <div class="mt-4">
-        <button type="button" class="btn btn-primary" (click)="showQuotas()">Add Quota</button>
+        <button type="button" class="btn btn-primary" (click)="addQuota()">Add Quota</button>
     </div>
 </div>
 <div class="common-bg" [style.display]="isQuotasVisible ? 'block' : 'none'">
@@ -66,8 +66,8 @@
             interlock quotas click new interlocked quota below.</p>
 
         <div>
-            {{quotaResponse?.questionDto | json}}
-            <div *ngFor="let question of quotaResponse?.questionDto; let i = index" class="add-quota">
+            {{surveyQuotaJson | json}}
+            <div *ngFor="let question of surveyQuotaJson?.questionDto; let i = index" class="add-quota">
                 <label class="form-label">Select Question</label>
                 <!-- <select class="form-select" [(ngModel)]="quota.selectedQuestion"
                     (change)="showQuestionQuotas(i);selectedOptionDetails(quota.selectedQuestion,i)" >
@@ -76,8 +76,9 @@
                 </select> -->
                 <mat-form-field>
                     <mat-select [(ngModel)]="question.questionId"
-                        (ngModelChange)="showQuestionQuotas(i); selectedOptionDetails(question.selectedQuestion, i)"
+                        (ngModelChange)="showQuestionQuotas(i);"
                         #selectElement>
+                        <mat-option [disabled]="true" [value]="0"> Select Question</mat-option>
                         <mat-option *ngFor="let ques of questionList.questions" [value]="ques.id">
                             {{ ques.question }}
                         </mat-option>
@@ -85,7 +86,7 @@
                 </mat-form-field>
 
                 <!-- <div class="quotas" *ngIf="question.showQuotasDiv"> -->
-                <div class="quotas">
+                <div class="quotas" *ngIf="question.questionId != 0">
                     <h5>Add Distribution</h5>
                     <div class="add-distribution">
                         <div class="question-type">

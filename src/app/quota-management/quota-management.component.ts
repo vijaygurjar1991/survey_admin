@@ -6,6 +6,7 @@ import { responseDTO } from '../types/responseDTO';
 import { ActivatedRoute } from '@angular/router';
 import { environment } from 'src/environments/environment';
 import { UtilsService } from '../service/utils.service';
+import { QuestionDto, QuotaData } from '../types/quota';
 
 @Component({
   selector: 'app-quota-management',
@@ -27,7 +28,9 @@ export class QuotaManagementComponent {
   categoryName: any;
   centerId: any;
 
-  surveyQuotaJson: any;
+  surveyQuotaJson: QuotaData;
+  isEditQuota: boolean = false;
+  //QuotaData: QuotaData;
 
 
   constructor(private route: ActivatedRoute, private visibilityService: DataService,
@@ -35,6 +38,17 @@ export class QuotaManagementComponent {
     this.baseUrl = environment.baseURL;
 
   }
+  initializeQuotaData() {
+
+    this.surveyQuotaJson = new QuotaData();
+
+    this.surveyQuotaJson.createdDate = new Date();
+    this.surveyQuotaJson.surveyId = this.surveyId;
+    this.surveyQuotaJson.status = this.status;
+  }
+
+
+
   hideBreadcrumb() {
     this.visibilityService.toggleBreadcrumbVisibility(false);
   }
@@ -63,7 +77,7 @@ export class QuotaManagementComponent {
       }
     });
     this.GetSurveyDetails();
-    // this.getQuotaBySurveyId();
+    this.getQuotaBySurveyId();
   }
   showCountError: boolean = false;
 
@@ -81,13 +95,20 @@ export class QuotaManagementComponent {
   }
   // Show add quotas
   quotas: any[] = [{ selectedQuestion: 'Select Question', showQuotasDiv: false }];
-  addQuota() {
-    this.quotas.push({ selectedQuestion: '', showQuotasDiv: false });
-  }
 
-  // addQuota(index: number) {
-  //   this.quotas.splice(index + 1, 0, { selectedQuestion: '', showQuotasDiv: false });
-  // }
+  addQuota() {
+
+    const lastItem = this.surveyQuotaJson.questionDto[this.surveyQuotaJson.questionDto.length - 1];
+
+    if (lastItem.questionId == 0) {
+      alert("Please select question.");
+    }else{
+      const newQuestion = new QuestionDto();
+      newQuestion.type = 'none';
+      this.surveyQuotaJson.questionDto.push(newQuestion);
+    }
+    
+  }
 
 
   showQuestionQuotas(index: number) {
@@ -144,7 +165,7 @@ export class QuotaManagementComponent {
     // this.activeValue = 'custom';
     // console.log("activewer", this.activeValue)
 
-    this.quotaResponse.questionDto[index].type = type;
+    this.surveyQuotaJson.questionDto[index].type = type;
   }
   getQuestionDetail(quesId: any, questionList: any) {
     return questionList?.filter((ques: any) => ques.id == quesId)[0];
@@ -162,7 +183,6 @@ export class QuotaManagementComponent {
   }
 
   getTotalSum(optionList: any) {
-    debugger;
     let total = 0;
     optionList?.forEach((item: any) => {
       if (!isNaN(item.userCount)) {
@@ -477,14 +497,13 @@ export class QuotaManagementComponent {
 
   totalUsers: any;
   questionDto: any;
-  quotaResponse: any;
   quotaid: any
   getQuotaBySurveyId() {
     this.surveyservice.getQuotaBySurveyId(this.surveyId).subscribe({
       next: (data: any) => {
         this.isQuotasVisible = true;
 
-        this.quotaResponse = data;
+        this.surveyQuotaJson = data as QuotaData;
         this.quotaid = data.quotaId
         // this.quotas = [...data?.questionDto];
         this.surveycount = data.totalUsers;
@@ -517,6 +536,13 @@ export class QuotaManagementComponent {
         console.log("Quotas:", this.quotas);
       },
       error: (err: any) => {
+
+        //#region 
+        // We are using here as initialization because getting error if quota not exists.
+
+        this.initializeQuotaData();
+        //#endregion
+
         console.log("Error fetching quotas", err);
       }
     });
