@@ -78,12 +78,27 @@
                         </div>
                         <select class="form-select" name="roleId" [(ngModel)]="roleId" (blur)="validateSurvey()">
                             <option [value]="0" selected>Select Role</option>
-                            <option value="1" *ngIf="isSuperAdmin">SuperAdmin</option>
-                            <option value="2" *ngIf="isAdmin">Admin</option>
-                            <option value="3" *ngIf="isUser">User</option>
-
+                            <option [value]="1" *ngIf="isSuperAdmin">SuperAdmin</option>
+                            <option [value]="2" *ngIf="isAdmin">Admin</option>
+                            <option [value]="3" *ngIf="isUser">User</option>
+                            <option [value]="4" *ngIf="isUser">Vendor</option>
                         </select>
                         <div *ngIf="!roletype" class="text-danger">Role is required.</div>
+
+                    </div>
+                    <div class="col-md-6 mb-3 " *ngIf="roleId == 4">
+                        <label for="">Select Survey</label>
+                        <div [ngClass]="">
+                            <form>
+                                <mat-form-field>
+                                    <mat-select [formControl]="toppings" multiple>
+                                        <ng-container *ngFor="let name of surveyData">
+                                            <mat-option [value]="name.id">{{name.name}}</mat-option>
+                                        </ng-container>
+                                    </mat-select>
+                                </mat-form-field>
+                            </form>
+                        </div>
                     </div>
                     <div class="col-md-6 mb-3">
                         <label for="">Create Password</label>

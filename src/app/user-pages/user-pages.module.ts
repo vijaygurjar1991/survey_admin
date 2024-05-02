@@ -17,6 +17,12 @@ import { ProfileByIdComponent } from './profile-by-id/profile-by-id.component';
 import { ProfileIdPopupComponent } from '../survey/popups/profile-id-popup/profile-id-popup.component';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { heroInformationCircle } from '@ng-icons/heroicons/outline';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { MatInputModule } from '@angular/material/input';
+import { MatChipsModule } from '@angular/material/chips';
+import { MatIconModule } from '@angular/material/icon';
+import { MatSelectModule } from '@angular/material/select';
+import { MatFormFieldModule } from '@angular/material/form-field';
 //import { LoginFormComponent } from './loginForm/loginForm.component';
 
 
@@ -32,6 +38,12 @@ import { heroInformationCircle } from '@ng-icons/heroicons/outline';
   ],
   imports: [
     CommonModule,
+    MatAutocompleteModule,
+    MatInputModule,
+    MatChipsModule,
+    MatIconModule,
+    MatSelectModule,
+    MatFormFieldModule,
     MatTooltipModule,
     UserPagesRoutingModule,
     CarouselModule,

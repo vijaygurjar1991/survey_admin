@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { DataService } from 'src/app/service/data.service';
 import { environment } from 'src/environments/environment';
 import { UtilsService } from 'src/app/service/utils.service';
+import { SurveyService } from 'src/app/service/survey.service';
+import { FormControl } from '@angular/forms';
 
 
 @Component({
@@ -10,17 +12,17 @@ import { UtilsService } from 'src/app/service/utils.service';
   styleUrls: ['./add-user.component.css']
 })
 export class AddUserComponent {
-  // Tooltip
+
   showTooltip: { [key: string]: boolean } = {};
   toggleTooltip(identifier: string) {
     this.showTooltip[identifier] = !this.showTooltip[identifier];
   }
   hideTooltip(identifier: string) {
-      this.showTooltip[identifier] = false;
+    this.showTooltip[identifier] = false;
   }
-// Tooltip
+
   baseUrl = '';
-  constructor(public themeService: DataService, private utility: UtilsService) {
+  constructor(public themeService: DataService, private utility: UtilsService, private surveyservice: SurveyService) {
     this.baseUrl = environment.baseURL;
   }
   files: File[] = [];
@@ -28,7 +30,6 @@ export class AddUserComponent {
   id: number;
   firstName: any;
   lastName: any;
-  //password: any;
   status: "ACT";
   contactNo: Number;
   email: any;
@@ -49,16 +50,15 @@ export class AddUserComponent {
   }
 
   onGeneratePassword() {
-    // You can adjust the length of the password as needed
     this.password = this.generatePassword(10);
   }
 
-  onSelect(event: any) { // Use 'any' as the event type
+  onSelect(event: any) {
     console.log(event);
     this.files.push(...event.addedFiles);
   }
 
-  onRemove(event: any) { // Use 'any' as the event type
+  onRemove(event: any) {
     console.log(event);
     this.files.splice(this.files.indexOf(event), 1);
   }
@@ -93,14 +93,10 @@ export class AddUserComponent {
           this.utility.showSuccess('New User Created Successfully');
 
         }
-        // this.utility.showSuccess(response);
-        // Swal.fire('', response, 'success');
-        // Handle response based on the server behavior
       },
       error => {
         this.utility.showError(error);
         console.error('Error occurred while sending POST request:', error);
-        // Handle error, if needed
       }
     );
   }
@@ -125,7 +121,6 @@ export class AddUserComponent {
     this.passwordtype = !!this.password && this.password.trim().length > 0;
     this.touched = true;
 
-    // You might want to return whether all fields are valid
     return (
       this.firstNamerequired &&
       this.lastNamerequired &&
@@ -144,6 +139,7 @@ export class AddUserComponent {
 
   ngOnInit() {
     this.role = this.utility.getRole();
+    this.getAllSurveyList()
     if (this.role) {
       this.role = this.role.toLowerCase();
     }
@@ -158,6 +154,21 @@ export class AddUserComponent {
     } else if (this.role === 'user') {
       this.isUser = true;
     }
+
   }
+
+  // surveylist
+  surveyData: any[] = []
+  totalItemsCount: any
+  toppings = new FormControl('');
+
+  getAllSurveyList() {
+    this.surveyservice.GetSurveyList().subscribe((data: any) => {
+      this.surveyData = data.surveyType;
+      this.totalItemsCount = data.totalCount;
+      console.log("totalCount", this.totalItemsCount)
+    });
+  }
+
 
 }

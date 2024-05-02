@@ -433,16 +433,16 @@
                 <li
                     *ngFor="let question of questions | paginate: { id: 'server', itemsPerPage: pageSize, currentPage: pageNumber, totalItems: totalItemsCount } ;let i=index;">
                     <div class="drag-item">
-                        <div ngClass="ques-header">
+                        <div [ngClass]="{'ques-header': true, 'screening': question.isScreening}">
                             <h5 ngClass="mb-0">Q-{{question?.sort}} {{question?.question}}</h5>
                             <div class="d-flex align-items-center justify-content-end">
                                 <div class="badge text-bg-primary fw-normal me-2" *ngIf="question?.genericTypeId>0">
                                     <ng-icon class="me-1" name="heroQuestionMarkCircle"></ng-icon>
                                     <span>{{question?.genericType}}</span>
                                 </div>
-                                <div class="badge text-bg-primary fw-normal me-2" *ngIf="question.isScreening">
+                                <div class="badge text-bg-primary fw-normal me-2 qwerty" *ngIf="question.isScreening">
                                     <ng-icon class="me-1" name="heroQuestionMarkCircle"></ng-icon>
-                                    <span>openEnded</span>
+                                    <span>Screening</span>
                                 </div>
 
 

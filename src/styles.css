@@ -451,7 +451,8 @@ article {
     position: sticky;
     top: 0;
     height: 100vh;
-    z-index: 1;overflow-y: scroll;
+    z-index: 1;
+    overflow-y: scroll;
 }
 
 .add-ques-sidebar.toggle-sidebar {
@@ -883,11 +884,16 @@ article {
 .flex-width {
     width: 80px;
 }
-.view-img{text-align: center;}
+
+.view-img {
+    text-align: center;
+}
+
 .view-img img {
     height: 50px;
     object-fit: contain;
 }
+
 .new-options a {
     border: 1px solid var(--border-color);
     border-radius: .25rem;
@@ -1602,9 +1608,14 @@ span.mobile-cross {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    flex-wrap: wrap;gap: 30px;
+    flex-wrap: wrap;
+    gap: 30px;
 }
-.Report-question-list figcaption>div>div{flex: 1;}
+
+.Report-question-list figcaption>div>div {
+    flex: 1;
+}
+
 .Report-question-list figure {
     margin-top: 1rem;
     margin-bottom: 0px;
@@ -2387,4 +2398,8 @@ span.badge.ng-star-inserted.activestatus.text-bg-danger {
 
 .activesurvey {
     font-weight: 500;
+}
+
+.ques-header.screening {
+    background-color: red;
 }
