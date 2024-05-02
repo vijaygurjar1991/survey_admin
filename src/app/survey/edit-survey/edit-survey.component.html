@@ -406,7 +406,7 @@
                 <div ngClass="p-4">
                     <div ngClass="ans-group mb-4">
                         <div class="infocircle">
-                            <h5>Create Answer Group{{groups}}</h5>
+                            <h5 class="mb-0">Create Answer Group{{groups}}</h5>
                             <div class="custom-tooltip ms-2">
                                 <ng-icon name="heroInformationCircle" ngClass="edit-action info-circle"
                                     (click)="toggleTooltip('1')"></ng-icon>
@@ -428,7 +428,7 @@
                             </div>
                         </div>
 
-                        <a href="javascript:void(0);" class="btn btn-primary" (click)="onCreateGroup()">Create New Group
+                        <a href="javascript:void(0);" class="btn btn-outline-primary" (click)="onCreateGroup()">Create New Group
                             <ng-icon name="heroArrowRight"></ng-icon></a>
                     </div>
                     <div ngClass="row">
@@ -541,7 +541,7 @@
                         <div class="infocircle">
                             <h5>Create Answer Logic</h5>                           
                         </div>
-                        <button type="button" class="btn btn-primary px-5" (click)="VisibilityAnsLogic()"
+                        <button type="button" class="btn btn-outline-primary px-5" (click)="VisibilityAnsLogic()"
                         matTooltip="Create Answer Logic" matTooltipPosition="above" title="Action Information">Create
                         Answer Logic
                     </button>
