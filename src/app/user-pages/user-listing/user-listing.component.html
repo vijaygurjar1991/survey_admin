@@ -14,6 +14,7 @@
                         <!-- <option value="2">Sub Admin</option> -->
                         <option value="SuperAdmin">Super Admin</option>
                         <option value="User">User</option>
+                        <option value="Vendor">Vendor</option>
                     </select>
                 </div>
             </div>
@@ -41,19 +42,22 @@
                         <td>
                             <!-- <img [src]="item.image" class="me-2 rounded-circle" style="width: 30px;height: 30px;" /> -->
                             <div class="d-flex gap-2">
-                                <ng-container *ngIf="item.image === 'https://beta.angular.opinionest.com/Files/Images/'; else elseBlock">
+                                <ng-container
+                                    *ngIf="item.image === 'https://beta.angular.opinionest.com/Files/Images/'; else elseBlock">
                                     <div class="me-2 rounded-circle defaultprofile">
-                                        {{ (item.firstName ? item.firstName.charAt(0) : '') + (item.lastName ? item.lastName.charAt(0) : '') }}
+                                        {{ (item.firstName ? item.firstName.charAt(0) : '') + (item.lastName ?
+                                        item.lastName.charAt(0) : '') }}
                                     </div>
                                 </ng-container>
                                 <ng-template #elseBlock>
-                                    <img [src]="item.image" class="me-2 rounded-circle" style="width: 30px; height: 30px;" />
+                                    <img [src]="item.image" class="me-2 rounded-circle"
+                                        style="width: 30px; height: 30px;" />
                                 </ng-template>
-                                
+
                                 <span>{{ item.firstName }} {{ item.lastName }}</span>
                             </div>
                         </td>
-                        
+
                         <td>{{ getRoleName(item.roleId) }}</td>
                         <td>{{ item.email }}</td>
                         <td>{{ item.contactNo }}</td>

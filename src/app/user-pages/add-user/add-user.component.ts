@@ -4,6 +4,7 @@ import { environment } from 'src/environments/environment';
 import { UtilsService } from 'src/app/service/utils.service';
 import { SurveyService } from 'src/app/service/survey.service';
 import { FormControl } from '@angular/forms';
+import { MatSelectChange } from '@angular/material/select';
 
 
 @Component({
@@ -62,7 +63,10 @@ export class AddUserComponent {
     console.log(event);
     this.files.splice(this.files.indexOf(event), 1);
   }
-
+  getCurrentDateTime(): string {
+    const currentDateTime = new Date().toISOString();
+    return currentDateTime.substring(0, currentDateTime.length - 1) + 'Z';
+  }
 
   AddUser() {
 
@@ -78,18 +82,52 @@ export class AddUserComponent {
       password: this.password,
       status: this.status,
       contactNo: this.contactNo,
+      createdDate: this.getCurrentDateTime(),
+      modifiedDate: '',
       email: this.email,
       roleId: this.roleId,
       centerId: this.centerId,
-      image: this.image
+      image: this.image,
+      role: this.role,
+      isPaid: true,
+      address: '',
+      city: '',
+      state: '',
+      country: '',
+      zip: '',
+      phone: 0,
+      gstNumber: '',
+      plan: [
+        {
+          id: 0,
+          planId: 0,
+          organizationId: 0,
+          paidAmount: 0,
+          pendingAmount: 0,
+          totalAmount: 0,
+          startDate: this.getCurrentDateTime(),
+          endDate: '',
+          status: '',
+          orderId: ''
+        }
+      ],
+      surveyList: [] as { vendarSurveyId: number }[]
+
     };
+    for (const surveyId of this.selectedSurveyIds) {
+      const surveyObject = { vendarSurveyId: surveyId };
+      dataToSend.surveyList.push(surveyObject);
+    }
     console.log("dataToSend", dataToSend)
     this.themeService.AddNewUser(dataToSend).subscribe(
       response => {
         console.log('Response from server:', response);
         if (response == '"UserAlreadyExits"') {
           this.utility.showError("User Already Exist");
-        } else {
+        } else if (response == '"Failed"') {
+          this.utility.showError("User not created");
+        }
+        else {
           this.utility.showSuccess('New User Created Successfully');
 
         }
@@ -168,6 +206,13 @@ export class AddUserComponent {
       this.totalItemsCount = data.totalCount;
       console.log("totalCount", this.totalItemsCount)
     });
+  }
+
+
+  selectedSurveyIds: any[] = []
+  onSelectionChange(event: MatSelectChange): void {
+    this.selectedSurveyIds = event.value;
+    console.log('Selected SurveyIds:', this.selectedSurveyIds);
   }
 
 

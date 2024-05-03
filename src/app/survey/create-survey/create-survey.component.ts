@@ -1605,15 +1605,17 @@ export class CreateSurveyComponent implements OnInit, AfterViewInit {
 
         // Swal.fire('', 'Question Generated Sucessfully.', 'success');
         console.log("addscreen resp", resp)
+        if (resp == '"QuestionSuccessfullyCreated"') {
+          this.utils.showSuccess('Question Generated Sucessfully');
 
-        this.utils.showSuccess('Question Generated Sucessfully');
+          let url = `/survey/manage-survey/${this.crypto.encryptParam("" + this.surveyId)}`;
 
+          this.router.navigateByUrl(url);
 
-        let url = `/survey/manage-survey/${this.crypto.encryptParam("" + this.surveyId)}`;
-
-        this.router.navigateByUrl(url);
-
-        window.location.reload();
+          window.location.reload();
+        } else {
+          this.utils.showError(resp)
+        }
 
       },
       error: (err: any) => {

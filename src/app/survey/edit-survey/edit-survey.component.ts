@@ -68,6 +68,7 @@ export class EditSurveyComponent {
   surveystatus: any
   baseUrl = '';
   optionImage: String;
+  imageUpdated: boolean = false;
 
   constructor(public themeService: DataService, private router: Router,
     private route: ActivatedRoute, private surveyservice: SurveyService, private modalService: NgbModal,
@@ -354,6 +355,7 @@ export class EditSurveyComponent {
         const optionIndex = this.optionsArr1.findIndex(option => option.id === oid);
         if (optionIndex !== -1) {
           // Assuming your option object has an 'image' property to store the image URL
+
           this.optionsArr1[optionIndex].image = response.replace(/"/g, "");
 
           console.log("optionarr", this.optionsArr1);
@@ -366,6 +368,7 @@ export class EditSurveyComponent {
       }
     );
   }
+
 
 
 
@@ -671,9 +674,13 @@ export class EditSurveyComponent {
       this.surveyservice.updateGeneralQuestion(this.question).subscribe({
         next: (resp: any) => {
           this.categoryNameCheck = false;
-          this.utility.showSuccess('Question Updated Successfully.');
-          let url = `/survey/manage-survey/${this.crypto.encryptParam(this.surveyId)}`;
-          this.router.navigateByUrl(url);
+          if (resp == '"QuestionSuccessfullyUpdated"') {
+            this.utility.showSuccess('Question Updated Successfully.');
+            let url = `/survey/manage-survey/${this.crypto.encryptParam(this.surveyId)}`;
+            this.router.navigateByUrl(url);
+          } else {
+            this.utility.showError(resp)
+          }
         },
         error: (err: any) => {
           // Swal.fire('', err.error, 'error');

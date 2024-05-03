@@ -91,9 +91,10 @@
                         <div [ngClass]="">
                             <form>
                                 <mat-form-field>
-                                    <mat-select [formControl]="toppings" multiple>
+                                    <mat-select [formControl]="toppings" multiple
+                                        (selectionChange)="onSelectionChange($event)">
                                         <ng-container *ngFor="let name of surveyData">
-                                            <mat-option [value]="name.id">{{name.name}}</mat-option>
+                                            <mat-option [value]="name.surveyId">{{name.name}}</mat-option>
                                         </ng-container>
                                     </mat-select>
                                 </mat-form-field>
