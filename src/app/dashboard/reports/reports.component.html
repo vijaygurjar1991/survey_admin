@@ -25,9 +25,6 @@
             <table class="table">
                 <thead>
                     <tr>
-                        <th scope="col"><input type="checkbox" ngClass="form-check-input"
-                                (change)="toggleSelectAll()" />
-                        </th>
                         <th scope="col">Reports Name</th>
                         <th scope="col">Category</th>
                         <th scope="col">Creator Name</th>
@@ -37,7 +34,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let item of suveryListingTable">
+                    <!-- <tr *ngFor="let item of suveryListingTable">
                         <td><input type="checkbox" ngClass="form-check-input" />
                         </td>
                         <td>{{item.surveyName}}</td>
@@ -53,7 +50,7 @@
                             <a routerLink="/dashboard/reports/view"><ng-icon name="heroPencil"
                                     ngClass="edit-action"></ng-icon></a>
                         </td>
-                    </tr>
+                    </tr> -->
                 </tbody>
             </table>
         </div>

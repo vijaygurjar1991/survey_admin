@@ -71,6 +71,7 @@ import { PaymentComponent } from './payment/payment.component';
 import { LoginFormComponent } from './user-pages/loginForm/loginForm.component';
 import { PaymentThankyouComponent } from './payment-thankyou/payment-thankyou.component';
 import { QuotaManagementComponent } from './quota-management/quota-management.component';
+import { SupportComponent } from './support/support.component';
 
 @NgModule({
   declarations: [
@@ -89,7 +90,8 @@ import { QuotaManagementComponent } from './quota-management/quota-management.co
     PaymentComponent,
     LoginFormComponent,
     PaymentThankyouComponent,
-    QuotaManagementComponent
+    QuotaManagementComponent,
+    SupportComponent
   ],
   imports: [
     BrowserModule,
