@@ -402,4 +402,9 @@ export class SurveyService {
     const url = `${this.apiUrl}api/admin/${this.userId}/Report/SurveyReport?surveyId=${surveyId}`;
     return this.http.get<responseDTO[]>(url);
   }
+
+  getVendarSurveyList(pageNumber: number, pageSize: number): Observable<responseDTO[]> {
+    const url = `${this.apiUrl}api/admin/${this.userId}/Vendar/GetSurveyList?pageNumber=${pageNumber}&pageSize=${pageSize}`;
+    return this.http.get<responseDTO[]>(url);
+  }
 }

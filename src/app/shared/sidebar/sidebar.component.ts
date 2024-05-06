@@ -25,6 +25,7 @@ export class SidebarComponent {
   isAdmin = false;
   isUser = false;
   isClient = false;
+  isvendor = false
 
 
 
@@ -74,6 +75,8 @@ export class SidebarComponent {
       this.isAdmin = true
     else if (this.role == 'user')
       this.isUser = true
+    else
+      this.isvendor = true
   }
 
   logOut() {

@@ -1,0 +1,226 @@
+<div ngClass="common-bg">
+    <div ngClass="all-survey">
+        <div ngClass="row common-heading">
+            <div class="col-md-9">
+                <h4>Survey List</h4>
+                <p>Manage your Track Opinion "Vendar Survey List" page</p>
+            </div>
+            <div class="col-md-3">
+                <!-- <div class="input-group flex-nowrap sort">
+                        <span class="input-group-text" id="addon-wrapping"></span>
+                        <select class="form-select" [(ngModel)]="selectedCategory">
+                            <option selected value="All Categories">All Categories</option>
+                            <option *ngFor="let item of categoryList" [value]="item.name">{{item.name}}</option>
+                        </select>                    
+                    </div> -->
+                <mat-form-field>
+                    <mat-select [(ngModel)]="selectedCategory">
+                        <mat-option selected value="All Categories">All Categories</mat-option>
+                        <mat-option *ngFor="let item of categoryList" [value]="item.name">{{item.name}}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+        </div>
+        <div class="table-responsive">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <!-- <th scope="col"><input type="checkbox" ngClass="form-check-input" />
+                        </th> -->
+                        <th scope="col">S.Count</th>
+                        <th scope="col">S.ID</th>
+                        <th scope="col">Survey Name</th>
+                        <th scope="col">Country</th>
+                        <th scope="col">Category</th>
+                        <th scope="col">Creator Name</th>
+                        <th scope="col">Last Modification</th>
+                        <th scope="col">
+                            <div class="infocircle">
+                                Status
+                                <div class="custom-tooltip">
+                                    <ng-icon name="heroInformationCircle" ngClass="edit-action info-circle"
+                                        (click)="toggleTooltip('1')"></ng-icon>
+                                    <div class="toast show" *ngIf="showTooltip['1']">
+                                        <div class="toast-header">
+                                            <img [src]="baseUrl + '/assets/images/icons/Add-new-question.png'"
+                                                class="rounded me-2" width="30" height="30" />
+                                            <h6 class="mb-0 me-auto">Status: active, inactive, Hold</h6>
+                                            <button type="button" class="btn-close" data-bs-dismiss="toast"
+                                                aria-label="Close" (click)="hideTooltip('1')"></button>
+                                        </div>
+                                        <div class="toast-body">
+                                            Ensure the success of your project by defining its status through a
+                                            comprehensive survey. The survey will help you determine whether your
+                                            project is active, inactive, or paused. With this knowledge, you can take
+                                            necessary action to ensure that your project stays on track and achieves its
+                                            goals. Don't leave your project's success to chance - take control today by
+                                            marking your project status.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </th>
+                        <th scope="col">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let item of surveyData | paginate: { id: 'server', itemsPerPage: pageSize, currentPage: pageNumber, totalItems: totalItemsCount } ; let i = index"
+                        [hidden]="selectedCategory !== 'All Categories' && item.categoryName !== selectedCategory">
+                        <!-- <td><input type="checkbox" ngClass="form-check-input" /> -->
+                        <!-- </td> -->
+                        <!-- <td>{{item.id}}</td> -->
+                        <!-- <td>{{ i + 1 }}</td> -->
+                        <td>{{ (pageNumber - 1) * pageSize + i + 1 }}</td>
+                        <td>{{ item.surveyId}}</td>
+                        <!-- <td>{{item.name}}</td> -->
+                        <td matTooltip={{item.name}}>
+                            {{ item.name.split(' ').slice(0, 3).join(' ') }}{{item.name.split('
+                            ').length > 3 ? ' ...' : ''}}
+                        </td>
+                        <td>
+                            <ng-container *ngIf="item.countryName !== 'Other Country'">
+                                <img [src]="baseUrl + '/assets/images/country-flag/' + item.countryImage"
+                                    class="me-2 rounded-circle" style="width: 30px;height: 30px;" />
+                            </ng-container>
+                            <!-- <img [src]="baseUrl + '/assets/images/country-flag/' + item.countryImage"
+                                class="me-2 rounded-circle" style="width: 30px;height: 30px;" /> -->
+                            <!-- <img loading="lazy" [src]="baseUrl + '/assets/images/country-flag/' + countryName + '.png'"
+                                width="30" height="30" alt={{countryName}} /> -->
+                            {{item.countryName}}
+                        </td>
+                        <td *ngIf="item.categoryName !='Others'">{{item.categoryName}}</td>
+                        <td *ngIf="item.categoryName =='Others'">{{item.otherCategory}}</td>
+                        <td class="profileimage">
+                            <div class="d-flex align-items-center">
+                                <ng-container
+                                    *ngIf="item.userImage !== 'https://beta.angular.opinionest.com/Files/Images/'">
+                                    <img [src]="item.userImage" class="me-2 rounded-circle"
+                                        style="width: 30px; height: 30px;" />
+                                </ng-container>
+                                <ng-container
+                                    *ngIf="item.userImage === 'https://beta.angular.opinionest.com/Files/Images/'">
+                                    <div class="me-2 rounded-circle defaultprofile">
+                                        {{ item.userName ? (item.userName.charAt(0) + (item.userName.split(' ')[1] ?
+                                        item.userName.split(' ')[1].charAt(0) : '')) : '' }}
+
+                                    </div>
+                                </ng-container>
+                                {{ item.userName }}
+                            </div>
+                        </td>
+
+                        <!-- <td *ngIf="item.userImage =='https://beta.angular.opinionest.com/Files/Images/'">
+                            <div class="me-2 rounded-circle defaultprofile">{{ item.userName ? (item.userName.charAt(0)
+                                +
+                                item.userName.split(' ')[1]?.charAt(0)) : '' }}</div>
+                        </td> -->
+                        <td>
+                            {{
+                            (item.modifiedDate ? (item.modifiedDate | date:'medium':'IST') : (item.createdDate |
+                            date:'medium':'IST'))
+                            }}
+                        </td>
+                        <!-- <td [ngClass]="{'done': item.status === 'ACT', 'paused': item.status !== 'ACT'}">
+                            <span>{{ item.status === 'ACT' ? 'Ongoing' : 'Pause' }}</span>
+                        </td> -->
+                        <!-- <td>
+                            <label class="toggle" *ngIf="role === 'admin' || role === 'superadmin'">
+                              <input type="checkbox" [checked]="item.status === 'ACT'" (change)="toggleSlider($event, item.id, item)">
+                              <span class="slider round"></span>
+                            </label>
+                            <label class="toggle" *ngIf="role !== 'admin' && role !== 'superadmin'">
+                                <input type="checkbox" [checked]="item.status === 'ACT'" [disabled]="true">
+                                <span class="slider round"></span>
+                            </label>
+                          </td> -->
+                        <td *ngIf="role !== 'Vendar'">
+                            <ng-container *ngIf="role === 'admin' || role === 'superadmin'">
+                                <select [(ngModel)]="item.status" (change)="toggleSlider($event, item.surveyId, item)"
+                                    class="form-select form-select-sm">
+                                    <option [ngValue]="'ACT'">Active</option>
+                                    <option [ngValue]="'DEL'">Inactive</option>
+                                    <option [ngValue]="'HOL'">Hold</option>
+                                </select>
+                            </ng-container>
+                            <ng-container *ngIf="role !== 'admin' && role !== 'superadmin'">
+                                <select class="form-select" disabled>
+                                    <option [ngValue]="item.status">{{ item.status === 'ACT' ? 'Active' : 'Inactive' }}
+                                    </option>
+                                </select>
+                            </ng-container>
+                        </td>
+                        <td ngClass="action" *ngIf="role !== 'user'">
+                            <div class="d-flex gap-2 editaction">
+                                <div>
+                                    <a *ngIf="item.status!='ACT' && item.status!='HOL'" href="javascript:"
+                                        [routerLink]="'/survey/manage-survey/'+ (item.surveyId |  encrypt)">
+                                        <ng-icon name="heroPencil" ngClass="edit-action"></ng-icon></a>
+                                </div>
+                                <ng-container *ngIf="role !== 'user'">
+                                    <a href="javascript:" (click)="openLg(sidecontent,item.surveyId,item.name)"><ng-icon
+                                            name="heroTrash" ngClass="edit-action delete-trash"></ng-icon></a>
+                                </ng-container>
+
+                                <!-- <a *ngIf="item.status=='ACT'" href="javascript:">
+                                <ng-icon name="heroPencil" ngClass="edit-action"></ng-icon></a> -->
+                            </div>
+                        </td>
+                    </tr>
+                    <tr *ngIf="totalItemsCount === 0">
+                        <td colspan="9" rowspan="2">
+                            <div class="text-center h-100" style="
+                            height: 500px !important;
+                        ">There is no survey right now</div>
+                        </td>
+                    </tr>
+
+            </table>
+            <!-- <div class="custom-pagination d-flex justify-content-between align-items-center mt-5">
+                <pagination-controls *ngIf="surveyData != null && surveyData.length > 0"
+                    class="d-flex justify-content-center" id="server" (pageChange)="onPageChange($event)">
+                </pagination-controls>
+                <div class="d-flex align-items-center">
+                    <span class="me-2">Jump to:</span>
+                    <input style="flex: 1;" type="number" [(ngModel)]="currentPage" (keyup.enter)="jumpToPage()"
+                        class="form-control" />
+                </div>
+            </div> -->
+            <div class="custom-pagination mt-5" *ngIf="surveyData.length>pageSize-1 || pageNumber>1">
+                <pagination-controls *ngIf="surveyData != null && surveyData.length > 0"
+                    class="d-flex justify-content-center" id="server" (pageChange)="onPageChange($event)">
+                </pagination-controls>
+
+                <div class="d-flex align-items-center">
+                    <span class="me-2">Page Size:</span>
+                    <select [(ngModel)]="pageSize" (change)="onPageSizeChange()" class="form-select">
+                        <option value="10">10</option>
+                        <option value="20">20</option>
+                        <option value="50">50</option>
+                        <!-- Add more options as needed -->
+                    </select>
+                </div>
+
+                <div class="d-flex align-items-center ">
+                    <span class="me-2 ms-4">Jump to:</span>
+                    <input style="flex: 1;" type="number" [(ngModel)]="currentPage" (keyup.enter)="jumpToPage()"
+                        class="form-control" />
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<ng-template #sidecontent let-modal>
+
+    <div class="modal-header">
+        <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+    </div>
+    <div class="modal-body popup-ques delete">
+        <div class="mb-4">
+            <h4>Are you sure you want to delete Survey ({{deletesurveyname}})</h4>
+            <div class="deleteoption">
+                <button type="button" class="btn btn-primary icon" (click)="modal.dismiss('Cross click')">No</button>
+                <button type="button" class="btn btn-danger icon" (click)="deleteSurvey(itemId);">Yes</button>
+            </div>
+        </div>
+    </div>
+</ng-template>
