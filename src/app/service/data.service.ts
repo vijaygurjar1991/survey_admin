@@ -209,12 +209,6 @@ export class DataService {
   getSearchQuery(): Observable<string> {
     return this.searchQuerySubject.asObservable();
   }
-  // Post Contact For
-  sendContactData(data: any): Observable<any> {
-    var userId = this.util.getUserId();
-    const url = `${this.apiUrl}api/admin/${userId}/Profile/`;
-    console.log("posted data", data);
-    return this.http.post(url, data, { responseType: 'text' });
-  }
+  
 
 }
