@@ -1,0 +1,4 @@
+.accordion-button:not(.collapsed){background-color: var(--primary);color: var(--white);}
+.accordion-button:focus{border-color: var(--primary);box-shadow: var(--primary);}
+.accordion-button{background-color: #fdefe7;color: var(--primary);border: 1px solid var(--primary);}
+.accordion-item{border: none;}
