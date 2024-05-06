@@ -474,6 +474,7 @@ export class CreateSurveyComponent implements OnInit, AfterViewInit {
         let screeningRedirectUrls: string[] = [];
         let screenImages: string[] = [];
         let screenyoutubeurl: string[] = [];
+        let screenvideo: string[] = []
 
         // Iterate over questions
         this.questions.forEach((question: any) => {
@@ -487,6 +488,7 @@ export class CreateSurveyComponent implements OnInit, AfterViewInit {
             screeningRedirectUrls.push(question.screeningRedirectUrl);
             screenImages.push(question.image);
             screenyoutubeurl.push(question.youtubeUrl);
+            screenvideo.push(question.video)
           }
         });
 
@@ -648,20 +650,20 @@ export class CreateSurveyComponent implements OnInit, AfterViewInit {
   }
   logicQuestionListById: any
   getLogicQuestionList(questionId: any) {
-    // this.logicQuestionList = [];
-    // const dataToSend = {
-    //   surveyId: this.surveyId,
-    //   surveyStatus: questionId
-    // };
-    // this.surveyservice.getLogicQuestionList(dataToSend).subscribe(
-    //   (response: LogicQuestion[]) => {
-    //     console.log("logicQuestionList", response);
-    //     this.logicQuestionList = response;
-    //   },
-    //   error => {
-    //     console.error('Error fetching logic questions', error);
-    //   }
-    // );
+    this.logicQuestionList = [];
+    const dataToSend = {
+      surveyId: this.surveyId,
+      surveyStatus: questionId
+    };
+    this.surveyservice.getLogicQuestionList(dataToSend).subscribe(
+      (response: LogicQuestion[]) => {
+        console.log("logicQuestionList", response);
+        this.logicQuestionList = response;
+      },
+      error => {
+        console.error('Error fetching logic questions', error);
+      }
+    );
     this.logicQuestionListById = []; // Assuming logicQuestionListById is of type responseDTO[]
     this.surveyservice.GetQuestionListBySurveyId(this.surveyId).subscribe((response: responseDTO[]) => {
       this.logicQuestionListById = response;
@@ -1184,7 +1186,8 @@ export class CreateSurveyComponent implements OnInit, AfterViewInit {
   }
 
   saveRandomization(): void {
-    console.log(this.randormizeEntries);
+
+    console.log("randomize", this.randormizeEntries);
     const anyCheckboxChecked = this.randormizeEntries.some(entry => entry.isRandomizationChecked);
     console.log(anyCheckboxChecked)
 
@@ -1254,6 +1257,7 @@ export class CreateSurveyComponent implements OnInit, AfterViewInit {
     } else {
       console.warn('No valid range found for randomization.');
     }
+    debugger
   }
 
 
@@ -1593,6 +1597,12 @@ export class CreateSurveyComponent implements OnInit, AfterViewInit {
     } else {
       // If not defined or not a string, set image to an empty string
       this.screenQuestionObj.image = '';
+    }
+    if (typeof this.screenvideo === 'string') {
+      this.screenQuestionObj.video = this.screenvideo.replace(/"/g, "");
+    } else {
+      // If not defined or not a string, set image to an empty string
+      this.screenQuestionObj.video = '';
     }
     console.log("screen image", this.screenQuestionObj.image);
     this.screenQuestionObj.isScreening = this.screenRedirectUser
@@ -2006,7 +2016,30 @@ export class CreateSurveyComponent implements OnInit, AfterViewInit {
 
 
 
+  //upload video
+  screenvideo: any
+  onSelectVideo(event: any) {
+    const selectedFiles: FileList = event.addedFiles;
+    for (let i = 0; i < selectedFiles.length; i++) {
+      this.files.push(selectedFiles[i]);
+      this.uploadVideoQuestion(selectedFiles[i])
+    }
+  }
 
+  uploadVideoQuestion(file: File): void {
+
+    this.surveyservice.uploadAddScreenVideoQuestion(file, 0).subscribe(
+      (response: String) => {
+        console.log('Upload successful:', response);
+        this.screenvideo = response
+        console.log("video uploaded", this.screenvideo)
+      },
+      (error) => {
+        console.error('Error occurred while uploading:', error);
+
+      }
+    );
+  }
 
 
 

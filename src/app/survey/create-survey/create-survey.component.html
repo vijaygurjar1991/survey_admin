@@ -553,6 +553,11 @@
                                         *ngIf="question.image !== 'https://beta.angular.opinionest.com/Files/Images/'"
                                         [src]="question.image" />
                                     <p>{{question.youtubeUrl}}</p>
+                                    <ng-container
+                                        *ngIf="question.video !== 'https://beta.angular.opinionest.com/Files/Video/'">
+                                        <p>{{question.video}}</p>
+                                    </ng-container>
+
 
                                 </div>
                                 <div ngClass="pt-4" *ngIf="question.isLogicShow" id="question-{{question.id}}">
@@ -1587,7 +1592,7 @@
                         <div *ngIf="!headingrequired" class="text-danger">Heading is required.</div>
                     </div>
                     <div class="mb-3">
-                        <ngx-dropzone (change)="onSelect($event)" [ngClass]="'drop-file'">
+                        <ngx-dropzone (change)="onSelectVideo($event)" [ngClass]="'drop-file'">
                             <ngx-dropzone-label>
                                 <img [src]="baseUrl + '/assets/images/icons/attach-image.png'" />
                                 <a href="javascript:"><u>Click to upload</u></a> <span> or drag and drop</span>
