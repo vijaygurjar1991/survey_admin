@@ -330,8 +330,8 @@
                         </div>
 
                         <div class="flex-2 mb-3">
-                            <input id="answer" [type]="openendedtype" name="answer" class="form-control"
-                                [(ngModel)]="textlimit" (blur)="validateSurvey()" pattern="[ a-zA-Z]*" />
+                            <input id="answer" type="number" name="answer" class="form-control" [(ngModel)]="textlimit"
+                                (blur)="validateSurvey()" />
                             <!-- <div *ngIf="!textlimitation" class="text-danger">Field is required.</div> -->
                         </div>
 
@@ -417,7 +417,8 @@
                             </div>
                         </div>
 
-                        <a href="javascript:void(0);" class="btn btn-outline-primary" (click)="onCreateGroup()">Create New Group
+                        <a href="javascript:void(0);" class="btn btn-outline-primary" (click)="onCreateGroup()">Create
+                            New Group
                             <ng-icon name="heroArrowRight"></ng-icon></a>
                     </div>
                     <div ngClass="row">

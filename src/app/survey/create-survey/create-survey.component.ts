@@ -1996,6 +1996,13 @@ export class CreateSurveyComponent implements OnInit, AfterViewInit {
   }
 
 
+  // append http
+  addHttpProtocolIfMissing(): void {
+    if (this.screenRedirectURL && !/^https?:\/\//i.test(this.screenRedirectURL)) {
+
+      this.screenRedirectURL = 'http://' + this.screenRedirectURL;
+    }
+  }
 
 
 
