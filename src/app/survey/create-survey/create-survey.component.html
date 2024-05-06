@@ -1515,7 +1515,7 @@
                     <div class="mb-3">
                         <input type="text" class="form-control" placeholder="Redirect URL"
                             [(ngModel)]="screenRedirectURL" [ngModelOptions]="{standalone: true}"
-                            (blur)="validateAddScreen('text')" />
+                            (blur)="validateAddScreen('text');addHttpProtocolIfMissing()" />
                         <div *ngIf="!urlrequired" class="text-danger">URL is required.</div>
                     </div>
                     <div class="mb-3">
@@ -1564,7 +1564,7 @@
                     <div class="mb-3">
                         <input type="text" class="form-control" placeholder="Redirect URL"
                             [(ngModel)]="screenRedirectURL" [ngModelOptions]="{standalone: true}"
-                            (blur)="validateAddScreen('image')" />
+                            (blur)="validateAddScreen('image');addHttpProtocolIfMissing()" />
                     </div>
                     <div *ngIf="!urlrequired" class="text-danger">URL is required.</div>
                     <div class="mb-3">
@@ -1613,7 +1613,7 @@
                     <div class="mb-3">
                         <input type="text" class="form-control" placeholder="Redirect URL"
                             [(ngModel)]="screenRedirectURL" [ngModelOptions]="{standalone: true}"
-                            (blur)="validateAddScreen('video')" />
+                            (blur)="validateAddScreen('video');addHttpProtocolIfMissing()" />
                     </div>
                     <div *ngIf="!urlrequired" class="text-danger">URL is required.</div>
                     <div class="mb-3">
@@ -1658,7 +1658,7 @@
                     <div class="mb-3">
                         <input type="text" class="form-control" placeholder="Redirect URL"
                             [(ngModel)]="screenRedirectURL" [ngModelOptions]="{standalone: true}"
-                            (blur)="validateAddScreen('iframe')" />
+                            (blur)="validateAddScreen('iframe');addHttpProtocolIfMissing()" />
                     </div>
                     <div *ngIf="!urlrequired" class="text-danger">URL is required.</div>
                     <div class="mb-3">

@@ -118,6 +118,8 @@ export class AddUserComponent {
       const surveyObject = { vendarSurveyId: surveyId };
       dataToSend.surveyList.push(surveyObject);
     }
+
+
     console.log("dataToSend", dataToSend)
     this.themeService.AddNewUser(dataToSend).subscribe(
       response => {
