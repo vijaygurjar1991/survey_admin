@@ -213,10 +213,11 @@ li.single-sidebar-menu {
 }
 .support {
     display: block;
-    width: 80%;
-    background: var(--light-primary);
-    border-radius: .5rem;padding: 1rem;text-align: center;margin: auto ;margin-top: 4rem;
+    width: 100%;
+    background: var(--primary);
+    border-radius: 1rem;padding: 1rem;text-align: center;margin: auto ;margin-top: 4rem;color: var(--white);
 }
+.support .btn-primary{background-color: var(--white);border-color: var(--white);color: var(--primary);}
 .support>div{margin-top: -4rem;margin-bottom: 1rem;}
 .sidebar-upgrade {
     padding: 1rem;
