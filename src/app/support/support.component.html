@@ -1,0 +1,40 @@
+<div class="common-bg">
+    <div class="common-heading">
+        <h4>Get in Touch</h4>
+    </div>
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <form>
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label for="">First Name</label>
+                        <input type="text" class="form-control" name="firstName" id="firstName" [(ngModel)]="firstName">
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label for="">Last Name</label>
+                        <input type="text" class="form-control" name="firstName" id="firstName" [(ngModel)]="firstName">
+                    </div>
+                </div>
+                
+                <div class="mb-3">
+                    <label for="">Email</label>
+                    <input type="email" class="form-control" name="email" id="email" [(ngModel)]="email">
+                </div>
+                <div class="mb-3">
+                    <label for="">Contact No.</label>
+                    <input type="number" class="form-control" name="contactNo" id="contactNo" [(ngModel)]="contactNo">
+                </div>
+                <div class="mb-3">
+                    <label for="">Message</label>
+                    <textarea class="form-control" rows="5" name="message" id="message" [(ngModel)]="message"></textarea>
+                </div>
+                <div class="mb-3 text-end">
+                    <button type="button" class="btn btn-primary" (click)="submitForm()">Submit</button>
+                </div>
+            </form>
+        </div>
+        <!-- <div class="col-md-6">
+            <img loading="lazy" src="../../assets/images/support-old.jpg" class="img-fluid" alt="" width="400">
+        </div> -->
+    </div>
+</div>

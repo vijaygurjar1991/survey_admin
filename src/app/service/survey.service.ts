@@ -388,4 +388,9 @@ export class SurveyService {
     const url = `${this.apiUrl}api/admin/${this.userId}/Quota/GetQuotaBySurveyId?surveyId=${surveyId}`;
     return this.http.get<responseDTO[]>(url);
   }
+
+  getSurveyReportBySurveyId(surveyId: any): Observable<responseDTO[]> {
+    const url = `${this.apiUrl}api/admin/${this.userId}/Report/SurveyReport?surveyId=${surveyId}`;
+    return this.http.get<responseDTO[]>(url);
+  }
 }

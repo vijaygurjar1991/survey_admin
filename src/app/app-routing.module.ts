@@ -7,6 +7,7 @@ import { ForgotPasswordComponent } from './user-pages/forgot-password/forgot-pas
 import { PaymentComponent } from './payment/payment.component';
 import { PaymentThankyouComponent } from './payment-thankyou/payment-thankyou.component';
 import { QuotaManagementComponent } from './quota-management/quota-management.component';
+import { SupportComponent } from './support/support.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent, data: { layout: 'auth' } },
@@ -14,6 +15,7 @@ const routes: Routes = [
   { path: 'forgot-password', component: ForgotPasswordComponent, data: {} },
   { path: 'payment', component: PaymentComponent, data: {} },
   { path: 'thankyou', component: PaymentThankyouComponent, data: {} },
+  { path: 'support', component: SupportComponent, data: {} },
   { path: 'survey/quota-management/manage-survey/:param1', component: QuotaManagementComponent, data: {} },
   { path: 'error', component: ErrorComponent, data: {} },
   { path: 'user-pages', loadChildren: () => import('./user-pages/user-pages.module').then(m => m.UserPagesModule) },

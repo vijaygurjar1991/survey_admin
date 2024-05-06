@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 import { NgModule } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { DataService } from 'src/app/service/data.service';
+import { SurveyService } from 'src/app/service/survey.service';
 import { environment } from 'src/environments/environment';
 
 @Component({
@@ -13,6 +14,7 @@ import { environment } from 'src/environments/environment';
 export class ReportsComponent {
   // Tooltip
   showTooltip: { [key: string]: boolean } = {};
+  userId: any;
   toggleTooltip(identifier: string) {
     this.showTooltip[identifier] = !this.showTooltip[identifier];
   }
@@ -20,39 +22,18 @@ export class ReportsComponent {
       this.showTooltip[identifier] = false;
   }
 // Tooltip
-  suveryListingTable = [
-    {
-      id: 1, surveyName: 'ED-Tech Brand Ranking', surveyCategory: 'Cosmetics, Personal care, Toiletries',
-      creatorName: 'Rishabh',
-      isChecked: false
-    },
-    {
-      id: 2, surveyName: 'ED-Tech Brand Ranking', surveyCategory: 'Cosmetics, Personal care, Toiletries',
-      creatorName: 'Rishabh',
-      isChecked: false
-    },
-    {
-      id: 3, surveyName: 'ED-Tech Brand Ranking', surveyCategory: 'Cosmetics, Personal care, Toiletries',
-      creatorName: 'Rishabh',
-      isChecked: false
-    },
-    {
-      id: 4, surveyName: 'ED-Tech Brand Ranking', surveyCategory: 'Cosmetics, Personal care, Toiletries',
-      creatorName: 'Rishabh',
-      isChecked: false
-    },
-  ];
-  selectAllChecked = false;
-  UserData: any;
-  toggleSelectAll(): void {
-    this.selectAllChecked = !this.selectAllChecked;
-    this.suveryListingTable.forEach((item) => {
-      item.isChecked = this.selectAllChecked;
-    });
-  }
+
   baseUrl = '';
-  constructor(private visibilityService: DataService, private modalService: NgbModal, public themeService: DataService) {
+  constructor(private visibilityService: DataService, private modalService: NgbModal, public themeService: SurveyService) {
     this.baseUrl = environment.baseURL;
+  }
+  ngOnInit(): void {
+    this.getSurveyReportBySurveyId();
+  }
+  getSurveyReportBySurveyId() {
+    this.themeService.getSurveyReportBySurveyId(this.userId).subscribe((data: any) => {
+      console.log("reports", data)
+    });
   }
 
 
