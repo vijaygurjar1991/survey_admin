@@ -25,6 +25,9 @@ export class MyAccountComponent {
   zip: any;
   centerId: any;
   centerName : string;
+  planName: any;
+  planAmount: any;
+  plans: any;
   constructor(private utils: UtilsService, public themeService: DataService, private modalService: NgbModal, private authService: AuthService, private cdr: ChangeDetectorRef, private util: UtilsService, private fb: FormBuilder) {
     this.baseUrl = environment.baseURL;
     this.centerName = this.utils.getCenterName();
@@ -73,6 +76,8 @@ export class MyAccountComponent {
     this.userId = this.util.getUserId();
     this.themeService.GetMyAccount(this.userId).subscribe((data: any) => {
       console.log("data", data)
+      this.plans = data.plan 
+      console.log("plan", this.plans)
       console.log("organizationName", this.centerName)
       this.firstName = data.firstName;
       this.lastName = data.lastName
@@ -89,6 +94,7 @@ export class MyAccountComponent {
       this.state = data.state
       this.country = data.country
       this.zip = data.zip
+       
       this.cdr.detectChanges();
     });
   }
@@ -218,6 +224,12 @@ export class MyAccountComponent {
   Contact: boolean = true
   roletype: boolean = true
   emailaddress: boolean = true
+  Useraddress: boolean = true
+  CompanyGstNumber: boolean = true
+  Usercity: boolean = true
+  Userstate: boolean = true
+  Usercountry: boolean = true
+  Userzip: boolean = true
 
   validateSurvey(): boolean {
     this.firstname = !!this.firstName && this.firstName.trim().length > 0;
@@ -225,7 +237,12 @@ export class MyAccountComponent {
     this.Contact = !!this.contactNo && this.contactNo.toString().trim().length > 0;
     this.roletype = !!this.role && this.role.trim().length > 0;
     this.emailaddress = !!this.email && this.email.trim().length > 0;
-    //this.address = !!this.address && this.address.trim().length > 0;
+    this.Useraddress = !!this.address && this.address.trim().length > 0;
+    this.CompanyGstNumber = !!this.gstNumber && this.gstNumber.trim().length > 0;
+    this.Usercity = !!this.city && this.city.trim().length > 0;
+    this.Userstate = !!this.state && this.state.trim().length > 0;
+    this.Usercountry = !!this.country && this.country.trim().length > 0;
+    this.Userzip = !!this.zip && this.zip.trim().length > 0;
 
     // You might want to return whether all fields are valid
     return (
@@ -233,8 +250,13 @@ export class MyAccountComponent {
       this.lastname &&
       this.Contact &&
       this.role &&
-      this.emailaddress
-      //this.address
+      this.emailaddress &&
+      this.Useraddress &&
+      this.CompanyGstNumber &&
+      this.Usercity &&
+      this.Userstate &&
+      this.Usercountry &&
+      this.Userzip 
     );
   }
 
