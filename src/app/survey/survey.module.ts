@@ -52,10 +52,13 @@ import { heroInformationCircle } from '@ng-icons/heroicons/outline';
 // Icons
 import { heroMinusCircle } from '@ng-icons/heroicons/outline';
 import { heroXMark } from '@ng-icons/heroicons/outline';
+import { VendarSurveyListComponent } from './vendar-survey-list/vendar-survey-list.component';
 
 @NgModule({
   declarations: [
   
+  
+    VendarSurveyListComponent
   ],
   imports: [
     MatChipsModule,
