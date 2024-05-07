@@ -1186,7 +1186,7 @@ export class CreateSurveyComponent implements OnInit, AfterViewInit {
   }
 
   saveRandomization(): void {
-
+    debugger
     console.log("randomize", this.randormizeEntries);
     const anyCheckboxChecked = this.randormizeEntries.some(entry => entry.isRandomizationChecked);
     console.log(anyCheckboxChecked)
@@ -1223,10 +1223,17 @@ export class CreateSurveyComponent implements OnInit, AfterViewInit {
       const fromQuestionId = randomization.fromQuestion;
       const toQuestionId = randomization.toQuestion;
 
-      if (fromQuestionId && toQuestionId && randomization.isRandomizationChecked) {
-        const filteredQuestions = this.logicQuestionList.filter(question => question.id >= fromQuestionId && question.id <= toQuestionId);
+      console.log("fromQuestionId", fromQuestionId)
+      console.log("toQuestionId", toQuestionId)
 
-        const formattedQuestions = filteredQuestions.map(question => {
+      if (fromQuestionId && toQuestionId && randomization.isRandomizationChecked) {
+        const filteredQuestions = this.logicQuestionListById.filter((question: { id: number; }) => question.id >= fromQuestionId && question.id <= toQuestionId);
+        // const filteredQuestions = this.randormizeEntries.filter((question: { id: string; }) => {
+        //   const questionId = parseInt(question.id, 10); // Convert question ID to a number
+        //   return questionId >= parseInt(fromQuestionId, 10) && questionId <= parseInt(toQuestionId, 10);
+        // });
+
+        const formattedQuestions = filteredQuestions.map((question: { id: { toString: () => any; }; }) => {
           return {
             surveyId: this.surveyId.toString(), // Convert surveyId to string
             questionId: question.id.toString(), // Convert questionId to string
