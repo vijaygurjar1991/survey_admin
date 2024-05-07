@@ -619,9 +619,13 @@ export class CreateSurveyComponent implements OnInit, AfterViewInit {
     console.log("questionId : ", questionId);
     console.log("index :", index);
     this.addNewLogicEntry(index);
-    this.questions[index].isLogicShow = !this.questions[index].isLogicShow;
     this.getLogicQuestionList(questionId);
 
+    setTimeout(() => {
+      //debugger;
+      this.questions[index].isLogicShow = !this.questions[index].isLogicShow;
+
+    }, 30000000);
     setTimeout(() => { // Adding a small delay to ensure the section is rendered before scrolling
       const sectionToScroll = this.el.nativeElement.querySelector(`#question-${questionId}`);
 
