@@ -662,7 +662,7 @@ export class CreateSurveyComponent implements OnInit, AfterViewInit {
     this.logicQuestionList = [];
     const dataToSend = {
       surveyId: this.surveyId,
-      surveyStatus: questionId
+      questionId: questionId
     };
     this.surveyservice.getLogicQuestionList(dataToSend).subscribe(
       (response: LogicQuestion[]) => {
@@ -881,7 +881,7 @@ export class CreateSurveyComponent implements OnInit, AfterViewInit {
   }
   getQuestionLogic(index: number, questionId: number): void {
     //alert('getQuestionLogic')
-
+    this.logicEntriesPerQuestion[index]=[]
     this.getOptionsByQuestionIdLogic(questionId);
     this.surveyservice.getQuestionLogics(questionId, this.surveyId).subscribe(
       (response) => {
@@ -1074,6 +1074,7 @@ export class CreateSurveyComponent implements OnInit, AfterViewInit {
   createLogic(questionId: any, logicEntries: any[]): void {
 
     for (const logicEntry of logicEntries) {
+      
       this.createLogicCount++;
       console.log(logicEntry)
       const thanTermValue = logicEntry.thanExpected;
@@ -1155,6 +1156,7 @@ export class CreateSurveyComponent implements OnInit, AfterViewInit {
       }
 
       console.log("dataToSend", this.questionLogic);
+      setTimeout(() => {
       if (this.questionLogic.id > 0) {
         this.surveyservice.updateLogic(this.questionLogic).subscribe(
           response => {
@@ -1178,6 +1180,7 @@ export class CreateSurveyComponent implements OnInit, AfterViewInit {
           }
         );
       }
+    }, 1000);
     }
   }
 
